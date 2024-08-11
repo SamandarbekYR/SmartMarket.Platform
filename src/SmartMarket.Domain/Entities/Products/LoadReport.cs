@@ -1,11 +1,6 @@
 ﻿using SmartMarket.Domain.Entities.PartnersCompany;
 using SmartMarket.Domain.Entities.Workers;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartMarket.Domain.Entities.Products
 {
@@ -21,6 +16,7 @@ namespace SmartMarket.Domain.Entities.Products
         [Column("contragent_id")]
         public Guid ContrAgentId { get; set; }
         public ContrAgent ContrAgent { get; set; }
+
         [Column("total_price")]
         public double TotalPrice { get; set; }
     }

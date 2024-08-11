@@ -2,12 +2,7 @@
 using SmartMarket.Domain.Entities.Orders;
 using SmartMarket.Domain.Entities.PartnersCompany;
 using SmartMarket.Domain.Entities.Workers;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartMarket.Domain.Entities.Products
 {
@@ -41,7 +36,7 @@ namespace SmartMarket.Domain.Entities.Products
         [Column("unit_of_measure")]
         public string UnitOfMeasure { get; set; } = string.Empty;
         [Column("payment_status")]
-        public string PaymentStatus {  get; set; } = string.Empty;
+        public string PaymentStatus { get; set; } = string.Empty;
 
         public List<ProductImage> ProductImages { get; set; }
         public List<ProductSale> ProductSale { get; set; }
