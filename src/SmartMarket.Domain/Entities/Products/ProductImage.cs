@@ -8,6 +8,7 @@ namespace SmartMarket.Domain.Entities.Products
         [Column("product_id")]
         public Guid ProductId { get; set; }
         public Product Product { get; set; }
+
         [Column("image_path")]
         public string ImagePath { get; set; } = string.Empty;
     }

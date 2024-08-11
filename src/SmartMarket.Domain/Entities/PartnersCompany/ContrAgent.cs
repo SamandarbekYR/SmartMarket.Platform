@@ -24,5 +24,6 @@ namespace SmartMarket.Domain.Entities.PartnersCompany
 
         public List<Product> Products { get; set; }
         public List<LoadReport> LoadReports { get; set; }
+        public List<ContrAgentPayment> ContrAgentPayment { get; set;}
     }
 }

@@ -11,10 +11,9 @@ namespace SmartMarket.Domain.Entities.Workers
         [Column("position_id")]
         public Guid PositionId { get; set; }
         public Position Position { get; set; }
-
         [Column("worker_roleid")]
         public Guid WorkerRoleId { get; set; }
-        public WorkerRole Role { get; set; }
+        public WorkerRole WorkerRole { get; set; }
 
         [Column("first_name")]
         public string FirstName { get; set; } = string.Empty;

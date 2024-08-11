@@ -12,6 +12,7 @@ namespace SmartMarket.Domain.Entities.Products
         [Column("product_sale_id")]
         public Guid ProductSaleId { get; set; }
         public ProductSale ProductSale { get; set; }
+
         [Column("return_reason")]
         public string ReturnReason { get; set; } = string.Empty;
     }
