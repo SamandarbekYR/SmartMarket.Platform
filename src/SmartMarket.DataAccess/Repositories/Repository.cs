@@ -16,18 +16,18 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity
         _dbSet = appDb.Set<TEntity>();
         _appDb = appDb;
     }
-    public bool Add(TEntity entity)
+    public async Task<bool> Add(TEntity entity)
     {
-        _dbSet.Add(entity);
-        int result = _appDb.SaveChanges();
+        await _dbSet.AddAsync(entity);
+        int result = await _appDb.SaveChangesAsync();
 
-        return result > 1 ? true : false;
+        return result > 1;
     }
-    public IQueryable<TEntity> GetAll()
-    => _dbSet;
-    public TEntity? GetById(Guid id)
+    public  IQueryable<TEntity> GetAll()
+    =>  _dbSet.AsQueryable();
+    public async Task<TEntity?> GetById(Guid id)
     {
-        TEntity? entity = _dbSet.FirstOrDefault(x => x.Id == id);
+        TEntity? entity = await _dbSet.FirstOrDefaultAsync(x => x.Id == id);
         if (entity == null)
         {
             return null;
@@ -35,18 +35,18 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity
 
         return entity;
     }
-    public bool Remove(TEntity entity)
+    public async Task<bool> Remove(TEntity entity)
     {
         _dbSet.Remove(entity);
-        int result = _appDb.SaveChanges();
+        int result = await _appDb.SaveChangesAsync();
 
-        return result > 1 ? true : false;
+        return result > 0;
     }
-    public bool Update(TEntity entity)
+    public async Task<bool> Update(TEntity entity)
     {
         _dbSet.Update(entity);
-        int result = _appDb.SaveChanges();
+        int result = await _appDb.SaveChangesAsync();
 
-        return result > 1 ? true : false;
+        return result > 0;
     }
 }

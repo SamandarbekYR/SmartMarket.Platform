@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Folder Include="DTOs\Auth\" />
+    <Folder Include="Interfaces\Workers\" />
   </ItemGroup>
 
 </Project>
