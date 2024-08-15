@@ -1,6 +1,6 @@
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using SmartMarket.DataAccess.Data;
+using SmartMarket.WebApi.Configurations;
+using SmartMarket.WebApi.Extensions;
+using SmartMarket.WebApi.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,16 +10,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddControllers()
-           .AddNewtonsoftJson(options =>
-           {
-               options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-           });
-builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    var connection = builder.Configuration.GetConnectionString("DefaultConnection");
-    options.UseNpgsql(connection);
-});
+builder.Services.AddCustomControllers();
+builder.Services.AddCustomDbContext(builder.Configuration);
+builder.ConfigureSwaggerAuth();
+builder.ConfigureJwtAuth();
+builder.ConfigureCORSPolicy();
 
 var app = builder.Build();
 
@@ -31,6 +26,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAll");
+
+app.UseStaticFiles();
+
+app.UseMiddleware<CrosOriginAccessMiddleware>();
+app.UseMiddleware<ExceptionHandlerMiddleware>();
 
 app.UseAuthorization();
 

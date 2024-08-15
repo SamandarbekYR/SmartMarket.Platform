@@ -7,6 +7,6 @@ namespace SmartMarket.Domain.Entities
         [Column("id")]
         public Guid Id { get; set; }
         [Column("created_at")]
-        public DateTime CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; } = DateTime.UtcNow.AddHours(5);
     }
 }
