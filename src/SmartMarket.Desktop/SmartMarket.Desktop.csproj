@@ -10,8 +10,11 @@
 
   <ItemGroup>
     <Folder Include="Components\" />
-    <Folder Include="Pages\" />
     <Folder Include="Windows\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
   </ItemGroup>
 
 </Project>
