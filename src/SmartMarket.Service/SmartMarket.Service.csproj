@@ -19,6 +19,7 @@
   <ItemGroup>
     <Folder Include="DTOs\Auth\" />
     <Folder Include="Interfaces\Workers\" />
+    <Folder Include="Services\Positions\" />
   </ItemGroup>
 
 </Project>
