@@ -4,6 +4,17 @@
              xmlns:local="clr-namespace:SmartMarket.Desktop"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                
+                
+                <ResourceDictionary Source="\Themes\LightTheme.xaml"/>
+                <ResourceDictionary Source="\Assets\Icons\Icon.xaml"/>
+                <ResourceDictionary Source="\Styles\ButtonStyle.xaml"/>
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        
     </Application.Resources>
 </Application>
