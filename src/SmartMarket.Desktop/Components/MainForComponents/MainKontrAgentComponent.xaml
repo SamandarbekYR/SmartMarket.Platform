@@ -1,0 +1,152 @@
+﻿<UserControl x:Class="SmartMarket.Desktop.Components.MainForComponents.MainKontrAgentComponent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartMarket.Desktop.Components.MainForComponents"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="800">
+    <Border
+        Background="White"
+        CornerRadius="8"
+        >
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2.5*"/>
+                <ColumnDefinition Width="2.2*"/>
+                <ColumnDefinition Width="1.8*"/>
+                <ColumnDefinition Width="1.8*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="2.5*"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock
+                x:Name="tbNumber"
+                Grid.Column="0"
+                Text="1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="13"
+                FontWeight="SemiBold"
+                ></TextBlock>
+
+            <TextBlock
+                x:Name="tbFirmaName"
+                Grid.Column="1"
+                Text="Nestle"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="13"
+                FontWeight="SemiBold"
+                ></TextBlock>
+
+            <TextBlock
+                x:Name="tbFirstname"
+                Grid.Column="2"
+                Text="Sherzod"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="13"
+                FontWeight="SemiBold"
+                ></TextBlock>
+
+            <TextBlock
+                x:Name="tbLastname"
+                Grid.Column="3"
+                Text="Qosimov"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="13"
+                FontWeight="SemiBold"
+                ></TextBlock>
+
+            <TextBlock
+                x:Name="tbPhonenumber"
+                Grid.Column="4"
+                Text="+998996661132"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="13"
+                FontWeight="SemiBold"
+                ></TextBlock>
+
+            <TextBlock
+                x:Name="tbDebtAmount"
+                Grid.Column="5"
+                Text="20000000"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="13"
+                FontWeight="SemiBold"
+                ></TextBlock>
+
+            <TextBlock
+                x:Name="tbPayedSum"
+                Grid.Column="6"
+                Text="7000000"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="13"
+                FontWeight="SemiBold"
+                ></TextBlock>
+
+            <TextBlock
+                x:Name="tbLastPayedSum"
+                Grid.Column="7"
+                Text="7000000"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="13"
+                FontWeight="SemiBold"
+                ></TextBlock>
+            
+            <TextBlock
+                x:Name="tbLastPayedDate"
+                Grid.Column="8"
+                Text="24.02.2024"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="13"
+                FontWeight="SemiBold"
+                ></TextBlock>
+
+            <Grid
+                Grid.Column="10"
+                >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+
+                <Button
+                    Grid.Column="0"
+                    Style="{DynamicResource BtnKontrAgentSum}"
+                    />
+                
+                <Button 
+                    Grid.Column="1"
+                    Style="{DynamicResource BtnKontrAgentList}"
+                    />
+                <Button
+                    Grid.Column="2"
+                    Style="{DynamicResource BtnKontrAgentEdit}"
+                    />
+                <Button
+                    Grid.Column="3"
+                    Style="{DynamicResource BtnKontrAgentDelete}"
+                    />
+
+            </Grid>
+            
+        </Grid>
+    </Border>
+</UserControl>

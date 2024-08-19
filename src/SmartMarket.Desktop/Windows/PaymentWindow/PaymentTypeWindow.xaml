@@ -1,0 +1,104 @@
+﻿<Window x:Class="SmartMarket.Desktop.Windows.PaymentWindow.PaymentTypeWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmartMarket.Desktop.Windows.PaymentWindow"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Title="PaymentTypeWindow" Height="370" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+            
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0" Background="#04C217">
+
+            <TextBlock Text="To'lov turlari"
+                       Foreground="White"
+                       VerticalAlignment="Center"
+                       FontSize="20"
+                       FontWeight="SemiBold"
+                       ></TextBlock>
+
+
+            <Button 
+                x:Name="btnclose"
+                Click="btnclose_Click"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Margin="0 0 10 0"
+                Background="Transparent"
+                BorderThickness="0"
+                >
+                <md:PackIcon Kind="Close"
+                             Width="30"
+                             Height="30"
+                             Foreground="White"
+                             ></md:PackIcon>
+            </Button>
+        </DockPanel>
+
+        <StackPanel Grid.Row="1">
+
+
+            <TextBlock
+                Text="To'lov turlari"
+                FontSize="18"
+                FontWeight="SemiBold"
+                Margin="35  10 0 0 "
+                ></TextBlock>
+            
+            <Button
+                x:Name="BntCash"
+               Content="Naqd"
+                Foreground="Black"
+                Style="{DynamicResource BtnPayment}"
+               Background="#CECECE"
+                FontWeight="SemiBold"
+                ></Button>
+
+
+            <Button
+                x:Name="BntCard"
+              Content="Karta"
+                Style="{DynamicResource BtnPayment}"
+                Background="#FFD028"
+                FontWeight="SemiBold"
+                Foreground="White"
+                ></Button>
+
+            <Button
+                x:Name="BntTransferMoney"
+                Content="Pul ko'chirish"
+                 FontWeight="SemiBold"
+                 Foreground="White"
+                Style="{DynamicResource BtnPayment}"
+                Background="#605C5C"
+                ></Button>
+
+            <Button
+                x:Name="BtnClik"
+                Content="Clik"
+                FontWeight="SemiBold"
+                Foreground="White"
+                Style="{DynamicResource BtnPayment}"
+                Background="#0C58B2"
+                ></Button>
+
+
+            <Button
+                x:Name="BntClikAndCash"
+                Content="Clik va Naqd"
+                FontWeight="SemiBold"
+                Style="{DynamicResource BtnPayment}"
+                Background="#FBFBFB"
+                ></Button>
+
+        </StackPanel>
+    </Grid>
+</Window>
