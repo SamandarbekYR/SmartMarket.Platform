@@ -1,15 +1,23 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.DTOs.Category;
+using SmartMarket.Service.Interfaces.Category;
 using SmartMarket.Service.Services.Category;
 
 namespace SmartMarket.WebApi.Controllers;
 
+//[AllowAnonymous]
 [Route("api/[controller]")]
 [ApiController]
-public class CategoriesController(CategoryService categoryService) : ControllerBase
+public class CategoriesController : ControllerBase
 {
-    private readonly CategoryService _categoryService = categoryService;
+    private readonly ICategoryService _categoryService;
+
+    public CategoriesController(ICategoryService categoryService)
+    {
+        _categoryService = categoryService;
+    }
 
     [HttpGet]
     public async Task<IActionResult> GetAllAsync()

@@ -29,11 +29,11 @@ builder.ConfigureJwtAuth();
 builder.ConfigureCORSPolicy();
 
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    options.UseNpgsql(builder.Configuration.GetConnectionString("LocalDB"));
-    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-});
+//builder.Services.AddDbContext<AppDbContext>(options =>
+//{
+//    options.UseNpgsql(builder.Configuration.GetConnectionString("LocalDB"));
+//    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+//});
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
