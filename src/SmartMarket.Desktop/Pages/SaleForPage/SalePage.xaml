@@ -587,15 +587,10 @@
                                 ></Button>
                             <Button
                                 Grid.Column="1"
-                                Style="{DynamicResource BtnSaleKlavituria}"
+                                Style="{DynamicResource BtnSaleKlBack}"
                               
                                 >
-                                <Button.Content>
-                                    <md:PackIcon Kind="ArrowLeft"
-                                                 Width="50"
-                                                 Height="40"
-                                                 />
-                                </Button.Content>
+                             
                             </Button>
                     </Grid>
 

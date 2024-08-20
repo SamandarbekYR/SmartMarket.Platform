@@ -1,0 +1,160 @@
+﻿<UserControl x:Class="SmartMarket.Desktop.Components.ShopDetailsForComponent.ShopDetailsProductComponent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartMarket.Desktop.Components.ShopDetailsForComponent"
+             mc:Ignorable="d" 
+             
+             d:DesignHeight="30" d:DesignWidth="1024">
+
+    <Border
+        CornerRadius="5"
+        Background="White"
+        BorderBrush="Black"
+        BorderThickness="1"
+        >
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="1.5*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                    x:Name="tbNumber"
+                    Grid.Column="0"
+                    Text="1"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontSize="15"
+                    FontWeight="SemiBold"
+                    ></TextBlock>
+
+            <TextBlock
+                   x:Name="tbTransactionNo"
+                   Grid.Column="1"
+                   Text="240255641235"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="15"
+                   FontWeight="SemiBold"
+                   ></TextBlock>
+
+            <TextBlock
+                   x:Name="tbProductName"
+                   Grid.Column="2"
+                   Text="Nestle Kasha 9"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="15"
+                   FontWeight="SemiBold"
+                   ></TextBlock>
+
+            <TextBlock
+                  x:Name="tbBarcode"
+                  Grid.Column="3"
+                  Text="456325418974"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center"
+                  FontSize="15"
+                  FontWeight="SemiBold"
+                  ></TextBlock>
+
+            <TextBlock
+                x:Name="tbCategory"
+                  Grid.Column="4"
+                  Text="Kasha"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center"
+                  FontSize="15"
+                  FontWeight="SemiBold"
+                  ></TextBlock>
+
+            <TextBlock
+                x:Name="tbPrice"
+                   Grid.Column="5"
+                   Text="20000.0"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="15"
+                   FontWeight="SemiBold"
+                   ></TextBlock>
+
+            <TextBlock
+                x:Name="tbDiscount"
+                  Grid.Column="6"
+                  Text="0%"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center"
+                  FontSize="15"
+                  FontWeight="SemiBold"
+                  ></TextBlock>
+            <TextBlock
+                  x:Name="tbCount"
+                  Grid.Column="7"
+                  Text="120"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center"
+                  FontSize="15"
+                  FontWeight="SemiBold"
+                  ></TextBlock>
+
+            <TextBlock
+                x:Name="tbTotalPrice"
+                 Grid.Column="8"
+                 Text="250000.0"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"
+                 FontSize="15"
+                 FontWeight="SemiBold"
+                 ></TextBlock>
+
+            <TextBlock
+                x:Name="tbWorkerName"
+                Grid.Column="9"
+                Text="Sotuvchi"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="15"
+                FontWeight="SemiBold"
+                ></TextBlock>
+
+            <TextBlock
+                x:Name="tbKassa"
+                Grid.Column="10"
+                Text="#1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="15"
+                FontWeight="SemiBold"
+                ></TextBlock>
+
+            <TextBlock
+                x:Name="tbDate"
+                Grid.Column="11"
+                Text="20/08/2024"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                FontSize="15"
+                FontWeight="SemiBold"
+                ></TextBlock>
+
+            <Button
+                Grid.Column="12"
+                Style="{DynamicResource BtnShopDetailsReturn}"
+               
+                ></Button>
+        </Grid>
+    </Border>
+</UserControl>

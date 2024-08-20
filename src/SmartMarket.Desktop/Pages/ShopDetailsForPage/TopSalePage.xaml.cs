@@ -1,0 +1,166 @@
+﻿using SmartMarket.Desktop.Components.ShopDetailsForComponent;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
+{
+    /// <summary>
+    /// Interaction logic for TopSalePage.xaml
+    /// </summary>
+    public partial class TopSalePage : Page
+    {
+        List<Product> products=new List<Product>();
+        public TopSalePage()
+        {
+            InitializeComponent();
+            GetALlTopSale();
+        }
+
+
+
+        public void GetALlTopSale()
+        {
+            
+            var newlist = ProductList();
+            St_TopSale.Visibility = Visibility.Visible;
+            St_TopSale.Children.Clear();
+            foreach (var item in newlist)
+            {
+                TopSaleComponent topSaleComponent = new TopSaleComponent();
+                topSaleComponent.Tag = item.Id;
+                topSaleComponent.SetValues(item.ProductName, item.count, item.TotalPrice, "3,000,000");
+                topSaleComponent.BorderThickness = new Thickness(2);
+                St_TopSale.Children.Add(topSaleComponent);
+            }
+        }
+
+
+
+        public class Product()
+        {
+            public int Id { get; set; }
+
+            public string TransactionNumber { get; set; }
+            public string ProductName { get; set; }
+            public string Barcode { get; set; }
+            public string Category { get; set; }
+            public string Worker { get; set; }
+
+            public string Discount { get; set; }
+            public int count { get; set; }
+            public string TotalPrice { get; set; }
+            public string Kasa { get; set; }
+            public string Price { get; set; }
+            public string Date { get; set; }
+        }
+
+
+
+        public List<Product> ProductList()
+        {
+            products.Add(new Product()
+            {
+                Id = 1,
+                TransactionNumber = "0007512555",
+                Barcode = "#141214455135",
+                ProductName = "Nestle Kasha 9",
+                Category = "Mevalar",
+                Worker = "Sherzod",
+                Discount = "0%",
+                count = 10,
+                TotalPrice = "300000.0",
+                Kasa = "#2",
+                Price = "200000.0",
+                Date = "20/08/2024",
+            });
+            products.Add(new Product()
+            {
+                Id = 1,
+                TransactionNumber = "0007512555",
+                Barcode = "#14121001135",
+                ProductName = "Nestle Kasha 9",
+                Category = "kasha",
+                Worker = "Sherzod",
+                Discount = "0%",
+                count = 10,
+                TotalPrice = "300000.0",
+                Kasa = "#2",
+                Price = "200000.0",
+                Date = "20/08/2024",
+            });
+            products.Add(new Product()
+            {
+                Id = 1,
+                TransactionNumber = "0007512555",
+                Barcode = "#14121001135",
+                ProductName = "Nestle Kasha 9",
+                Category = "Mevalar",
+                Worker = "Sherzod",
+                Discount = "0%",
+                count = 10,
+                TotalPrice = "300000.0",
+                Kasa = "#2",
+                Price = "200000.0",
+                Date = "20/08/2024",
+            });
+            products.Add(new Product()
+            {
+                Id = 1,
+                TransactionNumber = "0007512555",
+                Barcode = "#14121001135",
+                ProductName = "Nestle Kasha 9",
+                Category = "Mevalar",
+                Worker = "Sherzod",
+                Discount = "0%",
+                count = 10,
+                TotalPrice = "300000.0",
+                Kasa = "#2",
+                Price = "200000.0",
+                Date = "20/08/2024",
+            });
+            products.Add(new Product()
+            {
+                Id = 1,
+                TransactionNumber = "0007512555",
+                Barcode = "#14121001135",
+                ProductName = "Nestle Kasha 9",
+                Category = "Mevalar",
+                Worker = "Sherzod",
+                Discount = "0%",
+                count = 10,
+                TotalPrice = "300000.0",
+                Kasa = "#2",
+                Price = "200000.0",
+                Date = "20/08/2024",
+            });
+            products.Add(new Product()
+            {
+                Id = 1,
+                TransactionNumber = "0007512555",
+                Barcode = "#14121001135",
+                ProductName = "Nestle Kasha 9",
+                Category = "Mevalar",
+                Worker = "Sherzod",
+                Discount = "0%",
+                count = 10,
+                TotalPrice = "300000.0",
+                Kasa = "#2",
+                Price = "200000.0",
+                Date = "20/08/2024",
+            });
+            return products;
+        }
+    }
+}

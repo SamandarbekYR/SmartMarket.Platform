@@ -52,6 +52,8 @@
                 ></RadioButton>
 
             <RadioButton  
+                x:Name="btnShopDetails"
+                Click="btnShopDetails_Click"
                 Grid.Column="2"
                 Content="Sotuv tafsilotlari"
                 Style="{DynamicResource MenuButton2}"
@@ -59,6 +61,8 @@
                 ></RadioButton>
 
             <RadioButton  
+                x:Name="btnShopworkers"
+                Click="btnShopworkers_Click"
                 Grid.Column="3"
                 Content="Do'kon ishchilari"
                 Style="{DynamicResource MenuButton2}"

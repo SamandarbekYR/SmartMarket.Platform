@@ -1,0 +1,183 @@
+﻿<UserControl x:Class="SmartMarket.Desktop.Components.ShopWorkerForComponent.ShopWorkerAccountComponent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartMarket.Desktop.Components.ShopWorkerForComponent"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             
+             d:DesignHeight="420" d:DesignWidth="320">
+
+
+    <Border
+        CornerRadius="5"
+        BorderThickness="1"
+        BorderBrush="Black"
+        Background="#6DABF4"
+        >
+        <StackPanel>
+
+            <Border
+                
+                Width="80"
+                Height="80"
+                CornerRadius="40"
+                Margin="0 5 0 0"
+                BorderThickness="1"
+                BorderBrush="Black"
+                >
+                <md:PackIcon Kind="Account"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                             Width="70"
+                             Height="70"
+                             
+                             ></md:PackIcon>
+            </Border>
+
+            <DockPanel VerticalAlignment="Center">
+                <TextBlock
+                    Text="Ismi:"
+                    FontSize="25"
+                    FontWeight="SemiBold"
+                    Margin="30 10 0 0"
+                     VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    ></TextBlock>
+                
+                <TextBlock
+                    x:Name="tbFirstName"
+                    Text="Sherzod"
+                    VerticalAlignment="Center"
+                    FontSize="25"
+                    Margin="0 10 30 0"
+                    HorizontalAlignment="Right"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    ></TextBlock>
+            </DockPanel>
+
+            <DockPanel VerticalAlignment="Center">
+                <TextBlock
+                    Text="Familiyasi:"
+                    FontSize="25"
+                    FontWeight="SemiBold"
+                    Margin="30 10 0 0"
+                     VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    ></TextBlock>
+
+                <TextBlock
+                    x:Name="tbLastName"
+                    Text="Aliyev"
+                    VerticalAlignment="Center"
+                    FontSize="25"
+                    Margin="0 10 30 0"
+                    HorizontalAlignment="Right"
+                    FontWeight="Bold"
+                    Foreground="White"
+                    ></TextBlock>
+            </DockPanel>
+
+
+            <DockPanel VerticalAlignment="Center">
+                <TextBlock
+                    Text="Oylik:"
+                    FontSize="25"
+                    FontWeight="SemiBold"
+                    Margin="30 10 0 0"
+                     VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    ></TextBlock>
+
+                <TextBlock
+                    x:Name="tbSalary"
+                    Text="4000,000"
+                    VerticalAlignment="Center"
+                    FontSize="25"
+                    Margin="0 10 30 0"
+                    HorizontalAlignment="Right"
+                    FontWeight="Bold"
+                    Foreground="Green"
+                    ></TextBlock>
+            </DockPanel>
+
+
+            <DockPanel VerticalAlignment="Center">
+                <TextBlock
+                   Text="Tel:"
+                   FontSize="25"
+                   FontWeight="SemiBold"
+                   Margin="30 10 0 0"
+                    VerticalAlignment="Center"
+                   HorizontalAlignment="Left"
+                   ></TextBlock>
+
+                <TextBlock
+                    x:Name="tbPhoneNumber"
+                   Text="90 6661132"
+                   VerticalAlignment="Center"
+                   FontSize="25"
+                   Margin="0 10 30 0"
+                   HorizontalAlignment="Right"
+                    FontWeight="Bold"
+                    Foreground="White"
+                   ></TextBlock>
+            </DockPanel>
+
+            <DockPanel VerticalAlignment="Center">
+                <TextBlock
+                  Text="Olgan puli:"
+                  FontSize="22"
+                              
+                  FontWeight="SemiBold"
+                  Margin="30 10 0 0"
+                   VerticalAlignment="Center"
+                  HorizontalAlignment="Left"
+                  ></TextBlock>
+
+                <TextBlock
+                    x:Name="tbReceivedSum"
+                  Text="300,000"
+                  VerticalAlignment="Center"
+                  FontSize="22"
+                  Margin="0 10 30 0"
+                  HorizontalAlignment="Right"
+                    FontWeight="SemiBold"
+                    Foreground="#9D342C"
+                  ></TextBlock>
+            </DockPanel>
+
+
+            <DockPanel VerticalAlignment="Center">
+                <TextBlock
+                  Text="Qolgan puli:"
+                  FontSize="22"
+                  FontWeight="SemiBold"
+                  Margin="30 10 0 0"
+                   VerticalAlignment="Center"
+                  HorizontalAlignment="Left"
+                  ></TextBlock>
+
+                <TextBlock
+                    x:Name="tbRemainingSum"
+                   Text="3,700,000"
+                   VerticalAlignment="Center"
+                   FontSize="22"
+                   Margin="0 10 30 0"
+                   HorizontalAlignment="Right"
+                    FontWeight="SemiBold"
+                    Foreground="#836D0C"
+                   ></TextBlock>
+            </DockPanel>
+            <Button
+                Content="Oylik"
+                FontSize="25"
+                
+                Style="{DynamicResource BtnSaleKlavituria}"
+                ></Button>
+        </StackPanel>
+    </Border>
+    
+</UserControl>
