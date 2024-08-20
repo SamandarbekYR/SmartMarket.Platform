@@ -30,7 +30,8 @@ public class MapperProfile : Profile
         CreateMap<AddPositionDto, Position>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
 
-        CreateMap<Position, PositionDto>();
+        CreateMap<Position, PositionDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
 
 
     }

@@ -7,5 +7,5 @@ public interface IPositionService
     Task<bool> AddAsync(AddPositionDto dto);
     Task<bool> DeleteAsync(Guid Id);
     Task<List<PositionDto>> GetAllAsync();
-    Task<bool> UpdateAsync(PositionDto dto, Guid Id);
+    Task<bool> UpdateAsync(AddPositionDto dto, Guid Id);
 }

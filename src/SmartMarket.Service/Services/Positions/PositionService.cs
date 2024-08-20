@@ -49,7 +49,7 @@ namespace SmartMarket.Service.Services.Positions
             return _mapper.Map<List<PositionDto>>(positions);
         }
 
-        public async Task<bool> UpdateAsync(PositionDto dto, Guid Id)
+        public async Task<bool> UpdateAsync(AddPositionDto dto, Guid Id)
         {
             var position = await _unitOfWork.Position.GetById(Id);
 
@@ -58,7 +58,7 @@ namespace SmartMarket.Service.Services.Positions
                 throw new StatusCodeException(HttpStatusCode.NotFound, "Position not found.");
             }
 
-            position.Name = dto.Name;
+            _mapper.Map(dto, position);
 
             return await _unitOfWork.Position.Update(position);
         }
