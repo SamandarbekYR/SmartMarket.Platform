@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
+    <PackageReference Include="FluentValidation" Version="11.9.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="8.0.7" />
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.0.1" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.1" />
@@ -14,12 +16,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SmartMarket.DataAccess\SmartMarket.DataAccess.csproj" />
+    <ProjectReference Include="..\SmartMarket.Domain\SmartMarket.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="DTOs\Auth\" />
-    <Folder Include="Interfaces\Workers\" />
-    <Folder Include="Services\Positions\" />
   </ItemGroup>
 
 </Project>

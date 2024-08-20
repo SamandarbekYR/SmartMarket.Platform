@@ -1,28 +1,69 @@
-﻿using SmartMarket.Service.DTOs.Category;
+﻿using AutoMapper;
+using FluentValidation;
+using Microsoft.EntityFrameworkCore;
+using SmartMarket.DataAccess.Interfaces;
+using SmartMarket.Service.Common.Exceptions;
+using SmartMarket.Service.DTOs.Category;
 using SmartMarket.Service.Interfaces.Category;
+using System.Net;
+using Et = SmartMarket.Domain.Entities.Categories;
 
 namespace SmartMarket.Service.Services.Category
 {
-    public class CategoryService : ICategoryService
+    public class CategoryService(IUnitOfWork unitOfWork,
+                                 IMapper mapper,
+                                 IValidator<CategoryDto> validator) : ICategoryService
     {
-        public bool Add(CategoryDto dto)
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IMapper _mapper = mapper;
+        private readonly IValidator<CategoryDto> _validator = validator;
+
+        public async Task<bool> AddAsync(CategoryDto dto)
         {
-            throw new NotImplementedException();
+            var validationResult = _validator.Validate(dto);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
+            }
+
+            var category = _mapper.Map<Et.Category>(dto);
+            return await _unitOfWork.Category.Add(category);
         }
 
-        public bool Delete(Guid Id)
+        public async Task<bool> DeleteAsync(Guid Id)
         {
-            throw new NotImplementedException();
+            var category = await _unitOfWork.Category.GetById(Id);
+            if (category == null)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Category not found.");
+            }
+
+            return await _unitOfWork.Category.Remove(category);
         }
 
-        public List<Domain.Entities.Categories.Category> GetAll()
+        public async Task<List<Et.Category>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.Category.GetAll().ToListAsync();
         }
 
-        public bool Update(CategoryDto dto, Guid Id)
+        public async Task<bool> UpdateAsync(CategoryDto dto, Guid Id)
         {
-            throw new NotImplementedException();
+            var category = await _unitOfWork.Category.GetById(Id);
+            if (category == null)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Category not found.");
+            }
+
+            var validationResult = _validator.Validate(dto);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
+            }
+
+            category.Name = dto.Name;
+            category.Description = dto.Description;
+
+            return await _unitOfWork.Category.Update(category);
         }
     }
 }

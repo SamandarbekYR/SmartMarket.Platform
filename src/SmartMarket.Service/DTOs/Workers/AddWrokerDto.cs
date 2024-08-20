@@ -19,3 +19,4 @@ namespace SmartMarket.Service.DTOs.Workers
         public string Password { get; set; } = string.Empty;
     }
 }
+

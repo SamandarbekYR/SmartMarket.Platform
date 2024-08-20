@@ -5,9 +5,9 @@ namespace SmartMarket.Service.Interfaces.Category
 {
     public interface ICategoryService
     {
-        List<Entity.Category> GetAll();
-        bool Add(CategoryDto dto);
-        bool Delete(Guid Id);
-        bool Update(CategoryDto dto, Guid Id);
+        Task<List<Entity.Category>> GetAllAsync();
+        Task<bool> AddAsync(CategoryDto dto);
+        Task<bool> DeleteAsync(Guid Id);
+        Task<bool> UpdateAsync(CategoryDto dto, Guid Id);
     }
 }
