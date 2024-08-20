@@ -51,6 +51,9 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
             St_Workers.Visibility = Visibility.Visible;
             St_Workers.Children.Clear();
 
+
+
+
             WorkerListComponent workerListComponent = new WorkerListComponent();    
             workerListComponent.Tag = this;
             workerListComponent.SetValues("1", "Sherzod");
