@@ -1,3 +1,15 @@
+using FluentValidation;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using SmartMarket.DataAccess.Data;
+using SmartMarket.DataAccess.Interfaces;
+using SmartMarket.DataAccess.Repositories;
+using SmartMarket.Domain.Entities.Categories;
+using SmartMarket.Service.Common.Mapper;
+using SmartMarket.Service.Common.Validators;
+using SmartMarket.Service.DTOs.Category;
+using SmartMarket.Service.Interfaces.Category;
+using SmartMarket.Service.Services.Category;
 using SmartMarket.WebApi.Configurations;
 using SmartMarket.WebApi.Extensions;
 using SmartMarket.WebApi.Middlewares;
@@ -15,6 +27,20 @@ builder.Services.AddCustomDbContext(builder.Configuration);
 builder.ConfigureSwaggerAuth();
 builder.ConfigureJwtAuth();
 builder.ConfigureCORSPolicy();
+
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("LocalDB"));
+    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+});
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+builder.Services.AddAutoMapper(typeof(MapperProfile));
+
+builder.Services.AddScoped<IValidator<CategoryDto>, CategoryValidator>();
 
 var app = builder.Build();
 
