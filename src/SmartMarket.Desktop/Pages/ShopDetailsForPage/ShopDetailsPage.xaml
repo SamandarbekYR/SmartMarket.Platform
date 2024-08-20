@@ -1,12 +1,210 @@
 ﻿<Page x:Class="SmartMarket.Desktop.Pages.ShopDetailsForPage.ShopDetailsPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ShopDetailsForPage"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"
-      Title="ShopDetailsPage" Height="450" Width="800">
+      Background="White"
+      d:DesignHeight="640" d:DesignWidth="1024"
+      Title="ShopDetailsPage">
+
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="0"
+                  Margin="2" BorderThickness="1"
+                   BorderBrush="Black" CornerRadius="5"
+                >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.3*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="0.8*"/>
+                    </Grid.RowDefinitions>
+
+
+                    <RadioButton  Grid.Row="1"
+                                  x:Name="rbSaleHistory"
+                                  Content="Sotuv tarixi"
+                                  Click="rbSaleHistory_Click"
+                                  HorizontalContentAlignment="Stretch"
+                                  VerticalContentAlignment="Stretch"
+                                  Style="{DynamicResource SaleMenuButton}" 
+                                  Tag="{DynamicResource receipt}" IsChecked="True"/>
+
+                    <RadioButton Grid.Row="2"
+                                 x:Name="rbTopSale"
+                                 Content="Top Sotuv"
+                                 Click="rbTopSale_Click"
+                                 HorizontalContentAlignment="Stretch"
+                                 VerticalContentAlignment="Stretch"
+                                 Style="{DynamicResource SaleMenuButton}" 
+                                 Tag="{DynamicResource chart}"/>
+
+                    <RadioButton Grid.Row="3"
+                                 x:Name="rbReturnProds"
+                                 Content="Qaytarilgan yuklar"
+                                 Click="rbReturnProds_Click"
+                                 HorizontalContentAlignment="Stretch"
+                                 VerticalContentAlignment="Stretch"
+                                 Style="{DynamicResource SaleMenuButton}" 
+                                 Tag="{DynamicResource return}"/>
+
+                    <RadioButton Grid.Row="4"
+                                 x:Name="rbInvalidProds"
+                                 Content="Yaroqsiz yuklar "
+                                 Click="rbInvalidProds_Click"
+                                 HorizontalContentAlignment="Stretch"
+                                 VerticalContentAlignment="Stretch"
+                                 Style="{DynamicResource SaleMenuButton}" 
+                                 Tag="{DynamicResource trash}" Margin="10 10 10 9"/>
+
+                </Grid>
+                
+            </Border>
+
+            <Border
+                  Grid.Row="1"
+                  CornerRadius="5"
+                  Margin="2" BorderThickness="1"
+                  BorderBrush="Black"
+                  >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height=".3*"/>
+                    </Grid.RowDefinitions>
+                    <Border
+                          Grid.Row="0"
+                          Margin="10"
+                          CornerRadius="5"
+                          Background="#0EAA56"
+                          >
+                        <StackPanel Margin="0 15 0 0">
+                            <TextBlock
+                                     Text="Sotuv Summasi:"
+                                     HorizontalAlignment="Center"
+                                     FontSize="22"
+                                     Foreground="White"
+                                     FontWeight="DemiBold"
+                                     ></TextBlock>
+
+                            <DockPanel HorizontalAlignment="Center">
+                                <TextBlock
+                                         Text="100,000,000"
+                                         Foreground="White"
+                                         FontSize="20"
+                                         FontWeight="SemiBold"
+                            ></TextBlock>
+                                <TextBlock
+                                         Text="so'm"
+                                         Foreground="White"
+                                         VerticalAlignment="Center"
+                                         FontSize="18"
+                                         Margin="5 0 0 0"
+                                         ></TextBlock>
+                            </DockPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                           Grid.Row="1"
+                           Margin="10"
+                           CornerRadius="5"
+                           Background="#D01509"
+                           >
+                        <StackPanel Margin="0 15 0 0">
+                            <TextBlock
+                                     Text="Harajatlar:"
+                                     HorizontalAlignment="Center"
+                                     FontSize="22"
+                                     Foreground="White"
+                                     FontWeight="DemiBold"
+                                     ></TextBlock>
+
+                            <DockPanel HorizontalAlignment="Center">
+                                <TextBlock
+                                         Text="3,000,000"
+                                         Foreground="White"
+                                         FontSize="20"
+                                         FontWeight="SemiBold"
+                                         ></TextBlock>
+                                <TextBlock
+                                          Text="so'm"
+                                          Foreground="White"
+                                          VerticalAlignment="Center"
+                                          FontSize="18"
+                                          Margin="5 0 0 0"
+                                          ></TextBlock>
+                            </DockPanel>
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border
+                           Grid.Row="2"
+                           Margin="10"
+                           CornerRadius="5"
+                           Background="#25D409"
+                           >
+                        <StackPanel Margin="0 15 0 0">
+                            <TextBlock
+                                     Text="Foyda:"
+                                     HorizontalAlignment="Center"
+                                     FontSize="22"
+                                     Foreground="White"
+                                     FontWeight="DemiBold"
+                                     ></TextBlock>
+
+                            <DockPanel HorizontalAlignment="Center">
+                                <TextBlock
+                                         Text="40,000,000"
+                                          Foreground="White"
+                                          FontSize="20"
+                                          FontWeight="SemiBold"
+                                          ></TextBlock>
+                                <TextBlock
+                                          Text="so'm"
+                                          Foreground="White"
+                                          VerticalAlignment="Center"
+                                          FontSize="18"
+                                          Margin="5 0 0 0"
+                                          ></TextBlock>
+                            </DockPanel>
+                        </StackPanel>
+                    </Border>
+
+                </Grid>
+
+            </Border>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            
+            <Border Grid.Row="1" Visibility="Visible">
+
+                <Frame x:Name="SalePageNavigator"/>
+
+            </Border>
+        </Grid>
         
     </Grid>
 </Page>
