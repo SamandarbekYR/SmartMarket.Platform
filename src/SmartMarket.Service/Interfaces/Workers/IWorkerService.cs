@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SmartMarket.Service.DTOs.Workers;
 
-namespace SmartMarket.Service.Interfaces.Workers
+namespace SmartMarket.Service.Interfaces.Workers;
+
+internal interface IWorkerService
 {
-    internal interface IWorkerService
-    {
-    }
+    Task<bool> AddAsync(AddWrokerDto dto);
+    Task<bool> DeleteAsync(Guid Id);
+    Task<List<WorkerDto>> GetAllAsync();
+    Task<bool> UpdateAsync(AddWrokerDto dto, Guid Id);
 }
