@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="SmartMarket.Desktop.Components.MainForComponents.MainCategoryComponent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartMarket.Desktop.Components.MainForComponents"
+             mc:Ignorable="d" 
+
+             d:DesignHeight="30" d:DesignWidth="250">
+    <Border Background="White" CornerRadius="8">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="35"/>
+                <ColumnDefinition Width="35"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock Grid.Column="0"
+                       x:Name="tbNumber"
+                       Text="1"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="15"
+                       FontWeight="SemiBold"
+                       ></TextBlock>
+            <TextBlock Grid.Column="1"
+                       x:Name="tbName"
+                       Text="Choy"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="15"
+                       FontWeight="SemiBold"
+                       ></TextBlock>
+            <Button
+                x:Name="BtnEditCategory"
+                Grid.Column="2"
+                Style="{DynamicResource BtnEditCategory}"
+                ></Button>
+
+            <Button
+                x:Name="BntDeleteCategory"
+                Grid.Column="3"
+                Style="{DynamicResource BtnDeleteCategory}"
+                ></Button>
+            
+        </Grid>
+    </Border>
+</UserControl>

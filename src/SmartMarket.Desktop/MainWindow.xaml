@@ -32,15 +32,19 @@
                 <ColumnDefinition Width="1.5*"/>
                 <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
-            
+
             <RadioButton  
+                x:Name="btnMain"
                 Grid.Column="0"
                 Content="Asosiy"
+                Click="btnMain_Click"
                 Style="{DynamicResource MenuButton2}"
                 Tag="{StaticResource main}"
                 ></RadioButton>
 
             <RadioButton  
+                x:Name="btnsale"
+                Click="btnsale_Click"
                 Grid.Column="1"
                 Content="Sotuv oynasi"
                 Style="{DynamicResource MenuButton2}"
@@ -60,7 +64,7 @@
                 Style="{DynamicResource MenuButton2}"
                 Tag="{StaticResource worker}"
                 ></RadioButton>
-               
+
             <RadioButton  
                 Grid.Column="4"
                 Content="Hamkorlarim"
@@ -106,8 +110,14 @@
         </Grid>
 
         <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="106*"/>
+                <ColumnDefinition Width="0*"/>
+                <ColumnDefinition Width="17*"/>
+                <ColumnDefinition Width="677*"/>
+            </Grid.ColumnDefinitions>
             <Frame Name="PageNavigator"
-            NavigationUIVisibility="Hidden" />
+            NavigationUIVisibility="Hidden" Grid.ColumnSpan="4" />
         </Grid>
 
         <Rectangle x:Name="lab_fon" Grid.RowSpan="4"

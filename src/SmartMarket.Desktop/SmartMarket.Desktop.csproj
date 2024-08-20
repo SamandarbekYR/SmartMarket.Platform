@@ -9,12 +9,21 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Components\" />
-    <Folder Include="Windows\" />
+    <None Remove="Assets\debt.png" />
+    <None Remove="Assets\login_background.png" />
+    <None Remove="Assets\login_close.png" />
+    <None Remove="Assets\logout_left.png" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\debt.png" />
+    <Resource Include="Assets\login_background.png" />
+    <Resource Include="Assets\login_close.png" />
+    <Resource Include="Assets\logout_left.png" />
   </ItemGroup>
 
 </Project>

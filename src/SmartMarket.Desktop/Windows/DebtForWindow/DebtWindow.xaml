@@ -1,0 +1,103 @@
+﻿<Window x:Class="SmartMarket.Desktop.Windows.DebtForWindow.DebtWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmartMarket.Desktop.Windows.DebtForWindow"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Title="DebtWindow" Height="500" Width="550">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        
+        <DockPanel  Grid.Row="0"
+                    Background="#F50D0D" >
+
+
+            <TextBlock
+                      Text="Nasiya"
+                      VerticalAlignment="Center"
+                      Foreground="White"
+                      FontSize="20"
+                      FontWeight="SemiBold"
+                Margin="10 0 0 0"
+                      ></TextBlock>
+            <Button 
+                   x:Name="btnclose"
+                   Click="btnclose_Click"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Margin="0 0 10 0"
+                   Background="Transparent"
+                   BorderThickness="0"
+>
+                <md:PackIcon Kind="Close"
+                         Width="30"
+                         Height="30"
+                         Foreground="White"
+                         ></md:PackIcon>
+            </Button>
+        </DockPanel>
+
+        <DockPanel Grid.Row="1">
+            <Border
+                Margin="40 2 40 2"
+                CornerRadius="10"
+                BorderThickness="1"
+                BorderBrush="Black"
+                >
+                <DockPanel VerticalAlignment="Center">
+                    <md:PackIcon Kind="Search"
+                                 VerticalAlignment="Center"
+                                 Width="25"
+                                 Height="25"
+                                 Margin="5 0 0 0"
+                                 />
+                    <TextBox
+                        x:Name="tbSearch"
+                        Margin="10 0 10 0"
+                        BorderThickness="0"
+                        VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        FontSize="18"
+                        FontWeight="SemiBold"
+                        ></TextBox>
+                </DockPanel>
+            </Border>
+        </DockPanel>
+        <Border
+            Grid.Row="2"
+            >
+
+            <ScrollViewer>
+                <StackPanel x:Name="DebtStackPanel">
+                    
+                </StackPanel>
+            </ScrollViewer>
+            
+        </Border>
+        
+        <DockPanel Grid.Row="3">
+            <Button
+                x:Name="BtnAddDebtor"
+                Height="30"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Right"
+                Width="150"
+                Background="#0AB1F9"
+                Content="Qo'shish"
+                Foreground="White"
+                FontSize="15"
+                Margin="0 0 10 0"
+                ></Button>
+        </DockPanel>
+    </Grid>
+</Window>

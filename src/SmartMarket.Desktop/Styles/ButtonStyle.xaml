@@ -119,12 +119,12 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="B" Property="Background" Value="#4B4B4B"/>
+                            <Setter TargetName="B" Property="Background" Value="#C73114"/>
                             <Setter TargetName="I" Property="Foreground" Value="White"/>
                         </Trigger>
                         
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="B" Property="Background" Value="#4B4B4B"/>
+                            <Setter TargetName="B" Property="Background" Value="#C73114"/>
                             <Setter TargetName="I" Property="Foreground" Value="White"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
@@ -132,6 +132,817 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+
+    <Style x:Key="btnCategory" TargetType="Button"
+>
+        <Setter Property="Margin" Value="5 8"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        CornerRadius="10"
+                        Background="White"
+                        >
+                        <md:PackIcon Kind="Plus" Width="40" 
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     Height="30"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <!-- Begin MainForCommponents  Button Style -->
+
+    <Style TargetType="Button" x:Key="BtnEditCategory">
+        <Setter Property="Width" Value="35"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="B"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        >
+                        <md:PackIcon Kind="Pencil"
+                                     x:Name="I"
+                                     Width="25" Height="25" Foreground="#333333"></md:PackIcon>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="I" Property="Foreground" Value="#ECA129"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="I" Property="Foreground" Value="#734F14"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Button" x:Key="BtnDeleteCategory">
+        <Setter Property="Width" Value="35"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                     x:Name="B"
+                     Background="Transparent"
+                     BorderThickness="0"
+                     >
+                        <md:PackIcon Kind="Delete"
+                                  x:Name="I"
+                                  Width="25" Height="25" Foreground="#FE0000"></md:PackIcon>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="I" Property="Foreground" Value="#C23013"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="I" Property="Foreground" Value="#85210D"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="MainPorductedit" TargetType="Button">
+        <Setter Property="Margin" Value="3 2 0 2"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        CornerRadius="8"
+                        x:Name="B"
+                        Background="#373232"
+                        >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="3.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0">
+                                <md:PackIcon Kind="Pencil"
+                                             x:Name="I"
+                                             Foreground="White"
+                                             Width="20"
+                                             VerticalAlignment="Center"
+                                             Height="20"
+                                             />
+                            </Border>
+                            <Label Grid.Column="1"
+                                   x:Name="L"
+                                   Content="Tahrirlash"
+                                   Foreground="White"
+                                   VerticalContentAlignment="Center"
+                                   HorizontalContentAlignment="Center"
+                                   ></Label>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="White"/>
+                            <Setter TargetName="I" Property="Foreground" Value="#373232"/>
+                            <Setter TargetName="L" Property="Foreground" Value="#373232"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="White"/>
+                            <Setter TargetName="I" Property="Foreground" Value="#373232"/>
+                            <Setter TargetName="L" Property="Foreground" Value="#373232"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MainPorductDelete" TargetType="Button">
+        <Setter Property="Margin" Value="0 2 0 2"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                     CornerRadius="8"
+                     x:Name="B"
+                     Background="#FE0000"
+                     >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="3.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0">
+                                <md:PackIcon Kind="Delete"
+                                             x:Name="I"
+                                          Foreground="White"
+                                          Width="20"
+                                             VerticalAlignment="Center"
+                                          Height="20"
+                                          />
+                            </Border>
+                            <Label Grid.Column="1"
+                                Content="O'chirish"
+                                Foreground="White"
+                                x:Name="L"
+                                VerticalContentAlignment="Center"
+                                HorizontalContentAlignment="Center"
+                                ></Label>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="White"/>
+                            <Setter TargetName="I" Property="Foreground" Value="#FE0000"/>
+                            <Setter TargetName="L" Property="Foreground" Value="#FE0000"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="White"/>
+                            <Setter TargetName="I" Property="Foreground" Value="#FE0000"/>
+                            <Setter TargetName="L" Property="Foreground" Value="#FE0000"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="BtnKontrAgentSum" TargetType="Button">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0 2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="B"
+                        CornerRadius="8"
+                        Background="#0F6BD8"
+                        >
+                        <md:PackIcon Margin="3"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     Foreground="White"
+                                     Width="20"
+                                     Height="20"
+                                     Kind="CurrencyUsd"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="BtnKontrAgentList" TargetType="Button">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0 2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                       x:Name="B"
+                       CornerRadius="8"
+                       Background="#A1B90C"
+                       >
+                        <md:PackIcon Margin="3"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    Foreground="White"
+                                    Width="20"
+                                    Height="20"
+                                    Kind="ListBox"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="BtnKontrAgentEdit" TargetType="Button">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0 2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                   x:Name="B"
+                   CornerRadius="8"
+                   Background="#373232"
+                   >
+                        <md:PackIcon Margin="3"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Foreground="White"
+                                Width="20"
+                                Height="20"
+                                Kind="Pencil"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="BtnKontrAgentDelete" TargetType="Button">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="0 2"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                   x:Name="B"
+                   CornerRadius="8"
+                   Background="#CA0E0E"
+                   >
+                        <md:PackIcon Margin="3"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Foreground="White"
+                                Width="20"
+                                Height="20"
+                                Kind="Delete"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- End MainForCommponents  Button Style -->
+
+
+
+
+
+
+    <!-- Begin PaymentTypeWindow  Button Style -->
+
+    <Style x:Key="BtnPayment" TargetType="Button">
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Margin" Value="35 10 35 5"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border 
+                       Background="{TemplateBinding Background}"
+                        CornerRadius="5"
+                        BorderThickness="1"
+                        BorderBrush="Black"
+                        >
+                        <Label
+                            Content="{TemplateBinding Content}"
+                            Foreground="{TemplateBinding Foreground}"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            FontSize="18"
+                            ></Label>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     
+    
+    <!-- End PaymentTypeWindow  Button Style -->
+
+
+
+
+    <!-- Begin SaleForPage for  Button Style -->
+
+    <Style x:Key="BtnSalePageedit" TargetType="Button">
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5 3"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="B"
+                        CornerRadius="5"
+                        BorderThickness="1"
+                        BorderBrush="Black"
+                        Background="Transparent">
+
+                        <md:PackIcon Kind="Pencil"
+                                     x:Name="I"
+                                     Width="30"
+                                     Height="30"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     ></md:PackIcon>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#464646"/>
+                            <Setter TargetName="I" Property="Foreground" Value="White"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#464646"/>
+                            <Setter TargetName="I" Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="BtnSalePageDelete" TargetType="Button">
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5 3"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="B"
+                     CornerRadius="5"
+                     BorderThickness="1"
+                     BorderBrush="Black"
+                     Background="Transparent">
+
+                        <md:PackIcon Kind="Delete"
+                                     x:Name="I"
+                                  Width="30"
+                                  Height="30"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"
+                                  ></md:PackIcon>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#464646"/>
+                            <Setter TargetName="I" Property="Foreground" Value="White"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#464646"/>
+                            <Setter TargetName="I" Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="BtnSalePagePlus" TargetType="Button">
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5 3"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="B"
+                  CornerRadius="5"
+                  BorderThickness="1"
+                  BorderBrush="Black"
+                  Background="Transparent">
+
+                        <md:PackIcon Kind="Plus"
+                                     x:Name="I"
+                               Width="30"
+                               Height="30"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               ></md:PackIcon>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#464646"/>
+                            <Setter TargetName="I" Property="Foreground" Value="White"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#464646"/>
+                            <Setter TargetName="I" Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style x:Key="BtnSalePageMinus" TargetType="Button">
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5 3"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="B"
+                  CornerRadius="5"
+                  BorderThickness="1"
+                  BorderBrush="Black"
+                  Background="Transparent">
+
+                        <md:PackIcon Kind="Minus"
+                                     x:Name="I"
+                               Width="30"
+                               Height="30"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               ></md:PackIcon>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#464646"/>
+                            <Setter TargetName="I" Property="Foreground" Value="White"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#464646"/>
+                            <Setter TargetName="I" Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="BtnSalePagePercent" TargetType="Button">
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5 3"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="B"
+                  CornerRadius="5"
+                  BorderThickness="1"
+                  BorderBrush="Black"
+                  Background="Transparent">
+
+                        <md:PackIcon Kind="PercentOutline"
+                                     x:Name="I"
+                               Width="30"
+                               Height="30"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               ></md:PackIcon>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#464646"/>
+                            <Setter TargetName="I" Property="Foreground" Value="White"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#464646"/>
+                            <Setter TargetName="I" Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style x:Key="BtnSalePageSearch" TargetType="Button">
+        <Setter Property="Width" Value="40"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5 3"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="B"
+               CornerRadius="5"
+               BorderThickness="1"
+               BorderBrush="Black"
+               Background="Transparent">
+
+                        <md:PackIcon Kind="Search"
+                                     x:Name="I"
+                            Width="30"
+                            Height="30"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            ></md:PackIcon>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#464646"/>
+                            <Setter TargetName="I" Property="Foreground" Value="White"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#464646"/>
+                            <Setter TargetName="I" Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style x:Key="BtnSaleKlavituria" TargetType="Button">
+        <Setter Property="Template" >
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border 
+                        Margin="10 5"
+                        CornerRadius="5"
+                        BorderThickness="1"
+                        BorderBrush="Black"
+                        Background="Transparent"
+                        >
+                        <Label
+                            Content="{TemplateBinding Content}"
+                            FontSize="{TemplateBinding FontSize}"
+                            FontWeight="DemiBold"
+                            VerticalContentAlignment="Center"
+                            HorizontalAlignment="Center"
+                            
+                            ></Label>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="BtnsaleReturn" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="B"
+                        Margin="10 5"
+                        CornerRadius="5"
+                        BorderThickness="1"
+                        BorderBrush="Black"
+                        Background="#302D2D"
+                        >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="2.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <md:PackIcon 
+                                x:Name="I"
+                                       Grid.Column="0"
+                                       Kind="ArrowULeftTopBold"
+                                 Foreground="White" 
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Width="40"
+                                Height="40"
+                                
+                                />
+
+                            <Label
+                                Grid.Column="1"
+                                x:Name="L"
+                                Content="Qaytarish"
+                                Foreground="White"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                FontSize="25"
+                                Margin="0 0 10 0"
+                                FontWeight="Bold"
+                                ></Label>
+                        </Grid>
+                       
+                    </Border>
+                    <!--<ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="White"/>
+                            <Setter TargetName="I" Property="Foreground" Value="#302D2D"/>
+                            <Setter TargetName="L" Property="Foreground" Value="#302D2D"/>
+                        </Trigger>
+
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="White"/>
+                            <Setter TargetName="I" Property="Foreground" Value="#302D2D"/>
+                            <Setter TargetName="L" Property="Foreground" Value="#302D2D"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>-->
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style x:Key="BtnsaleDebt" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        Margin="10 5"
+                        CornerRadius="5"
+                        BorderThickness="1"
+                        BorderBrush="Black"
+                        Background="#F50D0D"
+                        >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="2.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image 
+                                Grid.Column="0"
+                                Source="pack://application:,,,/Assets/debt.png" >
+
+                            </Image>
+
+                            <Label
+                                Grid.Column="1"
+                                Content="Nasiya"
+                                Foreground="White"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                FontSize="25"
+                                Margin="0 0 10 0"
+                                ></Label>
+                        </Grid>
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="BtnsalePay" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                     Margin="10 5"
+                     CornerRadius="5"
+                     BorderThickness="1"
+                     BorderBrush="Black"
+                     Background="#04C217"
+                     >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="2.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <md:PackIcon
+                                Grid.Column="0"
+                                Width="40" Height="40"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                Foreground="White"
+                                Margin="0 0 10 0"
+                                Kind="Dollar"/>
+
+                            <Label
+                             Grid.Column="1"
+                             Content="To'lov"
+                             Foreground="White"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Left"
+                                Margin="35 0 0 0 "
+                             FontSize="25"
+                             
+                             ></Label>
+                        </Grid>
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="BtnSaleSettings" TargetType="Button">
+        <Setter Property="Template" >
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border 
+                        x:Name="B"
+                     Margin="10 5"
+                     CornerRadius="5"
+                     BorderThickness="1"
+                     BorderBrush="Black"
+                     Background="Transparent"
+                      
+                     >
+                        <Label
+                            x:Name="L"
+                            Content="{TemplateBinding Content}"
+                            FontSize="{TemplateBinding FontSize}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            FontWeight="Bold"
+                            >
+                        </Label>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#3F3F3F"/>
+                            <Setter TargetName="L" Property="Foreground" Value="White"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#3F3F3F"/>
+                            <Setter TargetName="L" Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style x:Key="BtnSaleLogout" TargetType="Button">
+        <Setter Property="Template" >
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border 
+                  Margin="10 5"
+                  CornerRadius="5"
+                  BorderThickness="1"
+                  Background="#1EB7E8"
+                  
+                   
+                  >
+                        <Image Source="pack://application:,,,/Assets/logout_left.png">
+
+                        </Image>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <!-- End SaleForPage for  Button Style -->
+
+
 
 </ResourceDictionary>

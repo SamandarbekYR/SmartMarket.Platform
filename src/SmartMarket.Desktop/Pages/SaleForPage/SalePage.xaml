@@ -1,0 +1,666 @@
+﻿<Page x:Class="SmartMarket.Desktop.Pages.SaleForPage.SalePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.SaleForPage"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      Background="White"
+      d:DesignHeight="640" d:DesignWidth="1024"
+      Title="SalePage">
+
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2.5*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border Grid.Column="0"
+               Background="White"
+               CornerRadius="5"
+               Margin="5"
+               BorderThickness="1"
+               BorderBrush="Black">
+            <Border CornerRadius="5"
+                Margin="2 3 2 2"
+                BorderThickness="1"
+                BorderBrush="Black">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Border Grid.Row="0"
+                    Background="#54F9D1"
+                    CornerRadius="4 4 0 0">
+                        <TextBlock FontSize="20"
+                           Text="Jo'natmalar"
+                           VerticalAlignment="Center"
+                           Padding="10 0 0 0"/>
+                    </Border>
+
+
+                    <Border Grid.Row="1"
+                            CornerRadius="8"
+                            Margin="10 2 10 2"
+                            BorderThickness="1"
+                            BorderBrush="Black"
+                            >
+                        <DockPanel>
+                            <md:PackIcon Kind="Search"
+                                         VerticalAlignment="Center"
+                                         Width="25" Height="25"
+                                         ></md:PackIcon>
+                            <TextBox
+                                x:Name="tbsearch"
+                                Margin="10 0 10 0"
+                                BorderThickness="0"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                FontWeight="SemiBold"
+                                ></TextBox>
+                        </DockPanel>
+                    </Border>
+
+                    <ScrollViewer Grid.Row="2">
+                        <Grid>
+                            <StackPanel 
+                                x:Name="stackPanelOrders">
+
+                            </StackPanel>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+            </Border>
+        </Border>
+
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="60"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2.5*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="35"/>
+                        <RowDefinition Height="90"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="150"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Border Grid.Row="0" Margin="2 5 2 2"
+                            CornerRadius="5"
+                            BorderThickness="1"
+                            BorderBrush="Black"
+                            >
+                        <DockPanel>
+                            <TextBlock
+                                x:Name="tbFullName"
+                                Text="Sobirov Sherzod"
+                                VerticalAlignment="Center"
+                                FontSize="18"
+                                FontWeight="Bold"
+                                Foreground="#F50D0D"
+                                HorizontalAlignment="Left"
+                                Margin="10 0 0 0"
+                                ></TextBlock>
+
+                            <TextBlock
+                                x:Name="tbBarCode"
+                                Text="#12542140505"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                FontWeight="SemiBold"
+                                Margin="0 0 10 0"
+                                ></TextBlock>
+                        </DockPanel>
+                    </Border>
+
+                    <Border Grid.Row="1"
+                            CornerRadius="5"
+                            BorderThickness="1"
+                            BorderBrush="Black"
+                            Margin="2"
+                            >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="1.5*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="1.3*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                
+                                <TextBlock
+                                    x:Name="tbProductName"
+                                    Grid.Row="0"
+                                    Text="Nestle Kasha 9"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    FontSize="25"
+                                    Margin="5 0 0 0"
+                                    FontWeight="Bold"
+                                    ></TextBlock>
+
+                                <DockPanel
+                                    Grid.Row="1"
+                                    Margin="0 0 0 10"
+                                    >
+                                    <TextBlock
+                                        Text="Shtrix-kod:"
+                                        VerticalAlignment="Bottom"
+                                        FontSize="17"
+                                        FontWeight="SemiBold"
+                                        ></TextBlock>
+                                    <TextBlock
+                                        Text="123456789"
+                                        VerticalAlignment="Bottom"
+                                        FontSize="16"
+                                        FontWeight="SemiBold"
+                                        Margin="5 0 0 0"
+                                        ></TextBlock>
+                                </DockPanel>
+
+                            </Grid>
+
+                            <Border
+                                Grid.Column="1"
+                                >
+                                <TextBox
+                                    BorderThickness="0"
+                                    VerticalAlignment="Center"
+                                    Text="1*2500=25000"
+                                    VerticalContentAlignment="Center"
+                                    TextAlignment="Right"
+                                    FontSize="25"
+                                    FontWeight="SemiBold"
+                                    Margin="0 0 10 0"
+                                    Height="100">
+                                    
+                                </TextBox>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <Border
+                        Grid.Row="2"
+                        Margin="2"
+                        BorderBrush="Black"
+                        BorderThickness="1"
+                        CornerRadius="5"
+                        >
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="50"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="30"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="0.5*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="1.5*"/>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="1.5*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock
+                                            Grid.Column="0"
+                                            Text="N%"
+                                            FontSize="15"
+                                            FontWeight="SemiBold"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            ></TextBlock>
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            Text="P-Code"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            FontSize="15"
+                                            FontWeight="SemiBold"
+                                            ></TextBlock>
+
+                                        <TextBlock
+                                            Grid.Column="2"
+                                            Text="Mahsulot nomi"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            FontSize="15"
+                                            FontWeight="SemiBold"
+                                            ></TextBlock>
+
+                                        <TextBlock
+                                            Grid.Column="3"
+                                            Text="Soni"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            FontSize="15"
+                                            FontWeight="SemiBold"
+                                            ></TextBlock>
+
+                                        <TextBlock
+                                            Grid.Column="4"
+                                            Text="Narxi"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            FontSize="15"
+                                            FontWeight="SemiBold"
+                                            ></TextBlock>
+
+                                        <TextBlock 
+                                            Grid.Column="5"
+                                            Text="Chegirma"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            FontSize="15"
+                                            FontWeight="SemiBold"
+                                            ></TextBlock>
+
+                                        <TextBlock
+                                            Grid.Column="6"
+                                            Text="Jami"
+                                            VerticalAlignment="Center"
+                                            HorizontalAlignment="Center"
+                                            FontSize="15"
+                                            FontWeight="SemiBold"
+                                            ></TextBlock>
+                                        
+                                    </Grid>
+                                    
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Column="1"
+                                    BorderBrush="Black"
+                                    BorderThickness="1 0 0 0"
+                                    CornerRadius="5 0 0 5"
+                                    >
+                                <StackPanel>
+                                <Button
+                                    Style="{DynamicResource BtnSalePageedit}"
+                                    >
+                                </Button>
+
+                                <Button
+                                    Style="{DynamicResource BtnSalePageDelete}"
+                                    ></Button>
+
+                                <Button
+                                    Style="{DynamicResource BtnSalePagePlus}"
+                                    ></Button>
+
+                                <Button
+                                    Style="{DynamicResource BtnSalePageMinus}"
+                                    ></Button>
+
+                                <Button
+                                    Style="{DynamicResource BtnSalePageSearch}"
+                                    ></Button>
+
+                                <Button
+                                    Style="{DynamicResource BtnSalePagePercent}"
+                                    ></Button>
+                                
+                            </StackPanel>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <Border
+                        Grid.Row="3"
+                        BorderBrush="Black"
+                        BorderThickness="1"
+                        Margin="2"
+                        CornerRadius="5"
+                        >
+
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="1.3*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <StackPanel Grid.Column="0"
+                                        Margin="20 5 0 0">
+
+                                <TextBlock
+                                    Text="Summa"
+                                    FontSize="25"
+                                    FontWeight="Bold"
+                                    ></TextBlock>
+                                <TextBlock
+                                    x:Name="tbAmount"
+                                    Text="625,025.25"
+                                    FontSize="20"
+                                    FontWeight="SemiBold"
+                                    ></TextBlock>
+                                
+                                <TextBlock
+                                    Text="Chegirma"
+                                    FontSize="25"
+                                    FontWeight="Bold"
+                                    Margin="0 10 0 0"
+                                    ></TextBlock>
+                                <TextBlock
+                                    x:Name="tbDiscountAmount"
+                                    Text="50,000.0"
+                                    FontSize="20"
+                                    FontWeight="SemiBold"
+                                    ></TextBlock>
+                                
+                            </StackPanel>
+                            
+                            <StackPanel Grid.Column="1"
+                                        HorizontalAlignment="Left"
+                                        Margin="0 5 0 0">
+                                
+                                <TextBlock
+                                    Text="Jami Summa:"
+                                    FontSize="30"
+                                    HorizontalAlignment="Center"
+                                    FontWeight="Bold"
+                                    ></TextBlock>
+                                <TextBlock
+                                    x:Name="tbTotalAmount"
+                                    Text="575,025.0"
+                                    HorizontalAlignment="Center"
+                                    FontSize="35"
+                                    FontWeight="Bold"
+                                    ></TextBlock>
+                                
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                    
+                </Grid>
+
+
+                <Border
+                    Grid.Column="1"
+                    CornerRadius="5"
+                    Margin="2 5 2 2"
+                    BorderThickness="1"
+                    BorderBrush="Black"
+                    >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="70"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="0.8*"/>
+                            <RowDefinition Height="0.8*"/>
+                            <RowDefinition Height="0.8*"/>
+                        </Grid.RowDefinitions>
+
+                        <Border
+                            BorderBrush="Black"
+                            BorderThickness="0 0 0 1"
+                            Grid.Column="0"
+                            >
+                            <DockPanel>
+                                <TextBlock
+                                    x:Name="tbDate"
+                                    Text="8.19.2024"
+                                    VerticalAlignment="Center"
+                                    Margin="20 0 0 0"
+                                    FontSize="20"
+                                    FontWeight="SemiBold"
+                                    ></TextBlock>
+                                
+                                <TextBlock
+                                    HorizontalAlignment="Right"
+                                    Text="1:15:40"
+                                    FontWeight="SemiBold"
+                                    FontSize="20"
+                                    VerticalAlignment="Center"
+                                    Margin="0 0 20 0"
+                                    ></TextBlock>
+                            </DockPanel>
+                        </Border>
+
+                        <Border
+                            Grid.Row="1"
+                            Margin="2"
+                            BorderBrush="Black"
+                            BorderThickness="1"
+                            CornerRadius="5"
+                            >
+                            <TextBox
+                                BorderThickness="0"
+                                VerticalContentAlignment="Center"
+                                TextAlignment="Right"
+                                FontSize="25"
+                                FontWeight="DemiBold"
+                                Margin="5 0 10 0"
+                                ></TextBox>
+                        </Border>
+
+                        <Grid
+                            Grid.Row="2" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button
+                                Grid.Column="0"
+                                Style="{DynamicResource BtnSaleKlavituria}"
+                                Content="7"
+                                FontSize="35"
+                                ></Button>
+                            <Button
+                                Grid.Column="1"
+                                Style="{DynamicResource BtnSaleKlavituria}"
+                                Content="8"
+                                FontSize="35"
+                                ></Button>
+                            <Button
+                                Grid.Column="2"
+                                Content="9"
+                                Style="{DynamicResource BtnSaleKlavituria}"
+                                FontSize="35"
+                                ></Button>
+                            
+                        </Grid>
+
+                        <Grid Grid.Row="3" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+
+                            <Button
+                                   Grid.Column="0"
+                                   Style="{DynamicResource BtnSaleKlavituria}"
+                                   Content="4"
+                                   FontSize="35"
+                                   ></Button>
+                            <Button
+                                   Grid.Column="1"
+                                   Style="{DynamicResource BtnSaleKlavituria}"
+                                   Content="5"
+                                   FontSize="35"
+                                   ></Button>
+                            <Button
+                                   Grid.Column="2"
+                                   Content="6"
+                                   Style="{DynamicResource BtnSaleKlavituria}"
+                                   FontSize="35"
+                                   ></Button>
+
+                        </Grid>
+                    <Grid  Grid.Row="4" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                            <Button
+                                   Grid.Column="0"
+                                   Style="{DynamicResource BtnSaleKlavituria}"
+                                   Content="1"
+                                   FontSize="35"
+                                   ></Button>
+                            <Button
+                                   Grid.Column="1"
+                                   Style="{DynamicResource BtnSaleKlavituria}"
+                                   Content="2"
+                                   FontSize="35"
+                                   ></Button>
+                            <Button
+                                   Grid.Column="2"
+                                   Content="3"
+                                   Style="{DynamicResource BtnSaleKlavituria}"
+                                   FontSize="35"
+                                   ></Button>
+
+                        </Grid>
+                    <Grid Grid.Row="5" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                            <Button
+                                   Grid.Column="0"
+                                   Style="{DynamicResource BtnSaleKlavituria}"
+                                   Content="0"
+                                   FontSize="35"
+                                   ></Button>
+                            <Button
+                                   Grid.Column="1"
+                                   Style="{DynamicResource BtnSaleKlavituria}"
+                                   Content="."
+                                   FontSize="35"
+                                   ></Button>
+                            <Button
+                                   Grid.Column="2"
+                                   Content="00"
+                                   Style="{DynamicResource BtnSaleKlavituria}"
+                                   FontSize="35"
+                                   ></Button>
+
+                        </Grid>
+                    <Grid Grid.Row="6" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button
+                                Grid.Column="0"
+                                Style="{DynamicResource BtnSaleKlavituria}"
+                                Content="C"
+                                FontSize="35"
+                                ></Button>
+                            <Button
+                                Grid.Column="1"
+                                Style="{DynamicResource BtnSaleKlavituria}"
+                              
+                                >
+                                <Button.Content>
+                                    <md:PackIcon Kind="ArrowLeft"
+                                                 Width="50"
+                                                 Height="40"
+                                                 />
+                                </Button.Content>
+                            </Button>
+                    </Grid>
+
+                        <Button
+                            Grid.Row="7"
+                            Style="{DynamicResource BtnsaleReturn}"
+                            ></Button>
+                        <Button
+                            Grid.Row="8"
+                            Style="{DynamicResource BtnsaleDebt}"
+                            ></Button>
+
+                        <Button
+                            Grid.Row="9"
+                            Style="{DynamicResource BtnsalePay}"
+                            ></Button>
+                        
+                        
+            </Grid>
+                </Border>
+
+            </Grid>
+
+            <Grid Grid.Row="1">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.6*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Button
+                    Grid.Column="0"
+                   Style="{DynamicResource BtnSaleSettings}"
+                    Content="Harajat"
+                    FontSize="27"
+                    ></Button>
+                <Button
+                    Grid.Column="1"
+                    Style="{DynamicResource BtnSaleSettings}"
+                    Content="Hamkorlarimiz"
+                    FontSize="27"
+                    ></Button>
+                <Button
+                    Grid.Column="2"
+                    Style="{DynamicResource BtnSaleSettings}"
+                    Content="Sozlamalar"
+                    FontSize="27"
+                    ></Button>
+                <Button
+                    Grid.Column="3"
+                    Style="{DynamicResource BtnSaleSettings}"
+                    Content="Sotuv tarixi"
+                    FontSize="27"
+                    ></Button>
+                <Button
+                    Grid.Column="4"
+                    Style="{DynamicResource BtnSaleLogout}"
+                    ></Button>
+                
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+</Page>
