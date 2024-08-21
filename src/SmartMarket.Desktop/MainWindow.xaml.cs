@@ -13,6 +13,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SmartMarket.Desktop.Pages.ShopDetailsForPage;
 using SmartMarket.Desktop.Pages.ShopWorkersForPage;
+using SmartMarket.Desktop.Pages.PartnerForPage;
+using SmartMarket.Desktop.Pages.AccountSettingsForPage;
+using SmartMarket.Desktop.Windows.Auth;
+using SmartMarket.Desktop.Pages.ExpensesForPage;
 
 namespace SmartMarket.Desktop
 {
@@ -44,18 +48,35 @@ namespace SmartMarket.Desktop
             PageNavigator.Content = salePage;
         }
 
-       
+      
+        private void btnShopworkers_Click(object sender, RoutedEventArgs e)
+        {
+            ShopWorkersPage shopWorkersPage=new ShopWorkersPage();
+            PageNavigator.Content= shopWorkersPage; 
+        }
 
-        private void btnShopDetails_Click(object sender, RoutedEventArgs e)
+        private void btnPartners_Click(object sender, RoutedEventArgs e)
+        {
+            PartnersPage partnersPage=new PartnersPage();
+            PageNavigator.Content = partnersPage;   
+        }
+
+        private void btnAccountSettings_Click(object sender, RoutedEventArgs e)
+        {
+            AccountSettingsPage accountSettingsPage =new AccountSettingsPage();
+            PageNavigator.Content = accountSettingsPage;    
+        }
+
+        private void btnSaleDetails_Click(object sender, RoutedEventArgs e)
         {
             ShopDetailsPage shopDetailsPage = new ShopDetailsPage();
             PageNavigator.Content = shopDetailsPage;
         }
 
-        private void btnShopworkers_Click(object sender, RoutedEventArgs e)
+        private void btnShopDetails_Click(object sender, RoutedEventArgs e)
         {
-            ShopWorkersPage shopWorkersPage=new ShopWorkersPage();
-            PageNavigator.Content= shopWorkersPage; 
+            ExpensesPage expensesPage=new ExpensesPage();
+            PageNavigator.Content = expensesPage;
         }
     }
 }

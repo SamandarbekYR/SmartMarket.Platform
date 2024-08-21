@@ -1,0 +1,211 @@
+﻿<Page x:Class="SmartMarket.Desktop.Pages.PartnerForPage.PartnersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d" 
+      d:DesignHeight="640" d:DesignWidth="1024"
+      Title="PartnersPage">
+
+    <Grid Background="White">
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border
+            Grid.Column="0"
+            BorderBrush="Black"
+            BorderThickness="1"
+            CornerRadius="5"
+            Margin="3"
+            >
+
+            <Border
+                CornerRadius="5"
+                Margin="10"
+                Background="#D41509"
+                >
+                <StackPanel Margin="10 20 0 0 ">
+                    <TextBlock
+                        Text="Qarzlarning umumiy summasi"
+                        TextWrapping="Wrap"
+                        FontSize="30"
+                        Foreground="White"
+                        ></TextBlock>
+
+
+                    <DockPanel Margin="0 10 0 0">
+                        <TextBlock
+     
+                                 Text="50,000,000"
+                            Foreground="White"
+                            FontSize="25"
+                                 ></TextBlock>
+                        <TextBlock
+                            Text="so'm"
+                            Foreground="White"
+                            FontSize="20"
+                            Margin="5 0 0 0"
+                            VerticalAlignment="Center"
+                            ></TextBlock>
+                    </DockPanel>
+                </StackPanel>
+            </Border>
+        </Border>
+
+        <Border
+            Grid.Column="1"
+            BorderBrush="Black"
+            BorderThickness="1"
+            CornerRadius="5"
+            Margin="3"
+            >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+
+                <Grid
+                    Grid.Row="0"
+                    Background="#A59C9C"
+                    >
+                    <Grid.ColumnDefinitions>
+                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
+                        Grid.Column="0"
+                        Text="Hamkorlarimiz"
+                        VerticalAlignment="Center"
+                        Margin="15 0 0 0"
+                        FontSize="25"
+                        FontWeight="SemiBold"
+                        ></TextBlock>
+
+                    <Border
+                        Grid.Column="2"
+                        Background="White"
+                        CornerRadius="5"
+                        Margin="5 6 5 6"
+                        >
+                        <DockPanel>
+                            <md:PackIcon Kind="Search"
+                                         Margin="5 0 0 0"
+                                         VerticalAlignment="Center"
+                                         Width="20"
+                                         Height="20"
+                                         ></md:PackIcon>
+                            <TextBox
+                                x:Name="tbSearch"
+                                VerticalAlignment="Center"
+                                FontSize="15"
+                                FontWeight="SemiBold"
+                                BorderThickness="0"
+                                Margin="3 0 10 0"
+                                ></TextBox>
+                        </DockPanel>
+                    </Border>
+                </Grid>
+                <Grid
+                    Grid.Row="1"
+                    >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="1.6*"/>
+                        <ColumnDefinition Width="1.6*"/>
+                        <ColumnDefinition Width="1.6*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1.7*"/>
+                        <ColumnDefinition Width="1.7*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                        Text="N%"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        FontSize="15"
+                        FontWeight="SemiBold"
+                        Margin="5 0 0 0"
+                        ></TextBlock>
+
+                    <TextBlock
+                        Grid.Column="1"
+                        Text="Ismi"
+                        VerticalAlignment="Center"
+                        FontSize="15"
+                        FontWeight="SemiBold"
+                        ></TextBlock>
+                    <TextBlock
+                        Grid.Column="2"
+                        Text="Familiyasi"
+                        VerticalAlignment="Center"
+                        FontSize="15"
+                        FontWeight="SemiBold"
+                        ></TextBlock>
+
+                    <TextBlock
+                        Grid.Column="3"
+                        Text="Tel nomer"
+                        VerticalAlignment="Center"
+                        FontSize="15"
+                        FontWeight="SemiBold"
+                        ></TextBlock>
+
+                    <TextBlock
+                        Grid.Column="4"
+                        Text="Qarzdorlik miqdori"
+                        VerticalAlignment="Center"
+                        FontSize="15"
+                        FontWeight="SemiBold"
+                        HorizontalAlignment="Left"
+                        ></TextBlock>
+
+                    <TextBlock
+                        Grid.Column="5"
+                        Text="Qilingan to'lov"
+                        VerticalAlignment="Center"
+                        FontSize="15"
+                        FontWeight="SemiBold"
+                        ></TextBlock>
+                    <TextBlock
+                        Grid.Column="6"
+                        Text="Qolgan summasi"
+                        VerticalAlignment="Center"
+                        FontSize="15"
+                        FontWeight="SemiBold"
+                        ></TextBlock>
+
+                    <TextBlock
+                        Grid.Column="7"
+                        Text="Oxirgi to'lov sanasi"
+                        VerticalAlignment="Center"
+                        FontSize="15"
+                        FontWeight="SemiBold"
+                        ></TextBlock>
+                    
+                </Grid>
+
+                <Border Grid.Row="2">
+
+                    <ScrollViewer>
+                        <StackPanel x:Name="St_partners">
+                            
+                            
+                        </StackPanel>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+            
+        </Border>
+        
+    </Grid>
+</Page>

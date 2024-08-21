@@ -600,7 +600,7 @@
                             ></Button>
                         <Button
                             Grid.Row="8"
-                            Style="{DynamicResource BtnsaleDebt}"
+                            Style="{DynamicResource BtnsaleDebt}" 
                             ></Button>
 
                         <Button

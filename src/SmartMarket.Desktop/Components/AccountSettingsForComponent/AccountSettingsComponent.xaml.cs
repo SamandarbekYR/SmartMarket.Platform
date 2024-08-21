@@ -13,19 +13,25 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SmartMarket.Desktop.Pages.SaleForPage
+namespace SmartMarket.Desktop.Components.AccountSettingsForComponent
 {
     /// <summary>
-    /// Interaction logic for SalePage.xaml
+    /// Interaction logic for AccountSettingsComponent.xaml
     /// </summary>
-    public partial class SalePage : Page
+    public partial class AccountSettingsComponent : UserControl
     {
-        public SalePage()
+        public AccountSettingsComponent()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+        public void SetData(string FirstName,string LastName)
+        {
+            lbName.Text=FirstName+"  "+LastName;
+        }
+
+        private void Border_MouseUp(object sender, MouseButtonEventArgs e)
         {
 
         }
