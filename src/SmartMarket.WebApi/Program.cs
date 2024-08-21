@@ -8,6 +8,7 @@ using SmartMarket.Service.DTOs.Category;
 using SmartMarket.Service.DTOs.Customer;
 using SmartMarket.Service.DTOs.Expence;
 using SmartMarket.Service.DTOs.Order;
+using SmartMarket.Service.DTOs.Partner;
 using SmartMarket.Service.DTOs.Position;
 using SmartMarket.Service.DTOs.Salary;
 using SmartMarket.Service.DTOs.SalaryCheck;
@@ -15,6 +16,7 @@ using SmartMarket.Service.Interfaces.Category;
 using SmartMarket.Service.Interfaces.Customer;
 using SmartMarket.Service.Interfaces.Expence;
 using SmartMarket.Service.Interfaces.Order;
+using SmartMarket.Service.Interfaces.Partner;
 using SmartMarket.Service.Interfaces.Positions;
 using SmartMarket.Service.Interfaces.Salary;
 using SmartMarket.Service.Interfaces.SalaryCheck;
@@ -22,6 +24,7 @@ using SmartMarket.Service.Services.Category;
 using SmartMarket.Service.Services.Customer;
 using SmartMarket.Service.Services.Expence;
 using SmartMarket.Service.Services.Order;
+using SmartMarket.Service.Services.Partner;
 using SmartMarket.Service.Services.Positions;
 using SmartMarket.Service.Services.Salary;
 using SmartMarket.Service.Services.SalaryCheck;
@@ -58,6 +61,7 @@ builder.Services.AddScoped<ISalaryCheckService, SalaryCheckService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IExpenceService, ExpenceService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IPartnerService, PartnerService>();
 
 builder.Services.AddAutoMapper(typeof(MapperProfile));
 
@@ -68,6 +72,7 @@ builder.Services.AddScoped<IValidator<AddSalaryCheckDto>, SalaryCheckValidator>(
 builder.Services.AddScoped<IValidator<AddCustomerDto>, CustomerValidator>();
 builder.Services.AddScoped<IValidator<AddExpenceDto>, ExpenceValidator>();
 builder.Services.AddScoped<IValidator<AddOrderDto>, OrderValidator>();
+builder.Services.AddScoped<IValidator<AddPartnerDto>, PartnerValidator>();
 
 var app = builder.Build();
 
