@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace SmartMarket.Service.DTOs.PayDesks;
 
-namespace SmartMarket.Service.DTOs.PayDesks
+public class AddPayDesksDto
 {
-    internal class AddPayDesksDto
-    {
-    }
+    public string Name { get; set; } = string.Empty;
 }
