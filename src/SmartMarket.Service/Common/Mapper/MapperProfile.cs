@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
 using SmartMarket.Domain.Entities.Categories;
+using SmartMarket.Domain.Entities.Customers;
 using SmartMarket.Domain.Entities.Workers;
 using SmartMarket.Service.DTOs.Category;
+using SmartMarket.Service.DTOs.Customer;
 using SmartMarket.Service.DTOs.Position;
 using SmartMarket.Service.DTOs.Salary;
+using SmartMarket.Service.DTOs.SalaryCheck;
 using SmartMarket.Service.DTOs.Workers;
 
 namespace SmartMarket.Service.Common.Mapper;
@@ -40,5 +43,19 @@ public class MapperProfile : Profile
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
 
         CreateMap<Salary, SalaryDto>();
+
+        /*-------SalaryCheck----------*/
+
+        CreateMap<AddSalaryCheckDto, SalaryCheck>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<SalaryCheck, SalaryCheckDto>();
+
+        /*--------Customer-----------------*/
+
+        CreateMap<AddCustomerDto, Customer>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<Customer, CustomerDto>();
     }
 }
