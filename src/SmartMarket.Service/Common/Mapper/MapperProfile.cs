@@ -2,10 +2,12 @@
 using SmartMarket.Domain.Entities.Categories;
 using SmartMarket.Domain.Entities.Customers;
 using SmartMarket.Domain.Entities.Expenses;
+using SmartMarket.Domain.Entities.Orders;
 using SmartMarket.Domain.Entities.Workers;
 using SmartMarket.Service.DTOs.Category;
 using SmartMarket.Service.DTOs.Customer;
 using SmartMarket.Service.DTOs.Expence;
+using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Position;
 using SmartMarket.Service.DTOs.Salary;
 using SmartMarket.Service.DTOs.SalaryCheck;
@@ -66,5 +68,12 @@ public class MapperProfile : Profile
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
 
         CreateMap<Expense, ExpenceDto>();
+
+        /*---------Order-----------------*/
+        CreateMap<AddOrderDto, Order>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<Order, OrderDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
     }
 }
