@@ -1,0 +1,201 @@
+﻿<Page x:Class="SmartMarket.Desktop.Pages.ExpensesForPage.ExpenseListPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ExpensesForPage"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ExpenseListPage">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="35"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border
+              Grid.Row="0"
+              Margin="0"
+              BorderBrush="Black"
+              CornerRadius="5 5 0 0"
+              BorderThickness="1"
+              Background="#A49B9B"
+              >
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Text="Harajatlar"
+                           VerticalAlignment="Center"
+                           Margin="15 0 0 0"
+                           FontSize="20"
+                           FontWeight="DemiBold"
+                           ></TextBlock>
+
+                <DockPanel Grid.Column="1">
+                    <TextBlock Text="Dan:"
+                               VerticalAlignment="Center"
+                               FontSize="18"
+                               Foreground="White"
+                               ></TextBlock>
+                    <Border Margin="5 5 15 5"
+                            Background="White"
+                            CornerRadius="5"
+                            >
+                        <DatePicker
+               
+                               VerticalAlignment="Center"
+                               Margin="10 0 0 0"
+                               FontSize="18"
+                               BorderThickness="0"
+                               ></DatePicker>
+                    </Border>
+                </DockPanel>
+
+
+                <DockPanel Grid.Column="2">
+                    <TextBlock Text="gacha:"
+                               VerticalAlignment="Center"
+                               FontSize="18"
+                               Foreground="White"
+                               ></TextBlock>
+                    <Border Margin="5 5 15 5"
+                            Background="White"
+                            CornerRadius="5"
+                            >
+                        <DatePicker
+                              Text="20/08/2024"
+                              VerticalAlignment="Center"
+                              Margin="10 0 0 0"
+                              FontSize="18"
+                              BorderThickness="0"
+                              ></DatePicker>
+                    </Border>
+                </DockPanel>
+
+                <DockPanel Grid.Column="3">
+                    <TextBlock Text="Sotuvchi:"
+                               VerticalAlignment="Center"
+                               FontSize="18"
+                               Foreground="White"
+                               ></TextBlock>
+                    <Border Margin="5 5 15 5"
+                            Background="White"
+                            CornerRadius="5"
+                            >
+                        <TextBox
+                               Text="Azizjon"
+                               VerticalAlignment="Center"
+                               Margin="10 0 0 0"
+                               FontSize="18"
+                               BorderThickness="0"
+                               ></TextBox>
+                    </Border>
+                </DockPanel>
+
+                <Border Grid.Column="4"
+                        Margin="10 5"
+                        CornerRadius="5"
+                        Background="White"
+                        >
+                    <DockPanel>
+                        <md:PackIcon Kind="Search"
+                         VerticalAlignment="Center"
+                         Margin="5 0 0 0"
+                         ></md:PackIcon>
+                        <TextBox
+                              VerticalAlignment="Center"
+                              Margin="5 0 0 5"
+                              BorderThickness="0"
+                              FontWeight="SemiBold"
+                              Padding="0 2 0 0"
+                              ></TextBox>
+                    </DockPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <Grid
+            Grid.Row="1"
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="2.2*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="1.5*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock
+                Grid.Column="0"
+                Text="No"
+                VerticalAlignment="Center"
+                FontSize="15"
+                FontWeight="SemiBold"
+                Margin="10 0 0 0"
+                ></TextBlock>
+
+            <TextBlock
+                Grid.Column="1"
+                Text="Harajat sababi"
+                VerticalAlignment="Center"
+                FontSize="15"
+                FontWeight="SemiBold"
+                ></TextBlock>
+            <TextBlock
+                Grid.Column="2"
+                Text="Harajat summasi"
+                VerticalAlignment="Center"
+                FontSize="15"
+                FontWeight="SemiBold"
+                ></TextBlock>
+
+            <TextBlock
+                Grid.Column="3"
+                Text="Turi"
+                VerticalAlignment="Center"
+                FontSize="15"
+                FontWeight="SemiBold"
+                ></TextBlock>
+
+            <TextBlock
+                Grid.Column="4"
+                Text="Qayerdan"
+                VerticalAlignment="Center"
+                FontSize="15"
+                FontWeight="SemiBold"
+                ></TextBlock>
+
+            <TextBlock
+                Grid.Column="5"
+                Text="Pul beruvchi"
+                FontSize="15"
+                FontWeight="SemiBold"
+                VerticalAlignment="Center"
+                ></TextBlock>
+            
+        </Grid>
+
+        <Border
+            Grid.Row="2"
+            >
+            <ScrollViewer>
+                <StackPanel x:Name="St_Expenses">
+                    
+                    
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+        
+    </Grid>
+</Page>

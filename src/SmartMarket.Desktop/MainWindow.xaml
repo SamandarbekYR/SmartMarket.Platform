@@ -11,7 +11,8 @@
         ResizeMode="NoResize"
         AllowsTransparency="True"
         WindowState="Maximized"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        >
     <Grid>
 
         <Grid.RowDefinitions>
@@ -52,8 +53,8 @@
                 ></RadioButton>
 
             <RadioButton  
-                x:Name="btnShopDetails"
-                Click="btnShopDetails_Click"
+                x:Name="btnSaleDetails"
+                Click="btnSaleDetails_Click"
                 Grid.Column="2"
                 Content="Sotuv tafsilotlari"
                 Style="{DynamicResource MenuButton2}"
@@ -70,6 +71,8 @@
                 ></RadioButton>
 
             <RadioButton  
+                x:Name="btnPartners"
+                Click="btnPartners_Click"
                 Grid.Column="4"
                 Content="Hamkorlarim"
                 Style="{DynamicResource MenuButton2}"
@@ -77,6 +80,8 @@
                 ></RadioButton>
 
             <RadioButton  
+                x:Name="btnAccountSettings"
+                Click="btnAccountSettings_Click"
                 Grid.Column="5"
                 Content="Account sozlamalar"
                 Style="{DynamicResource MenuButton2}"
@@ -84,6 +89,8 @@
                 ></RadioButton>
 
             <RadioButton  
+                x:Name="btnShopDetails"
+                Click="btnShopDetails_Click"
                 Grid.Column="6"
                 Content="Do'kon tafsilotlari"
                 Style="{DynamicResource MenuButton2}"

@@ -13,21 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SmartMarket.Desktop.Pages.SaleForPage
+namespace SmartMarket.Desktop.Pages.ExpensesForPage
 {
     /// <summary>
-    /// Interaction logic for SalePage.xaml
+    /// Interaction logic for RunningOutOfProductsPage.xaml
     /// </summary>
-    public partial class SalePage : Page
+    public partial class RunningOutOfProductsPage : Page
     {
-        public SalePage()
+        public RunningOutOfProductsPage()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

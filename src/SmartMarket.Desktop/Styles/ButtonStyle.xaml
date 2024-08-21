@@ -464,6 +464,9 @@
     <!-- End PaymentTypeWindow  Button Style -->
 
 
+    
+    
+    
 
 
     <!-- Begin SaleForPage for  Button Style -->
@@ -992,11 +995,14 @@
 
 
     <!-- End SaleForPage for  Button Style -->
+    
+    
+    
 
 
 
 
-    <!-- End ShopDetailsPage for  Button Style -->
+    <!-- begin ShopDetailsPage for  Button Style -->
 
 
     <Style x:Key="SaleMenuButton" TargetType="{x:Type RadioButton}">
@@ -1111,6 +1117,405 @@
     
     
     <!-- End ShopDetailsPage for  Button Style -->
+
+    
+    
+    
+
+    <!-- Begin Partners page for style -->
+
+    <Style x:Key="btnPartnerDebt" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border 
+                        x:Name="B"
+                        Margin="5 2"
+                        CornerRadius="5"
+                        Background="#C60C0C"
+                        >
+                        <Image 
+                             
+                             Source="pack://application:,,,/Assets/debt.png" >
+
+                        </Image>
+
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#960909"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#960909"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="btnPartnerDebtList" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border 
+                        x:Name="B"
+                     Margin="5 2"
+                     CornerRadius="5"
+                     Background="#D9B122"
+                     >
+
+                        <md:PackIcon Kind="ListBox"
+                                     x:Name="I"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     Width="30"
+                                     Height="30"
+                                     />
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#917717"/>
+                            <Setter TargetName="I"  Property="Foreground" Value="#B9B9B9"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#917717"/>
+                            <Setter TargetName="I"  Property="Foreground" Value="#B9B9B9"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <!-- End Partners page for style -->
+    
+    
+    
+    
+    
+
+
+    <!-- Begin Account Settings page for style-->
+
+
+    <Style x:Key="btnAddAccount" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="B"
+                        Background="Red"
+                        Margin="150 5 10 5"
+                        CornerRadius="5"
+                        HorizontalAlignment="Right"
+                        >
+                        <md:PackIcon Kind="Plus"
+                                     x:Name="I"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     Width="50" Height="30"
+                                     Foreground="White"
+                                     ></md:PackIcon>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="White"/>
+                            <Setter TargetName="I" Property="Foreground" Value="Red"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="White"/>
+                            <Setter TargetName="I" Property="Foreground" Value="Red"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- End Account Settings page for style-->
+
+    <!-- Begin Expenses page for style -->
+
+
+    <Style x:Key="ExpensesMenuButton" TargetType="{x:Type RadioButton}">
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Margin" Value="10 2 10 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Border x:Name="B" CornerRadius="8" BorderThickness="1" BorderBrush="Black">
+                        <Grid>
+
+                            <Border
+                    CornerRadius="8"
+                    x:Name="IconPath" >
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="0"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image
+                                        x:Name="I"
+                                        Width="30"
+                                        Height="30"
+                                        Margin="5 0 0 0"
+                                        VerticalAlignment="Center"
+                                Source="pack://application:,,,/Assets/Expenses.png" >
+                                        
+                                   </Image>
+
+                                    <TextBlock 
+                            Grid.Column="2"
+                            x:Name="Label"
+                            FontSize="{TemplateBinding FontSize}"
+                            Text="{TemplateBinding Content}"
+                            FontFamily="Arial"
+                            Foreground="{DynamicResource BorderColor}"
+                            FontWeight="SemiBold"
+                            VerticalAlignment="Center" TextWrapping="Wrap"
+                            
+                                        Margin="10 0 0 0"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="B" Property="Background" Value="Transparent"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="IconPath" Property="Background" Value="{DynamicResource FourthColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="IconPath" Property="Background" Value="{DynamicResource TheerdColor}"/>
+                            <Setter TargetName="Label" Property="Foreground" Value="{DynamicResource LabelColor}"/>
+                          
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+
+    <Style x:Key="AllProductMenuButton" TargetType="{x:Type RadioButton}">
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Margin" Value="10 2 10 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Border x:Name="B" CornerRadius="8" BorderThickness="1" BorderBrush="Black">
+                        <Grid>
+
+                            <Border
+                CornerRadius="8"
+                x:Name="IconPath" >
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="0"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image
+                                    x:Name="I"
+                                    Width="30"
+                                    Height="30"
+                                    Margin="5 0 0 0"
+                                    VerticalAlignment="Center"
+                            Source="pack://application:,,,/Assets/all_product.png" >
+
+                                    </Image>
+
+                                    <TextBlock 
+                        Grid.Column="2"
+                        x:Name="Label"
+                        FontSize="{TemplateBinding FontSize}"
+                        Text="{TemplateBinding Content}"
+                        FontFamily="Arial"
+                        Foreground="{DynamicResource BorderColor}"
+                        FontWeight="SemiBold"
+                        VerticalAlignment="Center" TextWrapping="Wrap"
+                        
+                                    Margin="10 0 0 0"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="B" Property="Background" Value="Transparent"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="IconPath" Property="Background" Value="{DynamicResource FourthColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="IconPath" Property="Background" Value="{DynamicResource TheerdColor}"/>
+                            <Setter TargetName="Label" Property="Foreground" Value="{DynamicResource LabelColor}"/>
+
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+
+
+    <Style x:Key="GetCargoMenuButton" TargetType="{x:Type RadioButton}">
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Margin" Value="10 2 10 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Border x:Name="B" CornerRadius="8" BorderThickness="1" BorderBrush="Black">
+                        <Grid>
+
+                            <Border
+                CornerRadius="8"
+                x:Name="IconPath" >
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="0"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image
+                                    x:Name="I"
+                                    Width="30"
+                                    Height="30"
+                                    Margin="5 0 0 0"
+                                    VerticalAlignment="Center"
+                            Source="pack://application:,,,/Assets/Cargo.png" >
+
+                                    </Image>
+
+                                    <TextBlock 
+                        Grid.Column="2"
+                        x:Name="Label"
+                        FontSize="{TemplateBinding FontSize}"
+                        Text="{TemplateBinding Content}"
+                        FontFamily="Arial"
+                        Foreground="{DynamicResource BorderColor}"
+                        FontWeight="SemiBold"
+                        VerticalAlignment="Center" TextWrapping="Wrap"
+                        
+                                    Margin="10 0 0 0"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="B" Property="Background" Value="Transparent"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="IconPath" Property="Background" Value="{DynamicResource FourthColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="IconPath" Property="Background" Value="{DynamicResource TheerdColor}"/>
+                            <Setter TargetName="Label" Property="Foreground" Value="{DynamicResource LabelColor}"/>
+
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style x:Key="LittleProductMenuButton" TargetType="{x:Type RadioButton}">
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Margin" Value="10 2 10 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Border x:Name="B" CornerRadius="8" BorderThickness="1" BorderBrush="Black">
+                        <Grid>
+
+                            <Border
+             CornerRadius="8"
+             x:Name="IconPath" >
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="0"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image
+                                 x:Name="I"
+                                 Width="30"
+                                 Height="30"
+                                 Margin="5 0 0 0"
+                                 VerticalAlignment="Center"
+                         Source="pack://application:,,,/Assets/LittlePro.png" >
+
+                                    </Image>
+
+                                    <TextBlock 
+                     Grid.Column="2"
+                     x:Name="Label"
+                     FontSize="{TemplateBinding FontSize}"
+                     Text="{TemplateBinding Content}"
+                     FontFamily="Arial"
+                     Foreground="{DynamicResource BorderColor}"
+                     FontWeight="SemiBold"
+                     VerticalAlignment="Center" TextWrapping="Wrap"
+                     
+                                 Margin="10 0 0 0"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="B" Property="Background" Value="Transparent"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="IconPath" Property="Background" Value="{DynamicResource FourthColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="IconPath" Property="Background" Value="{DynamicResource TheerdColor}"/>
+                            <Setter TargetName="Label" Property="Foreground" Value="{DynamicResource LabelColor}"/>
+
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <!-- End Expenses page for style -->
 
 
 </ResourceDictionary>

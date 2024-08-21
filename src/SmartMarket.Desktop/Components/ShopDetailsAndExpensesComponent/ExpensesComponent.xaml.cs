@@ -13,21 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SmartMarket.Desktop.Pages.SaleForPage
+namespace SmartMarket.Desktop.Components.ShopDetailsAndExpensesComponent
 {
     /// <summary>
-    /// Interaction logic for SalePage.xaml
+    /// Interaction logic for ExpensesComponent.xaml
     /// </summary>
-    public partial class SalePage : Page
+    public partial class ExpensesComponent : UserControl
     {
-        public SalePage()
+        public ExpensesComponent()
         {
             InitializeComponent();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
