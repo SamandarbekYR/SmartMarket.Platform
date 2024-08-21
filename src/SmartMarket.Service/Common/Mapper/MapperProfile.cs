@@ -3,6 +3,7 @@ using SmartMarket.Domain.Entities.Categories;
 using SmartMarket.Domain.Entities.Workers;
 using SmartMarket.Service.DTOs.Category;
 using SmartMarket.Service.DTOs.Position;
+using SmartMarket.Service.DTOs.Salary;
 using SmartMarket.Service.DTOs.Workers;
 
 namespace SmartMarket.Service.Common.Mapper;
@@ -33,6 +34,11 @@ public class MapperProfile : Profile
         CreateMap<Position, PositionDto>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
 
+        /*--------Salary---------------*/
 
+        CreateMap<AddSalaryDto, Salary>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<Salary, SalaryDto>();
     }
 }
