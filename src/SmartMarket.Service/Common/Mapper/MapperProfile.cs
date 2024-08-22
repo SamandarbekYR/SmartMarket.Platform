@@ -11,6 +11,7 @@ using SmartMarket.Domain.Entities.Transactions;
 using SmartMarket.Domain.Entities.Workers;
 using SmartMarket.Service.DTOs.Category;
 using SmartMarket.Service.DTOs.ContrAgent;
+using SmartMarket.Service.DTOs.ContrAgentPayment;
 using SmartMarket.Service.DTOs.Customer;
 using SmartMarket.Service.DTOs.Debtors;
 using SmartMarket.Service.DTOs.DebtPayment;
@@ -19,6 +20,7 @@ using SmartMarket.Service.DTOs.InvalidProduct;
 using SmartMarket.Service.DTOs.LoadReport;
 using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Partner;
+using SmartMarket.Service.DTOs.PartnerCompany;
 using SmartMarket.Service.DTOs.PayDesks;
 using SmartMarket.Service.DTOs.Position;
 using SmartMarket.Service.DTOs.Product;
@@ -200,6 +202,20 @@ public class MapperProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.Ignore());
 
         CreateMap<ContrAgent, ContrAgentDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------ContrAgentPayment-----------------*/
+        CreateMap<AddContrAgentPaymentDto, ContrAgentPayment>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<ContrAgentPayment, ContrAgentPaymentDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------PartnerCompany-----------------*/
+        CreateMap<AddPartnerCompanyDto, PartnerCompany>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<PartnerCompany, PartnerCompanyDto>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
     }
 }
