@@ -5,9 +5,11 @@ using SmartMarket.Domain.Entities.Expenses;
 using SmartMarket.Domain.Entities.Orders;
 using SmartMarket.Domain.Entities.Partners;
 using SmartMarket.Domain.Entities.PayDesks;
+using SmartMarket.Domain.Entities.Products;
 using SmartMarket.Domain.Entities.Workers;
 using SmartMarket.Service.DTOs.Category;
 using SmartMarket.Service.DTOs.Customer;
+using SmartMarket.Service.DTOs.DebtPayment;
 using SmartMarket.Service.DTOs.Expence;
 using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Partner;
@@ -92,6 +94,13 @@ public class MapperProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.Ignore());
 
         CreateMap<PayDesk, PayDesksDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------DebtPayment-----------------*/
+        CreateMap<AddDebtPaymentDto, DebtPayment>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<DebtPayment, DebtPaymentDto>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
     }
 }
