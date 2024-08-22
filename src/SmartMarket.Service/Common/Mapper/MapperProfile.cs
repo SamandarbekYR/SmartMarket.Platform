@@ -6,6 +6,7 @@ using SmartMarket.Domain.Entities.Orders;
 using SmartMarket.Domain.Entities.Partners;
 using SmartMarket.Domain.Entities.PayDesks;
 using SmartMarket.Domain.Entities.Products;
+using SmartMarket.Domain.Entities.Transactions;
 using SmartMarket.Domain.Entities.Workers;
 using SmartMarket.Service.DTOs.Category;
 using SmartMarket.Service.DTOs.Customer;
@@ -24,6 +25,7 @@ using SmartMarket.Service.DTOs.ProductSale;
 using SmartMarket.Service.DTOs.ReplaceProduct;
 using SmartMarket.Service.DTOs.Salary;
 using SmartMarket.Service.DTOs.SalaryCheck;
+using SmartMarket.Service.DTOs.Transaction;
 using SmartMarket.Service.DTOs.Workers;
 
 namespace SmartMarket.Service.Common.Mapper;
@@ -158,6 +160,13 @@ public class MapperProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.Ignore());
 
         CreateMap<ReplaceProduct, ReplaceProductDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------Transaction-----------------*/
+        CreateMap<AddTransactionDto, Transaction>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<Transaction, TransactionDto>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
     }
 }
