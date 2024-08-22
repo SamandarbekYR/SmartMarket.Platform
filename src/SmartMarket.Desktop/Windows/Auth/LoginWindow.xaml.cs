@@ -31,12 +31,36 @@ namespace SmartMarket.Desktop.Windows.Auth
 
         private void btnLogin_MouseUp(object sender, MouseButtonEventArgs e)
         {
-
+            
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+
+
+
+
+        private void btnVisible_Click(object sender, RoutedEventArgs e)
+        {
+            string password = pbPassword.Password;
+            tbPassword.Text = password;
+            tbPassword.Visibility = Visibility.Visible;
+            pbPassword.Visibility = Visibility.Collapsed;
+            btnVisible.Visibility = Visibility.Collapsed;
+            btnDisVisible.Visibility = Visibility.Visible;
+        }
+
+        private void btnDisVisible_Click(object sender, RoutedEventArgs e)
+        {
+            string password = tbPassword.Text;
+            pbPassword.Password = password;
+            tbPassword.Visibility = Visibility.Collapsed;
+            pbPassword.Visibility = Visibility.Visible;
+            btnVisible.Visibility = Visibility.Visible;
+            btnDisVisible.Visibility = Visibility.Collapsed;
         }
     }
 }

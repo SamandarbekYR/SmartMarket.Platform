@@ -85,63 +85,76 @@
 
             <TextBlock Grid.Column="0" Text="N%"
                        VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       
+                       FontSize="15"
+                       FontWeight="SemiBold"
+                       Margin="5 0 0 0"
                        ></TextBlock>
             <TextBlock Grid.Column="1"
                        Text="P-Code"
                        VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
+                       FontSize="15"
+                       FontWeight="SemiBold"
                        ></TextBlock>
             <TextBlock Grid.Column="2"
                        Text="Barcode"
                        VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
+                      FontSize="15"
+                       FontWeight="SemiBold"
                        ></TextBlock>
             <TextBlock Grid.Column="3"
                        Text="Mahsulot Nomi"
                        VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
+                       FontSize="15"
+                       FontWeight="SemiBold"
                        ></TextBlock>
             <TextBlock Grid.Column="4"
                        Text="Kategoriya"
                        VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
+                       FontSize="15"
+                       FontWeight="SemiBold"
                        ></TextBlock>
             <TextBlock Grid.Column="5"
                        Text="Ishchi"
                        VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
+                       FontSize="15"
+                       FontWeight="SemiBold"
                        ></TextBlock>
             <TextBlock Grid.Column="6"
                        Text="Tan Narxi"
                        VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       Margin="0 0 15 0"
+                       
+                       FontSize="15"
+                       FontWeight="SemiBold"
+                       
                        ></TextBlock>
             <TextBlock Grid.Column="7"
                        Text="Soni"
                        VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
+                       FontSize="15"
+                       FontWeight="SemiBold"
                        Margin="0 0 15 0"
                        ></TextBlock>
             <TextBlock Grid.Column="8"
                        Text="Jami Summa"
                        VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
+                       
+                       FontSize="15"
+                       FontWeight="SemiBold"
                        Margin="0 0 15 0"
                        ></TextBlock>
             <TextBlock Grid.Column="9"
                        Text="O'lchov"
                        VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
+                      FontSize="15"
+                       FontWeight="SemiBold"
                        Margin="0 0 15 0"
                        ></TextBlock>
             <TextBlock Grid.Column="10"
                        Text="Sotuv Narxi"
                        VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       Margin="0 0 15 0"
+                       FontSize="15"
+                       FontWeight="SemiBold"
+                    
                        ></TextBlock>
 
         </Grid>
