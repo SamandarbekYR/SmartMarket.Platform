@@ -9,8 +9,11 @@ using SmartMarket.Domain.Entities.Products;
 using SmartMarket.Domain.Entities.Workers;
 using SmartMarket.Service.DTOs.Category;
 using SmartMarket.Service.DTOs.Customer;
+using SmartMarket.Service.DTOs.Debtors;
 using SmartMarket.Service.DTOs.DebtPayment;
 using SmartMarket.Service.DTOs.Expence;
+using SmartMarket.Service.DTOs.InvalidProduct;
+using SmartMarket.Service.DTOs.LoadReport;
 using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Partner;
 using SmartMarket.Service.DTOs.PayDesks;
@@ -101,6 +104,27 @@ public class MapperProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.Ignore());
 
         CreateMap<DebtPayment, DebtPaymentDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------Debtors-----------------*/
+        CreateMap<AddDebtorsDto, Debtors>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<Debtors, DebtorsDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------InvalidProduct-----------------*/
+        CreateMap<AddInvalidProductDto, InvalidProduct>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<InvalidProduct, InvalidProductDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------LoadReport-----------------*/
+        CreateMap<AddLoadReportDto, LoadReport>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<LoadReport, LoadReportDto>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
     }
 }
