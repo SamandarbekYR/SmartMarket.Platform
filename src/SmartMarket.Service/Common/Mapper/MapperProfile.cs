@@ -18,6 +18,10 @@ using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Partner;
 using SmartMarket.Service.DTOs.PayDesks;
 using SmartMarket.Service.DTOs.Position;
+using SmartMarket.Service.DTOs.Product;
+using SmartMarket.Service.DTOs.ProductImage;
+using SmartMarket.Service.DTOs.ProductSale;
+using SmartMarket.Service.DTOs.ReplaceProduct;
 using SmartMarket.Service.DTOs.Salary;
 using SmartMarket.Service.DTOs.SalaryCheck;
 using SmartMarket.Service.DTOs.Workers;
@@ -125,6 +129,35 @@ public class MapperProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.Ignore());
 
         CreateMap<LoadReport, LoadReportDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------Product-----------------*/
+        CreateMap<AddProductDto, Product>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<Product, ProductDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------ProductImage-----------------*/
+        //ozgarishligi mumkin
+        CreateMap<AddProductImageDto, ProductImage>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<ProductImage, ProductImageDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------ProductSale-----------------*/
+        CreateMap<AddProductSaleDto, ProductSale>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<ProductSale, ProductSaleDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------ReplaceProduct-----------------*/
+        CreateMap<AddReplaceProductDto, ReplaceProduct>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<ReplaceProduct, ReplaceProductDto>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
     }
 }

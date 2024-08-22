@@ -15,6 +15,9 @@ using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Partner;
 using SmartMarket.Service.DTOs.PayDesks;
 using SmartMarket.Service.DTOs.Position;
+using SmartMarket.Service.DTOs.Product;
+using SmartMarket.Service.DTOs.ProductSale;
+using SmartMarket.Service.DTOs.ReplaceProduct;
 using SmartMarket.Service.DTOs.Salary;
 using SmartMarket.Service.DTOs.SalaryCheck;
 using SmartMarket.Service.Interfaces.Category;
@@ -28,6 +31,9 @@ using SmartMarket.Service.Interfaces.Order;
 using SmartMarket.Service.Interfaces.Partner;
 using SmartMarket.Service.Interfaces.PayDesks;
 using SmartMarket.Service.Interfaces.Positions;
+using SmartMarket.Service.Interfaces.Product;
+using SmartMarket.Service.Interfaces.ProductSale;
+using SmartMarket.Service.Interfaces.ReplaceProduct;
 using SmartMarket.Service.Interfaces.Salary;
 using SmartMarket.Service.Interfaces.SalaryCheck;
 using SmartMarket.Service.Services.Category;
@@ -41,6 +47,9 @@ using SmartMarket.Service.Services.Order;
 using SmartMarket.Service.Services.Partner;
 using SmartMarket.Service.Services.PayDesks;
 using SmartMarket.Service.Services.Positions;
+using SmartMarket.Service.Services.Product;
+using SmartMarket.Service.Services.ProductSale;
+using SmartMarket.Service.Services.ReplaceProduct;
 using SmartMarket.Service.Services.Salary;
 using SmartMarket.Service.Services.SalaryCheck;
 using SmartMarket.WebApi.Configurations;
@@ -82,6 +91,9 @@ builder.Services.AddScoped<IDebtPaymentService, DebtPaymentService>();
 builder.Services.AddScoped<IDebtorsService, DebtorsService>();
 builder.Services.AddScoped<IInvalidProductService, InvalidProductService>();
 builder.Services.AddScoped<ILoadReportService, LoadReportService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductSaleService, ProductSaleService>();
+builder.Services.AddScoped<IReplaceProductService, ReplaceProductService>();
 
 builder.Services.AddAutoMapper(typeof(MapperProfile));
 
@@ -98,6 +110,9 @@ builder.Services.AddScoped<IValidator<AddDebtPaymentDto>, DebtPaymentValidator>(
 builder.Services.AddScoped<IValidator<AddDebtorsDto>, DebtorValidator>();
 builder.Services.AddScoped<IValidator<AddInvalidProductDto>, InvalidProductValidator>();
 builder.Services.AddScoped<IValidator<AddLoadReportDto>, LoadReportValidator>();
+builder.Services.AddScoped<IValidator<AddProductDto>, ProductValidator>();
+builder.Services.AddScoped<IValidator<AddProductSaleDto>, ProductSaleValidator>();
+builder.Services.AddScoped<IValidator<AddReplaceProductDto>, ReplaceProductValidator>();
 
 var app = builder.Build();
 
