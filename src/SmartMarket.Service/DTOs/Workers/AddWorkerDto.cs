@@ -1,6 +1,6 @@
 ﻿namespace SmartMarket.Service.DTOs.Workers;
 
-public class AddWrokerDto
+public class AddWorkerDto
 {
     public Guid PositionId { get; set; }
     public Guid WorkerRoleId { get; set; }

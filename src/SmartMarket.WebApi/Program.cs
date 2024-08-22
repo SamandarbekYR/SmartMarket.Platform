@@ -5,6 +5,7 @@ using SmartMarket.DataAccess.Repositories;
 using SmartMarket.Service.Common.Mapper;
 using SmartMarket.Service.Common.Validators;
 using SmartMarket.Service.DTOs.Category;
+using SmartMarket.Service.DTOs.ContrAgent;
 using SmartMarket.Service.DTOs.Customer;
 using SmartMarket.Service.DTOs.Debtors;
 using SmartMarket.Service.DTOs.DebtPayment;
@@ -22,7 +23,10 @@ using SmartMarket.Service.DTOs.Salary;
 using SmartMarket.Service.DTOs.SalaryCheck;
 using SmartMarket.Service.DTOs.SalaryWorker;
 using SmartMarket.Service.DTOs.Transaction;
+using SmartMarket.Service.DTOs.WorkerDebt;
+using SmartMarket.Service.DTOs.WorkerRole;
 using SmartMarket.Service.Interfaces.Category;
+using SmartMarket.Service.Interfaces.ContrAgent;
 using SmartMarket.Service.Interfaces.Customer;
 using SmartMarket.Service.Interfaces.Debtor;
 using SmartMarket.Service.Interfaces.DebtPayment;
@@ -40,7 +44,10 @@ using SmartMarket.Service.Interfaces.Salary;
 using SmartMarket.Service.Interfaces.SalaryCheck;
 using SmartMarket.Service.Interfaces.SalaryWorker;
 using SmartMarket.Service.Interfaces.Transaction;
+using SmartMarket.Service.Interfaces.WorkerDebt;
+using SmartMarket.Service.Interfaces.WorkerRole;
 using SmartMarket.Service.Services.Category;
+using SmartMarket.Service.Services.ContrAgent;
 using SmartMarket.Service.Services.Customer;
 using SmartMarket.Service.Services.Debtors;
 using SmartMarket.Service.Services.DebtPayment;
@@ -58,6 +65,8 @@ using SmartMarket.Service.Services.Salary;
 using SmartMarket.Service.Services.SalaryCheck;
 using SmartMarket.Service.Services.SalaryWorker;
 using SmartMarket.Service.Services.Transaction;
+using SmartMarket.Service.Services.WorkerDebt;
+using SmartMarket.Service.Services.WorkerRole;
 using SmartMarket.WebApi.Configurations;
 using SmartMarket.WebApi.Extensions;
 using SmartMarket.WebApi.Middlewares;
@@ -102,6 +111,9 @@ builder.Services.AddScoped<IProductSaleService, ProductSaleService>();
 builder.Services.AddScoped<IReplaceProductService, ReplaceProductService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<ISalaryWorkerService, SalaryWorkerService>();
+builder.Services.AddScoped<IWorkerDebtService, WorkerDebtService>();
+builder.Services.AddScoped<IWorkerRoleService, WorkerRoleService>();
+builder.Services.AddScoped<IContrAgentService, ContrAgentService>();
 
 builder.Services.AddAutoMapper(typeof(MapperProfile));
 
@@ -123,6 +135,9 @@ builder.Services.AddScoped<IValidator<AddProductSaleDto>, ProductSaleValidator>(
 builder.Services.AddScoped<IValidator<AddReplaceProductDto>, ReplaceProductValidator>();
 builder.Services.AddScoped<IValidator<AddTransactionDto>, TransactionValidator>();
 builder.Services.AddScoped<IValidator<AddSalaryWorkerDto>, SalaryWorkerValidator>();
+builder.Services.AddScoped<IValidator<AddWorkerDebtDto>, WorkerDebtValidator>();
+builder.Services.AddScoped<IValidator<AddWorkerRoleDto>, WorkerRoleValidator>();
+builder.Services.AddScoped<IValidator<AddContrAgentDto>, ContrAgentValidator>();
 
 var app = builder.Build();
 

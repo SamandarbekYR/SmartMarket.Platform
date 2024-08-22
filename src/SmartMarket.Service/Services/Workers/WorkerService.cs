@@ -5,7 +5,7 @@ namespace SmartMarket.Service.Services.Workers;
 
 public class WorkerService : IWorkerService
 {
-    public Task<bool> AddAsync(AddWrokerDto dto)
+    public Task<bool> AddAsync(AddWorkerDto dto)
     {
         throw new NotImplementedException();
     }
@@ -20,7 +20,7 @@ public class WorkerService : IWorkerService
         throw new NotImplementedException();
     }
 
-    public Task<bool> UpdateAsync(AddWrokerDto dto, Guid Id)
+    public Task<bool> UpdateAsync(AddWorkerDto dto, Guid Id)
     {
         throw new NotImplementedException();
     }

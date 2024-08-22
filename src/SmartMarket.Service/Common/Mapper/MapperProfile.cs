@@ -4,11 +4,13 @@ using SmartMarket.Domain.Entities.Customers;
 using SmartMarket.Domain.Entities.Expenses;
 using SmartMarket.Domain.Entities.Orders;
 using SmartMarket.Domain.Entities.Partners;
+using SmartMarket.Domain.Entities.PartnersCompany;
 using SmartMarket.Domain.Entities.PayDesks;
 using SmartMarket.Domain.Entities.Products;
 using SmartMarket.Domain.Entities.Transactions;
 using SmartMarket.Domain.Entities.Workers;
 using SmartMarket.Service.DTOs.Category;
+using SmartMarket.Service.DTOs.ContrAgent;
 using SmartMarket.Service.DTOs.Customer;
 using SmartMarket.Service.DTOs.Debtors;
 using SmartMarket.Service.DTOs.DebtPayment;
@@ -27,6 +29,8 @@ using SmartMarket.Service.DTOs.Salary;
 using SmartMarket.Service.DTOs.SalaryCheck;
 using SmartMarket.Service.DTOs.SalaryWorker;
 using SmartMarket.Service.DTOs.Transaction;
+using SmartMarket.Service.DTOs.WorkerDebt;
+using SmartMarket.Service.DTOs.WorkerRole;
 using SmartMarket.Service.DTOs.Workers;
 
 namespace SmartMarket.Service.Common.Mapper;
@@ -42,7 +46,7 @@ public class MapperProfile : Profile
 
         /*-------------Worker----------*/
 
-        CreateMap<AddWrokerDto, Worker>()
+        CreateMap<AddWorkerDto, Worker>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore()) 
                 .ForMember(dest => dest.PasswordSalt, opt => opt.Ignore()) 
                 .ForMember(dest => dest.PasswordHash, opt => opt.Ignore());
@@ -175,6 +179,27 @@ public class MapperProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.Ignore());
 
         CreateMap<SalaryWorker, SalaryWorkerDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------WorkerDebt-----------------*/
+        CreateMap<AddWorkerDebtDto, WorkerDebt>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<WorkerDebt, WorkerDebtDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------WorkerRole-----------------*/
+        CreateMap<AddWorkerRoleDto, WorkerRole>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<WorkerRole, WorkerRoleDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------ContrAgent-----------------*/
+        CreateMap<AddContrAgentDto, ContrAgent>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<ContrAgent, ContrAgentDto>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
     }
 }
