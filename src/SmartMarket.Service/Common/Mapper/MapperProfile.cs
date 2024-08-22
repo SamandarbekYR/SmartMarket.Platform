@@ -4,17 +4,35 @@ using SmartMarket.Domain.Entities.Customers;
 using SmartMarket.Domain.Entities.Expenses;
 using SmartMarket.Domain.Entities.Orders;
 using SmartMarket.Domain.Entities.Partners;
+using SmartMarket.Domain.Entities.PartnersCompany;
 using SmartMarket.Domain.Entities.PayDesks;
+using SmartMarket.Domain.Entities.Products;
+using SmartMarket.Domain.Entities.Transactions;
 using SmartMarket.Domain.Entities.Workers;
 using SmartMarket.Service.DTOs.Category;
+using SmartMarket.Service.DTOs.ContrAgent;
+using SmartMarket.Service.DTOs.ContrAgentPayment;
 using SmartMarket.Service.DTOs.Customer;
+using SmartMarket.Service.DTOs.Debtors;
+using SmartMarket.Service.DTOs.DebtPayment;
 using SmartMarket.Service.DTOs.Expence;
+using SmartMarket.Service.DTOs.InvalidProduct;
+using SmartMarket.Service.DTOs.LoadReport;
 using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Partner;
+using SmartMarket.Service.DTOs.PartnerCompany;
 using SmartMarket.Service.DTOs.PayDesks;
 using SmartMarket.Service.DTOs.Position;
+using SmartMarket.Service.DTOs.Product;
+using SmartMarket.Service.DTOs.ProductImage;
+using SmartMarket.Service.DTOs.ProductSale;
+using SmartMarket.Service.DTOs.ReplaceProduct;
 using SmartMarket.Service.DTOs.Salary;
 using SmartMarket.Service.DTOs.SalaryCheck;
+using SmartMarket.Service.DTOs.SalaryWorker;
+using SmartMarket.Service.DTOs.Transaction;
+using SmartMarket.Service.DTOs.WorkerDebt;
+using SmartMarket.Service.DTOs.WorkerRole;
 using SmartMarket.Service.DTOs.Workers;
 
 namespace SmartMarket.Service.Common.Mapper;
@@ -30,7 +48,7 @@ public class MapperProfile : Profile
 
         /*-------------Worker----------*/
 
-        CreateMap<AddWrokerDto, Worker>()
+        CreateMap<AddWorkerDto, Worker>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore()) 
                 .ForMember(dest => dest.PasswordSalt, opt => opt.Ignore()) 
                 .ForMember(dest => dest.PasswordHash, opt => opt.Ignore());
@@ -92,6 +110,112 @@ public class MapperProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.Ignore());
 
         CreateMap<PayDesk, PayDesksDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------DebtPayment-----------------*/
+        CreateMap<AddDebtPaymentDto, DebtPayment>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<DebtPayment, DebtPaymentDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------Debtors-----------------*/
+        CreateMap<AddDebtorsDto, Debtors>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<Debtors, DebtorsDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------InvalidProduct-----------------*/
+        CreateMap<AddInvalidProductDto, InvalidProduct>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<InvalidProduct, InvalidProductDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------LoadReport-----------------*/
+        CreateMap<AddLoadReportDto, LoadReport>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<LoadReport, LoadReportDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------Product-----------------*/
+        CreateMap<AddProductDto, Product>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<Product, ProductDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------ProductImage-----------------*/
+        //ozgarishligi mumkin
+        CreateMap<AddProductImageDto, ProductImage>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<ProductImage, ProductImageDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------ProductSale-----------------*/
+        CreateMap<AddProductSaleDto, ProductSale>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<ProductSale, ProductSaleDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------ReplaceProduct-----------------*/
+        CreateMap<AddReplaceProductDto, ReplaceProduct>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<ReplaceProduct, ReplaceProductDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------Transaction-----------------*/
+        CreateMap<AddTransactionDto, Transaction>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<Transaction, TransactionDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------SalaryWorker-----------------*/
+        CreateMap<AddSalaryWorkerDto, SalaryWorker>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<SalaryWorker, SalaryWorkerDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------WorkerDebt-----------------*/
+        CreateMap<AddWorkerDebtDto, WorkerDebt>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<WorkerDebt, WorkerDebtDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------WorkerRole-----------------*/
+        CreateMap<AddWorkerRoleDto, WorkerRole>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<WorkerRole, WorkerRoleDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------ContrAgent-----------------*/
+        CreateMap<AddContrAgentDto, ContrAgent>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<ContrAgent, ContrAgentDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------ContrAgentPayment-----------------*/
+        CreateMap<AddContrAgentPaymentDto, ContrAgentPayment>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<ContrAgentPayment, ContrAgentPaymentDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------PartnerCompany-----------------*/
+        CreateMap<AddPartnerCompanyDto, PartnerCompany>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<PartnerCompany, PartnerCompanyDto>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
     }
 }

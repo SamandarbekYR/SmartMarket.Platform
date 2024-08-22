@@ -3,7 +3,7 @@ using SmartMarket.Service.DTOs.Workers;
 
 namespace SmartMarket.Service.Common.Validators;
 
-public class WorkerValidator : AbstractValidator<AddWrokerDto>
+public class WorkerValidator : AbstractValidator<AddWorkerDto>
 {
     public WorkerValidator()
     {
