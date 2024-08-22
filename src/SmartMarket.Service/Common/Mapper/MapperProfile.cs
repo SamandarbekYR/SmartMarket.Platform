@@ -25,6 +25,7 @@ using SmartMarket.Service.DTOs.ProductSale;
 using SmartMarket.Service.DTOs.ReplaceProduct;
 using SmartMarket.Service.DTOs.Salary;
 using SmartMarket.Service.DTOs.SalaryCheck;
+using SmartMarket.Service.DTOs.SalaryWorker;
 using SmartMarket.Service.DTOs.Transaction;
 using SmartMarket.Service.DTOs.Workers;
 
@@ -167,6 +168,13 @@ public class MapperProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.Ignore());
 
         CreateMap<Transaction, TransactionDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------SalaryWorker-----------------*/
+        CreateMap<AddSalaryWorkerDto, SalaryWorker>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+
+        CreateMap<SalaryWorker, SalaryWorkerDto>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
     }
 }

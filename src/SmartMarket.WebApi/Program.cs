@@ -20,6 +20,7 @@ using SmartMarket.Service.DTOs.ProductSale;
 using SmartMarket.Service.DTOs.ReplaceProduct;
 using SmartMarket.Service.DTOs.Salary;
 using SmartMarket.Service.DTOs.SalaryCheck;
+using SmartMarket.Service.DTOs.SalaryWorker;
 using SmartMarket.Service.DTOs.Transaction;
 using SmartMarket.Service.Interfaces.Category;
 using SmartMarket.Service.Interfaces.Customer;
@@ -37,6 +38,7 @@ using SmartMarket.Service.Interfaces.ProductSale;
 using SmartMarket.Service.Interfaces.ReplaceProduct;
 using SmartMarket.Service.Interfaces.Salary;
 using SmartMarket.Service.Interfaces.SalaryCheck;
+using SmartMarket.Service.Interfaces.SalaryWorker;
 using SmartMarket.Service.Interfaces.Transaction;
 using SmartMarket.Service.Services.Category;
 using SmartMarket.Service.Services.Customer;
@@ -54,6 +56,7 @@ using SmartMarket.Service.Services.ProductSale;
 using SmartMarket.Service.Services.ReplaceProduct;
 using SmartMarket.Service.Services.Salary;
 using SmartMarket.Service.Services.SalaryCheck;
+using SmartMarket.Service.Services.SalaryWorker;
 using SmartMarket.Service.Services.Transaction;
 using SmartMarket.WebApi.Configurations;
 using SmartMarket.WebApi.Extensions;
@@ -98,6 +101,7 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IProductSaleService, ProductSaleService>();
 builder.Services.AddScoped<IReplaceProductService, ReplaceProductService>();
 builder.Services.AddScoped<ITransactionService, TransactionService>();
+builder.Services.AddScoped<ISalaryWorkerService, SalaryWorkerService>();
 
 builder.Services.AddAutoMapper(typeof(MapperProfile));
 
@@ -118,6 +122,7 @@ builder.Services.AddScoped<IValidator<AddProductDto>, ProductValidator>();
 builder.Services.AddScoped<IValidator<AddProductSaleDto>, ProductSaleValidator>();
 builder.Services.AddScoped<IValidator<AddReplaceProductDto>, ReplaceProductValidator>();
 builder.Services.AddScoped<IValidator<AddTransactionDto>, TransactionValidator>();
+builder.Services.AddScoped<IValidator<AddSalaryWorkerDto>, SalaryWorkerValidator>();
 
 var app = builder.Build();
 
