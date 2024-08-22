@@ -17,6 +17,8 @@ using SmartMarket.Desktop.Pages.PartnerForPage;
 using SmartMarket.Desktop.Pages.AccountSettingsForPage;
 using SmartMarket.Desktop.Windows.Auth;
 using SmartMarket.Desktop.Pages.ExpensesForPage;
+using SmartMarket.Desktop.Pages.CashReportForPage;
+using SmartMarket.Desktop.Pages.SettingsForPage;
 
 namespace SmartMarket.Desktop
 {
@@ -78,5 +80,24 @@ namespace SmartMarket.Desktop
             ExpensesPage expensesPage=new ExpensesPage();
             PageNavigator.Content = expensesPage;
         }
+
+        private void btnCashReport_Click(object sender, RoutedEventArgs e)
+        {
+            CashReportPage cashReportPage=new CashReportPage();
+            PageNavigator.Content = cashReportPage;
+        }
+
+        private void tbsettings_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsPage settingsPage =new SettingsPage();
+            PageNavigator.Content= settingsPage;
+        }
+
+      //  private void Window_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    this.Visibility = Visibility.Collapsed;
+        //    LoginWindow loginWindow = new LoginWindow();
+        //    loginWindow.ShowDialog();
+      //  }
     }
 }

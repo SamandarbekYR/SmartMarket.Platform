@@ -12,6 +12,7 @@
     <None Remove="Assets\all_product.png" />
     <None Remove="Assets\Cargo.png" />
     <None Remove="Assets\Cargo_car.png" />
+    <None Remove="Assets\checkout.png" />
     <None Remove="Assets\debt.png" />
     <None Remove="Assets\Expenses.png" />
     <None Remove="Assets\LittlePro.png" />
@@ -21,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MaterialDesignColors" Version="3.1.0" />
     <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
   </ItemGroup>
 
@@ -28,6 +30,7 @@
     <Resource Include="Assets\all_product.png" />
     <Resource Include="Assets\Cargo.png" />
     <Resource Include="Assets\Cargo_car.png" />
+    <Resource Include="Assets\checkout.png" />
     <Resource Include="Assets\debt.png" />
     <Resource Include="Assets\Expenses.png" />
     <Resource Include="Assets\LittlePro.png" />

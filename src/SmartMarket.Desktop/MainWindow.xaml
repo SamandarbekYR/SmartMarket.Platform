@@ -12,6 +12,7 @@
         AllowsTransparency="True"
         WindowState="Maximized"
         Title="MainWindow" Height="450" Width="800"
+        
         >
     <Grid>
 
@@ -98,13 +99,17 @@
                 ></RadioButton>
 
             <RadioButton  
-               Grid.Column="7"
+                x:Name="btnCashReport"
+                Click="btnCashReport_Click"
+                Grid.Column="7"
                 Content="Kassa hisoboit"
                Style="{DynamicResource MenuButton2}"
                Tag="{StaticResource Kassa}"
                ></RadioButton>
 
             <RadioButton  
+                x:Name="tbsettings"
+                Click="tbsettings_Click"
                Grid.Column="8"
                 Content="Sozlamar"
                Style="{DynamicResource MenuButton2}"

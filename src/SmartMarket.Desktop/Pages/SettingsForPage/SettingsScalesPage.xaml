@@ -1,0 +1,110 @@
+﻿<Page x:Class="SmartMarket.Desktop.Pages.SettingsForPage.SettingsScalesPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.SettingsForPage"
+      mc:Ignorable="d" 
+      d:DesignHeight="640" d:DesignWidth="1024"
+      Title="SettingsScalesPage">
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border
+            CornerRadius="5"
+            Background="#A59C9C"
+            >
+            <TextBlock
+                Text="Tarozi sozlamalari"
+                VerticalAlignment="Center"
+                FontSize="25"
+                FontWeight="DemiBold"
+                Margin="15 0 0 0"
+                ></TextBlock>
+        </Border>
+
+        <Grid
+            Grid.Row="1"
+            >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3.5*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+
+            <StackPanel Grid.Column="1">
+                <StackPanel
+                Margin="0 30 0 500 "
+                Grid.Column="1"
+                >
+                <DockPanel>
+                    <TextBlock
+                    Text="Tarozi 1"
+                    FontSize="30"
+                    FontWeight="SemiBold"
+                    ></TextBlock>
+                    <Border
+                        Width="550"
+                        Margin="5 0 0 0"
+                        Height="40"
+                        CornerRadius="3"
+                        BorderThickness="1"
+                        BorderBrush="Black"
+                        >
+                        <DockPanel>
+                            <Button
+                                Style="{DynamicResource SettingsScale}"
+                                ></Button>
+                        </DockPanel>
+                    </Border>
+                    <Button
+                           Style="{DynamicResource btnSettingsScale}"
+                           Content="O'chirish"
+                           FontSize="20"
+                           ></Button>
+                </DockPanel>
+
+
+                <DockPanel Margin="0 20 0 0">
+                    <TextBlock
+                           Text="Tarozi 1"
+                           FontSize="30"
+                           FontWeight="SemiBold"
+                           ></TextBlock>
+                    <Border
+                           Width="550"
+                           Margin="5 0 0 0"
+                           Height="40"
+                           CornerRadius="3"
+                           BorderThickness="1"
+                           BorderBrush="Black"
+                           >
+                        <DockPanel>
+                            <Button
+                                Style="{DynamicResource SettingsScale}"
+                                ></Button>
+                        </DockPanel>
+                    </Border>
+                    <Button
+                             Style="{DynamicResource btnSettingsScale}"
+                             Content="O'chirish"
+                             FontSize="20"
+                             ></Button>
+                </DockPanel>
+
+               
+            </StackPanel>
+                <Button
+                    Content="Qo'shish"
+                    FontSize="20"
+                    Style="{DynamicResource btnAddSettingsScale}"></Button>
+            </StackPanel>
+        </Grid>
+        
+    </Grid>
+</Page>

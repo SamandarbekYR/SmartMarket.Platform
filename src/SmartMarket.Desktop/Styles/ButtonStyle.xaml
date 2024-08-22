@@ -1518,4 +1518,385 @@
     <!-- End Expenses page for style -->
 
 
+    <!-- Begin CashReport Page for style  -->
+
+
+    <Style x:Key="CashReportMenuButton" TargetType="{x:Type RadioButton}">
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Margin" Value="10 2 10 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Border x:Name="B" CornerRadius="8" BorderThickness="1" BorderBrush="Black">
+                        <Grid>
+
+                            <Border
+             CornerRadius="8"
+             x:Name="IconPath" >
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="0"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image
+                                 x:Name="I"
+                                 Width="30"
+                                 Height="30"
+                                 Margin="5 0 0 0"
+                                 VerticalAlignment="Center"
+                         Source="pack://application:,,,/Assets/checkout.png" >
+
+                                    </Image>
+
+                                    <TextBlock 
+                     Grid.Column="2"
+                     x:Name="Label"
+                     FontSize="{TemplateBinding FontSize}"
+                     Text="{TemplateBinding Content}"
+                     FontFamily="Arial"
+                     Foreground="{DynamicResource BorderColor}"
+                     FontWeight="SemiBold"
+                     VerticalAlignment="Center" TextWrapping="Wrap"
+                     
+                                 Margin="10 0 0 0"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="B" Property="Background" Value="Transparent"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="IconPath" Property="Background" Value="{DynamicResource FourthColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="IconPath" Property="Background" Value="{DynamicResource TheerdColor}"/>
+                            <Setter TargetName="Label" Property="Foreground" Value="{DynamicResource LabelColor}"/>
+
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <!-- End CashReport Page for style -->
+
+    <!-- Begin Settings Page for style -->
+
+    <Style x:Key="SettingsPrinterMenuButton" TargetType="{x:Type RadioButton}">
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Margin" Value="10 2 10 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Border x:Name="B" CornerRadius="8" BorderThickness="1" BorderBrush="Black">
+                        <Grid>
+
+                            <Border
+         CornerRadius="8"
+         x:Name="IconPath" >
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="0"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <md:PackIcon Kind="Printer"
+                                                 VerticalAlignment="Center"
+                                                 HorizontalAlignment="Center"
+                                                 Width="30"
+                                                 Height="30"
+                                                 x:Name="I"
+                                                 ></md:PackIcon>
+                                    <TextBlock 
+                 Grid.Column="2"
+                 x:Name="Label"
+                 FontSize="{TemplateBinding FontSize}"
+                 Text="{TemplateBinding Content}"
+                 FontFamily="Arial"
+                 Foreground="{DynamicResource BorderColor}"
+                 FontWeight="SemiBold"
+                 VerticalAlignment="Center" TextWrapping="Wrap"
+                 
+                             Margin="10 0 0 0"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="B" Property="Background" Value="Transparent"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="IconPath" Property="Background" Value="{DynamicResource FourthColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="IconPath" Property="Background" Value="{DynamicResource TheerdColor}"/>
+                            <Setter TargetName="Label" Property="Foreground" Value="{DynamicResource LabelColor}"/>
+
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style x:Key="SettingsScalesMenuButton" TargetType="{x:Type RadioButton}">
+        <Setter Property="Height" Value="50"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Top"/>
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="Margin" Value="10 2 10 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RadioButton}">
+                    <Border x:Name="B" CornerRadius="8" BorderThickness="1" BorderBrush="Black">
+                        <Grid>
+
+                            <Border
+         CornerRadius="8"
+         x:Name="IconPath" >
+                                <Grid >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="0"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <md:PackIcon Kind="ScaleUnbalanced"
+                                                 VerticalAlignment="Center"
+                                                 HorizontalAlignment="Center"
+                                                 Width="30"
+                                                 Height="30"
+                                                 ></md:PackIcon>
+                                    <TextBlock 
+                 Grid.Column="2"
+                 x:Name="Label"
+                 FontSize="{TemplateBinding FontSize}"
+                 Text="{TemplateBinding Content}"
+                 FontFamily="Arial"
+                 Foreground="{DynamicResource BorderColor}"
+                 FontWeight="SemiBold"
+                 VerticalAlignment="Center" TextWrapping="Wrap"
+                 
+                             Margin="10 0 0 0"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="B" Property="Background" Value="Transparent"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="IconPath" Property="Background" Value="{DynamicResource FourthColor}"/>
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="IconPath" Property="Background" Value="{DynamicResource TheerdColor}"/>
+                            <Setter TargetName="Label" Property="Foreground" Value="{DynamicResource LabelColor}"/>
+
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+
+    <Style x:Key="btnSettingsScale" TargetType="Button">
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Width" Value="150"/>
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border 
+                        CornerRadius="3"
+                        Background="Red"
+                        x:Name="B"
+                        >
+                        <DockPanel>
+                            <md:PackIcon Kind="Delete"
+                                         x:Name="I"
+                                         VerticalAlignment="Center"
+                                         Width="30"
+                                         Height="30"
+                                         Margin="5 0 0 0"
+                                         Foreground="White"
+                                         ></md:PackIcon>
+                            <Label
+                                x:Name="L"
+                                Content="{TemplateBinding Content}"
+                                FontSize="{TemplateBinding FontSize}"
+                                VerticalAlignment="Center"
+                                Foreground="White"
+                                FontWeight="SemiBold"
+                                ></Label>
+                        </DockPanel>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="White"/>
+                            <Setter TargetName="I" Property="Foreground" Value="Red"/>
+                            <Setter TargetName="L" Property="Foreground" Value="Red"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="White"/>
+                            <Setter TargetName="I" Property="Foreground" Value="Red"/>
+                            <Setter TargetName="L" Property="Foreground" Value="Red"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style x:Key="SettingsScale" TargetType="Button">
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        Background="Transparent"
+                        BorderThickness="0"
+                        >
+                        <md:PackIcon Kind="DotsVertical"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     Width="25"
+                                     Height="25"
+                                     ></md:PackIcon>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style x:Key="btnAddSettingsScale" TargetType="Button">
+        <Setter Property="Width" Value="150"/>
+        <Setter Property="Height" Value="35"/>
+       
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="Margin" Value="0 0 10 10"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="B"
+                     Background="#0AB1F9"
+                     BorderThickness="0"
+                       CornerRadius="5"
+                     >
+                        <Label
+                            x:Name="L"
+                            Content="{TemplateBinding Content}"
+                            FontSize="{TemplateBinding FontSize}"
+                            Foreground="White"
+                            FontWeight="SemiBold"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            ></Label>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="White"/>
+                            <Setter TargetName="L" Property="Foreground" Value="#0AB1F9"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="White"/>
+                            <Setter TargetName="L" Property="Foreground" Value="#0AB1F9"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <!--END SettingsPage for style -->
+
+
+
+    <!--Begin Login window for style -->
+
+
+    <Style x:Key="btnLoginEyeVisible" TargetType="Button">
+        <Setter Property="Width" Value="25"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        Background="Transparent"
+                        BorderThickness="0"
+                        >
+                        <md:PackIcon Kind="EyeOutline"
+                                     Width="20"
+                                     Height="20"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     ></md:PackIcon>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="btnLoginEyeDisVisible" TargetType="Button">
+        <Setter Property="Width" Value="25"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                    Background="Transparent"
+                    BorderThickness="0"
+                    >
+                        <md:PackIcon Kind="EyeOffOutline"
+                                 Width="20"
+                                 Height="20"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Center"
+                                 ></md:PackIcon>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!--End login window for style -->
+
+
 </ResourceDictionary>
