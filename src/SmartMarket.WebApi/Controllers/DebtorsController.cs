@@ -4,7 +4,7 @@ using SmartMarket.Service.Interfaces.Debtor;
 
 namespace SmartMarket.WebApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/debtors")]
 [ApiController]
 public class DebtorsController(IDebtorsService debtorsService) : ControllerBase
 {

@@ -6,7 +6,7 @@ using SmartMarket.Service.Interfaces.SalaryWorker;
 
 namespace SmartMarket.WebApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/salary-workers")]
 [ApiController]
 public class SalaryWorkersController(ISalaryWorkerService salaryWorkerService) : ControllerBase
 {

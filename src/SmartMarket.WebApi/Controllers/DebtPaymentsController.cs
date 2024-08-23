@@ -6,7 +6,7 @@ using SmartMarket.Service.Interfaces.DebtPayment;
 
 namespace SmartMarket.WebApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/debt-payments")]
 [ApiController]
 public class DebtPaymentsController(IDebtPaymentService debtPaymentService) : ControllerBase
 {

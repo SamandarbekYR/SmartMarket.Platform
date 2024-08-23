@@ -4,7 +4,7 @@ using SmartMarket.Service.Interfaces.ContrAgent;
 
 namespace SmartMarket.WebApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/contr-agents")]
 [ApiController]
 public class ContrAgentsController(IContrAgentService contrAgentService) : ControllerBase
 {

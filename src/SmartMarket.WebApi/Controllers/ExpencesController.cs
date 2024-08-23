@@ -6,7 +6,7 @@ using SmartMarket.Service.Interfaces.Expence;
 
 namespace SmartMarket.WebApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/expences")]
 [ApiController]
 public class ExpencesController(IExpenceService expenceService) : ControllerBase
 {
