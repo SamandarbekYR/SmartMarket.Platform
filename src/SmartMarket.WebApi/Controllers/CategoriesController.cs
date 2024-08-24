@@ -8,7 +8,7 @@ using SmartMarket.Service.Services.Category;
 namespace SmartMarket.WebApi.Controllers;
 
 //[AllowAnonymous]
-[Route("api/[controller]")]
+[Route("api/categories")]
 [ApiController]
 public class CategoriesController : ControllerBase
 {

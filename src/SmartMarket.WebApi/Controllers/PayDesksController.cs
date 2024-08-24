@@ -6,7 +6,7 @@ using SmartMarket.Service.Interfaces.PayDesks;
 
 namespace SmartMarket.WebApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/pay-desks")]
 [ApiController]
 public class PayDesksController(IPayDeskService payDeskService) : ControllerBase
 {

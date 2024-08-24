@@ -6,7 +6,7 @@ using SmartMarket.Service.Interfaces.ReplaceProduct;
 
 namespace SmartMarket.WebApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/replace-products")]
 [ApiController]
 public class ReplaceProductsController(IReplaceProductService replaceProductService) : ControllerBase
 {

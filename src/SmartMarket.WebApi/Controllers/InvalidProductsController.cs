@@ -6,7 +6,7 @@ using SmartMarket.Service.Interfaces.InvalidProduct;
 
 namespace SmartMarket.WebApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/invalid-products")]
 [ApiController]
 public class InvalidProductsController(IInvalidProductService invalidProductService) : ControllerBase
 {

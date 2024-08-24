@@ -6,7 +6,7 @@ using SmartMarket.Service.Interfaces.Transaction;
 
 namespace SmartMarket.WebApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/transactions")]
 [ApiController]
 public class TransactionsController(ITransactionService transactionService) : ControllerBase
 {

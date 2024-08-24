@@ -6,7 +6,7 @@ using SmartMarket.Service.Interfaces.ProductSale;
 
 namespace SmartMarket.WebApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/product-sales")]
 [ApiController]
 public class ProductSalesController(IProductSaleService productSaleService) : ControllerBase
 {

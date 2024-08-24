@@ -6,7 +6,7 @@ using SmartMarket.Service.Interfaces.Customer;
 
 namespace SmartMarket.WebApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/customers")]
 [ApiController]
 public class CustomersController(ICustomerService customerService) : ControllerBase
 {

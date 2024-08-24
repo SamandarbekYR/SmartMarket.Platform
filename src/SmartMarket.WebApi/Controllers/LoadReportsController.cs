@@ -6,7 +6,7 @@ using SmartMarket.Service.Interfaces.LoadReport;
 
 namespace SmartMarket.WebApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/load-reports")]
 [ApiController]
 public class LoadReportsController(ILoadReportService loadReportService) : ControllerBase
 {

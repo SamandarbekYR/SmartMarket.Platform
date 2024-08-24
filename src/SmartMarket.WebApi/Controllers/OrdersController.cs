@@ -6,7 +6,7 @@ using SmartMarket.Service.Interfaces.Order;
 
 namespace SmartMarket.WebApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/orders")]
 [ApiController]
 public class OrdersController(IOrderService orderService) : ControllerBase
 {

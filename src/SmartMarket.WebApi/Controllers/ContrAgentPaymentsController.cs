@@ -4,7 +4,7 @@ using SmartMarket.Service.Interfaces.ContrAgentPayment;
 
 namespace SmartMarket.WebApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/contr-agent-payments")]
 [ApiController]
 public class ContrAgentPaymentsController(IContrAgentPaymentService contrAgentPaymentService) : ControllerBase
 {

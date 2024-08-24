@@ -4,7 +4,7 @@ using SmartMarket.Service.Interfaces.PartnerCompany;
 
 namespace SmartMarket.WebApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/partner-companies")]
 [ApiController]
 public class PartnerCompanysController(IPartnerCompanyService partnerCompanyService) : ControllerBase
 {
