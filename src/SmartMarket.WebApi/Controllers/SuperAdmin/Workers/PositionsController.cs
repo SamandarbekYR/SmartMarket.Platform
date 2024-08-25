@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.DTOs.Position;
 using SmartMarket.Service.Interfaces.Positions;
 
-namespace SmartMarket.WebApi.Controllers;
+namespace SmartMarket.WebApi.Controllers.SuperAdmin.Workers;
 
-[Route("api/positions")]
+[Route("api/super-admin/positions")]
 [ApiController]
-public class PositionsController : ControllerBase
+public class PositionsController : SuperAdminController
 {
     private readonly IPositionService _positionService;
 
@@ -39,7 +39,7 @@ public class PositionsController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] AddPositionDto dto) 
+    public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] AddPositionDto dto)
     {
         await _positionService.UpdateAsync(dto, id);
         return Ok();

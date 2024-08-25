@@ -21,7 +21,7 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity
         await _dbSet.AddAsync(entity);
         int result = await _appDb.SaveChangesAsync();
 
-        return result > 1;
+        return result > 0;
     }
     public  IQueryable<TEntity> GetAll()
     =>  _dbSet.AsQueryable();

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SmartMarket.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class InitalCreate : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,7 @@ namespace SmartMarket.DataAccess.Migrations
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     name = table.Column<string>(type: "text", nullable: false),
                     description = table.Column<string>(type: "text", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -35,7 +35,7 @@ namespace SmartMarket.DataAccess.Migrations
                     phone_number = table.Column<string>(type: "text", nullable: false),
                     phone_Number2 = table.Column<string>(type: "text", nullable: false),
                     adress = table.Column<string>(type: "text", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -52,7 +52,7 @@ namespace SmartMarket.DataAccess.Migrations
                     phone_number = table.Column<string>(type: "text", nullable: false),
                     total_debt = table.Column<double>(type: "double precision", nullable: false),
                     last_payment = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -67,7 +67,7 @@ namespace SmartMarket.DataAccess.Migrations
                     name = table.Column<string>(type: "text", nullable: false),
                     description = table.Column<string>(type: "text", nullable: false),
                     phone_number = table.Column<string>(type: "text", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -82,7 +82,7 @@ namespace SmartMarket.DataAccess.Migrations
                     name = table.Column<string>(type: "text", nullable: false),
                     income = table.Column<double>(type: "double precision", nullable: false),
                     outlay = table.Column<double>(type: "double precision", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -95,7 +95,7 @@ namespace SmartMarket.DataAccess.Migrations
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     name = table.Column<string>(type: "text", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -110,7 +110,7 @@ namespace SmartMarket.DataAccess.Migrations
                     description = table.Column<string>(type: "text", nullable: false),
                     amount = table.Column<double>(type: "double precision", nullable: false),
                     advance = table.Column<double>(type: "double precision", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -127,7 +127,7 @@ namespace SmartMarket.DataAccess.Migrations
                     to = table.Column<string>(type: "text", nullable: false),
                     description = table.Column<string>(type: "text", nullable: false),
                     type_of_payment = table.Column<string>(type: "text", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -140,7 +140,7 @@ namespace SmartMarket.DataAccess.Migrations
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     role_name = table.Column<string>(type: "text", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -156,7 +156,7 @@ namespace SmartMarket.DataAccess.Migrations
                     first_name = table.Column<string>(type: "text", nullable: false),
                     last_name = table.Column<string>(type: "text", nullable: false),
                     phone_number = table.Column<string>(type: "text", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -182,7 +182,7 @@ namespace SmartMarket.DataAccess.Migrations
                     img_path = table.Column<string>(type: "text", nullable: false),
                     password_hash = table.Column<string>(type: "text", nullable: false),
                     password_salt = table.Column<string>(type: "text", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -210,7 +210,7 @@ namespace SmartMarket.DataAccess.Migrations
                     total_debt = table.Column<double>(type: "double precision", nullable: false),
                     total_payment = table.Column<double>(type: "double precision", nullable: false),
                     last_payment_date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -233,7 +233,7 @@ namespace SmartMarket.DataAccess.Migrations
                     reason = table.Column<string>(type: "text", nullable: false),
                     amount = table.Column<double>(type: "double precision", nullable: false),
                     type_of_payment = table.Column<string>(type: "text", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -269,7 +269,7 @@ namespace SmartMarket.DataAccess.Migrations
                     sell_price_persentage = table.Column<int>(type: "integer", nullable: false),
                     unit_of_measure = table.Column<string>(type: "text", nullable: false),
                     payment_status = table.Column<string>(type: "text", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -303,7 +303,7 @@ namespace SmartMarket.DataAccess.Migrations
                     advance_check = table.Column<bool>(type: "boolean", nullable: false),
                     salary_check = table.Column<bool>(type: "boolean", nullable: false),
                     company_debt = table.Column<double>(type: "double precision", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -323,7 +323,7 @@ namespace SmartMarket.DataAccess.Migrations
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     worker_id = table.Column<Guid>(type: "uuid", nullable: false),
                     salary_id = table.Column<Guid>(type: "uuid", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -349,7 +349,7 @@ namespace SmartMarket.DataAccess.Migrations
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     worker_id = table.Column<Guid>(type: "uuid", nullable: false),
                     amount = table.Column<double>(type: "double precision", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -371,7 +371,7 @@ namespace SmartMarket.DataAccess.Migrations
                     product_id = table.Column<Guid>(type: "uuid", nullable: false),
                     description = table.Column<string>(type: "text", nullable: false),
                     debt_sum = table.Column<double>(type: "double precision", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -399,7 +399,7 @@ namespace SmartMarket.DataAccess.Migrations
                     product_id = table.Column<Guid>(type: "uuid", nullable: false),
                     contragent_id = table.Column<Guid>(type: "uuid", nullable: false),
                     total_price = table.Column<double>(type: "double precision", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -433,7 +433,7 @@ namespace SmartMarket.DataAccess.Migrations
                     product_id = table.Column<Guid>(type: "uuid", nullable: false),
                     transaction_number = table.Column<string>(type: "text", nullable: false),
                     count = table.Column<int>(type: "integer", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -459,7 +459,7 @@ namespace SmartMarket.DataAccess.Migrations
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     product_id = table.Column<Guid>(type: "uuid", nullable: false),
                     image_path = table.Column<string>(type: "text", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -488,7 +488,7 @@ namespace SmartMarket.DataAccess.Migrations
                     card_sum = table.Column<string>(type: "text", nullable: false),
                     transfer_money = table.Column<double>(type: "double precision", nullable: false),
                     debt_sum = table.Column<double>(type: "double precision", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -529,7 +529,7 @@ namespace SmartMarket.DataAccess.Migrations
                     payed_sum = table.Column<double>(type: "double precision", nullable: false),
                     remaining_sum = table.Column<double>(type: "double precision", nullable: false),
                     payment_type = table.Column<string>(type: "text", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -550,7 +550,7 @@ namespace SmartMarket.DataAccess.Migrations
                     worker_id = table.Column<Guid>(type: "uuid", nullable: false),
                     product_sale_id = table.Column<Guid>(type: "uuid", nullable: false),
                     return_reason = table.Column<string>(type: "text", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -577,7 +577,7 @@ namespace SmartMarket.DataAccess.Migrations
                     product_sale_id = table.Column<Guid>(type: "uuid", nullable: false),
                     worker_id = table.Column<Guid>(type: "uuid", nullable: false),
                     reason = table.Column<string>(type: "text", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {

@@ -49,10 +49,9 @@ public class MapperProfile : Profile
         /*-------------Worker----------*/
 
         CreateMap<AddWorkerDto, Worker>()
-                .ForMember(dest => dest.Id, opt => opt.Ignore()) 
-                .ForMember(dest => dest.PasswordSalt, opt => opt.Ignore()) 
-                .ForMember(dest => dest.PasswordHash, opt => opt.Ignore());
-
+                .ForMember(dest => dest.Id, opt => opt.Ignore())
+                .ForMember(dest => dest.ImgPath, opt => opt.Ignore());
+   
         CreateMap<Worker, WorkerDto>();
 
         /*---------Position-----------*/
