@@ -5,12 +5,12 @@ using SmartMarket.Service.DTOs.Category;
 using SmartMarket.Service.Interfaces.Category;
 using SmartMarket.Service.Services.Category;
 
-namespace SmartMarket.WebApi.Controllers;
+namespace SmartMarket.WebApi.Controllers.Common.Categories;
 
-//[AllowAnonymous]
+
 [Route("api/categories")]
 [ApiController]
-public class CategoriesController : ControllerBase
+public class CategoriesController : BaseController
 {
     private readonly ICategoryService _categoryService;
 

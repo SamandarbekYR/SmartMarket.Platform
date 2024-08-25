@@ -21,6 +21,7 @@ namespace SmartMarket.WebApi.Extensions
             services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseNpgsql(connection);
+                options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });
         }
     }

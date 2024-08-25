@@ -1,4 +1,6 @@
-﻿namespace SmartMarket.Service.DTOs.Workers;
+﻿using Microsoft.AspNetCore.Http;
+
+namespace SmartMarket.Service.DTOs.Workers;
 
 public class AddWorkerDto
 {
@@ -7,7 +9,7 @@ public class AddWorkerDto
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string PhoneNumber { get; set; } = string.Empty;
-    public string ImgPath { get; set; } = string.Empty;
+    public IFormFile ImgPath { get; set; } 
     public string Password { get; set; } = string.Empty;
 }
 

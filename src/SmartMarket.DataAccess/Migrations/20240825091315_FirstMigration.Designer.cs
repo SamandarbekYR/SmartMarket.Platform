@@ -12,8 +12,8 @@ using SmartMarket.DataAccess.Data;
 namespace SmartMarket.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240811093652_InitalCreate")]
-    partial class InitalCreate
+    [Migration("20240825091315_FirstMigration")]
+    partial class FirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,7 +32,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -63,7 +63,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("text")
                         .HasColumnName("adress");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -103,7 +103,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("double precision")
                         .HasColumnName("amount");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -145,7 +145,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("count");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -178,7 +178,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -221,7 +221,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("company_id");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -258,7 +258,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("contr_agent_id");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -288,7 +288,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -319,7 +319,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -348,7 +348,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -387,7 +387,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -424,7 +424,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -461,7 +461,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("contragent_id");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -512,7 +512,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("count");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -570,7 +570,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -610,7 +610,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("count");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -666,7 +666,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -703,7 +703,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("double precision")
                         .HasColumnName("amount");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -739,7 +739,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -768,7 +768,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("double precision")
                         .HasColumnName("amount");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -797,7 +797,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("double precision")
                         .HasColumnName("company_debt");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -823,7 +823,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -851,7 +851,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -913,7 +913,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("double precision")
                         .HasColumnName("amount");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
@@ -935,7 +935,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<DateTime>("CreatedDate")
+                    b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 

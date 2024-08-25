@@ -89,65 +89,9 @@ builder.Services.AddCustomDbContext(builder.Configuration);
 builder.ConfigureSwaggerAuth();
 builder.ConfigureJwtAuth();
 builder.ConfigureCORSPolicy();
-
-
-/*builder.Services.AddDbContext<AppDbContext>(options =>
-{
-    options.UseNpgsql(builder.Configuration.GetConnectionString("LocalDB"));
-    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-});*/
-
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<IPositionService, PositionService>();
-builder.Services.AddScoped<ISalaryService, SalaryService>();
-builder.Services.AddScoped<ISalaryCheckService, SalaryCheckService>();
-builder.Services.AddScoped<ICustomerService, CustomerService>();
-builder.Services.AddScoped<IExpenceService, ExpenceService>();
-builder.Services.AddScoped<IOrderService, OrderService>();
-builder.Services.AddScoped<IPartnerService, PartnerService>();
-builder.Services.AddScoped<IPayDeskService, PayDeskService>();
-builder.Services.AddScoped<IDebtPaymentService, DebtPaymentService>();
-builder.Services.AddScoped<IDebtorsService, DebtorsService>();
-builder.Services.AddScoped<IInvalidProductService, InvalidProductService>();
-builder.Services.AddScoped<ILoadReportService, LoadReportService>();
-builder.Services.AddScoped<IProductService, ProductService>();
-builder.Services.AddScoped<IProductSaleService, ProductSaleService>();
-builder.Services.AddScoped<IReplaceProductService, ReplaceProductService>();
-builder.Services.AddScoped<ITransactionService, TransactionService>();
-builder.Services.AddScoped<ISalaryWorkerService, SalaryWorkerService>();
-builder.Services.AddScoped<IWorkerDebtService, WorkerDebtService>();
-builder.Services.AddScoped<IWorkerRoleService, WorkerRoleService>();
-builder.Services.AddScoped<IContrAgentService, ContrAgentService>();
-builder.Services.AddScoped<IContrAgentPaymentService, ContrAgentPaymentService>();
-builder.Services.AddScoped<IPartnerCompanyService, PartnerCompanyService>();
-
+builder.ConfigureServiceLayer();
 builder.Services.AddAutoMapper(typeof(MapperProfile));
-
-builder.Services.AddScoped<IValidator<CategoryDto>, CategoryValidator>();
-builder.Services.AddScoped<IValidator<AddPositionDto>, PositionValidator>();
-builder.Services.AddScoped<IValidator<AddSalaryDto>, SalaryValidator>();
-builder.Services.AddScoped<IValidator<AddSalaryCheckDto>, SalaryCheckValidator>();
-builder.Services.AddScoped<IValidator<AddCustomerDto>, CustomerValidator>();
-builder.Services.AddScoped<IValidator<AddExpenceDto>, ExpenceValidator>();
-builder.Services.AddScoped<IValidator<AddOrderDto>, OrderValidator>();
-builder.Services.AddScoped<IValidator<AddPartnerDto>, PartnerValidator>();
-builder.Services.AddScoped<IValidator<AddPayDesksDto>, PayDeskValidator>();
-builder.Services.AddScoped<IValidator<AddDebtPaymentDto>, DebtPaymentValidator>();
-builder.Services.AddScoped<IValidator<AddDebtorsDto>, DebtorValidator>();
-builder.Services.AddScoped<IValidator<AddInvalidProductDto>, InvalidProductValidator>();
-builder.Services.AddScoped<IValidator<AddLoadReportDto>, LoadReportValidator>();
-builder.Services.AddScoped<IValidator<AddProductDto>, ProductValidator>();
-builder.Services.AddScoped<IValidator<AddProductSaleDto>, ProductSaleValidator>();
-builder.Services.AddScoped<IValidator<AddReplaceProductDto>, ReplaceProductValidator>();
-builder.Services.AddScoped<IValidator<AddTransactionDto>, TransactionValidator>();
-builder.Services.AddScoped<IValidator<AddSalaryWorkerDto>, SalaryWorkerValidator>();
-builder.Services.AddScoped<IValidator<AddWorkerDebtDto>, WorkerDebtValidator>();
-builder.Services.AddScoped<IValidator<AddWorkerRoleDto>, WorkerRoleValidator>();
-builder.Services.AddScoped<IValidator<AddContrAgentDto>, ContrAgentValidator>();
-builder.Services.AddScoped<IValidator<AddContrAgentPaymentDto>, ContrAgentPaymentValidator>();
-builder.Services.AddScoped<IValidator<AddPartnerCompanyDto>, PartnerCompanyValidator>();
+builder.ConfigurationValidators();
 
 var app = builder.Build();
 

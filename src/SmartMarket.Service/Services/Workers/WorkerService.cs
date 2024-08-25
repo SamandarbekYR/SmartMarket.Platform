@@ -1,27 +1,72 @@
-﻿using SmartMarket.Service.DTOs.Workers;
+﻿using AutoMapper;
+using FluentValidation;
+using SmartMarket.DataAccess.Interfaces;
+using SmartMarket.Domain.Entities.Workers;
+using SmartMarket.Service.Common.Exceptions;
+using SmartMarket.Service.Common.Security;
+using SmartMarket.Service.DTOs.Workers;
+using SmartMarket.Service.Interfaces.Common;
 using SmartMarket.Service.Interfaces.Workers;
+using System.Net;
 
 namespace SmartMarket.Service.Services.Workers;
 
-public class WorkerService : IWorkerService
+public class WorkerService(IUnitOfWork unitOfWork,
+                           IMapper mapper,
+                           IValidator<AddWorkerDto> validator,
+                           IFileService fileService) : IWorkerService
 {
-    public Task<bool> AddAsync(AddWorkerDto dto)
+    public readonly IMapper _mapper = mapper;
+    public readonly IValidator<AddWorkerDto> _validator = validator;
+    public readonly IUnitOfWork _unitOfWork = unitOfWork;
+    public readonly IFileService _fileService = fileService;
+    private const string ROOT_PATH = "WorkerImages";
+
+    public async Task<bool> AddAsync(AddWorkerDto dto)
     {
-        throw new NotImplementedException();
+        var validationResult = _validator.Validate(dto);
+
+        if (!validationResult.IsValid)
+            throw new ValidationException(validationResult.Errors.First().ErrorMessage);
+
+
+        (string Hash, string Salt) = PasswordHasher.Hash(dto.Password);
+        var imagePath = await _fileService.UploadImageAsync(dto.ImgPath, ROOT_PATH);
+        var worker = _mapper.Map<Worker>(dto);
+        worker.ImgPath = imagePath;
+        worker.PasswordHash = Hash;
+        worker.PasswordSalt = Salt;
+
+        return await _unitOfWork.Worker.Add(worker);
     }
 
-    public Task<bool> DeleteAsync(Guid Id)
+    public async Task<bool> DeleteAsync(Guid Id)
     {
-        throw new NotImplementedException();
+        var worker = await _unitOfWork.Worker.GetById(Id);
+
+        if (worker == null)
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+
+        return await _unitOfWork.Worker.Remove(worker);
     }
 
-    public Task<List<WorkerDto>> GetAllAsync()
-    {
-        throw new NotImplementedException();
-    }
+    public async Task<List<Worker>> GetAllAsync()
+    => await _unitOfWork.Worker.GetWorkersFullInformationAsync();
 
     public Task<bool> UpdateAsync(AddWorkerDto dto, Guid Id)
     {
-        throw new NotImplementedException();
+        var workerId = _unitOfWork.Worker.GetById(Id);
+
+        if (workerId == null)
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found");
+
+        var validationResult = _validator.Validate(dto);
+
+        if (!validationResult.IsValid)
+            throw new ValidationException(validationResult.Errors.First().ErrorMessage);
+
+        var worker = _mapper.Map<Worker>(dto);
+
+        return _unitOfWork.Worker.Update(worker);
     }
 }
