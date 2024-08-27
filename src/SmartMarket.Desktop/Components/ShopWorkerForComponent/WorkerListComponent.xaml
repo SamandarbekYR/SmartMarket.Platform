@@ -11,6 +11,7 @@
         CornerRadius="5"
         BorderThickness="1"
         BorderBrush="Black"
+        Style="{DynamicResource StyleBorder}"
         >
 
         <Grid>

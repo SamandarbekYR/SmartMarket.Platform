@@ -136,7 +136,7 @@
 
     <Style x:Key="btnCategory" TargetType="Button">
        
-        <Setter Property="Margin" Value="5 8"/>
+        <Setter Property="Margin" Value="5 5"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Template">
@@ -714,7 +714,7 @@
                 <ControlTemplate TargetType="Button">
                     <Border 
                         x:Name="B"
-                        Margin="10 5"
+                        Margin="5 3"
                         CornerRadius="5"
                         BorderThickness="1"
                         BorderBrush="Black"
@@ -752,7 +752,7 @@
                 <ControlTemplate TargetType="Button">
                     <Border 
                      x:Name="B"
-                     Margin="10 5"
+                     Margin="5 2"
                      CornerRadius="5"
                      BorderThickness="1"
                      BorderBrush="Black"
@@ -785,12 +785,13 @@
 
 
     <Style x:Key="BtnsaleReturn" TargetType="Button">
+        <Setter Property="Background" Value="White"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border
                         x:Name="B"
-                        Margin="10 5"
+                        Margin="5 5"
                         CornerRadius="5"
                         BorderThickness="1"
                         BorderBrush="Black"
@@ -827,19 +828,11 @@
                         </Grid>
                        
                     </Border>
-                    <!--<ControlTemplate.Triggers>
+                    <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="B" Property="Background" Value="White"/>
-                            <Setter TargetName="I" Property="Foreground" Value="#302D2D"/>
-                            <Setter TargetName="L" Property="Foreground" Value="#302D2D"/>
+                            <Setter TargetName="B" Property="Background" Value="#524D4D"/>
                         </Trigger>
-
-                        <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="B" Property="Background" Value="White"/>
-                            <Setter TargetName="I" Property="Foreground" Value="#302D2D"/>
-                            <Setter TargetName="L" Property="Foreground" Value="#302D2D"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>-->
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -852,7 +845,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border
-                        Margin="10 5"
+                        x:Name="B"
+                        Margin="5 5"
                         CornerRadius="5"
                         BorderThickness="1"
                         BorderBrush="Black"
@@ -876,11 +870,20 @@
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
                                 FontSize="25"
-                                Margin="0 0 10 0"
+                                Margin="0 0 35 0"
+                                FontWeight="Bold"
                                 ></Label>
                         </Grid>
 
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#AD0909"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#AD0909"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -892,7 +895,8 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border
-                     Margin="10 5"
+                        x:Name="B"
+                     Margin="5 5"
                      CornerRadius="5"
                      BorderThickness="1"
                      BorderBrush="Black"
@@ -917,14 +921,22 @@
                              Content="To'lov"
                              Foreground="White"
                              VerticalAlignment="Center"
-                             HorizontalAlignment="Left"
-                                Margin="35 0 0 0 "
+                             HorizontalAlignment="Center"
+                                Margin="0 0 35 0 "
                              FontSize="25"
-                             
+                             FontWeight="Bold"
                              ></Label>
                         </Grid>
 
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#027A0E"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#027A0E"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -949,7 +961,9 @@
                             Content="{TemplateBinding Content}"
                             FontSize="{TemplateBinding FontSize}"
                             HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
+                            VerticalAlignment="Top"
+                            VerticalContentAlignment="Top"
+                            
                             FontWeight="Bold"
                             >
                         </Label>
@@ -976,6 +990,7 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border 
+                        x:Name="B"
                   Margin="10 5"
                   CornerRadius="5"
                   BorderThickness="1"
@@ -983,10 +998,19 @@
                   
                    
                   >
-                        <Image Source="pack://application:,,,/Assets/logout_left.png">
+                        <Image Source="pack://application:,,,/Assets/logout_left.png"
+                               Width="35" Height="30">
 
                         </Image>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#157C9F"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#157C9F"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -1898,5 +1922,86 @@
 
     <!--End login window for style -->
 
+    
+    
+    <!-- Begin ProductsWindow for Style-->
+
+    <Style x:Key="btnClose" TargetType="Button">
+        <Setter Property="Width" Value="30"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        Background="Transparent"
+                        
+                        BorderThickness="0"
+                        >
+                        <md:PackIcon Kind="Close"
+                                     Width="25"
+                                     x:Name="I"
+                                     Height="25"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Center"
+                                     Foreground="White"
+                                     ></md:PackIcon>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter  Property="Foreground" Value="Red"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Foreground" Value="Red"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- End ProductsWindow for Style-->
+
+
+
+    <Style x:Key="BtnSaveAccount" TargetType="Button">
+        
+        <Setter Property="Template" >
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border 
+                     x:Name="B"
+                     Height="40"
+                     Margin="20 0 60 0"
+                     CornerRadius="5"
+                     BorderThickness="1"
+                     BorderBrush="Black"
+                     Background="Green"
+                     >
+                        <Label
+                         x:Name="L"
+                         Content="{TemplateBinding Content}"
+                         FontSize="{TemplateBinding FontSize}"
+                         FontWeight="DemiBold"
+                         VerticalContentAlignment="Center"
+                         HorizontalAlignment="Center"
+                         Foreground="White"
+                         ></Label>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#005400"/>
+                            <Setter  Property="Foreground" Value="White"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#005400"/>
+                            <Setter  Property="Foreground" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
 </ResourceDictionary>

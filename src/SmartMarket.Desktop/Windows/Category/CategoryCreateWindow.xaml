@@ -8,7 +8,10 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
+        AllowsTransparency="True"
+        Background="Transparent"
         Title="CategoryCreateWindow" Height="200" Width="350">
+    
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -32,11 +35,13 @@
                 </Label>
                 <Border Grid.Column="1">
                     <Button HorizontalAlignment="Right"
-         VerticalAlignment="Center" Background="Transparent" BorderBrush="Transparent" Padding="0"
-         Margin="2 2 10 2"
-         Cursor="Hand"
-         Height="25" Width="25"
-          Click="Button_Click">
+                            x:Name="btnClose"
+                            Click="btnClose_Click"
+                            VerticalAlignment="Center" Background="Transparent" BorderBrush="Transparent" Padding="0"
+                            Margin="2 2 10 2"
+                            Cursor="Hand"
+                            Height="25" Width="25"
+                             >
                         <Path Data="{DynamicResource x}"
            Fill="White"
            Stretch="Uniform"/>
@@ -46,6 +51,8 @@
         </Border>
         <Border Grid.Row="1"
              Background="White"
+                BorderBrush="Black"
+                BorderThickness="1 0 1 1"
              CornerRadius="0 0 8 8">
             <StackPanel Margin="15 ">
 

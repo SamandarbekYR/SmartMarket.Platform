@@ -26,7 +26,7 @@ namespace SmartMarket.Desktop.Windows.AccountSettings
 
         private void Border_MouseUp(object sender, MouseButtonEventArgs e)
         {
-
+            this.Close();
         }
     }
 }

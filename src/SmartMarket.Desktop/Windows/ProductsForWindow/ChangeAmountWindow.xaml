@@ -9,20 +9,26 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
         Title="ChangeAmountWindow" Height="150" Width="250">
-    <Grid>
+    <Border Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="5">
+        <Grid>
         <StackPanel>
-            <DockPanel Height="30" Background="#1FB5E5">
+                <Border Height="30" CornerRadius="5 5 0 0" Background="#1FB5E5">
+                    <DockPanel Height="30">
                 <TextBlock FontSize="15"  Text="Xarajatlar" Foreground="White"></TextBlock>
                 <Button x:Name="close_btn" Background="Transparent" BorderThickness="0" Padding="10 0 0 0" HorizontalAlignment="Right">
                     <md:PackIcon VerticalAlignment="Top" Width="25" Height="25" Padding="0 0 0 10" Kind="Close" Foreground="Red"></md:PackIcon>
                 </Button>
             </DockPanel>
+            </Border>
 
 
-            <TextBox x:Name="amount_btn" FontWeight="DemiBold" Text="5"  FontSize="18" TextAlignment="Center" Width="150" Height="30" BorderThickness="1" Margin="20 20 0 2"></TextBox>
+                <TextBox x:Name="amount_btn" FontWeight="DemiBold" Text="5"  FontSize="18" TextAlignment="Center" Width="150" Height="30" BorderThickness="1" Margin="20 20 0 2"></TextBox>
             <Button x:Name="enter_btn" Content="Enter"  FontSize="15" VerticalContentAlignment="Center" Background="#05C21A" Width="150" Height="30" Margin="20 20 0 2"></Button>
 
         </StackPanel>
     </Grid>
+    </Border>
 </Window>

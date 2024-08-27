@@ -9,7 +9,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RunningOutOfProductsPage">
 
-    <Grid Background="White">
+    <Grid Background="#D9D9D9">
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
             <RowDefinition Height="*"/>
@@ -65,6 +65,7 @@
 
         <Border
             Grid.Row="1"
+            Background="White"
             >
             <ScrollViewer>
                 <StackPanel x:Name="St_Products">

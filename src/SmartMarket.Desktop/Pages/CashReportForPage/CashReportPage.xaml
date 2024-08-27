@@ -8,7 +8,7 @@
       d:DesignHeight="640" d:DesignWidth="1024"
       Title="CashReportPage">
 
-    <Grid Background="White">
+    <Grid Background="#D9D9D9">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="5*"/>
@@ -25,9 +25,10 @@
             <Border
                 Grid.Row="0"
                 CornerRadius="5"
-                Margin="3"
+                Margin="5 3"
                 BorderThickness="1"
                 BorderBrush="Black"
+                Background="White"
                 >
                 <Grid Margin="0 20 0 0">
                     <Grid.RowDefinitions>
@@ -56,9 +57,10 @@
             </Border>
 
             <Border
+                Background="White"
                 Grid.Row="1"
                 CornerRadius="5"
-                Margin="3"
+                Margin="5 3"
                 BorderThickness="1"
                 BorderBrush="Black"
                 >

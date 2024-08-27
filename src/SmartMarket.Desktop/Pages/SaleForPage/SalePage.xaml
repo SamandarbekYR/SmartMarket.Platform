@@ -10,7 +10,7 @@
       d:DesignHeight="640" d:DesignWidth="1024"
       Title="SalePage">
 
-    <Grid >
+    <Grid Background="#D9D9D9">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2.5*"/>
@@ -33,7 +33,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Border Grid.Row="0"
-                    Background="#54F9D1"
+                    Background="#04C217"
                     CornerRadius="4 4 0 0">
                         <TextBlock FontSize="20"
                            Text="Jo'natmalar"
@@ -60,7 +60,10 @@
                                 VerticalAlignment="Center"
                                 FontSize="15"
                                 FontWeight="SemiBold"
-                                ></TextBox>
+                              
+                                >
+                               
+                            </TextBox>
                         </DockPanel>
                     </Border>
 
@@ -101,6 +104,7 @@
                             CornerRadius="5"
                             BorderThickness="1"
                             BorderBrush="Black"
+                            Background="White"
                             >
                         <DockPanel>
                             <TextBlock
@@ -131,6 +135,7 @@
                             BorderThickness="1"
                             BorderBrush="Black"
                             Margin="2"
+                            Background="White"
                             >
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -164,6 +169,7 @@
                                         VerticalAlignment="Bottom"
                                         FontSize="17"
                                         FontWeight="SemiBold"
+                                        Margin="5 0 0 0"
                                         ></TextBlock>
                                     <TextBlock
                                         Text="123456789"
@@ -178,6 +184,7 @@
 
                             <Border
                                 Grid.Column="1"
+                               
                                 >
                                 <TextBox
                                     BorderThickness="0"
@@ -187,8 +194,8 @@
                                     TextAlignment="Right"
                                     FontSize="25"
                                     FontWeight="SemiBold"
-                                    Margin="0 0 10 0"
-                                    Height="100">
+                                    Margin="0 3 10 3"
+                                    Height="100" >
                                     
                                 </TextBox>
                             </Border>
@@ -201,6 +208,7 @@
                         BorderBrush="Black"
                         BorderThickness="1"
                         CornerRadius="5"
+                        Background="White"
                         >
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -296,7 +304,8 @@
                             <Border Grid.Column="1"
                                     BorderBrush="Black"
                                     BorderThickness="1 0 0 0"
-                                    CornerRadius="5 0 0 5"
+                                    CornerRadius="5"
+                                    Background="White"
                                     >
                                 <StackPanel>
                                 <Button
@@ -335,6 +344,7 @@
                         BorderThickness="1"
                         Margin="2"
                         CornerRadius="5"
+                        Background="White"
                         >
 
                         <Grid>
@@ -404,6 +414,7 @@
                     Margin="2 5 2 2"
                     BorderThickness="1"
                     BorderBrush="Black"
+                    Background="White"
                     >
                     <Grid>
                         <Grid.RowDefinitions>
@@ -423,11 +434,12 @@
                             BorderBrush="Black"
                             BorderThickness="0 0 0 1"
                             Grid.Column="0"
+                            Background="White"
                             >
                             <DockPanel>
                                 <TextBlock
                                     x:Name="tbDate"
-                                    Text="8.19.2024"
+                                    
                                     VerticalAlignment="Center"
                                     Margin="20 0 0 0"
                                     FontSize="20"
@@ -435,6 +447,7 @@
                                     ></TextBlock>
                                 
                                 <TextBlock
+                                    x:Name="tbhour"
                                     HorizontalAlignment="Right"
                                     Text="1:15:40"
                                     FontWeight="SemiBold"
@@ -447,12 +460,14 @@
 
                         <Border
                             Grid.Row="1"
-                            Margin="2"
+                            Margin="5 2"
                             BorderBrush="Black"
                             BorderThickness="1"
                             CornerRadius="5"
+                            Background="White"
                             >
                             <TextBox
+                                x:Name="tbCalculator"
                                 BorderThickness="0"
                                 VerticalContentAlignment="Center"
                                 TextAlignment="Right"
@@ -462,7 +477,7 @@
                                 ></TextBox>
                         </Border>
 
-                        <Grid
+                        <Grid Background="White"
                             Grid.Row="2" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -471,18 +486,21 @@
                             </Grid.ColumnDefinitions>
 
                             <Button
+                                Click="Button_Click"
                                 Grid.Column="0"
                                 Style="{DynamicResource BtnSaleKlavituria}"
                                 Content="7"
                                 FontSize="35"
                                 ></Button>
                             <Button
+                                Click="Button_Click"
                                 Grid.Column="1"
                                 Style="{DynamicResource BtnSaleKlavituria}"
                                 Content="8"
                                 FontSize="35"
                                 ></Button>
                             <Button
+                                Click="Button_Click"
                                 Grid.Column="2"
                                 Content="9"
                                 Style="{DynamicResource BtnSaleKlavituria}"
@@ -491,7 +509,7 @@
                             
                         </Grid>
 
-                        <Grid Grid.Row="3" >
+                        <Grid Grid.Row="3" Background="White">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
@@ -500,18 +518,21 @@
 
 
                             <Button
+                                Click="Button_Click"
                                    Grid.Column="0"
                                    Style="{DynamicResource BtnSaleKlavituria}"
                                    Content="4"
                                    FontSize="35"
                                    ></Button>
                             <Button
+                                Click="Button_Click"
                                    Grid.Column="1"
                                    Style="{DynamicResource BtnSaleKlavituria}"
                                    Content="5"
                                    FontSize="35"
                                    ></Button>
                             <Button
+                                Click="Button_Click"
                                    Grid.Column="2"
                                    Content="6"
                                    Style="{DynamicResource BtnSaleKlavituria}"
@@ -519,7 +540,7 @@
                                    ></Button>
 
                         </Grid>
-                    <Grid  Grid.Row="4" >
+                    <Grid  Grid.Row="4" Background="White">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
@@ -527,18 +548,21 @@
                         </Grid.ColumnDefinitions>
 
                             <Button
+                                Click="Button_Click"
                                    Grid.Column="0"
                                    Style="{DynamicResource BtnSaleKlavituria}"
                                    Content="1"
                                    FontSize="35"
                                    ></Button>
                             <Button
+                                Click="Button_Click"
                                    Grid.Column="1"
                                    Style="{DynamicResource BtnSaleKlavituria}"
                                    Content="2"
                                    FontSize="35"
                                    ></Button>
                             <Button
+                                Click="Button_Click"
                                    Grid.Column="2"
                                    Content="3"
                                    Style="{DynamicResource BtnSaleKlavituria}"
@@ -546,7 +570,7 @@
                                    ></Button>
 
                         </Grid>
-                    <Grid Grid.Row="5" >
+                    <Grid Grid.Row="5" Background="White" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
@@ -554,6 +578,7 @@
                         </Grid.ColumnDefinitions>
 
                             <Button
+                                Click="Button_Click"
                                    Grid.Column="0"
                                    Style="{DynamicResource BtnSaleKlavituria}"
                                    Content="0"
@@ -566,6 +591,7 @@
                                    FontSize="35"
                                    ></Button>
                             <Button
+                                Click="Button_Click"
                                    Grid.Column="2"
                                    Content="00"
                                    Style="{DynamicResource BtnSaleKlavituria}"
@@ -573,19 +599,23 @@
                                    ></Button>
 
                         </Grid>
-                    <Grid Grid.Row="6" >
+                    <Grid Grid.Row="6" Background="White">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="2*"/>
                             </Grid.ColumnDefinitions>
 
                             <Button
+                                x:Name="btnClear"
+                                Click="btnClear_Click"
                                 Grid.Column="0"
                                 Style="{DynamicResource BtnSaleKlavituria}"
                                 Content="C"
                                 FontSize="35"
                                 ></Button>
                             <Button
+                                x:Name="btnBackKlav"
+                                Click="btnBackKlav_Click"
                                 Grid.Column="1"
                                 Style="{DynamicResource BtnSaleKlBack}"
                               
@@ -595,6 +625,9 @@
                     </Grid>
 
                         <Button
+                            x:Name="btnReturnProduct"
+                            Click="btnReturnProduct_Click"
+                            Background="White"
                             Grid.Row="7"
                             Style="{DynamicResource BtnsaleReturn}"
                             ></Button>
@@ -604,6 +637,8 @@
                             ></Button>
 
                         <Button
+                            x:Name="btnPay"
+                            Click="btnPay_Click"
                             Grid.Row="9"
                             Style="{DynamicResource BtnsalePay}"
                             ></Button>
@@ -614,7 +649,15 @@
 
             </Grid>
 
-            <Grid Grid.Row="1">
+
+            <Border
+                Grid.Row="1" Background="White"
+                BorderBrush="Black"
+                BorderThickness="1"
+                CornerRadius="5"
+                Margin="3"
+                >
+                <Grid>
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -654,6 +697,7 @@
                     ></Button>
                 
             </Grid>
+            </Border>
 
         </Grid>
 

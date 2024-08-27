@@ -8,6 +8,8 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
         Title="AccountUpdateWindow" Height="350" Width="450">
     <Grid >
         <Grid.RowDefinitions>
@@ -15,7 +17,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0"
-             Background="#EAD40A"
+             Background="#008000"
              CornerRadius="8 8 0 0">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -45,7 +47,10 @@
         </Border>
         <Border Grid.Row="1"
              Background="White"
-             CornerRadius="0 0 8 8">
+             CornerRadius="0 0 8 8"
+                BorderThickness="1 0 1 1"
+                BorderBrush="Black"
+                >
             <StackPanel Margin="15 10">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -182,7 +187,7 @@
                               Foreground="#656161"/>
                     </Border>
                 </Grid>
-                <Border Background="#EAD40A"
+                <Border Background="#008000"
                      HorizontalAlignment="Right"
                      Margin="4 10"
                      CornerRadius="5"

@@ -9,7 +9,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AllProductsPage">
 
-    <Grid Background="White">
+    <Grid Background="#D9D9D9">
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
             <RowDefinition Height="35"/>
@@ -64,8 +64,8 @@
         </Border>
 
 
-
-        <Grid Grid.Row="1">
+  
+        <Grid Grid.Row="1" Background="White">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"/>
@@ -160,7 +160,7 @@
         </Grid>
 
         <Border
-            
+            Background="White"
             Grid.Row="2">
             <ScrollViewer>
                 <StackPanel x:Name="St_AllProducts">

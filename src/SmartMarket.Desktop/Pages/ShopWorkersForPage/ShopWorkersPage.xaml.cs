@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Desktop.Components.ShopWorkerForComponent;
+using SmartMarket.Desktop.Windows.AccountSettings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +40,7 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
 
             ShopWorkerAccountComponent shopWorkerAccountComponent = new ShopWorkerAccountComponent();   
             shopWorkerAccountComponent.Tag= this;
-            shopWorkerAccountComponent.SetValues("Sherzod", "Aliyev", "4,000,000", "90 6661132", "300,000", "3,700,000");
+            shopWorkerAccountComponent.SetValues("Sherzod", "Aliyev", "4,000,000", "+998 906661132", "300,000", "3,700,000");
             shopWorkerAccountComponent.BorderThickness=new Thickness(5);
             WorkerAccount.Children.Add(shopWorkerAccountComponent);
         }
@@ -74,5 +75,10 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
             WorkerSoldProductPageNavigator.Content= workerSoldProductPage;
         }
 
+        private void btnAddWorker_Click(object sender, RoutedEventArgs e)
+        {
+            AccountCreateWindow accountCreateWindow = new AccountCreateWindow();    
+            accountCreateWindow.ShowDialog();
+        }
     }
 }

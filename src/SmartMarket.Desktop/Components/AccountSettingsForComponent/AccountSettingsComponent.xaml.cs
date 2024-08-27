@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartMarket.Desktop.Windows.AccountSettings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -33,7 +34,12 @@ namespace SmartMarket.Desktop.Components.AccountSettingsForComponent
 
         private void Border_MouseUp(object sender, MouseButtonEventArgs e)
         {
-
+            AccountUpdateWindow accountUpdateWindow = new AccountUpdateWindow();
+            string[] res = lbName.Text.Split(" ");
+            accountUpdateWindow.txtFirstName.Text = res[0];
+            accountUpdateWindow.txtLastName.Text = res[2];
+            accountUpdateWindow.txtRole.Text=lbRole.Text;
+            accountUpdateWindow.ShowDialog();   
         }
     }
 }
