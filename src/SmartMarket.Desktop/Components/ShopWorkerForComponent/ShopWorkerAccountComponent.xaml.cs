@@ -27,12 +27,12 @@ namespace SmartMarket.Desktop.Components.ShopWorkerForComponent
 
         public void SetValues(string firstname,string lastName,string salary,string phonenumber, string RecivedSum, string RemainingSum)
         {
-            tbFirstName.Text = firstname;
-            tbLastName.Text = lastName;
+            tbFullName.Text = firstname+" "+lastName;
             tbSalary.Text = salary;
-            tbReceivedSum.Text = RecivedSum;
+            tbReceievedSum.Text = RecivedSum;
             tbRemainingSum.Text = RemainingSum;
             tbPhoneNumber.Text=phonenumber;
+            tbPosition.Text = "Sotuvchi";
         }
 
     }

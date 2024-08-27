@@ -9,7 +9,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ExpenseListPage">
 
-    <Grid Background="White">
+    <Grid Background="#D9D9D9">
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
             <RowDefinition Height="35"/>
@@ -126,6 +126,7 @@
 
         <Grid
             Grid.Row="1"
+            Background="White"
             >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"/>
@@ -188,6 +189,7 @@
 
         <Border
             Grid.Row="2"
+            Background="White"
             >
             <ScrollViewer>
                 <StackPanel x:Name="St_Expenses">

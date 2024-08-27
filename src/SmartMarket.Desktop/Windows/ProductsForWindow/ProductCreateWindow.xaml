@@ -9,11 +9,13 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
         Title="ProductCreateWindow" Height="640" Width="570">
 
 
-
-    <Grid>
+    <Border CornerRadius="8">
+        <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
@@ -421,5 +423,6 @@
                   HorizontalAlignment="Stretch"
                   VerticalAlignment="Stretch"/>
     </Grid>
+    </Border>
 
 </Window>

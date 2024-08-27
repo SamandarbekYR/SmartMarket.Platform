@@ -29,9 +29,9 @@ namespace SmartMarket.Desktop.Windows.Category
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
     }
 }

@@ -6,11 +6,137 @@
              xmlns:local="clr-namespace:SmartMarket.Desktop.Components.ShopWorkerForComponent"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
+             Background="Transparent"
+
+             Height="412" d:DesignWidth="320">
+
+
+
+    <Border CornerRadius="10" Background="White" BorderBrush="Black" BorderThickness="1">
+
+        <StackPanel Orientation="Vertical">
+            <Ellipse Width="100" Height="100" Margin="0 10 0 0">
+                <Ellipse.Fill>
+                    <ImageBrush ImageSource="C:\Users\user\source\repos\CheckInternet\WpfApp1\Images\photo_2024-08-07_17-42-39.jpg"
+                             
+                             Stretch="Fill"
+                             ></ImageBrush>
+                </Ellipse.Fill>
+            </Ellipse>
+            <TextBlock
+                x:Name="tbFullName"
+             Margin="0 5 0 0"
+               Text="Ergashev Tursunmamat"
+             HorizontalAlignment="Center"
+             FontSize="18"
              
-             d:DesignHeight="420" d:DesignWidth="320">
+               ></TextBlock>
+            <DockPanel  Margin="20 12 0 0">
+                <TextBlock Text="Tel raqam:"
+                        FontSize="17"
+                        FontWeight="DemiBold"
+                        >
+
+                </TextBlock>
+                <TextBlock
+                    x:Name="tbPhoneNumber"
+                 Text="+998 908832603"
+                 FontSize="15"
+                 HorizontalAlignment="Right"
+                 Margin="0 0 60 0"
+                 FontWeight="SemiBold"
+                 ></TextBlock>
+            </DockPanel>
+
+            <DockPanel  Margin="20 12 0 0">
+                <TextBlock Text="Lovozimi:"
+                        FontSize="17"
+                        FontWeight="DemiBold"
+                        
+                        >
+
+                </TextBlock>
+                <TextBlock
+                    x:Name="tbPosition"
+                    Text="Sotuvchi"
+                    FontSize="15"
+                 HorizontalAlignment="Right"
+                 Margin="0 0 60 0"
+                 FontWeight="SemiBold"
+                    ></TextBlock>
+            </DockPanel>
 
 
-    <Border
+
+            <DockPanel  Margin="20 12 0 0">
+                <TextBlock Text="Oyligi"
+                        FontSize="17"
+                        FontWeight="DemiBold"
+                        >
+
+                </TextBlock>
+                <TextBlock
+                    x:Name="tbSalary"
+                 Text="4,000,000"
+                 HorizontalAlignment="Right"
+                 FontSize="15"
+                 FontWeight="SemiBold"
+                 Margin="0 0 60 0"
+                 ></TextBlock>
+            </DockPanel>
+
+
+            <DockPanel  Margin="20 12 0 0">
+                <TextBlock Text="Olgan puli:"
+                        FontSize="17"
+                        FontWeight="DemiBold"
+                        >
+
+                </TextBlock>
+                <TextBlock
+                    x:Name="tbReceievedSum"
+                 Text="300,000"
+                 FontSize="15"
+                 FontWeight="SemiBold"
+                 HorizontalAlignment="Right"
+                 Margin="0 0 60 0"
+                 ></TextBlock>
+            </DockPanel>
+
+            <DockPanel  Margin="20 12 0 0">
+                <TextBlock Text="Qolgan puli:"
+                        FontSize="17"
+                        FontWeight="DemiBold"
+                        >
+
+                </TextBlock>
+                <TextBlock
+                    x:Name="tbRemainingSum"
+                 Text="3,700,000"
+                 FontSize="15"
+                 HorizontalAlignment="Right"
+                 Margin="0 0 60 0"
+                 FontWeight="SemiBold"
+                 ></TextBlock>
+            </DockPanel>
+
+          <DockPanel  Height="100"
+                  >
+              <Button
+                  Content="Saqlash"
+                  FontSize="15"
+                  
+                  Style="{DynamicResource BtnSaveAccount}"
+              ></Button>
+          </DockPanel>
+        </StackPanel>
+    </Border>
+
+
+
+
+
+    <!--<Border
         CornerRadius="5"
         BorderThickness="1"
         BorderBrush="Black"
@@ -178,6 +304,6 @@
                 Style="{DynamicResource BtnSaleKlavituria}"
                 ></Button>
         </StackPanel>
-    </Border>
+    </Border>-->
     
 </UserControl>

@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
 
              d:DesignHeight="30" d:DesignWidth="250">
-    <Border Background="White" CornerRadius="8">
+    <Border Background="White" CornerRadius="8" Style="{DynamicResource StyleBorder}">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

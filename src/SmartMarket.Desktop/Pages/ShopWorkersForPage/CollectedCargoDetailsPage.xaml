@@ -10,7 +10,7 @@
       Title="CollectedCargoDetailsPage">
 
 
-    <Border Background="White" BorderBrush="Black" BorderThickness="1" Margin="2 5 5 5" CornerRadius="5">
+    <Border Background="#D9D9D9" BorderBrush="Black" BorderThickness="1" Margin="2 5 5 5" CornerRadius="5">
         <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
@@ -21,7 +21,7 @@
 
         <Border
               Grid.Row="0"
-              Margin="2"
+              Margin="3 3"
               BorderBrush="Black"
               CornerRadius="5 5 0 0"
               BorderThickness="1"
@@ -127,7 +127,7 @@
             </Grid>
         </Border>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Background="White">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.6*"/>
                 <ColumnDefinition Width="2.5*"/>
@@ -197,9 +197,13 @@
                  ></TextBlock>
         </Grid>
 
-        <Border Grid.Row="2">
+        <Border Grid.Row="2" Background="White">
             
-            
+            <ScrollViewer>
+                <StackPanel  >
+                    
+                </StackPanel>
+            </ScrollViewer>
             
             
             

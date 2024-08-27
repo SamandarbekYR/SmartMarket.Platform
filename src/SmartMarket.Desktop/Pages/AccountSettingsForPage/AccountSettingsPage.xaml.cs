@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Desktop.Components.AccountSettingsForComponent;
+using SmartMarket.Desktop.Windows.AccountSettings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +53,7 @@ namespace SmartMarket.Desktop.Pages.AccountSettingsForPage
                 AccountSettingsComponent accountSettingsComponent = new AccountSettingsComponent(); 
                 accountSettingsComponent.Tag = item;
                 accountSettingsComponent.SetData(item.FirstName,item.LastName);
-                accountSettingsComponent.BorderThickness=new Thickness(3);
+                accountSettingsComponent.BorderThickness=new Thickness(15,5,15,5);
                 Wr_Account.Children.Add(accountSettingsComponent);
             }
         }
@@ -73,5 +74,10 @@ namespace SmartMarket.Desktop.Pages.AccountSettingsForPage
             return workers; 
         }
 
+        private void btnAddAccount_Click(object sender, RoutedEventArgs e)
+        {
+            AccountCreateWindow accountCreateWindow = new AccountCreateWindow();
+            accountCreateWindow.ShowDialog();
+        }
     }
 }
