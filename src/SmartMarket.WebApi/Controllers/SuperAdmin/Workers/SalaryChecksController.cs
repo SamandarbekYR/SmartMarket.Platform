@@ -6,9 +6,9 @@ using SmartMarket.Service.Interfaces.Worker.SalaryCheck;
 
 namespace SmartMarket.WebApi.Controllers.SuperAdmin.Workers;
 
-[Route("api/salary-checks")]
+[Route("api/super-admin/salary-checks")]
 [ApiController]
-public class SalaryChecksController(ISalaryCheckService salaryCheckService) : ControllerBase
+public class SalaryChecksController(ISalaryCheckService salaryCheckService) : SuperAdminController
 {
     private readonly ISalaryCheckService _salaryCheckService = salaryCheckService;
 

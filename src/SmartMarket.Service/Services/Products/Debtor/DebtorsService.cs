@@ -44,7 +44,7 @@ public class DebtorsService(IUnitOfWork unitOfWork,
 
     public async Task<List<DebtorsDto>> GetAllAsync()
     {
-        var debtors = await _unitOfWork.Debtors.GetAll().ToListAsync();
+        var debtors = await _unitOfWork.Debtors.GetDebtorsFullInformationAsync();
         return _mapper.Map<List<DebtorsDto>>(debtors);
     }
 

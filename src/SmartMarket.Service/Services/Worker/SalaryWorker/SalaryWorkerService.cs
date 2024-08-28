@@ -44,7 +44,7 @@ public class SalaryWorkerService(IUnitOfWork unitOfWork,
 
     public async Task<List<SalaryWorkerDto>> GetAllAsync()
     {
-        var salaryWorkers = await _unitOfWork.SalaryWorker.GetAll().ToListAsync();
+        var salaryWorkers = await _unitOfWork.SalaryWorker.GetSalaryWorkersFullInformationAsync();
         return _mapper.Map<List<SalaryWorkerDto>>(salaryWorkers);
     }
 

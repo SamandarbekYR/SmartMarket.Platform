@@ -44,7 +44,7 @@ public class ProductSaleService(IUnitOfWork unitOfWork,
 
     public async Task<List<ProductSaleDto>> GetAllAsync()
     {
-        var productSales = await _unitOfWork.ProductSale.GetAll().ToListAsync();
+        var productSales = await _unitOfWork.ProductSale.GetProductSalesFullInformationAsync();
         return _mapper.Map<List<ProductSaleDto>>(productSales);
     }
 

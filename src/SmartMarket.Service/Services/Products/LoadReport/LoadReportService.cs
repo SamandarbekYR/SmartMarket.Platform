@@ -44,7 +44,7 @@ public class LoadReportService(IUnitOfWork unitOfWork,
 
     public async Task<List<LoadReportDto>> GetAllAsync()
     {
-        var loadReports = await _unitOfWork.LoadReport.GetAll().ToListAsync();
+        var loadReports = await _unitOfWork.LoadReport.GetLoadReportsFullInformationAsync();
         return _mapper.Map<List<LoadReportDto>>(loadReports);
     }
 

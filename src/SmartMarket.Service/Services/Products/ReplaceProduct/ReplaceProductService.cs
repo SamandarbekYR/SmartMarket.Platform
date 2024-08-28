@@ -44,7 +44,7 @@ public class ReplaceProductService(IUnitOfWork unitOfWork,
 
     public async Task<List<ReplaceProductDto>> GetAllAsync()
     {
-        var replaceProducts = await _unitOfWork.ReplaceProduct.GetAll().ToListAsync();
+        var replaceProducts = await _unitOfWork.ReplaceProduct.GetReplaceProductsFullInformationAsync();
         return _mapper.Map<List<ReplaceProductDto>>(replaceProducts);
     }
 

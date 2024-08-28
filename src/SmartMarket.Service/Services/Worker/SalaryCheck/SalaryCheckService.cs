@@ -44,7 +44,7 @@ public class SalaryCheckService(IUnitOfWork unitOfWork,
 
     public async Task<List<SalaryCheckDto>> GetAllAsync()
     {
-        var salaryChecks = await _unitOfWork.SalaryCheck.GetAll().ToListAsync();
+        var salaryChecks = await _unitOfWork.SalaryCheck.GetSalaryChecksFullInformationAsync();
         return _mapper.Map<List<SalaryCheckDto>>(salaryChecks);
     }
 

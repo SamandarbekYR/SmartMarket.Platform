@@ -44,7 +44,7 @@ namespace SmartMarket.Service.Services.Expence
 
         public async Task<List<ExpenceDto>> GetAllAsync()
         {
-            var expenses = await _unitOfWork.Expense.GetAll().ToListAsync();
+            var expenses = await _unitOfWork.Expense.GetExpensesFullInformationAsync();
             return _mapper.Map<List<ExpenceDto>>(expenses);
         }
 

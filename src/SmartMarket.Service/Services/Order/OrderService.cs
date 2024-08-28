@@ -44,7 +44,7 @@ public class OrderService(IUnitOfWork unitOfWork,
 
     public async Task<List<OrderDto>> GetAllAsync()
     {
-        var orders = await _unitOfWork.Order.GetAll().ToListAsync();
+        var orders = await _unitOfWork.Order.GetOrdersFullInformationAsync();
         return _mapper.Map<List<OrderDto>>(orders);
     }
 

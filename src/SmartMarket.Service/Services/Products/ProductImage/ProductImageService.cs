@@ -58,7 +58,7 @@ public class ProductImageService(IUnitOfWork unitOfWork,
 
     public async Task<List<ProductImageDto>> GetAllAsync()
     {
-        var productImages = await _unitOfWork.ProductImage.GetAll().ToListAsync();
+        var productImages = await _unitOfWork.ProductImage.GetProductImagesFullInformationAsync();
         return _mapper.Map<List<ProductImageDto>>(productImages);
     }
 

@@ -44,7 +44,7 @@ public class InvalidProductService(IUnitOfWork unitOfWork,
 
     public async Task<List<InvalidProductDto>> GetAllAsync()
     {
-        var invalidProducts = await _unitOfWork.InvalidProduct.GetAll().ToListAsync();
+        var invalidProducts = await _unitOfWork.InvalidProduct.GetInvalidProductsFullInformationAsync();
         return _mapper.Map<List<InvalidProductDto>>(invalidProducts);
     }
 

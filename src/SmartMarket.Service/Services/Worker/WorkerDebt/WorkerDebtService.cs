@@ -44,7 +44,7 @@ public class WorkerDebtService(IUnitOfWork unitOfWork,
 
     public async Task<List<WorkerDebtDto>> GetAllAsync()
     {
-        var workerDebts = await _unitOfWork.WorkerDebt.GetAll().ToListAsync();
+        var workerDebts = await _unitOfWork.WorkerDebt.GetWorkerDebtsFullInformationAsync();
         return _mapper.Map<List<WorkerDebtDto>>(workerDebts);
     }
 
