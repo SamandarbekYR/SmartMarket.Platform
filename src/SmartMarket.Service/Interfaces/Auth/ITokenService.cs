@@ -1,9 +1,9 @@
-﻿using SmartMarket.Domain.Entities.Workers;
+﻿using Et = SmartMarket.Domain.Entities.Workers;
 
 namespace SmartMarket.Service.Interfaces.Auth
 {
     public interface ITokenService
     {
-        public string GenerateToken(Worker user);
+        public string GenerateToken(Et.Worker user);
     }
 }

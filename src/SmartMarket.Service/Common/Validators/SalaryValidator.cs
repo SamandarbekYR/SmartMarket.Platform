@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using SmartMarket.Service.DTOs.Salary;
+using SmartMarket.Service.DTOs.Workers.Salary;
 
 namespace SmartMarket.Service.Common.Validators
 {

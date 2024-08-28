@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using SmartMarket.Domain.Entities.Workers;
+using Et = SmartMarket.Domain.Entities.Workers;
 using SmartMarket.Service.Helpers;
 using SmartMarket.Service.Interfaces.Auth;
 using System;
@@ -21,7 +21,7 @@ namespace SmartMarket.Service.Services.Auth
             _config = configuration.GetSection("Jwt");
         }
 
-        public string GenerateToken(Worker user)
+        public string GenerateToken(Et.Worker user)
         {
             var identityClaims = new Claim[]
             {

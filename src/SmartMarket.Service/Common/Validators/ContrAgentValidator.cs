@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using SmartMarket.Service.DTOs.ContrAgent;
+using SmartMarket.Service.DTOs.PartnersCompany.ContrAgent;
 
 namespace SmartMarket.Service.Common.Validators;
 

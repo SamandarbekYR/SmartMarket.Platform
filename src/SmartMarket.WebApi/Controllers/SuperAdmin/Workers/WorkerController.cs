@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SmartMarket.Service.DTOs.Workers;
-using SmartMarket.Service.Interfaces.Workers;
+using SmartMarket.Service.DTOs.Workers.Worker;
+using SmartMarket.Service.Interfaces.Worker.Workers;
 
 namespace SmartMarket.WebApi.Controllers.SuperAdmin.Workers
 {
