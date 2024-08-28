@@ -41,7 +41,7 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
 
         private void Border_MouseUp(object sender, MouseButtonEventArgs e)
         {
-
+            this.Close();   
         }
     }
 }

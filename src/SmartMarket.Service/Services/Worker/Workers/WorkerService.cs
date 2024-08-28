@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using SmartMarket.DataAccess.Interfaces;
 using Et = SmartMarket.Domain.Entities.Workers;
 using SmartMarket.Service.Common.Exceptions;

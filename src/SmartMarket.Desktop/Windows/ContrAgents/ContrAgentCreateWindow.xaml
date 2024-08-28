@@ -8,6 +8,8 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
         Title="ContrAgentCreateWindow" Height="350" Width="450">
     <Grid >
     <Grid.RowDefinitions>
@@ -45,6 +47,8 @@
     </Border>
     <Border Grid.Row="1"
              Background="White"
+            BorderBrush="Black"
+            BorderThickness="1 0 1 1"
              CornerRadius="0 0 8 8">
         <StackPanel Margin="15 10">
 

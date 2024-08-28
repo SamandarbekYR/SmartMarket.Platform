@@ -1,4 +1,7 @@
 ﻿using SmartMarket.Desktop.Components.MainForComponents;
+using SmartMarket.Desktop.Windows.Category;
+using SmartMarket.Desktop.Windows.ContrAgents;
+using SmartMarket.Desktop.Windows.ProductsForWindow;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,7 +36,8 @@ namespace SmartMarket.Desktop.Pages.MainForPage
 
         private void btnProductCreate_Click(object sender, RoutedEventArgs e)
         {
-            
+            ProductCreateWindow productCreateWindow = new ProductCreateWindow();
+            productCreateWindow.ShowDialog();
         }
 
 
@@ -149,11 +153,18 @@ namespace SmartMarket.Desktop.Pages.MainForPage
             });
             return products;
         }
-        
-        
-      
 
-        
+        private void btnAddCategory_Click(object sender, RoutedEventArgs e)
+        {
+            CategoryCreateWindow categoryCreateWindow=new CategoryCreateWindow();
+            categoryCreateWindow.ShowDialog();
+        }
+
+        private void btnAddKontrAgent_Click(object sender, RoutedEventArgs e)
+        {
+            ContrAgentCreateWindow contrAgentCreateWindow=new ContrAgentCreateWindow(); 
+            contrAgentCreateWindow.ShowDialog();
+        }
     }
 
 }

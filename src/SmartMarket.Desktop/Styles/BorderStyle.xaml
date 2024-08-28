@@ -1,0 +1,19 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+
+    <Style TargetType="Border" x:Key="StyleBorder">
+        <Setter Property="Background" Value="White"/>
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="MouseDown">
+                <BeginStoryboard>
+                    <Storyboard>
+                        <ColorAnimation To="#C6C9C9" Duration="0:0:0.2" Storyboard.TargetProperty="(Border.Background).(SolidColorBrush.Color)"/>
+                    </Storyboard>
+                </BeginStoryboard>
+            </EventTrigger>
+    
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

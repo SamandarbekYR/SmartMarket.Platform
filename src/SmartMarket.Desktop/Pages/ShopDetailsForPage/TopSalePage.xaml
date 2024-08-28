@@ -9,7 +9,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="TopSalePage">
 
-    <Grid>
+    <Grid Background="#D9D9D9">
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
             <RowDefinition Height="*"/>
@@ -17,7 +17,7 @@
 
         <Border
      Grid.Row="0"
-     Margin="2"
+     Margin="3 3 3 0"
      BorderBrush="Black"
      CornerRadius="5 5 0 0"
      BorderThickness="1"
@@ -125,7 +125,7 @@
 
 
         <Border Grid.Row="1"
-        Background="White"
+        Background="White" BorderBrush="Black" BorderThickness="1 0 1 1" CornerRadius="0 0 5 5" Margin="3 0 3 3"
         >
         <ScrollViewer>
             <StackPanel x:Name="St_TopSale"></StackPanel>

@@ -30,6 +30,8 @@ namespace SmartMarket.Desktop
         public MainWindow()
         {
             InitializeComponent();
+            MainPage mainPage = new MainPage();
+            PageNavigator.Content = mainPage;
         }
 
         private void Btnclose_Click(object sender, RoutedEventArgs e)

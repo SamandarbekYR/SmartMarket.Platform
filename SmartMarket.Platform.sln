@@ -13,7 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartMarket.DataAccess", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartMarket.Service", "src\SmartMarket.Service\SmartMarket.Service.csproj", "{BA98E139-AEBB-4EB7-9738-B8FDC9F5A3C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartMarket.Desktop", "src\SmartMarket.Desktop\SmartMarket.Desktop.csproj", "{9E5B2442-A741-433A-9EAA-59BAFCF5DF22}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartMarket.Desktop", "src\SmartMarket.Desktop\SmartMarket.Desktop.csproj", "{9E5B2442-A741-433A-9EAA-59BAFCF5DF22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartMarketDesktop.ViewModels", "src\SmartMarketDesktop.ViewModels\SmartMarketDesktop.ViewModels.csproj", "{61E5E85B-85BE-44B5-B955-6D15395BFADB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartMarketDeskop.Integrated", "src\SmartMarketDeskop.Integrated\SmartMarketDeskop.Integrated.csproj", "{50C4FC09-8CC5-4CB1-BBEE-7E670DB8CC91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartMarketDesktop.DTOs", "src\SmartMarketDesktop.DTOs\SmartMarketDesktop.DTOs.csproj", "{66E690C0-7D35-468C-98B5-5B68E0EA7A56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +47,18 @@ Global
 		{9E5B2442-A741-433A-9EAA-59BAFCF5DF22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E5B2442-A741-433A-9EAA-59BAFCF5DF22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E5B2442-A741-433A-9EAA-59BAFCF5DF22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61E5E85B-85BE-44B5-B955-6D15395BFADB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61E5E85B-85BE-44B5-B955-6D15395BFADB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61E5E85B-85BE-44B5-B955-6D15395BFADB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61E5E85B-85BE-44B5-B955-6D15395BFADB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50C4FC09-8CC5-4CB1-BBEE-7E670DB8CC91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50C4FC09-8CC5-4CB1-BBEE-7E670DB8CC91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50C4FC09-8CC5-4CB1-BBEE-7E670DB8CC91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50C4FC09-8CC5-4CB1-BBEE-7E670DB8CC91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66E690C0-7D35-468C-98B5-5B68E0EA7A56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66E690C0-7D35-468C-98B5-5B68E0EA7A56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66E690C0-7D35-468C-98B5-5B68E0EA7A56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66E690C0-7D35-468C-98B5-5B68E0EA7A56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +69,9 @@ Global
 		{340F953B-B7AB-4B3A-8686-24898E4B3D2D} = {3308E820-C945-40C3-AAD1-32BFAD8BD38E}
 		{BA98E139-AEBB-4EB7-9738-B8FDC9F5A3C4} = {3308E820-C945-40C3-AAD1-32BFAD8BD38E}
 		{9E5B2442-A741-433A-9EAA-59BAFCF5DF22} = {3308E820-C945-40C3-AAD1-32BFAD8BD38E}
+		{61E5E85B-85BE-44B5-B955-6D15395BFADB} = {3308E820-C945-40C3-AAD1-32BFAD8BD38E}
+		{50C4FC09-8CC5-4CB1-BBEE-7E670DB8CC91} = {3308E820-C945-40C3-AAD1-32BFAD8BD38E}
+		{66E690C0-7D35-468C-98B5-5B68E0EA7A56} = {3308E820-C945-40C3-AAD1-32BFAD8BD38E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CBB77FA9-C2AD-4488-B87C-14A83FD25D23}

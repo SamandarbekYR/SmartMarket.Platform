@@ -14,13 +14,14 @@
         Title="MainWindow" Height="450" Width="800"
         
         >
-    <Grid>
+    <Grid Background="#D9D9D9">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="11*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" >
+        <Border Background="White" Grid.Row="0" BorderBrush="Black" BorderThickness="1" CornerRadius="5" Margin="5">
+            <Grid >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -42,6 +43,7 @@
                 Click="btnMain_Click"
                 Style="{DynamicResource MenuButton2}"
                 Tag="{StaticResource main}"
+                IsChecked="True"
                 ></RadioButton>
 
             <RadioButton  
@@ -124,8 +126,9 @@
               >
             </Button>
         </Grid>
+        </Border>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" Background="#D9D9D9">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="106*"/>
                 <ColumnDefinition Width="0*"/>

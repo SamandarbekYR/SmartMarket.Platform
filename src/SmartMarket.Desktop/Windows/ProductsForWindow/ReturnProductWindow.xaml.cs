@@ -12,26 +12,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace SmartMarket.Desktop.Windows.ContrAgents
+namespace SmartMarket.Desktop.Windows.ProductsForWindow
 {
     /// <summary>
-    /// Interaction logic for ContrAgentCreateWindow.xaml
+    /// Interaction logic for ReturnProductWindow.xaml
     /// </summary>
-    public partial class ContrAgentCreateWindow : Window
+    public partial class ReturnProductWindow : Window
     {
-        public ContrAgentCreateWindow()
+        public ReturnProductWindow()
         {
             InitializeComponent();
         }
 
-        private void Border_MouseUp(object sender, MouseButtonEventArgs e)
+        private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
-        }
-
-        private void btnCreate_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-
         }
     }
 }
