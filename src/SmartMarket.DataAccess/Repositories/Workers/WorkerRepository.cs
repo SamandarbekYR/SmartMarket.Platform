@@ -1,26 +1,46 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartMarket.DataAccess.Data;
-using SmartMarket.DataAccess.Interfaces.Expenses;
-using SmartMarket.Domain.Entities.Expenses;
+using SmartMarket.DataAccess.Interfaces.Workers;
+using SmartMarket.Domain.Entities.Workers;
 
-namespace SmartMarket.DataAccess.Repositories.Experses;
-
-public class ExpenseRepository : Repository<Expense>, IExpense
+namespace SmartMarket.DataAccess.Repositories.Workers
 {
-    private readonly AppDbContext _appDbContext;
-    private DbSet<Expense> _expenses;
-
-    public ExpenseRepository(AppDbContext appDb) : base(appDb)
+    public class WorkerRepository : Repository<Worker>, IWorker
     {
-        _appDbContext = appDb;
-        _expenses = appDb.Set<Expense>();
-    }
+        private readonly AppDbContext _appDbContext;
+        private DbSet<Worker> _workers;
 
-    public async Task<List<Expense>> GetExpensesFullInformationAsync()
-    {
-        return await _expenses
-            .Include(e => e.Worker)
-            .Include(e => e.PayDesk)
-            .ToListAsync();
+        public WorkerRepository(AppDbContext appDb) : base(appDb)
+        {
+            _appDbContext = appDb;
+            _workers = appDb.Set<Worker>();
+        }
+
+        public async Task<Worker?> GetPhoneNumberAsync(string phoneNumber)
+        {
+            return await _workers
+                .Include(w => w.Position)
+                .Include(w => w.WorkerRole)
+                .FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber);
+        }
+
+        public async Task<List<Worker>> GetWorkersFullInformationAsync()
+        {
+            return await _workers
+                .Include(w => w.Position)
+                .Include(w => w.WorkerRole)
+                .Include(w => w.SalaryWorkers)
+                    .ThenInclude(sw => sw.Salary)
+                .Include(w => w.SalaryChecks)
+                .Include(w => w.WorkerDebts)
+                .Include(w => w.Products)
+                .Include(w => w.ProductSales)
+                .Include(w => w.LoadReports)
+                .Include(w => w.ReplaceProducts)
+                .Include(w => w.InvalidProducts)
+                .Include(w => w.Orders)
+                .Include(w => w.Expenses)
+                .ToListAsync();
+        }
     }
 }
