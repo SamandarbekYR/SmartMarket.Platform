@@ -44,7 +44,7 @@ public class ContrAgentService(IUnitOfWork unitOfWork,
 
     public async Task<List<ContrAgentDto>> GetAllAsync()
     {
-        var contrAgents = await _unitOfWork.ContrAgent.GetAll().ToListAsync();
+        var contrAgents = await _unitOfWork.ContrAgent.GetContrAgentsFullInformationAsync();
         return _mapper.Map<List<ContrAgentDto>>(contrAgents);
     }
 

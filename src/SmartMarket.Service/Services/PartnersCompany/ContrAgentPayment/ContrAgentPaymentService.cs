@@ -44,7 +44,7 @@ public class ContrAgentPaymentService(IUnitOfWork unitOfWork,
 
     public async Task<List<ContrAgentPaymentDto>> GetAllAsync()
     {
-        var contrAgentPayments = await _unitOfWork.ContrAgentPayment.GetAll().ToListAsync();
+        var contrAgentPayments = await _unitOfWork.ContrAgentPayment.GetContrAgentPaymentsFullInformationAsync();
         return _mapper.Map<List<ContrAgentPaymentDto>>(contrAgentPayments);
     }
 

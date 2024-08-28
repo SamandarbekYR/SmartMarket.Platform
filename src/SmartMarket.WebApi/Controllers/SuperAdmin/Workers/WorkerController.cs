@@ -5,9 +5,9 @@ using SmartMarket.Service.Interfaces.Worker.Workers;
 
 namespace SmartMarket.WebApi.Controllers.SuperAdmin.Workers
 {
-    [Route("api/[controller]")]
+    [Route("api/super-admin/worker")]
     [ApiController]
-    public class WorkerController(IWorkerService service) : ControllerBase
+    public class WorkerController(IWorkerService service) : SuperAdminController
     {
         private readonly IWorkerService _workerService = service;
         [HttpPost]

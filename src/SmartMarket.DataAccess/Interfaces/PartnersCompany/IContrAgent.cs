@@ -3,5 +3,7 @@
 namespace SmartMarket.DataAccess.Interfaces.PartnersCompany
 {
     public interface IContrAgent : IRepository<ContrAgent>
-    { }
+    {
+        public  Task<List<ContrAgent>> GetContrAgentsFullInformationAsync();
+    }
 }

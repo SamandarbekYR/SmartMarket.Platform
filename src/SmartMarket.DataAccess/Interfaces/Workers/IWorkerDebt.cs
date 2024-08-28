@@ -3,5 +3,7 @@
 namespace SmartMarket.DataAccess.Interfaces.Workers
 {
     public interface IWorkerDebt : IRepository<WorkerDebt>
-    { }
+    {
+        public Task<List<WorkerDebt>> GetWorkerDebtsFullInformationAsync();
+    }
 }

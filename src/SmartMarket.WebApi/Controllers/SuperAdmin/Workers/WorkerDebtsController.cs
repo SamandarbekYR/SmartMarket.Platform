@@ -6,9 +6,9 @@ using SmartMarket.Service.Interfaces.Worker.WorkerDebt;
 
 namespace SmartMarket.WebApi.Controllers.SuperAdmin.Workers;
 
-[Route("api/worker-debts")]
+[Route("api/super-admin/worker-debts")]
 [ApiController]
-public class WorkerDebtsController(IWorkerDebtService workerDebtService) : ControllerBase
+public class WorkerDebtsController(IWorkerDebtService workerDebtService) : SuperAdminController
 {
     private readonly IWorkerDebtService _workerDebtService = workerDebtService;
 
