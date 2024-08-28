@@ -5,7 +5,7 @@ using SmartMarket.Service.Interfaces.Products.ProductImage;
 
 namespace SmartMarket.WebApi.Controllers.Products;
 
-[Route("api/[controller]")]
+[Route("api/product-images")]
 [ApiController]
 public class ProductImagesController : ControllerBase
 {
