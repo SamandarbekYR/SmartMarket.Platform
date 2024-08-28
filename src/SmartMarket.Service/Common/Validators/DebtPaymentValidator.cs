@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using SmartMarket.Service.DTOs.DebtPayment;
+using SmartMarket.Service.DTOs.Products.DebtPayment;
 
 namespace SmartMarket.Service.Common.Validators;
 

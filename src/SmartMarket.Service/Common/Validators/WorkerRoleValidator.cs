@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using SmartMarket.Service.DTOs.WorkerRole;
+using SmartMarket.Service.DTOs.Workers.WorkerRole;
 
 namespace SmartMarket.Service.Common.Validators;
 

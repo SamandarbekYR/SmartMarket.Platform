@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using SmartMarket.Service.DTOs.ProductSale;
+using SmartMarket.Service.DTOs.Products.ProductSale;
 
 namespace SmartMarket.Service.Common.Validators;
 

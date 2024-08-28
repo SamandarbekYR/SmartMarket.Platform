@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using SmartMarket.Service.DTOs.Position;
-using SmartMarket.Service.Interfaces.Positions;
+using SmartMarket.Service.DTOs.Workers.Position;
+using SmartMarket.Service.Interfaces.Worker.Positions;
 
 namespace SmartMarket.WebApi.Controllers.SuperAdmin.Workers;
 
