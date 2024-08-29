@@ -27,7 +27,7 @@
                 BorderBrush="Black"
                 BorderThickness="1"
                 CornerRadius="5"
-                Margin="5 3"
+                Margin="5 0"
                 >
                 <Grid Margin="0 20 0 0">
                     <Grid.RowDefinitions>

@@ -6,12 +6,13 @@
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ShopWorkersForPage"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
+      
       d:DesignHeight="450" d:DesignWidth="800"
       Title="CollectedCargoDetailsPage">
 
 
     <Border Background="#D9D9D9" BorderBrush="Black" BorderThickness="1" Margin="2 5 5 5" CornerRadius="5">
-        <Grid Background="White">
+        <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
             <RowDefinition Height="30"/>
@@ -21,10 +22,10 @@
 
         <Border
               Grid.Row="0"
-              Margin="3 3"
+             
               BorderBrush="Black"
               CornerRadius="5 5 0 0"
-              BorderThickness="1"
+             
               Background="#A49B9B"
               >
             <Grid>
@@ -127,7 +128,7 @@
             </Grid>
         </Border>
 
-        <Grid Grid.Row="1" Background="White">
+        <Grid Grid.Row="1" Background="White" Margin="0 0 5 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.6*"/>
                 <ColumnDefinition Width="2.5*"/>
@@ -197,7 +198,7 @@
                  ></TextBlock>
         </Grid>
 
-        <Border Grid.Row="2" Background="White">
+        <Border Grid.Row="2" Background="White" CornerRadius="0 0 5 5" Margin="0 0 5 0">
             
             <ScrollViewer>
                 <StackPanel  >

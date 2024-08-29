@@ -5,13 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ShopWorkersForPage"
              mc:Ignorable="d" 
-             Background="#D9D9D9"
+           
              d:DesignHeight="450" d:DesignWidth="800">
     <Border
-        Background="White" CornerRadius="5"
+        Background="White"
+         CornerRadius="5"
         BorderThickness="1"
         BorderBrush="Black"
-        Margin="3"
+        Margin="3 3 5 3"
         >
         <Grid>
             <Grid.RowDefinitions>

@@ -80,5 +80,10 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
             AccountCreateWindow accountCreateWindow = new AccountCreateWindow();    
             accountCreateWindow.ShowDialog();
         }
+
+        private void CollectedCargoPageNavigator_Navigated(object sender, NavigationEventArgs e)
+        {
+
+        }
     }
 }

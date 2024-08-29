@@ -76,7 +76,7 @@ namespace SmartMarket.Desktop.Pages.MainForPage
                 MainCategoryComponent categoryComponent = new MainCategoryComponent();
                 categoryComponent.Tag = i.Id;
                 categoryComponent.SetValues(i.Id,i.Name);
-                categoryComponent.BorderThickness = new Thickness(2, 3,2,3);
+                categoryComponent.BorderThickness = new Thickness(3);
                 St_categoryList.Children.Add(categoryComponent);
             }
         }
@@ -138,13 +138,13 @@ namespace SmartMarket.Desktop.Pages.MainForPage
                 Worker = "Sherzod", BodyPrice = "25000.0", count = 10, TotalPrice = "300000.0", Measure = "Dona",
                 Price = "200000.0"
             });
+            products.Add(new Product(){Id = 1,P_code = "000755",Barcode = "#14121001",ProductName = "Nestle Kasha 9",Category = "Mevalar",Worker = "Sherzod",BodyPrice = "25000.0",count = 15,TotalPrice = "3000000.0",Measure = "Dona",Price = "200000.0"});
+            products.Add(new Product(){Id = 1,P_code = "000755",Barcode = "#14121001",ProductName = "Qozoq un",Category = "Sabzavotlar",Worker = "Sherzod",BodyPrice = "120000.0",count = 120,TotalPrice = "300000.0",Measure = "Dona",Price = "200000.0"});
             products.Add(new Product(){Id = 1,P_code = "000755",Barcode = "#14121001",ProductName = "Nestle Kasha 9",Category = "Mevalar",Worker = "Sherzod",BodyPrice = "25000.0",count = 10,TotalPrice = "300000.0",Measure = "Dona",Price = "200000.0"});
-            products.Add(new Product(){Id = 1,P_code = "000755",Barcode = "#14121001",ProductName = "Nestle Kasha 9",Category = "Mevalar",Worker = "Sherzod",BodyPrice = "25000.0",count = 10,TotalPrice = "300000.0",Measure = "Dona",Price = "200000.0"});
-            products.Add(new Product(){Id = 1,P_code = "000755",Barcode = "#14121001",ProductName = "Nestle Kasha 9",Category = "Mevalar",Worker = "Sherzod",BodyPrice = "25000.0",count = 10,TotalPrice = "300000.0",Measure = "Dona",Price = "200000.0"});
-            products.Add(new Product(){Id = 1,P_code = "000755",Barcode = "#14121001",ProductName = "Nestle Kasha 9",Category = "Mevalar",Worker = "Sherzod",BodyPrice = "25000.0",count = 10,TotalPrice = "300000.0",Measure = "Dona",Price = "200000.0"});
-            products.Add(new Product(){Id = 1,P_code = "000755",Barcode = "#14121001",ProductName = "Nestle Kasha 9",Category = "Mevalar",Worker = "Sherzod",BodyPrice = "25000.0",count = 10,TotalPrice = "300000.0",Measure = "Dona",Price = "200000.0"});
-            products.Add(new Product(){Id = 1,P_code = "000755",Barcode = "#14121001",ProductName = "Nestle Kasha 9",Category = "Mevalar",Worker = "Sherzod",BodyPrice = "25000.0",count = 10,TotalPrice = "300000.0",Measure = "Dona",Price = "200000.0"});
-            products.Add(new Product(){Id = 1,P_code = "000755",Barcode = "#14121001",ProductName = "Nestle Kasha 9",Category = "Mevalar",Worker = "Sherzod",BodyPrice = "25000.0",count = 10,TotalPrice = "300000.0",Measure = "Dona",Price = "200000.0"});
+            products.Add(new Product(){Id = 1,P_code = "000755",Barcode = "#14121001",ProductName = "Nestle Kasha 9",Category = "Xo'l mevalar",Worker = "Tursunmamat",BodyPrice = "25000.0",count = 10,TotalPrice = "300000.0",Measure = "Dona",Price = "200000.0"});
+            products.Add(new Product(){Id = 1,P_code = "000755",Barcode = "#14121001",ProductName = "Kartoshka",Category = "Non mahsulotlar",Worker = "Sherzod",BodyPrice = "25000.0",count = 10,TotalPrice = "300000.0",Measure = "Dona",Price = "200000.0"});
+            products.Add(new Product(){Id = 1,P_code = "000755",Barcode = "#14121001",ProductName = "Piyoz",Category = "Mevalar",Worker = "Sherzod",BodyPrice = "25000.0",count = 5,TotalPrice = "300000.0",Measure = "Dona",Price = "200000.0"});
+            products.Add(new Product(){Id = 1,P_code = "000755",Barcode = "#14121001",ProductName = "Nestle Kasha 9",Category = "Mevalar",Worker = "Abdulla",BodyPrice = "5000.0",count = 10,TotalPrice = "30000000.0",Measure = "Dona",Price = "200000.0"});
             products.Add(new Product()
             {
                 Id = 1, P_code = "000755", Barcode = "#14121001", ProductName = "Nestle Kasha 9", Category = "Mevalar",

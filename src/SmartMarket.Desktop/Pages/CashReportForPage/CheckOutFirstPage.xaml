@@ -10,7 +10,7 @@
       Title="CheckOutFirstPage">
     
     <Border CornerRadius="5"
-            Margin="3"
+            Margin="3 3 5 3"
             BorderThickness="1" BorderBrush="Black" Background="#D9D9D9">
         <Grid>
         <Grid.RowDefinitions>
@@ -904,9 +904,9 @@
 
 
 
-            <Grid
-                Grid.Row="5"
-                Background="White"
+            <Border Grid.Row="5" CornerRadius="0 0 5 5" Background="White">
+                <Grid
+               
                 >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -919,6 +919,7 @@
                       Background="White"
                       BorderThickness="0 1 0 0"
                       Margin="5 5 3 15"
+                    CornerRadius="0 0 5 5 "
                       >
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -1227,7 +1228,7 @@
                     </Grid>
                 </Border>
             </Grid>
-
+            </Border>
 
         </Grid>
     </Border>
