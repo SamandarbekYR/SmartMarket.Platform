@@ -11,7 +11,7 @@ namespace SmartMarketDesktop.ViewModels.Entities.Products
     public class DebtPaymentView : BaseEntity
     {
         [Column("debtor_id")]
-        public Guid DebtorId { get; set; }
+        public Guid DebtorViewId { get; set; }
         public DebttorsView DebttorsView { get; set; }
 
         [Column("debt_sum")]

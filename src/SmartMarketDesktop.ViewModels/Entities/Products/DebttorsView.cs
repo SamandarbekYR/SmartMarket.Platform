@@ -13,10 +13,10 @@ namespace SmartMarketDesktop.ViewModels.Entities.Products
     {
 
         [Column("partner_id")]
-        public Guid PartnerId { get; set; }
+        public Guid PartnerViewId { get; set; }
         public PartnerView PartnerView { get; set; }
         [Column("product_id")]
-        public Guid ProductId { get; set; }
+        public Guid ProductViewId { get; set; }
         public ProductView ProductView { get; set; }
 
         [Column("description")]

@@ -13,10 +13,10 @@ namespace SmartMarketDesktop.ViewModels.Entities.Orders
     public class OrderView : BaseEntity
     {
         [Column("worker_id")]
-        public Guid WorkerId { get; set; }
+        public Guid WorkerViewId { get; set; }
         public WorkerView WorkerView { get; set; }
         [Column("product_id")]
-        public Guid ProductId { get; set; }
+        public Guid ProductViewId { get; set; }
         public ProductView ProductView { get; set; }
 
         [Column("transaction_number")]

@@ -11,11 +11,11 @@ namespace SmartMarketDesktop.ViewModels.Entities.Workers
     public class SalaryWorkerView : BaseEntity
     {
         [Column("worker_id")]
-        public Guid WorkerId { get; set; }
+        public Guid WorkerViewId { get; set; }
         public WorkerView WorkerView { get; set; }
 
         [Column("salary_id")]
-        public Guid SalaryId { get; set; }
+        public Guid SalaryViewId { get; set; }
         public SalaryView SalaryView { get; set; }
     }
 }

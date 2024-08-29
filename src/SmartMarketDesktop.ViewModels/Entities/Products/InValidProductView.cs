@@ -9,13 +9,14 @@ using System.Threading.Tasks;
 namespace SmartMarketDesktop.ViewModels.Entities.Products
 {
     [Table("invalid_product")]
-    public class InValidProductView
+    public class InValidProductView : BaseEntity
     {
+
         [Column("worker_id")]
-        public Guid WorkerId { get; set; }
+        public Guid WorkerViewId { get; set; }
         public WorkerView WorkerView { get; set; }
         [Column("product_sale_id")]
-        public Guid ProductSaleId { get; set; }
+        public Guid ProductSaleViewId { get; set; }
         public ProductSaleView ProductSaleView { get; set; }
 
         [Column("return_reason")]

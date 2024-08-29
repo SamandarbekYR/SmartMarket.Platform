@@ -19,6 +19,8 @@ using SmartMarket.Desktop.Windows.Auth;
 using SmartMarket.Desktop.Pages.ExpensesForPage;
 using SmartMarket.Desktop.Pages.CashReportForPage;
 using SmartMarket.Desktop.Pages.SettingsForPage;
+using SmartMarketDeskop.Integrated.DBContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace SmartMarket.Desktop
 {
@@ -30,6 +32,26 @@ namespace SmartMarket.Desktop
         public MainWindow()
         {
             InitializeComponent();
+
+
+            // Ba'zaga ulanish uchun connection string
+            var connectionString = "Host=localhost;Database=SmartPartners_Desktop;User ID=postgres;Port=5432;Password=1234;";
+
+            // DbContextOptions ni yaratish
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            optionsBuilder.UseNpgsql(connectionString);
+
+            // DbContext ni yaratish
+            using (var context = new AppDbContext(optionsBuilder.Options))
+            {
+                // Ma'lumotlar bazasini yaratish va jadvalni o‘rnatish
+                context.Database.EnsureCreated();
+                context.Database.Migrate();
+                // Jadvalga ma'lumot qo'shish yoki o‘zgartirish
+              
+            }
+
+
             MainPage mainPage = new MainPage();
             PageNavigator.Content = mainPage;
         }

@@ -16,13 +16,13 @@ namespace SmartMarketDesktop.ViewModels.Entities.Products
     {
 
         [Column("category_id")]
-        public Guid CategoryId { get; set; }
+        public Guid CategoryViewId { get; set; }
         public CategoryView CategoryView { get; set; }
         [Column("contragent_id")]
-        public Guid ContrAgentId { get; set; }
+        public Guid ContrAgenViewtId { get; set; }
         public ContrAgentView ContrAgentView { get; set; }
         [Column("worker_id")]
-        public Guid WorkerId { get; set; }
+        public Guid WorkerViewId { get; set; }
         public WorkerView WorkerView { get; set; }
 
         [Column("barcode")]

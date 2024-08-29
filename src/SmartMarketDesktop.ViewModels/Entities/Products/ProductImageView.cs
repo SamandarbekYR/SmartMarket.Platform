@@ -11,7 +11,7 @@ namespace SmartMarketDesktop.ViewModels.Entities.Products
     public class ProductImageView : BaseEntity
     {
         [Column("product_id")]
-        public Guid ProductId { get; set; }
+        public Guid ProductViewId { get; set; }
         public ProductView ProductView { get; set; }
 
         [Column("image_path")]

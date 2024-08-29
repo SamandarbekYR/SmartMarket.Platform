@@ -13,10 +13,10 @@ namespace SmartMarketDesktop.ViewModels.Entities.Expenses
     public class ExpenseView : BaseEntity
     {
         [Column("worker_id")]
-        public Guid WorkerId { get; set; }
+        public Guid WorkerViewId { get; set; }
         public WorkerView WorkerView { get; set; }
         [Column("pay_desk_id")]
-        public Guid PayDeskId { get; set; }
+        public Guid PayDeskViewId { get; set; }
         public PayDeskView PayDeskView { get; set; }
 
         [Column("reason")]

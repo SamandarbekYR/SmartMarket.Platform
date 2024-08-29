@@ -14,10 +14,10 @@ namespace SmartMarketDesktop.ViewModels.Entities.Workers
     public class WorkerView : BaseEntity
     {
         [Column("position_id")]
-        public Guid PositionId { get; set; }
+        public Guid PositionViewId { get; set; }
         public PositionView PositionView { get; set; }
         [Column("worker_roleid")]
-        public Guid WorkerRoleId { get; set; }
+        public Guid WorkerRoleViewId { get; set; }
         public WorkerRoleView WorkerRoleView { get; set; }
 
         [Column("first_name")]

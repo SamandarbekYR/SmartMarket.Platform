@@ -14,16 +14,16 @@ namespace SmartMarketDesktop.ViewModels.Entities.Products
     public class ProductSaleView : BaseEntity
     {
         [Column("product_id")]
-        public Guid ProductId { get; set; }
+        public Guid ProductViewId { get; set; }
         public ProductView ProductView { get; set; }
         [Column("worker_id")]
-        public Guid WorkerId { get; set; }
+        public Guid WorkerViewId { get; set; }
         public WorkerView WorkerView { get; set; }
         [Column("transaction_id")]
-        public Guid TransactionId { get; set; }
+        public Guid TransactionViewId { get; set; }
         public TransactionView TransactionView { get; set; }
         [Column("pay_desk_id")]
-        public Guid PayDeskId { get; set; }
+        public Guid PayDeskViewId { get; set; }
         public PayDeskView PayDeskView { get; set; }
 
         [Column("transaction_number")]

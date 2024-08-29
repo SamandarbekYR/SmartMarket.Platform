@@ -12,10 +12,10 @@ namespace SmartMarketDesktop.ViewModels.Entities.Products
     public class ReplaceProductView : BaseEntity
     {
         [Column("product_sale_id")]
-        public Guid ProductSaleId { get; set; }
+        public Guid ProductSaleViewId { get; set; }
         public ProductSaleView ProductSaleView { get; set; }
         [Column("worker_id")]
-        public Guid WorkerId { get; set; }
+        public Guid WorkerViewId { get; set; }
         public WorkerView WorkerView { get; set; }
 
         [Column("reason")]
