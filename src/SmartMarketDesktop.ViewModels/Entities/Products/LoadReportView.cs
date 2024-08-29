@@ -13,13 +13,13 @@ namespace SmartMarketDesktop.ViewModels.Entities.Products
     public class LoadReportView : BaseEntity
     {
         [Column("worker_id")]
-        public Guid WorkerId { get; set; }
+        public Guid WorkerViewId { get; set; }
         public WorkerView WorkerView { get; set; }
         [Column("product_id")]
-        public Guid ProductId { get; set; }
+        public Guid ProductViewId { get; set; }
         public ProductView ProductView { get; set; }
         [Column("contragent_id")]
-        public Guid ContrAgentId { get; set; }
+        public Guid ContrAgentViewId { get; set; }
         public ContrAgentView ContrAgentView { get; set; }
 
         [Column("total_price")]

@@ -11,7 +11,7 @@ namespace SmartMarketDesktop.ViewModels.Entities.Workers
     public class WorkerDebtView : BaseEntity
     {
         [Column("worker_id")]
-        public Guid WorkerId { get; set; }
+        public Guid WorkerViewId { get; set; }
         public WorkerView WorkerView { get; set; }
 
         [Column("amount")]

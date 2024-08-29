@@ -12,7 +12,7 @@ namespace SmartMarketDesktop.ViewModels.Entities.PartnersCompany
     {
 
         [Column("contr_agent_id")]
-        public Guid ContrAgentId { get; set; }
+        public Guid ContrAgentViewId { get; set; }
         public ContrAgentView ContrAgentView { get; set; }
 
         [Column("total_debt")]
