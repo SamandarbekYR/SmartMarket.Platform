@@ -1,5 +1,6 @@
 ﻿using SmartMarket.Desktop.Components.AccountSettingsForComponent;
 using SmartMarket.Desktop.Windows.AccountSettings;
+using SmartMarket.Desktop.Windows.Position;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,6 +79,12 @@ namespace SmartMarket.Desktop.Pages.AccountSettingsForPage
         {
             AccountCreateWindow accountCreateWindow = new AccountCreateWindow();
             accountCreateWindow.ShowDialog();
+        }
+
+        private void btnAddPosition_Click(object sender, RoutedEventArgs e)
+        {
+            PositionCreateWindow positionCreateWindow = new PositionCreateWindow(); 
+            positionCreateWindow.ShowDialog();
         }
     }
 }

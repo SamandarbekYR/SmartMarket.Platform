@@ -9,7 +9,9 @@
              d:DesignHeight="30" d:DesignWidth="800">
     <Border
         Background="White"
-        CornerRadius="8"
+        CornerRadius="5"
+        BorderThickness="1"
+        BorderBrush="Black"
         >
         <Grid>
             <Grid.ColumnDefinitions>

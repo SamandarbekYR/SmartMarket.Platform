@@ -9,7 +9,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="SettingsPrinterPage">
 
-    <Border CornerRadius="5 5 0 0">
+    <Border CornerRadius="5 5 0 0" Margin="3 0 5 5">
     <Grid>
 
         <Grid.RowDefinitions>
@@ -19,7 +19,9 @@
         <Border
             Grid.Row="0"
             Background="#A59C9C"
-            CornerRadius="5  3 0 0 "
+            BorderBrush="Black"
+            BorderThickness="1 1 1 0"
+            CornerRadius="5 5 0 0"
             >
             <TextBlock
                 Text="Printer sozlamalari"
@@ -31,9 +33,10 @@
         </Border>
 
 
-        <Grid
-            Grid.Row="1"
-            Background="White"
+
+            <Border Grid.Row="1" Background="White" BorderBrush="Black" BorderThickness="1 0 1 1" CornerRadius="0 0 5 5">
+                <Grid
+ 
             >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.9*"/>
@@ -144,7 +147,8 @@
             </StackPanel>
 
         </Grid>
-        
-    </Grid>
+            </Border>
+
+        </Grid>
     </Border>
 </Page>

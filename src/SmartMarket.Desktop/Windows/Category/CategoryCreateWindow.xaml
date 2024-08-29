@@ -33,20 +33,12 @@
                     Foreground="White"
                     FontWeight="SemiBold">
                 </Label>
-                <Border Grid.Column="1">
-                    <Button HorizontalAlignment="Right"
-                            x:Name="btnClose"
-                            Click="btnClose_Click"
-                            VerticalAlignment="Center" Background="Transparent" BorderBrush="Transparent" Padding="0"
-                            Margin="2 2 10 2"
-                            Cursor="Hand"
-                            Height="25" Width="25"
-                             >
-                        <Path Data="{DynamicResource x}"
-           Fill="White"
-           Stretch="Uniform"/>
-                    </Button>
-                </Border>
+                <Button
+                    Grid.Column="1"
+                    x:Name="btnClose"
+                    Click="btnClose_Click"
+                    Style="{DynamicResource btnClose}"
+                    ></Button>
             </Grid>
         </Border>
         <Border Grid.Row="1"

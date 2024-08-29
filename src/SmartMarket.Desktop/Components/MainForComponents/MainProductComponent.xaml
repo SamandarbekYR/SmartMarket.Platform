@@ -7,7 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="30" d:DesignWidth="1024">
     <Border Background="White"
-            CornerRadius="8"
+            CornerRadius="5"
+            BorderThickness="1"
+            BorderBrush="Black"
             >
         <Grid>
             <Grid.ColumnDefinitions>
@@ -15,7 +17,7 @@
                 <ColumnDefinition Width="0.8*"/>
                 <ColumnDefinition Width="1.6*"/>
                 <ColumnDefinition Width="1.7*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="1.5*"/>
                 <ColumnDefinition Width="1.4*"/>
                 <ColumnDefinition Width="0.5*"/>
@@ -31,17 +33,18 @@
                 Grid.Column="0"
                 Text="1"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 FontSize="15"
+                Margin="5 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
-            
+
             <TextBlock
                 x:Name="tbP_Code"
                 Grid.Column="1"
                 Text="P001"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 FontSize="15"
                 FontWeight="SemiBold"
                 ></TextBlock>
@@ -51,8 +54,9 @@
                 Grid.Column="2"
                 Text="1000017725261"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 FontSize="15"
+                Margin="3 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
 
@@ -61,7 +65,7 @@
                 Grid.Column="3"
                 Text="XPrinter"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 FontSize="15"
                 FontWeight="SemiBold"
                 ></TextBlock>
@@ -71,7 +75,7 @@
                 Grid.Column="4"
                 Text="Choy"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 FontSize="15"
                 FontWeight="SemiBold"
                 ></TextBlock>
@@ -81,8 +85,9 @@
                 Grid.Column="5"
                 Text="Sherzod"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 FontSize="15"
+                Margin="10 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
 
@@ -91,8 +96,9 @@
                 Grid.Column="6"
                 Text="25000.0"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 FontSize="15"
+                Margin="9 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
 
@@ -101,8 +107,9 @@
                 Grid.Column="7"
                 Text="100"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 FontSize="15"
+                 Margin="17 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
 
@@ -111,18 +118,20 @@
                 Grid.Column="8"
                 Text="2500000.0"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 FontSize="15"
+                 Margin="15 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
-            
+
             <TextBlock
                 x:Name="tbMeasure"
                 Grid.Column="9"
                 Text="Dona"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 FontSize="15"
+                 Margin="15 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
 
@@ -131,7 +140,8 @@
                 Grid.Column="10"
                 Text="30000.0"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
+                Margin="15 0 0 0"
                 FontSize="15"
                 FontWeight="SemiBold"
                 ></TextBlock>
@@ -144,7 +154,7 @@
                 Grid.Column="12"
                 Style="{DynamicResource MainPorductDelete}"
                 ></Button>
-            
+
         </Grid>
     </Border>
 </UserControl>
