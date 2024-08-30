@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartMarketDeskop.Integrated.Interfaces.Categories
+namespace SmartMarketDeskop.Integrated.Repositories.Interfaces.Categories;
+
+public interface ICategory : IRepository<CategoryView>
 {
-    public interface ICategory : IRepository<CategoryView>
-    {
-    }
+
 }
