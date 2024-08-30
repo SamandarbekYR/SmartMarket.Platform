@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartMarketDeskop.Integrated.Interfaces
+namespace SmartMarketDeskop.Integrated.Repositories.Interfaces
 {
     public interface IRepository<TEntity> where TEntity : BaseEntity
     {

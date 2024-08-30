@@ -1,14 +1,15 @@
 ﻿using SmartMarketDeskop.Integrated.Repositories.Interfaces;
-using SmartMarketDesktop.ViewModels.Entities.Categories;
+using SmartMarketDesktop.ViewModels.Entities.PayDesk;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartMarketDeskop.Integrated.Interfaces.Categories
+namespace SmartMarketDeskop.Integrated.Repositories.Interfaces.PayDesks
 {
-    public interface ICategory : IRepository<CategoryView>
+    public interface IPayDesk : IRepository<PayDeskView>
     {
+
     }
 }

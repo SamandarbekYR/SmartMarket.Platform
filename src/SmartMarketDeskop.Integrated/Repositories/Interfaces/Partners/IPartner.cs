@@ -1,14 +1,14 @@
 ﻿using SmartMarketDeskop.Integrated.Repositories.Interfaces;
-using SmartMarketDesktop.ViewModels.Entities.Categories;
+using SmartMarketDesktop.ViewModels.Entities.Partners;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartMarketDeskop.Integrated.Interfaces.Categories
+namespace SmartMarketDeskop.Integrated.Repositories.Interfaces.Partners
 {
-    public interface ICategory : IRepository<CategoryView>
+    public interface IPartner : IRepository<PartnerView>
     {
     }
 }

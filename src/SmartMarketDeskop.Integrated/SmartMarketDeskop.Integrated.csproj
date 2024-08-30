@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\PartnersCompany\" />
     <Folder Include="BackendRepository\" />
   </ItemGroup>
 
