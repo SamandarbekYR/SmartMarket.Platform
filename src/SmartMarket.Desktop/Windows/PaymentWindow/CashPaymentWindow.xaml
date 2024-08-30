@@ -29,9 +29,9 @@
                 FontWeight="SemiBold"
                 Margin="15 0 0 0"
                 ></TextBlock>
-            <Button 
+            <Border 
                   x:Name="btnclose"
-                  Click="btnclose_Click"
+                  MouseUp="btnclose_MouseUp"
                   HorizontalAlignment="Right"
                   VerticalAlignment="Center"
                   Margin="0 0 10 0"
@@ -43,7 +43,7 @@
                              Height="30"
                              Foreground="White"
                              ></md:PackIcon>
-            </Button>
+            </Border>
         </DockPanel>
 
         <StackPanel Grid.Row="1">

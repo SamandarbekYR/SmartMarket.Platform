@@ -8,6 +8,8 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
         Title="CategoryUpdateWindow" Height="200" Width="350">
     <Grid >
         <Grid.RowDefinitions>

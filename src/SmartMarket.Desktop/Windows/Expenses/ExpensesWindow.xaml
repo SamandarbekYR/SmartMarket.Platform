@@ -15,9 +15,9 @@
 
             <DockPanel Height="30" Background="#1FB5E5">
                 <TextBlock FontSize="20"  Text="Xarajatlar" Foreground="White"></TextBlock>
-                <Button x:Name="close_btn" Padding="10 0 0 0" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right">
+                <Border x:Name="close_btn" Padding="10 0 0 0" Background="Transparent" BorderThickness="0" HorizontalAlignment="Right">
                     <md:PackIcon Kind="Close" VerticalAlignment="Center" Width="30" Height="30" Foreground="Red"></md:PackIcon>
-                </Button>
+                </Border>
             </DockPanel>
 
             <DockPanel Margin="10 20 0 0">

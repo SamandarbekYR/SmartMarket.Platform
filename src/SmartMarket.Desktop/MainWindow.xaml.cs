@@ -45,8 +45,8 @@ namespace SmartMarket.Desktop
             using (var context = new AppDbContext(optionsBuilder.Options))
             {
                 // Ma'lumotlar bazasini yaratish va jadvalni o‘rnatish
-                context.Database.EnsureCreated();
-                context.Database.Migrate();
+                //context.Database.EnsureCreated();
+                //context.Database.Migrate();
                 // Jadvalga ma'lumot qo'shish yoki o‘zgartirish
               
             }

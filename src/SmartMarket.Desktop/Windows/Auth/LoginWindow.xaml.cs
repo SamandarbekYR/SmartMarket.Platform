@@ -34,11 +34,7 @@ namespace SmartMarket.Desktop.Windows.Auth
             
         }
 
-        private void btnClose_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+       
 
 
 
@@ -61,6 +57,11 @@ namespace SmartMarket.Desktop.Windows.Auth
             pbPassword.Visibility = Visibility.Visible;
             btnVisible.Visibility = Visibility.Visible;
             btnDisVisible.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnClose_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
         }
     }
 }

@@ -24,7 +24,7 @@ namespace SmartMarket.Desktop.Windows.PaymentWindow
             InitializeComponent();
         }
 
-        private void btnclose_Click(object sender, RoutedEventArgs e)
+        private void btnclose_MouseUp(object sender, MouseButtonEventArgs e)
         {
             this.Close();
         }
