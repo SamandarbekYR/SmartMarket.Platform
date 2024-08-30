@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SmartMarketDesktop.DTOs\SmartMarketDesktop.DTOs.csproj" />
     <ProjectReference Include="..\SmartMarketDesktop.ViewModels\SmartMarketDesktop.ViewModels.csproj" />
   </ItemGroup>
 

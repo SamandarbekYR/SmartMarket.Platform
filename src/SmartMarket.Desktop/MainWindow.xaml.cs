@@ -35,7 +35,7 @@ namespace SmartMarket.Desktop
 
 
             // Ba'zaga ulanish uchun connection string
-            var connectionString = "Host=localhost;Database=SmartPartners_Desktop;User ID=postgres;Port=5432;Password=1234;";
+            var connectionString = "Host=localhost;Database=SmartPartners_Desktop;User ID=postgres;Port=5432;Password=1Ozodbek;";
 
             // DbContextOptions ni yaratish
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
