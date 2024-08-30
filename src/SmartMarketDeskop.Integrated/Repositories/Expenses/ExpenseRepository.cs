@@ -2,7 +2,7 @@
 using SmartMarketDeskop.Integrated.DBContext;
 using SmartMarketDesktop.ViewModels.Entities.Expenses;
 using SmartMarketDeskop.Integrated.Interfaces;
-using SmartMarketDeskop.Integrated.Repositories.Interfaces.Expenses;
+using SmartMarketDeskop.Integrated.Interfaces.Expenses;
 
 namespace SmartMarketDeskop.Integrated.Repositories.Expenses
 {

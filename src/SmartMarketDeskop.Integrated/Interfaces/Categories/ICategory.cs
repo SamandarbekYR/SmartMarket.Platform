@@ -1,4 +1,4 @@
-﻿using SmartMarketDeskop.Integrated.Repositories.Interfaces;
+﻿using SmartMarketDeskop.Integrated.Interfaces;
 using SmartMarketDesktop.ViewModels.Entities.Categories;
 using System;
 using System.Collections.Generic;
@@ -6,9 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SmartMarketDeskop.Integrated.Interfaces.Categories
+namespace SmartMarketDeskop.Integrated.Interfaces.Categories;
+
+public interface ICategory : IRepository<CategoryView>
 {
-    public interface ICategory : IRepository<CategoryView>
-    {
-    }
+
 }

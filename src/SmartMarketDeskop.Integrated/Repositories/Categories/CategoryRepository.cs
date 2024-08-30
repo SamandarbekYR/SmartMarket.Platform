@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SmartMarketDeskop.Integrated.DBContext;
 using SmartMarketDeskop.Integrated.Interfaces;
-using SmartMarketDeskop.Integrated.Repositories.Interfaces.Categories;
+using SmartMarketDeskop.Integrated.Interfaces.Categories;
 using SmartMarketDesktop.ViewModels.Entities.Categories;
 using System;
 using System.Collections.Generic;
