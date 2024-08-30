@@ -8,6 +8,8 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
+        AllowsTransparency="True"
+        Background="Transparent"
         Title="ContrAgentUpdateWindow" Height="350" Width="450">
     <Grid >
         <Grid.RowDefinitions>
