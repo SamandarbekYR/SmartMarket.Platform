@@ -1,5 +1,5 @@
 ﻿using SmartMarketDeskop.Integrated.DBContext;
-using SmartMarketDeskop.Integrated.Repositories.Interfaces.Workers;
+using SmartMarketDeskop.Integrated.Interfaces.Workers;
 using SmartMarketDesktop.ViewModels.Entities.Workers;
 
 namespace SmartMarketDeskop.Integrated.Repositories.Workers;
