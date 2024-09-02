@@ -1,4 +1,4 @@
-﻿using SmartMarketDeskop.Integrated.Interfaces.Workers.Position;
+﻿using SmartMarketDeskop.Integrated.Interfaces.Workers;
 using SmartMarketDesktop.ViewModels.Entities.Workers;
 using System;
 using System.Collections.Generic;
@@ -8,34 +8,29 @@ using System.Threading.Tasks;
 
 namespace SmartMarketDeskop.Integrated.Services.Workers.Position
 {
-    public class PositionService : IPositionService
+    public class PositionService : IPosition
     {
-
-        string Base_Url = "";
-        public async Task<bool> CreatePosition(PositionView positionVoew)
-        {
-            try
-            {
-                HttpClient client = new HttpClient();   
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public Task<bool> Delete(Guid Id)
+        public Task<bool> Add(PositionView entity)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<PositionView>> GetAllPosition()
+        public IQueryable<PositionView> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> Update(PositionView positionView)
+        public Task<PositionView?> GetById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Remove(PositionView entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> Update(PositionView entity)
         {
             throw new NotImplementedException();
         }

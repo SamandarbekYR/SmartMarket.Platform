@@ -8,7 +8,7 @@ using SmartMarket.Service.Services.Category;
 namespace SmartMarket.WebApi.Controllers.Common.Categories;
 
 
-[Route("api/categories")]
+[Route("api/common/categories")]
 [ApiController]
 public class CategoriesController : BaseController
 {
@@ -27,7 +27,7 @@ public class CategoriesController : BaseController
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddAsync([FromBody] CategoryDto dto)
+    public async Task<IActionResult> AddAsync([FromForm] CategoryDto dto)
     {
         await _categoryService.AddAsync(dto);
         return Ok();

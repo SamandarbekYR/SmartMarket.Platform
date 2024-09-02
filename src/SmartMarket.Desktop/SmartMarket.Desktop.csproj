@@ -34,7 +34,15 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
+    <PackageReference Include="NLog" Version="5.3.3" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="5.3.12" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.2" />
+    <PackageReference Include="ToastNotifications" Version="2.5.1" />
+    <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
+    <PackageReference Include="WPF.Notifier" Version="1.2.0" />
+    <PackageReference Include="WPFNotification" Version="1.1.0" />
+    <PackageReference Include="Xam.Plugins.Notifier" Version="3.0.1" />
   </ItemGroup>
 
   <ItemGroup>
