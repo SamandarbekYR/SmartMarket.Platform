@@ -63,7 +63,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Assets\Pictures\" />
+    <Folder Include="Assets\Images\" />
   </ItemGroup>
 
 </Project>

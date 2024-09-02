@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartMarket.Desktop.Windows.SimpleAdmin"
         mc:Ignorable="d"
-        Title="SimpleAdminWindow" Height="450" Width="800">
-    <Grid>
+        WindowStyle="None"
+        WindowState="Maximized"
+        Background="Transparent"
+        AllowsTransparency="True">
+    <Grid
+        Background="{DynamicResource SecondColor}">
         
     </Grid>
 </Window>

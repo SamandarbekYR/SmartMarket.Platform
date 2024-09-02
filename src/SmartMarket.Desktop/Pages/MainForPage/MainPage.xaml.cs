@@ -98,12 +98,6 @@ namespace SmartMarket.Desktop.Pages.MainForPage
             
         }
         
-        
-        
-        
-        
-        
-        
         public List<Category> CategoryList()
         {
             categories.Add(new Category { Id = 1, Name = "choy" });

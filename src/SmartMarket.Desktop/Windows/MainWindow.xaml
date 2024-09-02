@@ -11,16 +11,23 @@
         ResizeMode="NoResize"
         AllowsTransparency="True"
         WindowState="Maximized"
-        Title="MainWindow" Height="450" Width="800"
-        
-        >
-    <Grid Background="#D9D9D9">
+        Title="MainWindow" 
+        Height="450" 
+        Width="800">
+    <Grid 
+        Background="#D9D9D9">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="11*"/>
         </Grid.RowDefinitions>
-        <Border Background="White" Grid.Row="0" BorderBrush="Black" BorderThickness="1" CornerRadius="5" Margin="5">
+        <Border 
+            Background="White" 
+            Grid.Row="0" 
+            BorderBrush="Black" 
+            BorderThickness="1" 
+            CornerRadius="5" 
+            Margin="5">
             <Grid >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -139,7 +146,9 @@
             NavigationUIVisibility="Hidden" Grid.ColumnSpan="4" />
         </Grid>
 
-        <Rectangle x:Name="lab_fon" Grid.RowSpan="4"
+        <Rectangle 
+            x:Name="lab_fon" 
+            Grid.RowSpan="4"
             Fill="Black"
             Opacity="0.5"
             Visibility="Collapsed"
