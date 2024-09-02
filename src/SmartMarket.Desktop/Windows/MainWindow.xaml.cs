@@ -117,11 +117,16 @@ namespace SmartMarket.Desktop
             PageNavigator.Content= settingsPage;
         }
 
-      //  private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void PageNavigator_Navigated(object sender, NavigationEventArgs e)
+        {
+
+        }
+
+        //  private void Window_Loaded(object sender, RoutedEventArgs e)
         //{
         //    this.Visibility = Visibility.Collapsed;
         //    LoginWindow loginWindow = new LoginWindow();
         //    loginWindow.ShowDialog();
-      //  }
+        //  }
     }
 }
