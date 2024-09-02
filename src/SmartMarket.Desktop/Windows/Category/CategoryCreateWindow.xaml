@@ -63,7 +63,7 @@
                          BorderThickness="1"
                          BorderBrush="{DynamicResource BorderColor}"
                          CornerRadius="5">
-                        <TextBox x:Name="txtName"
+                        <TextBox x:Name="txtCategoryName"
                               Margin="3 0"
                               FontSize="20"
                                  BorderThickness="0"

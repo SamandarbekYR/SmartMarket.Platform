@@ -2,7 +2,7 @@
 using SmartMarket.Service.DTOs.PartnersCompany.PartnerCompany;
 using SmartMarket.Service.Interfaces.PartnersCompany.PartnerCompany;
 
-namespace SmartMarket.WebApi.Controllers.PartnersCompany;
+namespace SmartMarket.WebApi.Controllers.Common.PartnersCompany;
 
 [Route("api/partner-companies")]
 [ApiController]

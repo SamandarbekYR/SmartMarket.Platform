@@ -2,11 +2,11 @@
 using SmartMarket.Service.DTOs.PartnersCompany.ContrAgentPayment;
 using SmartMarket.Service.Interfaces.PartnersCompany.ContrAgentPayment;
 
-namespace SmartMarket.WebApi.Controllers.PartnersCompany;
+namespace SmartMarket.WebApi.Controllers.Common.PartnersCompany;
 
-[Route("api/contr-agent-payments")]
+[Route("api/common/contr-agent-payments")]
 [ApiController]
-public class ContrAgentPaymentsController(IContrAgentPaymentService contrAgentPaymentService) : ControllerBase
+public class ContrAgentPaymentsController(IContrAgentPaymentService contrAgentPaymentService) : BaseController
 {
     private readonly IContrAgentPaymentService _contrAgentPaymentService = contrAgentPaymentService;
 

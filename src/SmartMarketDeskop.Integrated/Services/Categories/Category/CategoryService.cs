@@ -79,7 +79,7 @@ namespace SmartMarketDeskop.Integrated.Services.Categories.Category
         {
             try
             {
-                using (var client = new WebClient())
+                using (var client = new WebClient()!)
                 using (client.OpenRead("http://google.com"))
                     return true;
             }

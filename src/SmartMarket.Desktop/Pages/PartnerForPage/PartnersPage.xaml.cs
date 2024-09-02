@@ -30,9 +30,6 @@ namespace SmartMarket.Desktop.Pages.PartnerForPage
         }
 
 
-
-
-
         public class Debttor()
         {
             public int Id { get; set; }
@@ -45,8 +42,6 @@ namespace SmartMarket.Desktop.Pages.PartnerForPage
             public string LastPaymentDate { get; set; }
 
         }
-
-
 
         public List<Debttor> DebtList()
         {

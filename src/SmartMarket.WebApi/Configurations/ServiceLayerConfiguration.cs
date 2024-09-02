@@ -53,41 +53,40 @@ using SmartMarket.Service.Services.Worker.WorkerDebt;
 using SmartMarket.Service.Services.Worker.WorkerRole;
 using SmartMarket.Service.Services.Worker.Workers;
 
-namespace SmartMarket.WebApi.Configurations
-{
-    public static class ServiceLayerConfiguration
-    {
-        public static void ConfigureServiceLayer(this WebApplicationBuilder builder )
-        {
-            builder.Services.AddScoped<IFileService, FileService>();
-            builder.Services.AddScoped<ITokenService, TokenService>();
-            builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+namespace SmartMarket.WebApi.Configurations;
 
-            builder.Services.AddScoped<IAuthService,AuthService>();
-            builder.Services.AddScoped<ICategoryService, CategoryService>();
-            builder.Services.AddScoped<IPositionService, PositionService>();
-            builder.Services.AddScoped<ISalaryService, SalaryService>();
-            builder.Services.AddScoped<ISalaryCheckService, SalaryCheckService>();
-            builder.Services.AddScoped<ICustomerService, CustomerService>();
-            builder.Services.AddScoped<IExpenceService, ExpenceService>();
-            builder.Services.AddScoped<IOrderService, OrderService>();
-            builder.Services.AddScoped<IPartnerService, PartnerService>();
-            builder.Services.AddScoped<IPayDeskService, PayDeskService>();
-            builder.Services.AddScoped<IDebtPaymentService, DebtPaymentService>();
-            builder.Services.AddScoped<IDebtorsService, DebtorsService>();
-            builder.Services.AddScoped<IInvalidProductService, InvalidProductService>();
-            builder.Services.AddScoped<ILoadReportService, LoadReportService>();
-            builder.Services.AddScoped<IProductService, ProductService>();
-            builder.Services.AddScoped<IProductSaleService, ProductSaleService>();
-            builder.Services.AddScoped<IReplaceProductService, ReplaceProductService>();
-            builder.Services.AddScoped<ITransactionService, TransactionService>();
-            builder.Services.AddScoped<ISalaryWorkerService, SalaryWorkerService>();
-            builder.Services.AddScoped<IWorkerDebtService, WorkerDebtService>();
-            builder.Services.AddScoped<IWorkerRoleService, WorkerRoleService>();
-            builder.Services.AddScoped<IWorkerService, WorkerService>();
-            builder.Services.AddScoped<IContrAgentService, ContrAgentService>();
-            builder.Services.AddScoped<IContrAgentPaymentService, ContrAgentPaymentService>();
-            builder.Services.AddScoped<IPartnerCompanyService, PartnerCompanyService>();
-        }
+public static class ServiceLayerConfiguration
+{
+    public static void ConfigureServiceLayer(this WebApplicationBuilder builder )
+    {
+        builder.Services.AddScoped<IFileService, FileService>();
+        builder.Services.AddScoped<ITokenService, TokenService>();
+        builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+        builder.Services.AddScoped<IAuthService,AuthService>();
+        builder.Services.AddScoped<ICategoryService, CategoryService>();
+        builder.Services.AddScoped<IPositionService, PositionService>();
+        builder.Services.AddScoped<ISalaryService, SalaryService>();
+        builder.Services.AddScoped<ISalaryCheckService, SalaryCheckService>();
+        builder.Services.AddScoped<ICustomerService, CustomerService>();
+        builder.Services.AddScoped<IExpenceService, ExpenceService>();
+        builder.Services.AddScoped<IOrderService, OrderService>();
+        builder.Services.AddScoped<IPartnerService, PartnerService>();
+        builder.Services.AddScoped<IPayDeskService, PayDeskService>();
+        builder.Services.AddScoped<IDebtPaymentService, DebtPaymentService>();
+        builder.Services.AddScoped<IDebtorsService, DebtorsService>();
+        builder.Services.AddScoped<IInvalidProductService, InvalidProductService>();
+        builder.Services.AddScoped<ILoadReportService, LoadReportService>();
+        builder.Services.AddScoped<IProductService, ProductService>();
+        builder.Services.AddScoped<IProductSaleService, ProductSaleService>();
+        builder.Services.AddScoped<IReplaceProductService, ReplaceProductService>();
+        builder.Services.AddScoped<ITransactionService, TransactionService>();
+        builder.Services.AddScoped<ISalaryWorkerService, SalaryWorkerService>();
+        builder.Services.AddScoped<IWorkerDebtService, WorkerDebtService>();
+        builder.Services.AddScoped<IWorkerRoleService, WorkerRoleService>();
+        builder.Services.AddScoped<IWorkerService, WorkerService>();
+        builder.Services.AddScoped<IContrAgentService, ContrAgentService>();
+        builder.Services.AddScoped<IContrAgentPaymentService, ContrAgentPaymentService>();
+        builder.Services.AddScoped<IPartnerCompanyService, PartnerCompanyService>();
     }
 }

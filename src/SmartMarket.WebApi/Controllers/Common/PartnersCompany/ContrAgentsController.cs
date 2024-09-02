@@ -2,7 +2,7 @@
 using SmartMarket.Service.DTOs.PartnersCompany.ContrAgent;
 using SmartMarket.Service.Interfaces.PartnersCompany.ContrAgent;
 
-namespace SmartMarket.WebApi.Controllers.PartnersCompany;
+namespace SmartMarket.WebApi.Controllers.Common.PartnersCompany;
 
 [Route("api/contr-agents")]
 [ApiController]

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <Folder Include="BackendRepository\" />
+    <Folder Include="Server\Interfaces\PartnerCompany\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,10 +22,14 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="NLog" Version="5.3.3" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="5.3.12" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.2" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SmartMarketDesktop.DTOs\SmartMarketDesktop.DTOs.csproj" />
     <ProjectReference Include="..\SmartMarketDesktop.ViewModels\SmartMarketDesktop.ViewModels.csproj" />
   </ItemGroup>
 
