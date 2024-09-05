@@ -48,7 +48,7 @@ namespace SmartMarket.Desktop
                 //context.Database.EnsureCreated();
                 //context.Database.Migrate();
                 // Jadvalga ma'lumot qo'shish yoki o‘zgartirish
-              
+
             }
 
 

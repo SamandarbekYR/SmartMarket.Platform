@@ -10,7 +10,7 @@
         ResizeMode="NoResize"
         AllowsTransparency="True"
         Background="Transparent"
-        Title="CategoryCreateWindow" Height="200" Width="350">
+        Title="CategoryCreateWindow" Height="235" Width="350">
     
     <Grid >
         <Grid.RowDefinitions>
@@ -68,6 +68,28 @@
                               FontSize="20"
                                  BorderThickness="0"
                               Foreground="#656161"/>
+                    </Border>
+                </Grid>
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"
+                        Content="Tavsifi"
+                        FontWeight="SemiBold"
+                        VerticalAlignment="Center"
+                        FontSize="20"/>
+                    <Border Grid.Column="1"
+                         Margin="3"
+                         BorderThickness="1"
+                         BorderBrush="{DynamicResource BorderColor}"
+                         CornerRadius="5">
+                        <TextBox x:Name="txtdescribtion"
+                             Margin="3 0"
+                             FontSize="20"
+                                BorderThickness="0"
+                             Foreground="#656161"/>
                     </Border>
                 </Grid>
 

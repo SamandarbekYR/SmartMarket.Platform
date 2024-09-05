@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
 
              d:DesignHeight="30" d:DesignWidth="250">
-    <Border Background="White" CornerRadius="5" Style="{DynamicResource StyleBorder}" BorderThickness="1" BorderBrush="Black">
+    <Border x:Name="brCategory" MouseDown="Border_MouseDown" Background="White" CornerRadius="5" BorderThickness="1" BorderBrush="Black" MouseUp="Border_MouseUp">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -34,12 +34,14 @@
                        ></TextBlock>
             <Button
                 x:Name="BtnEditCategory"
+                Click="BtnEditCategory_Click"
                 Grid.Column="2"
                 Style="{DynamicResource BtnEditCategory}"
                 ></Button>
 
             <Button
                 x:Name="BntDeleteCategory"
+                Click="BntDeleteCategory_Click"
                 Grid.Column="3"
                 Style="{DynamicResource BtnDeleteCategory}"
                 ></Button>

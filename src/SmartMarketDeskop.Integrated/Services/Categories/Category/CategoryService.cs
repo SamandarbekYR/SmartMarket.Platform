@@ -2,6 +2,8 @@
 using Newtonsoft.Json;
 using SmartMarketDeskop.Integrated.DBContext;
 using SmartMarketDeskop.Integrated.Interfaces.Categories;
+using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
+using SmartMarketDesktop.DTOs.DTOs.Categories;
 using SmartMarketDesktop.ViewModels.Entities.Categories;
 using System;
 using System.Collections.Generic;
@@ -12,67 +14,58 @@ using System.Threading.Tasks;
 
 namespace SmartMarketDeskop.Integrated.Services.Categories.Category
 {
-    public class CategoryService 
+    public class CategoryService : ICategoryService
     {
-        string Base_Url = "http://localhost:5293/";
-        private readonly AppDbContext localDbContext;
-        private DbSet<CategoryView> _dbset;
-        public CategoryService(AppDbContext appDbContext)
+        private ICategoryServer _categoryServer;
+        
+
+        public CategoryService()
         {
-            localDbContext = appDbContext;
-            _dbset =localDbContext.Set<CategoryView>();
+            _categoryServer = new SmartMarketDeskop.Integrated.Server.Repositories.Categories.CategoryServer();
         }
-        public async Task<bool> CreateCategory(CategoryView categoryView)
+
+        public async Task<bool> AddAsync(CategoryDto dto)
         {
             if (IsInternetAvailable())
             {
-                try
-                {
-                    HttpClient client = new HttpClient();
-                    HttpRequestMessage httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, Base_Url + "/api/categories");
+                dto.IsSynced = true;
+                await _categoryServer.AddAsync(dto);
 
-                    categoryView.IsSynced= true;
-                    var json = JsonConvert.SerializeObject(categoryView);
+                return true;    
+            }
+            else
+            {
 
-                    var content = new StringContent(json, Encoding.UTF8, "application/json");
-                    httpRequestMessage.Content = content;
+                // localni bazaga saqlaymiz
+                return false;
+            }
+        }
 
-                    var response = await client.SendAsync(httpRequestMessage);
-                    if (response.IsSuccessStatusCode)
-                    {
-                        return true;
-                    }
-
-                    return false;
-                }
-                catch { return false; }
+        public async Task<bool> DeleteAsync(Guid Id)
+        {
+            if (!IsInternetAvailable())
+            {
+                await _categoryServer.DeleteAsync(Id);
+                return true;
             }
 
             else
             {
-                categoryView.IsSynced = false;
+                return false;   
+            }
+        }
 
-                await _dbset.AddAsync(categoryView);
-                await localDbContext.SaveChangesAsync();
-                return true;
+        public async Task<List<CategoryView>> GetAllAsync()
+        {
+            if(IsInternetAvailable())
+            {
+                return await _categoryServer.GetAllAsync();
             }
 
-            return false ;
-        }
-
-        public Task<bool> DeleteCategory(Guid Id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<CategoryView>> GetAllCategory()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> UpdateCategory(CategoryView categoryView)
-        {
-            throw new NotImplementedException();
+            else
+            {
+                return new List<CategoryView>();
+            }
         }
 
         public bool IsInternetAvailable()
@@ -84,6 +77,19 @@ namespace SmartMarketDeskop.Integrated.Services.Categories.Category
                     return true;
             }
             catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateAsync(CategoryDto dto, Guid Id)
+        {
+            if(!IsInternetAvailable())
+            {
+                await _categoryServer.UpdateAsync(dto, Id);
+                return true;    
+            }
+            else
             {
                 return false;
             }

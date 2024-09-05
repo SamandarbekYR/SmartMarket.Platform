@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="BackendRepository\" />
-    <Folder Include="Server\Interfaces\PartnerCompany\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SmartMarket.Domain\SmartMarket.Domain.csproj" />
     <ProjectReference Include="..\SmartMarketDesktop.DTOs\SmartMarketDesktop.DTOs.csproj" />
     <ProjectReference Include="..\SmartMarketDesktop.ViewModels\SmartMarketDesktop.ViewModels.csproj" />
   </ItemGroup>

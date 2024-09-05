@@ -1,4 +1,8 @@
-﻿using System;
+﻿using SmartMarket.Desktop.Pages.MainForPage;
+using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
+using SmartMarketDesktop.DTOs.DTOs.Categories;
+using SmartMarketDesktop.ViewModels.Entities.Categories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,19 +23,48 @@ namespace SmartMarket.Desktop.Windows.Category
     /// </summary>
     public partial class CategoryUpdateWindow : Window
     {
+        private ICategoryServer categoryServer;
+       
+        CategoryView categoryView;
         public CategoryUpdateWindow()
         {
             InitializeComponent();
+            
+            this.categoryServer = new SmartMarketDeskop.Integrated.Server.Repositories.Categories.CategoryServer();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Close();
         }
 
-        private void EditBtn_MouseUp(object sender, MouseButtonEventArgs e)
+        private async void EditBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
 
+            //txtName.Text = categoryView.Name;
+            //txtDescribtion.Text=categoryView.Description;
+
+            CategoryDto categoryDto = new CategoryDto();
+            categoryDto.Name=txtName.Text;
+            categoryDto.Description=txtDescribtion.Text;
+
+            await categoryServer.UpdateAsync(categoryDto, categoryView.Id);
+
+         //   if (_mainPage != null) _mainPage.GetAllCategory();
+            Clear();
+            this.Close();
+        }
+
+
+        public void GetData(CategoryView _category)
+        {
+            categoryView = _category;
+        }
+
+
+        public void Clear()
+        {
+            txtDescribtion.Text=txtName.Text=string.Empty;
         }
     }
 }
