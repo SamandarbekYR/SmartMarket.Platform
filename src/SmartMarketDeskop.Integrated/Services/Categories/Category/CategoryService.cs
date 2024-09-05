@@ -59,6 +59,7 @@ namespace SmartMarketDeskop.Integrated.Services.Categories.Category
         {
             if(IsInternetAvailable())
             {
+
                 return await _categoryServer.GetAllAsync();
             }
 
