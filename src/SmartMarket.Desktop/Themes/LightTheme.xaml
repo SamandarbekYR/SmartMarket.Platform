@@ -3,8 +3,8 @@
 
 
 
-    <SolidColorBrush x:Key="FirstColor" Color="#D9D9D9"/>
-    <SolidColorBrush x:Key="SecondColor" Color="#FFF"/>
+    <SolidColorBrush x:Key="FirstColor" Color="#EEEEEE"/>
+    <SolidColorBrush x:Key="SecondColor" Color="White"/>
     <SolidColorBrush x:Key="TheerdColor" Color="#A59C9C"/>
     <SolidColorBrush x:Key="FourthColor" Color="#B9DDFF"/>
     <SolidColorBrush x:Key="FifthColor" Color="#0FBC5F"/>
@@ -18,5 +18,10 @@
     <SolidColorBrush x:Key="btncolor" Color="#FFFFFF"/>
     <SolidColorBrush x:Key="btnMouseEnter" Color="#F3E0E0"/>
     <SolidColorBrush x:Key="btnMouseClick" Color="#C0B1B1"/>
+
+    <SolidColorBrush x:Key="Create_Btn_Color" Color="#329DFF"/>
+    <SolidColorBrush x:Key="Create_Btn_MouseEnter" Color="#57AEFF"/>
+    <SolidColorBrush x:Key="Create_Btn_MouseClick" Color="#2696FF"/>
+    <SolidColorBrush x:Key="Border_Mouse_Enter" Color="#57AEFF"/>
 
 </ResourceDictionary>

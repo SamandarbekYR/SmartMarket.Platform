@@ -12,7 +12,7 @@
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
-    
+
         </Style.Triggers>
     </Style>
 

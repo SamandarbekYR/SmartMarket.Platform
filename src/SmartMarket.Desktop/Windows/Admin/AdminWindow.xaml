@@ -9,10 +9,93 @@
         WindowState="Maximized"
         Background="Transparent"
         AllowsTransparency="True"
-        Height="450" 
-        Width="800">
+        Height="450"
+        Loaded="Window_Loaded">
     <Grid
         Background="{DynamicResource SecondColor}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid
+            Margin="10 20 0 0"
+            Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+
+            <RadioButton
+                Name="Button_Main"
+                Grid.Column="0"
+                Content="Asosiy"
+                IsChecked="True"
+                Click="Button_Main_Click"
+                Tag="{DynamicResource main}"
+                Style="{DynamicResource MenuButton2}"/>
+            
+            <RadioButton
+                x:Name="Button_Sale"
+                Grid.Column="1"
+                Content="Sotuv oynasi"
+                Click="Button_Sale_Click"
+                Tag="{DynamicResource cart}"
+                Style="{DynamicResource MenuButton2}"/>
+            
+            <RadioButton
+                Grid.Column="2"
+                Content="Sotuv tafsilotlari"
+                Tag="{DynamicResource sales_details}"
+                Style="{DynamicResource MenuButton2}"/>
+            
+            <RadioButton
+                Name="Button_Partner" 
+                Grid.Column="3"
+                Content="Hamkorlarim"
+                Click="Button_Partner_Click"
+                Tag="{DynamicResource partner}"
+                Style="{DynamicResource MenuButton2}"/>
+            <RadioButton
+                Name="Button_Shop_Details"
+                Grid.Column="4"
+                Content="Do'kon tafsilotlari"
+                Click="Button_Shop_Details_Click"
+                Tag="{DynamicResource store}"
+                Style="{DynamicResource MenuButton2}"/>
+            <RadioButton
+                x:Name="Button_Settings"
+                Grid.Column="5"
+                Content="Sozlamalar"
+                Click="Button_Settings_Click"
+                Tag="{DynamicResource Setting}"
+                Style="{DynamicResource MenuButton2}"/>
+
+            <Button
+                Name="Button_Close"
+                Margin="0 0 10 0"
+                Grid.Column="6"
+                Click="Button_Close_Click"
+                HorizontalAlignment="Right"
+                Style="{DynamicResource bntmainclose}"/>
+
+        </Grid>
+        
+        <Border
+            Margin="10"
+            Grid.Row="1">
+
+            <Frame
+                x:Name="Page_Navigator"
+                NavigationUIVisibility="Hidden"/>
+
+        </Border>
 
     </Grid>
 </Window>
