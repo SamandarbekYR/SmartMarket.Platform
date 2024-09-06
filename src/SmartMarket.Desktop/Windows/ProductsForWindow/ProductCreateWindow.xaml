@@ -48,7 +48,7 @@
                            VerticalAlignment="Center"
                            Margin="10"
                            Cursor="Hand"
-                           MouseUp="Border_MouseUp">
+                           MouseUp="Border_MouseUp_1">
                         <Path Data="{DynamicResource x}"
                              Fill="White"
                              Stretch="Uniform"/>
