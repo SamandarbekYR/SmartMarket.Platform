@@ -62,4 +62,8 @@
     <Resource Include="Assets\logout_left.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Assets\Images\" />
+  </ItemGroup>
+
 </Project>

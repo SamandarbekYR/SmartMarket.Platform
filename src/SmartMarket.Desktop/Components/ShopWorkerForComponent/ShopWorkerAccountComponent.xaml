@@ -17,10 +17,12 @@
         <StackPanel Orientation="Vertical">
             <Ellipse Width="100" Height="100" Margin="0 10 0 0">
                 <Ellipse.Fill>
-                    <ImageBrush ImageSource="C:\Users\user\source\repos\CheckInternet\WpfApp1\Images\photo_2024-08-07_17-42-39.jpg"
-                             
-                             Stretch="Fill"
-                             ></ImageBrush>
+                    <ImageBrush 
+                        ImageSource="/Assets/login_background.png"
+                        Stretch="Fill"
+                        >
+                        
+                    </ImageBrush>
                 </Ellipse.Fill>
             </Ellipse>
             <TextBlock

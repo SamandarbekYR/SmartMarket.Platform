@@ -12,7 +12,7 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        Title="LoginWindow" Height="500" Width="750">
+        Title="LoginWindow" Height="600" Width="850">
     <Grid>
 
         <Grid.RowDefinitions>
@@ -29,29 +29,46 @@
 
         </Border>
 
-        <Border Grid.Column="0" Grid.Row="1" Margin="0 0 0 0"
-         CornerRadius="0 0 0 55"
-         Background="White">
+        <Border 
+            Grid.Column="0" 
+            Grid.Row="1" 
+            Margin="0 0 0 0"
+            CornerRadius="0 0 0 55"
+            Background="White">
             
-            <StackPanel Margin="0 -20 0 0">
+            <StackPanel Margin="0 20 0 0">
                 
-                <TextBlock Text="Smart Post"
-                    FontSize="30"
+                <TextBlock 
+                    Text="Smart Post"
+                    FontSize="25"
                     FontWeight="Bold"
-                    Margin="20 20 0 0"/>
-                <TextBlock Text="by SmartPartners"
-                    FontSize="16"
-                    Margin="20 0 0 0"/>
-                <TextBlock Text="version 1.0"
-                    FontSize="16"
-                    Margin="20 0 0 0"/>
+                    Margin="30 20 0 0"/>
+                <TextBlock 
+                    Text="by SmartPartners"
+                    FontSize="14"
+                    Margin="30 0 0 0"
+                    FontWeight="SemiBold"/>
+                <TextBlock 
+                    Text="version 1.0"
+                    FontSize="14"
+                    Margin="30 0 0 0"
+                    FontWeight="SemiBold"/>
 
 
-                <Image Source="pack://application:,,,/Assets/login_background.png">
+                <Image 
+                    Source="pack://application:,,,/Assets/login_background.png">
 
                 </Image>
 
-                <Border x:Name="btnClose" Height="80" Width="80" Margin="-200 00 0 0" Background="Transparent" BorderBrush="Transparent" Padding="0" MouseUp="btnClose_MouseUp">
+                <Border 
+                    x:Name="btnClose" 
+                    Height="70" 
+                    Width="70" 
+                    Margin="40 0 0 0" 
+                    Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    MouseUp="btnClose_MouseUp"
+                    HorizontalAlignment="Left">
                     <Image Source="pack://application:,,,/Assets/login_close.png" >
 
                     </Image>
@@ -63,14 +80,15 @@
                 Background="White"
                 CornerRadius=" 0 0 55 0" >
             <Border CornerRadius="55" 
-                    Margin="20 0 20 30"
+                    Margin="20 50 20 80"
                     BorderThickness="2"
                     BorderBrush="#8F8F8F" 
                 >
                 <StackPanel>
-                    <TextBlock Text="Login"
+                    <TextBlock Text="Kirish"
                                FontSize="30"
                                FontWeight="Bold"
+                               HorizontalAlignment="Center"
                                Margin="20 40 0 0"/>
                     <Border Height="40" Width="270"
                             CornerRadius="10"
@@ -112,26 +130,28 @@
                                 <ColumnDefinition Width="45"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-                            <md:PackIcon Kind="Lock" Grid.Column="0"
-                                         Width="30"
-                                         Height="30"
-                                         VerticalAlignment="Center"
-                                         Foreground="#EA8610"
-                                         Margin="5"/>
+                            <md:PackIcon 
+                                Kind="Lock" Grid.Column="0"
+                                Width="30"
+                                Height="30"
+                                VerticalAlignment="Center"
+                                Foreground="#EA8610"
+                                Margin="5"/>
                             <DockPanel
                                 Grid.Column="1"
                                 >
-                                <PasswordBox x:Name="pbPassword" Grid.Column="1"
-                                        Visibility="Visible"
-                                             Width="190"
-                                         Margin="4"
-                                         VerticalAlignment="Center"
-                                         Foreground="Black"
-                                         FontSize="18"
-                                         FontWeight="SemiBold"
-                                         BorderThickness="0"
-                                             Password="1234"
-                                         />
+                                <PasswordBox 
+                                    x:Name="pbPassword" 
+                                    Grid.Column="1"
+                                    Visibility="Visible"
+                                    Width="190"
+                                    Margin="4"
+                                    VerticalAlignment="Center"
+                                    Foreground="Black"
+                                    FontSize="18"
+                                    FontWeight="SemiBold"
+                                    BorderThickness="0"
+                                    />
                                 <TextBox x:Name="tbPassword" Grid.Column="1"
                                          Visibility="Collapsed"
                                          Margin="4"
@@ -168,7 +188,7 @@
                             Background="#53C9FC"
                             Cursor="Hand"
                             MouseUp="btnLogin_MouseUp">
-                        <TextBlock Text="Log in"
+                        <TextBlock Text="Kirish"
                                    FontSize="20"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Center"
