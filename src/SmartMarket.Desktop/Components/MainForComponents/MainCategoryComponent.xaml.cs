@@ -84,5 +84,6 @@ namespace SmartMarket.Desktop.Components.MainForComponents
         }
 
         public bool selected { get; set; } = true;
+
     }
 }
