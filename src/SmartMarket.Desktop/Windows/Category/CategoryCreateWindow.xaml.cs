@@ -1,6 +1,10 @@
-﻿using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
+﻿using SmartMarket.Desktop.Components.MainForComponents;
+using SmartMarket.Desktop.Pages.MainForPage;
+using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
 using SmartMarketDeskop.Integrated.Server.Repositories.Categories;
+using SmartMarketDeskop.Integrated.Services.Categories.Category;
 using SmartMarketDesktop.DTOs.DTOs.Categories;
+using SmartMarketDesktop.ViewModels.Entities.PartnersCompany;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,11 +30,13 @@ namespace SmartMarket.Desktop.Windows.Category
     /// </summary>
     public partial class CategoryCreateWindow : Window
     {
-        public ICategoryServer _categoryServer;
+        private ICategoryService categoryService;
+        
         public CategoryCreateWindow()
         {
             InitializeComponent();
-            this._categoryServer = new CategoryServer();
+            
+            this.categoryService = new SmartMarketDeskop.Integrated.Services.Categories.Category.CategoryService();
         }
         Notifier notifier = new Notifier(cfg =>
         {
@@ -46,21 +52,38 @@ namespace SmartMarket.Desktop.Windows.Category
 
             cfg.Dispatcher = Application.Current.Dispatcher;
         });
+
+
         private async void btnCategoryCreate_MouseUp(object sender, MouseButtonEventArgs e)
         {
             CategoryDto categoryDto = new CategoryDto();
             categoryDto.Name = txtCategoryName.Text;
-            categoryDto.Description = "description";
-            bool result = await _categoryServer.AddAsync(categoryDto);
-            
-            if(result)
-               notifier.ShowSuccess("Category muvafaqqiyatli qo'shildi");
-            else
-               notifier.ShowError("Category qo'shishda xatolik yuz berdi");
+            categoryDto.Description = txtdescribtion.Text;
+            bool result = await categoryService.AddAsync(categoryDto);
+
+            //if (result)
+            //    notifier.ShowSuccess("Category muvafaqqiyatli qo'shildi");
+            //else
+            //    notifier.ShowError("Category qo'shishda xatolik yuz berdi");
+
+
+
+            Clear();
+            this.Close();
         }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            Clear();
         }
+
+
+
+        public void Clear()
+        {
+            txtCategoryName.Text=txtdescribtion.Text=string.Empty;
+        }
+
+      
     }
 }

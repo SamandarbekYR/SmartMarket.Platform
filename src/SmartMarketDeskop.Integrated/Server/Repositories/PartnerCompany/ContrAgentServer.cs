@@ -1,35 +1,38 @@
-﻿using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using NLog;
+using SmartMarket.Domain.Entities.PartnersCompany;
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
-using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
-using SmartMarketDesktop.DTOs.DTOs.Categories;
+using SmartMarketDeskop.Integrated.Server.Interfaces.PartnerCompany;
+using SmartMarketDesktop.DTOs.DTOs.PartnerCompany;
 using SmartMarketDesktop.ViewModels.Entities.Categories;
-using System.Net.Http.Headers;
+using SmartMarketDesktop.ViewModels.Entities.PartnersCompany;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-namespace SmartMarketDeskop.Integrated.Server.Repositories.Categories
+using System.Threading.Tasks;
+
+namespace SmartMarketDeskop.Integrated.Server.Repositories.PartnerCompany
 {
-    public class CategoryServer : ICategoryServer
+    public class ContrAgentServer : IContrAgentServer
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        public async Task<bool> AddAsync(CategoryDto dto)
+
+        public async Task<bool> AddAsync(ContrAgentDto dto)
         {
             try
             {
                 var token = IdentitySingelton.GetInstance().Token;
 
                 using (var client = new HttpClient())
-                using (var request = new HttpRequestMessage(HttpMethod.Post, AuthApi.BASE_URL + "/api/common/categories"))
+                using (var request = new HttpRequestMessage(HttpMethod.Post, AuthApi.BASE_URL + "/api/common/contr-agents"))
                 {
                     request.Headers.Add("Authorization", $"Bearer {token}");
 
-                    // Check if the API expects JSON content instead of multipart form data
-                    var content = new MultipartFormDataContent
-                    {
-                        { new StringContent(dto.Name), "name" },
-                        { new StringContent(dto.Description), "description" }
-                    };
+                    var json = JsonConvert.SerializeObject(dto);
+
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                     request.Content = content;
 
@@ -45,7 +48,7 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Categories
                     else
                     {
                         // Log the response status and content for debugging
-                        logger.Error($"Failed to add category. Status Code: {response.StatusCode}, Response: {resultContent}");
+                        logger.Error($"Failed to add Contr Agent. Status Code: {response.StatusCode}, Response: {resultContent}");
                     }
 
                     return false;
@@ -53,18 +56,18 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Categories
             }
             catch (Exception ex)
             {
-                logger.Error("CategoryServer: AddAsync method exception: ", ex);
+                logger.Error("ContrAgentServer: AddAsync method exception: ", ex);
                 return false;
             }
         }
 
-
         public async Task<bool> DeleteAsync(Guid Id)
         {
+
             try
             {
                 HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri(AuthApi.BASE_URL + $"/api/common/categories/{Id}");
+                client.BaseAddress = new Uri(AuthApi.BASE_URL + $"/api/common/contr-agents/{Id}");
 
                 var token = IdentitySingelton.GetInstance().Token;
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
@@ -84,12 +87,10 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Categories
             {
                 return false;
             }
-
         }
 
-        public async Task<List<CategoryView>> GetAllAsync()
+        public async Task<List<ContrAgent>> GetAllAsync()
         {
-
             try
             {
                 // HttpClient yaratish
@@ -99,7 +100,7 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Categories
                 var token = IdentitySingelton.GetInstance().Token;
 
                 // API so'rovining bazaviy manzilini sozlash
-                client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/common/categories");
+                client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/common/contr-agents");
 
                 // Authorization headerni qo'shish
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
@@ -111,25 +112,25 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Categories
                 string response = await message.Content.ReadAsStringAsync();
 
                 // JSON ni CategoryView listiga deserialize qilish
-                List<CategoryView> posts = JsonConvert.DeserializeObject<List<CategoryView>>(response)!;
+                List<ContrAgent> posts = JsonConvert.DeserializeObject<List<ContrAgent>>(response)!;
 
                 return posts;
             }
             catch
             {
                 // Xatolik yuz bergan taqdirda bo'sh ro'yxat qaytarish
-                return new List<CategoryView>();
+                return new List<ContrAgent>();
             }
 
         }
 
-        public async Task<bool> UpdateAsync(CategoryDto dto, Guid Id)
+        public async Task<bool> UpdateAsync(ContrAgentDto dto, Guid Id)
         {
             try
             {
                 var token = IdentitySingelton.GetInstance().Token;
                 var client = new HttpClient();
-                var url = $"{AuthApi.BASE_URL}/api/common/categories/{Id}";
+                var url = $"{AuthApi.BASE_URL}/api/common/contr-agents/{Id}";
                 var request = new HttpRequestMessage(HttpMethod.Put, url);
                 request.Headers.Add("Authorization", $"Bearer {token}");
 
@@ -156,8 +157,6 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Categories
             {
                 return false;
             }
-
-
 
         }
     }

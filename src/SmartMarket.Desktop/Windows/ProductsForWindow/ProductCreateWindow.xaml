@@ -135,8 +135,8 @@
                            BorderBrush="{DynamicResource BorderColor}"
                            CornerRadius="5">
                         <ComboBox x:Name="comboCategory"
-                                 SelectedValue="Id"
-                                 DisplayMemberPath="Name"
+                                
+                                 
                                 Margin="3 0"
                                 FontSize="18"
                                  BorderThickness="0"
@@ -239,7 +239,7 @@
                                 Margin="3 0"
                                 FontSize="20"
                                 Foreground="#656161"
-                                 BorderThickness="0"/>
+                                 BorderThickness="0" />
                     </Border>
                 </StackPanel>
                 <StackPanel Margin="0 5 0 0"

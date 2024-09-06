@@ -10,7 +10,7 @@
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True"
-        Title="CategoryUpdateWindow" Height="200" Width="350">
+        Title="CategoryUpdateWindow" Height="235" Width="350">
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -45,6 +45,7 @@
                     </Button>
                 </Border>
             </Grid>
+
         </Border>
         <Border Grid.Row="1"
              Background="White"
@@ -73,6 +74,31 @@
                               Foreground="#656161"/>
                     </Border>
                 </Grid>
+
+
+                <Grid Margin="0 5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"
+                        Content="Tavsifi"
+                        FontWeight="SemiBold"
+                        VerticalAlignment="Center"
+                        FontSize="20"/>
+                    <Border Grid.Column="1"
+                         Margin="3"
+                         BorderThickness="1"
+                         BorderBrush="{DynamicResource BorderColor}"
+                         CornerRadius="5">
+                        <TextBox x:Name="txtDescribtion"
+                              Margin="3 0"
+                              FontSize="20"
+                                 BorderThickness="0"
+                              Foreground="#656161"/>
+                    </Border>
+                </Grid>
+
 
                 <Border Background="#1EB7E8"
                      Margin="4 20"

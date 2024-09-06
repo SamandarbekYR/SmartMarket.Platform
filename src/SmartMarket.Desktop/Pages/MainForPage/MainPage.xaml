@@ -248,7 +248,8 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="200"/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="50"/>
                             <ColumnDefinition Width="100"/>
                         </Grid.ColumnDefinitions>
 
@@ -261,7 +262,7 @@
 
 
 
-                        <Border Grid.Column="1" Margin="50 4 350 4"
+                        <Border Grid.Column="1" Margin="50 4 300 4"
                                 Background="White"
                                 CornerRadius="10"
                                 >
@@ -278,14 +279,22 @@
                                        Margin="5 0 15 0"
                                        ></TextBox>
                             </DockPanel>
+                            
                         </Border>
 
 
 
+                        <Button
+                            x:Name="btnAddCompany"
+                            Click="btnAddCompany_Click"
+                            Grid.Column="2"
+                            Style="{DynamicResource btnAddCompany}"
+                            ></Button>
+                       
                         <Button 
                             x:Name="btnAddKontrAgent"
                             Click="btnAddKontrAgent_Click"
-                                 Grid.Column="2" 
+                                 Grid.Column="3" 
                                  Width="90" Height="25"
                                  Style="{StaticResource MenuButton}"
                                  Background="#0AB1F9"
@@ -330,6 +339,7 @@
                         Text="Firma"
                         VerticalAlignment="Center"
                         FontSize="15"
+                        Margin="10 0 0 0"
                         FontWeight="SemiBold"
                         ></TextBlock>
                     <TextBlock
@@ -338,6 +348,7 @@
                         VerticalAlignment="Center"
                         FontSize="15"
                         FontWeight="SemiBold"
+                        Margin="15 0 0 0"
                         ></TextBlock>
                     <TextBlock
                         Grid.Column="3"
@@ -359,6 +370,7 @@
                         VerticalAlignment="Center"
                         FontSize="15"
                         FontWeight="SemiBold"
+                        HorizontalAlignment="Left"
                         ></TextBlock>
 
                     <TextBlock
@@ -390,11 +402,12 @@
                 <Border Grid.Row="2"  Margin="0 0 5 3"
                         CornerRadius="0 0 5 5" BorderThickness="1 0 1 1" BorderBrush="Black" Background="White"
                         >
-                    <StackPanel 
-                    >
-
-                    <!--  -->
-                </StackPanel>
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"
+                        >
+                        <StackPanel x:Name="St_contrAgents">
+                            
+                        </StackPanel>
+                    </ScrollViewer>
                 </Border>
 
             </Grid>
