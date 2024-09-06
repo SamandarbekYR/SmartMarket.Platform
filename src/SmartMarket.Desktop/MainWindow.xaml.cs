@@ -117,6 +117,8 @@ namespace SmartMarket.Desktop
             PageNavigator.Content= settingsPage;
         }
 
+
+
       //  private void Window_Loaded(object sender, RoutedEventArgs e)
         //{
         //    this.Visibility = Visibility.Collapsed;
