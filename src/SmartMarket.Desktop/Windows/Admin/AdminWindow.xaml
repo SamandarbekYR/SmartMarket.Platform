@@ -9,7 +9,6 @@
         WindowState="Maximized"
         Background="Transparent"
         AllowsTransparency="True"
-        Height="450"
         Loaded="Window_Loaded">
     <Grid
         Background="{DynamicResource SecondColor}">

@@ -8,9 +8,33 @@
         WindowStyle="None"
         WindowState="Maximized"
         Background="Transparent"
-        AllowsTransparency="True">
+        AllowsTransparency="True"
+        Loaded="Window_Loaded">
     <Grid
         Background="{DynamicResource SecondColor}">
-        
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button
+            Name="Button_Close"
+            Margin="0 12 10 0"
+            Grid.Column="1"
+            Click="Button_Close_Click"
+            HorizontalAlignment="Right"
+            Style="{DynamicResource bntmainclose}"/>
+
+        <Border
+            Margin="10"
+            Grid.Row="1">
+
+            <Frame
+                x:Name="Page_Navigator"
+                NavigationUIVisibility="Hidden"/>
+
+        </Border>
+
     </Grid>
 </Window>

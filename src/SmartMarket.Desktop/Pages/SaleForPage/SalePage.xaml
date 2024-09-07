@@ -13,19 +13,16 @@
     <Grid Background="#D9D9D9">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="2.5*"/>
+            <ColumnDefinition Width="2.8*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0"
-               Background="White"
-               CornerRadius="5"
-               Margin="5"
-               BorderThickness="1"
-               BorderBrush="Black">
-            <Border CornerRadius="5"
-                Margin="2 3 2 2"
+        
+            <Border 
+                Background="{DynamicResource SecondColor}"
+                CornerRadius="5"
+                Margin="5"
                 BorderThickness="1"
-                BorderBrush="Black">
+                BorderBrush="{DynamicResource BorderColor}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="35"/>
@@ -46,7 +43,7 @@
                             CornerRadius="8"
                             Margin="10 2 10 2"
                             BorderThickness="1"
-                            BorderBrush="Black"
+                            BorderBrush="{DynamicResource BorderColor}"
                             >
                         <DockPanel>
                             <md:PackIcon Kind="Search"
@@ -77,22 +74,24 @@
                     </ScrollViewer>
                 </Grid>
             </Border>
-        </Border>
 
 
-        <Grid Grid.Column="1">
+        <Grid 
+            Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
+            <Grid 
+                Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2.5*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Grid Grid.Column="0">
+                <Grid 
+                    Grid.Column="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="35"/>
                         <RowDefinition Height="90"/>
@@ -100,10 +99,10 @@
                         <RowDefinition Height="150"/>
                     </Grid.RowDefinitions>
                     
-                    <Border Grid.Row="0" Margin="2 5 2 2"
+                    <Border Grid.Row="0" Margin="2 5 2 5"
                             CornerRadius="5"
                             BorderThickness="1"
-                            BorderBrush="Black"
+                            BorderBrush="{DynamicResource BorderColor}"
                             Background="White"
                             >
                         <DockPanel>
@@ -133,8 +132,8 @@
                     <Border Grid.Row="1"
                             CornerRadius="5"
                             BorderThickness="1"
-                            BorderBrush="Black"
-                            Margin="2"
+                            BorderBrush="{DynamicResource BorderColor}"
+                            Margin="2 0 2 5"
                             Background="White"
                             >
                         <Grid>
@@ -205,7 +204,7 @@
                     <Border
                         Grid.Row="2"
                         Margin="2"
-                        BorderBrush="Black"
+                        BorderBrush="{DynamicResource BorderColor}"
                         BorderThickness="1"
                         CornerRadius="5"
                         Background="White"
@@ -228,27 +227,29 @@
                                             <ColumnDefinition Width="0.5*"/>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="3*"/>
-                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="0.5*"/>
                                             <ColumnDefinition Width="1.5*"/>
-                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="1.5*"/>
                                             <ColumnDefinition Width="1.5*"/>
                                         </Grid.ColumnDefinitions>
 
                                         <TextBlock
                                             Grid.Column="0"
-                                            Text="N%"
-                                            FontSize="15"
+                                            Text="No."
+                                            FontSize="13"
                                             FontWeight="SemiBold"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Center"
+                                            Foreground="{DynamicResource BorderColor}"
                                             ></TextBlock>
                                         <TextBlock
                                             Grid.Column="1"
                                             Text="P-Code"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Center"
-                                            FontSize="15"
+                                            FontSize="13"
                                             FontWeight="SemiBold"
+                                            Foreground="{DynamicResource BorderColor}"
                                             ></TextBlock>
 
                                         <TextBlock
@@ -256,8 +257,9 @@
                                             Text="Mahsulot nomi"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Center"
-                                            FontSize="15"
+                                            FontSize="13"
                                             FontWeight="SemiBold"
+                                            Foreground="{DynamicResource BorderColor}"
                                             ></TextBlock>
 
                                         <TextBlock
@@ -265,8 +267,9 @@
                                             Text="Soni"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Center"
-                                            FontSize="15"
+                                            FontSize="13"
                                             FontWeight="SemiBold"
+                                            Foreground="{DynamicResource BorderColor}"
                                             ></TextBlock>
 
                                         <TextBlock
@@ -274,8 +277,9 @@
                                             Text="Narxi"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Center"
-                                            FontSize="15"
+                                            FontSize="13"
                                             FontWeight="SemiBold"
+                                            Foreground="{DynamicResource BorderColor}"
                                             ></TextBlock>
 
                                         <TextBlock 
@@ -283,8 +287,9 @@
                                             Text="Chegirma"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Center"
-                                            FontSize="15"
+                                            FontSize="13"
                                             FontWeight="SemiBold"
+                                            Foreground="{DynamicResource BorderColor}"
                                             ></TextBlock>
 
                                         <TextBlock
@@ -292,8 +297,9 @@
                                             Text="Jami"
                                             VerticalAlignment="Center"
                                             HorizontalAlignment="Center"
-                                            FontSize="15"
+                                            FontSize="13"
                                             FontWeight="SemiBold"
+                                            Foreground="{DynamicResource BorderColor}"
                                             ></TextBlock>
                                         
                                     </Grid>
@@ -302,8 +308,8 @@
                             </Border>
 
                             <Border Grid.Column="1"
-                                    BorderBrush="Black"
-                                    BorderThickness="1 0 0 0"
+                                    BorderBrush="{DynamicResource BorderColor}"
+                                    BorderThickness="0.5 0 0 0"
                                     CornerRadius="5"
                                     Background="White"
                                     >
@@ -340,9 +346,9 @@
 
                     <Border
                         Grid.Row="3"
-                        BorderBrush="Black"
+                        BorderBrush="{DynamicResource BorderColor}"
                         BorderThickness="1"
-                        Margin="2"
+                        Margin="2 5"
                         CornerRadius="5"
                         Background="White"
                         >
@@ -358,7 +364,7 @@
 
                                 <TextBlock
                                     Text="Summa"
-                                    FontSize="25"
+                                    FontSize="22"
                                     FontWeight="Bold"
                                     ></TextBlock>
                                 <TextBlock
@@ -370,7 +376,7 @@
                                 
                                 <TextBlock
                                     Text="Chegirma"
-                                    FontSize="25"
+                                    FontSize="22"
                                     FontWeight="Bold"
                                     Margin="0 10 0 0"
                                     ></TextBlock>
@@ -384,20 +390,21 @@
                             </StackPanel>
                             
                             <StackPanel Grid.Column="1"
-                                        HorizontalAlignment="Left"
-                                        Margin="0 5 0 0">
+                                        HorizontalAlignment="Right"
+                                        Margin="0 50 50 0">
                                 
                                 <TextBlock
                                     Text="Jami Summa:"
-                                    FontSize="30"
+                                    FontSize="25"
                                     HorizontalAlignment="Center"
                                     FontWeight="Bold"
                                     ></TextBlock>
                                 <TextBlock
+                                    Margin="0 5 0 0"
                                     x:Name="tbTotalAmount"
                                     Text="575,025.0"
                                     HorizontalAlignment="Center"
-                                    FontSize="35"
+                                    FontSize="30"
                                     FontWeight="Bold"
                                     ></TextBlock>
                                 
@@ -411,9 +418,9 @@
                 <Border
                     Grid.Column="1"
                     CornerRadius="5"
-                    Margin="2 5 5 2"
+                    Margin="5"
                     BorderThickness="1"
-                    BorderBrush="Black"
+                    BorderBrush="{DynamicResource BorderColor}"
                     Background="White"
                     >
                     <Grid>
@@ -600,11 +607,13 @@
                                    ></Button>
 
                         </Grid>
-                    <Grid Grid.Row="6" Background="White">
+                    <Grid 
+                        Grid.Row="6" 
+                        Background="White">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="2*"/>
-                            </Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
 
                             <Button
                                 x:Name="btnClear"
@@ -645,7 +654,7 @@
                             ></Button>
                         
                         
-            </Grid>
+                    </Grid>
                 </Border>
 
             </Grid>
@@ -653,51 +662,47 @@
 
             <Border
                 Grid.Row="1" Background="White"
-                BorderBrush="Black"
+                BorderBrush="{DynamicResource BorderColor}"
                 BorderThickness="1"
                 CornerRadius="5"
                 Margin="3 2 5 5"
                 >
                 <Grid>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="0.6*"/>
-                </Grid.ColumnDefinitions>
-                
-                <Button
-                    Grid.Column="0"
-                   Style="{DynamicResource BtnSaleSettings}"
-                    Content="Harajat"
-                    FontSize="27"
-                    ></Button>
-                <Button
-                    Grid.Column="1"
-                    Style="{DynamicResource BtnSaleSettings}"
-                    Content="Hamkorlarimiz"
-                    FontSize="27"
-                    ></Button>
-                <Button
-                    Grid.Column="2"
-                    Style="{DynamicResource BtnSaleSettings}"
-                    Content="Sozlamalar"
-                    FontSize="27"
-                    ></Button>
-                <Button
-                    Grid.Column="3"
-                    Style="{DynamicResource BtnSaleSettings}"
-                    Content="Sotuv tarixi"
-                    FontSize="27"
-                    ></Button>
-                <Button
-                    Grid.Column="4"
-                    Style="{DynamicResource BtnSaleLogout}"
-                    ></Button>
-                
-            </Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.6*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button
+                        Grid.Column="0"
+                        Content="Harajat"
+                        FontSize="20"
+                        Style="{DynamicResource BtnSaleSettings}"/>
+                    <Button
+                        Grid.Column="1"
+                        Content="Hamkorlar"
+                        FontSize="20"
+                        Style="{DynamicResource BtnSaleSettings}"/>
+                    <Button
+                        Grid.Column="2"
+                        Content="Sozlamalar"
+                        FontSize="20"
+                        Style="{DynamicResource BtnSaleSettings}"/>
+                    <Button
+                        Grid.Column="3"
+                        Content="Sotuv tarixi"
+                        FontSize="20"
+                        Style="{DynamicResource BtnSaleSettings}"/>
+                    <Button
+                        Grid.Column="4"
+                        Style="{DynamicResource BtnSaleLogout}"/>
+
+
+                </Grid>
             </Border>
 
         </Grid>
