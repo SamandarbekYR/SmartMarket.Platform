@@ -13,11 +13,11 @@ namespace SmartMarketDeskop.Integrated.ViewModelsForUI.Products
         public string P_Code { get; set; }=string.Empty ;
         public string ProductName { get; set; } = string.Empty ;
         public string CateogoryName { get; set; } = string.Empty;
-        public string MyProperty { get; set; } = string.Empty;
-        public decimal Price { get; set; }
+        public string WorkerName { get; set; } = string.Empty;
+        public double Price { get; set; }
         public int Count { get; set; }
-        public decimal TotalPrice { get; set; }
+        public double TotalPrice { get; set; }
         public string UnitOfMeasure { get; set; } = string.Empty;
-        public decimal SellPrice { get; set; }
+        public double SellPrice { get; set; }
     }
 }

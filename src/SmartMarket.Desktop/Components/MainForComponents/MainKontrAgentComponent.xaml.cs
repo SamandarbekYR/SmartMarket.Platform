@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Desktop.Windows.ContrAgents;
+using SmartMarket.Desktop.Windows.Partners;
 using SmartMarketDeskop.Integrated.Server.Interfaces.PartnerCompany;
 using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgents;
 using SmartMarketDeskop.Integrated.Services.PartnerCompanies.PartnerCompany;
@@ -53,12 +54,15 @@ namespace SmartMarket.Desktop.Components.MainForComponents
         {
             var contragent = this.Tag as ContrAgentViewModels;
 
+            //SelectCompanyAndContrAgentWindow selectCompanyAndContrAgentWindow = new SelectCompanyAndContrAgentWindow();
+            //selectCompanyAndContrAgentWindow.ShowDialog();
+
             ContrAgentUpdateWindow updateWindow = new ContrAgentUpdateWindow();
             updateWindow.GetCompany(contragent);
             updateWindow.ShowDialog();
 
 
-            
+
         }
 
         private async void btndelete_Click(object sender, RoutedEventArgs e)
