@@ -9,81 +9,94 @@ using System.Net;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.Interfaces.Products.Product;
 
-namespace SmartMarket.Service.Services.Products.Product
+namespace SmartMarket.Service.Services.Products.Product;
+
+public class ProductService(IUnitOfWork unitOfWork,
+                             IMapper mapper,
+                             IValidator<AddProductDto> validator) : IProductService
 {
-    public class ProductService(IUnitOfWork unitOfWork,
-                                 IMapper mapper,
-                                 IValidator<AddProductDto> validator) : IProductService
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly IMapper _mapper = mapper;
+    private readonly IValidator<AddProductDto> _validator = validator;
+
+    public async Task<bool> AddAsync(AddProductDto dto)
     {
-        private readonly IUnitOfWork _unitOfWork = unitOfWork;
-        private readonly IMapper _mapper = mapper;
-        private readonly IValidator<AddProductDto> _validator = validator;
+        var validationResult = _validator.Validate(dto);
 
-        public async Task<bool> AddAsync(AddProductDto dto)
+        if (!validationResult.IsValid)
         {
-            var validationResult = _validator.Validate(dto);
-
-            if (!validationResult.IsValid)
-            {
-                throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
-            }
-
-            var categoryExists = await _unitOfWork.Category.GetById(dto.CategoryId) != null;
-
-            if (!categoryExists)
-            {
-                throw new StatusCodeException(HttpStatusCode.NotFound, "Category not found.");
-            }
-
-            string pCode = GeneratePCode();
-
-            var product = _mapper.Map<Et.Product>(dto);
-            product.PCode = pCode;
-
-            return await _unitOfWork.Product.Add(product);
+            throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
         }
 
-        public async Task<bool> DeleteAsync(Guid Id)
-        {
-            var product = await _unitOfWork.Product.GetById(Id);
-            if (product == null)
-            {
-                throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
-            }
+        var categoryExists = await _unitOfWork.Category.GetById(dto.CategoryId) != null;
 
-            return await _unitOfWork.Product.Remove(product);
+        if (!categoryExists)
+        {
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Category not found.");
         }
 
-        public async Task<List<ProductDto>> GetAllAsync()
+        var workerExists = await _unitOfWork.Worker.GetById(dto.WorkerId) != null;
+
+        if (!workerExists)
         {
-            var products = await _unitOfWork.Product.GetProductsFullInformationAsync();
-            return _mapper.Map<List<ProductDto>>(products);
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
         }
 
-        public async Task<bool> UpdateAsync(AddProductDto dto, Guid Id)
+        string pCode = GeneratePCode();
+
+        var product = _mapper.Map<Et.Product>(dto);
+        product.PCode = pCode;
+
+        return await _unitOfWork.Product.Add(product);
+    }
+
+    public async Task<bool> DeleteAsync(Guid Id)
+    {
+        var product = await _unitOfWork.Product.GetById(Id);
+        if (product == null)
         {
-            var product = await _unitOfWork.Product.GetById(Id);
-            if (product == null)
-            {
-                throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
-            }
-
-            var categoryExists = await _unitOfWork.Category.GetById(dto.CategoryId) != null;
-
-            if (!categoryExists)
-            {
-                throw new StatusCodeException(HttpStatusCode.NotFound, "Category not found.");
-            }
-
-            _mapper.Map(dto, product);
-
-            return await _unitOfWork.Product.Update(product);
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
         }
 
-        private string GeneratePCode()
+        return await _unitOfWork.Product.Remove(product);
+    }
+
+    public async Task<List<ProductDto>> GetAllAsync()
+    {
+        var products = await _unitOfWork.Product.GetProductsFullInformationAsync();
+        return _mapper.Map<List<ProductDto>>(products);
+    }
+
+    public async Task<bool> UpdateAsync(AddProductDto dto, Guid Id)
+    {
+        var product = await _unitOfWork.Product.GetById(Id);
+        if (product == null)
         {
-            Random random = new Random();
-            return random.Next(10000, 99999).ToString();
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
         }
+
+        var categoryExists = await _unitOfWork.Category.GetById(dto.CategoryId) != null;
+
+        if (!categoryExists)
+        {
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Category not found.");
+        }
+
+        var workerExists = await _unitOfWork.Worker.GetById(dto.WorkerId) != null;
+
+        if (!workerExists)
+        {
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+        }
+
+        _mapper.Map(dto, product);
+
+        return await _unitOfWork.Product.Update(product);
+    }
+
+    private string GeneratePCode()
+    {
+        Random random = new Random();
+        return random.Next(10000, 99999).ToString();
     }
 }
