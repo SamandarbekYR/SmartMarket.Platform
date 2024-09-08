@@ -411,7 +411,15 @@
                 <StackPanel 
                     Grid.Row="2">
 
-                    <!--  -->
+                        <ScrollViewer>
+                            
+                            <StackPanel
+                                x:Name="St_contrAgents">
+                                
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <!--  -->
                 </StackPanel>
 
             </Grid>

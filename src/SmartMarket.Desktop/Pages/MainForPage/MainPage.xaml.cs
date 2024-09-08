@@ -3,31 +3,14 @@ using SmartMarket.Desktop.Windows.Category;
 using SmartMarket.Desktop.Windows.ContrAgents;
 using SmartMarket.Desktop.Windows.Partners;
 using SmartMarket.Desktop.Windows.ProductsForWindow;
-using SmartMarket.Domain.Entities.PartnersCompany;
-using SmartMarket.Service.Interfaces.Products.Product;
-using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
-using SmartMarketDeskop.Integrated.Server.Interfaces.PartnerCompany;
 using SmartMarketDeskop.Integrated.Services.Categories.Category;
 using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgents;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.PartnerCompany;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
 using SmartMarketDesktop.ViewModels.Entities.Categories;
-using SmartMarketDesktop.ViewModels.Entities.PartnersCompany;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SmartMarket.Desktop.Pages.MainForPage
 {
@@ -53,7 +36,7 @@ namespace SmartMarket.Desktop.Pages.MainForPage
             InitializeComponent();
             this.categoryService = new CategoryService();
             this.contrAgentService = new ContrAgentService();
-           this.productService = new ProductService();  
+            this.productService = new ProductService();  
             GetAllCategory();
             GetAllContrAgents();
             GetAllProducts();
