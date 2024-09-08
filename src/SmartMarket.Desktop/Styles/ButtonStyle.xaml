@@ -309,7 +309,7 @@
                         CornerRadius="8"
                         Background="#0F6BD8"
                         >
-                        <md:PackIcon Margin="3"
+                        <md:PackIcon Margin="3" x:Name="I"
                                      VerticalAlignment="Center"
                                      HorizontalAlignment="Center"
                                      Foreground="White"
@@ -317,6 +317,16 @@
                                      Height="20"
                                      Kind="CurrencyUsd"/>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="White"/>
+                            <Setter TargetName="I" Property="Foreground" Value="#0F6BD8"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="White"/>
+                            <Setter TargetName="I" Property="Foreground" Value="#0F6BD8"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -334,7 +344,7 @@
                        CornerRadius="8"
                        Background="#A1B90C"
                        >
-                        <md:PackIcon Margin="3"
+                        <md:PackIcon Margin="3" x:Name="I"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center"
                                     Foreground="White"
@@ -342,6 +352,16 @@
                                     Height="20"
                                     Kind="ListBox"/>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="White"/>
+                            <Setter TargetName="I" Property="Foreground" Value="#A1B90C"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="White"/>
+                            <Setter TargetName="I" Property="Foreground" Value="#A1B90C"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -360,7 +380,7 @@
                    CornerRadius="8"
                    Background="#373232"
                    >
-                        <md:PackIcon Margin="3"
+                        <md:PackIcon Margin="3" x:Name="I"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
                                 Foreground="White"
@@ -368,6 +388,16 @@
                                 Height="20"
                                 Kind="Pencil"/>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="White"/>
+                            <Setter TargetName="I" Property="Foreground" Value="#373232"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="White"/>
+                            <Setter TargetName="I" Property="Foreground" Value="#373232"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -386,7 +416,7 @@
                    CornerRadius="8"
                    Background="#CA0E0E"
                    >
-                        <md:PackIcon Margin="3"
+                        <md:PackIcon Margin="3" x:Name="I"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
                                 Foreground="White"
@@ -394,6 +424,16 @@
                                 Height="20"
                                 Kind="Delete"/>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="White"/>
+                            <Setter TargetName="I" Property="Foreground" Value="#CA0E0E"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="White"/>
+                            <Setter TargetName="I" Property="Foreground" Value="#CA0E0E"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

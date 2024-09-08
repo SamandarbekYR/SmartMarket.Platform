@@ -14,4 +14,5 @@ public class AddProductDto
     public int SellPricePersentage { get; set; }
     public string UnitOfMeasure { get; set; } = string.Empty;
     public string PaymentStatus { get; set; } = string.Empty;
+    public int NoteAmount { get; set; }
 }

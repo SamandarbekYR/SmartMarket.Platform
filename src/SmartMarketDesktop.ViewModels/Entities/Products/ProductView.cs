@@ -45,6 +45,8 @@ namespace SmartMarketDesktop.ViewModels.Entities.Products
         public string PaymentStatus { get; set; } = string.Empty;
         [Column("issynced")]
         public bool IsSynced { get; set; }
+        [Column("note_amount")]
+        public int NoteAmount { get; set; }
 
         public List<ProductImageView> ProductImageViews { get; set; }
         public List<ProductSaleView> ProductSaleViews { get; set; }

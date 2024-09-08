@@ -22,8 +22,6 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-
-
         // Ba'zaga ulanish uchun connection string
         var connectionString = "Host=localhost;Database=SmartPartners_Desktop;User ID=postgres;Port=5432;Password=1234;";
 
@@ -38,7 +36,7 @@ public partial class MainWindow : Window
             //context.Database.EnsureCreated();
             //context.Database.Migrate();
             // Jadvalga ma'lumot qo'shish yoki o‘zgartirish
-          
+
         }
 
 
@@ -46,17 +44,14 @@ public partial class MainWindow : Window
         PageNavigator.Content = mainPage;
     }
 
+
     private void Btnclose_Click(object sender, RoutedEventArgs e)
     {
         this.Close();   
     }
 
 
-    private void btnMain_Click(object sender, RoutedEventArgs e)
-    {
-        MainPage mainPage = new MainPage();
-        PageNavigator.Content = mainPage;
-    }
+    
 
     private void btnsale_Click(object sender, RoutedEventArgs e)
     {
@@ -107,9 +102,12 @@ public partial class MainWindow : Window
         PageNavigator.Content= settingsPage;
     }
 
-    private void PageNavigator_Navigated(object sender, NavigationEventArgs e)
-    {
+   
 
+    private void btnMain_Click(object sender, RoutedEventArgs e)
+    {
+        MainPage mainPage = new MainPage();
+        PageNavigator.Content = mainPage;
     }
 
     //  private void Window_Loaded(object sender, RoutedEventArgs e)

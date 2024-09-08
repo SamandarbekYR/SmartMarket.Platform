@@ -87,7 +87,7 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
                 FontSize="15"
-                Margin="10 0 0 0"
+                Margin="0 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
 
@@ -98,7 +98,7 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
                 FontSize="15"
-                Margin="9 0 0 0"
+                Margin="0 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
 
@@ -109,7 +109,7 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
                 FontSize="15"
-                 Margin="17 0 0 0"
+                 Margin="0 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
 
@@ -120,7 +120,7 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
                 FontSize="15"
-                 Margin="15 0 0 0"
+                 Margin="5 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
 
@@ -131,7 +131,7 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
                 FontSize="15"
-                 Margin="15 0 0 0"
+                 Margin="5 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
 
@@ -140,19 +140,22 @@
                 Grid.Column="10"
                 Text="30000.0"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                Margin="15 0 0 0"
+                Margin="5,0,19,0"
                 FontSize="15"
                 FontWeight="SemiBold"
-                ></TextBlock>
+                />
 
             <Button
+                x:Name="btnedit"
+                Click="btnedit_Click"
                 Grid.Column="11"
-                Style="{DynamicResource MainPorductedit}"
+                Style="{DynamicResource BtnKontrAgentEdit}"
                 ></Button>
             <Button 
+                x:Name="btndelete"
+                Click="btndelete_Click"
                 Grid.Column="12"
-                Style="{DynamicResource MainPorductDelete}"
+                Style="{DynamicResource BtnKontrAgentDelete}"
                 ></Button>
 
         </Grid>

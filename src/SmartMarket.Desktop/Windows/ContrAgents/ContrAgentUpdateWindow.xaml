@@ -65,7 +65,7 @@
                          BorderThickness="1"
                          BorderBrush="{DynamicResource BorderColor}"
                          CornerRadius="5">
-                        <TextBox x:Name="txtRole"
+                        <ComboBox x:Name="Combo_Company"
                               Margin="3 0"
                               FontSize="20"
                                  BorderThickness="0"
@@ -140,11 +140,12 @@
                                  Foreground="#656161"/>
                     </Border>
                 </Grid>
-                <Border Background="#1EB7E8"
+                <Border Background="#1EB7E8" x:Name="Br_Change"
                      Margin="4 20"
                      Width="350"
                      CornerRadius="5"
                      Cursor="Hand"
+                        MouseUp="Br_Change_MouseUp"
                      HorizontalAlignment="Center">
                     <Label Content="O'zgartirish"
                         FontWeight="SemiBold"

@@ -20,7 +20,7 @@ public class ProductsController(IProductService productService) : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> AddAsync([FromBody] AddProductDto dto)
+    public async Task<IActionResult> AddAsync([FromForm] AddProductDto dto)
     {
         await _productService.AddAsync(dto);
         return Ok();

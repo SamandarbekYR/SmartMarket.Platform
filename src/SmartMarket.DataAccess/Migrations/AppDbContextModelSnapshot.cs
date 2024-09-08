@@ -518,6 +518,10 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("text")
                         .HasColumnName("name");
 
+                    b.Property<int>("NoteAmount")
+                        .HasColumnType("integer")
+                        .HasColumnName("note_amount");
+
                     b.Property<string>("PCode")
                         .IsRequired()
                         .HasColumnType("text")

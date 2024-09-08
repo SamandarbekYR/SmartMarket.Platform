@@ -352,6 +352,7 @@
                         FontSize="14"
                         Foreground="{DynamicResource BorderColor}"
                         FontWeight="SemiBold"
+                        Margin="15 0 0 0"
                         ></TextBlock>
                     <TextBlock
                         Grid.Column="3"
@@ -376,6 +377,7 @@
                         FontSize="14"
                         Foreground="{DynamicResource BorderColor}"
                         FontWeight="SemiBold"
+                        HorizontalAlignment="Left"
                         ></TextBlock>
 
                     <TextBlock

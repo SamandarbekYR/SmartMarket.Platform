@@ -44,11 +44,11 @@
                       FontWeight="SemiBold">
                 </Label>
                 <Border Grid.Column="1">
-                    <Border HorizontalAlignment="Right"
+                    <Border HorizontalAlignment="Right" x:Name="BrClose"
                            VerticalAlignment="Center"
                            Margin="10"
                            Cursor="Hand"
-                           MouseUp="Border_MouseUp">
+                           MouseUp="BrClose_MouseUp">
                         <Path Data="{DynamicResource x}"
                              Fill="White"
                              Stretch="Uniform"/>
@@ -135,8 +135,8 @@
                            BorderBrush="{DynamicResource BorderColor}"
                            CornerRadius="5">
                         <ComboBox x:Name="comboCategory"
-                                 SelectedValue="Id"
-                                 DisplayMemberPath="Name"
+                                
+                                 
                                 Margin="3 0"
                                 FontSize="18"
                                  BorderThickness="0"
@@ -239,7 +239,7 @@
                                 Margin="3 0"
                                 FontSize="20"
                                 Foreground="#656161"
-                                 BorderThickness="0"/>
+                                 BorderThickness="0" />
                     </Border>
                 </StackPanel>
                 <StackPanel Margin="0 5 0 0"
@@ -317,11 +317,11 @@
                            BorderThickness="1"
                            BorderBrush="{DynamicResource BorderColor}"
                            CornerRadius="5">
-                        <TextBox x:Name="txtNotePrice"
+                        <TextBox x:Name="txtNoteAmount"
                                 Margin="3 0"
                                 FontSize="20"
                                  BorderThickness="0"
-                                Foreground="#656161"/>
+                                Foreground="#656161" />
                     </Border>
                 </StackPanel>
                 <StackPanel Margin="0 5 0 0"
@@ -349,6 +349,7 @@
                                   Margin="10 0 0 0"
                                   FontSize="18"/>
                             <Path Grid.Column="1"
+                                  MouseUp="Path_MouseUp"
                                  Data="{DynamicResource dots}"
                                  Fill="Black"
                                  HorizontalAlignment="Right"

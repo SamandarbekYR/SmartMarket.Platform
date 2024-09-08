@@ -135,18 +135,10 @@
         </Grid>
         </Border>
 
-        <Grid Grid.Row="2" Background="#D9D9D9">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="106*"/>
-                <ColumnDefinition Width="0*"/>
-                <ColumnDefinition Width="17*"/>
-                <ColumnDefinition Width="677*"/>
-            </Grid.ColumnDefinitions>
-            <Frame 
-                Name="PageNavigator"
-                NavigationUIVisibility="Hidden" 
-                Grid.ColumnSpan="4" />
-        </Grid>
+        <Border Grid.Row="2" Background="#D9D9D9">
+            <Frame Name="PageNavigator"
+            NavigationUIVisibility="Hidden" />
+        </Border>
 
         <Rectangle 
             x:Name="lab_fon" 

@@ -39,11 +39,11 @@
                 ></TextBlock>
 
             <TextBlock
-                x:Name="tbFirmaName"
+                x:Name="tbCompanyName"
                 Grid.Column="1"
                 Text="Nestle"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 FontSize="13"
                 FontWeight="SemiBold"
                 ></TextBlock>
@@ -53,9 +53,10 @@
                 Grid.Column="2"
                 Text="Sherzod"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 FontSize="13"
                 FontWeight="SemiBold"
+                Margin="10 0 0 0"
                 ></TextBlock>
 
             <TextBlock
@@ -63,7 +64,7 @@
                 Grid.Column="3"
                 Text="Qosimov"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 FontSize="13"
                 FontWeight="SemiBold"
                 ></TextBlock>
@@ -73,7 +74,7 @@
                 Grid.Column="4"
                 Text="+998996661132"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 FontSize="13"
                 FontWeight="SemiBold"
                 ></TextBlock>
@@ -83,9 +84,10 @@
                 Grid.Column="5"
                 Text="20000000"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 FontSize="13"
                 FontWeight="SemiBold"
+                Margin="10 0 0 0"
                 ></TextBlock>
 
             <TextBlock
@@ -93,9 +95,10 @@
                 Grid.Column="6"
                 Text="7000000"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 FontSize="13"
                 FontWeight="SemiBold"
+                Margin="15 0 0 0"
                 ></TextBlock>
 
             <TextBlock
@@ -103,9 +106,10 @@
                 Grid.Column="7"
                 Text="7000000"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 FontSize="13"
                 FontWeight="SemiBold"
+                Margin="15 0 0 0"
                 ></TextBlock>
             
             <TextBlock
@@ -113,8 +117,9 @@
                 Grid.Column="8"
                 Text="24.02.2024"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 FontSize="13"
+                Margin="15 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
 
@@ -139,10 +144,14 @@
                     Style="{DynamicResource BtnKontrAgentList}"
                     />
                 <Button
+                    x:Name="btnedit"
+                    Click="btnedit_Click"
                     Grid.Column="2"
                     Style="{DynamicResource BtnKontrAgentEdit}"
                     />
                 <Button
+                    x:Name="btndelete"
+                    Click="btndelete_Click"
                     Grid.Column="3"
                     Style="{DynamicResource BtnKontrAgentDelete}"
                     />

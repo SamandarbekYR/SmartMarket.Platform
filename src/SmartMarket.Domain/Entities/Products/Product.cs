@@ -37,6 +37,8 @@ namespace SmartMarket.Domain.Entities.Products
         public string UnitOfMeasure { get; set; } = string.Empty;
         [Column("payment_status")]
         public string PaymentStatus { get; set; } = string.Empty;
+        [Column("note_amount")]
+        public int NoteAmount { get; set; }
 
         public List<ProductImage> ProductImages { get; set; }
         public List<ProductSale> ProductSale { get; set; }

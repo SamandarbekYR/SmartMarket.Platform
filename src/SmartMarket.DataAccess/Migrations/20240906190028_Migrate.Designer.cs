@@ -12,8 +12,8 @@ using SmartMarket.DataAccess.Data;
 namespace SmartMarket.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240825091315_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20240906190028_Migrate")]
+    partial class Migrate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -520,6 +520,10 @@ namespace SmartMarket.DataAccess.Migrations
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("name");
+
+                    b.Property<int>("NoteAmount")
+                        .HasColumnType("integer")
+                        .HasColumnName("note_amount");
 
                     b.Property<string>("PCode")
                         .IsRequired()

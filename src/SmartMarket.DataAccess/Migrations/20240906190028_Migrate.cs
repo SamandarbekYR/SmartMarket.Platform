@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SmartMarket.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstMigration : Migration
+    public partial class Migrate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -269,6 +269,7 @@ namespace SmartMarket.DataAccess.Migrations
                     sell_price_persentage = table.Column<int>(type: "integer", nullable: false),
                     unit_of_measure = table.Column<string>(type: "text", nullable: false),
                     payment_status = table.Column<string>(type: "text", nullable: false),
+                    note_amount = table.Column<int>(type: "integer", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>

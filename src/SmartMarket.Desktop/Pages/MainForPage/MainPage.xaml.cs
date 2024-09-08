@@ -1,7 +1,19 @@
 ﻿using SmartMarket.Desktop.Components.MainForComponents;
 using SmartMarket.Desktop.Windows.Category;
 using SmartMarket.Desktop.Windows.ContrAgents;
+using SmartMarket.Desktop.Windows.Partners;
 using SmartMarket.Desktop.Windows.ProductsForWindow;
+using SmartMarket.Domain.Entities.PartnersCompany;
+using SmartMarket.Service.Interfaces.Products.Product;
+using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
+using SmartMarketDeskop.Integrated.Server.Interfaces.PartnerCompany;
+using SmartMarketDeskop.Integrated.Services.Categories.Category;
+using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgents;
+using SmartMarketDeskop.Integrated.Services.Products.Product;
+using SmartMarketDeskop.Integrated.ViewModelsForUI.PartnerCompany;
+using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
+using SmartMarketDesktop.ViewModels.Entities.Categories;
+using SmartMarketDesktop.ViewModels.Entities.PartnersCompany;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,14 +36,27 @@ namespace SmartMarket.Desktop.Pages.MainForPage
     /// </summary>
     public partial class MainPage : Page
     {
-        int id;
-        List<Category> categories=new List<Category>();
-        private List<Product> products = new List<Product>();
+        
+        private ICategoryService categoryService;
+        private IContrAgentService contrAgentService;
+        private SmartMarketDeskop.Integrated.Services.Products.Product.IProductService productService;
+
+        List<CategoryView> categoryViews=new List<CategoryView>();
+        List<ContrAgentViewModels> contrAgents=new List<ContrAgentViewModels>();
+        List<ProductViewModels> products = new List<ProductViewModels>(); 
+        int NumberCategory = 1;
+        int NumberContrAgent= 1; 
+        int NumberProduct= 1;   
+        
         public MainPage()
         {
             InitializeComponent();
+            this.categoryService = new CategoryService();
+            this.contrAgentService = new ContrAgentService();
+           this.productService = new ProductService();  
             GetAllCategory();
-            GetAllProduct();
+            GetAllContrAgents();
+            GetAllProducts();
         }
 
         private void btnProductCreate_Click(object sender, RoutedEventArgs e)
@@ -41,113 +66,62 @@ namespace SmartMarket.Desktop.Pages.MainForPage
         }
 
 
-
-
-        public class Category()
+        public async void GetAllCategory()
         {
-            public int Id { get; set; }
-            public string Name { get; set; }
-        }
-        
-        public class Product()
-        {
-            public int  Id { get; set; }
-            public string P_code { get; set; }
-            public string  ProductName { get; set; }
-            public string Barcode { get; set; }
-            public string Category { get; set; }
-            public string Worker { get; set; }
-            public string BodyPrice { get; set; }
-            public int count { get; set; }
-            public string TotalPrice { get; set; }
-            public string Measure { get; set; }
-            public string Price { get; set; }
-        }
+         
+            categoryViews=await this.categoryService.GetAllAsync();
 
-
-        
-        public  void GetAllCategory()
-        {
-            categories = CategoryList();
             St_categoryList.Visibility = Visibility.Visible;
             St_categoryList.Children.Clear();
-            foreach (var i in categories)
+            foreach (var i in categoryViews)
             {
-                MainCategoryComponent categoryComponent = new MainCategoryComponent();
-                categoryComponent.Tag = i.Id;
-                categoryComponent.SetValues(i.Id,i.Name);
-                categoryComponent.BorderThickness = new Thickness(3);
-                St_categoryList.Children.Add(categoryComponent);
-            }
-        }
-
-
-        public void GetAllProduct()
-        {
-            var newProduct = ProductList();
-            St_product.Visibility = Visibility.Visible;
-            St_product.Children.Clear();
-            foreach (var i in newProduct)
-            {
-                MainProductComponent component = new MainProductComponent();
-                component.Tag = i.Id;
-                component.SetValues(i.Id,i.P_code,i.Barcode,i.ProductName,i.Category,i.Worker,i.BodyPrice,i.count,i.TotalPrice,i.Measure,i.Price);
-                component.BorderThickness = new Thickness(2);
-                St_product.Children.Add(component);
+              MainCategoryComponent categoryComponent = new MainCategoryComponent();    
+              categoryComponent.Tag = i;
+                categoryComponent.SetValues(NumberCategory,i.Name);
+                NumberCategory++;
+                categoryComponent.BorderThickness=new Thickness(3,2,3,2);
+                St_categoryList.Children.Add(categoryComponent);    
             }
             
         }
         
-        public List<Category> CategoryList()
-        {
-            categories.Add(new Category { Id = 1, Name = "choy" });
-            categories.Add(new Category { Id = 2, Name = "choy" });
-            categories.Add(new Category { Id = 3, Name = "choy" });
-            categories.Add(new Category { Id = 4, Name = "choy" });
-            categories.Add(new Category { Id = 5, Name = "choy" });
-            categories.Add(new Category { Id = 6, Name = "choy" });
-            categories.Add(new Category { Id = 7, Name = "choy" });
-            categories.Add(new Category { Id = 8, Name = "choy" });
-            categories.Add(new Category { Id = 9, Name = "choy" });
-            return categories;
-        }
 
-        public List<Product> ProductList()
+        public async void GetAllContrAgents()
         {
-            products.Add(new Product()
+            contrAgents = await this.contrAgentService.GetAll();  
+            St_contrAgents.Visibility = Visibility.Visible;
+            St_contrAgents.Children.Clear();
+            foreach(var i in contrAgents)
             {
-                Id = 1, P_code = "000755", Barcode = "#14121001135", ProductName = "Nestle Kasha 9", Category = "Mevalar",
-                Worker = "Sherzod", BodyPrice = "25000.0", count = 10, TotalPrice = "300000.0", Measure = "Dona",
-                Price = "200000.0"
-            });
-            products.Add(new Product()
-            {
-                Id = 1, P_code = "000755", Barcode = "#14121001", ProductName = "Nestle Kasha 9", Category = "Mevalar",
-                Worker = "Sherzod", BodyPrice = "25000.0", count = 10, TotalPrice = "300000.0", Measure = "Dona",
-                Price = "200000.0"
-            });
-            products.Add(new Product()
-            {
-                Id = 1, P_code = "000755", Barcode = "#14121001", ProductName = "Nestle Kasha 9", Category = "Mevalar",
-                Worker = "Sherzod", BodyPrice = "25000.0", count = 10, TotalPrice = "300000.0", Measure = "Dona",
-                Price = "200000.0"
-            });
-            products.Add(new Product(){Id = 1,P_code = "000755",Barcode = "#14121001",ProductName = "Nestle Kasha 9",Category = "Mevalar",Worker = "Sherzod",BodyPrice = "25000.0",count = 15,TotalPrice = "3000000.0",Measure = "Dona",Price = "200000.0"});
-            products.Add(new Product(){Id = 1,P_code = "000755",Barcode = "#14121001",ProductName = "Qozoq un",Category = "Sabzavotlar",Worker = "Sherzod",BodyPrice = "120000.0",count = 120,TotalPrice = "300000.0",Measure = "Dona",Price = "200000.0"});
-            products.Add(new Product(){Id = 1,P_code = "000755",Barcode = "#14121001",ProductName = "Nestle Kasha 9",Category = "Mevalar",Worker = "Sherzod",BodyPrice = "25000.0",count = 10,TotalPrice = "300000.0",Measure = "Dona",Price = "200000.0"});
-            products.Add(new Product(){Id = 1,P_code = "000755",Barcode = "#14121001",ProductName = "Nestle Kasha 9",Category = "Xo'l mevalar",Worker = "Tursunmamat",BodyPrice = "25000.0",count = 10,TotalPrice = "300000.0",Measure = "Dona",Price = "200000.0"});
-            products.Add(new Product(){Id = 1,P_code = "000755",Barcode = "#14121001",ProductName = "Kartoshka",Category = "Non mahsulotlar",Worker = "Sherzod",BodyPrice = "25000.0",count = 10,TotalPrice = "300000.0",Measure = "Dona",Price = "200000.0"});
-            products.Add(new Product(){Id = 1,P_code = "000755",Barcode = "#14121001",ProductName = "Piyoz",Category = "Mevalar",Worker = "Sherzod",BodyPrice = "25000.0",count = 5,TotalPrice = "300000.0",Measure = "Dona",Price = "200000.0"});
-            products.Add(new Product(){Id = 1,P_code = "000755",Barcode = "#14121001",ProductName = "Nestle Kasha 9",Category = "Mevalar",Worker = "Abdulla",BodyPrice = "5000.0",count = 10,TotalPrice = "30000000.0",Measure = "Dona",Price = "200000.0"});
-            products.Add(new Product()
-            {
-                Id = 1, P_code = "000755", Barcode = "#14121001", ProductName = "Nestle Kasha 9", Category = "Mevalar",
-                Worker = "Sherzod", BodyPrice = "25000.0", count = 10, TotalPrice = "300000.0", Measure = "Dona",
-                Price = "200000.0"
-            });
-            return products;
+                
+                MainKontrAgentComponent mainKontrAgentComponent = new MainKontrAgentComponent();    
+                mainKontrAgentComponent.Tag = i;
+                mainKontrAgentComponent.GetData(NumberContrAgent,i.CompanyName,i.FirstName,i.LastName,i.PhoneNumber,i.DebtSum,i.PayedSum,i.LastPayedSum,i.LastPayedDate);
+                NumberContrAgent++;
+                mainKontrAgentComponent.BorderThickness= new Thickness(3,2,3,2);
+                St_contrAgents.Children.Add(mainKontrAgentComponent);
+            }
         }
+        
 
+        public async void GetAllProducts()
+        {
+           products=await productService.GetAll();
+
+            St_product.Visibility = Visibility.Visible; 
+            St_product.Children.Clear();
+            foreach (var i in products)
+            {
+                MainProductComponent productComponent = new MainProductComponent(); 
+                productComponent.Tag = i;
+                productComponent.GetData(NumberProduct, i.P_Code, i.BarCode, i.ProductName, i.CateogoryName, i.WorkerName, i.Price, i.Count, i.TotalPrice, i.UnitOfMeasure, i.SellPrice);
+                productComponent.BorderThickness=new Thickness(3,2,3,3);
+                St_product.Children.Add(productComponent);
+            }    
+        }
+        
+
+      
         private void btnAddCategory_Click(object sender, RoutedEventArgs e)
         {
             CategoryCreateWindow categoryCreateWindow=new CategoryCreateWindow();
@@ -158,6 +132,12 @@ namespace SmartMarket.Desktop.Pages.MainForPage
         {
             ContrAgentCreateWindow contrAgentCreateWindow=new ContrAgentCreateWindow(); 
             contrAgentCreateWindow.ShowDialog();
+        }
+
+        private void btnAddCompany_Click(object sender, RoutedEventArgs e)
+        {
+            CompanyCreateWindow companyCreateWindow = new CompanyCreateWindow();
+            companyCreateWindow.ShowDialog();   
         }
     }
 
