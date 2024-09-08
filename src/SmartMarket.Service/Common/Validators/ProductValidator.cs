@@ -23,9 +23,6 @@ public class ProductValidator : AbstractValidator<AddProductDto>
             .NotEmpty()
             .WithMessage("Barcode is required.");
 
-        RuleFor(p => p.PCode)
-            .NotEmpty()
-            .WithMessage("Product Code is required.");
 
         RuleFor(p => p.Name)
             .NotEmpty()
