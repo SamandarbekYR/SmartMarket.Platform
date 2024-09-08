@@ -17,8 +17,9 @@ namespace SmartMarketDesktop.DTOs.DTOs.Product
         public int Count { get; set; }
         public double Price { get; set; }
         public double  SellPrice { get; set; }
-        public double  SellPricePercantage { get; set; }
+        public int  SellPricePercantage { get; set; }
         public string UnitOfMeasure { get; set; }
+        public int NoteAmount { get; set; }
         public string PaymentStatus { get; set; }=string.Empty;
     }
 }

@@ -1,5 +1,9 @@
-﻿using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
+﻿using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
+using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
+using SmartMarketDeskop.Integrated.Server.Interfaces.Workers;
+using SmartMarketDeskop.Integrated.Server.Repositories.Categories;
 using SmartMarketDeskop.Integrated.Server.Repositories.Products;
+using SmartMarketDeskop.Integrated.Server.Repositories.Workers;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
 using SmartMarketDesktop.DTOs.DTOs.Product;
 using System;
@@ -15,9 +19,14 @@ namespace SmartMarketDeskop.Integrated.Services.Products.Product
     {
         private IProductServer productServer;
 
+        private IWorkerServer workerServer;
+        private ICategoryServer categoryServer;
         public ProductService()
         {
             this.productServer = new ProductServer();
+            this.workerServer=new WorkerServer();
+            this.categoryServer=new CategoryServer();
+
         }
 
         public async Task<bool> CreateProduct(AddProductDto dto)
@@ -34,14 +43,50 @@ namespace SmartMarketDeskop.Integrated.Services.Products.Product
             }
         }
 
-        public Task<bool> DeleteProduct(Guid Id)
+        public async Task<bool> DeleteProduct(Guid Id)
         {
-            throw new NotImplementedException();
+            if (IsInternetAvailable())
+            {
+                await productServer.DeleteAsync(Id);
+                return true;
+            }
+            else
+            {
+
+                // local bazaga saqlanadi
+                return false;   
+            }
         }
 
-        public Task<List<ProductViewModels>> GetAll()
+        public async Task<List<ProductViewModels>> GetAll()
         {
-            throw new NotImplementedException();
+            if (IsInternetAvailable())
+            {
+                var products = await productServer.GetAllAsync();
+                
+                var categorys=await categoryServer.GetAllAsync();
+                var workers=await workerServer.GetAllAsync();
+
+                return products.Select(a => new ProductViewModels()
+                {
+                    Id=a.Id,
+                    BarCode = a.Barcode,
+                    P_Code = a.PCode,
+                    ProductName = a.Name,
+                    Count = a.Count,
+                    Price = a.Price,
+                    SellPrice = a.SellPrice,
+                    TotalPrice = a.Price * a.Count,
+                    UnitOfMeasure = a.UnitOfMeasure,
+                    WorkerName = workers.Find(c => c.Id == a.WorkerId).FirstName,
+                    CateogoryName = categorys.Find(c => c.Id == a.CategoryId).Name
+                }).ToList();
+            }
+            else
+            {
+                return new List<ProductViewModels>(); 
+            }
+        
         }
 
         public Task<bool> UpdateProduct(AddProductDto product, Guid Id)

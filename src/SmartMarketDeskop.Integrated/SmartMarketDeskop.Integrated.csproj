@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SmartMarket.Domain\SmartMarket.Domain.csproj" />
+    <ProjectReference Include="..\SmartMarket.Service\SmartMarket.Service.csproj" />
     <ProjectReference Include="..\SmartMarketDesktop.DTOs\SmartMarketDesktop.DTOs.csproj" />
     <ProjectReference Include="..\SmartMarketDesktop.ViewModels\SmartMarketDesktop.ViewModels.csproj" />
   </ItemGroup>

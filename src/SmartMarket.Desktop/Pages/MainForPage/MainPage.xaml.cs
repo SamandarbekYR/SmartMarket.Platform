@@ -4,11 +4,14 @@ using SmartMarket.Desktop.Windows.ContrAgents;
 using SmartMarket.Desktop.Windows.Partners;
 using SmartMarket.Desktop.Windows.ProductsForWindow;
 using SmartMarket.Domain.Entities.PartnersCompany;
+using SmartMarket.Service.Interfaces.Products.Product;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
 using SmartMarketDeskop.Integrated.Server.Interfaces.PartnerCompany;
 using SmartMarketDeskop.Integrated.Services.Categories.Category;
 using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgents;
+using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.PartnerCompany;
+using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
 using SmartMarketDesktop.ViewModels.Entities.Categories;
 using SmartMarketDesktop.ViewModels.Entities.PartnersCompany;
 using System;
@@ -36,18 +39,24 @@ namespace SmartMarket.Desktop.Pages.MainForPage
         
         private ICategoryService categoryService;
         private IContrAgentService contrAgentService;
+        private SmartMarketDeskop.Integrated.Services.Products.Product.IProductService productService;
+
         List<CategoryView> categoryViews=new List<CategoryView>();
-        List<ContrAgentViewModels> contrAgents=new List<ContrAgentViewModels>();    
+        List<ContrAgentViewModels> contrAgents=new List<ContrAgentViewModels>();
+        List<ProductViewModels> products = new List<ProductViewModels>(); 
         int NumberCategory = 1;
-        int NumberContrAgent= 1;    
+        int NumberContrAgent= 1; 
+        int NumberProduct= 1;   
         
         public MainPage()
         {
             InitializeComponent();
             this.categoryService = new CategoryService();
             this.contrAgentService = new ContrAgentService();
+           this.productService = new ProductService();  
             GetAllCategory();
             GetAllContrAgents();
+            GetAllProducts();
         }
 
         private void btnProductCreate_Click(object sender, RoutedEventArgs e)
@@ -94,6 +103,22 @@ namespace SmartMarket.Desktop.Pages.MainForPage
             }
         }
         
+
+        public async void GetAllProducts()
+        {
+           products=await productService.GetAll();
+
+            St_product.Visibility = Visibility.Visible; 
+            St_product.Children.Clear();
+            foreach (var i in products)
+            {
+                MainProductComponent productComponent = new MainProductComponent(); 
+                productComponent.Tag = i;
+                productComponent.GetData(NumberProduct, i.P_Code, i.BarCode, i.ProductName, i.CateogoryName, i.WorkerName, i.Price, i.Count, i.TotalPrice, i.UnitOfMeasure, i.SellPrice);
+                productComponent.BorderThickness=new Thickness(3,2,3,3);
+                St_product.Children.Add(productComponent);
+            }    
+        }
         
 
       

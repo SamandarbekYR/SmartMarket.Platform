@@ -1,4 +1,6 @@
-﻿using SmartMarketDeskop.Integrated.Interfaces.Workers;
+﻿using SmartMarket.Service.DTOs.Workers.Position;
+using SmartMarketDeskop.Integrated.Interfaces.Workers;
+using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
 using SmartMarketDesktop.ViewModels.Entities.Workers;
 using System;
 using System.Collections.Generic;
@@ -8,29 +10,24 @@ using System.Threading.Tasks;
 
 namespace SmartMarketDeskop.Integrated.Services.Workers.Position
 {
-    public class PositionService : IPosition
+    public class PositionService : IPositionService
     {
-        public Task<bool> Add(PositionView entity)
+        public Task<bool> CreateProduct(PositionDto dto)
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<PositionView> GetAll()
+        public Task<bool> DeleteProduct(Guid Id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<PositionView?> GetById(Guid id)
+        public Task<List<ProductViewModels>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public Task<bool> Remove(PositionView entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> Update(PositionView entity)
+        public Task<bool> UpdateProduct(PositionDto positionDto, Guid Id)
         {
             throw new NotImplementedException();
         }
