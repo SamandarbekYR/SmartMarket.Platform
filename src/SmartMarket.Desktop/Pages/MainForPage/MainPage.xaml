@@ -12,7 +12,7 @@
     <Grid Background="{DynamicResource SecondColor}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="3.5*"/>
+            <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
 
         <Border
@@ -140,19 +140,18 @@
                     <Grid>
 
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.5*"/>
-                        <ColumnDefinition Width="0.8*"/>
+                        <ColumnDefinition Width="30"/>
+                        <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1.5*"/>
                         <ColumnDefinition Width="1.6*"/>
-                        <ColumnDefinition Width="1.2*"/>
                         <ColumnDefinition Width="1.5*"/>
                         <ColumnDefinition Width="1.4*"/>
                         <ColumnDefinition Width="0.5*"/>
                         <ColumnDefinition Width="1.5*"/>
                         <ColumnDefinition Width="0.8*"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="0.5*"/>
-                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
                     <TextBlock 
@@ -178,7 +177,7 @@
                                Text="Barcode"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Left"
-                               FontSize="14"
+                               FontSize="13"
                                FontWeight="SemiBold"
                                Foreground="{DynamicResource BorderColor}"
                                Margin="3 0 0 0"
@@ -187,66 +186,58 @@
                                Text="Mahsulot nomi"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Left"
-                               FontSize="14"
+                               FontSize="13"
                                FontWeight="SemiBold"
                                Foreground="{DynamicResource BorderColor}"
                                ></TextBlock>
+                    
                     <TextBlock Grid.Column="4"
-                               Text="Kategoriya"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left"
-                               FontSize="14"
-                               Margin="0 0 3 0"
-                               FontWeight="SemiBold"
-                               Foreground="{DynamicResource BorderColor}"
-                               ></TextBlock>
-                    <TextBlock Grid.Column="5"
                                Text="Ishchi"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Left"
-                               FontSize="14"
+                               FontSize="13"
                                FontWeight="SemiBold"
                                Margin="7 0 0 0"
                                Foreground="{DynamicResource BorderColor}"
                                ></TextBlock>
-                    <TextBlock Grid.Column="6"
+                    <TextBlock Grid.Column="5"
                                Text="Tan narxi"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Left"
-                               FontSize="14"
+                               FontSize="13"
                                FontWeight="SemiBold"
                                Foreground="{DynamicResource BorderColor}"
                                ></TextBlock>
-                    <TextBlock Grid.Column="7"
+                    <TextBlock Grid.Column="6"
                                Text="Soni"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Left"
                                Foreground="{DynamicResource BorderColor}"
-                               FontSize="14"
+                               FontSize="13"
                                FontWeight="SemiBold"
                                ></TextBlock>
-                    <TextBlock Grid.Column="8"
+                    <TextBlock Grid.Column="7"
                                Text="Jami summa"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Left"
                                Foreground="{DynamicResource BorderColor}"
-                               FontSize="14"
+                               FontSize="13"
                                FontWeight="SemiBold"
                                ></TextBlock>
-                    <TextBlock Grid.Column="9"
+                    <TextBlock Grid.Column="8"
                                Text="O'lchov"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Left"
                                Foreground="{DynamicResource BorderColor}"
-                               FontSize="14"
+                               FontSize="13"
                                FontWeight="SemiBold"
                                ></TextBlock>
-                    <TextBlock Grid.Column="10"
+                    <TextBlock Grid.Column="9"
                                Text="Sotuv narxi"
                                VerticalAlignment="Center"
                                HorizontalAlignment="Left"
                                Foreground="{DynamicResource BorderColor}"
-                               FontSize="14"
+                               FontSize="13"
                                FontWeight="SemiBold"
                                ></TextBlock>
 
