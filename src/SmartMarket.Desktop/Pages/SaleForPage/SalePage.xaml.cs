@@ -1,21 +1,9 @@
 ﻿using SmartMarket.Desktop.Windows.PaymentWindow;
 using SmartMarket.Desktop.Windows.ProductsForWindow;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Button = System.Windows.Controls.Button;
 
 namespace SmartMarket.Desktop.Pages.SaleForPage
 {
@@ -25,6 +13,10 @@ namespace SmartMarket.Desktop.Pages.SaleForPage
     public partial class SalePage : Page
     {
         private System.Timers.Timer timer = new System.Timers.Timer();
+
+
+        int activeTextboxIndex = 2;
+
         public SalePage()
         {
             InitializeComponent();
@@ -36,8 +28,10 @@ namespace SmartMarket.Desktop.Pages.SaleForPage
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Button button = sender as Button;
-            tbCalculator.Text = tbCalculator.Text.ToString() + button.Content.ToString();
+
+            var button = (Button)sender;
+            WriteNumber(button.Content.ToString() ?? "");
+
         }
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
@@ -47,9 +41,17 @@ namespace SmartMarket.Desktop.Pages.SaleForPage
 
         private void btnBackKlav_Click(object sender, RoutedEventArgs e)
         {
-            if (tbCalculator.Text.Length > 0)
+            if (activeTextboxIndex == 2 && tbCalculator.Text.Length > 0)
             {
                 tbCalculator.Text = tbCalculator.Text.Substring(0, tbCalculator.Text.Length - 1);
+            }
+            else if(activeTextboxIndex == 1 && Product_Count.Text.Length > 0)
+            {
+                Product_Count.Text = Product_Count.Text.Substring(0, Product_Count.Text.Length - 1);
+                //if(Product_Count.Text.Length == 0)
+                //{
+                //    Product_Count.Text = "0";
+                //}
             }
         }
 
@@ -83,6 +85,23 @@ namespace SmartMarket.Desktop.Pages.SaleForPage
                     tbhour.Opacity = 0.5;
                 GetData();
             });
+        }
+
+        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            activeTextboxIndex = int.Parse(((TextBox)sender).Uid);
+        }
+
+        private void WriteNumber(string number)
+        {
+            if(activeTextboxIndex == 2)
+            {
+                tbCalculator.Text = tbCalculator.Text.ToString() + number;
+            }
+            else
+            {
+                Product_Count.Text = Product_Count.Text.ToString() + number;
+            }
         }
     }
 }

@@ -151,12 +151,12 @@
                                 <TextBlock
                                     x:Name="tbProductName"
                                     Grid.Row="0"
-                                    Text="Nestle Kasha 9"
+                                    Text="Nestle Kasha"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Left"
                                     FontSize="25"
                                     Margin="5 0 0 0"
-                                    FontWeight="Bold"
+                                    FontWeight="SemiBold"
                                     ></TextBlock>
 
                                 <DockPanel
@@ -181,23 +181,64 @@
 
                             </Grid>
 
-                            <Border
+                            <StackPanel
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal"
                                 Grid.Column="1"
-                               
+                                Margin="0 0 10 0"
                                 >
+                                
                                 <TextBox
+                                    x:Name="Product_Count"
                                     BorderThickness="0"
                                     VerticalAlignment="Center"
-                                    Text="1*2500=25000"
+                                    Text="5"
+                                    Uid="1"
+                                    GotFocus="TextBox_GotFocus"
                                     VerticalContentAlignment="Center"
                                     TextAlignment="Right"
-                                    FontSize="25"
+                                    FontSize="22"
                                     FontWeight="SemiBold"
-                                    Margin="0 3 10 3"
                                     Height="100" >
                                     
                                 </TextBox>
-                            </Border>
+                                <Label
+                                    Content="x"
+                                    FontSize="22"
+                                    Margin="0 0 0 3"
+                                    VerticalAlignment="Center"/>
+                                
+                                <TextBox
+                                    BorderThickness="0"
+                                    VerticalAlignment="Center"
+                                    Text="2500"
+                                    IsReadOnly="True"
+                                    VerticalContentAlignment="Center"
+                                    TextAlignment="Right"
+                                    FontSize="22"
+                                    FontWeight="SemiBold"
+                                    Height="100" >
+
+                                </TextBox>
+                                <Label
+                                    Content="="
+                                    FontSize="25"
+                                    Margin="0 0 0 3"
+                                    VerticalAlignment="Center"/>
+                                <TextBox
+                                    BorderThickness="0"
+                                    VerticalAlignment="Center"
+                                    Text="12500"
+                                    IsReadOnly="True"
+                                    VerticalContentAlignment="Center"
+                                    TextAlignment="Right"
+                                    FontSize="22"
+                                    FontWeight="SemiBold"
+                                    Height="100" 
+                                    >
+
+                                </TextBox>
+                            </StackPanel>
                         </Grid>
                     </Border>
 
@@ -391,20 +432,20 @@
                             
                             <StackPanel Grid.Column="1"
                                         HorizontalAlignment="Right"
-                                        Margin="0 50 50 0">
+                                        Margin="0 60 30 0">
                                 
                                 <TextBlock
                                     Text="Jami Summa:"
-                                    FontSize="25"
+                                    FontSize="22"
                                     HorizontalAlignment="Center"
                                     FontWeight="Bold"
                                     ></TextBlock>
                                 <TextBlock
                                     Margin="0 5 0 0"
                                     x:Name="tbTotalAmount"
-                                    Text="575,025.0"
+                                    Text="575.255.255"
                                     HorizontalAlignment="Center"
-                                    FontSize="30"
+                                    FontSize="25"
                                     FontWeight="Bold"
                                     ></TextBlock>
                                 
@@ -480,8 +521,10 @@
                                 VerticalContentAlignment="Center"
                                 TextAlignment="Right"
                                 FontSize="25"
+                                GotFocus="TextBox_GotFocus"
                                 FontWeight="DemiBold"
                                 Margin="5 0 10 0"
+                                Uid="2"
                                 ></TextBox>
                         </Border>
 
