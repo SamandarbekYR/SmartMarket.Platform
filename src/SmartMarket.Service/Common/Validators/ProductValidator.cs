@@ -54,5 +54,9 @@ public class ProductValidator : AbstractValidator<AddProductDto>
         RuleFor(p => p.PaymentStatus)
             .NotEmpty()
             .WithMessage("Payment status is required.");
+
+        RuleFor(p => p.NoteAmount)
+            .GreaterThanOrEqualTo(0)
+            .WithMessage("Note amount must be greater than or equal to zero.");
     }
 }
