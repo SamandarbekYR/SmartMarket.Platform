@@ -36,21 +36,22 @@
 
 
     <Style x:Key="MenuButton2" TargetType="{x:Type RadioButton}">
-        <Setter Property="Height" Value="40"/>
-        <Setter Property="Width" Value="125"/>
-        <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Height" Value="45"/>
         <Setter Property="FontSize" Value="16"/>
-        <Setter Property="Margin" Value="10 0 0 0"/>
+        <Setter Property="Margin" Value="5 0 0 0"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type RadioButton}">
-                    <Border x:Name="B" CornerRadius="8" BorderThickness="1" BorderBrush="Black">
+                    <Border 
+                        x:Name="B" 
+                        CornerRadius="8" 
+                        BorderThickness="1" 
+                        BorderBrush="Black">
                         <Grid>
 
                             <Border
-                         CornerRadius="8"
-                         x:Name="IconPath" >
+                                CornerRadius="8"
+                                x:Name="IconPath" >
                                 <Grid >
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="40"/>
@@ -59,22 +60,23 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Path 
-                                 Grid.Column="0"
-                                 x:Name="Icon" 
-                                 Data="{Binding Tag, RelativeSource={RelativeSource AncestorType={x:Type RadioButton}}}"
-                                 Fill="{DynamicResource BorderColor}"
-                                 Height="20"
-                                 Stretch="Uniform"/>
+                                        Grid.Column="0"
+                                        x:Name="Icon" 
+                                        Data="{Binding Tag, RelativeSource={RelativeSource AncestorType={x:Type RadioButton}}}"
+                                        Fill="{DynamicResource BorderColor}"
+                                        Height="20"
+                                        Stretch="Uniform"/>
 
                                     <TextBlock 
-                                 Grid.Column="2"
-                                 x:Name="Label"
-                                 FontSize="{TemplateBinding FontSize}"
-                                 Text="{TemplateBinding Content}"
-                                 FontFamily="Arial"
-                                 Foreground="{DynamicResource BorderColor}"
-                                 FontWeight="Normal"
-                                 VerticalAlignment="Center" TextWrapping="Wrap"/>
+                                        Margin="0 0 5 0"
+                                        Grid.Column="2"
+                                        x:Name="Label"
+                                        FontSize="{TemplateBinding FontSize}"
+                                        Text="{TemplateBinding Content}"
+                                        FontFamily="Arial"
+                                        Foreground="{DynamicResource BorderColor}"
+                                        FontWeight="SemiBold"
+                                        VerticalAlignment="Center" TextWrapping="Wrap"/>
                                 </Grid>
                             </Border>
                         </Grid>
@@ -228,43 +230,29 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border
+                        Width="30"
                         CornerRadius="8"
                         x:Name="B"
-                        Background="#373232"
+                        Background="#0067BB"
                         >
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="3.5*"/>
-                            </Grid.ColumnDefinitions>
-                            <Border Grid.Column="0">
-                                <md:PackIcon Kind="Pencil"
-                                             x:Name="I"
-                                             Foreground="White"
-                                             Width="20"
-                                             VerticalAlignment="Center"
-                                             Height="20"
-                                             />
-                            </Border>
-                            <Label Grid.Column="1"
-                                   x:Name="L"
-                                   Content="Tahrirlash"
-                                   Foreground="White"
-                                   VerticalContentAlignment="Center"
-                                   HorizontalContentAlignment="Center"
-                                   ></Label>
-                        </Grid>
+                        
+                        <md:PackIcon 
+                            Kind="Pencil"
+                            x:Name="I"
+                            Foreground="White"
+                            Width="20"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Height="20"
+                            />
+                            
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="B" Property="Background" Value="White"/>
-                            <Setter TargetName="I" Property="Foreground" Value="#373232"/>
-                            <Setter TargetName="L" Property="Foreground" Value="#373232"/>
+                            <Setter TargetName="B" Property="Background" Value="#0059A1"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="B" Property="Background" Value="White"/>
-                            <Setter TargetName="I" Property="Foreground" Value="#373232"/>
-                            <Setter TargetName="L" Property="Foreground" Value="#373232"/>
+                            <Setter TargetName="B" Property="Background" Value="#004D8C"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -280,43 +268,28 @@
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border
-                     CornerRadius="8"
-                     x:Name="B"
-                     Background="#FE0000"
-                     >
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="3.5*"/>
-                            </Grid.ColumnDefinitions>
-                            <Border Grid.Column="0">
-                                <md:PackIcon Kind="Delete"
-                                             x:Name="I"
-                                          Foreground="White"
-                                          Width="20"
-                                             VerticalAlignment="Center"
-                                          Height="20"
-                                          />
-                            </Border>
-                            <Label Grid.Column="1"
-                                Content="O'chirish"
-                                Foreground="White"
-                                x:Name="L"
-                                VerticalContentAlignment="Center"
-                                HorizontalContentAlignment="Center"
-                                ></Label>
-                        </Grid>
+                        Width="30"
+                        CornerRadius="8"
+                        x:Name="B"
+                        Background="#FE0000"
+                        >
+                        <md:PackIcon 
+                            Kind="Delete"
+                            x:Name="I"
+                            Foreground="White"
+                            Width="20"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Height="20"
+                            />
+                        
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="B" Property="Background" Value="White"/>
-                            <Setter TargetName="I" Property="Foreground" Value="#FE0000"/>
-                            <Setter TargetName="L" Property="Foreground" Value="#FE0000"/>
+                            <Setter TargetName="B" Property="Background" Value="#D00000"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="B" Property="Background" Value="White"/>
-                            <Setter TargetName="I" Property="Foreground" Value="#FE0000"/>
-                            <Setter TargetName="L" Property="Foreground" Value="#FE0000"/>
+                            <Setter TargetName="B" Property="Background" Value="#BB0000"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -844,13 +817,13 @@
                             </Grid.ColumnDefinitions>
                             <md:PackIcon 
                                 x:Name="I"
-                                       Grid.Column="0"
-                                       Kind="ArrowULeftTopBold"
-                                 Foreground="White" 
+                                Grid.Column="0"
+                                Kind="ArrowULeftTopBold"
+                                Foreground="White" 
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
-                                Width="40"
-                                Height="40"
+                                Width="35"
+                                Height="35"
                                 
                                 />
 
@@ -861,7 +834,7 @@
                                 Foreground="White"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
-                                FontSize="25"
+                                FontSize="22"
                                 Margin="0 0 10 0"
                                 FontWeight="Bold"
                                 ></Label>
@@ -909,7 +882,7 @@
                                 Foreground="White"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
-                                FontSize="25"
+                                FontSize="22"
                                 Margin="0 0 35 0"
                                 FontWeight="Bold"
                                 ></Label>
@@ -949,7 +922,7 @@
                             </Grid.ColumnDefinitions>
                             <md:PackIcon
                                 Grid.Column="0"
-                                Width="40" Height="40"
+                                Width="35" Height="35"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
                                 Foreground="White"
@@ -957,15 +930,15 @@
                                 Kind="Dollar"/>
 
                             <Label
-                             Grid.Column="1"
-                             Content="To'lov"
-                             Foreground="White"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Center"
+                                Grid.Column="1"
+                                Content="To'lov"
+                                Foreground="White"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
                                 Margin="0 0 35 0 "
-                             FontSize="25"
-                             FontWeight="Bold"
-                             ></Label>
+                                FontSize="22"
+                                FontWeight="Bold"
+                                ></Label>
                         </Grid>
 
                     </Border>
@@ -2080,42 +2053,46 @@
         </Setter>
     </Style>
 
-
-
-    <Style x:Key="btnAddCompany" TargetType="Button">
+    <Style x:Key="Create_Button" TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="Width" Value="80"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border
-                  x:Name="B"
-                  Background="#26AD33"
-                  Margin="5 2 5 2"
-                  CornerRadius="5"
-                  
-                  HorizontalAlignment="Right"
-                  >
-                        <md:PackIcon Kind="Plus"
-                               x:Name="I"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Center"
-                               Width="40" Height="30"
-                               Foreground="White"
-                               ></md:PackIcon>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border 
+                        x:Name="B"
+                        CornerRadius="5"
+                        Background="{DynamicResource Create_Btn_Color}"
+                    >
+                        <Label
+                            FontFamily="Jetbrains Mono"
+                            FontWeight="SemiBold"
+                            Foreground="{DynamicResource SecondColor}"
+                            FontSize="{TemplateBinding FontSize}"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Content="{TemplateBinding Content}"/>
+
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="B" Property="Background" Value="White"/>
-                            <Setter TargetName="I" Property="Foreground" Value="#26AD33"/>
+                            <Setter TargetName="B" Property="Background" Value="{DynamicResource Create_Btn_MouseEnter}"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="B" Property="Background" Value="{DynamicResource Create_Btn_Color}"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="B" Property="Background" Value="White"/>
-                            <Setter TargetName="I" Property="Foreground" Value="#26AD33"/>
+                            <Setter TargetName="B" Property="Background" Value="{DynamicResource Create_Btn_MouseClick}"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
+
+
 
 
 
