@@ -7,7 +7,6 @@ using SmartMarket.Desktop.Pages.SaleForPage;
 using SmartMarket.Desktop.Pages.SettingsForPage;
 using SmartMarket.Desktop.Pages.ShopDetailsForPage;
 using SmartMarket.Desktop.Pages.ShopWorkersForPage;
-using System.Runtime;
 using System.Windows;
 
 namespace SmartMarket.Desktop.Windows;
@@ -26,8 +25,6 @@ public partial class MainWindow : Window
     {
         this.Close();
     }
-
-
 
 
     private void btnsale_Click(object sender, RoutedEventArgs e)
@@ -101,5 +98,11 @@ public partial class MainWindow : Window
         btnShopDetails.FontSize = Math.Min(windowHeight, windowWidth) / 60;
         btnCashReport.FontSize = Math.Min(windowHeight, windowWidth) / 60;
         tbsettings.FontSize = Math.Min(windowHeight, windowWidth) / 62;
+    }
+
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        MainPage mainPage = new MainPage();
+        PageNavigator.Content = mainPage;
     }
 }
