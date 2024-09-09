@@ -1,5 +1,4 @@
-﻿using SmartMarket.Desktop.Components.MainForComponents;
-using SmartMarket.Desktop.Pages.MainForPage;
+﻿using SmartMarket.Desktop.Pages.MainForPage;
 using SmartMarket.Desktop.Pages.PartnerForPage;
 using SmartMarket.Desktop.Pages.SaleForPage;
 using SmartMarket.Desktop.Pages.SettingsForPage;
