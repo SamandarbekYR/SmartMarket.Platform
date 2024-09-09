@@ -23,26 +23,26 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        // Ba'zaga ulanish uchun connection string
-        var connectionString = "Host=localhost;Database=SmartPartners_Desktop;User ID=postgres;Port=5432;Password=1234;";
+        //// Ba'zaga ulanish uchun connection string
+        //var connectionString = "Host=localhost;Database=SmartPartners_Desktop;User ID=postgres;Port=5432;Password=1234;";
 
-        // DbContextOptions ni yaratish
-        var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-        optionsBuilder.UseNpgsql(connectionString);
+        //// DbContextOptions ni yaratish
+        //var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+        //optionsBuilder.UseNpgsql(connectionString);
 
-        // DbContext ni yaratish
-        using (var context = new AppDbContext(optionsBuilder.Options))
-        {
-            // Ma'lumotlar bazasini yaratish va jadvalni o‘rnatish
-            //context.Database.EnsureCreated();
-            //context.Database.Migrate();
-            // Jadvalga ma'lumot qo'shish yoki o‘zgartirish
+        //// DbContext ni yaratish
+        //using (var context = new AppDbContext(optionsBuilder.Options))
+        //{
+        //    // Ma'lumotlar bazasini yaratish va jadvalni o‘rnatish
+        //    //context.Database.EnsureCreated();
+        //    //context.Database.Migrate();
+        //    // Jadvalga ma'lumot qo'shish yoki o‘zgartirish
 
-        }
+        //}
 
 
-        MainPage mainPage = new MainPage();
-        PageNavigator.Content = mainPage;
+        //MainPage mainPage = new MainPage();
+        //PageNavigator.Content = mainPage;
     }
 
 
