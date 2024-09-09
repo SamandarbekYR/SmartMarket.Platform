@@ -9,55 +9,92 @@ using System.Net;
 using SmartMarket.Service.DTOs.Products.LoadReport;
 using SmartMarket.Service.Interfaces.Products.LoadReport;
 
-namespace SmartMarket.Service.Services.Products.LoadReport;
-
-public class LoadReportService(IUnitOfWork unitOfWork,
+namespace SmartMarket.Service.Services.Products.LoadReport
+{
+    public class LoadReportService(IUnitOfWork unitOfWork,
                              IMapper mapper,
                              IValidator<AddLoadReportDto> validator) : ILoadReportService
-{
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
-    private readonly IMapper _mapper = mapper;
-    private readonly IValidator<AddLoadReportDto> _validator = validator;
-
-    public async Task<bool> AddAsync(AddLoadReportDto dto)
     {
-        var validationResult = _validator.Validate(dto);
-        if (!validationResult.IsValid)
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IMapper _mapper = mapper;
+        private readonly IValidator<AddLoadReportDto> _validator = validator;
+
+        public async Task<bool> AddAsync(AddLoadReportDto dto)
         {
-            throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
+            var validationResult = _validator.Validate(dto);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
+            }
+
+            var workerExists = await _unitOfWork.Worker.GetById(dto.WorkerId) != null;
+            if (!workerExists)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+            }
+
+            var productExists = await _unitOfWork.Product.GetById(dto.ProductId) != null;
+            if (!productExists)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
+            }
+
+            var contrAgentExists = await _unitOfWork.ContrAgent.GetById(dto.ContrAgentId) != null;
+            if (!contrAgentExists)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Counteragent not found.");
+            }
+
+            var loadReport = _mapper.Map<Et.LoadReport>(dto);
+            return await _unitOfWork.LoadReport.Add(loadReport);
         }
 
-        var loadReport = _mapper.Map<Et.LoadReport>(dto);
-        return await _unitOfWork.LoadReport.Add(loadReport);
-    }
-
-    public async Task<bool> DeleteAsync(Guid Id)
-    {
-        var loadReport = await _unitOfWork.LoadReport.GetById(Id);
-        if (loadReport == null)
+        public async Task<bool> DeleteAsync(Guid Id)
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Load Report not found.");
+            var loadReport = await _unitOfWork.LoadReport.GetById(Id);
+            if (loadReport == null)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Load Report not found.");
+            }
+
+            return await _unitOfWork.LoadReport.Remove(loadReport);
         }
 
-        return await _unitOfWork.LoadReport.Remove(loadReport);
-    }
-
-    public async Task<List<LoadReportDto>> GetAllAsync()
-    {
-        var loadReports = await _unitOfWork.LoadReport.GetLoadReportsFullInformationAsync();
-        return _mapper.Map<List<LoadReportDto>>(loadReports);
-    }
-
-    public async Task<bool> UpdateAsync(AddLoadReportDto dto, Guid Id)
-    {
-        var loadReport = await _unitOfWork.LoadReport.GetById(Id);
-        if (loadReport == null)
+        public async Task<List<LoadReportDto>> GetAllAsync()
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Load Report not found.");
+            var loadReports = await _unitOfWork.LoadReport.GetLoadReportsFullInformationAsync();
+            return _mapper.Map<List<LoadReportDto>>(loadReports);
         }
 
-        _mapper.Map(dto, loadReport);
+        public async Task<bool> UpdateAsync(AddLoadReportDto dto, Guid Id)
+        {
+            var loadReport = await _unitOfWork.LoadReport.GetById(Id);
+            if (loadReport == null)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Load Report not found.");
+            }
 
-        return await _unitOfWork.LoadReport.Update(loadReport);
+            var workerExists = await _unitOfWork.Worker.GetById(dto.WorkerId) != null;
+            if (!workerExists)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+            }
+
+            var productExists = await _unitOfWork.Product.GetById(dto.ProductId) != null;
+            if (!productExists)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
+            }
+
+            var contrAgentExists = await _unitOfWork.ContrAgent.GetById(dto.ContrAgentId) != null;
+            if (!contrAgentExists)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Counteragent not found.");
+            }
+
+            _mapper.Map(dto, loadReport);
+
+            return await _unitOfWork.LoadReport.Update(loadReport);
+        }
     }
 }
