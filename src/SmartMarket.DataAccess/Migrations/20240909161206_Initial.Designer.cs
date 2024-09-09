@@ -12,8 +12,8 @@ using SmartMarket.DataAccess.Data;
 namespace SmartMarket.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240906190028_Migrate")]
-    partial class Migrate
+    [Migration("20240909161206_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
