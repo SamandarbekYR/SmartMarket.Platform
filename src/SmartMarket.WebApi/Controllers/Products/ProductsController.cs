@@ -4,39 +4,40 @@ using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.Interfaces.Products.Product;
 
-namespace SmartMarket.WebApi.Controllers.Products;
-
-[Route("api/products")]
-[ApiController]
-public class ProductsController(IProductService productService) : ControllerBase
+namespace SmartMarket.WebApi.Controllers.Products
 {
-    private readonly IProductService _productService = productService;
-
-    [HttpGet]
-    public async Task<IActionResult> GetAllAsync()
+    [Route("api/products")]
+    [ApiController]
+    public class ProductsController(IProductService productService) : ControllerBase
     {
-        var products = await _productService.GetAllAsync();
-        return Ok(products);
-    }
+        private readonly IProductService _productService = productService;
 
-    [HttpPost]
-    public async Task<IActionResult> AddAsync([FromForm] AddProductDto dto)
-    {
-        await _productService.AddAsync(dto);
-        return Ok();
-    }
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            var products = await _productService.GetAllAsync();
+            return Ok(products);
+        }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteAsync(Guid id)
-    {
-        await _productService.DeleteAsync(id);
-        return Ok();
-    }
+        [HttpPost]
+        public async Task<IActionResult> AddAsync([FromForm] AddProductDto dto)
+        {
+            var productId = await _productService.AddAsync(dto); 
+            return Ok(productId);
+        }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] AddProductDto dto)
-    {
-        await _productService.UpdateAsync(dto, id);
-        return Ok();
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(Guid id)
+        {
+            await _productService.DeleteAsync(id);
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] AddProductDto dto)
+        {
+            await _productService.UpdateAsync(dto, id);
+            return Ok();
+        }
     }
 }

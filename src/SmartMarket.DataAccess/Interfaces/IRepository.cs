@@ -5,7 +5,7 @@ namespace SmartMarket.DataAccess.Interfaces
     public interface IRepository<TEntity> where TEntity
         : BaseEntity
     {
-        Task<Guid> Add(TEntity entity);
+        Task<bool> Add(TEntity entity);
         Task<bool> Update(TEntity entity);
         Task<bool> Remove(TEntity entity);
         Task<TEntity?> GetById(Guid id);

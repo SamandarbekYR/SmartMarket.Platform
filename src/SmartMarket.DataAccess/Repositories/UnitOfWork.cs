@@ -55,5 +55,10 @@ namespace SmartMarket.DataAccess.Repositories
         {
             GC.SuppressFinalize(this);
         }
+
+        public async Task SaveAsync()
+        {
+            await appDb.SaveChangesAsync();
+        }
     }
 }
