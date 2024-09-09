@@ -47,9 +47,10 @@ namespace SmartMarket.Service.Services.Products.Product
             var product = _mapper.Map<Et.Product>(dto);
             product.PCode = pCode;
 
-            var Id = await _unitOfWork.Product.Add(product);
-            
-            return Id;
+            await _unitOfWork.Product.Add(product);
+            await _unitOfWork.SaveAsync(); 
+
+            return product.Id;
         }
 
         public async Task<bool> DeleteAsync(Guid Id)

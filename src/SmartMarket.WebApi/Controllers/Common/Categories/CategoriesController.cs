@@ -10,7 +10,7 @@ namespace SmartMarket.WebApi.Controllers.Common.Categories;
 
 [Route("api/common/categories")]
 [ApiController]
-public class CategoriesController : BaseController
+public class CategoriesController : ControllerBase
 {
     private readonly ICategoryService _categoryService;
 

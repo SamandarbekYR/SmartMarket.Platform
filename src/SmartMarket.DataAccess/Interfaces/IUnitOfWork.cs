@@ -38,5 +38,6 @@ namespace SmartMarket.DataAccess.Interfaces
         IWorker Worker { get; set; }
         IWorkerDebt WorkerDebt { get; set; }
         IWorkerRole WorkerRole { get; set; }
+        Task SaveAsync();
     }
 }
