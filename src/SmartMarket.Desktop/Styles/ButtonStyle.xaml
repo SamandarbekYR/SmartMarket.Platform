@@ -37,7 +37,6 @@
 
     <Style x:Key="MenuButton2" TargetType="{x:Type RadioButton}">
         <Setter Property="Height" Value="45"/>
-        <Setter Property="MinWidth" Value="150"/>
         <Setter Property="FontSize" Value="16"/>
         <Setter Property="Margin" Value="5 0 0 0"/>
         <Setter Property="Template">
@@ -55,8 +54,7 @@
                                 x:Name="IconPath" >
                                 <Grid >
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="40"/>
-                                        <ColumnDefinition Width="0"/>
+                                        <ColumnDefinition Width="30"/>
                                         <ColumnDefinition Width="*"/>
                                     </Grid.ColumnDefinitions>
 
@@ -65,19 +63,19 @@
                                         x:Name="Icon" 
                                         Data="{Binding Tag, RelativeSource={RelativeSource AncestorType={x:Type RadioButton}}}"
                                         Fill="{DynamicResource BorderColor}"
-                                        Height="20"
+                                        Height="16"
                                         Stretch="Uniform"/>
 
                                     <TextBlock 
                                         Margin="0 0 5 0"
                                         Grid.Column="2"
                                         x:Name="Label"
-                                        FontSize="{TemplateBinding FontSize}"
                                         Text="{TemplateBinding Content}"
                                         FontFamily="Arial"
                                         Foreground="{DynamicResource BorderColor}"
                                         FontWeight="SemiBold"
-                                        VerticalAlignment="Center" TextWrapping="Wrap"/>
+                                        VerticalAlignment="Center" 
+                                        TextWrapping="WrapWithOverflow"/>
                                 </Grid>
                             </Border>
                         </Grid>
@@ -2055,8 +2053,8 @@
     </Style>
 
     <Style x:Key="Create_Button" TargetType="{x:Type Button}">
-        <Setter Property="Height" Value="25"/>
-        <Setter Property="Width" Value="80"/>
+        <Setter Property="Height" Value="27"/>
+        <Setter Property="Width" Value="85"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Template">

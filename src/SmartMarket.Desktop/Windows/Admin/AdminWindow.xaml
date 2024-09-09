@@ -9,6 +9,7 @@
         WindowState="Maximized"
         Background="Transparent"
         AllowsTransparency="True"
+        SizeChanged="Window_SizeChanged"
         Loaded="Window_Loaded">
     <Grid
         Background="{DynamicResource SecondColor}">
@@ -28,7 +29,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="10*"/>
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
             <RadioButton
@@ -49,6 +50,7 @@
                 Style="{DynamicResource MenuButton2}"/>
             
             <RadioButton
+                Name="Button_Sale_Details"
                 Grid.Column="2"
                 Content="Sotuv tafsilotlari"
                 Tag="{DynamicResource sales_details}"
@@ -57,7 +59,7 @@
             <RadioButton
                 Name="Button_Partner" 
                 Grid.Column="3"
-                Content="Hamkorlarim"
+                Content="Hamkorlar"
                 Click="Button_Partner_Click"
                 Tag="{DynamicResource partner}"
                 Style="{DynamicResource MenuButton2}"/>

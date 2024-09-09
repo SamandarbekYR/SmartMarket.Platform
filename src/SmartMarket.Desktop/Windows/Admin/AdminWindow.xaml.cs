@@ -58,4 +58,17 @@ public partial class AdminWindow : Window
         MainPage mainPage = new MainPage();
         Page_Navigator.Content = mainPage;
     }
+
+    private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+    {
+        double windowHeight = this.ActualHeight;
+        double windowWidth = this.ActualWidth;
+
+        Button_Main.FontSize = Math.Min(windowHeight, windowWidth) / 60;
+        Button_Sale.FontSize = Math.Min(windowHeight, windowWidth) / 60;
+        Button_Sale_Details.FontSize = Math.Min(windowHeight, windowWidth) / 60;
+        Button_Partner.FontSize = Math.Min(windowHeight, windowWidth) / 60;
+        Button_Shop_Details.FontSize = Math.Min(windowHeight, windowWidth) / 60;
+        Button_Settings.FontSize = Math.Min(windowHeight, windowWidth) / 60;
+    }
 }

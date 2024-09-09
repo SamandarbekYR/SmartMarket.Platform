@@ -11,6 +11,7 @@
         ResizeMode="NoResize"
         AllowsTransparency="True"
         WindowState="Maximized"
+        SizeChanged="Window_SizeChanged"
         Title="MainWindow" 
         >
     <Grid
@@ -38,7 +39,6 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="1.5*"/>
                 <ColumnDefinition Width="0.5*"/>
             </Grid.ColumnDefinitions>
 
@@ -83,7 +83,7 @@
                 x:Name="btnPartners"
                 Click="btnPartners_Click"
                 Grid.Column="4"
-                Content="Hamkorlarim"
+                Content="Hamkorlar"
                 Style="{DynamicResource MenuButton2}"
                 Tag="{StaticResource partner}"
                 ></RadioButton>
@@ -92,7 +92,7 @@
                 x:Name="btnAccountSettings"
                 Click="btnAccountSettings_Click"
                 Grid.Column="5"
-                Content="Account sozlamalar"
+                Content="Akkount sozlamalar"
                 Style="{DynamicResource MenuButton2}"
                 Tag="{StaticResource account}"
                 ></RadioButton>
@@ -110,16 +110,16 @@
                 x:Name="btnCashReport"
                 Click="btnCashReport_Click"
                 Grid.Column="7"
-                Content="Kassa hisoboit"
-               Style="{DynamicResource MenuButton2}"
-               Tag="{StaticResource Kassa}"
-               ></RadioButton>
+                Content="Kassa hisoboti"
+                Style="{DynamicResource MenuButton2}"
+                Tag="{StaticResource Kassa}"
+                ></RadioButton>
 
             <RadioButton  
                 x:Name="tbsettings"
                 Click="tbsettings_Click"
                 Grid.Column="8"
-                Content="Sozlamar"
+                Content="Sozlamalar"
                 Style="{DynamicResource MenuButton2}"
                 Tag="{StaticResource Setting}"
                 ></RadioButton>
@@ -127,16 +127,19 @@
             <Button
                 x:Name="Btnclose"
                 Click="Btnclose_Click"
-                Grid.Column="10"
+                Grid.Column="9"
                 Style="{DynamicResource bntmainclose}"
               >
             </Button>
         </Grid>
         </Border>
 
-        <Border Grid.Row="2" Background="#D9D9D9">
-            <Frame Name="PageNavigator"
-            NavigationUIVisibility="Hidden" />
+        <Border 
+            Grid.Row="2" 
+            Background="#D9D9D9">
+            <Frame 
+                Name="PageNavigator"
+                NavigationUIVisibility="Hidden" />
         </Border>
 
         <Rectangle 
