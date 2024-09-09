@@ -29,20 +29,20 @@
             CornerRadius="5" 
             Margin="5">
             <Grid >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="0.5*"/>
-            </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
 
-            <RadioButton  
+                <RadioButton  
                 x:Name="btnMain"
                 Grid.Column="0"
                 Content="Asosiy"
@@ -52,7 +52,7 @@
                 IsChecked="True"
                 ></RadioButton>
 
-            <RadioButton  
+                <RadioButton  
                 x:Name="btnsale"
                 Click="btnsale_Click"
                 Grid.Column="1"
@@ -61,7 +61,7 @@
                 Tag="{StaticResource cart}"
                 ></RadioButton>
 
-            <RadioButton  
+                <RadioButton  
                 x:Name="btnSaleDetails"
                 Click="btnSaleDetails_Click"
                 Grid.Column="2"
@@ -70,7 +70,7 @@
                 Tag="{StaticResource sales_details}"
                 ></RadioButton>
 
-            <RadioButton  
+                <RadioButton  
                 x:Name="btnShopworkers"
                 Click="btnShopworkers_Click"
                 Grid.Column="3"
@@ -79,7 +79,7 @@
                 Tag="{StaticResource worker}"
                 ></RadioButton>
 
-            <RadioButton  
+                <RadioButton  
                 x:Name="btnPartners"
                 Click="btnPartners_Click"
                 Grid.Column="4"
@@ -88,7 +88,7 @@
                 Tag="{StaticResource partner}"
                 ></RadioButton>
 
-            <RadioButton  
+                <RadioButton  
                 x:Name="btnAccountSettings"
                 Click="btnAccountSettings_Click"
                 Grid.Column="5"
@@ -97,7 +97,7 @@
                 Tag="{StaticResource account}"
                 ></RadioButton>
 
-            <RadioButton  
+                <RadioButton  
                 x:Name="btnShopDetails"
                 Click="btnShopDetails_Click"
                 Grid.Column="6"
@@ -106,7 +106,7 @@
                 Tag="{StaticResource store}"
                 ></RadioButton>
 
-            <RadioButton  
+                <RadioButton  
                 x:Name="btnCashReport"
                 Click="btnCashReport_Click"
                 Grid.Column="7"
@@ -115,7 +115,7 @@
                 Tag="{StaticResource Kassa}"
                 ></RadioButton>
 
-            <RadioButton  
+                <RadioButton  
                 x:Name="tbsettings"
                 Click="tbsettings_Click"
                 Grid.Column="8"
@@ -124,14 +124,14 @@
                 Tag="{StaticResource Setting}"
                 ></RadioButton>
 
-            <Button
+                <Button
                 x:Name="Btnclose"
                 Click="Btnclose_Click"
                 Grid.Column="9"
                 Style="{DynamicResource bntmainclose}"
               >
-            </Button>
-        </Grid>
+                </Button>
+            </Grid>
         </Border>
 
         <Border 
