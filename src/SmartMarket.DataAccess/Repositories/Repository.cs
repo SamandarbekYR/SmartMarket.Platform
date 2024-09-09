@@ -16,12 +16,12 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity
         _dbSet = appDb.Set<TEntity>();
         _appDb = appDb;
     }
-    public async Task<bool> Add(TEntity entity)
+    public async Task<Guid> Add(TEntity entity)
     {
         await _dbSet.AddAsync(entity);
         int result = await _appDb.SaveChangesAsync();
 
-        return result > 0;
+        return entity.Id;
     }
     public  IQueryable<TEntity> GetAll()
     =>  _dbSet.AsQueryable();

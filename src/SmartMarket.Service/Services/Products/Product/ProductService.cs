@@ -19,7 +19,7 @@ namespace SmartMarket.Service.Services.Products.Product
         private readonly IMapper _mapper = mapper;
         private readonly IValidator<AddProductDto> _validator = validator;
 
-        public async Task<bool> AddAsync(AddProductDto dto)
+        public async Task<Guid> AddAsync(AddProductDto dto)
         {
             var validationResult = _validator.Validate(dto);
 
@@ -35,12 +35,21 @@ namespace SmartMarket.Service.Services.Products.Product
                 throw new StatusCodeException(HttpStatusCode.NotFound, "Category not found.");
             }
 
+            var workerExists = await _unitOfWork.Worker.GetById(dto.WorkerId) != null;
+
+            if (!workerExists)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+            }
+
             string pCode = GeneratePCode();
 
             var product = _mapper.Map<Et.Product>(dto);
             product.PCode = pCode;
 
-            return await _unitOfWork.Product.Add(product);
+            var Id = await _unitOfWork.Product.Add(product);
+            
+            return Id;
         }
 
         public async Task<bool> DeleteAsync(Guid Id)
@@ -73,6 +82,13 @@ namespace SmartMarket.Service.Services.Products.Product
             if (!categoryExists)
             {
                 throw new StatusCodeException(HttpStatusCode.NotFound, "Category not found.");
+            }
+
+            var workerExists = await _unitOfWork.Worker.GetById(dto.WorkerId) != null;
+
+            if (!workerExists)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
             }
 
             _mapper.Map(dto, product);
