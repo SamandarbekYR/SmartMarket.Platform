@@ -9,55 +9,80 @@ using System.Net;
 using SmartMarket.Service.DTOs.Products.ReplaceProduct;
 using SmartMarket.Service.Interfaces.Products.ReplaceProduct;
 
-namespace SmartMarket.Service.Services.Products.ReplaceProduct;
-
-public class ReplaceProductService(IUnitOfWork unitOfWork,
+namespace SmartMarket.Service.Services.Products.ReplaceProduct
+{
+    public class ReplaceProductService(IUnitOfWork unitOfWork,
                              IMapper mapper,
                              IValidator<AddReplaceProductDto> validator) : IReplaceProductService
-{
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
-    private readonly IMapper _mapper = mapper;
-    private readonly IValidator<AddReplaceProductDto> _validator = validator;
-
-    public async Task<bool> AddAsync(AddReplaceProductDto dto)
     {
-        var validationResult = _validator.Validate(dto);
-        if (!validationResult.IsValid)
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IMapper _mapper = mapper;
+        private readonly IValidator<AddReplaceProductDto> _validator = validator;
+
+        public async Task<bool> AddAsync(AddReplaceProductDto dto)
         {
-            throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
+            var validationResult = _validator.Validate(dto);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
+            }
+
+            var productSaleExists = await _unitOfWork.ProductSale.GetById(dto.ProductSaleId) != null;
+            if (!productSaleExists)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Product Sale not found.");
+            }
+
+            var workerExists = await _unitOfWork.Worker.GetById(dto.WorkerId) != null;
+            if (!workerExists)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+            }
+
+            var replaceProduct = _mapper.Map<Et.ReplaceProduct>(dto);
+            return await _unitOfWork.ReplaceProduct.Add(replaceProduct);
         }
 
-        var replaceProduct = _mapper.Map<Et.ReplaceProduct>(dto);
-        return await _unitOfWork.ReplaceProduct.Add(replaceProduct);
-    }
-
-    public async Task<bool> DeleteAsync(Guid Id)
-    {
-        var replaceProduct = await _unitOfWork.ReplaceProduct.GetById(Id);
-        if (replaceProduct == null)
+        public async Task<bool> DeleteAsync(Guid Id)
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Replace Product not found.");
+            var replaceProduct = await _unitOfWork.ReplaceProduct.GetById(Id);
+            if (replaceProduct == null)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Replace Product not found.");
+            }
+
+            return await _unitOfWork.ReplaceProduct.Remove(replaceProduct);
         }
 
-        return await _unitOfWork.ReplaceProduct.Remove(replaceProduct);
-    }
-
-    public async Task<List<ReplaceProductDto>> GetAllAsync()
-    {
-        var replaceProducts = await _unitOfWork.ReplaceProduct.GetReplaceProductsFullInformationAsync();
-        return _mapper.Map<List<ReplaceProductDto>>(replaceProducts);
-    }
-
-    public async Task<bool> UpdateAsync(AddReplaceProductDto dto, Guid Id)
-    {
-        var replaceProduct = await _unitOfWork.ReplaceProduct.GetById(Id);
-        if (replaceProduct == null)
+        public async Task<List<ReplaceProductDto>> GetAllAsync()
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Replace Product not found.");
+            var replaceProducts = await _unitOfWork.ReplaceProduct.GetReplaceProductsFullInformationAsync();
+            return _mapper.Map<List<ReplaceProductDto>>(replaceProducts);
         }
 
-        _mapper.Map(dto, replaceProduct);
+        public async Task<bool> UpdateAsync(AddReplaceProductDto dto, Guid Id)
+        {
+            var replaceProduct = await _unitOfWork.ReplaceProduct.GetById(Id);
+            if (replaceProduct == null)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Replace Product not found.");
+            }
 
-        return await _unitOfWork.ReplaceProduct.Update(replaceProduct);
+            var productSaleExists = await _unitOfWork.ProductSale.GetById(dto.ProductSaleId) != null;
+            if (!productSaleExists)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Product Sale not found.");
+            }
+
+            var workerExists = await _unitOfWork.Worker.GetById(dto.WorkerId) != null;
+            if (!workerExists)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+            }
+
+            _mapper.Map(dto, replaceProduct);
+
+            return await _unitOfWork.ReplaceProduct.Update(replaceProduct);
+        }
     }
 }

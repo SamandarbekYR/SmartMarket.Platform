@@ -9,55 +9,68 @@ using System.Net;
 using SmartMarket.Service.DTOs.Workers.WorkerDebt;
 using SmartMarket.Service.Interfaces.Worker.WorkerDebt;
 
-namespace SmartMarket.Service.Services.Worker.WorkerDebt;
-
-public class WorkerDebtService(IUnitOfWork unitOfWork,
+namespace SmartMarket.Service.Services.Worker.WorkerDebt
+{
+    public class WorkerDebtService(IUnitOfWork unitOfWork,
                              IMapper mapper,
                              IValidator<AddWorkerDebtDto> validator) : IWorkerDebtService
-{
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
-    private readonly IMapper _mapper = mapper;
-    private readonly IValidator<AddWorkerDebtDto> _validator = validator;
-
-    public async Task<bool> AddAsync(AddWorkerDebtDto dto)
     {
-        var validationResult = _validator.Validate(dto);
-        if (!validationResult.IsValid)
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IMapper _mapper = mapper;
+        private readonly IValidator<AddWorkerDebtDto> _validator = validator;
+
+        public async Task<bool> AddAsync(AddWorkerDebtDto dto)
         {
-            throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
+            var validationResult = _validator.Validate(dto);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
+            }
+
+            var workerExists = await _unitOfWork.Worker.GetById(dto.WorkerId) != null;
+            if (!workerExists)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+            }
+
+            var workerDebt = _mapper.Map<Et.WorkerDebt>(dto);
+            return await _unitOfWork.WorkerDebt.Add(workerDebt);
         }
 
-        var workerDebt = _mapper.Map<Et.WorkerDebt>(dto);
-        return await _unitOfWork.WorkerDebt.Add(workerDebt);
-    }
-
-    public async Task<bool> DeleteAsync(Guid Id)
-    {
-        var workerDebt = await _unitOfWork.WorkerDebt.GetById(Id);
-        if (workerDebt == null)
+        public async Task<bool> DeleteAsync(Guid Id)
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Worker Debt not found.");
+            var workerDebt = await _unitOfWork.WorkerDebt.GetById(Id);
+            if (workerDebt == null)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Worker Debt not found.");
+            }
+
+            return await _unitOfWork.WorkerDebt.Remove(workerDebt);
         }
 
-        return await _unitOfWork.WorkerDebt.Remove(workerDebt);
-    }
-
-    public async Task<List<WorkerDebtDto>> GetAllAsync()
-    {
-        var workerDebts = await _unitOfWork.WorkerDebt.GetWorkerDebtsFullInformationAsync();
-        return _mapper.Map<List<WorkerDebtDto>>(workerDebts);
-    }
-
-    public async Task<bool> UpdateAsync(AddWorkerDebtDto dto, Guid Id)
-    {
-        var workerDebt = await _unitOfWork.WorkerDebt.GetById(Id);
-        if (workerDebt == null)
+        public async Task<List<WorkerDebtDto>> GetAllAsync()
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Worker Debt not found.");
+            var workerDebts = await _unitOfWork.WorkerDebt.GetWorkerDebtsFullInformationAsync();
+            return _mapper.Map<List<WorkerDebtDto>>(workerDebts);
         }
 
-        _mapper.Map(dto, workerDebt);
+        public async Task<bool> UpdateAsync(AddWorkerDebtDto dto, Guid Id)
+        {
+            var workerDebt = await _unitOfWork.WorkerDebt.GetById(Id);
+            if (workerDebt == null)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Worker Debt not found.");
+            }
 
-        return await _unitOfWork.WorkerDebt.Update(workerDebt);
+            var workerExists = await _unitOfWork.Worker.GetById(dto.WorkerId) != null;
+            if (!workerExists)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+            }
+
+            _mapper.Map(dto, workerDebt);
+
+            return await _unitOfWork.WorkerDebt.Update(workerDebt);
+        }
     }
 }

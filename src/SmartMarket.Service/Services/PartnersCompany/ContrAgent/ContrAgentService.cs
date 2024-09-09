@@ -27,6 +27,12 @@ public class ContrAgentService(IUnitOfWork unitOfWork,
             throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
         }
 
+        var companyExists = await _unitOfWork.PartnerCompany.GetById(dto.CompanyId) != null;
+        if (!companyExists)
+        {
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Company not found.");
+        }
+
         var contrAgent = _mapper.Map<Et.ContrAgent>(dto);
         return await _unitOfWork.ContrAgent.Add(contrAgent);
     }
@@ -54,6 +60,12 @@ public class ContrAgentService(IUnitOfWork unitOfWork,
         if (contrAgent == null)
         {
             throw new StatusCodeException(HttpStatusCode.NotFound, "Counteragent not found.");
+        }
+
+        var companyExists = await _unitOfWork.PartnerCompany.GetById(dto.CompanyId) != null;
+        if (!companyExists)
+        {
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Company not found.");
         }
 
         _mapper.Map(dto, contrAgent);
