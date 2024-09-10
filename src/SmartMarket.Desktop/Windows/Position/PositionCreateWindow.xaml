@@ -10,11 +10,14 @@
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True"
-        Title="PositionCreateWindow" Height="200" Width="350">
+        WindowState="Maximized"
+        Loaded="Window_Loaded"
+        Title="PositionCreateWindow" >
 
 
 
-    <Grid >
+    <Grid
+        Height="200" Width="350">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>

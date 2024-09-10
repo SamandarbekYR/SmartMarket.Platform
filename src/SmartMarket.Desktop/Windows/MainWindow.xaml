@@ -8,22 +8,22 @@
         Title="MainWindow"
         WindowState="Maximized"
         WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
         SizeChanged="Window_SizeChanged"
         Loaded="Window_Loaded">
     <Grid
-        Background="#D9D9D9">
+        Background="White">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="11*"/>
         </Grid.RowDefinitions>
         <Border 
-        Background="White" 
-        Grid.Row="0" 
-        BorderBrush="Black" 
-        BorderThickness="1" 
-        CornerRadius="5" 
-        Margin="5">
+            Background="White" 
+            Grid.Row="0" 
+            CornerRadius="5" 
+            Margin="5">
             <Grid >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

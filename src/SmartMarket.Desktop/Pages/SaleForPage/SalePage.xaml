@@ -3,239 +3,238 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.SaleForPage"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.SaleForPage"
       mc:Ignorable="d" 
-      Background="White"
-      d:DesignHeight="640" d:DesignWidth="1024"
       Title="SalePage">
 
-    <Grid Background="#D9D9D9">
+    <Grid Background="#D6D6D6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="2.8*"/>
         </Grid.ColumnDefinitions>
 
-        
-            <Border 
-                Background="{DynamicResource SecondColor}"
-                CornerRadius="5"
-                Margin="5"
-                BorderThickness="1"
-                BorderBrush="{DynamicResource BorderColor}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="35"/>
-                        <RowDefinition Height="35"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Border Grid.Row="0"
-                    Background="#04C217"
-                    CornerRadius="4 4 0 0">
-                        <TextBlock FontSize="20"
-                           Text="Jo'natmalar"
-                           VerticalAlignment="Center"
-                           Padding="10 0 0 0"/>
-                    </Border>
+
+        <Border 
+             Background="{DynamicResource SecondColor}"
+             CornerRadius="5"
+             Margin="5"
+             BorderThickness="1"
+             BorderBrush="{DynamicResource BorderColor}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0"
+                     Background="#04C217"
+                     CornerRadius="4 4 0 0">
+                    <TextBlock FontSize="20"
+                        Text="Jo'natmalar"
+                        VerticalAlignment="Center"
+                        Padding="10 0 0 0"/>
+                </Border>
 
 
-                    <Border Grid.Row="1"
-                            CornerRadius="8"
-                            Margin="10 2 10 2"
-                            BorderThickness="1"
-                            BorderBrush="{DynamicResource BorderColor}"
-                            >
-                        <DockPanel>
-                            <md:PackIcon Kind="Search"
-                                         VerticalAlignment="Center"
-                                         Width="25" Height="25"
-                                         ></md:PackIcon>
-                            <TextBox
-                                x:Name="tbsearch"
-                                Margin="10 0 10 0"
-                                BorderThickness="0"
-                                VerticalAlignment="Center"
-                                FontSize="15"
-                                FontWeight="SemiBold"
-                              
-                                >
-                               
-                            </TextBox>
-                        </DockPanel>
-                    </Border>
+                <Border Grid.Row="1"
+                         CornerRadius="8"
+                         Margin="10 2 10 2"
+                         BorderThickness="1"
+                         BorderBrush="{DynamicResource BorderColor}"
+                         >
+                    <DockPanel>
+                        <md:PackIcon Kind="Search"
+                                      VerticalAlignment="Center"
+                                      Width="25" Height="25"
+                                      ></md:PackIcon>
+                        <TextBox
+                             x:Name="tbsearch"
+                             Margin="10 0 10 0"
+                             BorderThickness="0"
+                             VerticalAlignment="Center"
+                             FontSize="15"
+                             FontWeight="SemiBold"
+                           
+                             >
 
-                    <ScrollViewer Grid.Row="2">
-                        <Grid>
-                            <StackPanel 
-                                x:Name="stackPanelOrders">
+                        </TextBox>
+                    </DockPanel>
+                </Border>
 
-                            </StackPanel>
-                        </Grid>
-                    </ScrollViewer>
-                </Grid>
-            </Border>
+                <ScrollViewer Grid.Row="2">
+                    <Grid>
+                        <StackPanel 
+                             x:Name="stackPanelOrders">
+
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </Border>
 
 
         <Grid 
-            Grid.Column="1">
+         Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="60"/>
             </Grid.RowDefinitions>
 
             <Grid 
-                Grid.Row="0">
+             Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="2.5*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid 
-                    Grid.Column="0">
+                 Grid.Column="0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="35"/>
                         <RowDefinition Height="90"/>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="150"/>
                     </Grid.RowDefinitions>
-                    
+
                     <Border Grid.Row="0" Margin="2 5 2 5"
-                            CornerRadius="5"
-                            BorderThickness="1"
-                            BorderBrush="{DynamicResource BorderColor}"
-                            Background="White"
-                            >
+                         CornerRadius="5"
+                         BorderThickness="1"
+                         BorderBrush="{DynamicResource BorderColor}"
+                         Background="White"
+                         >
                         <DockPanel>
                             <TextBlock
-                                x:Name="tbFullName"
-                                Text="Sobirov Sherzod"
-                                VerticalAlignment="Center"
-                                FontSize="18"
-                                FontWeight="Bold"
-                                Foreground="#F50D0D"
-                                HorizontalAlignment="Left"
-                                Margin="10 0 0 0"
-                                ></TextBlock>
+                             x:Name="tbFullName"
+                             Text="Sobirov Sherzod"
+                             VerticalAlignment="Center"
+                             FontSize="18"
+                             FontWeight="Bold"
+                             Foreground="#F50D0D"
+                             HorizontalAlignment="Left"
+                             Margin="10 0 0 0"
+                             ></TextBlock>
 
                             <TextBlock
-                                x:Name="tbBarCode"
-                                Text="#12542140505"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Center"
-                                FontSize="16"
-                                FontWeight="SemiBold"
-                                Margin="0 0 10 0"
-                                ></TextBlock>
+                             x:Name="tbBarCode"
+                             Text="#12542140505"
+                             HorizontalAlignment="Right"
+                             VerticalAlignment="Center"
+                             FontSize="16"
+                             FontWeight="SemiBold"
+                             Margin="0 0 10 0"
+                             ></TextBlock>
                         </DockPanel>
                     </Border>
 
                     <Border Grid.Row="1"
-                            CornerRadius="5"
-                            BorderThickness="1"
-                            BorderBrush="{DynamicResource BorderColor}"
-                            Margin="2 0 2 5"
-                            Background="White"
-                            >
+                         CornerRadius="5"
+                         BorderThickness="1"
+                         BorderBrush="{DynamicResource BorderColor}"
+                         Margin="2 0 2 5"
+                         Background="White"
+                         >
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="1.5*"/>
                             </Grid.ColumnDefinitions>
-                            
+
                             <Grid Grid.Column="0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="1.3*"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                
+
                                 <TextBlock
-                                    x:Name="tbProductName"
-                                    Grid.Row="0"
-                                    Text="Nestle Kasha"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Left"
-                                    FontSize="25"
-                                    Margin="5 0 0 0"
-                                    FontWeight="SemiBold"
-                                    ></TextBlock>
+                                 x:Name="tbProductName"
+                                 Grid.Row="0"
+                                 Text="Nestle Kasha"
+                                 VerticalAlignment="Center"
+                                 HorizontalAlignment="Left"
+                                 FontSize="25"
+                                 Margin="5 0 0 0"
+                                 FontWeight="SemiBold"
+                                 ></TextBlock>
 
                                 <DockPanel
-                                    Grid.Row="1"
-                                    Margin="0 0 0 10"
-                                    >
+                                 Grid.Row="1"
+                                 Margin="0 0 0 10"
+                                 >
                                     <TextBlock
-                                        Text="Shtrix-kod:"
-                                        VerticalAlignment="Bottom"
-                                        FontSize="17"
-                                        FontWeight="SemiBold"
-                                        Margin="5 0 0 0"
-                                        ></TextBlock>
+                                     Text="Shtrix-kod:"
+                                     VerticalAlignment="Bottom"
+                                     FontSize="17"
+                                     FontWeight="SemiBold"
+                                     Margin="5 0 0 0"
+                                     ></TextBlock>
                                     <TextBlock
-                                        Text="123456789"
-                                        VerticalAlignment="Bottom"
-                                        FontSize="16"
-                                        FontWeight="SemiBold"
-                                        Margin="5 0 0 0"
-                                        ></TextBlock>
+                                     Text="123456789"
+                                     VerticalAlignment="Bottom"
+                                     FontSize="16"
+                                     FontWeight="SemiBold"
+                                     Margin="5 0 0 0"
+                                     ></TextBlock>
                                 </DockPanel>
 
                             </Grid>
 
                             <StackPanel
-                                HorizontalAlignment="Right"
-                                Orientation="Horizontal"
-                                Grid.Column="1"
-                                Margin="0 0 10 0"
-                                >
-                                
+                             HorizontalAlignment="Right"
+                             Orientation="Horizontal"
+                             Grid.Column="1"
+                             Margin="0 0 10 0"
+                             >
+
                                 <TextBox
-                                    x:Name="Product_Count"
-                                    BorderThickness="0"
-                                    VerticalAlignment="Center"
-                                    Text="5"
-                                    Uid="1"
-                                    GotFocus="TextBox_GotFocus"
-                                    VerticalContentAlignment="Center"
-                                    TextAlignment="Right"
-                                    FontSize="22"
-                                    FontWeight="SemiBold"
-                                    Height="100" >
-                                    
-                                </TextBox>
-                                <Label
-                                    Content="x"
-                                    FontSize="22"
-                                    Margin="0 0 0 3"
-                                    VerticalAlignment="Center"/>
-                                
-                                <TextBox
-                                    BorderThickness="0"
-                                    VerticalAlignment="Center"
-                                    Text="2500"
-                                    IsReadOnly="True"
-                                    VerticalContentAlignment="Center"
-                                    TextAlignment="Right"
-                                    FontSize="22"
-                                    FontWeight="SemiBold"
-                                    Height="100" >
+                                 x:Name="Product_Count"
+                                 BorderThickness="0"
+                                 VerticalAlignment="Center"
+                                 Text="5"
+                                 Uid="1"
+                                 IsReadOnly="True"
+                                 GotFocus="TextBox_GotFocus"
+                                 VerticalContentAlignment="Center"
+                                 TextAlignment="Right"
+                                 FontSize="22"
+                                 FontWeight="SemiBold"
+                                 Height="100" >
 
                                 </TextBox>
                                 <Label
-                                    Content="="
-                                    FontSize="25"
-                                    Margin="0 0 0 3"
-                                    VerticalAlignment="Center"/>
+                                 Content="x"
+                                 FontSize="22"
+                                 Margin="0 0 0 3"
+                                 VerticalAlignment="Center"/>
+
                                 <TextBox
-                                    BorderThickness="0"
-                                    VerticalAlignment="Center"
-                                    Text="12500"
-                                    IsReadOnly="True"
-                                    VerticalContentAlignment="Center"
-                                    TextAlignment="Right"
-                                    FontSize="22"
-                                    FontWeight="SemiBold"
-                                    Height="100" 
-                                    >
+                                 BorderThickness="0"
+                                 VerticalAlignment="Center"
+                                 Text="2500"
+                                 IsReadOnly="True"
+                                 VerticalContentAlignment="Center"
+                                 TextAlignment="Right"
+                                 FontSize="22"
+                                 FontWeight="SemiBold"
+                                 Height="100" >
+
+                                </TextBox>
+                                <Label
+                                 Content="="
+                                 FontSize="25"
+                                 Margin="0 0 0 3"
+                                 VerticalAlignment="Center"/>
+                                <TextBox
+                                 BorderThickness="0"
+                                 VerticalAlignment="Center"
+                                 Text="12500"
+                                 IsReadOnly="True"
+                                 VerticalContentAlignment="Center"
+                                 TextAlignment="Right"
+                                 FontSize="22"
+                                 FontWeight="SemiBold"
+                                 Height="100" 
+                                 >
 
                                 </TextBox>
                             </StackPanel>
@@ -243,13 +242,13 @@
                     </Border>
 
                     <Border
-                        Grid.Row="2"
-                        Margin="2"
-                        BorderBrush="{DynamicResource BorderColor}"
-                        BorderThickness="1"
-                        CornerRadius="5"
-                        Background="White"
-                        >
+                     Grid.Row="2"
+                     Margin="2"
+                     BorderBrush="{DynamicResource BorderColor}"
+                     BorderThickness="1"
+                     CornerRadius="5"
+                     Background="White"
+                     >
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -275,195 +274,195 @@
                                         </Grid.ColumnDefinitions>
 
                                         <TextBlock
-                                            Grid.Column="0"
-                                            Text="No."
-                                            FontSize="13"
-                                            FontWeight="SemiBold"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Center"
-                                            Foreground="{DynamicResource BorderColor}"
-                                            ></TextBlock>
+                                         Grid.Column="0"
+                                         Text="No."
+                                         FontSize="13"
+                                         FontWeight="SemiBold"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         Foreground="{DynamicResource BorderColor}"
+                                         ></TextBlock>
                                         <TextBlock
-                                            Grid.Column="1"
-                                            Text="P-Code"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Center"
-                                            FontSize="13"
-                                            FontWeight="SemiBold"
-                                            Foreground="{DynamicResource BorderColor}"
-                                            ></TextBlock>
+                                         Grid.Column="1"
+                                         Text="P-Code"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         FontSize="13"
+                                         FontWeight="SemiBold"
+                                         Foreground="{DynamicResource BorderColor}"
+                                         ></TextBlock>
 
                                         <TextBlock
-                                            Grid.Column="2"
-                                            Text="Mahsulot nomi"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Center"
-                                            FontSize="13"
-                                            FontWeight="SemiBold"
-                                            Foreground="{DynamicResource BorderColor}"
-                                            ></TextBlock>
+                                         Grid.Column="2"
+                                         Text="Mahsulot nomi"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         FontSize="13"
+                                         FontWeight="SemiBold"
+                                         Foreground="{DynamicResource BorderColor}"
+                                         ></TextBlock>
 
                                         <TextBlock
-                                            Grid.Column="3"
-                                            Text="Soni"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Center"
-                                            FontSize="13"
-                                            FontWeight="SemiBold"
-                                            Foreground="{DynamicResource BorderColor}"
-                                            ></TextBlock>
+                                         Grid.Column="3"
+                                         Text="Soni"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         FontSize="13"
+                                         FontWeight="SemiBold"
+                                         Foreground="{DynamicResource BorderColor}"
+                                         ></TextBlock>
 
                                         <TextBlock
-                                            Grid.Column="4"
-                                            Text="Narxi"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Center"
-                                            FontSize="13"
-                                            FontWeight="SemiBold"
-                                            Foreground="{DynamicResource BorderColor}"
-                                            ></TextBlock>
+                                         Grid.Column="4"
+                                         Text="Narxi"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         FontSize="13"
+                                         FontWeight="SemiBold"
+                                         Foreground="{DynamicResource BorderColor}"
+                                         ></TextBlock>
 
                                         <TextBlock 
-                                            Grid.Column="5"
-                                            Text="Chegirma"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Center"
-                                            FontSize="13"
-                                            FontWeight="SemiBold"
-                                            Foreground="{DynamicResource BorderColor}"
-                                            ></TextBlock>
+                                         Grid.Column="5"
+                                         Text="Chegirma"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         FontSize="13"
+                                         FontWeight="SemiBold"
+                                         Foreground="{DynamicResource BorderColor}"
+                                         ></TextBlock>
 
                                         <TextBlock
-                                            Grid.Column="6"
-                                            Text="Jami"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Center"
-                                            FontSize="13"
-                                            FontWeight="SemiBold"
-                                            Foreground="{DynamicResource BorderColor}"
-                                            ></TextBlock>
-                                        
+                                         Grid.Column="6"
+                                         Text="Jami"
+                                         VerticalAlignment="Center"
+                                         HorizontalAlignment="Center"
+                                         FontSize="13"
+                                         FontWeight="SemiBold"
+                                         Foreground="{DynamicResource BorderColor}"
+                                         ></TextBlock>
+
                                     </Grid>
-                                    
+
                                 </Grid>
                             </Border>
 
                             <Border Grid.Column="1"
-                                    BorderBrush="{DynamicResource BorderColor}"
-                                    BorderThickness="0.5 0 0 0"
-                                    CornerRadius="5"
-                                    Background="White"
-                                    >
+                                 BorderBrush="{DynamicResource BorderColor}"
+                                 BorderThickness="0.5 0 0 0"
+                                 CornerRadius="5"
+                                 Background="White"
+                                 >
                                 <StackPanel>
-                                <Button
-                                    Style="{DynamicResource BtnSalePageedit}"
-                                    >
-                                </Button>
+                                    <Button
+                                 Style="{DynamicResource BtnSalePageedit}"
+                                 >
+                                    </Button>
 
-                                <Button
-                                    Style="{DynamicResource BtnSalePageDelete}"
-                                    ></Button>
+                                    <Button
+                                 Style="{DynamicResource BtnSalePageDelete}"
+                                 ></Button>
 
-                                <Button
-                                    Style="{DynamicResource BtnSalePagePlus}"
-                                    ></Button>
+                                    <Button
+                                 Style="{DynamicResource BtnSalePagePlus}"
+                                 ></Button>
 
-                                <Button
-                                    Style="{DynamicResource BtnSalePageMinus}"
-                                    ></Button>
+                                    <Button
+                                 Style="{DynamicResource BtnSalePageMinus}"
+                                 ></Button>
 
-                                <Button
-                                    Style="{DynamicResource BtnSalePageSearch}"
-                                    ></Button>
+                                    <Button
+                                 Style="{DynamicResource BtnSalePageSearch}"
+                                 ></Button>
 
-                                <Button
-                                    Style="{DynamicResource BtnSalePagePercent}"
-                                    ></Button>
-                                
-                            </StackPanel>
+                                    <Button
+                                 Style="{DynamicResource BtnSalePagePercent}"
+                                 ></Button>
+
+                                </StackPanel>
                             </Border>
                         </Grid>
                     </Border>
 
                     <Border
-                        Grid.Row="3"
-                        BorderBrush="{DynamicResource BorderColor}"
-                        BorderThickness="1"
-                        Margin="2 5"
-                        CornerRadius="5"
-                        Background="White"
-                        >
+                     Grid.Row="3"
+                     BorderBrush="{DynamicResource BorderColor}"
+                     BorderThickness="1"
+                     Margin="2 5"
+                     CornerRadius="5"
+                     Background="White"
+                     >
 
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="1.3*"/>
                             </Grid.ColumnDefinitions>
-                            
+
                             <StackPanel Grid.Column="0"
-                                        Margin="20 5 0 0">
+                                     Margin="20 5 0 0">
 
                                 <TextBlock
-                                    Text="Summa"
-                                    FontSize="22"
-                                    FontWeight="Bold"
-                                    ></TextBlock>
+                                 Text="Summa"
+                                 FontSize="22"
+                                 FontWeight="Bold"
+                                 ></TextBlock>
                                 <TextBlock
-                                    x:Name="tbAmount"
-                                    Text="625,025.25"
-                                    FontSize="20"
-                                    FontWeight="SemiBold"
-                                    ></TextBlock>
-                                
+                                 x:Name="tbAmount"
+                                 Text="625,025.25"
+                                 FontSize="20"
+                                 FontWeight="SemiBold"
+                                 ></TextBlock>
+
                                 <TextBlock
-                                    Text="Chegirma"
-                                    FontSize="22"
-                                    FontWeight="Bold"
-                                    Margin="0 10 0 0"
-                                    ></TextBlock>
+                                 Text="Chegirma"
+                                 FontSize="22"
+                                 FontWeight="Bold"
+                                 Margin="0 10 0 0"
+                                 ></TextBlock>
                                 <TextBlock
-                                    x:Name="tbDiscountAmount"
-                                    Text="50,000.0"
-                                    FontSize="20"
-                                    FontWeight="SemiBold"
-                                    ></TextBlock>
-                                
+                                 x:Name="tbDiscountAmount"
+                                 Text="50,000.0"
+                                 FontSize="20"
+                                 FontWeight="SemiBold"
+                                 ></TextBlock>
+
                             </StackPanel>
-                            
+
                             <StackPanel Grid.Column="1"
-                                        HorizontalAlignment="Right"
-                                        Margin="0 60 30 0">
-                                
+                                     HorizontalAlignment="Right"
+                                     Margin="0 60 30 0">
+
                                 <TextBlock
-                                    Text="Jami Summa:"
-                                    FontSize="22"
-                                    HorizontalAlignment="Center"
-                                    FontWeight="Bold"
-                                    ></TextBlock>
+                                 Text="Jami Summa:"
+                                 FontSize="22"
+                                 HorizontalAlignment="Center"
+                                 FontWeight="Bold"
+                                 ></TextBlock>
                                 <TextBlock
-                                    Margin="0 5 0 0"
-                                    x:Name="tbTotalAmount"
-                                    Text="575.255.255"
-                                    HorizontalAlignment="Center"
-                                    FontSize="25"
-                                    FontWeight="Bold"
-                                    ></TextBlock>
-                                
+                                 Margin="0 5 0 0"
+                                 x:Name="tbTotalAmount"
+                                 Text="575.255.255"
+                                 HorizontalAlignment="Center"
+                                 FontSize="25"
+                                 FontWeight="Bold"
+                                 ></TextBlock>
+
                             </StackPanel>
                         </Grid>
                     </Border>
-                    
+
                 </Grid>
 
 
                 <Border
-                    Grid.Column="1"
-                    CornerRadius="5"
-                    Margin="5"
-                    BorderThickness="1"
-                    BorderBrush="{DynamicResource BorderColor}"
-                    Background="White"
-                    >
+                 Grid.Column="1"
+                 CornerRadius="5"
+                 Margin="5"
+                 BorderThickness="1"
+                 BorderBrush="{DynamicResource BorderColor}"
+                 Background="White"
+                 >
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="30"/>
@@ -479,57 +478,57 @@
                         </Grid.RowDefinitions>
 
                         <Border
-                            BorderBrush="Black"
-                            BorderThickness="0 0 0 1"
-                            Grid.Column="0"
-                            CornerRadius="5 5 0 0"
-                            Background="White"
-                            >
+                         BorderBrush="Black"
+                         BorderThickness="0 0 0 1"
+                         Grid.Column="0"
+                         CornerRadius="5 5 0 0"
+                         Background="White"
+                         >
                             <DockPanel>
                                 <TextBlock
-                                    x:Name="tbDate"
-                                    
-                                    VerticalAlignment="Center"
-                                    Margin="20 0 0 0"
-                                    FontSize="20"
-                                    FontWeight="SemiBold"
-                                    ></TextBlock>
-                                
+                                 x:Name="tbDate"
+                                 
+                                 VerticalAlignment="Center"
+                                 Margin="20 0 0 0"
+                                 FontSize="20"
+                                 FontWeight="SemiBold"
+                                 ></TextBlock>
+
                                 <TextBlock
-                                    x:Name="tbhour"
-                                    HorizontalAlignment="Right"
-                                    Text="1:15:40"
-                                    FontWeight="SemiBold"
-                                    FontSize="20"
-                                    VerticalAlignment="Center"
-                                    Margin="0 0 20 0"
-                                    ></TextBlock>
+                                 x:Name="tbhour"
+                                 HorizontalAlignment="Right"
+                                 Text="1:15:40"
+                                 FontWeight="SemiBold"
+                                 FontSize="20"
+                                 VerticalAlignment="Center"
+                                 Margin="0 0 20 0"
+                                 ></TextBlock>
                             </DockPanel>
                         </Border>
 
                         <Border
-                            Grid.Row="1"
-                            Margin="5 2"
-                            BorderBrush="Black"
-                            BorderThickness="1"
-                            CornerRadius="5"
-                            Background="White"
-                            >
+                         Grid.Row="1"
+                         Margin="5 2"
+                         BorderBrush="Black"
+                         BorderThickness="1"
+                         CornerRadius="5"
+                         Background="White"
+                         >
                             <TextBox
-                                x:Name="tbCalculator"
-                                BorderThickness="0"
-                                VerticalContentAlignment="Center"
-                                TextAlignment="Right"
-                                FontSize="25"
-                                GotFocus="TextBox_GotFocus"
-                                FontWeight="DemiBold"
-                                Margin="5 0 10 0"
-                                Uid="2"
-                                ></TextBox>
+                             x:Name="tbCalculator"
+                             BorderThickness="0"
+                             VerticalContentAlignment="Center"
+                             TextAlignment="Right"
+                             FontSize="25"
+                             GotFocus="TextBox_GotFocus"
+                             FontWeight="DemiBold"
+                             Margin="5 0 10 0"
+                             Uid="2"
+                             ></TextBox>
                         </Border>
 
                         <Grid Background="White"
-                            Grid.Row="2" >
+                         Grid.Row="2" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
@@ -537,166 +536,166 @@
                             </Grid.ColumnDefinitions>
 
                             <Button
-                                Click="Button_Click"
-                                Grid.Column="0"
-                                Style="{DynamicResource BtnSaleKlavituria}"
-                                Content="7"
-                                FontSize="35"
-                                ></Button>
+                             Click="Button_Click"
+                             Grid.Column="0"
+                             Style="{DynamicResource BtnSaleKlavituria}"
+                             Content="7"
+                             FontSize="35"
+                             ></Button>
                             <Button
-                                Click="Button_Click"
-                                Grid.Column="1"
-                                Style="{DynamicResource BtnSaleKlavituria}"
-                                Content="8"
-                                FontSize="35"
-                                ></Button>
+                             Click="Button_Click"
+                             Grid.Column="1"
+                             Style="{DynamicResource BtnSaleKlavituria}"
+                             Content="8"
+                             FontSize="35"
+                             ></Button>
                             <Button
-                                Click="Button_Click"
-                                Grid.Column="2"
-                                Content="9"
-                                Style="{DynamicResource BtnSaleKlavituria}"
-                                FontSize="35"
-                                ></Button>
-                            
+                             Click="Button_Click"
+                             Grid.Column="2"
+                             Content="9"
+                             Style="{DynamicResource BtnSaleKlavituria}"
+                             FontSize="35"
+                             ></Button>
+
                         </Grid>
 
                         <Grid Grid.Row="3" Background="White">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
 
 
                             <Button
-                                Click="Button_Click"
-                                   Grid.Column="0"
-                                   Style="{DynamicResource BtnSaleKlavituria}"
-                                   Content="4"
-                                   FontSize="35"
-                                   ></Button>
-                            <Button
-                                Click="Button_Click"
-                                   Grid.Column="1"
-                                   Style="{DynamicResource BtnSaleKlavituria}"
-                                   Content="5"
-                                   FontSize="35"
-                                   ></Button>
-                            <Button
-                                Click="Button_Click"
-                                   Grid.Column="2"
-                                   Content="6"
-                                   Style="{DynamicResource BtnSaleKlavituria}"
-                                   FontSize="35"
-                                   ></Button>
-
-                        </Grid>
-                    <Grid  Grid.Row="4" Background="White">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                            <Button
-                                Click="Button_Click"
-                                   Grid.Column="0"
-                                   Style="{DynamicResource BtnSaleKlavituria}"
-                                   Content="1"
-                                   FontSize="35"
-                                   ></Button>
-                            <Button
-                                Click="Button_Click"
-                                   Grid.Column="1"
-                                   Style="{DynamicResource BtnSaleKlavituria}"
-                                   Content="2"
-                                   FontSize="35"
-                                   ></Button>
-                            <Button
-                                Click="Button_Click"
-                                   Grid.Column="2"
-                                   Content="3"
-                                   Style="{DynamicResource BtnSaleKlavituria}"
-                                   FontSize="35"
-                                   ></Button>
-
-                        </Grid>
-                    <Grid Grid.Row="5" Background="White" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-
-                            <Button
-                                Click="Button_Click"
-                                   Grid.Column="0"
-                                   Style="{DynamicResource BtnSaleKlavituria}"
-                                   Content="0"
-                                   FontSize="35"
-                                   ></Button>
-                            <Button
-                                   Grid.Column="1"
-                                   Style="{DynamicResource BtnSaleKlavituria}"
-                                   Content="."
-                                   FontSize="35"
-                                   ></Button>
-                            <Button
-                                Click="Button_Click"
-                                   Grid.Column="2"
-                                   Content="00"
-                                   Style="{DynamicResource BtnSaleKlavituria}"
-                                   FontSize="35"
-                                   ></Button>
-
-                        </Grid>
-                    <Grid 
-                        Grid.Row="6" 
-                        Background="White">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="2*"/>
-                        </Grid.ColumnDefinitions>
-
-                            <Button
-                                x:Name="btnClear"
-                                Click="btnClear_Click"
+                             Click="Button_Click"
                                 Grid.Column="0"
                                 Style="{DynamicResource BtnSaleKlavituria}"
-                                Content="C"
+                                Content="4"
                                 FontSize="35"
                                 ></Button>
                             <Button
-                                x:Name="btnBackKlav"
-                                Click="btnBackKlav_Click"
+                             Click="Button_Click"
                                 Grid.Column="1"
-                                Style="{DynamicResource BtnSaleKlBack}"
-                              
-                                >
-                             
+                                Style="{DynamicResource BtnSaleKlavituria}"
+                                Content="5"
+                                FontSize="35"
+                                ></Button>
+                            <Button
+                             Click="Button_Click"
+                                Grid.Column="2"
+                                Content="6"
+                                Style="{DynamicResource BtnSaleKlavituria}"
+                                FontSize="35"
+                                ></Button>
+
+                        </Grid>
+                        <Grid  Grid.Row="4" Background="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button
+                             Click="Button_Click"
+                                Grid.Column="0"
+                                Style="{DynamicResource BtnSaleKlavituria}"
+                                Content="1"
+                                FontSize="35"
+                                ></Button>
+                            <Button
+                             Click="Button_Click"
+                                Grid.Column="1"
+                                Style="{DynamicResource BtnSaleKlavituria}"
+                                Content="2"
+                                FontSize="35"
+                                ></Button>
+                            <Button
+                             Click="Button_Click"
+                                Grid.Column="2"
+                                Content="3"
+                                Style="{DynamicResource BtnSaleKlavituria}"
+                                FontSize="35"
+                                ></Button>
+
+                        </Grid>
+                        <Grid Grid.Row="5" Background="White" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button
+                             Click="Button_Click"
+                                Grid.Column="0"
+                                Style="{DynamicResource BtnSaleKlavituria}"
+                                Content="0"
+                                FontSize="35"
+                                ></Button>
+                            <Button
+                                Grid.Column="1"
+                                Style="{DynamicResource BtnSaleKlavituria}"
+                                Content="."
+                                FontSize="35"
+                                ></Button>
+                            <Button
+                             Click="Button_Click"
+                                Grid.Column="2"
+                                Content="00"
+                                Style="{DynamicResource BtnSaleKlavituria}"
+                                FontSize="35"
+                                ></Button>
+
+                        </Grid>
+                        <Grid 
+                     Grid.Row="6" 
+                     Background="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="2*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button
+                             x:Name="btnClear"
+                             Click="btnClear_Click"
+                             Grid.Column="0"
+                             Style="{DynamicResource BtnSaleKlavituria}"
+                             Content="C"
+                             FontSize="35"
+                             ></Button>
+                            <Button
+                             x:Name="btnBackKlav"
+                             Click="btnBackKlav_Click"
+                             Grid.Column="1"
+                             Style="{DynamicResource BtnSaleKlBack}"
+                           
+                             >
+
                             </Button>
-                    </Grid>
+                        </Grid>
 
                         <Button
-                            x:Name="btnReturnProduct"
-                            Click="btnReturnProduct_Click"
-                            Background="White"
-                            Grid.Row="7"
-                            Style="{DynamicResource BtnsaleReturn}"
-                            ></Button>
+                         x:Name="btnReturnProduct"
+                         Click="btnReturnProduct_Click"
+                         Background="White"
+                         Grid.Row="7"
+                         Style="{DynamicResource BtnsaleReturn}"
+                         ></Button>
                         <Button
-                            Grid.Row="8"
-                            Style="{DynamicResource BtnsaleDebt}" 
-                            ></Button>
+                         Grid.Row="8"
+                         Style="{DynamicResource BtnsaleDebt}" 
+                         ></Button>
 
                         <Button
-                            x:Name="btnPay"
-                            Click="btnPay_Click"
-                            Grid.Row="9"
-                            Style="{DynamicResource BtnsalePay}"
-                            ></Button>
-                        
-                        
+                         x:Name="btnPay"
+                         Click="btnPay_Click"
+                         Grid.Row="9"
+                         Style="{DynamicResource BtnsalePay}"
+                         ></Button>
+
+
                     </Grid>
                 </Border>
 
@@ -704,12 +703,12 @@
 
 
             <Border
-                Grid.Row="1" Background="White"
-                BorderBrush="{DynamicResource BorderColor}"
-                BorderThickness="1"
-                CornerRadius="5"
-                Margin="3 2 5 5"
-                >
+             Grid.Row="1" Background="White"
+             BorderBrush="{DynamicResource BorderColor}"
+             BorderThickness="1"
+             CornerRadius="5"
+             Margin="3 2 5 5"
+             >
                 <Grid>
 
                     <Grid.ColumnDefinitions>
@@ -721,28 +720,28 @@
                     </Grid.ColumnDefinitions>
 
                     <Button
-                        Grid.Column="0"
-                        Content="Harajat"
-                        FontSize="20"
-                        Style="{DynamicResource BtnSaleSettings}"/>
+                     Grid.Column="0"
+                     Content="Harajat"
+                     FontSize="20"
+                     Style="{DynamicResource BtnSaleSettings}"/>
                     <Button
-                        Grid.Column="1"
-                        Content="Hamkorlar"
-                        FontSize="20"
-                        Style="{DynamicResource BtnSaleSettings}"/>
+                     Grid.Column="1"
+                     Content="Hamkorlar"
+                     FontSize="20"
+                     Style="{DynamicResource BtnSaleSettings}"/>
                     <Button
-                        Grid.Column="2"
-                        Content="Sozlamalar"
-                        FontSize="20"
-                        Style="{DynamicResource BtnSaleSettings}"/>
+                     Grid.Column="2"
+                     Content="Sozlamalar"
+                     FontSize="20"
+                     Style="{DynamicResource BtnSaleSettings}"/>
                     <Button
-                        Grid.Column="3"
-                        Content="Sotuv tarixi"
-                        FontSize="20"
-                        Style="{DynamicResource BtnSaleSettings}"/>
+                     Grid.Column="3"
+                     Content="Sotuv tarixi"
+                     FontSize="20"
+                     Style="{DynamicResource BtnSaleSettings}"/>
                     <Button
-                        Grid.Column="4"
-                        Style="{DynamicResource BtnSaleLogout}"/>
+                     Grid.Column="4"
+                     Style="{DynamicResource BtnSaleLogout}"/>
 
 
                 </Grid>
