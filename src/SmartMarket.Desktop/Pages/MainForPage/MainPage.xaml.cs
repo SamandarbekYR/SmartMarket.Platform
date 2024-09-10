@@ -22,7 +22,7 @@ namespace SmartMarket.Desktop.Pages.MainForPage
         
         private ICategoryService categoryService;
         private IContrAgentService contrAgentService;
-        private SmartMarketDeskop.Integrated.Services.Products.Product.IProductService productService;
+        private IProductService productService;
 
         List<CategoryView> categoryViews=new List<CategoryView>();
         List<ContrAgentViewModels> contrAgents=new List<ContrAgentViewModels>();
@@ -37,6 +37,10 @@ namespace SmartMarket.Desktop.Pages.MainForPage
             this.categoryService = new CategoryService();
             this.contrAgentService = new ContrAgentService();
             this.productService = new ProductService();  
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
             GetAllCategory();
             GetAllContrAgents();
             GetAllProducts();
@@ -58,9 +62,9 @@ namespace SmartMarket.Desktop.Pages.MainForPage
             St_categoryList.Children.Clear();
             foreach (var i in categoryViews)
             {
-              MainCategoryComponent categoryComponent = new MainCategoryComponent();    
-              categoryComponent.Tag = i;
-                categoryComponent.SetValues(NumberCategory,i.Name);
+                MainCategoryComponent categoryComponent = new MainCategoryComponent();    
+                categoryComponent.Tag = i;
+                categoryComponent.SetValues(NumberCategory, i.Name);
                 NumberCategory++;
                 categoryComponent.BorderThickness=new Thickness(3,2,3,2);
                 St_categoryList.Children.Add(categoryComponent);    
@@ -122,6 +126,7 @@ namespace SmartMarket.Desktop.Pages.MainForPage
             CompanyCreateWindow companyCreateWindow = new CompanyCreateWindow();
             companyCreateWindow.ShowDialog();   
         }
+
     }
 
 }

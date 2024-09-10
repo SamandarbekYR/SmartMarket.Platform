@@ -8,7 +8,7 @@
       d:DesignHeight="640" d:DesignWidth="1024"
       Title="PartnersPage">
 
-    <Grid Background="#D9D9D9">
+    <Grid Background="White">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -26,22 +26,21 @@
 
             <Border
                 CornerRadius="5"
-                Margin="10"
+                Margin="7"
                 Background="#D41509"
                 >
                 <StackPanel Margin="10 20 0 0 ">
                     <TextBlock
                         Text="Qarzlarning umumiy summasi"
                         TextWrapping="Wrap"
-                        FontSize="30"
+                        FontSize="25"
                         Foreground="White"
                         ></TextBlock>
 
 
                     <DockPanel Margin="0 10 0 0">
                         <TextBlock
-     
-                                 Text="50,000,000"
+                            Text="50,000,000"
                             Foreground="White"
                             FontSize="25"
                                  ></TextBlock>
@@ -73,48 +72,32 @@
 
 
 
-                <Border Grid.Row="0"  Background="#A59C9C" CornerRadius="5 5 0 0">
+                <Border 
+                    Grid.Row="0"  
+                    Background="#d6d6d6" 
+                    CornerRadius="5 5 0 0">
                     <Grid
                    
                     >
-                    <Grid.ColumnDefinitions>
-                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="3*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock
-                        Grid.Column="0"
-                        Text="Hamkorlarimiz"
-                        VerticalAlignment="Center"
-                        Margin="15 0 0 0"
-                        FontSize="25"
-                        FontWeight="SemiBold"
-                        ></TextBlock>
+                        <Grid.ColumnDefinitions>
+                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Text="Hamkorlarimiz"
+                            VerticalAlignment="Center"
+                            Margin="15 0 0 0"
+                            FontSize="22"
+                            FontWeight="SemiBold"
+                            ></TextBlock>
 
-                    <Border
-                        Grid.Column="2"
-                        Background="White"
-                        CornerRadius="5"
-                        Margin="5 6 5 6"
-                        >
-                        <DockPanel>
-                            <md:PackIcon Kind="Search"
-                                         Margin="5 0 0 0"
-                                         VerticalAlignment="Center"
-                                         Width="20"
-                                         Height="20"
-                                         ></md:PackIcon>
-                            <TextBox
-                                x:Name="tbSearch"
-                                VerticalAlignment="Center"
-                                FontSize="15"
-                                FontWeight="SemiBold"
-                                BorderThickness="0"
-                                Margin="3 0 10 0"
-                                ></TextBox>
-                        </DockPanel>
-                    </Border>
-                </Grid>
+                        <TextBox
+                            Grid.Column="2"
+                            Margin="0 5 10 0"
+                            Style="{DynamicResource search}"/>
+                    </Grid>
                 </Border>
 
                 <Grid

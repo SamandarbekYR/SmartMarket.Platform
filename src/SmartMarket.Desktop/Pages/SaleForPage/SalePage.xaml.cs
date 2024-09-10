@@ -3,7 +3,6 @@ using SmartMarket.Desktop.Windows.ProductsForWindow;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
-using Button = System.Windows.Controls.Button;
 
 namespace SmartMarket.Desktop.Pages.SaleForPage
 {
@@ -41,17 +40,9 @@ namespace SmartMarket.Desktop.Pages.SaleForPage
 
         private void btnBackKlav_Click(object sender, RoutedEventArgs e)
         {
-            if (activeTextboxIndex == 2 && tbCalculator.Text.Length > 0)
+            if (tbCalculator.Text.Length > 0)
             {
                 tbCalculator.Text = tbCalculator.Text.Substring(0, tbCalculator.Text.Length - 1);
-            }
-            else if(activeTextboxIndex == 1 && Product_Count.Text.Length > 0)
-            {
-                Product_Count.Text = Product_Count.Text.Substring(0, Product_Count.Text.Length - 1);
-                //if(Product_Count.Text.Length == 0)
-                //{
-                //    Product_Count.Text = "0";
-                //}
             }
         }
 
@@ -94,13 +85,9 @@ namespace SmartMarket.Desktop.Pages.SaleForPage
 
         private void WriteNumber(string number)
         {
-            if(activeTextboxIndex == 2)
+            if (activeTextboxIndex == 2)
             {
                 tbCalculator.Text = tbCalculator.Text.ToString() + number;
-            }
-            else
-            {
-                Product_Count.Text = Product_Count.Text.ToString() + number;
             }
         }
     }
