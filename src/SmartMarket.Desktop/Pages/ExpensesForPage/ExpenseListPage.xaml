@@ -6,10 +6,9 @@
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ExpensesForPage"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
       Title="ExpenseListPage">
 
-    <Grid Background="#D9D9D9">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
             <RowDefinition Height="35"/>
@@ -17,116 +16,86 @@
         </Grid.RowDefinitions>
 
         <Border
-              Grid.Row="0"
-              Margin="0 0 5 0"
-              BorderBrush="Black"
-              CornerRadius="5 5 0 0"
-              BorderThickness="1"
-              Background="#A49B9B"
-              >
+            Background="#D6D6D6"
+            Grid.Row="0"
+            BorderBrush="Black"
+            BorderThickness="1"
+            CornerRadius="5 5 0 0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="0.8*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0"
-                           Text="Harajatlar"
-                           VerticalAlignment="Center"
-                           Margin="15 0 0 0"
-                           FontSize="20"
-                           FontWeight="DemiBold"
-                           ></TextBlock>
+                <TextBlock 
+                    Grid.Column="0"
+                    Text="Yig'ilgan yuklar"
+                    VerticalAlignment="Center"
+                    Margin="15 0 0 0"
+                    FontSize="20"
+                    FontWeight="DemiBold"
+                    ></TextBlock>
 
-                <DockPanel Grid.Column="1">
-                    <TextBlock Text="Dan:"
-                               VerticalAlignment="Center"
-                               FontSize="18"
-                               Foreground="White"
-                               ></TextBlock>
-                    <Border Margin="5 5 15 5"
-                            Background="White"
-                            CornerRadius="5"
-                            >
-                        <DatePicker
-               
-                               VerticalAlignment="Center"
-                               Margin="10 0 0 0"
-                               FontSize="18"
-                               BorderThickness="0"
-                               ></DatePicker>
-                    </Border>
-                </DockPanel>
+                <StackPanel
+                    Orientation="Horizontal"
+                    Grid.Column="1">
 
 
-                <DockPanel Grid.Column="2">
-                    <TextBlock Text="gacha:"
-                               VerticalAlignment="Center"
-                               FontSize="18"
-                               Foreground="White"
-                               ></TextBlock>
-                    <Border Margin="5 5 15 5"
-                            Background="White"
-                            CornerRadius="5"
-                            >
-                        <DatePicker
-                              Text="20/08/2024"
-                              VerticalAlignment="Center"
-                              Margin="10 0 0 0"
-                              FontSize="18"
-                              BorderThickness="0"
-                              ></DatePicker>
-                    </Border>
-                </DockPanel>
+                    <DatePicker
+                        Style="{DynamicResource FormDatePicker}"/>
+                    <Label
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        VerticalAlignment="Center"
+                        Content="dan"/>
 
-                <DockPanel Grid.Column="3">
-                    <TextBlock Text="Sotuvchi:"
-                               VerticalAlignment="Center"
-                               FontSize="18"
-                               Foreground="White"
-                               ></TextBlock>
-                    <Border Margin="5 5 15 5"
-                            Background="White"
-                            CornerRadius="5"
-                            >
-                        <TextBox
-                               Text="Azizjon"
-                               VerticalAlignment="Center"
-                               Margin="10 0 0 0"
-                               FontSize="18"
-                               BorderThickness="0"
-                               ></TextBox>
-                    </Border>
-                </DockPanel>
+                </StackPanel>
 
-                <Border Grid.Column="4"
-                        Margin="10 5"
-                        CornerRadius="5"
-                        Background="White"
-                        >
-                    <DockPanel>
-                        <md:PackIcon Kind="Search"
-                         VerticalAlignment="Center"
-                         Margin="5 0 0 0"
-                         ></md:PackIcon>
-                        <TextBox
-                              VerticalAlignment="Center"
-                              Margin="5 0 0 5"
-                              BorderThickness="0"
-                              FontWeight="SemiBold"
-                              Padding="0 2 0 0"
-                              ></TextBox>
-                    </DockPanel>
-                </Border>
+                <StackPanel
+                    Orientation="Horizontal"
+                    Grid.Column="2">
+
+                    <DatePicker
+                        Style="{DynamicResource FormDatePicker}"/>
+                    <Label
+                        FontSize="14"
+                        FontWeight="SemiBold"
+                        VerticalAlignment="Center"
+                        Content="gacha"/>
+
+                </StackPanel>
+
+                <ComboBox
+                    Margin="5 10 10 10"
+                    Grid.Column="3">
+                    <ComboBoxItem 
+                        IsEnabled="False" 
+                        IsSelected="True"
+                        Content="Sotuvchi"/>
+                    <ComboBoxItem
+                        Content="Aziz"/>
+                    <ComboBoxItem
+                        Content="Po'lat"/>
+                </ComboBox>
+
+
+                <TextBox
+                    Margin="0 0 10 0"
+                    Style="{DynamicResource search}"
+                    Grid.Column="4"/>
             </Grid>
         </Border>
 
 
 
-        <Border Grid.Row="1" BorderBrush="Black" BorderThickness="1 0 1 0" Background="White" Margin="0 0 5 0">
+        <Border 
+            Grid.Row="1" 
+            BorderBrush="{DynamicResource BorderColor}"
+            BorderThickness="1 0 1 0" 
+            Background="White">
             <Grid
            
             >
@@ -194,13 +163,15 @@
         <Border
             Grid.Row="2"
             Background="White"
-            Margin="0 0 5 3"
-            BorderBrush="Black"
+            BorderBrush="{DynamicResource BorderColor}"
             BorderThickness="1 0 1 1"
             CornerRadius="0 0 5 5"
             >
-            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <StackPanel x:Name="St_Expenses">
+            <ScrollViewer 
+                VerticalScrollBarVisibility="Auto" 
+                HorizontalScrollBarVisibility="Auto">
+                <StackPanel 
+                    x:Name="St_Expenses">
                     
                     
                 </StackPanel>

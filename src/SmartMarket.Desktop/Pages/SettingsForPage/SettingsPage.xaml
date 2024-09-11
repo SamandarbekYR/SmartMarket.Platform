@@ -5,10 +5,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.SettingsForPage"
       mc:Ignorable="d" 
-      d:DesignHeight="640" d:DesignWidth="1024"
       Title="SettingsPage">
 
-    <Grid Background="#D9D9D9">
+    <Grid 
+        Margin="10 5 10 10"
+        Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="5*"/>
@@ -18,12 +19,12 @@
             Grid.Column="0"
             BorderBrush="Black"
             BorderThickness="1"
-            Margin="3 0 3 5"
             CornerRadius="5"
             Background="White"
             >
 
-            <Grid Margin="0 15 0 0">
+            <Grid 
+                Margin="0 15 0 5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
@@ -52,9 +53,8 @@
         </Border>
 
         <Border
-            Grid.Column="1"
-           
-            >
+            Margin="5 0 0 0"
+            Grid.Column="1">
             <Frame x:Name="SettingsPageNavigator"/>
         </Border>
         

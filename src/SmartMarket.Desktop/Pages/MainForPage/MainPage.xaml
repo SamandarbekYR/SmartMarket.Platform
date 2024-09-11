@@ -9,7 +9,9 @@
       Loaded="Page_Loaded"
       Title="MainPage">
 
-    <Grid Background="{DynamicResource SecondColor}">
+    <Grid 
+        Margin="5 0 5 5"  
+        Background="{DynamicResource SecondColor}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="4*"/>
@@ -89,7 +91,7 @@
                 <Grid>
 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="45"/>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
@@ -117,7 +119,6 @@
 
 
                             <TextBox
-                                Margin="0 2 0 0"
                                 Grid.Column="1"
                                 Style="{DynamicResource search}"/>
 
@@ -268,7 +269,7 @@
                 
                 <Grid Grid.Row="1">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="45"/>
                         <RowDefinition Height="30"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
@@ -294,7 +295,6 @@
                                        Foreground="Black" />
 
                             <TextBox
-                                Margin="0 2 0 0"
                                 Grid.Column="1"
                                 Style="{DynamicResource search}"/>
 

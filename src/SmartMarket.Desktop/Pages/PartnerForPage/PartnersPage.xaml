@@ -8,7 +8,9 @@
       d:DesignHeight="640" d:DesignWidth="1024"
       Title="PartnersPage">
 
-    <Grid Background="White">
+    <Grid 
+        Margin="5 0 5 5"
+        Background="White">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -17,7 +19,7 @@
 
         <Border
             Grid.Column="0"
-            BorderBrush="Black"
+            BorderBrush="{DynamicResource BorderColor}"
             BorderThickness="1"
             CornerRadius="5"
             Margin="5 3 3 3"
@@ -27,31 +29,31 @@
             <Border
                 CornerRadius="5"
                 Margin="7"
-                Background="#D41509"
+                Background="#04C217"
                 >
                 <StackPanel Margin="10 20 0 0 ">
                     <TextBlock
                         Text="Qarzlarning umumiy summasi"
-                        TextWrapping="Wrap"
-                        FontSize="25"
+                        TextWrapping="WrapWithOverflow"
+                        FontSize="22"
                         Foreground="White"
+                        TextAlignment="Center"
                         ></TextBlock>
 
-
-                    <DockPanel Margin="0 10 0 0">
                         <TextBlock
                             Text="50,000,000"
                             Foreground="White"
-                            FontSize="25"
+                            FontSize="20"
+                            HorizontalAlignment="Center"
                                  ></TextBlock>
                         <TextBlock
                             Text="so'm"
                             Foreground="White"
-                            FontSize="20"
-                            Margin="5 0 0 0"
+                            FontSize="16"
+                            HorizontalAlignment="Center"
                             VerticalAlignment="Center"
+                            
                             ></TextBlock>
-                    </DockPanel>
                 </StackPanel>
             </Border>
         </Border>
@@ -95,7 +97,7 @@
 
                         <TextBox
                             Grid.Column="2"
-                            Margin="0 5 10 0"
+                            Margin="0 0 10 0"
                             Style="{DynamicResource search}"/>
                     </Grid>
                 </Border>
