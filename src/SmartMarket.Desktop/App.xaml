@@ -21,6 +21,7 @@
                 <ResourceDictionary Source="\Assets\Icons\Icon.xaml"/>
 
                 <ResourceDictionary Source="\Styles\ButtonStyle.xaml"/>
+                <ResourceDictionary Source="\Styles\LabelStyle.xaml"/>
                 <ResourceDictionary Source="\Styles\ScrolStyle.xaml"/>
                 <ResourceDictionary Source="\Styles\TextBoxStyle.xaml"/>
                 <ResourceDictionary Source="\Styles\BorderStyle.xaml"/>

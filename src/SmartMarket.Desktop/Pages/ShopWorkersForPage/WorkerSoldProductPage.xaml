@@ -5,14 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ShopWorkersForPage"
              mc:Ignorable="d" 
-           
-             d:DesignHeight="450" d:DesignWidth="800">
+           >
     <Border
+        
         Background="White"
-         CornerRadius="5"
+        CornerRadius="5"
         BorderThickness="1"
         BorderBrush="Black"
-        Margin="3 3 5 3"
         >
         <Grid>
             <Grid.RowDefinitions>
@@ -20,12 +19,16 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
+            <Border
+                CornerRadius="5 5 0 0"
+                Background="#d6d6d6"
+                Grid.Row="0">
+                
+            </Border>
 
-
-            <Grid Grid.Row="0">
-
-
-
+            <Grid 
+                Margin="5"
+                >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.5*"/>
                     <ColumnDefinition Width="2*"/>
@@ -43,118 +46,130 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock
-                           Grid.Column="0"
-                           Text="N%"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           FontSize="15"
-                           FontWeight="SemiBold"
-                           ></TextBlock>
+                    Grid.Column="0"
+                    Text="N%"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontSize="13"
+                    Foreground="{DynamicResource BorderColor}"
+                    FontWeight="SemiBold"
+                    ></TextBlock>
 
                 <TextBlock
-                           Grid.Column="1"
-                           Text="Transaction No"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           FontSize="15"
-                           FontWeight="SemiBold"
-                           ></TextBlock>
+                    Grid.Column="1"
+                    Text="Transaction No"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontSize="13"
+                    Foreground="{DynamicResource BorderColor}"
+                    FontWeight="SemiBold"
+                    ></TextBlock>
 
                 <TextBlock
-                           Grid.Column="2"
-                           Text="Mahsulot nomi"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           FontSize="15"
-                           FontWeight="SemiBold"
-                           ></TextBlock>
+                    Grid.Column="2"
+                    Text="Mahsulot nomi"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontSize="13"
+                    Foreground="{DynamicResource BorderColor}"
+                    FontWeight="SemiBold"
+                    ></TextBlock>
 
                 <TextBlock
-                           Grid.Column="3"
-                           Text="Barcode"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           FontSize="15"
-                           FontWeight="SemiBold"
-                           ></TextBlock>
+                    Grid.Column="3"
+                    Text="Barcode"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontSize="13"
+                    Foreground="{DynamicResource BorderColor}"
+                    FontWeight="SemiBold"
+                    ></TextBlock>
 
                 <TextBlock
-                           Grid.Column="4"
-                           Text="Kateogoriya"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           FontSize="15"
-                           FontWeight="SemiBold"
-                           ></TextBlock>
+                    Grid.Column="4"
+                    Text="Kateogoriya"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontSize="13"
+                    Foreground="{DynamicResource BorderColor}"
+                    FontWeight="SemiBold"
+                    ></TextBlock>
 
                 <TextBlock
-                           Grid.Column="5"
-                           Text="Narxi"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           FontSize="15"
-                           FontWeight="SemiBold"
-                           Margin="0 0 10 0"
-                           ></TextBlock>
+                    Grid.Column="5"
+                    Text="Narxi"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontSize="13"
+                    Foreground="{DynamicResource BorderColor}"
+                    FontWeight="SemiBold"
+                    Margin="0 0 10 0"
+                    ></TextBlock>
 
                 <TextBlock
-                           Grid.Column="6"
-                           Text="Chegirma"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           FontSize="15"
-                           FontWeight="SemiBold"
-                           Margin="0 0 5 0"
-                           ></TextBlock>
+                    Grid.Column="6"
+                    Text="Chegirma"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontSize="13"
+                    Foreground="{DynamicResource BorderColor}"
+                    FontWeight="SemiBold"
+                    Margin="0 0 5 0"
+                    ></TextBlock>
                 <TextBlock
-                           Grid.Column="7"
-                           Text="Soni"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           FontSize="15"
-                           FontWeight="SemiBold"
-                           Margin="0 0 5 0"
-                           ></TextBlock>
+                    Grid.Column="7"
+                    Text="Soni"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontSize="13"
+                    Foreground="{DynamicResource BorderColor}"
+                    FontWeight="SemiBold"
+                    Margin="0 0 5 0"
+                    ></TextBlock>
 
                 <TextBlock
-                           Grid.Column="8"
-                           Text="Jami"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           FontSize="15"
-                           FontWeight="SemiBold"
-                           Margin="0 0 15 0"
-                           ></TextBlock>
+                    Grid.Column="8"
+                    Text="Jami"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontSize="13"
+                    Foreground="{DynamicResource BorderColor}"
+                    FontWeight="SemiBold"
+                    Margin="0 0 15 0"
+                    ></TextBlock>
 
                 <TextBlock
-                           Grid.Column="9"
-                           Text="Sotuvchi"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           FontSize="15"
-                           FontWeight="SemiBold"
-                           Margin="0 0 15 0"
-                           ></TextBlock>
+                    Grid.Column="9"
+                    Text="Sotuvchi"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontSize="13"
+                    Foreground="{DynamicResource BorderColor}"
+                    FontWeight="SemiBold"
+                    Margin="0 0 15 0"
+                    ></TextBlock>
 
                 <TextBlock
-                           Grid.Column="10"
-                           Text="Kassa"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Center"
-                           FontSize="15"
-                           FontWeight="SemiBold"
-                           Margin="0 0 0 0"
-                           ></TextBlock>
+                    Grid.Column="10"
+                    Text="Kassa"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontSize="13"
+                    Foreground="{DynamicResource BorderColor}"
+                    FontWeight="SemiBold"
+                    Margin="0 0 0 0"
+                    ></TextBlock>
 
                 <TextBlock
-                            Grid.Column="11"
-                            Text="Sana"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            FontSize="15"
-                            FontWeight="SemiBold"
-                            Margin="0 0 15 0"
-                            ></TextBlock>
+                    Grid.Column="11"
+                    Text="Sana"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontSize="13"
+                    Foreground="{DynamicResource BorderColor}"
+                    FontWeight="SemiBold"
+                    Margin="0 0 15 0"
+                    ></TextBlock>
 
             </Grid>
             

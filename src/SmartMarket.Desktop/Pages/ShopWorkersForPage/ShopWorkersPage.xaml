@@ -4,23 +4,27 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ShopWorkersForPage"
-      mc:Ignorable="d" 
-      d:DesignHeight="600" d:DesignWidth="1024"
-      Title="ShopWorkersPage">
+      mc:Ignorable="d"
+      Title="ShopWorkersPage"
+      >
 
-    <Grid Background="#D9D9D9">
+    <Grid 
+        Background="white">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0">
+        <Grid 
+            Margin="10 5 5 5"
+            Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="1.6*"/>
+                <RowDefinition Height="1.1*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
+            <Grid 
+                Grid.Row="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="37"/>
                     <RowDefinition Height="*"/>
@@ -28,9 +32,8 @@
                 <Border
                     Grid.Row="0"
                     CornerRadius="5 5 0 0"
-                    Margin="5 3 3 0"
-                    BorderBrush="Black"
-                    BorderThickness="1"
+                    BorderBrush="{DynamicResource BorderColor}"
+                    BorderThickness="0.5"
                     Background="#F86259"
                     >
                     <DockPanel>
@@ -52,40 +55,131 @@
                 <Border
                     Background="White"
                     Grid.Row="1"
-                    BorderBrush="Black"
+                    BorderBrush="{DynamicResource BorderColor}"
                     BorderThickness="1 0 1 1"
                     CornerRadius="0 0 5 5"
-                    Margin="5 0 3 2"
                     >
 
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                        <StackPanel x:Name="St_Workers"></StackPanel>
+                    <ScrollViewer 
+                        VerticalScrollBarVisibility="Auto" 
+                        HorizontalScrollBarVisibility="Auto">
+                        <StackPanel 
+                            x:Name="St_Workers">
+                            
+                        </StackPanel>
                     </ScrollViewer>
                 </Border>
             </Grid>
 
-            <Border
-                Background="White"
+            <Border 
                 Grid.Row="1"
-                BorderBrush="Black"
-                BorderThickness="1"
-                CornerRadius="5"
-                Margin="5 3 3 3"
-                >
-                <DockPanel>
-                    <Calendar 
-                              ></Calendar>
-                </DockPanel>
+                Margin="0 5"
+                CornerRadius="5" 
+                Background="White" 
+                BorderBrush="{DynamicResource BorderColor}" 
+                BorderThickness="1">
+
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="2*"/>
+                        <RowDefinition Height="0.6*"/>
+                    </Grid.RowDefinitions>
+
+                    <Ellipse 
+                        Height="100"
+                        Width="100"
+                        Grid.Row="0">
+                        <Ellipse.Fill>
+                            <ImageBrush 
+                                ImageSource="/Assets/login_background.png"
+                                Stretch="Fill">
+
+                            </ImageBrush>
+                        </Ellipse.Fill>
+                    </Ellipse>
+
+                    <Label
+                        Grid.Row="1"
+                        HorizontalAlignment="Center"
+                        FontSize="18"
+                        Style="{DynamicResource TitleLabel}"
+                        Content="Erqo'ziyev Shodiyor"/>
+
+                    <Grid
+                        Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel
+                            Margin="10 0 0 0"
+                            Grid.Column="0">
+
+                            <Label
+                                Style="{DynamicResource TitleLabel}"
+                                Content="Tel nomeri :"/>
+                            <Label
+                                Style="{DynamicResource TitleLabel}"
+                                Content="Lavozimi :"/>
+                            <Label
+                                Style="{DynamicResource TitleLabel}"
+                                Content="Maoshi :"/>
+                            <Label
+                                Style="{DynamicResource TitleLabel}"
+                                Content="Olingan puli:"/>
+                            <Label
+                                Style="{DynamicResource TitleLabel}"
+                                Content="Qolgan puli:"/>
+
+                        </StackPanel>
+
+                        <StackPanel
+                            Grid.Column="1">
+
+                            <Label
+                                Style="{DynamicResource TitleLabel}"
+                                Content="+998917727005"/>
+                            <Label
+                                Style="{DynamicResource TitleLabel}"
+                                Content="Sotuvchi"/>
+                            <Label
+                                Style="{DynamicResource TitleLabel}"
+                                Content="4 000 000"/>
+                            <Label
+                                Style="{DynamicResource TitleLabel}"
+                                Content="0"/>
+                            <Label
+                                Style="{DynamicResource TitleLabel}"
+                                Content="4 000 000"/>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                    <Button
+                        Content="Saqlash"
+                        FontSize="16"
+                        Style="{DynamicResource BtnSaveAccount}"
+                        Grid.Row="3"
+                        Margin="0 0 0 10"
+                        HorizontalAlignment="Center"/>
+
+                </Grid>
+
+
             </Border>
-            
+
         </Grid>
 
 
-        <Border BorderBrush="Black"
-                Margin="3 3 5 3"
-                BorderThickness="1"
-                CornerRadius="5"
-                  Grid.Column="1">
+        <Border 
+            Margin="0 5 10 10"
+            CornerRadius="5"
+            Grid.Column="1">
 
             <Grid
             >
@@ -93,30 +187,20 @@
                 <RowDefinition Height="1.1*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1.1*"/>
-                    <ColumnDefinition Width="3.2*"/>
-                </Grid.ColumnDefinitions>
+            
+            <Border 
+                Grid.Row="0">
+                 <Frame 
+                     x:Name="CollectedCargoPageNavigator" 
+                     Navigated="CollectedCargoPageNavigator_Navigated"/>
 
-                <Border Grid.Column="0">
-
-                        <StackPanel x:Name="WorkerAccount">
-                            
-                        </StackPanel>
-                 
                 </Border>
-                <Border Grid.Column="1">
-
-                        <Frame x:Name="CollectedCargoPageNavigator" Navigated="CollectedCargoPageNavigator_Navigated"/>
-
-                    </Border>
-                
-            </Grid>
-            <Border Grid.Row="1">
-
-                    <Frame x:Name="WorkerSoldProductPageNavigator"/>
-
+             
+            <Border 
+                Margin="0 7 0 0"
+                Grid.Row="1">
+                <Frame 
+                    x:Name="WorkerSoldProductPageNavigator" Content=""/>
                 </Border>
         </Grid>
         </Border>
