@@ -2020,8 +2020,8 @@
                 <ControlTemplate TargetType="Button">
                     <Border 
                      x:Name="B"
-                     Height="40"
-                     Margin="20 0 60 0"
+                     Height="35"
+                        Width="100"
                      CornerRadius="5"
                      BorderThickness="1"
                      BorderBrush="Black"

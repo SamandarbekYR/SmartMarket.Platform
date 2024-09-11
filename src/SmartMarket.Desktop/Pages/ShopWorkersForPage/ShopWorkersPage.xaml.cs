@@ -25,27 +25,10 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
         public ShopWorkersPage()
         {
             InitializeComponent();
-            GetWorker();
             GetWorkers();
             CollectedCargoPageView();
             WorkersoldProduct();
         }
-
-
-
-        public void GetWorker()
-        {
-            WorkerAccount.Visibility = Visibility.Visible;
-            WorkerAccount.Children.Clear();
-
-            ShopWorkerAccountComponent shopWorkerAccountComponent = new ShopWorkerAccountComponent();   
-            shopWorkerAccountComponent.Tag= this;
-            shopWorkerAccountComponent.SetValues("Sherzod", "Aliyev", "4,000,000", "+998 906661132", "300,000", "3,700,000");
-            shopWorkerAccountComponent.BorderThickness=new Thickness(5);
-            WorkerAccount.Children.Add(shopWorkerAccountComponent);
-        }
-
-
 
         public void GetWorkers()
         {
