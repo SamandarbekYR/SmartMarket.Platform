@@ -7,202 +7,355 @@
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"
       Background="White"
-      d:DesignHeight="640" d:DesignWidth="1024"
       Title="ShopDetailsPage">
 
-    <Grid>
+    <Grid
+        Margin="10 5 10 10"
+        Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="5*"/>
         </Grid.ColumnDefinitions>
 
 
-        <Grid Grid.Column="0" Background="#D9D9D9">
+        <Grid 
+            Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
             <Border
                 Grid.Row="0"
-                Background="White"
-                  Margin="5 3" BorderThickness="1"
-                   BorderBrush="Black" CornerRadius="5"
+                Background="White" 
+                BorderThickness="1"
+                BorderBrush="{DynamicResource BorderColor}" 
+                CornerRadius="5"
                 >
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="0.3*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="0.5*"/>
-                        <RowDefinition Height="0.8*"/>
-                    </Grid.RowDefinitions>
+                <StackPanel
+                    Margin="0 10 0 0"
+                    Orientation="Vertical"
+                    VerticalAlignment="Top">
 
 
-                    <RadioButton  Grid.Row="1"
-                                  x:Name="rbSaleHistory"
-                                  Content="Sotuv tarixi"
-                                  Click="rbSaleHistory_Click"
-                                  HorizontalContentAlignment="Stretch"
-                                  VerticalContentAlignment="Stretch"
-                                  Style="{DynamicResource SaleMenuButton}" 
-                                  Tag="{DynamicResource receipt}" IsChecked="True"/>
+                    <RadioButton  
+                        x:Name="rbSaleHistory"
+                        Content="Sotuv tarixi"
+                        Click="rbSaleHistory_Click"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Style="{DynamicResource SaleMenuButton}" 
+                        Tag="{DynamicResource receipt}" 
+                        IsChecked="True"/>
 
-                    <RadioButton Grid.Row="2"
-                                 x:Name="rbTopSale"
-                                 Content="Top Sotuv"
-                                 Click="rbTopSale_Click"
-                                 HorizontalContentAlignment="Stretch"
-                                 VerticalContentAlignment="Stretch"
-                                 Style="{DynamicResource SaleMenuButton}" 
-                                 Tag="{DynamicResource chart}"/>
+                    <RadioButton 
+                        x:Name="rbTopSale"
+                        Content="Top Sotuv"
+                        Click="rbTopSale_Click"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Style="{DynamicResource SaleMenuButton}" 
+                        Tag="{DynamicResource chart}"/>
 
-                    <RadioButton Grid.Row="3"
-                                 x:Name="rbReturnProds"
-                                 Content="Qaytarilgan yuklar"
-                                 Click="rbReturnProds_Click"
-                                 HorizontalContentAlignment="Stretch"
-                                 VerticalContentAlignment="Stretch"
-                                 Style="{DynamicResource SaleMenuButton}" 
-                                 Tag="{DynamicResource return}"/>
+                    <RadioButton
+                        x:Name="rbReturnProds"
+                        Content="Qaytarilgan yuklar"
+                        Click="rbReturnProds_Click"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Style="{DynamicResource SaleMenuButton}" 
+                        Tag="{DynamicResource return}"/>
 
-                    <RadioButton Grid.Row="4"
-                                 x:Name="rbInvalidProds"
-                                 Content="Yaroqsiz yuklar "
-                                 Click="rbInvalidProds_Click"
-                                 HorizontalContentAlignment="Stretch"
-                                 VerticalContentAlignment="Stretch"
-                                 Style="{DynamicResource SaleMenuButton}" 
-                                 Tag="{DynamicResource trash}" Margin="10 10 10 9"/>
+                    <RadioButton 
+                        x:Name="rbInvalidProds"
+                        Content="Yaroqsiz yuklar "
+                        Click="rbInvalidProds_Click"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Style="{DynamicResource SaleMenuButton}" 
+                        Tag="{DynamicResource trash}"/>
 
-                </Grid>
+                </StackPanel>
                 
             </Border>
 
             <Border
-                
+                x:Name="Main_Border"
+                Margin="0 5 0 0"
                 Background="White"
-                  Grid.Row="1"
-                  CornerRadius="5"
-                  Margin="5 3" BorderThickness="1"
-                  BorderBrush="Black"
-                  >
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height=".3*"/>
-                    </Grid.RowDefinitions>
+                Grid.Row="1"
+                CornerRadius="5"
+                BorderThickness="1"
+                BorderBrush="{DynamicResource BorderColor }"
+                >
+                <StackPanel
+                    VerticalAlignment="Top"
+                    Orientation="Vertical">
                     <Border
-                          Grid.Row="0"
-                          Margin="10"
-                          CornerRadius="5"
-                          Background="#0EAA56"
+                        x:Name="History_Border_1"
+                        Visibility="Visible"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1"
+                        Margin="10"
+                        CornerRadius="5"
+                        Background="#0EAA56"
                           >
-                        <StackPanel Margin="0 15 0 0">
-                            <TextBlock
-                                     Text="Sotuv Summasi:"
-                                     HorizontalAlignment="Center"
-                                     FontSize="22"
-                                     Foreground="White"
-                                     FontWeight="DemiBold"
-                                     ></TextBlock>
+                        <StackPanel Margin="0 15">
+                            <Label
+                                Content="Sotuv Summasi:"
+                                HorizontalAlignment="Center"
+                                FontSize="18"
+                                Foreground="White"
+                                FontWeight="SemiBold"
+                                />
 
-                            <DockPanel HorizontalAlignment="Center">
-                                <TextBlock
-                                         Text="100,000,000"
-                                         Foreground="White"
-                                         FontSize="20"
-                                         FontWeight="SemiBold"
-                            ></TextBlock>
-                                <TextBlock
-                                         Text="so'm"
-                                         Foreground="White"
-                                         VerticalAlignment="Center"
-                                         FontSize="18"
-                                         Margin="5 0 0 0"
-                                         ></TextBlock>
+                            
+                                
+                                <Label
+                                    Content="100,000,000"
+                                    Foreground="White"
+                                    FontSize="18"
+                                    HorizontalAlignment="Center"
+                                    FontWeight="SemiBold"/>
+                            
+                                <Label
+                                    Content="so'm"
+                                    Foreground="White"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    FontSize="16"/>
+
+
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        x:Name="History_Border_2"
+                        Visibility="Visible"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1"
+                        Margin="10"
+                        CornerRadius="5"
+                        Background="#D01509"
+                        >
+                        <StackPanel Margin="0 15">
+                            <Label
+                                Content="Harajatlar:"
+                                HorizontalAlignment="Center"
+                                FontSize="18"
+                                Foreground="White"
+                                FontWeight="DemiBold"/>
+
+                            <Label
+                                Content="3,000,000"
+                                Foreground="White"
+                                FontSize="18"
+                                HorizontalAlignment="Center"
+                                FontWeight="SemiBold"/>
+                            <Label
+                                Content="so'm"
+                                Foreground="White"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"
+                                FontSize="16"/>
+
+                        </StackPanel>
+                    </Border>
+
+
+                    <Border
+                        x:Name="History_Border_3"
+                        Visibility="Visible"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1"
+                        Margin="10"
+                        CornerRadius="5"
+                        Background="#25D409"
+                        >
+                        <StackPanel Margin="0 15">
+                            <Label
+                                Content="Foyda:"
+                                HorizontalAlignment="Center"
+                                FontSize="18"
+                                Foreground="White"
+                                FontWeight="DemiBold"/>
+                        
+                            
+                                <Label
+                                    Content="40,000,000"
+                                    Foreground="White"
+                                    FontSize="18"
+                                    HorizontalAlignment="Center"
+                                    FontWeight="SemiBold"/>
+                                <Label
+                                    Content="so'm"
+                                    Foreground="White"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    HorizontalAlignment="Center"/>
+
+                        </StackPanel>
+                    </Border>
+
+                    <Border
+                        x:Name="Return_Prods_1"
+                        Visibility="Collapsed"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1"
+                        Margin="10"
+                        CornerRadius="5"
+                        Background="#0EAA56"
+                          >
+                        <StackPanel Margin="0 15">
+                            <TextBlock
+                                Margin="5 0"
+                                Text="Qayatrilgan yuklar soni:"
+                                HorizontalAlignment="Center"
+                                FontSize="18"
+                                Foreground="White"
+                                FontWeight="SemiBold"
+                                TextWrapping="WrapWithOverflow"
+                                TextAlignment="Center"
+                                />
+
+                            <DockPanel 
+                                HorizontalAlignment="Center">
+                                <Label
+                                    Content="100"
+                                    Foreground="White"
+                                    FontSize="18"
+                                    FontWeight="SemiBold"/>
+                                <Label
+                                    Content="dona"
+                                    Foreground="White"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    Margin="5 0 0 0"/>
                             </DockPanel>
                         </StackPanel>
                     </Border>
 
                     <Border
-                           Grid.Row="1"
-                           Margin="10"
-                           CornerRadius="5"
-                           Background="#D01509"
-                           >
-                        <StackPanel Margin="0 15 0 0">
+                        x:Name="Return_Prods_2"
+                        Visibility="Collapsed"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1"
+                        Margin="10"
+                        CornerRadius="5"
+                        Background="#D01509"
+                        >
+                        <StackPanel 
+                            Margin="0 15">
                             <TextBlock
-                                     Text="Harajatlar:"
-                                     HorizontalAlignment="Center"
-                                     FontSize="22"
-                                     Foreground="White"
-                                     FontWeight="DemiBold"
-                                     ></TextBlock>
+                                Margin="5 0"
+                                TextAlignment="Center"
+                                Text="Qaytarilgan yuklar summasi:"
+                                HorizontalAlignment="Center"
+                                FontSize="18"
+                                Foreground="White"
+                                TextWrapping="WrapWithOverflow"
+                                FontWeight="DemiBold"/>
 
-                            <DockPanel HorizontalAlignment="Center">
-                                <TextBlock
-                                         Text="3,000,000"
-                                         Foreground="White"
-                                         FontSize="20"
-                                         FontWeight="SemiBold"
-                                         ></TextBlock>
-                                <TextBlock
-                                          Text="so'm"
-                                          Foreground="White"
-                                          VerticalAlignment="Center"
-                                          FontSize="18"
-                                          Margin="5 0 0 0"
-                                          ></TextBlock>
-                            </DockPanel>
+                            
+                                <Label
+                                    Content="3,000,000"
+                                    Foreground="White"
+                                    FontSize="18"
+                                    HorizontalAlignment="Center"
+                                    FontWeight="SemiBold"/>
+                                <Label
+                                    Content="so'm"
+                                    Foreground="White"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"/>
                         </StackPanel>
                     </Border>
-
 
                     <Border
-                           Grid.Row="2"
-                           Margin="10"
-                           CornerRadius="5"
-                           Background="#25D409"
-                           >
-                        <StackPanel Margin="0 15 0 0">
+                        x:Name="Invalid_Prods_1"
+                        Visibility="Collapsed"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1"
+                        Margin="10"
+                        CornerRadius="5"
+                        Background="#0EAA56"
+                        >
+                        <StackPanel Margin="0 15">
                             <TextBlock
-                                     Text="Foyda:"
-                                     HorizontalAlignment="Center"
-                                     FontSize="22"
-                                     Foreground="White"
-                                     FontWeight="DemiBold"
-                                     ></TextBlock>
+                                Margin="5 0"
+                                Text="Yaroqsiz yuklar soni:"
+                                HorizontalAlignment="Center"
+                                FontSize="18"
+                                Foreground="White"
+                                FontWeight="SemiBold"
+                                TextAlignment="Center"
+                                TextWrapping="WrapWithOverflow"
+                                />
 
-                            <DockPanel HorizontalAlignment="Center">
-                                <TextBlock
-                                         Text="40,000,000"
-                                          Foreground="White"
-                                          FontSize="20"
-                                          FontWeight="SemiBold"
-                                          ></TextBlock>
-                                <TextBlock
-                                          Text="so'm"
-                                          Foreground="White"
-                                          VerticalAlignment="Center"
-                                          FontSize="18"
-                                          Margin="5 0 0 0"
-                                          ></TextBlock>
+                            <DockPanel 
+                                HorizontalAlignment="Center">
+                                <Label
+                                    Content="100"
+                                    Foreground="White"
+                                    FontSize="18"
+                                    FontWeight="SemiBold"/>
+                                <Label
+                                    Content="dona"
+                                    Foreground="White"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    Margin="5 0 0 0"/>
                             </DockPanel>
                         </StackPanel>
                     </Border>
 
-                </Grid>
+                    <Border
+                        x:Name="Invalid_Prods_2"
+                        Visibility="Collapsed"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1"
+                        Margin="10"
+                        CornerRadius="5"
+                        Background="#D01509"
+                        >
+                        <StackPanel Margin="0 15">
+                            <TextBlock
+                                Margin="5 0"
+                                Text="Yaroqsiz yuklar summasi:"
+                                HorizontalAlignment="Center"
+                                FontSize="18"
+                                Foreground="White"
+                                FontWeight="SemiBold"
+                                TextAlignment="Center"
+                                TextWrapping="WrapWithOverflow"/>
+
+                                <Label
+                                    Content="50,000,000"
+                                    Foreground="White"
+                                    FontSize="18"
+                                    HorizontalAlignment="Center"
+                                    FontWeight="SemiBold"/>
+                                <Label
+                                    Content="so'm"
+                                    Foreground="White"
+                                    VerticalAlignment="Center"
+                                    FontSize="16"
+                                    HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
 
             </Border>
         </Grid>
 
-        <Grid Grid.Column="1" Background="#D9D9D9">
+        <Grid 
+            Margin="5 0 0 0"
+            Grid.Column="1">
             
-            <Border Grid.Row="1" Visibility="Visible">
+            <Border 
+                Grid.Row="1" 
+                Visibility="Visible">
 
                 <Frame x:Name="SalePageNavigator"/>
 

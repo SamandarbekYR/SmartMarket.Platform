@@ -4,84 +4,50 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartMarket.Desktop.Components.ShopDetailsForComponent"
-             mc:Ignorable="d" 
-             FontSize="25" d:DesignWidth="800">
+             mc:Ignorable="d"
+             Height="50">
     <Border
-          Name="brand_Border"
-          Margin="10 3 10 3"
-          CornerRadius="10"
-          BorderBrush="Transparent"
-          BorderThickness="1"
-          Background="#A59C9C" HorizontalAlignment="Stretch">
+        Name="brand_Border"
+        Margin="10 5 10 0"
+        CornerRadius="7"
+        BorderBrush="{DynamicResource BorderColor}"
+        BorderThickness="1"
+        Background="white" 
+        HorizontalAlignment="Stretch">
 
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-          
-            <StackPanel  Grid.Column="0">
-                <DockPanel>
-                    <TextBlock
-                        Text="Mahsulot nomi:"
-                        VerticalAlignment="Center"
-                        Margin="10 0 0 0"
-                        ></TextBlock>
-                    <TextBlock
-                        x:Name="tbProductName"
-                        Text="Nestle kasha 9"
-                        Foreground="White"
-                        Margin="10 0 0 0"
-                        ></TextBlock>
-                </DockPanel>
-                <DockPanel Margin="0 5 0 0">
-                    <TextBlock
-                        Text="Sotilgan soni:"
-                        VerticalAlignment="Center"
-                        Margin="10 0 0 0"
-                        ></TextBlock>
-                    <TextBlock
-                        x:Name="tbCount"
-                        Text="100 dona"
-                        Foreground="White"
-                        Margin="15 0 0 0"
-                        ></TextBlock>
-                </DockPanel>
-            </StackPanel>
+            <Label
+                Margin="10 0"
+                Content="Nestle kasha 9"
+                x:Name="tbProductName"
+                Grid.Column="0"
+                Style="{DynamicResource TitleLabel}"/>
 
+            <Label
+                Content="300"
+                x:Name="tbCount"
+                Grid.Column="1"
+                Style="{DynamicResource TitleLabel}"/>
 
-            <StackPanel  Grid.Column="1">
-                <DockPanel>
-                    <TextBlock
-                           Text="Jami sotuv summasi:"
-                           VerticalAlignment="Center"
-                           Margin="10 0 0 0"
-                           ></TextBlock>
-                    <TextBlock
-                        x:Name="tbTotalPrice"
-                           Text="25,000,000"
-                           Foreground="White"
-                           Margin="10 0 0 0"
-                           ></TextBlock>
-                </DockPanel>
-                <DockPanel Margin="0 5 0 0">
-                    <TextBlock
-                           Text="Foyda:"
-                           VerticalAlignment="Center"
-                           Margin="10 0 0 0"
-                        Foreground="Red"
-                           ></TextBlock>
-                    <TextBlock
-                        x:Name="tbProfit"
-                           Text="3,000,000"
-                           Foreground="White"
-                           Margin="15 0 0 0"
+            <Label
+                Content="25,000,000"
+                x:Name="tbTotalPrice"
+                Grid.Column="2"
+                Style="{DynamicResource TitleLabel}"/>
 
-                           ></TextBlock>
-                </DockPanel>
-            </StackPanel>
-
+            <Label
+                Content="3 000 000"
+                x:Name="tbProfit"
+                Grid.Column="3"
+                Foreground="Red"
+                Style="{DynamicResource TitleLabel}"/>
 
         </Grid>
 

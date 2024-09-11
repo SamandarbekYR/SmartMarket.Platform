@@ -27,10 +27,10 @@ namespace SmartMarket.Desktop.Components.ShopDetailsForComponent
 
         public void SetValues(string ProductName,int count,string TotalPrice,string profit)
         {
-            tbProductName.Text = ProductName;
-            tbTotalPrice.Text = TotalPrice;
-            tbCount.Text=count.ToString();
-            tbProfit.Text = profit;
+            tbProductName.Content = ProductName;
+            tbTotalPrice.Content = TotalPrice;
+            tbCount.Content = count.ToString();
+            tbProfit.Content = profit;
         }
     }
 }
