@@ -6,7 +6,7 @@
     <SolidColorBrush x:Key="FirstColor" Color="#EEEEEE"/>
     <SolidColorBrush x:Key="SecondColor" Color="White"/>
     <SolidColorBrush x:Key="TheerdColor" Color="#A59C9C"/>
-    <SolidColorBrush x:Key="FourthColor" Color="#B9DDFF"/>
+    <SolidColorBrush x:Key="FourthColor" Color="#d6d6d6d6"/>
     <SolidColorBrush x:Key="FifthColor" Color="#0FBC5F"/>
     <SolidColorBrush x:Key="SixthColor" Color="#D41509"/>
     <SolidColorBrush x:Key="SeventhColor" Color="#25D409"/>

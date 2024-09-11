@@ -9,4 +9,13 @@
         <Setter Property="FontWeight" Value="SemiBold"/>
     </Style>
 
+    <Style x:Key="Label"  TargetType="{x:Type Label}">
+        <Setter Property="Foreground" Value="{DynamicResource BorderColor}"/>
+        <Setter Property="FontFamily" Value="Jetbrain Mono"/>
+        <Setter Property="FontSize" Value="13"/>
+        <Setter Property="Margin" Value="5 0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+    </Style>
+
 </ResourceDictionary>

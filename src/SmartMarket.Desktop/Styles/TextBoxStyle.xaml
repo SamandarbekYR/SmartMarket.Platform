@@ -62,6 +62,7 @@
                                 Margin="0 0 0 2"
                                 VerticalAlignment="Bottom"
                                 BorderThickness="0"
+                                FontSize="15"
                                 Background="Transparent"
                                 Grid.Column="1"/>
 

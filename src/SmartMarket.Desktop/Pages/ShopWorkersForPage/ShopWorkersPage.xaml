@@ -77,15 +77,15 @@
                 CornerRadius="5" 
                 Background="White" 
                 BorderBrush="{DynamicResource BorderColor}" 
-                BorderThickness="1">
+                BorderThickness="1"
+                VerticalAlignment="Stretch">
 
 
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="0.5*"/>
                         <RowDefinition Height="2*"/>
-                        <RowDefinition Height="0.6*"/>
+                        <RowDefinition Height="0.5*"/>
                     </Grid.RowDefinitions>
 
                     <Ellipse 
@@ -101,37 +101,34 @@
                         </Ellipse.Fill>
                     </Ellipse>
 
-                    <Label
-                        Grid.Row="1"
-                        HorizontalAlignment="Center"
-                        FontSize="18"
-                        Style="{DynamicResource TitleLabel}"
-                        Content="Erqo'ziyev Shodiyor"/>
-
                     <Grid
-                        Grid.Row="2">
+                        Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
 
                         <StackPanel
-                            Margin="10 0 0 0"
                             Grid.Column="0">
 
                             <Label
                                 Style="{DynamicResource TitleLabel}"
-                                Content="Tel nomeri :"/>
+                                Content="Ismi :"/>
                             <Label
                                 Style="{DynamicResource TitleLabel}"
-                                Content="Lavozimi :"/>
+                                Content="Fameliyasi :"/>
                             <Label
                                 Style="{DynamicResource TitleLabel}"
                                 Content="Maoshi :"/>
                             <Label
                                 Style="{DynamicResource TitleLabel}"
-                                Content="Olingan puli:"/>
+                                Content="Tel :"/>
                             <Label
+                                FontSize="13"
+                                Style="{DynamicResource TitleLabel}"
+                                Content="Olgan puli:"/>
+                            <Label
+                                FontSize="13"
                                 Style="{DynamicResource TitleLabel}"
                                 Content="Qolgan puli:"/>
 
@@ -142,19 +139,24 @@
 
                             <Label
                                 Style="{DynamicResource TitleLabel}"
-                                Content="+998917727005"/>
+                                Content="Shodiyor"/>
                             <Label
                                 Style="{DynamicResource TitleLabel}"
-                                Content="Sotuvchi"/>
-                            <Label
-                                Style="{DynamicResource TitleLabel}"
-                                Content="4 000 000"/>
-                            <Label
-                                Style="{DynamicResource TitleLabel}"
-                                Content="0"/>
+                                Content="Erqo'ziyev"/>
                             <Label
                                 Style="{DynamicResource TitleLabel}"
                                 Content="4 000 000"/>
+                            <Label
+                                Style="{DynamicResource TitleLabel}"
+                                Content="917727005"/>
+                            <Label
+                                FontSize="13"
+                                Style="{DynamicResource TitleLabel}"
+                                Content="400 000"/>
+                            <Label
+                                FontSize="13"
+                                Style="{DynamicResource TitleLabel}"
+                                Content="3 600 000"/>
 
                         </StackPanel>
 
@@ -164,7 +166,7 @@
                         Content="Saqlash"
                         FontSize="16"
                         Style="{DynamicResource BtnSaveAccount}"
-                        Grid.Row="3"
+                        Grid.Row="2"
                         Margin="0 0 0 10"
                         HorizontalAlignment="Center"/>
 
