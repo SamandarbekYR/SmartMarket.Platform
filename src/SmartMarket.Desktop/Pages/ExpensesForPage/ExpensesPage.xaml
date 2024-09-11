@@ -5,10 +5,11 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ExpensesForPage"
       mc:Ignorable="d" 
-      d:DesignHeight="640" d:DesignWidth="1024"
       Title="ExpensesPage">
 
-    <Grid Background="#D9D9D9">
+    <Grid 
+        Margin="10 0 10 10"
+        Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="5*"/>
@@ -27,24 +28,19 @@
                 BorderBrush="Black"
                 BorderThickness="1"
                 CornerRadius="5"
-                Margin="5 0"
+                Margin="0 5"
                 >
-                <Grid Margin="0 20 0 0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                <StackPanel>
+                    
                     
                     <RadioButton
-                      x:Name="btnExpenses"
+                        x:Name="btnExpenses"
                         Click="btnExpenses_Click"
                         Grid.Row="0"
                         Style="{DynamicResource ExpensesMenuButton}"
                         Content="Harajatlar"
-                        FontSize="20"
+                        FontSize="16"
+                        Margin="10 10 10 0"
                         IsChecked="True"
                         ></RadioButton>
                     <RadioButton
@@ -53,7 +49,8 @@
                         Grid.Row="1"
                         Style="{DynamicResource AllProductMenuButton}"
                         Content="Barcha mahsulotlar"
-                        FontSize="20"
+                        FontSize="16"
+                        Margin="10 10 10 0"
                         ></RadioButton>
 
 
@@ -63,7 +60,8 @@
                         Grid.Row="2"
                         Style="{DynamicResource LittleProductMenuButton}"
                         Content="Tugayotgan mahsulotlar"
-                        FontSize="20"
+                        FontSize="16"
+                        Margin="10 10 10 0"
                         ></RadioButton>
 
                     <RadioButton
@@ -72,21 +70,22 @@
                         Grid.Row="3"
                         Style="{DynamicResource GetCargoMenuButton}"
                         Content="Olingan yuk hisoboti"
-                        FontSize="20"
+                        FontSize="16"
+                        Margin="10 10 10 0"
                         ></RadioButton>
-                    
-                    
-                </Grid>
+
+
+                </StackPanel>
+
             </Border>
 
 
             <Border
                 Background="White"
                 Grid.Row="1"
-                BorderBrush="Black"
+                BorderBrush="{DynamicResource BorderColor}"
                 BorderThickness="1"
                 CornerRadius="5"
-                Margin="5 3"
                 >
                 <Grid>
                     <Grid.RowDefinitions>
@@ -243,7 +242,9 @@
                     </Border>
 
 
-                    <Border Visibility="Collapsed" x:Name="BrCargoReport"
+                    <Border 
+                        Visibility="Collapsed" 
+                        x:Name="BrCargoReport"
                            Grid.Row="0"
                            CornerRadius="5"
                            Margin="5"
@@ -360,7 +361,9 @@
             </Border>
         </Grid>
 
-        <Border Grid.Column="1">
+        <Border 
+            Margin="5 5 0 0"
+            Grid.Column="1">
             <Frame x:Name="ShopDetailsPageNavigator"/>
         </Border>
         

@@ -41,37 +41,44 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
-                    <Border 
-                        x:Name="B"
-                        BorderThickness="0 0 0 1"
-                        BorderBrush="{DynamicResource BorderColor}">
 
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="30"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <md:PackIcon 
-                                Kind="Search"
-                                VerticalAlignment="Center"
-                                Margin="5 0 0 0"
-                                />
-
-                            <TextBox
-                                Margin="0 0 0 2"
-                                VerticalAlignment="Bottom"
-                                BorderThickness="0"
-                                FontSize="15"
-                                Background="Transparent"
-                                Grid.Column="1"/>
-
-                            <ScrollViewer x:Name="PART_ContentHost" />
-
-                        </Grid>
+                    <Border
                         
+                        CornerRadius="5"
+                        Background="White">
+                        <Border 
+                            x:Name="B"
+                            Margin="10 5"
+                            BorderThickness="0 0 0 1"
+                            BorderBrush="{DynamicResource BorderColor}">
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <md:PackIcon 
+                                    Kind="Search"
+                                    VerticalAlignment="Center"
+                                    Margin="5 0 0 0"
+                                    />
+
+                                <TextBox
+                                    Margin="0 0 0 2"
+                                    VerticalAlignment="Bottom"
+                                    BorderThickness="0"
+                                    FontSize="15"
+                                    Background="Transparent"
+                                    Grid.Column="1"/>
+
+                                <ScrollViewer x:Name="PART_ContentHost" />
+
+                            </Grid>
+                            
+                        </Border>
                     </Border>
-                    
+
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

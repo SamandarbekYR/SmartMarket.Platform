@@ -22,7 +22,7 @@
               BorderBrush="Black"
               CornerRadius="5 5 0 0"
               BorderThickness="1"
-              Background="#d6d6d6d6"
+              Background="#d6d6d6"
               >
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -86,7 +86,7 @@
 
 
                 <TextBox
-                    Margin="0 5 10 0"
+                    Margin="0 0 10 0"
                     Style="{DynamicResource search}"
                     Grid.Column="4"/>
             </Grid>
