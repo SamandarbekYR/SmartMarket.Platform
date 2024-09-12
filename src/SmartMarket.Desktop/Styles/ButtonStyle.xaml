@@ -1172,7 +1172,7 @@
                         x:Name="B"
                         Margin="5 2"
                         CornerRadius="5"
-                        Background="#C60C0C"
+                        Background="#D60D0D"
                         >
                         <Image 
                              
@@ -1201,9 +1201,9 @@
                 <ControlTemplate TargetType="Button">
                     <Border 
                         x:Name="B"
-                     Margin="5 2"
-                     CornerRadius="5"
-                     Background="#D9B122"
+                        Margin="5 2"
+                        CornerRadius="5"
+                        Background="#D9B122"
                      >
 
                         <md:PackIcon Kind="ListBox"
@@ -1217,12 +1217,10 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="B" Property="Background" Value="#917717"/>
-                            <Setter TargetName="I"  Property="Foreground" Value="#B9B9B9"/>
+                            <Setter TargetName="B" Property="Background" Value="#C09D1E"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="B" Property="Background" Value="#917717"/>
-                            <Setter TargetName="I"  Property="Foreground" Value="#B9B9B9"/>
+                            <Setter TargetName="B" Property="Background" Value="#C09D1E"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

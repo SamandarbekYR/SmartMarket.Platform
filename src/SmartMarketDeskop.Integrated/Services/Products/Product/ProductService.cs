@@ -6,107 +6,101 @@ using SmartMarketDeskop.Integrated.Server.Repositories.Products;
 using SmartMarketDeskop.Integrated.Server.Repositories.Workers;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
 using SmartMarketDesktop.DTOs.DTOs.Product;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace SmartMarketDeskop.Integrated.Services.Products.Product
+namespace SmartMarketDeskop.Integrated.Services.Products.Product;
+
+public class ProductService : IProductService
 {
-    public class ProductService : IProductService
+    private IProductServer productServer;
+
+    private IWorkerServer workerServer;
+    private ICategoryServer categoryServer;
+    public ProductService()
     {
-        private IProductServer productServer;
+        this.productServer = new ProductServer();
+        this.workerServer=new WorkerServer();
+        this.categoryServer=new CategoryServer();
 
-        private IWorkerServer workerServer;
-        private ICategoryServer categoryServer;
-        public ProductService()
+    }
+
+    public async Task<bool> CreateProduct(AddProductDto dto)
+    {
+        if(IsInternetAvailable())
         {
-            this.productServer = new ProductServer();
-            this.workerServer=new WorkerServer();
-            this.categoryServer=new CategoryServer();
-
+            await productServer.AddAsync(dto);
+            return true;    
         }
-
-        public async Task<bool> CreateProduct(AddProductDto dto)
+        else
         {
-            if(IsInternetAvailable())
-            {
-                await productServer.AddAsync(dto);
-                return true;    
-            }
-            else
-            {
-                // local baza uchun malumot saqlanadi
-                return false;
-            }
+            // local baza uchun malumot saqlanadi
+            return false;
         }
+    }
 
-        public async Task<bool> DeleteProduct(Guid Id)
+    public async Task<bool> DeleteProduct(Guid Id)
+    {
+        if (IsInternetAvailable())
         {
-            if (IsInternetAvailable())
+            await productServer.DeleteAsync(Id);
+            return true;
+        }
+        else
+        {
+
+            // local bazaga saqlanadi
+            return false;   
+        }
+    }
+
+    public async Task<List<ProductViewModels>> GetAll()
+    {
+        if (IsInternetAvailable())
+        {
+            var products = await productServer.GetAllAsync();
+            
+            var categorys=await categoryServer.GetAllAsync();
+            var workers=await workerServer.GetAllAsync();
+
+            return products.Select(a => new ProductViewModels()
             {
-                await productServer.DeleteAsync(Id);
+                Id=a.Id,
+                BarCode = a.Barcode,
+                P_Code = a.PCode,
+                ProductName = a.Name,
+                Count = a.Count,
+                Price = a.Price,
+                SellPrice = a.SellPrice,
+                TotalPrice = a.Price * a.Count,
+                UnitOfMeasure = a.UnitOfMeasure,
+                WorkerName = workers.Find(c => c.Id == a.WorkerId).FirstName,
+                CateogoryName = categorys.Find(c => c.Id == a.CategoryId).Name
+            }).ToList();
+        }
+        else
+        {
+            return new List<ProductViewModels>(); 
+        }
+    
+    }
+
+    public Task<bool> UpdateProduct(AddProductDto product, Guid Id)
+    {
+        throw new NotImplementedException();
+    }
+
+
+    public bool IsInternetAvailable()
+    {
+        try
+        {
+            using (var client = new WebClient()!)
+            using (client.OpenRead("http://google.com"))
                 return true;
-            }
-            else
-            {
-
-                // local bazaga saqlanadi
-                return false;   
-            }
         }
-
-        public async Task<List<ProductViewModels>> GetAll()
+        catch
         {
-            if (IsInternetAvailable())
-            {
-                var products = await productServer.GetAllAsync();
-                
-                var categorys=await categoryServer.GetAllAsync();
-                var workers=await workerServer.GetAllAsync();
-
-                return products.Select(a => new ProductViewModels()
-                {
-                    Id=a.Id,
-                    BarCode = a.Barcode,
-                    P_Code = a.PCode,
-                    ProductName = a.Name,
-                    Count = a.Count,
-                    Price = a.Price,
-                    SellPrice = a.SellPrice,
-                    TotalPrice = a.Price * a.Count,
-                    UnitOfMeasure = a.UnitOfMeasure,
-                    WorkerName = workers.Find(c => c.Id == a.WorkerId).FirstName,
-                    CateogoryName = categorys.Find(c => c.Id == a.CategoryId).Name
-                }).ToList();
-            }
-            else
-            {
-                return new List<ProductViewModels>(); 
-            }
-        
-        }
-
-        public Task<bool> UpdateProduct(AddProductDto product, Guid Id)
-        {
-            throw new NotImplementedException();
-        }
-
-
-        public bool IsInternetAvailable()
-        {
-            try
-            {
-                using (var client = new WebClient()!)
-                using (client.OpenRead("http://google.com"))
-                    return true;
-            }
-            catch
-            {
-                return false;
-            }
+            return false;
         }
     }
 }

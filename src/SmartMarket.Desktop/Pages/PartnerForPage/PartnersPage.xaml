@@ -5,7 +5,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       mc:Ignorable="d" 
-      d:DesignHeight="640" d:DesignWidth="1024"
+      Loaded="Page_Loaded"
       Title="PartnersPage">
 
     <Grid 
@@ -106,84 +106,42 @@
 
                 <Grid
                     Grid.Row="1"
+                    Margin="0 5 0 0"
                     Background="White"
                     >
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.5*"/>
-                        <ColumnDefinition Width="1.6*"/>
-                        <ColumnDefinition Width="1.6*"/>
-                        <ColumnDefinition Width="1.6*"/>
-                        <ColumnDefinition Width="1.5*"/>
-                        <ColumnDefinition Width="1.7*"/>
-                        <ColumnDefinition Width="1.7*"/>
-                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="0.2*"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="80"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBlock
-                        Text="N%"
+                    <Label
                         Grid.Column="0"
-                        VerticalAlignment="Center"
-                        FontSize="15"
-                        FontWeight="SemiBold"
-                        Margin="5 0 0 0"
-                        ></TextBlock>
+                        Content="No."
+                        Margin="10 0 0 0"
+                        Style="{DynamicResource Label}"/>
 
-                    <TextBlock
+                    <Label
                         Grid.Column="1"
-                        Text="Ismi"
-                        VerticalAlignment="Center"
-                        FontSize="15"
-                        FontWeight="SemiBold"
-                        ></TextBlock>
-                    <TextBlock
+                        Content="Ismi"
+                        Margin="15 0 0 0"
+                        Style="{DynamicResource Label}"/>
+
+                    <Label
                         Grid.Column="2"
-                        Text="Familiyasi"
-                        VerticalAlignment="Center"
-                        FontSize="15"
-                        FontWeight="SemiBold"
-                        ></TextBlock>
+                        Content="Fameliyasi"
+                        Margin="5 0 0 0"
+                        Style="{DynamicResource Label}"/>
 
-                    <TextBlock
+                    <Label
                         Grid.Column="3"
-                        Text="Tel nomer"
-                        VerticalAlignment="Center"
-                        FontSize="15"
-                        FontWeight="SemiBold"
-                        ></TextBlock>
+                        Content="Telefon raqami"
+                        Margin="5 0 0 0"
+                        Style="{DynamicResource Label}"/>
 
-                    <TextBlock
-                        Grid.Column="4"
-                        Text="Qarzdorlik miqdori"
-                        VerticalAlignment="Center"
-                        FontSize="15"
-                        FontWeight="SemiBold"
-                        HorizontalAlignment="Left"
-                        ></TextBlock>
-
-                    <TextBlock
-                        Grid.Column="5"
-                        Text="Qilingan to'lov"
-                        VerticalAlignment="Center"
-                        FontSize="15"
-                        FontWeight="SemiBold"
-                        ></TextBlock>
-                    <TextBlock
-                        Grid.Column="6"
-                        Text="Qolgan summasi"
-                        VerticalAlignment="Center"
-                        FontSize="15"
-                        FontWeight="SemiBold"
-                        ></TextBlock>
-
-                    <TextBlock
-                        Grid.Column="7"
-                        Text="Oxirgi to'lov sanasi"
-                        VerticalAlignment="Center"
-                        FontSize="15"
-                        FontWeight="SemiBold"
-                        ></TextBlock>
-                    
                 </Grid>
 
                 <Border 
@@ -192,7 +150,9 @@
                     CornerRadius="0 0 5 5">
 
                     <ScrollViewer>
-                        <StackPanel x:Name="St_partners">
+                        <StackPanel
+                            Margin="10 5 15 10"
+                            x:Name="St_partners">
                             
                             
                         </StackPanel>
