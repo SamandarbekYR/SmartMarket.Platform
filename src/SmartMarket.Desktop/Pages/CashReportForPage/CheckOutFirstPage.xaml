@@ -9,1226 +9,627 @@
       d:DesignHeight="640" d:DesignWidth="1024"
       Title="CheckOutFirstPage">
     
-    <Border CornerRadius="5"
-            Margin="3 3 5 3"
-            BorderThickness="1" BorderBrush="Black" Background="#D9D9D9">
+    <Border 
+        CornerRadius="5"
+        BorderThickness="1" 
+        BorderBrush="{DynamicResource BorderColor}" 
+        Background="White">
         <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="48"/>
-            <RowDefinition Height="*"/>
+            <Grid.RowDefinitions>
                 <RowDefinition Height="45"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="45"/>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Border
-            Grid.Row="0"
-            CornerRadius="3 3 0 0"
-            Background="#A59C9C"
-            >
-
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="0.2*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="0.2*"/>
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Grid.Column="0"
-                          Text="Savdo puli"
-                          VerticalAlignment="Center"
-                          Margin="15 0 0 0"
-                          FontSize="20"
-                          FontWeight="DemiBold"
-                          ></TextBlock>
-
-                <DockPanel Grid.Column="1">
-                    <TextBlock Text="Dan:"
-                               VerticalAlignment="Center"
-                               FontSize="18"
-                               Foreground="White"
-                               ></TextBlock>
-                    <Border Margin="5 5 15 5"
-                            Background="White"
-                            CornerRadius="5"
-                            >
-                        <DatePicker
-         
-                            VerticalAlignment="Center"
-                            Margin="10 0 0 0"
-                            FontSize="18"
-                            BorderThickness="0"
-                            ></DatePicker>
-                    </Border>
-                </DockPanel>
-
-
-                <DockPanel Grid.Column="3">
-                    <TextBlock Text="gacha:"
-                               VerticalAlignment="Center"
-                               FontSize="18"
-                               Foreground="White"
-                               ></TextBlock>
-                    <Border Margin="5 5 15 5"
-                            Background="White"
-                            CornerRadius="5"
-                            >
-                        <DatePicker
-                             Text="20/08/2024"
-                             VerticalAlignment="Center"
-                             Margin="10 0 0 0"
-                             FontSize="18"
-                             BorderThickness="0"
-                             ></DatePicker>
-                    </Border>
-                </DockPanel>
-
-              
-            </Grid>
-
-        </Border>
-        <Grid
-            Grid.Row="1"
-            Background="White"
-            >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="320"/>
-                </Grid.ColumnDefinitions>
-
-                <Border
-                    Grid.Column="0"
-                    BorderBrush="Black"
-                    BorderThickness="1"
-                    Margin="5 5 3 15"
-                    Background="White"
-                    >
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1.2*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        
-                        <Border
-                            Grid.Column="0"
-                            Grid.Row="0"
-                            BorderBrush="Black"
-                            BorderThickness="0 0 1 1"
-                            >
-                            <TextBlock
-                                x:Name="tbSaleCheckout"
-                                Text="Kassa 1"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                FontSize="20"
-                                ></TextBlock>
-                        </Border>
-
-
-                        <Border
-                            Grid.Column="1"
-                            Grid.Row="0"
-                            BorderBrush="Black"
-                            BorderThickness="0 0 1 1"
-                            >
-                            <TextBlock
-                                Text="Naqd"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                FontSize="20"
-                                ></TextBlock>
-                        </Border>
-
-                        <Border
-                            Grid.Column="2"
-                            Grid.Row="0"
-                            BorderBrush="Black"
-                            BorderThickness="0 0 1 1"
-                            >
-                            <TextBlock
-                                Text="Karta"
-                                FontSize="20"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                ></TextBlock>
-                        </Border>
-
-                        <Border
-                             Grid.Column="3"
-                             Grid.Row="0"
-                             BorderBrush="Black"
-                             BorderThickness="0 0 1 1"
-                             >
-                            <TextBlock
-                             Text="Pul ko'chirish"
-                             FontSize="20"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Center"
-                             ></TextBlock>
-                        </Border>
-
-                        <Border
-                             Grid.Column="4"
-                             Grid.Row="0"
-                             BorderBrush="Black"
-                             BorderThickness="0 0 0 1"
-                             >
-                            <TextBlock
-                             Text="Nasiya"
-                             FontSize="20"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Center"
-                             ></TextBlock>
-                        </Border>
-
-
-                        <Border
-                              Grid.Column="0"
-                              Grid.Row="1"
-                              BorderBrush="Black"
-                              BorderThickness="0 0 1 1"
-                              >
-                            <TextBlock
-                              Text="Savdo puli"
-                              VerticalAlignment="Center"
-                              HorizontalAlignment="Center"
-                              FontSize="20"
-                              ></TextBlock>
-                        </Border>
-
-
-                        <Border
-                             Grid.Column="1"
-                             Grid.Row="1"
-                             BorderBrush="Black"
-                             BorderThickness="0 0 1 1"
-                             >
-                            <TextBlock
-                                x:Name="tbSaleCashSum"
-                             Text="200,000"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Center"
-                             FontSize="20"
-                             ></TextBlock>
-                        </Border>
-
-                        <Border
-                             Grid.Column="2"
-                             Grid.Row="1"
-                             BorderBrush="Black"
-                             BorderThickness="0 0 1 1"
-                             >
-                            <TextBlock
-                                x:Name="tbSaleCardSum"
-                             Text="100,000,000"
-                             FontSize="20"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Center"
-                             ></TextBlock>
-                        </Border>
-
-                        <Border
-                            Grid.Column="3"
-                            Grid.Row="1"
-                            BorderBrush="Black"
-                            BorderThickness="0 0 1 1"
-                            >
-                            <TextBlock
-                                x:Name="tbSaleTransferMoney"
-                            Text="50,000,000"
-                            FontSize="20"
-                            VerticalAlignment="Center"
-                            HorizontalAlignment="Center"
-                            ></TextBlock>
-                        </Border>
-
-                        <Border
-                             Grid.Column="4"
-                             Grid.Row="1"
-                             BorderBrush="Black"
-                             BorderThickness="0 0 0 1"
-                             >
-                            <TextBlock
-                                x:Name="tbSaleDebtSum"
-                                Text="30,000,000"
-                                FontSize="20"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                ></TextBlock>
-                        </Border>
-
-                        <Border
-                             Grid.Column="0"
-                             Grid.Row="2"
-                             BorderBrush="Black"
-                             BorderThickness="0 0 1 1"
-                             >
-                            <TextBlock
-                                   Text="Oldingi qarzlar"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   FontSize="20"
-                                   ></TextBlock>
-                        </Border>
-
-
-                        <Border
-                                  Grid.Column="1"
-                                  Grid.Row="2"
-                                  BorderBrush="Black"
-                                  BorderThickness="0 0 1 1"
-                                  >
-                            <TextBlock
-                                     x:Name="tbLastDebtCashSum"
-                                     Text="200,000"
-                                     VerticalAlignment="Center"
-                                     HorizontalAlignment="Center"
-                                     FontSize="20"
-                                     ></TextBlock>
-                        </Border>
-
-                        <Border
-                                  Grid.Column="2"
-                                  Grid.Row="2"
-                                  BorderBrush="Black"
-                                  BorderThickness="0 0 1 1"
-                                  >
-                            <TextBlock
-                                       x:Name="tbLastDebtCardSum"
-                                    Text="100,000,000"
-                                    FontSize="20"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    ></TextBlock>
-                        </Border>
-
-                        <Border
-                                    Grid.Column="3"
-                                    Grid.Row="2"
-                                    BorderBrush="Black"
-                                    BorderThickness="0 0 1 1"
-                                    >
-                            <TextBlock
-                                         x:Name="tbLastDebtTransferMoney"
-                                     Text="50,000,000"
-                                     FontSize="20"
-                                     VerticalAlignment="Center"
-                                     HorizontalAlignment="Center"
-                                     ></TextBlock>
-                        </Border>
-
-                        <Border
-                              Grid.Column="4"
-                              Grid.Row="2"
-                              BorderBrush="Black"
-                              BorderThickness="0 0 0 1"
-                              >
-                            <TextBlock
-                                    x:Name="tbLastDebtSum"
-                                    Text="0"
-                                    FontSize="20"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    ></TextBlock>
-                        </Border>
-
-
-                        <Border
-                             Grid.Column="0"
-                             Grid.Row="3"
-                             BorderBrush="Black"
-                             BorderThickness="0 0 1 0"
-                             >
-                            <TextBlock
-                                   Text="Umumiy"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   FontSize="20"
-                                   ></TextBlock>
-                        </Border>
-
-
-                        <Border
-                             Grid.Column="1"
-                             Grid.Row="3"
-                             BorderBrush="Black"
-                             BorderThickness="0 0 1 0"
-                             >
-                            <TextBlock
-                                     x:Name="tbAllCashSum"
-                                  Text="200,000"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"
-                                  FontSize="20"
-                                  ></TextBlock>
-                        </Border>
-
-                        <Border
-                               Grid.Column="2"
-                               Grid.Row="3"
-                               BorderBrush="Black"
-                               BorderThickness="0 0 1 0"
-                               >
-                            <TextBlock
-                                     x:Name="tbAllCardSum"
-                                  Text="100,000,000"
-                                  FontSize="20"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"
-                                  ></TextBlock>
-                        </Border>
-
-                        <Border
-                             Grid.Column="3"
-                             Grid.Row="3"
-                             BorderBrush="Black"
-                             BorderThickness="0 0 1 0"
-                             >
-                            <TextBlock
-                                      x:Name="tbAllTransferMoney"
-                                  Text="50,000,000"
-                                  FontSize="20"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"
-                                  ></TextBlock>
-                        </Border>
-
-                        <Border
-                             Grid.Column="4"
-                             Grid.Row="3"
-                             BorderBrush="Black"
-                             BorderThickness="0 0 0 0"
-                             >
-                            <TextBlock
-                                   x:Name="tbAllDebtSum"
-                                   Text="30,000,000"
-                                   FontSize="20"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   ></TextBlock>
-                        </Border>
-
-
-
-                    </Grid>
-                </Border>
-
-                <Border
-                    Grid.Column="1"
-                    BorderBrush="Black"
-                    BorderThickness="1"
-                     Margin="5 5 3 15"
-                    Background="White"
-                    >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="35"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Border
-                            Grid.Row="0"
-                            Background="#C0B1B1"
-                            >
-                            <TextBlock
-                                Text="Jami summa"
-                                VerticalAlignment="Center"
-                                HorizontalAlignment="Center"
-                                FontSize="20"
-                                Foreground="White"
-                                FontWeight="SemiBold"
-                                ></TextBlock>
-                        </Border>
-
-                        <StackPanel Margin="15 0 0 0" Grid.Row="1">
-                            <TextBlock
-                                Text="Savda puli:"
-                                Margin="15 10 0 0"
-                                FontSize="20"
-                                ></TextBlock>
-                            <TextBlock
-                                Text="370,000,000"
-                                FontSize="20"
-                                Margin="15 0 0 0"
-                                ></TextBlock>
-                            <TextBlock
-                                Text="Olingan qarzlar:"
-                                Margin="15 10 0 0"
-                                FontSize="20"
-                                ></TextBlock>
-                            <TextBlock
-                                Text="70,000,000"
-                                FontSize="20"
-                                Margin="15 0 0 0"
-                                ></TextBlock>
-                        </StackPanel>
-                        
-                    </Grid>
-                </Border>
-        </Grid>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="0.5*"/>
+            </Grid.RowDefinitions>
             <Border
-                Grid.Row="2"
-                Background="#A29A9A"
-                >
-                <TextBlock
-                    Text="Harajatlar"
-                    FontSize="20"
-                    Margin="15 0 0 0"
-                    VerticalAlignment="Center"
-                    FontWeight="DemiBold"
-                    ></TextBlock>
+                Grid.Row="0"
+                CornerRadius="5 5 0 0"
+                Background="#d6d6d6"
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="0 0 0 1">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock 
+                        Grid.Column="0"
+                        Text="Kassa hisoboti"
+                        VerticalAlignment="Center"
+                        Margin="15 0 0 0"
+                        FontSize="22"
+                        FontWeight="DemiBold"
+                        ></TextBlock>
+
+
+                    <StackPanel
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal"
+                        Grid.Column="1">
+
+
+                        <DatePicker
+                            Style="{DynamicResource FormDatePicker}"/>
+                        <Label
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            VerticalAlignment="Center"
+                            Content="dan"/>
+
+                    </StackPanel>
+
+                    <StackPanel
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal"
+                        Grid.Column="2"
+                        Margin="0 0 20 0">
+
+
+                        <DatePicker
+                            Style="{DynamicResource FormDatePicker}"/>
+                        <Label
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            VerticalAlignment="Center"
+                            Content="gacha"/>
+
+                    </StackPanel>
+
+                </Grid>
             </Border>
 
+            <Border
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="0 0 0 1"
+                Grid.Row="1"
+                Margin="10 0">
+                <Label
+                    HorizontalAlignment="Left"
+                    Content="Savdo puli"
+                    Foreground="Black"
+                    FontSize="20"
+                    Margin="0 20 0 0"
+                    Style="{DynamicResource TitleLabel}"/>
+            </Border>
 
             <Grid
-                  Grid.Row="3"
-                  Background="White"
-                  >
+                Grid.Row="2"
+                Background="White">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="320"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1.5*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border
-                       Grid.Column="0"
-                       Background="White"
-                       BorderBrush="Black"
-                       BorderThickness="1"
-                       Margin="5 5 3 15"
-                       >
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1.2*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                <StackPanel
+                    Grid.Column="0"
+                    Margin="10 5 0 5">
 
-                        <Border
-                              Grid.Column="0"
-                              Grid.Row="0"
-                              BorderBrush="Black"
-                              BorderThickness="0 0 1 1"
-                              >
-                            <TextBlock
-                                x:Name="tbExpenseCheckout"
-                                   Text="Kassa 1"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   FontSize="20"
-                                   ></TextBlock>
-                        </Border>
+                    <Label
+                        Name="Kassa_Name"
+                        Content="Kassa 1"
+                        FontSize="17"
+                        Style="{DynamicResource TitleLabel}"/>
 
+                    <Label
+                        Margin="0 10 0 0"
+                        Content="Savdo puli"
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Content="Oldingi qarzlar"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Content="Umumiy"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
 
-                        <Border
-                              Grid.Column="1"
-                              Grid.Row="0"
-                              BorderBrush="Black"
-                              BorderThickness="0 0 1 1"
-                              >
-                            <TextBlock
-                                  Text="Naqd"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"
-                                  FontSize="20"
-                                  ></TextBlock>
-                        </Border>
+                </StackPanel>
 
-                        <Border
-                              Grid.Column="2"
-                              Grid.Row="0"
-                              BorderBrush="Black"
-                              BorderThickness="0 0 1 1"
-                              >
-                            <TextBlock
-                                    Text="Karta"
-                                    FontSize="20"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    ></TextBlock>
-                        </Border>
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="10 5 0 5">
 
-                        <Border
-                               Grid.Column="3"
-                               Grid.Row="0"
-                               BorderBrush="Black"
-                               BorderThickness="0 0 1 1"
-                               >
-                            <TextBlock
-                                   Text="Pul ko'chirish"
-                                   FontSize="20"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   ></TextBlock>
-                        </Border>
+                    <Label
+                        Content="Naqd"
+                        FontSize="17"
+                        Style="{DynamicResource TitleLabel}"/>
 
-                        <Border
-                               Grid.Column="4"
-                               Grid.Row="0"
-                               BorderBrush="Black"
-                               BorderThickness="0 0 0 1"
-                               >
-                            <TextBlock
-                                  Text="Jami"
-                                  FontSize="20"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"
-                                  ></TextBlock>
-                        </Border>
+                    <Label
+                        Name="Label_Naqd_Savdo"
+                        Margin="0 10 0 0"
+                        Content="200 000 000"
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Name="Label_Naqd_Qarz"
+                        Content="20 000 000"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Name="Label_Naqd_Umumiy"
+                        Content="220 000 000"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
 
+                </StackPanel>
 
-                        <Border
-                             Grid.Column="0"
-                             Grid.Row="1"
-                             BorderBrush="Black"
-                             BorderThickness="0 0 1 1"
-                             >
-                            <TextBlock
-                                   Text="Do'kon uchun"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   FontSize="20"
-                                   ></TextBlock>
-                        </Border>
+                <StackPanel
+                    Grid.Column="2"
+                    Margin="10 5 0 5">
 
+                    <Label
+                        Content="Karta"
+                        FontSize="17"
+                        Style="{DynamicResource TitleLabel}"/>
 
-                        <Border
-                              Grid.Column="1"
-                              Grid.Row="1"
-                              BorderBrush="Black"
-                              BorderThickness="0 0 1 1"
-                              >
-                            <TextBlock
-                                      x:Name="tbExpenseShopCashSum"
-                                   Text="200,000"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   FontSize="20"
-                                   ></TextBlock>
-                        </Border>
+                    <Label
+                        Name="Label_Karta_Savdo"
+                        Margin="0 10 0 0"
+                        Content="200 000 000"
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Name="Label_Karta_Qarz"
+                        Content="20 000 000"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Name="Label_Karta_Umumiy"
+                        Content="220 000 000"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
 
-                        <Border
-                              Grid.Column="2"
-                              Grid.Row="1"
-                              BorderBrush="Black"
-                              BorderThickness="0 0 1 1"
-                              >
-                            <TextBlock
-                                      x:Name="tbExpenseShopCardSum"
-                                   Text="100,000,000"
-                                   FontSize="20"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   ></TextBlock>
-                        </Border>
+                </StackPanel>
 
-                        <Border
-                             Grid.Column="3"
-                             Grid.Row="1"
-                             BorderBrush="Black"
-                             BorderThickness="0 0 1 1"
-                             >
-                            <TextBlock
-                                      x:Name="tbExpenseTransferMoney"
-                                  Text="50,000,000"
-                                  FontSize="20"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"
-                                  ></TextBlock>
-                        </Border>
+                <StackPanel
+                    Grid.Column="3"
+                    Margin="10 5 0 5">
 
-                        <Border
-                             Grid.Column="4"
-                             Grid.Row="1"
-                             BorderBrush="Black"
-                             BorderThickness="0 0 0 1"
-                             >
-                            <TextBlock
-                                  x:Name="tbExpenseShopAllSum"
-                                  Text="30,000,000"
-                                  FontSize="20"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"
-                                  ></TextBlock>
-                        </Border>
+                    <Label
+                        Content="Pul ko'chirish"
+                        FontSize="17"
+                        Style="{DynamicResource TitleLabel}"/>
 
-                        <Border
-                             Grid.Column="0"
-                             Grid.Row="2"
-                             BorderBrush="Black"
-                             BorderThickness="0 0 1 1"
-                             >
-                            <TextBlock
-                                     Text="O'z hisobi uchun"
-                                     VerticalAlignment="Center"
-                                     HorizontalAlignment="Center"
-                                     FontSize="20"
-                                     ></TextBlock>
-                        </Border>
+                    <Label
+                        Name="Label_Pul_Savdo"
+                        Margin="0 10 0 0"
+                        Content="200 000 000"
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Name="Label_Pul_Qarz"
+                        Content="20 000 000"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Name="Label_Pul_Umumiy"
+                        Content="220 000 000"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
 
+                </StackPanel>
 
-                        <Border
-                              Grid.Column="1"
-                              Grid.Row="2"
-                              BorderBrush="Black"
-                              BorderThickness="0 0 1 1"
-                              >
-                            <TextBlock
-                                      x:Name="tbPersonalAcoountCashSum"
-                                      Text="200,000"
-                                      VerticalAlignment="Center"
-                                      HorizontalAlignment="Center"
-                                      FontSize="20"
-                                      ></TextBlock>
-                        </Border>
+                <StackPanel
+                    Grid.Column="4"
+                    Margin="10 5 0 5">
 
-                        <Border
-                               Grid.Column="2"
-                               Grid.Row="2"
-                               BorderBrush="Black"
-                               BorderThickness="0 0 1 1"
-                          >
-                            <TextBlock
-                                       x:Name="tbPersonalAcoountCardSum"
-                                    Text="100,000,000"
-                                    FontSize="20"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    ></TextBlock>
-                        </Border>
+                    <Label
+                        Content="Nasiya"
+                        FontSize="17"
+                        Style="{DynamicResource TitleLabel}"/>
 
-                        <Border
-                            Grid.Column="3"
-                            Grid.Row="2"
-                            BorderBrush="Black"
-                            BorderThickness="0 0 1 1"
-                            >
-                            <TextBlock
-                                     x:Name="tbPersonalAcoountTransferMoney"
-                                     Text="50,000,000"
-                                     FontSize="20"
-                                     VerticalAlignment="Center"
-                                     HorizontalAlignment="Center"
-                                     ></TextBlock>
-                        </Border>
+                    <Label
+                        Name="Label_Nasiya_Savdo"
+                        Margin="0 10 0 0"
+                        Content="200 000 000"
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Name="Label_Nasiya_Qarz"
+                        Content="20 000 000"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Name="Label_Nasiya_Umumiy"
+                        Content="220 000 000"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
 
-                        <Border
-                              Grid.Column="4"
-                              Grid.Row="2"
-                              BorderBrush="Black"
-                              BorderThickness="0 0 0 1"
-                              >
-                            <TextBlock
-                                    x:Name="tbPersonalAcoountAllSum"
-                                    Text="0"
-                                    FontSize="20"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    ></TextBlock>
-                        </Border>
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Column="5"
+                    Margin="10 5 0 5">
+
+                    <Label
+                        Content="Jami"
+                        FontSize="17"
+                        Foreground="#25D409"
+                        Style="{DynamicResource TitleLabel}"/>
+
+                    <Label
+                        Name="Label_Jami_Savdo"
+                        Margin="0 10 0 0"
+                        Content="200 000 000"
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        Foreground="#25D409"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Name="Label_Jami_Qarz"
+                        Content="20 000 000"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Foreground="#25D409"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Name="Label_Jami_Umumiy"
+                        Content="220 000 000"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Foreground="#25D409"
+                        Style="{DynamicResource Label}"/>
+
+                </StackPanel>
 
 
-                        <Border
-                              Grid.Column="0"
-                              Grid.Row="3"
-                              BorderBrush="Black"
-                              BorderThickness="0 0 1 0"
-                              >
-                            <TextBlock
-                                    Text="Yuk uchun"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    FontSize="20"
-                                    ></TextBlock>
-                        </Border>
-
-
-                        <Border
-                              Grid.Column="1"
-                              Grid.Row="3"
-                              BorderBrush="Black"
-                              BorderThickness="0 0 1 0"
-                              >
-                            <TextBlock
-                                      x:Name="tbCargoCashSum"
-                                   Text="200,000"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   FontSize="20"
-                                   ></TextBlock>
-                        </Border>
-
-                        <Border
-                              Grid.Column="2"
-                              Grid.Row="3"
-                              BorderBrush="Black"
-                              BorderThickness="0 0 1 0"
-                              >
-                            <TextBlock
-                                       x:Name="tbCargoCardSum"
-                                    Text="100,000,000"
-                                    FontSize="20"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    ></TextBlock>
-                        </Border>
-
-                        <Border
-                              Grid.Column="3"
-                              Grid.Row="3"
-                              BorderBrush="Black"
-                              BorderThickness="0 0 1 0"
-                              >
-                            <TextBlock
-                                      x:Name="tbCargoTransferMoney"
-                                  Text="50,000,000"
-                                  FontSize="20"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"
-                                  ></TextBlock>
-                        </Border>
-
-                        <Border
-                               Grid.Column="4"
-                               Grid.Row="3"
-                               BorderBrush="Black"
-                               BorderThickness="0 0 0 0"
-                               >
-                            <TextBlock
-                                   x:Name="tbCargoAllSum"
-                                   Text="30,000,000"
-                                   FontSize="20"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   ></TextBlock>
-                        </Border>
-
-
-
-                    </Grid>
-                </Border>
-
-                <Border
-                      Grid.Column="1"
-                      BorderBrush="Black"
-                      BorderThickness="1"
-                       Margin="5 5 3 15"
-                      Background="White"
-                      >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="35"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Border
-                               Grid.Row="0"
-                               Background="#F50D0D"
-                               >
-                            <TextBlock
-                                  Text="Jami summa"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"
-                                  FontSize="20"
-                                  Foreground="White"
-                                  FontWeight="SemiBold"
-                                  ></TextBlock>
-                        </Border>
-
-                        <StackPanel Margin="15 0 0 0" Grid.Row="1">
-                            <TextBlock
-                                  Text="Do'kon uchun:"
-                                  Margin="15 5 0 0"
-                                  FontSize="18"
-                                  ></TextBlock>
-                            <TextBlock
-                                  Text="370,000,000"
-                                  FontSize="18"
-                                  Margin="15 0 0 0"
-                                  ></TextBlock>
-                            <TextBlock
-                                  Text="O'z hisobi uchun:"
-                                  Margin="15 5 0 0"
-                                  FontSize="18"
-                                  ></TextBlock>
-                            <TextBlock
-                                  Text="70,000,000"
-                                  FontSize="18"
-                                  Margin="15 0 0 0"
-                                  ></TextBlock>
-                            <TextBlock
-                                  Text="Yuk uchun:"
-                                  Margin="15 5 0 0"
-                                  FontSize="18"
-                                  ></TextBlock>
-                            <TextBlock
-                                  Text="70,000,000"
-                                  FontSize="18"
-                                  Margin="15 0 0 0"
-                                  ></TextBlock>
-                        </StackPanel>
-
-                    </Grid>
-                </Border>
             </Grid>
 
             <Border
-                Grid.Row="4"
-                Background="#A29A9A"
-                >
-                <TextBlock
-                    Text="Hozirda Mavjud"
-                    VerticalAlignment="Center"
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="0 0 0 1"
+                Grid.Row="3"
+                Margin="10 0">
+                <Label
+                    HorizontalAlignment="Left"
+                    Content="Harajatlar"
+                    Foreground="Black"
                     FontSize="20"
-                    FontWeight="DemiBold"
-                    Margin="15 0 0 0"
-                    ></TextBlock>
+                    Style="{DynamicResource TitleLabel}"/>
             </Border>
 
-
-
-
-            <Border Grid.Row="5" CornerRadius="0 0 5 5" Background="White">
-                <Grid
-               
-                >
+            <Grid
+                Grid.Row="4"
+                Background="White">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="320"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1.5*"/>
                 </Grid.ColumnDefinitions>
 
-                <Border
-                      Grid.Column="0"
-                      BorderBrush="Black"
-                      Background="White"
-                      BorderThickness="0 1 0 0"
-                      Margin="5 5 3 15"
-                    CornerRadius="0 0 5 5 "
-                      >
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1.2*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                <StackPanel
+                    Grid.Column="0"
+                    Margin="10 5 0 5">
 
-                        <Border
-                              Grid.Column="0"
-                              Grid.Row="0"
-                              BorderBrush="Black"
-                              BorderThickness="1 0 1 1"
-                   >
-                            <TextBlock
-                                   Text="Hozirda mavjud"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   FontSize="20"
-                                   ></TextBlock>
-                        </Border>
+                    <Label
+                        Name="Kassa_Name_Harajat"
+                        Content="Kassa 1"
+                        FontSize="17"
+                        Style="{DynamicResource TitleLabel}"/>
 
+                    <Label
+                        Margin="0 10 0 0"
+                        Content="Do'kon uchun"
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Content="O'z hisobi uchun"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Content="Yuk uchun"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
 
-                        <Border
-                             Grid.Column="1"
-                             Grid.Row="0"
-                             BorderBrush="Black"
-                             BorderThickness="0 0 1 1"
-                             >
-                            <TextBlock
-                                  Text="Naqd"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"
-                                  FontSize="20"
-                                  ></TextBlock>
-                        </Border>
+                </StackPanel>
 
-                        <Border
-                             Grid.Column="2"
-                             Grid.Row="0"
-                             BorderBrush="Black"
-                             BorderThickness="0 0 1 1"
-                             >
-                            <TextBlock
-                                     Text="Karta"
-                                     FontSize="20"
-                                     VerticalAlignment="Center"
-                                     HorizontalAlignment="Center"
-                                     ></TextBlock>
-                        </Border>
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="10 5 0 5">
 
-                        <Border
-                              Grid.Column="3"
-                              Grid.Row="0"
-                              BorderBrush="Black"
-                              BorderThickness="0 0 1 1"
-                              >
-                            <TextBlock
-                                  Text="Pul ko'chirish"
-                                  FontSize="20"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"
-                                  ></TextBlock>
-                        </Border>
+                    <Label
+                        Content="Naqd"
+                        FontSize="17"
+                        Style="{DynamicResource TitleLabel}"/>
 
-                        <Border
-                                 Grid.Column="4"
-                                 Grid.Row="0"
-                                 BorderBrush="Black"
-                                 BorderThickness="0 0 1 1"
-                                 >
-                            <TextBlock
-                                 Text="Jami"
-                                 FontSize="20"
-                                 VerticalAlignment="Center"
-                                 HorizontalAlignment="Center"
-                                 ></TextBlock>
-                        </Border>
+                    <Label
+                        Name="Label_Naqd_Dokon"
+                        Margin="0 10 0 0"
+                        Content="200 000 000"
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Name="Label_Naqd_Hisob"
+                        Content="20 000 000"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Name="Label_Naqd_Yuk"
+                        Content="220 000 000"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
 
+                </StackPanel>
 
-                        <Border
-                                 Grid.Column="0"
-                                 Grid.Row="1"
-                                 BorderBrush="Black"
-                                 BorderThickness="1 0 1 1"
-                                 >
-                            <TextBlock
-                                 Text="Kassa 1"
-                                 VerticalAlignment="Center"
-                                 HorizontalAlignment="Center"
-                                 FontSize="20"
-                                 ></TextBlock>
-                        </Border>
+                <StackPanel
+                    Grid.Column="2"
+                    Margin="10 5 0 5">
 
+                    <Label
+                        Content="Karta"
+                        FontSize="17"
+                        Style="{DynamicResource TitleLabel}"/>
 
-                        <Border
-                                Grid.Column="1"
-                                Grid.Row="1"
-                                BorderBrush="Black"
-                                BorderThickness="0 0 1 1"
-                                >
-                            <TextBlock
-                                  x:Name="tbCheckOuntFirstCashSum"
-                                  Text="200,000"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"
-                                  FontSize="20"
-                                  ></TextBlock>
-                        </Border>
+                    <Label
+                        Name="Label_Karta_Dokon"
+                        Margin="0 10 0 0"
+                        Content="200 000 000"
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Name="Label_Karta_Hisob"
+                        Content="20 000 000"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Name="Label_Karta_Yuk"
+                        Content="220 000 000"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
 
-                        <Border
-                                Grid.Column="2"
-                                Grid.Row="1"
-                                BorderBrush="Black"
-                                BorderThickness="0 0 1 1"
-                                >
-                            <TextBlock
-                                     x:Name="tbCheckOuntFirstCardSum"
-                                  Text="100,000,000"
-                                  FontSize="20"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"
-                                  ></TextBlock>
-                        </Border>
+                </StackPanel>
 
-                        <Border
-                             Grid.Column="3"
-                             Grid.Row="1"
-                             BorderBrush="Black"
-                             BorderThickness="0 0 1 1"
-                             >
-                            <TextBlock
-                                        x:Name="tbCheckOuntFirstTransferMoney"
-                                    Text="50,000,000"
-                                    FontSize="20"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    ></TextBlock>
-                        </Border>
+                <StackPanel
+                    Grid.Column="3"
+                    Margin="10 5 0 5">
 
-                        <Border
-                                 Grid.Column="4"
-                                 Grid.Row="1"
-                                 BorderBrush="Black"
-                                 BorderThickness="0 0 1 1"
-                                 >
-                            <TextBlock
-                                      x:Name="tbCheckOuntFirstAllSum"
-                                      Text="30,000,000"
-                                      FontSize="20"
-                                      VerticalAlignment="Center"
-                                      HorizontalAlignment="Center"
-                                      ></TextBlock>
-                        </Border>
+                    <Label
+                        Content="Pul ko'chirish"
+                        FontSize="17"
+                        Style="{DynamicResource TitleLabel}"/>
 
-                        <Border
-                             Grid.Column="0"
-                             Grid.Row="2"
-                             BorderBrush="Black"
-                             BorderThickness="1 0 1 1"
-                             >
-                            <TextBlock
-                                   Text="Kassa 2"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   FontSize="20"
-                                   ></TextBlock>
-                        </Border>
+                    <Label
+                        Name="Label_Pul_Dokon"
+                        Margin="0 10 0 0"
+                        Content="200 000 000"
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Name="Label_Pul_Hisob"
+                        Content="20 000 000"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Name="Label_Pul_Yuk"
+                        Content="220 000 000"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
 
+                </StackPanel>
 
-                        <Border
-                            Grid.Column="1"
-                            Grid.Row="2"
-                            BorderBrush="Black"
-                            BorderThickness="0 0 1 1"
-                            >
-                            <TextBlock
-                                    x:Name="tbCheckOutSecondCashSum"
-                                    Text="200,000"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    FontSize="20"
-                                    ></TextBlock>
-                        </Border>
+                <StackPanel
+                    Grid.Column="5"
+                    Margin="10 5 0 5">
 
-                        <Border
-                              Grid.Column="2"
-                              Grid.Row="2"
-                              BorderBrush="Black"
-                              BorderThickness="0 0 1 1"
-               >
-                            <TextBlock
-                                       x:Name="tbCheckOutSecondCardSum"
-                                    Text="100,000,000"
-                                    FontSize="20"
-                                    VerticalAlignment="Center"
-                                    HorizontalAlignment="Center"
-                                    ></TextBlock>
-                        </Border>
+                    <Label
+                        Content="Jami"
+                        FontSize="17"
+                        Foreground="#D41509"
+                        Style="{DynamicResource TitleLabel}"/>
 
-                        <Border
-                             Grid.Column="3"
-                             Grid.Row="2"
-                             BorderBrush="Black"
-                             BorderThickness="0 0 1 1"
-                             >
-                            <TextBlock
-                                     x:Name="tbCheckOutSecondTransferMoney"
-                                     Text="50,000,000"
-                                     FontSize="20"
-                                     VerticalAlignment="Center"
-                                     HorizontalAlignment="Center"
-                                     ></TextBlock>
-                        </Border>
+                    <Label
+                        Name="Label_Jami_Dokon"
+                        Margin="0 10 0 0"
+                        Content="200 000 000"
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        Foreground="#D41509"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Name="Label_Jami_Hisob"
+                        Content="20 000 000"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Foreground="#D41509"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Name="Label_Jami_Yuk"
+                        Content="220 000 000"
+                        FontSize="15"
+                        Margin="0"
+                        HorizontalAlignment="Left"
+                        Foreground="#D41509"
+                        Style="{DynamicResource Label}"/>
 
-                        <Border
-                              Grid.Column="4"
-                              Grid.Row="2"
-                              BorderBrush="Black"
-                              BorderThickness="0 0 1 1"
-                              >
-                            <TextBlock
-                                   x:Name="tbCheckOutSecondAllSum"
-                                   Text="0"
-                                   FontSize="20"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center"
-                                   ></TextBlock>
-                        </Border>
+                </StackPanel>
 
-
-                        
-
-
-
-                    </Grid>
-                </Border>
-
-                <Border
-                        Grid.Column="1"
-                        BorderBrush="Black"
-                        BorderThickness="1"
-                         Margin="5 5 3 15"
-                        Background="White"
-                           >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="35"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <Border
-                    Grid.Row="0"
-                    Background="#25D409"
-                    >
-                            <TextBlock
-                                  Text="Jami summa"
-                                  VerticalAlignment="Center"
-                                  HorizontalAlignment="Center"
-                                  FontSize="20"
-                                  Foreground="White"
-                                  FontWeight="SemiBold"
-                                  ></TextBlock>
-                        </Border>
-
-                        <StackPanel Margin="15 0 0 0" Grid.Row="1">
-                            <TextBlock
-                                   Text="Kassa 1:"
-                                   Margin="15 5 0 0"
-                                   FontSize="18"
-                                   ></TextBlock>
-                            <TextBlock
-                                   Text="370,000,000"
-                                   FontSize="18"
-                                   Margin="15 0 0 0"
-                                   ></TextBlock>
-                            <TextBlock
-                                   Text="Kassa 2:"
-                                   Margin="15 5 0 0"
-                                   FontSize="18"
-                                   ></TextBlock>
-                            <TextBlock
-                                   Text="70,000,000"
-                                   FontSize="18"
-                                   Margin="15 0 0 0"
-                                   ></TextBlock>
-                            <TextBlock
-                                  Text="Umumiy:"
-                                  Margin="15 5 0 0"
-                                  FontSize="18"
-                                  ></TextBlock>
-                            <TextBlock
-                                  Text="70,000,000"
-                                  FontSize="18"
-                                  Margin="15 0 0 0"
-                                  ></TextBlock>
-                        </StackPanel>
-
-                    </Grid>
-                </Border>
             </Grid>
+
+            <Border
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="0 0 0 1"
+                Grid.Row="5"
+                Margin="10 0">
+                
+                <Label
+                    HorizontalAlignment="Left"
+                    Content="Hozirda mavjud"
+                    FontSize="20"
+                    Style="{DynamicResource TitleLabel}"/>
             </Border>
+
+            <Grid
+                Grid.Row="6"
+                Background="White">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+                    Grid.Column="0"
+                    Margin="10 5 0 5">
+
+                    <Label
+                        Content="Hozirda mavjud"
+                        FontSize="17"
+                        Style="{DynamicResource TitleLabel}"/>
+
+                    <Label
+                        Name="Kassa_Name1"
+                        Margin="0 10 0 0"
+                        Content="Kassa 1"
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="10 5 0 5">
+
+                    <Label
+                        Content="Naqd"
+                        FontSize="17"
+                        Style="{DynamicResource TitleLabel}"/>
+
+                    <Label
+                        Name="Label_Naqd_All"
+                        Margin="0 10 0 0"
+                        Content="200 000 000"
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Column="2"
+                    Margin="10 5 0 5">
+
+                    <Label
+                        Content="Karta"
+                        FontSize="17"
+                        Style="{DynamicResource TitleLabel}"/>
+
+                    <Label
+                        Name="Label_Karta_All"
+                        Margin="0 10 0 0"
+                        Content="200 000 000"
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Column="3"
+                    Margin="10 5 0 5">
+
+                    <Label
+                        Content="Pul ko'chirish"
+                        FontSize="17"
+                        Style="{DynamicResource TitleLabel}"/>
+
+                    <Label
+                        Name="Label_Pul_All"
+                        Margin="0 10 0 0"
+                        Content="200 000 000"
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        Style="{DynamicResource Label}"/>
+
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Column="5"
+                    Margin="10 5 0 5">
+
+                    <Label
+                        Content="Nasiya"
+                        FontSize="17"
+                        Foreground="Blue"
+                        Style="{DynamicResource TitleLabel}"/>
+
+                    <Label
+                        Name="Label_Nasiya_All"
+                        Margin="0 10 0 0"
+                        Content="200 000 000"
+                        FontSize="15"
+                        HorizontalAlignment="Left"
+                        Foreground="Blue"
+                        Style="{DynamicResource Label}"/>
+
+                </StackPanel>
+
+            </Grid>
 
         </Grid>
     </Border>

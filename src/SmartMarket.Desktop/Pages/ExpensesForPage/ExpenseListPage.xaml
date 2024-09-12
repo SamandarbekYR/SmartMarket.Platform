@@ -18,7 +18,7 @@
         <Border
             Background="#D6D6D6"
             Grid.Row="0"
-            BorderBrush="Black"
+            BorderBrush="{DynamicResource BorderColor}"
             BorderThickness="1"
             CornerRadius="5 5 0 0">
             <Grid>

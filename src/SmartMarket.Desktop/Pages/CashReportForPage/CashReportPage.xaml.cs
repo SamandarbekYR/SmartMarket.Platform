@@ -26,24 +26,18 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
 
             CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage();
             CheckOutPageNavigator.Content = checkOutFirstPage;
-            checkOutFirstPage.tbExpenseCheckout.Text = "Kassa 1";
-            checkOutFirstPage.tbSaleCheckout.Text = "Kassa 1";
         }
 
         private void btnCheckoutFirst_Click(object sender, RoutedEventArgs e)
         {
             CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage();
             CheckOutPageNavigator.Content = checkOutFirstPage;
-            checkOutFirstPage.tbExpenseCheckout.Text = "Kassa 1";
-            checkOutFirstPage.tbSaleCheckout.Text = "Kassa 1";
         }
 
         private void bntCheckoutSecond_Click(object sender, RoutedEventArgs e)
         {
             CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage();
             CheckOutPageNavigator.Content = checkOutFirstPage;
-            checkOutFirstPage.tbExpenseCheckout.Text = "Kassa 2";
-            checkOutFirstPage.tbSaleCheckout.Text = "Kassa 2";
         }
     }
 }
