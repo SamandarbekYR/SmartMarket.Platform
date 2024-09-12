@@ -1,22 +1,12 @@
-﻿using SmartMarketDeskop.Integrated.Server.Interfaces.PartnerCompany;
-using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgents;
+﻿using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgents;
 using SmartMarketDeskop.Integrated.Services.PartnerCompanies.PartnerCompany;
 using SmartMarketDesktop.DTOs.DTOs.PartnerCompany;
 using SmartMarketDesktop.ViewModels.Entities.PartnersCompany;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ToastNotifications;
+using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
+using System.Windows.Interop;
 
 namespace SmartMarket.Desktop.Windows.ContrAgents
 {
@@ -35,9 +25,31 @@ namespace SmartMarket.Desktop.Windows.ContrAgents
             InitializeComponent();
             contrAgentService = new ContrAgentService();
             this.partnerCompanyService=new PartnerCompanyService();
+            
+        }
 
+        [DllImport("user32.dll")]
+        internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
+        internal void EnableBlur()
+        {
+            var windowHelper = new WindowInteropHelper(this);
 
-            GetAllCompany();
+            var accent = new AccentPolicy();
+            accent.AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND;
+
+            var accentStructSize = Marshal.SizeOf(accent);
+
+            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
+            Marshal.StructureToPtr(accent, accentPtr, false);
+
+            var data = new WindowCompositionAttributeData();
+            data.Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY;
+            data.SizeOfData = accentStructSize;
+            data.Data = accentPtr;
+
+            SetWindowCompositionAttribute(windowHelper.Handle, ref data);
+
+            Marshal.FreeHGlobal(accentPtr);
         }
 
         //Notifier notifier = new Notifier(cfg =>
@@ -95,6 +107,12 @@ namespace SmartMarket.Desktop.Windows.ContrAgents
         {
            txtFirstName.Text=txtLastName.Text=txtPhoneNumber.Text=string.Empty;
                
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            GetAllCompany();
+            EnableBlur();
         }
     }
 }

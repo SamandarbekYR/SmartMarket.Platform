@@ -1,20 +1,11 @@
-﻿using SmartMarket.Desktop.Pages.MainForPage;
-using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
+﻿using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
 using SmartMarketDesktop.DTOs.DTOs.Categories;
 using SmartMarketDesktop.ViewModels.Entities.Categories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
+using System.Windows.Interop;
 
 namespace SmartMarket.Desktop.Windows.Category
 {
@@ -31,6 +22,30 @@ namespace SmartMarket.Desktop.Windows.Category
             InitializeComponent();
             
             this.categoryServer = new SmartMarketDeskop.Integrated.Server.Repositories.Categories.CategoryServer();
+        }
+
+        [DllImport("user32.dll")]
+        internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
+        internal void EnableBlur()
+        {
+            var windowHelper = new WindowInteropHelper(this);
+
+            var accent = new AccentPolicy();
+            accent.AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND;
+
+            var accentStructSize = Marshal.SizeOf(accent);
+
+            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
+            Marshal.StructureToPtr(accent, accentPtr, false);
+
+            var data = new WindowCompositionAttributeData();
+            data.Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY;
+            data.SizeOfData = accentStructSize;
+            data.Data = accentPtr;
+
+            SetWindowCompositionAttribute(windowHelper.Handle, ref data);
+
+            Marshal.FreeHGlobal(accentPtr);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -65,6 +80,11 @@ namespace SmartMarket.Desktop.Windows.Category
         public void Clear()
         {
             txtDescribtion.Text=txtName.Text=string.Empty;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            EnableBlur();
         }
     }
 }

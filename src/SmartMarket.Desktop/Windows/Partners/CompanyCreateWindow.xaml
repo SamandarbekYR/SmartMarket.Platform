@@ -10,8 +10,13 @@
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True"
-        Title="CompanyCreateWindow" Height="350" Width="450">
-    <Grid >
+        Title="CompanyCreateWindow"
+        Loaded="Window_Loaded"
+        WindowState="Maximized">
+    
+    <Grid 
+        Height="350" 
+        Width="450">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>

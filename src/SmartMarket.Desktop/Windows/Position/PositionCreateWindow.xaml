@@ -14,8 +14,6 @@
         Loaded="Window_Loaded"
         Title="PositionCreateWindow" >
 
-
-
     <Grid
         Height="200" Width="350">
         <Grid.RowDefinitions>

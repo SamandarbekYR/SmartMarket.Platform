@@ -10,8 +10,11 @@
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True"
-        Title="AccountUpdateWindow" Height="350" Width="450">
-    <Grid >
+        Title="AccountUpdateWindow" 
+        WindowState="Maximized"
+        Loaded="Window_Loaded">
+    <Grid 
+        Height="350" Width="450">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>

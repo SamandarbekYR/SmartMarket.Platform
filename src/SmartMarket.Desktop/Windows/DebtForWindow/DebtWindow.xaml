@@ -9,8 +9,12 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
-        Title="DebtWindow" Height="500" Width="550">
-    <Grid>
+        Title="DebtWindow" 
+        WindowState="Maximized"
+        Loaded="Window_Loaded">
+    <Grid
+        Height="500"
+        Width="550">
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition Height="35"/>

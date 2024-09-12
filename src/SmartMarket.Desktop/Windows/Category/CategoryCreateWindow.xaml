@@ -8,11 +8,14 @@
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
+        WindowState="Maximized"
         AllowsTransparency="True"
         Background="Transparent"
-        Title="CategoryCreateWindow" Height="235" Width="350">
+        Title="CategoryCreateWindow" 
+        Loaded="Window_Loaded">
     
-    <Grid >
+    <Grid 
+        Height="235" Width="350">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>

@@ -9,8 +9,12 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
-        Title="CashPaymentWindow" Height="250" Width="350">
-    <Grid>
+        Title="CashPaymentWindow" 
+        WindowState="Maximized"
+        Loaded="Window_Loaded">
+    <Grid
+        Height="250" 
+        Width="350">
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition Height="*"/>
