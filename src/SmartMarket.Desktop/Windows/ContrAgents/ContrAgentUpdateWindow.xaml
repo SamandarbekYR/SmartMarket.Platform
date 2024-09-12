@@ -10,8 +10,12 @@
         ResizeMode="NoResize"
         AllowsTransparency="True"
         Background="Transparent"
-        Title="ContrAgentUpdateWindow" Height="350" Width="450">
-    <Grid >
+        Title="ContrAgentUpdateWindow" 
+        Loaded="Window_Loaded"
+        WindowState="Maximized">
+    <Grid 
+        Height="350" 
+        Width="450">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>

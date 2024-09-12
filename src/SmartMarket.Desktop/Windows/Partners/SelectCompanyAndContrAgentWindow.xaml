@@ -10,8 +10,16 @@
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True"
-        Title="SelectCompanyAndContrAgentWindow" Height="250" Width="400">
-    <Border CornerRadius="10" Background="White" BorderBrush="Black" BorderThickness="1">
+        Title="SelectCompanyAndContrAgentWindow"
+        WindowState="Maximized"
+        Loaded="Window_Loaded">
+    <Border
+        Height="250" 
+        Width="400" 
+        CornerRadius="10" 
+        Background="White" 
+        BorderBrush="{DynamicResource BorderColor}" 
+        BorderThickness="1">
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>

@@ -9,8 +9,12 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
-        Title="ExpensesWindow" Height="300" Width="400">
-    <Grid>
+        Title="ExpensesWindow" 
+        WindowState="Maximized"
+        Loaded="Window_Loaded">
+    <Grid
+        Height="300" 
+        Width="400">
         <StackPanel>
 
             <DockPanel Height="30" Background="#1FB5E5">

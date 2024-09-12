@@ -10,8 +10,12 @@
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True"
-        Title="CategoryUpdateWindow" Height="235" Width="350">
-    <Grid >
+        WindowState="Maximized"
+        Title="CategoryUpdateWindow" 
+        Loaded="Window_Loaded">
+    <Grid 
+        Height="235" 
+        Width="350">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>

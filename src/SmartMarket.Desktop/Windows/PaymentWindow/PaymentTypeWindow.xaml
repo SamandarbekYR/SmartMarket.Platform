@@ -9,8 +9,14 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
-        Title="PaymentTypeWindow" Height="370" Width="400">
-    <Border BorderBrush="Black" BorderThickness="1">
+        Title="PaymentTypeWindow" 
+        WindowState="Maximized"
+        Loaded="Window_Loaded">
+    <Border
+        Height="370" 
+        Width="400" 
+        BorderBrush="{DynamicResource BorderColor}" 
+        BorderThickness="1">
         <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>

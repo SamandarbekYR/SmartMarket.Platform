@@ -7,11 +7,15 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
+        WindowState="Maximized"
         ResizeMode="NoResize"
         Background="Transparent"
         AllowsTransparency="True"
-        Title="ContrAgentCreateWindow" Height="350" Width="450">
-    <Grid >
+        Title="ContrAgentCreateWindow"
+        Loaded="Window_Loaded"
+        >
+    <Grid 
+        Height="350" Width="450">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
