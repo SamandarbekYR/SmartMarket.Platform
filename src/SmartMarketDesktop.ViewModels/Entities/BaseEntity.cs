@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SmartMarketDesktop.ViewModels.Entities
+namespace SmartMarketDesktop.ViewModels.Entities;
+
+public class BaseEntity
 {
-    public class BaseEntity
-    {
-        [Column("id")]
-        public Guid Id { get; set; }
-        [Column("created_at")]
-        public DateTime? CreatedDate { get; set; } = DateTime.UtcNow.AddHours(5);
-    }
+    [Column("id")]
+    public Guid Id { get; set; }
+    [Column("created_at")]
+    public DateTime? CreatedDate { get; set; } = DateTime.UtcNow.AddHours(5);
 }

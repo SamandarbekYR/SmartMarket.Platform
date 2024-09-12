@@ -5,110 +5,64 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartMarket.Desktop.Components.PartnersForComponent"
              mc:Ignorable="d" 
-             d:DesignHeight="30" d:DesignWidth="800">
+             Height="60">
 
     <Border
+        Margin="0 5 0 0"
         Background="White"
         CornerRadius="5"
-        BorderThickness="1"
-        BorderBrush="Black"
-        >
-
+        BorderThickness="0.7"
+        BorderBrush="Black">
         <Grid
-              Grid.Row="0"
-              >
+            Grid.Row="0">
+            
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="1.8*"/>
-                <ColumnDefinition Width="1.8*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="1.7*"/>
-                <ColumnDefinition Width="1.7*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="80"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock
-                    Text="1"
-                    x:Name="tbNumber"
-                    Grid.Column="0"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    FontWeight="SemiBold"
+            <Label
+                Name="lb_Count"
+                Grid.Column="0"
+                Content="1"
+                Margin="10 0 0 0"
+                Style="{DynamicResource TitleLabel}"/>
+
+            <Label
+                Grid.Column="1"
+                Name="lb_Firstname"
+                Content="Shodiyor"
                 Margin="5 0 0 0"
-                    ></TextBlock>
+                Style="{DynamicResource TitleLabel}"/>
 
-            <TextBlock
-                x:Name="tbFirstName"
-                     Grid.Column="1"
-                     Text="Azimjon"
-                     VerticalAlignment="Center"
-                     FontSize="15"
-                     FontWeight="SemiBold"
-                     ></TextBlock>
-            <TextBlock
-                x:Name="tbLastName"
-                    Grid.Column="2"
-                    Text="Ergashev"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    FontWeight="SemiBold"
-                    ></TextBlock>
+            <Label
+                Grid.Column="2"
+                Name="lb_Lastname"
+                Content="Erqo'ziyev"
+                Margin="5 0 0 0"
+                Style="{DynamicResource TitleLabel}"/>
 
-            <TextBlock
-                x:Name="tbPhoneNumber"
-                    Grid.Column="3"
-                    Text="+998906661132"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    FontWeight="SemiBold"
-                    ></TextBlock>
-
-            <TextBlock
-                x:Name="tbDebtSum"
-                    Grid.Column="4"
-                    Text="7,000,000"
-                    VerticalAlignment="Center"
-                    FontSize="15"
-                    FontWeight="SemiBold"
-                    ></TextBlock>
-
-            <TextBlock
-                x:Name="tbPayedSum"
-                   Grid.Column="5"
-                   Text="500,000"
-                   VerticalAlignment="Center"
-                   FontSize="15"
-                   FontWeight="SemiBold"
-                   ></TextBlock>
-            <TextBlock
-                x:Name="tbRemainingSum"
-                  Grid.Column="6"
-                  Text="650,000"
-                  VerticalAlignment="Center"
-                  FontSize="15"
-                  FontWeight="SemiBold"
-                  ></TextBlock>
-
-            <TextBlock
-                x:Name="tbLastPaymentDate"
-                  Grid.Column="7"
-                  Text="8/21/2024"
-                  VerticalAlignment="Center"
-                  FontSize="15"
-                  FontWeight="SemiBold"
-                  ></TextBlock>
+            <Label
+                Grid.Column="3"
+                Name="lb_Phone_Number"
+                Content="+998917727005"
+                Margin="5 0 0 0"
+                Style="{DynamicResource TitleLabel}"/>
 
             <Button
-                Grid.Column="8"
+                Grid.Column="4"
+                Margin="10 4 0 4"
                 Style="{DynamicResource btnPartnerDebt}"
-                ></Button>
+                />
             <Button
-                Grid.Column="9"
+                Grid.Column="5"
+                Margin="0 4 10 4"
                 Style="{DynamicResource btnPartnerDebtList}"
-                ></Button>
+                />
 
         </Grid>
 

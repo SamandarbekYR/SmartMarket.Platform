@@ -1,14 +1,7 @@
-﻿using SmartMarketDeskop.Integrated.Interfaces;
-using SmartMarketDesktop.ViewModels.Entities.Partners;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SmartMarketDesktop.ViewModels.Entities.Partners;
 
-namespace SmartMarketDeskop.Integrated.Interfaces.Partners
+namespace SmartMarketDeskop.Integrated.Interfaces.Partners;
+
+public interface IPartner : IRepository<PartnerView>
 {
-    public interface IPartner : IRepository<PartnerView>
-    {
-    }
 }
