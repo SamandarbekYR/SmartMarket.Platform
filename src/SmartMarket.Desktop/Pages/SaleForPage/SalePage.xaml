@@ -328,37 +328,34 @@
                                 </Grid>
                             </Border>
 
-                            <Border Grid.Column="1"
+                            <Border 
+                                Grid.Column="1"
                                  BorderBrush="{DynamicResource BorderColor}"
                                  BorderThickness="0.5 0 0 0"
                                  CornerRadius="5"
                                  Background="White"
                                  >
                                 <StackPanel>
-                                    <Button
-                                 Style="{DynamicResource BtnSalePageedit}"
-                                 >
-                                    </Button>
 
                                     <Button
-                                 Style="{DynamicResource BtnSalePageDelete}"
-                                 ></Button>
+                                        Style="{DynamicResource BtnSalePageDelete}"
+                                        ></Button>
 
                                     <Button
-                                 Style="{DynamicResource BtnSalePagePlus}"
-                                 ></Button>
+                                         Style="{DynamicResource BtnSalePagePlus}"
+                                         ></Button>
 
                                     <Button
-                                 Style="{DynamicResource BtnSalePageMinus}"
-                                 ></Button>
+                                         Style="{DynamicResource BtnSalePageMinus}"
+                                         ></Button>
+
 
                                     <Button
-                                 Style="{DynamicResource BtnSalePageSearch}"
-                                 ></Button>
-
+                                         Style="{DynamicResource BtnSalePagePercent}"
+                                         ></Button>
                                     <Button
-                                 Style="{DynamicResource BtnSalePagePercent}"
-                                 ></Button>
+                                         Style="{DynamicResource BtnSalePageSearch}"
+                                         ></Button>
 
                                 </StackPanel>
                             </Border>
