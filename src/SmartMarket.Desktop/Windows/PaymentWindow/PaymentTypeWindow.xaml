@@ -9,10 +9,13 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
+        AllowsTransparency="True"
+        Background="Transparent"
         Title="PaymentTypeWindow" 
         WindowState="Maximized"
         Loaded="Window_Loaded">
     <Border
+        Background="White"
         Height="370" 
         Width="400" 
         BorderBrush="{DynamicResource BorderColor}" 
