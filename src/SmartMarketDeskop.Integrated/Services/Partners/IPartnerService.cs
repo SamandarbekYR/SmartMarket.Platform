@@ -1,7 +1,7 @@
 ﻿using SmartMarket.Domain.Entities.Partners;
 using SmartMarket.Service.DTOs.Partner;
 
-namespace SmartMarketDeskop.Integrated.Services;
+namespace SmartMarketDeskop.Integrated.Services.Partners;
 
 public interface IPartnerService
 {

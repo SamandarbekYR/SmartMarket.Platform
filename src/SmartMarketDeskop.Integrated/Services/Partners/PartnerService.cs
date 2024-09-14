@@ -4,7 +4,7 @@ using SmartMarketDeskop.Integrated.Server.Interfaces.Partners;
 using SmartMarketDeskop.Integrated.Server.Repositories.Partners;
 using System.Net;
 
-namespace SmartMarketDeskop.Integrated.Services;
+namespace SmartMarketDeskop.Integrated.Services.Partners;
 
 public class PartnerService : IPartnerService
 {
