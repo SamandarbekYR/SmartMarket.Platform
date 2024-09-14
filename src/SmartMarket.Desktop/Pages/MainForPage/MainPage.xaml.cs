@@ -56,7 +56,7 @@ public partial class MainPage : Page
     public async void GetAllCategory()
     {
      
-        categoryViews=await this.categoryService.GetAllAsync();
+        categoryViews = await this.categoryService.GetAllAsync();
 
         St_categoryList.Visibility = Visibility.Visible;
         St_categoryList.Children.Clear();

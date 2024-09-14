@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using SmartMarket.Domain.Entities.Partners;
+using System.Windows.Controls;
 
 namespace SmartMarket.Desktop.Components.PartnersForComponent;
 
@@ -12,12 +13,10 @@ public partial class PartnersComponent : UserControl
         InitializeComponent();
     }
 
-
-    public void SetData(int id, string firstname, string lastname,string phone)
+    public void SetData(Partner partner)
     {
-        lb_Count.Content = id.ToString();
-        lb_Firstname.Content = firstname;
-        lb_Lastname.Content = lastname;
-        lb_Phone_Number.Content = phone;
+        lb_Firstname.Content = partner.FirstName;
+        lb_Lastname.Content = partner.LastName;
+        lb_Phone_Number.Content = partner.PhoneNumber;
     }
 }

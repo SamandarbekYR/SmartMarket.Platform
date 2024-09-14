@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using SmartMarketDesktop.ViewModels.Entities.Categories;
 using SmartMarketDesktop.ViewModels.Entities.Customers;
 using SmartMarketDesktop.ViewModels.Entities.Expenses;
@@ -10,17 +9,12 @@ using SmartMarketDesktop.ViewModels.Entities.PayDesk;
 using SmartMarketDesktop.ViewModels.Entities.Products;
 using SmartMarketDesktop.ViewModels.Entities.Transactions;
 using SmartMarketDesktop.ViewModels.Entities.Workers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartMarketDeskop.Integrated.DBContext
 {
     public class AppDbContext : DbContext
     {
-       private readonly string connectionString = "Host=localhost;Database=SmartPartners_Desktop;User ID=postgres;Port=5432;Password=1234;";
+        private readonly string connectionString = "Host=localhost;Database=SmartPartners_Desktop;User ID=postgres;Port=5432;Password=1234;";
 
         // Constructor for DI (Dependency Injection) scenarios
         public AppDbContext(DbContextOptions<AppDbContext> contextOptions)
