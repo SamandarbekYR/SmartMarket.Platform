@@ -1,27 +1,32 @@
-﻿using System.Runtime.InteropServices;
+﻿using SmartMarketDesktop.DTOs.DTOs.Partners;
+using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
 using System.Windows;
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
+using System.Windows.Controls;
 using System.Windows.Interop;
-using SmartMarketDeskop.Integrated.Services.Partners;
-using SmartMarketDesktop.DTOs.DTOs.Partners;
 using ToastNotifications;
+using SmartMarketDeskop.Integrated.Services.Partners;
 using ToastNotifications.Position;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
-using System.Text.RegularExpressions;
-using System.Windows.Controls;
 
 namespace SmartMarket.Desktop.Windows.Partners;
 
 /// <summary>
-/// Interaction logic for PartnerCreateWindow.xaml
+/// Interaction logic for PartnerUpdateWindow.xaml
 /// </summary>
-public partial class PartnerCreateWindow : Window
+public partial class PartnerUpdateWindow : Window
 {
 
     private readonly IPartnerService _partnerService;
 
-    public PartnerCreateWindow()
+    public Guid partnerId { get; set; }
+    public string firstname { get; set; } = "";
+    public string lastname { get; set; } = "";
+    public string phonenumber { get; set; } = "";
+
+    public PartnerUpdateWindow()
     {
         InitializeComponent();
         this._partnerService = new PartnerService();
@@ -98,6 +103,9 @@ public partial class PartnerCreateWindow : Window
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         EnableBlur();
+        tb_Firstname.Text = firstname;
+        tb_Lastname.Text = lastname;
+        tb_PhoneNumber.Text = phonenumber.Substring(4);
     }
 
     private void Close_Button_Click(object sender, RoutedEventArgs e)
@@ -105,21 +113,21 @@ public partial class PartnerCreateWindow : Window
         this.Close();
     }
 
-    private async void Partner_Create_Button_Click(object sender, RoutedEventArgs e)
+    private async void Partner_Update_Button_Click(object sender, RoutedEventArgs e)
     {
         PartnerCreateDto partner = new PartnerCreateDto();
         partner.FirstName = tb_Firstname.Text;
         partner.LastName = tb_Lastname.Text;
         partner.PhoneNumber = "+998" + tb_PhoneNumber.Text;
 
-        bool result = await _partnerService.CreatePartner(partner);
+        bool result = await _partnerService.UpdatePartner(partner, partnerId);
 
         if (result)
         {
             this.Close();
-            notifier.ShowInformation("Hamkor yaratildi.");
+            notifier.ShowInformation("Hamkor yangilandi.");
         }
         else
-            notifierthis.ShowError("Hamkor yaratishda qandaydir xatolik bor !");
+            notifierthis.ShowError("Hamkorni yangilashda qandaydir xatolik bor!");
     }
 }

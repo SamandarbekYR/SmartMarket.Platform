@@ -104,19 +104,16 @@ public class PartnerServer : IPartnerServer
         try
         {
             var token = IdentitySingelton.GetInstance().Token;
-            var workerId = TokenHandler.ParseToken(token).Id;
 
             using (var client = new HttpClient())
             {
                 client.Timeout = TimeSpan.FromSeconds(30);
-                using (var request = new HttpRequestMessage(HttpMethod.Post, AuthApi.BASE_URL + "/api/partners"))
+                using (var request = new HttpRequestMessage(HttpMethod.Put, AuthApi.BASE_URL + $"/api/partners/{Id}")) 
                 {
                     request.Headers.Add("Authorization", $"Bearer {token}");
 
-                    var content = new MultipartFormDataContent();
-                    content.Add(new StringContent(dto.FirstName), "FirstName");
-                    content.Add(new StringContent(dto.LastName), "LastName");
-                    content.Add(new StringContent(dto.PhoneNumber), "PhoneNumber");
+                    var json = JsonConvert.SerializeObject(dto);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                     request.Content = content;
 
