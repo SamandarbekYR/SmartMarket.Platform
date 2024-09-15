@@ -10,6 +10,7 @@ using ToastNotifications.Position;
 using ToastNotifications.Lifetime;
 using System.Windows;
 using ToastNotifications.Messages;
+using SmartMarket.Desktop.Windows.Partners;
 
 namespace SmartMarket.Desktop.Components.PartnersForComponent;
 
@@ -91,6 +92,11 @@ public partial class PartnersComponent : UserControl
 
     private void Edit_Button_Click(object sender, System.Windows.RoutedEventArgs e)
     {
-
+        PartnerUpdateWindow partnerUpdateWindow = new PartnerUpdateWindow();
+        partnerUpdateWindow.partnerId = partnerId;
+        partnerUpdateWindow.firstname = lb_Firstname.Content.ToString()!;
+        partnerUpdateWindow.lastname = lb_Lastname.Content.ToString()!;
+        partnerUpdateWindow.phonenumber = lb_Phone_Number.Content.ToString()!;
+        partnerUpdateWindow.ShowDialog();
     }
 }

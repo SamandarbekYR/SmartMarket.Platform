@@ -60,6 +60,15 @@
 
             <Button
                 Grid.Column="4"
+                Name="Delete_Button"
+                Background="#CE0000"
+                HorizontalAlignment="Center"
+                Click="Delete_Button_Click"
+                Tag="{DynamicResource delete}"
+                Style="{DynamicResource ActionButton}"/>
+            
+            <Button
+                Grid.Column="5"
                 Name="Edit_Button"
                 Background="#329DFF"
                 HorizontalAlignment="Center"
@@ -68,21 +77,12 @@
                 Style="{DynamicResource ActionButton}"/>
 
             <Button
-                Grid.Column="5"
-                Name="Delete_Button"
-                Background="#CE0000"
-                HorizontalAlignment="Center"
-                Click="Delete_Button_Click"
-                Tag="{DynamicResource delete}"
-                Style="{DynamicResource ActionButton}"/>
-
-            <Button
                 Grid.Column="6"
                 Name="Action_Button"
                 Click="Action_Button_Click"
-                Background="{DynamicResource BorderColor}"
+                Background="#43A41D"
                 HorizontalAlignment="Center"
-                Tag="{DynamicResource actionVertical}"
+                Tag="{DynamicResource payment}"
                 Style="{DynamicResource ActionButton}"/>
 
         </Grid>
