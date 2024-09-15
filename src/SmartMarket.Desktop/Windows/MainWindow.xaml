@@ -121,10 +121,10 @@
                  ></RadioButton>
 
                 <Button
-            x:Name="Btnclose"
-            Click="Btnclose_Click"
-            Grid.Column="9"
-            Style="{DynamicResource bntmainclose}"
+                    x:Name="Btnclose"
+                    Click="Btnclose_Click"
+                    Grid.Column="9"
+                    Style="{DynamicResource bntmainclose}"
           >
                 </Button>
             </Grid>

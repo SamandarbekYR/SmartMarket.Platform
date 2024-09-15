@@ -5,13 +5,17 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartMarket.Desktop.Components.PartnersForComponent"
              mc:Ignorable="d" 
-             Height="60">
+             Height="55">
 
     <Border
-        Margin="0 5 0 0"
-        Background="White"
+        Name="Partner_Border"
+        Margin="0 5"
+        Background="#F5F5F5"
         CornerRadius="5"
         BorderThickness="0.7"
+        MouseEnter="Border_MouseEnter"
+        MouseLeave="Border_MouseLeave"
+        MouseDown="Border_MouseDown"
         BorderBrush="Black">
         <Grid
             Grid.Row="0">

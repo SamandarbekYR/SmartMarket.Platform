@@ -1,7 +1,7 @@
 ﻿using SmartMarket.Domain.Entities.Partners;
-using SmartMarket.Service.DTOs.Partner;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Partners;
 using SmartMarketDeskop.Integrated.Server.Repositories.Partners;
+using SmartMarketDesktop.DTOs.DTOs.Partners;
 using System.Net;
 
 namespace SmartMarketDeskop.Integrated.Services.Partners;
@@ -28,12 +28,16 @@ public class PartnerService : IPartnerService
         }
     }
 
-    public async Task<bool> CreateProduct(AddPartnerDto dto)
+    public async Task<bool> CreatePartner(PartnerCreateDto dto)
     {
         if (IsInternetAvailable())
         {
-            await _partnerServer.AddAsync(dto);
-            return true;
+            bool result = await _partnerServer.AddAsync(dto);
+
+            if (result)
+                return true;
+            else
+                return false;
         }
         else
         {
@@ -41,7 +45,7 @@ public class PartnerService : IPartnerService
         }
     }
 
-    public async Task<bool> DeleteProduct(Guid Id)
+    public async Task<bool> DeletePartner(Guid Id)
     {
         if (IsInternetAvailable())
         {
@@ -67,7 +71,7 @@ public class PartnerService : IPartnerService
         }
     }
 
-    public async Task<bool> UpdateProduct(AddPartnerDto partner, Guid Id)
+    public async Task<bool> UpdatePartner(PartnerCreateDto partner, Guid Id)
     {
         if (IsInternetAvailable())
         {
