@@ -9,7 +9,7 @@
 
     <Border
         Name="Partner_Border"
-        Margin="0 5"
+        Margin="0 5 3 5"
         Background="#F5F5F5"
         CornerRadius="5"
         BorderThickness="0.7"
@@ -24,9 +24,10 @@
                 <ColumnDefinition Width="0.2*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="80"/>
-                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="*"/>   
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="40"/>
             </Grid.ColumnDefinitions>
 
             <Label
@@ -59,14 +60,30 @@
 
             <Button
                 Grid.Column="4"
-                Margin="10 4 0 4"
-                Style="{DynamicResource btnPartnerDebt}"
-                />
+                Name="Edit_Button"
+                Background="#329DFF"
+                HorizontalAlignment="Center"
+                Click="Edit_Button_Click"
+                Tag="{DynamicResource pencil}"
+                Style="{DynamicResource ActionButton}"/>
+
             <Button
                 Grid.Column="5"
-                Margin="0 4 10 4"
-                Style="{DynamicResource btnPartnerDebtList}"
-                />
+                Name="Delete_Button"
+                Background="#CE0000"
+                HorizontalAlignment="Center"
+                Click="Delete_Button_Click"
+                Tag="{DynamicResource delete}"
+                Style="{DynamicResource ActionButton}"/>
+
+            <Button
+                Grid.Column="6"
+                Name="Action_Button"
+                Click="Action_Button_Click"
+                Background="{DynamicResource BorderColor}"
+                HorizontalAlignment="Center"
+                Tag="{DynamicResource actionVertical}"
+                Style="{DynamicResource ActionButton}"/>
 
         </Grid>
 

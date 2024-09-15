@@ -8,6 +8,8 @@ using ToastNotifications;
 using ToastNotifications.Position;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
+using System.Text.RegularExpressions;
+using System.Windows.Controls;
 
 namespace SmartMarket.Desktop.Windows.Partners;
 
@@ -28,13 +30,13 @@ public partial class PartnerCreateWindow : Window
     Notifier notifier = new Notifier(cfg =>
     {
         cfg.PositionProvider = new WindowPositionProvider(
-            parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
+            parentWindow: Application.Current.MainWindow,
             corner: Corner.TopRight,
             offsetX: 20,
             offsetY: 20);
 
         cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-            notificationLifetime: TimeSpan.FromSeconds(3),
+            notificationLifetime: TimeSpan.FromSeconds(2),
             maximumNotificationCount: MaximumNotificationCount.FromCount(2));
 
         cfg.Dispatcher = Application.Current.Dispatcher;
@@ -64,6 +66,20 @@ public partial class PartnerCreateWindow : Window
         Marshal.FreeHGlobal(accentPtr);
     }
 
+    private void phone_number_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        TextBox textBox = (TextBox)sender;
+        string text = textBox.Text;
+        string filteredText = Regex.Replace(text, "[^0-9]+", "");
+
+        if (text != filteredText)
+        {
+            int caretIndex = textBox.CaretIndex;
+            textBox.Text = filteredText;
+            textBox.CaretIndex = caretIndex > 0 ? caretIndex - 1 : 0;
+        }
+    }
+
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         EnableBlur();
@@ -84,7 +100,10 @@ public partial class PartnerCreateWindow : Window
         bool result = await _partnerService.CreatePartner(partner);
 
         if (result)
+        {
+            this.Close();
             notifier.ShowInformation("Hamkor yaratildi.");
+        }
         else
             notifier.ShowError("Hamkor yaratishda qandaydir xatolik bor !");
     }

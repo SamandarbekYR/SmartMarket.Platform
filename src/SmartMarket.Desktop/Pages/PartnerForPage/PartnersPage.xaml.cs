@@ -37,6 +37,7 @@ public partial class PartnersPage : Page
                 partnersComponent.lb_Count.Content = count;
                 partnersComponent.SetData(partner);
                 St_partners.Children.Add(partnersComponent);
+                count++;
             }
         }
         else

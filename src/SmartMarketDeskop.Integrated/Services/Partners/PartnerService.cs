@@ -49,8 +49,11 @@ public class PartnerService : IPartnerService
     {
         if (IsInternetAvailable())
         {
-            await _partnerServer.DeleteAsync(Id);
-            return true;
+            bool result = await _partnerServer.DeleteAsync(Id);
+            if (result)
+                return true;
+            else
+                return false;
         }
         else
         {
@@ -75,8 +78,11 @@ public class PartnerService : IPartnerService
     {
         if (IsInternetAvailable())
         {
-            await _partnerServer.UpdateAsync(partner, Id);
-            return true;
+            bool result = await _partnerServer.UpdateAsync(partner, Id);
+            if (result)
+                return true;
+            else
+                return false;
         }
         else
         {

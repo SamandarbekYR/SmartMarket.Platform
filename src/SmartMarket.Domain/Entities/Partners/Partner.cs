@@ -1,10 +1,5 @@
 ﻿using SmartMarket.Domain.Entities.Products;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartMarket.Domain.Entities.Partners
 {
