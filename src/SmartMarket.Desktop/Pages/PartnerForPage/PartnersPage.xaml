@@ -98,9 +98,22 @@
                             ></TextBlock>
 
                         <TextBox
-                            Grid.Column="2"
+                            Grid.Column="1"
                             Margin="0 0 10 0"
                             Style="{DynamicResource search}"/>
+
+                        <Button
+                            x:Name="Partner_Create_Button"
+                            Grid.Column="2"
+                            Content="Qo'shish"
+                            FontSize="16"
+                            Height="32"
+                            Width="100"
+                            HorizontalAlignment="Right"
+                            Margin="0 0 7 0"
+                            Click="Partner_Create_Button_Click"
+                            Style="{DynamicResource Create_Button}"/>
+
                     </Grid>
                 </Border>
 

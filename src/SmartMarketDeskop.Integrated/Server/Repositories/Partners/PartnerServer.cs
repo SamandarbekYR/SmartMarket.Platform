@@ -1,35 +1,32 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using NLog;
 using SmartMarket.Domain.Entities.Partners;
-using SmartMarket.Service.DTOs.Partner;
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Partners;
+using SmartMarketDesktop.DTOs.DTOs.Partners;
+using System.Text;
 
 namespace SmartMarketDeskop.Integrated.Server.Repositories.Partners;
 
 public class PartnerServer : IPartnerServer
 {
     private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-    public async Task<bool> AddAsync(AddPartnerDto dto)
+    public async Task<bool> AddAsync(PartnerCreateDto dto)
     {
         try
         {
             var token = IdentitySingelton.GetInstance().Token;
-            var workerId = TokenHandler.ParseToken(token).Id;
 
             using (var client = new HttpClient())
             {
                 client.Timeout = TimeSpan.FromSeconds(30);
-                using (var request = new HttpRequestMessage(HttpMethod.Post, AuthApi.BASE_URL + "api/partners"))
+                using (var request = new HttpRequestMessage(HttpMethod.Post, AuthApi.BASE_URL + "/api/partners"))
                 {
                     request.Headers.Add("Authorization", $"Bearer {token}");
 
-                    var content = new MultipartFormDataContent();
-                    content.Add(new StringContent(dto.FirstName), "FirstName");
-                    content.Add(new StringContent(dto.LastName), "LastName");
-                    content.Add(new StringContent(dto.PhoneNumber), "PhoneNumber");
+                    var json = JsonConvert.SerializeObject(dto);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
 
                     request.Content = content;
 
@@ -102,7 +99,7 @@ public class PartnerServer : IPartnerServer
         return partners!;
     }
 
-    public async Task<bool> UpdateAsync(AddPartnerDto dto, Guid Id)
+    public async Task<bool> UpdateAsync(PartnerCreateDto dto, Guid Id)
     {
         try
         {
