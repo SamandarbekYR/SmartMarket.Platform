@@ -109,7 +109,7 @@ public class PartnerServer : IPartnerServer
             using (var client = new HttpClient())
             {
                 client.Timeout = TimeSpan.FromSeconds(30);
-                using (var request = new HttpRequestMessage(HttpMethod.Post, AuthApi.BASE_URL + "api/partners"))
+                using (var request = new HttpRequestMessage(HttpMethod.Post, AuthApi.BASE_URL + "/api/partners"))
                 {
                     request.Headers.Add("Authorization", $"Bearer {token}");
 

@@ -3,6 +3,45 @@
                     xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes">
 
 
+    <Style x:Key="MainButton" TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Width" Value="140"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border 
+                    x:Name="B"
+                    CornerRadius="5"
+                    Background="#1710ED">
+
+                        <Label
+                        FontFamily="Jetbrains Mono"
+                        FontWeight="SemiBold"
+                        Foreground="White"
+                        FontSize="{TemplateBinding FontSize}"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Content="{TemplateBinding Content}"/>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#3D40DF"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="B" Property="Background" Value="#1710ED"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#140ECE"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style TargetType="{x:Type Button}" x:Key="MenuButton">
         <Setter Property="Background" Value="#FFFFFF"/>
         <Setter Property="BorderBrush" Value="#000000"/>
@@ -99,6 +138,41 @@
         </Setter>
     </Style>
 
+    <Style x:Key="ClosedButton" TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="24"/>
+        <Setter Property="Width" Value="24"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border 
+                    x:Name="button"
+                    Background="#FF1000"
+                    CornerRadius="25"
+                    >
+                        <Path Fill="White" Data="{DynamicResource x}"
+                          Height="10"
+                          Width="10"
+                          Stretch="Uniform"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="button" Property="Background" Value="#C70001"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="button" Property="Background" Value="#FF1000"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="button" Property="Background" Value="#7E0000"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
     <Style TargetType="Button" x:Key="bntmainclose">
         <Setter Property="HorizontalAlignment" Value="Center"/>
@@ -152,6 +226,44 @@
                                      HorizontalAlignment="Center"
                                      Height="30"/>
                     </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ActionButton" TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="Width" Value="28"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border 
+                        Background="White"
+                        x:Name="B" 
+                        CornerRadius="10">
+
+                        <Path 
+                            Grid.Column="0"
+                            x:Name="Icon" 
+                            Data="{Binding Tag, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                            Fill="{TemplateBinding Background}"
+                            Height="16"
+                            Stretch="Uniform"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#CFCFCF"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="B" Property="Background" Value="Transparent"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#B6B6B6"/>
+                        </Trigger>
+
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

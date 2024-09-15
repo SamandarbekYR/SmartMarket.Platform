@@ -78,16 +78,21 @@
                         Name="tb_Firstname"
                         FontSize="18"
                         Margin="10 5"
+                        FontWeight="SemiBold"
                         Style="{DynamicResource Create_TextBox_Style}"/>
                     <TextBox
                         Name="tb_Lastname"
                         FontSize="18"
                         Margin="10 5"
+                        FontWeight="SemiBold"
                         Style="{DynamicResource Create_TextBox_Style}"/>
                     <TextBox
                         Name="tb_PhoneNumber"
                         FontSize="18"
                         Margin="10 5"
+                        MaxLength="9"
+                        FontWeight="SemiBold"
+                        TextChanged="phone_number_TextChanged"
                         Style="{DynamicResource Phone_Number_TextBox_Style}"/>
 
                 </StackPanel>
