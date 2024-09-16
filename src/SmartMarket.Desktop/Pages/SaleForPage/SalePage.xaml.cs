@@ -15,6 +15,7 @@ namespace SmartMarket.Desktop.Pages.SaleForPage
 
 
         int activeTextboxIndex = 2;
+        string barcode = "";
 
         public SalePage()
         {
@@ -88,6 +89,22 @@ namespace SmartMarket.Desktop.Pages.SaleForPage
             if (activeTextboxIndex == 2)
             {
                 tbCalculator.Text = tbCalculator.Text.ToString() + number;
+            }
+        }
+
+        private void Page_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            barcode = e.Text;
+
+            if (string.IsNullOrEmpty(barcode))
+            {
+                Label lblBarcode = new Label();
+                lblBarcode.Content = barcode.ToString();
+                lblBarcode.FontSize = 16;
+                lblBarcode.HorizontalAlignment = HorizontalAlignment.Center;
+
+                St_product.Children.Add(lblBarcode);
+                barcode = "";
             }
         }
     }
