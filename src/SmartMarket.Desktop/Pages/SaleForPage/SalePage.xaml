@@ -6,7 +6,8 @@
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.SaleForPage"
       mc:Ignorable="d" 
-      Title="SalePage">
+      Title="SalePage"
+      PreviewTextInput="Page_PreviewTextInput">
 
     <Grid 
         Margin="5 0 5 5"
@@ -223,20 +224,21 @@
                     </Border>
 
                     <Border
-                     Grid.Row="2"
-                     Margin="2"
-                     BorderBrush="{DynamicResource BorderColor}"
-                     BorderThickness="1"
-                     CornerRadius="5"
-                     Background="White"
-                     >
+                        Grid.Row="2"
+                        Margin="2"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1"
+                        CornerRadius="5"
+                        Background="White"
+                        >
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="50"/>
                             </Grid.ColumnDefinitions>
 
-                            <Border Grid.Column="0">
+                            <Border 
+                                Grid.Column="0">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="30"/>
@@ -325,16 +327,28 @@
 
                                     </Grid>
 
+                                    <Grid 
+                                        Grid.Row="2"
+                                        Margin="5">
+                                        <ScrollViewer>
+                                            <StackPanel 
+                                                x:Name="St_product">
+                                            </StackPanel>
+                                        </ScrollViewer>
+
+                                    </Grid>
+
                                 </Grid>
+
                             </Border>
 
                             <Border 
                                 Grid.Column="1"
-                                 BorderBrush="{DynamicResource BorderColor}"
-                                 BorderThickness="0.5 0 0 0"
-                                 CornerRadius="5"
-                                 Background="White"
-                                 >
+                                BorderBrush="{DynamicResource BorderColor}"
+                                BorderThickness="0.5 0 0 0"
+                                CornerRadius="5"
+                                Background="White"
+                                >
                                 <StackPanel>
 
                                     <Button
@@ -363,13 +377,13 @@
                     </Border>
 
                     <Border
-                     Grid.Row="3"
-                     BorderBrush="{DynamicResource BorderColor}"
-                     BorderThickness="1"
-                     Margin="2 5"
-                     CornerRadius="5"
-                     Background="White"
-                     >
+                        Grid.Row="3"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1"
+                        Margin="2 5"
+                        CornerRadius="5"
+                        Background="White"
+                        >
 
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -456,11 +470,11 @@
                         </Grid.RowDefinitions>
 
                         <Border
-                         BorderBrush="Black"
-                         BorderThickness="0 0 0 1"
-                         Grid.Column="0"
-                         CornerRadius="5 5 0 0"
-                         Background="White"
+                            BorderBrush="Black"
+                            BorderThickness="0 0 0 1"
+                            Grid.Column="0"
+                            CornerRadius="5 5 0 0"
+                            Background="White"
                          >
                             <DockPanel>
                                 <TextBlock
@@ -636,42 +650,40 @@
                             </Grid.ColumnDefinitions>
 
                             <Button
-                             x:Name="btnClear"
-                             Click="btnClear_Click"
-                             Grid.Column="0"
-                             Style="{DynamicResource BtnSaleKlavituria}"
-                             Content="C"
-                             FontSize="35"
-                             ></Button>
+                                x:Name="btnClear"
+                                Click="btnClear_Click"
+                                Grid.Column="0"
+                                Style="{DynamicResource BtnSaleKlavituria}"
+                                Content="C"
+                                FontSize="35"
+                                ></Button>
                             <Button
-                             x:Name="btnBackKlav"
-                             Click="btnBackKlav_Click"
-                             Grid.Column="1"
-                             Style="{DynamicResource BtnSaleKlBack}"
-                           
-                             >
+                                x:Name="btnBackKlav"
+                                Click="btnBackKlav_Click"
+                                Grid.Column="1"
+                                Style="{DynamicResource BtnSaleKlBack}">
 
                             </Button>
                         </Grid>
 
                         <Button
-                         x:Name="btnReturnProduct"
-                         Click="btnReturnProduct_Click"
-                         Background="White"
-                         Grid.Row="7"
-                         Style="{DynamicResource BtnsaleReturn}"
-                         ></Button>
+                            x:Name="btnReturnProduct"
+                            Click="btnReturnProduct_Click"
+                            Background="White"
+                            Grid.Row="7"
+                            Style="{DynamicResource BtnsaleReturn}"
+                            ></Button>
                         <Button
-                         Grid.Row="8"
-                         Style="{DynamicResource BtnsaleDebt}" 
-                         ></Button>
+                            Grid.Row="8"
+                            Style="{DynamicResource BtnsaleDebt}" 
+                            ></Button>
 
                         <Button
-                         x:Name="btnPay"
-                         Click="btnPay_Click"
-                         Grid.Row="9"
-                         Style="{DynamicResource BtnsalePay}"
-                         ></Button>
+                            x:Name="btnPay"
+                            Click="btnPay_Click"
+                            Grid.Row="9"
+                            Style="{DynamicResource BtnsalePay}"
+                            ></Button>
 
 
                     </Grid>
