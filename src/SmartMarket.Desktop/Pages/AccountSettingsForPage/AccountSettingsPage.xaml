@@ -31,7 +31,7 @@
                 <Grid 
                 >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="230"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="130"/>
                     <ColumnDefinition Width="130"/>
@@ -59,7 +59,7 @@
                     Click="btnAddPosition_Click"
                     Grid.Column="2"
                     Width="120"
-                    Content="Ish o'rni qo'shish"
+                    Content="Lavozim qo'shish"
                     FontSize="14"
                     Style="{DynamicResource Create_Button}"
                     ></Button>

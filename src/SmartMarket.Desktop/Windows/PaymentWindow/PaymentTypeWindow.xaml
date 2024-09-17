@@ -65,30 +65,33 @@
             
             <Button
                 x:Name="BntCash"
-               Content="Naqd"
+                Content="Naqd"
                 Foreground="Black"
                 Style="{DynamicResource BtnPayment}"
-               Background="#CECECE"
+                Background="#CECECE"
                 FontWeight="SemiBold"
+                Click="BntCash_Click"
                 ></Button>
 
 
             <Button
                 x:Name="BntCard"
-              Content="Karta"
+                Content="Karta"
                 Style="{DynamicResource BtnPayment}"
                 Background="#FFD028"
                 FontWeight="SemiBold"
                 Foreground="White"
+                Click="BntCard_Click"
                 ></Button>
 
             <Button
                 x:Name="BntTransferMoney"
                 Content="Pul ko'chirish"
-                 FontWeight="SemiBold"
-                 Foreground="White"
+                FontWeight="SemiBold"
+                Foreground="White"
                 Style="{DynamicResource BtnPayment}"
                 Background="#605C5C"
+                Click="BntTransferMoney_Click"
                 ></Button>
 
             <Button
@@ -98,6 +101,7 @@
                 Foreground="White"
                 Style="{DynamicResource BtnPayment}"
                 Background="#0C58B2"
+                Click="BtnClik_Click"
                 ></Button>
 
 
@@ -107,6 +111,7 @@
                 FontWeight="SemiBold"
                 Style="{DynamicResource BtnPayment}"
                 Background="#FBFBFB"
+                Click="BntClikAndCash_Click"
                 ></Button>
 
         </StackPanel>

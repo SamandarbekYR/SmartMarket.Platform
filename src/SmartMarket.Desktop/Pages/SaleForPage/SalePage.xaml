@@ -675,6 +675,8 @@
                             ></Button>
                         <Button
                             Grid.Row="8"
+                            Name="Nasiya_Button"
+                            Click="Nasiya_Button_Click"
                             Style="{DynamicResource BtnsaleDebt}" 
                             ></Button>
 

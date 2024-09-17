@@ -11,8 +11,11 @@
         ResizeMode="NoResize"
         Title="ClikAndCashWindow"
         WindowState="Maximized"
+        Background="Transparent"
+        AllowsTransparency="True"
         Loaded="Window_Loaded">
     <Grid
+        Background="White"
         Height="300" 
         Width="350">
 
@@ -63,8 +66,9 @@
                 x:Name="tbClik"
                 Height="40"
                 Margin="35 0 35 10"
+                TextChanged="phone_number_TextChanged"
                 Style="{DynamicResource tbPaymentstyle}"
-                Text="250000.0"
+                Text="2500000"
                
                 ></TextBox>
 
@@ -77,8 +81,9 @@
                 x:Name="tbCash"
                 Height="40"
                 Margin="35 0 35 20"
+                TextChanged="phone_number_TextChanged"
                 Style="{DynamicResource tbPaymentstyle}"
-                Text="250000.0"
+                Text="2500000"
                
                 ></TextBox>
 
