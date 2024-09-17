@@ -11,8 +11,11 @@
         ResizeMode="NoResize"
         Title="CashPaymentWindow" 
         WindowState="Maximized"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        Background="Transparent"
+        AllowsTransparency="True">
     <Grid
+        Background="White"
         Height="250" 
         Width="350">
         <Grid.RowDefinitions>
@@ -61,8 +64,8 @@
                 Height="40"
                 Margin="35 5 35 20"
                 Style="{DynamicResource tbPaymentstyle}"
-                Text="250000.0"
-               
+                Text="2500000"
+                TextChanged="phone_number_TextChanged"
                 ></TextBox>
 
             <Button

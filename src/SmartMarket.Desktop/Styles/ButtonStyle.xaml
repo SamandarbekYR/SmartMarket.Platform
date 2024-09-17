@@ -1221,45 +1221,30 @@
 
 
     <Style x:Key="BtnShopDetailsReturn" TargetType="Button">
-        
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border
                         x:Name="B"
-                        Margin="5 3"
+                        Margin="5"
+                        Width="90"
                         CornerRadius="5"
-                        Background="#D80F0F"
-                        >
-                        <DockPanel>
-                            <md:PackIcon Kind="BlockHelper"
-                                         Foreground="White"
-                                         VerticalAlignment="Center"
-                                         Margin="3 0 0 0"
-                                         x:Name="I"
-                                         FontWeight="SemiBold"
-                                         ></md:PackIcon>
-                            <Label
-                                x:Name="L"
-                                Content="Qaytarish"
-                                FontSize="15"
-                                Padding="2 0 0 2"
-                                VerticalContentAlignment="Center"
-                                Foreground="White"
-                                FontWeight="SemiBold"
-                                ></Label>
-                        </DockPanel>
+                        Background="#F61111">
+                        
+                        <Label
+                            x:Name="L"
+                            Content="Qaytarish"
+                            FontSize="15"
+                            HorizontalAlignment="Center"
+                            VerticalContentAlignment="Center"
+                            Foreground="White"
+                            FontWeight="SemiBold"
+                            ></Label>
+                        
                     </Border>
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="B" Property="Background" Value="#B6B6B6"/>
-                            <Setter TargetName="I" Property="Foreground" Value="#D80F0F"/>
-                            <Setter TargetName="L" Property="Foreground" Value="#D80F0F"/>
-                        </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter TargetName="B" Property="Background" Value="#B6B6B6"/>
-                            <Setter TargetName="I" Property="Foreground" Value="#D80F0F"/>
-                            <Setter TargetName="L" Property="Foreground" Value="#D80F0F"/>
+                            <Setter TargetName="B" Property="Background" Value="#C40E0E"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

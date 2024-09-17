@@ -5,156 +5,93 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartMarket.Desktop.Components.ShopDetailsForComponent"
              mc:Ignorable="d" 
-             
-             d:DesignHeight="30" d:DesignWidth="1024">
+             d:DesignHeight="50">
 
     <Border
         CornerRadius="5"
         Background="White"
-        BorderBrush="Black"
-        BorderThickness="1"
-        >
+        Margin="5 4 15 4"
+        BorderBrush="{DynamicResource BorderColor}"
+        BorderThickness="1">
+
         <Grid>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.6*"/>
                 <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1.2*"/>
-                <ColumnDefinition Width="1.2*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.6*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.7*"/>
+                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock
-                    x:Name="tbNumber"
-                    Grid.Column="0"
-                    Text="1"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    FontSize="15"
-                    FontWeight="SemiBold"
-                    ></TextBlock>
-
-            <TextBlock
-                   x:Name="tbTransactionNo"
-                   Grid.Column="1"
-                   Text="240255641235"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   FontSize="15"
-                   FontWeight="SemiBold"
-                   ></TextBlock>
-
-            <TextBlock
-                   x:Name="tbProductName"
-                   Grid.Column="2"
-                   Text="Nestle Kasha 9"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   FontSize="15"
-                   FontWeight="SemiBold"
-                   ></TextBlock>
-
-            <TextBlock
-                  x:Name="tbBarcode"
-                  Grid.Column="3"
-                  Text="456325418974"
-                  VerticalAlignment="Center"
-                  HorizontalAlignment="Center"
-                  FontSize="15"
-                  FontWeight="SemiBold"
-                  ></TextBlock>
-
-            <TextBlock
-                x:Name="tbCategory"
-                  Grid.Column="4"
-                  Text="Kasha"
-                  VerticalAlignment="Center"
-                  HorizontalAlignment="Center"
-                  FontSize="15"
-                  FontWeight="SemiBold"
-                  ></TextBlock>
-
-            <TextBlock
-                x:Name="tbPrice"
-                   Grid.Column="5"
-                   Text="20000.0"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center"
-                   FontSize="15"
-                   FontWeight="SemiBold"
-                   ></TextBlock>
-
-            <TextBlock
-                x:Name="tbDiscount"
-                  Grid.Column="6"
-                  Text="0%"
-                  VerticalAlignment="Center"
-                  HorizontalAlignment="Center"
-                  FontSize="15"
-                  FontWeight="SemiBold"
-                  ></TextBlock>
-            <TextBlock
-                  x:Name="tbCount"
-                  Grid.Column="7"
-                  Text="120"
-                  VerticalAlignment="Center"
-                  HorizontalAlignment="Center"
-                  FontSize="15"
-                  FontWeight="SemiBold"
-                  ></TextBlock>
-
-            <TextBlock
-                x:Name="tbTotalPrice"
-                 Grid.Column="8"
-                 Text="250000.0"
-                 VerticalAlignment="Center"
-                 HorizontalAlignment="Center"
-                 FontSize="15"
-                 FontWeight="SemiBold"
-                 ></TextBlock>
-
-            <TextBlock
-                x:Name="tbWorkerName"
-                Grid.Column="9"
-                Text="Sotuvchi"
-                VerticalAlignment="Center"
+            <Label
+                Name="lb_Count"
+                Grid.Column="0"
+                Content="1"
                 HorizontalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></TextBlock>
+                Style="{DynamicResource Label}"/>
 
-            <TextBlock
-                x:Name="tbKassa"
-                Grid.Column="10"
-                Text="#1"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></TextBlock>
+            <Label
+                Name="lb_Transaction"
+                Grid.Column="1"
+                Content="123456789123"
+                Style="{DynamicResource Label}"/>
 
-            <TextBlock
-                x:Name="tbDate"
-                Grid.Column="11"
-                Text="20/08/2024"
-                VerticalAlignment="Center"
+            <Label
+                Name="lb_Productname"
+                Grid.Column="2"
+                Content="Nestle Kasha"
+                Style="{DynamicResource Label}"/>
+
+            <Label
+                Name="lb_Price"
+                Grid.Column="3"
+                Content="25000"
+                Style="{DynamicResource Label}"/>
+
+            <Label
+                Name="lb_Product_Count"
+                Grid.Column="4"
+                Content="2"
+                Style="{DynamicResource Label}"/>
+
+            <Label
+                Name="lb_Total_Price"
+                Grid.Column="5"
+                Content="50000"
+                Style="{StaticResource Label}"/>
+
+            <Label
+                Name="lb_Discount"
+                Grid.Column="6"
+                Content="0"
                 HorizontalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></TextBlock>
+                Style="{DynamicResource Label}"/>
+
+            <Label
+                Name="lb_Seller"
+                Grid.Column="7"
+                Content="Alisher"
+                Style="{DynamicResource Label}"/>
+
+            <Label
+                Name="lb_Date"
+                Grid.Column="8"
+                Content="01.02.2024"
+                Style="{DynamicResource Label}"/>
 
             <Button
-                Grid.Column="12"
-                Style="{DynamicResource BtnShopDetailsReturn}"
-               
-                ></Button>
+                x:Name="Return_Button"
+                Grid.Column="9"
+                HorizontalAlignment="Right"
+                Click="Return_Button_Click"
+                Style="{DynamicResource BtnShopDetailsReturn}"/>
+
         </Grid>
+
     </Border>
 </UserControl>

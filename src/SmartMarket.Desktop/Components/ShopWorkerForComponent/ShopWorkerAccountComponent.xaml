@@ -8,13 +8,7 @@
              mc:Ignorable="d" 
              Background="Transparent">
 
-    
-
-
-
-
-
-    <!--<Border
+    <Border
         CornerRadius="5"
         BorderThickness="1"
         BorderBrush="Black"
@@ -31,13 +25,13 @@
                 BorderThickness="1"
                 BorderBrush="Black"
                 >
-                <md:PackIcon Kind="Account"
-                             VerticalAlignment="Center"
-                             HorizontalAlignment="Center"
-                             Width="70"
-                             Height="70"
-                             
-                             ></md:PackIcon>
+                <md:PackIcon 
+                    Kind="Account"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    Width="70"
+                    Height="70">
+                </md:PackIcon>
             </Border>
 
             <DockPanel VerticalAlignment="Center">
@@ -49,7 +43,7 @@
                      VerticalAlignment="Center"
                     HorizontalAlignment="Left"
                     ></TextBlock>
-                
+
                 <TextBlock
                     x:Name="tbFirstName"
                     Text="Sherzod"
@@ -182,6 +176,6 @@
                 Style="{DynamicResource BtnSaleKlavituria}"
                 ></Button>
         </StackPanel>
-    </Border>-->
-    
+    </Border>
+
 </UserControl>
