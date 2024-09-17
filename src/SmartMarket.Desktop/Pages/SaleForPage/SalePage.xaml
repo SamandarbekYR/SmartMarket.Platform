@@ -7,7 +7,7 @@
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.SaleForPage"
       mc:Ignorable="d" 
       Title="SalePage"
-      PreviewTextInput="Page_PreviewTextInput">
+      KeyDown="Page_KeyDown">
 
     <Grid 
         Margin="5 0 5 5"
