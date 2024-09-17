@@ -1,0 +1,78 @@
+﻿<Window x:Class="SmartMarket.Desktop.Windows.Partners.PartnersNationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmartMarket.Desktop.Windows.Partners"
+        mc:Ignorable="d"
+        Background="Transparent"
+        AllowsTransparency="True"
+        WindowStyle="None"
+        WindowState="Maximized"
+        Title="PartnersNationWindow"
+        Loaded="Window_Loaded">
+    <Border
+        Width="800"
+        Height="600"
+        BorderThickness="1"
+        BorderBrush="{DynamicResource BorderColor}"
+        Background="White">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+
+            <Grid
+                Background="#04C217"
+                Grid.Row="0">
+                <Label
+                    
+                    Content="Nasiya"
+                    Margin="10 0 0 0"
+                    HorizontalAlignment="Left"
+                    FontSize="20"
+                    Style="{DynamicResource TitleLabel}"/>
+
+                <Button
+                    Margin="0 0 10 0"
+                    x:Name="Close_Button"
+                    HorizontalAlignment="Right"
+                    Click="Close_Button_Click"
+                    Style="{DynamicResource ClosedButton}"/>
+            </Grid>
+
+            <TextBox
+                Grid.Row="1"
+                Margin="180 10 180 0"
+                Style="{DynamicResource search}"/>
+
+            <Button
+                Grid.Row="3"
+                Name="Create_Button"
+                Content="Qo'shish"
+                FontSize="18"
+                Width="120"
+                Height="35"
+                Click="Create_Button_Click"
+                Style="{DynamicResource Create_Button}"/>
+
+            <Border
+                Margin="5 5 1 5"
+                Grid.Row="2">
+
+                <ScrollViewer>
+                    <StackPanel 
+                        x:Name="St_Nationer">
+                    </StackPanel>
+                </ScrollViewer>
+
+            </Border>
+
+        </Grid>
+        
+    </Border>
+</Window>

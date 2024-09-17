@@ -1,4 +1,5 @@
-﻿using SmartMarket.Desktop.Windows.PaymentWindow;
+﻿using SmartMarket.Desktop.Windows.Partners;
+using SmartMarket.Desktop.Windows.PaymentWindow;
 using SmartMarket.Desktop.Windows.ProductsForWindow;
 using System.Timers;
 using System.Windows;
@@ -94,7 +95,18 @@ public partial class SalePage : Page
 
     private void Page_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
     {
-        barcode = e.Text;
+        
+    }
+
+    private void Nasiya_Button_Click(object sender, RoutedEventArgs e)
+    {
+        PartnersNationWindow nationWindow = new PartnersNationWindow();
+        nationWindow.ShowDialog();
+    }
+
+    private void Page_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+    {
+        barcode = e.Key.ToString();
 
         if (string.IsNullOrEmpty(barcode))
         {
@@ -106,10 +118,5 @@ public partial class SalePage : Page
             St_product.Children.Add(lblBarcode);
             barcode = "";
         }
-    }
-
-    private void Nasiya_Button_Click(object sender, RoutedEventArgs e)
-    {
-
     }
 }
