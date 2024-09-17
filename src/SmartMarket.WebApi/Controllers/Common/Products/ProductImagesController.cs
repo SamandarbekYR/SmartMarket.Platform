@@ -3,11 +3,11 @@ using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.DTOs.Products.ProductImage;
 using SmartMarket.Service.Interfaces.Products.ProductImage;
 
-namespace SmartMarket.WebApi.Controllers.Products;
+namespace SmartMarket.WebApi.Controllers.Common.Products;
 
 [Route("api/product-images")]
 [ApiController]
-public class ProductImagesController : ControllerBase
+public class ProductImagesController : BaseController
 {
     private readonly IProductImageService _productImageService;
 

@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.Interfaces.Products.ProductSale;
 
-namespace SmartMarket.WebApi.Controllers.Products;
+namespace SmartMarket.WebApi.Controllers.Common.Products;
 
 [Route("api/product-sales")]
 [ApiController]
-public class ProductSalesController(IProductSaleService productSaleService) : ControllerBase
+public class ProductSalesController(IProductSaleService productSaleService) : BaseController
 {
     private readonly IProductSaleService _productSaleService = productSaleService;
 

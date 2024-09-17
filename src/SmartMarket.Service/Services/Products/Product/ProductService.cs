@@ -8,6 +8,8 @@ using SmartMarket.Service.Common.Validators;
 using System.Net;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.Interfaces.Products.Product;
+using SmartMarket.Service.Common.Utils;
+using SmartMarket.Service.Common.Extentions;
 
 namespace SmartMarket.Service.Services.Products.Product
 {
@@ -64,10 +66,10 @@ namespace SmartMarket.Service.Services.Products.Product
             return await _unitOfWork.Product.Remove(product);
         }
 
-        public async Task<List<ProductDto>> GetAllAsync()
+        public async Task<IEnumerable<ProductDto>> GetAllAsync(PaginationParams @params)
         {
-            var products = await _unitOfWork.Product.GetProductsFullInformationAsync();
-            return _mapper.Map<List<ProductDto>>(products);
+            var products = await _unitOfWork.Product.GetAll().ToPagedListAsync(@params);
+            return products.Select(p => _mapper.Map<ProductDto>(p)).ToList();
         }
 
         public async Task<bool> UpdateAsync(AddProductDto dto, Guid Id)
@@ -102,5 +104,44 @@ namespace SmartMarket.Service.Services.Products.Product
             Random random = new Random();
             return random.Next(10000, 99999).ToString();
         }
+        public async Task<ProductDto> GetProductByBarcodeAsync(string barcode)
+        {
+            var product = await _unitOfWork.Product.GetAll()
+                .FirstOrDefaultAsync(p => p.Barcode == barcode);
+
+            if (product == null)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
+            }
+
+            return _mapper.Map<ProductDto>(product);
+        }
+
+        public async Task<ProductDto> GetProductByPCodeAsync(string pCode)
+        {
+            var product = await _unitOfWork.Product.GetAll()
+                .FirstOrDefaultAsync(p => p.PCode == pCode);
+
+            if (product == null)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
+            }
+
+            return _mapper.Map<ProductDto>(product);
+        }
+
+        public async Task<ProductDto> GetProductByWorkerAsync(Guid workerId)
+        {
+            var product = await _unitOfWork.Product.GetAll()
+                .FirstOrDefaultAsync(p => p.WorkerId == workerId);
+
+            if (product == null)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
+            }
+
+            return _mapper.Map<ProductDto>(product);
+        }
+
     }
 }

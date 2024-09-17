@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.Interfaces.Order;
+using SmartMarket.WebApi.Controllers.Common;
 
-namespace SmartMarket.WebApi.Controllers;
+namespace SmartMarket.WebApi.Controllers.Common.Order;
 
 [Route("api/orders")]
 [ApiController]
-public class OrdersController(IOrderService orderService) : ControllerBase
+public class OrdersController(IOrderService orderService) : BaseController
 {
     private readonly IOrderService _orderService = orderService;
 
