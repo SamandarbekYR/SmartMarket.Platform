@@ -4,6 +4,7 @@ using SmartMarket.Desktop.Windows.ProductsForWindow;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace SmartMarket.Desktop.Pages.SaleForPage;
 
@@ -14,6 +15,8 @@ public partial class SalePage : Page
 {
     private System.Timers.Timer timer = new System.Timers.Timer();
 
+    private DispatcherTimer time;
+
 
     int activeTextboxIndex = 2;
     string barcode = "";
@@ -21,10 +24,21 @@ public partial class SalePage : Page
     public SalePage()
     {
         InitializeComponent();
-        GetData();
+
         timer.Elapsed += vaqt_ketdi;
         timer.Interval = 500;
         timer.Enabled = true;
+
+        time = new DispatcherTimer();
+        time.Interval = TimeSpan.FromMilliseconds(200);
+        time.Tick += Timer_Tick;
+    }
+
+    private void Timer_Tick(object sender, EventArgs e)
+    {
+        timer.Stop();
+        ProcessBarcode(barcode);
+        barcode = "";
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
@@ -95,7 +109,25 @@ public partial class SalePage : Page
 
     private void Page_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
     {
-        
+        barcode += e.Text;
+
+        time.Stop();
+        time.Start();
+    }
+
+    private void ProcessBarcode(string barcode)
+    {
+        if (!string.IsNullOrEmpty(barcode))
+        {
+            Label lblBarcode = new Label();
+            lblBarcode.Content = barcode.ToString();
+            lblBarcode.FontSize = 16;
+            lblBarcode.HorizontalAlignment = HorizontalAlignment.Center;
+
+            St_product.Children.Add(lblBarcode);
+
+            scrollViewer.ScrollToEnd();
+        }
     }
 
     private void Nasiya_Button_Click(object sender, RoutedEventArgs e)
@@ -104,19 +136,9 @@ public partial class SalePage : Page
         nationWindow.ShowDialog();
     }
 
-    private void Page_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+    private void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        barcode = e.Key.ToString();
-
-        if (string.IsNullOrEmpty(barcode))
-        {
-            Label lblBarcode = new Label();
-            lblBarcode.Content = barcode.ToString();
-            lblBarcode.FontSize = 16;
-            lblBarcode.HorizontalAlignment = HorizontalAlignment.Center;
-
-            St_product.Children.Add(lblBarcode);
-            barcode = "";
-        }
+        GetData();
+        St_product.Focus();
     }
 }

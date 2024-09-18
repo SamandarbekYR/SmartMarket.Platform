@@ -105,7 +105,7 @@
                 Content="Saqlash"
                 FontSize="17"
                 Height="40"
-                Width="110"
+                Width="170"
                 Click="Partner_Create_Button_Click"
                 Style="{DynamicResource Create_Button}"/>
 
