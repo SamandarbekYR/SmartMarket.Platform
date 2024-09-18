@@ -7,7 +7,8 @@
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.SaleForPage"
       mc:Ignorable="d" 
       Title="SalePage"
-      KeyDown="Page_KeyDown">
+      Loaded="Page_Loaded"
+      PreviewTextInput="Page_PreviewTextInput">
 
     <Grid 
         Margin="5 0 5 5"
@@ -330,8 +331,13 @@
                                     <Grid 
                                         Grid.Row="2"
                                         Margin="5">
-                                        <ScrollViewer>
+
+                                        
+
+                                        <ScrollViewer
+                                            x:Name="scrollViewer">
                                             <StackPanel 
+                                                Focusable="True"
                                                 x:Name="St_product">
                                             </StackPanel>
                                         </ScrollViewer>
