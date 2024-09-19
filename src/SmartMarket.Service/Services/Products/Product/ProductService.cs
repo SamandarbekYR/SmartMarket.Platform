@@ -151,5 +151,4 @@ public class ProductService(IUnitOfWork unitOfWork,
             .ToPagedListAsync(@params);
         return products.Select(p => _mapper.Map<ProductDto>(p)).ToList();
     }
-
 }
