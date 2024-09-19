@@ -45,6 +45,11 @@ namespace SmartMarket.Service.Services.PartnersCompany.ContrAgentPayment
                 throw new StatusCodeException(HttpStatusCode.NotFound, "Counteragent Payment not found.");
             }
 
+            if (contrAgentPayment.TotalDebt > 0)
+            {
+                throw new StatusCodeException(HttpStatusCode.BadRequest, "Counteragent Payment has outstanding debt and cannot be deleted.");
+            }
+
             return await _unitOfWork.ContrAgentPayment.Remove(contrAgentPayment);
         }
 

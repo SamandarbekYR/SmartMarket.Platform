@@ -80,8 +80,24 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
         {
             try
             {
-                var product = await _productService.GetProductByWorkerAsync(workerId);
+                var product = await _productService.GetProductByWorkerIdAsync(workerId);
                 return Ok(product);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+        public async Task<IActionResult> SearchProductsAsync([FromQuery] string searchTerm, [FromQuery] PaginationParams @params)
+        {
+            try
+            {
+                var products = await _productService.SearchProductsAsync(searchTerm, @params);
+                return Ok(products);
             }
             catch (StatusCodeException ex)
             {
