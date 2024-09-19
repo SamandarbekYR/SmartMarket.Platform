@@ -60,18 +60,12 @@
                                 <md:PackIcon 
                                     Kind="Search"
                                     VerticalAlignment="Center"
-                                    Margin="5 0 0 0"
-                                    />
+                                    Margin="5 0 0 0"/>
 
-                                <TextBox
+                                <ScrollViewer
                                     Margin="0 0 0 2"
-                                    VerticalAlignment="Bottom"
-                                    BorderThickness="0"
-                                    FontSize="15"
-                                    Background="Transparent"
-                                    Grid.Column="1"/>
-
-                                <ScrollViewer x:Name="PART_ContentHost" />
+                                    Grid.Column="1"
+                                    x:Name="PART_ContentHost" />
 
                             </Grid>
                             

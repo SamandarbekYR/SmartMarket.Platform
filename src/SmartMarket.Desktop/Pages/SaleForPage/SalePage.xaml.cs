@@ -20,6 +20,7 @@ public partial class SalePage : Page
 
     int activeTextboxIndex = 2;
     string barcode = "";
+    string barcodes = "";
 
     public SalePage()
     {
@@ -39,6 +40,7 @@ public partial class SalePage : Page
         timer.Stop();
         ProcessBarcode(barcode);
         barcode = "";
+        barcodes = "";
     }
 
     private void Button_Click(object sender, RoutedEventArgs e)
@@ -109,7 +111,15 @@ public partial class SalePage : Page
 
     private void Page_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
     {
-        barcode += e.Text;
+        barcodes += e.Text;
+
+        if (e.Text == "\r")
+        {
+            if (barcodes.Length >= 2)
+            {
+                barcode = barcodes.Substring(0, barcodes.Length - 2);
+            }
+        }
 
         time.Stop();
         time.Start();
