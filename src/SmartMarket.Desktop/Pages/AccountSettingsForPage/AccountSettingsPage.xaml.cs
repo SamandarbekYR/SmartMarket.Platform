@@ -74,5 +74,10 @@ namespace SmartMarket.Desktop.Pages.AccountSettingsForPage
             PositionCreateWindow positionCreateWindow = new PositionCreateWindow(); 
             positionCreateWindow.ShowDialog();
         }
+
+        private void btnAddPosition_Click_1(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

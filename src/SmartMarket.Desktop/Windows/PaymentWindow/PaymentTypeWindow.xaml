@@ -32,6 +32,7 @@
                        Foreground="White"
                        VerticalAlignment="Center"
                        FontSize="20"
+                       Margin="10 0 0 0"
                        FontWeight="SemiBold"
                        ></TextBlock>
 

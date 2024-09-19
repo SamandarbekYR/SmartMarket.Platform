@@ -20,7 +20,7 @@
 
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="45"/>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="70"/>
@@ -34,7 +34,7 @@
                     Content="Nasiya"
                     Margin="10 0 0 0"
                     HorizontalAlignment="Left"
-                    FontSize="20"
+                    FontSize="22"
                     Style="{DynamicResource TitleLabel}"/>
 
                 <Button
@@ -55,10 +55,24 @@
                 Name="Create_Button"
                 Content="Qo'shish"
                 FontSize="18"
-                Width="120"
+                Width="150"
                 Height="35"
+                Margin="50 0 0 0"
                 Click="Create_Button_Click"
+                HorizontalAlignment="Left"
                 Style="{DynamicResource Create_Button}"/>
+
+            <Button
+                Grid.Row="3"
+                Name="Save_Button"
+                Content="Saqlash"
+                FontSize="18"
+                Width="150"
+                Height="35"
+                Margin="0 0 50 0"
+                Click="Save_Button_Click"
+                HorizontalAlignment="Right"
+                Style="{DynamicResource Save_Button}"/>
 
             <Border
                 Margin="5 5 1 5"

@@ -62,22 +62,19 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="2.2*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0"
-                      Content="Firma nomi"
-                      FontWeight="SemiBold"
-                      VerticalAlignment="Center"
-                      FontSize="20"/>
-                    <Border Grid.Column="1"
-                       Margin="3"
-                       BorderThickness="1"
-                       BorderBrush="{DynamicResource BorderColor}"
-                       CornerRadius="5">
-                        <TextBox x:Name="txtCompanyName"
-                            Margin="3 0"
-                            FontSize="20"
-                           BorderThickness="0"
-                            Foreground="#656161"/>
-                    </Border>
+                    <Label 
+                        Grid.Column="0"
+                        Content="Firma nomi"
+                        FontWeight="SemiBold"
+                        VerticalAlignment="Center"
+                        FontSize="20"/>
+                    <TextBox
+                        Grid.Column="1"
+                        Name="txtCompanyName"
+                        FontSize="18"
+                        Margin="2 5"
+                        FontWeight="SemiBold"
+                        Style="{DynamicResource Create_TextBox_Style}"/>
                 </Grid>
 
                 <Grid Margin="0 5">
@@ -90,17 +87,16 @@
                       FontWeight="SemiBold"
                       VerticalAlignment="Center"
                       FontSize="20"/>
-                    <Border Grid.Column="1"
-                       Margin="3"
-                       BorderThickness="1"
-                       BorderBrush="{DynamicResource BorderColor}"
-                       CornerRadius="5">
-                        <TextBox x:Name="txtPhoneNumber"
-                            Margin="3 0"
-                            FontSize="20"
-                           BorderThickness="0"
-                            Foreground="#656161"/>
-                    </Border>
+                    
+                    <TextBox 
+                        Grid.Column="1"
+                        x:Name="txtPhoneNumber"
+                        FontSize="18"
+                        Margin="2 5"
+                        MaxLength="9"
+                        FontWeight="SemiBold"
+                        TextChanged="phone_number_TextChanged"
+                        Style="{DynamicResource Phone_Number_TextBox_Style}"/>
                 </Grid>
                 <Grid Margin="0 5">
                     <Grid.ColumnDefinitions>
@@ -119,7 +115,7 @@
                        BorderBrush="{DynamicResource BorderColor}"
                        CornerRadius="5">
                         <TextBox x:Name="txtDescribtion"
-                            Margin="3 0"
+                            Margin="5 0"
                             FontSize="20"
                            BorderThickness="0"
                            

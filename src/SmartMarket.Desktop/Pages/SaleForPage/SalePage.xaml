@@ -512,15 +512,16 @@
                          Background="White"
                          >
                             <TextBox
-                             x:Name="tbCalculator"
-                             BorderThickness="0"
-                             VerticalContentAlignment="Center"
-                             TextAlignment="Right"
-                             FontSize="25"
-                             GotFocus="TextBox_GotFocus"
-                             FontWeight="DemiBold"
-                             Margin="5 0 10 0"
-                             Uid="2"
+                                x:Name="tbCalculator"
+                                BorderThickness="0"
+                                VerticalContentAlignment="Center"
+                                TextAlignment="Right"
+                                FontSize="25"
+                                GotFocus="TextBox_GotFocus"
+                                FontWeight="DemiBold"
+                                Margin="5 0 10 0"
+                                Uid="2"
+                                IsReadOnly="True"
                              ></TextBox>
                         </Border>
 
@@ -717,28 +718,38 @@
                     </Grid.ColumnDefinitions>
 
                     <Button
-                     Grid.Column="0"
-                     Content="Harajat"
-                     FontSize="20"
-                     Style="{DynamicResource BtnSaleSettings}"/>
+                        Grid.Column="0"
+                        Content="Harajat"
+                        FontSize="20"
+                        Name="Harajat"
+                        Click="Harajat_Click"
+                        Style="{DynamicResource BtnSaleSettings}"/>
                     <Button
-                     Grid.Column="1"
-                     Content="Hamkorlar"
-                     FontSize="20"
-                     Style="{DynamicResource BtnSaleSettings}"/>
+                        Name="Hamkorlar"
+                        Grid.Column="1"
+                        Content="Hamkorlar"
+                        FontSize="20"
+                        Click="Hamkorlar_Click"
+                        Style="{DynamicResource BtnSaleSettings}"/>
                     <Button
-                     Grid.Column="2"
-                     Content="Sozlamalar"
-                     FontSize="20"
-                     Style="{DynamicResource BtnSaleSettings}"/>
+                        Name="Sozlamalar"
+                        Grid.Column="2"
+                        Content="Sozlamalar"
+                        FontSize="20"
+                        Click="Sozlamalar_Click"
+                        Style="{DynamicResource BtnSaleSettings}"/>
                     <Button
-                     Grid.Column="3"
-                     Content="Sotuv tarixi"
-                     FontSize="20"
-                     Style="{DynamicResource BtnSaleSettings}"/>
+                        Name="Sotuv_Tarixi"
+                        Grid.Column="3"
+                        Content="Sotuv tarixi"
+                        FontSize="20"
+                        Click="Sotuv_Tarixi_Click"
+                        Style="{DynamicResource BtnSaleSettings}"/>
                     <Button
-                     Grid.Column="4"
-                     Style="{DynamicResource BtnSaleLogout}"/>
+                        x:Name="Log_Out"
+                        Grid.Column="4"
+                        Click="Log_Out_Click"
+                        Style="{DynamicResource BtnSaleLogout}"/>
 
 
                 </Grid>

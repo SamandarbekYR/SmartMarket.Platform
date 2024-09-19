@@ -26,10 +26,12 @@
         </Grid.RowDefinitions>
         <DockPanel Grid.Row="0" Background="#04C217">
 
-            <TextBlock Text="To'lov Clik va Naqd"
+            <TextBlock 
+                Text="To'lov Click va Naqd"
                 Foreground="White"
                 VerticalAlignment="Center"
                 FontSize="20"
+                Margin="10 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
 

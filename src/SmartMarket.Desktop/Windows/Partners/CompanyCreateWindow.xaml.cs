@@ -5,6 +5,8 @@ using System.Windows;
 using System.Windows.Input;
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 using System.Windows.Interop;
+using System.Text.RegularExpressions;
+using System.Windows.Controls;
 
 namespace SmartMarket.Desktop.Windows.Partners
 {
@@ -70,6 +72,20 @@ namespace SmartMarket.Desktop.Windows.Partners
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             EnableBlur();
+        }
+
+        private void phone_number_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            string text = textBox.Text;
+            string filteredText = Regex.Replace(text, "[^0-9]+", "");
+
+            if (text != filteredText)
+            {
+                int caretIndex = textBox.CaretIndex;
+                textBox.Text = filteredText;
+                textBox.CaretIndex = caretIndex > 0 ? caretIndex - 1 : 0;
+            }
         }
     }
 }

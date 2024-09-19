@@ -1,4 +1,5 @@
-﻿using SmartMarket.Desktop.Windows.Partners;
+﻿using SmartMarket.Desktop.Windows.Expenses;
+using SmartMarket.Desktop.Windows.Partners;
 using SmartMarket.Desktop.Windows.PaymentWindow;
 using SmartMarket.Desktop.Windows.ProductsForWindow;
 using System.Timers;
@@ -150,5 +151,31 @@ public partial class SalePage : Page
     {
         GetData();
         St_product.Focus();
+    }
+
+    private void Harajat_Click(object sender, RoutedEventArgs e)
+    {
+        ExpensesWindow expensesWindow = new ExpensesWindow();
+        expensesWindow.ShowDialog();
+    }
+
+    private void Hamkorlar_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void Sozlamalar_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void Sotuv_Tarixi_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void Log_Out_Click(object sender, RoutedEventArgs e)
+    {
+
     }
 }
