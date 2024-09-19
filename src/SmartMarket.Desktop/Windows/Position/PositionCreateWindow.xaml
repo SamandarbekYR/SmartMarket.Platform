@@ -14,15 +14,19 @@
         Loaded="Window_Loaded"
         Title="PositionCreateWindow" >
 
-    <Grid
-        Height="200" Width="350">
+    <Border
+        BorderBrush="Black"
+        Height="200" 
+        Width="350"
+        BorderThickness="1 0 1 1">
+        
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Border Grid.Row="0"
-             Background="#04C217"
-             CornerRadius="8 8 0 0">
+             Background="#04C217">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition  Width="2*"/>
@@ -50,10 +54,7 @@
             </Grid>
         </Border>
         <Border Grid.Row="1"
-             Background="White"
-                BorderBrush="Black"
-                BorderThickness="1 0 1 1"
-             CornerRadius="0 0 8 8">
+             Background="White">
             <StackPanel Margin="15 ">
 
                 <Grid Margin="0 5">
@@ -99,5 +100,6 @@
         </Border>
     </Grid>
 
+    </Border>
 
 </Window>

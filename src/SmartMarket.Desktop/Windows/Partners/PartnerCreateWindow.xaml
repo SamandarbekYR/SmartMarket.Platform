@@ -25,12 +25,16 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
-
+            <Border
+                CornerRadius="5 5 0 0"
+                Grid.Row="0"
+                Background="#1EB7E8"/>
+            
             <Label
                 Grid.Row="0"
                 Content="Hamkor yaratish"
                 HorizontalAlignment="Center"
-                FontSize="20"
+                FontSize="22"
                 Style="{DynamicResource TitleLabel}"/>
 
             <Button

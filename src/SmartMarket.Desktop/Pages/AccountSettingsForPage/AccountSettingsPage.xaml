@@ -61,7 +61,7 @@
                     Width="120"
                     Content="Lavozim qo'shish"
                     FontSize="14"
-                    Style="{DynamicResource Create_Button}"
+                    Style="{DynamicResource Save_Button}"
                     ></Button>
                     
                 <Button

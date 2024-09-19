@@ -64,4 +64,9 @@ public partial class PartnersNationWindow : Window
             St_Nationer.Children.Add(partnerNationComponent);
         }
     }
+
+    private void Save_Button_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
 }

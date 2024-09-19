@@ -26,6 +26,11 @@
                 <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
 
+            <Border
+                CornerRadius="5 5 0 0"
+                Grid.Row="0"
+                Background="#1EB7E8"/>
+            
             <Label
                 Grid.Row="0"
                 Content="Hamkorni yangilash"
@@ -105,7 +110,7 @@
                 Content="Saqlash"
                 FontSize="17"
                 Height="40"
-                Width="110"
+                Width="170"
                 Click="Partner_Update_Button_Click"
                 Style="{DynamicResource Create_Button}"/>
 
