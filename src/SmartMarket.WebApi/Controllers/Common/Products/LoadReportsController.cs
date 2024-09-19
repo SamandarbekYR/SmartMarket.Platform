@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.DTOs.Products.LoadReport;
 using SmartMarket.Service.Interfaces.Products.LoadReport;
 
-namespace SmartMarket.WebApi.Controllers.Products;
+namespace SmartMarket.WebApi.Controllers.Common.Products;
 
 [Route("api/load-reports")]
 [ApiController]
-public class LoadReportsController(ILoadReportService loadReportService) : ControllerBase
+public class LoadReportsController(ILoadReportService loadReportService) : BaseController
 {
     private readonly ILoadReportService _loadReportService = loadReportService;
 

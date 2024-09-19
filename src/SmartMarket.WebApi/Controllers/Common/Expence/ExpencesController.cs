@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.DTOs.Expence;
 using SmartMarket.Service.Interfaces.Expence;
+using SmartMarket.WebApi.Controllers.Common;
 
-namespace SmartMarket.WebApi.Controllers;
+namespace SmartMarket.WebApi.Controllers.Common.Expence;
 
 [Route("api/expences")]
 [ApiController]
-public class ExpencesController(IExpenceService expenceService) : ControllerBase
+public class ExpencesController(IExpenceService expenceService) : BaseController
 {
     private readonly IExpenceService _expenceService = expenceService;
 

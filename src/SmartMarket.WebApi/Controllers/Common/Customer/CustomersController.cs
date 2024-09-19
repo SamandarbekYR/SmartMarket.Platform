@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.DTOs.Customer;
 using SmartMarket.Service.Interfaces.Customer;
 
-namespace SmartMarket.WebApi.Controllers;
+namespace SmartMarket.WebApi.Controllers.Common.Customer;
 
 [Route("api/customers")]
 [ApiController]

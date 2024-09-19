@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.DTOs.Transaction;
 using SmartMarket.Service.Interfaces.Transaction;
+using SmartMarket.WebApi.Controllers.Common;
 
-namespace SmartMarket.WebApi.Controllers;
+namespace SmartMarket.WebApi.Controllers.Common.Transaction;
 
 [Route("api/transactions")]
 [ApiController]
-public class TransactionsController(ITransactionService transactionService) : ControllerBase
+public class TransactionsController(ITransactionService transactionService) : BaseController
 {
     private readonly ITransactionService _transactionService = transactionService;
 

@@ -3,12 +3,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.DTOs.PayDesks;
 using SmartMarket.Service.Interfaces.PayDesks;
+using SmartMarket.WebApi.Controllers.Common;
 
-namespace SmartMarket.WebApi.Controllers;
+namespace SmartMarket.WebApi.Controllers.Common.PayDesk;
 
 [Route("api/pay-desks")]
 [ApiController]
-public class PayDesksController(IPayDeskService payDeskService) : ControllerBase
+public class PayDesksController(IPayDeskService payDeskService) : BaseController
 {
     private readonly IPayDeskService _payDeskService = payDeskService;
 
