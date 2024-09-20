@@ -50,6 +50,7 @@
                         VerticalAlignment="Center"
                         Margin="15 0 0 0"
                         FontSize="20"
+                        Foreground="White"
                         FontWeight="DemiBold"
                         ></TextBlock>
 
@@ -105,6 +106,7 @@
                     <Button
                         Grid.Column="5"
                         Click="btnClose_Click"
+                        Foreground="White"
                         Style="{DynamicResource bntmainclose}"/>
 
                 </Grid>
