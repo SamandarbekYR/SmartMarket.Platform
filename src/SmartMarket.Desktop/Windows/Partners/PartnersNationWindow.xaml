@@ -15,6 +15,7 @@
         Width="800"
         Height="600"
         BorderThickness="1"
+        CornerRadius="8"
         BorderBrush="{DynamicResource BorderColor}"
         Background="White">
 
@@ -26,24 +27,27 @@
                 <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
 
-            <Grid
-                Background="#04C217"
-                Grid.Row="0">
-                <Label
-                    
-                    Content="Nasiya"
-                    Margin="10 0 0 0"
-                    HorizontalAlignment="Left"
-                    FontSize="22"
-                    Style="{DynamicResource TitleLabel}"/>
+            <Border
+                Background="Red"
+                Grid.Row="0"
+                CornerRadius="8 8 0 0"/>
+            
+            <Label
+                Grid.Row="0"
+                Content="Nasiya"
+                Margin="10 0 0 0"
+                HorizontalAlignment="Left"
+                FontSize="22"
+                Foreground="White"
+                Style="{DynamicResource TitleLabel}"/>
 
-                <Button
-                    Margin="0 0 10 0"
-                    x:Name="Close_Button"
-                    HorizontalAlignment="Right"
-                    Click="Close_Button_Click"
-                    Style="{DynamicResource ClosedButton}"/>
-            </Grid>
+            <Button
+                Grid.Row="0"
+                Margin="0 0 10 0"
+                x:Name="Close_Button"
+                HorizontalAlignment="Right"
+                Click="Close_Button_Click"
+                Style="{DynamicResource ClosedButton}"/>
 
             <TextBox
                 Grid.Row="1"
