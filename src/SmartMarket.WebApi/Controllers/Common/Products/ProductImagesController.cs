@@ -7,7 +7,7 @@ namespace SmartMarket.WebApi.Controllers.Common.Products;
 
 [Route("api/product-images")]
 [ApiController]
-public class ProductImagesController : ControllerBase
+public class ProductImagesController : BaseController
 {
     private readonly IProductImageService _productImageService;
 

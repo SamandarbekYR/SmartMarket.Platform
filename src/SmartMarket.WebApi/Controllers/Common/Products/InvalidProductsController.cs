@@ -8,7 +8,7 @@ namespace SmartMarket.WebApi.Controllers.Common.Products;
 
 [Route("api/invalid-products")]
 [ApiController]
-public class InvalidProductsController(IInvalidProductService invalidProductService) : ControllerBase
+public class InvalidProductsController(IInvalidProductService invalidProductService) : BaseController
 {
     private readonly IInvalidProductService _invalidProductService = invalidProductService;
 

@@ -6,7 +6,7 @@ namespace SmartMarket.WebApi.Controllers.Common.Products;
 
 [Route("api/debtors")]
 [ApiController]
-public class DebtorsController(IDebtorsService debtorsService) : ControllerBase
+public class DebtorsController(IDebtorsService debtorsService) : BaseController
 {
     private readonly IDebtorsService _debtorService = debtorsService;
 

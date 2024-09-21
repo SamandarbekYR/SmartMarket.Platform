@@ -8,7 +8,7 @@ namespace SmartMarket.WebApi.Controllers.Common.Products;
 
 [Route("api/replace-products")]
 [ApiController]
-public class ReplaceProductsController(IReplaceProductService replaceProductService) : ControllerBase
+public class ReplaceProductsController(IReplaceProductService replaceProductService) : BaseController
 {
     private readonly IReplaceProductService _replaceProductService = replaceProductService;
 

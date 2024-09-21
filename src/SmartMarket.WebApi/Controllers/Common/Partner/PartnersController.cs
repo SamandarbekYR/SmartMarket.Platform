@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.DTOs.Partner;
 using SmartMarket.Service.Interfaces.Partner;
+using SmartMarket.WebApi.Controllers.Common;
 
-namespace SmartMarket.WebApi.Controllers;
+namespace SmartMarket.WebApi.Controllers.Common.Partner;
 
 [Route("api/partners")]
 [ApiController]
-public class PartnersController(IPartnerService partnerService) : ControllerBase
+public class PartnersController(IPartnerService partnerService) : BaseController
 {
     private readonly IPartnerService _partnerService = partnerService;
 

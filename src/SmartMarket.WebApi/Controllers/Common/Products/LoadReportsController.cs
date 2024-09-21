@@ -8,7 +8,7 @@ namespace SmartMarket.WebApi.Controllers.Common.Products;
 
 [Route("api/load-reports")]
 [ApiController]
-public class LoadReportsController(ILoadReportService loadReportService) : ControllerBase
+public class LoadReportsController(ILoadReportService loadReportService) : BaseController
 {
     private readonly ILoadReportService _loadReportService = loadReportService;
 

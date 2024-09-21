@@ -8,7 +8,7 @@ namespace SmartMarket.WebApi.Controllers.Common.Products;
 
 [Route("api/debt-payments")]
 [ApiController]
-public class DebtPaymentsController(IDebtPaymentService debtPaymentService) : ControllerBase
+public class DebtPaymentsController(IDebtPaymentService debtPaymentService) : BaseController
 {
     private readonly IDebtPaymentService _debtPaymentService = debtPaymentService;
 

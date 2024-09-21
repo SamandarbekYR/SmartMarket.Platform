@@ -8,7 +8,7 @@ namespace SmartMarket.WebApi.Controllers.Common.Products;
 
 [Route("api/product-sales")]
 [ApiController]
-public class ProductSalesController(IProductSaleService productSaleService) : ControllerBase
+public class ProductSalesController(IProductSaleService productSaleService) : BaseController
 {
     private readonly IProductSaleService _productSaleService = productSaleService;
 
