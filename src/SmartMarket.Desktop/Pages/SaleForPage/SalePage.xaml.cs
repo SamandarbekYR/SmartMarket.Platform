@@ -2,6 +2,7 @@
 using SmartMarket.Desktop.Windows.Partners;
 using SmartMarket.Desktop.Windows.PaymentWindow;
 using SmartMarket.Desktop.Windows.ProductsForWindow;
+using SmartMarket.Desktop.Windows.Sales;
 using SmartMarket.Desktop.Windows.Settings;
 using System.Timers;
 using System.Windows;
@@ -174,7 +175,8 @@ public partial class SalePage : Page
 
     private void Sotuv_Tarixi_Click(object sender, RoutedEventArgs e)
     {
-
+        SaleHistoryWindow saleHistoryWindow = new SaleHistoryWindow();
+        saleHistoryWindow.ShowDialog();
     }
 
     private void Log_Out_Click(object sender, RoutedEventArgs e)
