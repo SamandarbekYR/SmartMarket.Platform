@@ -127,8 +127,9 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="80"/>
-                        <ColumnDefinition Width="80"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="40"/>
                     </Grid.ColumnDefinitions>
 
                     <Label

@@ -161,7 +161,8 @@ public partial class SalePage : Page
 
     private void Hamkorlar_Click(object sender, RoutedEventArgs e)
     {
-
+        PartnersWindow partnersWindow = new PartnersWindow();
+        partnersWindow.ShowDialog();
     }
 
     private void Sozlamalar_Click(object sender, RoutedEventArgs e)

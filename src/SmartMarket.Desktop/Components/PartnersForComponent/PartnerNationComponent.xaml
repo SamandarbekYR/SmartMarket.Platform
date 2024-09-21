@@ -15,7 +15,8 @@
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -43,6 +44,12 @@
                 Name="lb_Phonenumber"
                 Grid.Column="3"
                 Content="+998917727005"
+                Style="{DynamicResource TitleLabel}"/>
+
+            <Label
+                Name="lb_Nation"
+                Grid.Column="4"
+                Content="5000000"
                 Style="{DynamicResource TitleLabel}"/>
 
         </Grid>

@@ -139,8 +139,8 @@
     </Style>
 
     <Style x:Key="ClosedButton" TargetType="{x:Type Button}">
-        <Setter Property="Height" Value="24"/>
-        <Setter Property="Width" Value="24"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="30"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Margin" Value="10"/>
@@ -148,13 +148,15 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border 
-                    x:Name="button"
-                    Background="#FF1000"
-                    CornerRadius="25"
-                    >
+                        x:Name="button"
+                        Background="#DA0F00"
+                        BorderThickness="0.2"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        CornerRadius="25">
+                        
                         <Path Fill="White" Data="{DynamicResource x}"
-                          Height="10"
-                          Width="10"
+                          Height="15"
+                          Width="15"
                           Stretch="Uniform"/>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -162,7 +164,7 @@
                             <Setter TargetName="button" Property="Background" Value="#C70001"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="False">
-                            <Setter TargetName="button" Property="Background" Value="#FF1000"/>
+                            <Setter TargetName="button" Property="Background" Value="#DA0F00"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
                             <Setter TargetName="button" Property="Background" Value="#7E0000"/>

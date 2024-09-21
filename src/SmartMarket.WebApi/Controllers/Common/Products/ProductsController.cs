@@ -5,6 +5,7 @@ using SmartMarket.Service.Common.Exceptions;
 using SmartMarket.Service.Common.Utils;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.Interfaces.Products.Product;
+using SmartMarket.WebApi.Controllers.Common;
 
 namespace SmartMarket.WebApi.Controllers.Common.Products
 {

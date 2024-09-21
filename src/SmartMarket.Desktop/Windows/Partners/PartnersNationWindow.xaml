@@ -15,6 +15,7 @@
         Width="800"
         Height="600"
         BorderThickness="1"
+        CornerRadius="8"
         BorderBrush="{DynamicResource BorderColor}"
         Background="White">
 
@@ -22,36 +23,78 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="45"/>
                 <RowDefinition Height="50"/>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="70"/>
             </Grid.RowDefinitions>
 
-            <Grid
-                Background="#04C217"
-                Grid.Row="0">
-                <Label
-                    
-                    Content="Nasiya"
-                    Margin="10 0 0 0"
-                    HorizontalAlignment="Left"
-                    FontSize="22"
-                    Style="{DynamicResource TitleLabel}"/>
+            <Border
+                Background="Red"
+                Grid.Row="0"
+                CornerRadius="8 8 0 0"/>
+            
+            <Label
+                Grid.Row="0"
+                Content="Nasiya"
+                Margin="10 0 0 0"
+                HorizontalAlignment="Left"
+                FontSize="22"
+                Foreground="White"
+                Style="{DynamicResource TitleLabel}"/>
 
-                <Button
-                    Margin="0 0 10 0"
-                    x:Name="Close_Button"
-                    HorizontalAlignment="Right"
-                    Click="Close_Button_Click"
-                    Style="{DynamicResource ClosedButton}"/>
-            </Grid>
+            <Button
+                Grid.Row="0"
+                Margin="0 0 10 0"
+                x:Name="Close_Button"
+                HorizontalAlignment="Right"
+                Click="Close_Button_Click"
+                Style="{DynamicResource ClosedButton}"/>
 
             <TextBox
                 Grid.Row="1"
                 Margin="180 10 180 0"
                 Style="{DynamicResource search}"/>
 
+            <Grid
+                Margin="10 0 20 0"
+                Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label
+                    Content="No"
+                    HorizontalAlignment="Center"
+                    Style="{DynamicResource Label}"/>
+
+                <Label
+                    Grid.Column="1"
+                    Content="Ismi"
+                    Style="{DynamicResource Label}"/>
+
+                <Label
+                    Grid.Column="2"
+                    Content="Fameliya"
+                    Style="{DynamicResource Label}"/>
+
+                <Label
+                    Grid.Column="3"
+                    Content="Telefon raqami"
+                    Style="{DynamicResource Label}"/>
+
+                <Label
+                    Grid.Column="4"
+                    Content="Qarz miqdori"
+                    Style="{DynamicResource Label}"/>
+
+            </Grid>
+
             <Button
-                Grid.Row="3"
+                Grid.Row="4"
                 Name="Create_Button"
                 Content="Qo'shish"
                 FontSize="18"
@@ -63,7 +106,7 @@
                 Style="{DynamicResource Create_Button}"/>
 
             <Button
-                Grid.Row="3"
+                Grid.Row="4"
                 Name="Save_Button"
                 Content="Saqlash"
                 FontSize="18"
@@ -76,7 +119,7 @@
 
             <Border
                 Margin="5 5 1 5"
-                Grid.Row="2">
+                Grid.Row="3">
 
                 <ScrollViewer>
                     <StackPanel 
