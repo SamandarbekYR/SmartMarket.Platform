@@ -15,11 +15,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartMarket.Service", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartMarket.Desktop", "src\SmartMarket.Desktop\SmartMarket.Desktop.csproj", "{9E5B2442-A741-433A-9EAA-59BAFCF5DF22}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartMarketDesktop.ViewModels", "src\SmartMarketDesktop.ViewModels\SmartMarketDesktop.ViewModels.csproj", "{61E5E85B-85BE-44B5-B955-6D15395BFADB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartMarketDesktop.ViewModels", "src\SmartMarketDesktop.ViewModels\SmartMarketDesktop.ViewModels.csproj", "{61E5E85B-85BE-44B5-B955-6D15395BFADB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartMarketDeskop.Integrated", "src\SmartMarketDeskop.Integrated\SmartMarketDeskop.Integrated.csproj", "{50C4FC09-8CC5-4CB1-BBEE-7E670DB8CC91}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartMarketDeskop.Integrated", "src\SmartMarketDeskop.Integrated\SmartMarketDeskop.Integrated.csproj", "{50C4FC09-8CC5-4CB1-BBEE-7E670DB8CC91}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartMarketDesktop.DTOs", "src\SmartMarketDesktop.DTOs\SmartMarketDesktop.DTOs.csproj", "{66E690C0-7D35-468C-98B5-5B68E0EA7A56}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartMarketDesktop.DTOs", "src\SmartMarketDesktop.DTOs\SmartMarketDesktop.DTOs.csproj", "{66E690C0-7D35-468C-98B5-5B68E0EA7A56}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartMarket.Desktop.Tablet", "src\SmartMarket.Desktop.Tablet\SmartMarket.Desktop.Tablet.csproj", "{8CA689D4-964D-4535-8D3C-4799EE3FF54F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{66E690C0-7D35-468C-98B5-5B68E0EA7A56}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{66E690C0-7D35-468C-98B5-5B68E0EA7A56}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{66E690C0-7D35-468C-98B5-5B68E0EA7A56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CA689D4-964D-4535-8D3C-4799EE3FF54F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CA689D4-964D-4535-8D3C-4799EE3FF54F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CA689D4-964D-4535-8D3C-4799EE3FF54F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CA689D4-964D-4535-8D3C-4799EE3FF54F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -72,6 +78,7 @@ Global
 		{61E5E85B-85BE-44B5-B955-6D15395BFADB} = {3308E820-C945-40C3-AAD1-32BFAD8BD38E}
 		{50C4FC09-8CC5-4CB1-BBEE-7E670DB8CC91} = {3308E820-C945-40C3-AAD1-32BFAD8BD38E}
 		{66E690C0-7D35-468C-98B5-5B68E0EA7A56} = {3308E820-C945-40C3-AAD1-32BFAD8BD38E}
+		{8CA689D4-964D-4535-8D3C-4799EE3FF54F} = {3308E820-C945-40C3-AAD1-32BFAD8BD38E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CBB77FA9-C2AD-4488-B87C-14A83FD25D23}
