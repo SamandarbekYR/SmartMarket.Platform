@@ -18,6 +18,7 @@
         Background="White"
         Height="370" 
         Width="400" 
+        CornerRadius="5"
         BorderBrush="{DynamicResource BorderColor}" 
         BorderThickness="1">
         <Grid>
@@ -26,18 +27,25 @@
             <RowDefinition Height="*"/>
             
         </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0" Background="#04C217">
 
-            <TextBlock Text="To'lov turlari"
-                       Foreground="White"
-                       VerticalAlignment="Center"
-                       FontSize="20"
-                       Margin="10 0 0 0"
-                       FontWeight="SemiBold"
-                       ></TextBlock>
+            <Border
+                CornerRadius="5 5 0 0"
+                Grid.Row="0" 
+                Background="#04C217"/>
+
+
+            <TextBlock 
+                Grid.Row="0" 
+                Text="To'lov turlari"
+                Foreground="White"
+                VerticalAlignment="Center"
+                FontSize="20"
+                Margin="10 0 0 0"
+                FontWeight="SemiBold"/>
 
 
             <Border 
+                Grid.Row="0" 
                 x:Name="btnclose"
                 MouseUp="btnclose_MouseUp"
                 HorizontalAlignment="Right"
@@ -46,15 +54,16 @@
                 Background="Transparent"
                 BorderThickness="0"
                 >
-                <md:PackIcon Kind="Close"
-                             Width="30"
-                             Height="30"
-                             Foreground="White"
-                             ></md:PackIcon>
+                <md:PackIcon 
+                    Kind="Close"
+                    Width="30"
+                    Height="30"
+                    Foreground="White"
+                    ></md:PackIcon>
             </Border>
-        </DockPanel>
 
-        <StackPanel Grid.Row="1">
+
+            <StackPanel Grid.Row="1">
 
 
             <TextBlock

@@ -1,0 +1,48 @@
+﻿<Window x:Class="SmartMarket.Desktop.Windows.Sales.SaleHistoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmartMarket.Desktop.Windows.Sales"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Title="SaleHistoryWindow" 
+        Loaded="Window_Loaded">
+    <Border
+        Height="700"
+        Width="1000"
+        CornerRadius="8"
+        BorderThickness="1"
+        BorderBrush="{DynamicResource BorderColor}"
+        Background="White">
+
+        <Border
+            Margin="5">
+            <Frame
+                x:Name="PageNavigator"/>
+        </Border>
+
+        <!--<Border 
+            Grid.Row="0" 
+            x:Name="btnclose"
+            MouseUp="btnclose_MouseUp"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center"
+            Margin="0 0 10 0"
+            Background="Transparent"
+            BorderThickness="0"
+            >
+            <md:PackIcon 
+                Kind="Close"
+                Width="30"
+                Height="30"
+                Foreground="White"
+                ></md:PackIcon>
+        </Border>-->
+
+    </Border>
+</Window>
