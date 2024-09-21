@@ -9,40 +9,54 @@
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
         Title="ExpensesWindow" 
         WindowState="Maximized"
         Loaded="Window_Loaded">
-    <Grid
-        Height="300" 
-        Width="400">
+    <Border
+        Background="White"
+        Height="350" 
+        Width="450"
+        BorderThickness="1"
+        CornerRadius="5"
+        BorderBrush="{DynamicResource BorderColor}">
         <StackPanel>
 
-            <DockPanel 
+            <Border
                 Height="40"
+                CornerRadius="5 5 0 0"
                 Background="#1FB5E5">
-                <TextBlock 
-                    FontSize="20" 
-                    VerticalAlignment="Center" 
-                    Margin="10 0" Text="Harajatlar" 
-                    Foreground="White">
-                    
-                </TextBlock>
-                <Border 
-                    x:Name="close_btn"
-                    Padding="10 0 0 0" 
-                    Background="Transparent" 
-                    BorderThickness="0" 
-                    HorizontalAlignment="Right">
-                    <md:PackIcon 
-                        Kind="Close" 
+                <StackPanel
+                    Orientation="Horizontal"
+                    >
+                    <TextBlock 
+                        FontSize="22" 
                         VerticalAlignment="Center" 
-                        Margin="0 0 10 0"
-                        Width="30" Height="30" 
-                        Foreground="Red">
+                        Margin="10 0" Text="Harajatlar" 
+                        Foreground="White"
+                        >
                         
-                    </md:PackIcon>
-                </Border>
-            </DockPanel>
+                    </TextBlock>
+                    <Border 
+                        x:Name="close_btn"
+                        Background="Transparent" 
+                        BorderThickness="0" 
+                        HorizontalAlignment="Right"
+                        MouseDown="close_btn_MouseDown">
+                        <md:PackIcon 
+                            Kind="Close" 
+                            VerticalAlignment="Center" 
+                            Margin="295 0 10 0"
+                            Width="30" Height="30" 
+                            Foreground="Red"
+                            Name="Close_Button"
+                            >
+                            
+                        </md:PackIcon>
+                    </Border>
+                </StackPanel>
+            </Border>
 
             <DockPanel 
                 Margin="10 20 0 0">
@@ -79,7 +93,7 @@
                     HorizontalAlignment="Right" 
                     BorderBrush="Black" 
                     BorderThickness="1" 
-                    Width="230">
+                    Width="250">
                     
                 </TextBox>
             </DockPanel>
@@ -130,13 +144,13 @@
             </DockPanel>
 
             <Button
-                Margin="0 50 0 0"
+                Margin="0 80 0 0"
                 Height="35"
-                Width="150"
+                Width="170"
                 Content="Saqlash"
                 FontSize="18"
                 Style="{DynamicResource Create_Button}"/>
 
         </StackPanel>
-    </Grid>
+    </Border>
 </Window>

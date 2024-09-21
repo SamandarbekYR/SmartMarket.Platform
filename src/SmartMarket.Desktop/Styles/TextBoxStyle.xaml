@@ -23,7 +23,7 @@
                     <Border Background="{TemplateBinding Background}" 
                                 BorderBrush="{TemplateBinding BorderBrush}" 
                                 BorderThickness="2" 
-                                CornerRadius="10"
+                                CornerRadius="5"
                                 VerticalAlignment="Center"
                                 Padding="5">
                         <ScrollViewer x:Name="PART_ContentHost" />

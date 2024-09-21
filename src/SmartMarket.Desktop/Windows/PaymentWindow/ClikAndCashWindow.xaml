@@ -14,48 +14,56 @@
         Background="Transparent"
         AllowsTransparency="True"
         Loaded="Window_Loaded">
-    <Grid
+    <Border
         Background="White"
         Height="300" 
-        Width="350">
+        Width="350"
+        BorderThickness="1"
+        BorderBrush="{DynamicResource BorderColor}"
+        CornerRadius="5">
+        
+    <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition Height="*"/>
 
         </Grid.RowDefinitions>
-        <DockPanel Grid.Row="0" Background="#04C217">
 
-            <TextBlock 
-                Text="To'lov Click va Naqd"
+        <Border
+            Grid.Row="0" 
+            CornerRadius="5 5 0 0"
+            Background="#04C217"/>
+
+        <TextBlock 
+            Grid.Row="0" 
+            Text="To'lov Click va Naqd"
+            Foreground="White"
+            VerticalAlignment="Center"
+            FontSize="20"
+            Margin="10 0 0 0"
+            FontWeight="SemiBold"
+            ></TextBlock>
+
+
+        <Border 
+            Grid.Row="0" 
+               x:Name="btnclose"
+               MouseUp="btnclose_MouseUp"
+               HorizontalAlignment="Right"
+               VerticalAlignment="Center"
+               Margin="0 0 10 0"
+               Background="Transparent"
+               BorderThickness="0"
+               >
+            <md:PackIcon
+                Kind="Close"
+                Width="30"
+                Height="30"
                 Foreground="White"
-                VerticalAlignment="Center"
-                FontSize="20"
-                Margin="10 0 0 0"
-                FontWeight="SemiBold"
-                ></TextBlock>
-
-
-            <Border 
-                   x:Name="btnclose"
-                   MouseUp="btnclose_MouseUp"
-                   HorizontalAlignment="Right"
-                   VerticalAlignment="Center"
-                   Margin="0 0 10 0"
-                   Background="Transparent"
-                   BorderThickness="0"
-                   >
-                <md:PackIcon Kind="Close"
-                             Width="30"
-                             Height="30"
-                             Foreground="White"
-                             ></md:PackIcon>
-            </Border>
+                ></md:PackIcon>
+        </Border>
             
-        </DockPanel>
-
-        
-        
         <StackPanel
             Grid.Row="1"
             >
@@ -67,7 +75,7 @@
             <TextBox
                 x:Name="tbClik"
                 Height="40"
-                Margin="35 0 35 10"
+                Margin="35 5 35 10"
                 TextChanged="phone_number_TextChanged"
                 Style="{DynamicResource tbPaymentstyle}"
                 Text="2500000"
@@ -82,7 +90,7 @@
             <TextBox
                 x:Name="tbCash"
                 Height="40"
-                Margin="35 0 35 20"
+                Margin="35 5 35 20"
                 TextChanged="phone_number_TextChanged"
                 Style="{DynamicResource tbPaymentstyle}"
                 Text="2500000"
@@ -105,4 +113,5 @@
         </StackPanel>
 
     </Grid>
+    </Border>
 </Window>

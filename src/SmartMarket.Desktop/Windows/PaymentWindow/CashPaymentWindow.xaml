@@ -14,44 +14,52 @@
         Loaded="Window_Loaded"
         Background="Transparent"
         AllowsTransparency="True">
-    <Grid
+
+    <Border
         Background="White"
         Height="250" 
-        Width="350">
+        Width="350"
+        BorderThickness="1"
+        CornerRadius="5"
+        BorderBrush="{DynamicResource BorderColor}">
+        
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <DockPanel
-            Grid.Row="0"
-            Background="#04C217"
-            >
 
+        <Border
+            CornerRadius="5 5 0 0"
+            Grid.Row="0" 
+            Background="#04C217"/>
 
-            <TextBlock
-                Text="To'lov Naqd"
-                VerticalAlignment="Center"
-                Foreground="White"
-                FontSize="20"
-                FontWeight="SemiBold"
-                Margin="15 0 0 0"
-                ></TextBlock>
-            <Border 
-                  x:Name="btnclose"
-                  MouseUp="btnclose_MouseUp"
-                  HorizontalAlignment="Right"
-                  VerticalAlignment="Center"
-                  Margin="0 0 10 0"
-                  Background="Transparent"
-                  BorderThickness="0"
+        <TextBlock
+            Grid.Row="0" 
+            Text="To'lov Naqd"
+            VerticalAlignment="Center"
+            Foreground="White"
+            FontSize="20"
+            FontWeight="SemiBold"
+            Margin="15 0 0 0"
+            ></TextBlock>
+        <Border 
+            Grid.Row="0" 
+              x:Name="btnclose"
+              MouseUp="btnclose_MouseUp"
+              HorizontalAlignment="Right"
+              VerticalAlignment="Center"
+              Margin="0 0 10 0"
+              Background="Transparent"
+              BorderThickness="0"
     >
-                <md:PackIcon Kind="Close"
-                             Width="30"
-                             Height="30"
-                             Foreground="White"
-                             ></md:PackIcon>
-            </Border>
-        </DockPanel>
+            <md:PackIcon 
+                Kind="Close"
+                Width="30"
+                Height="30"
+                Foreground="White"
+                ></md:PackIcon>
+        </Border>
 
         <StackPanel Grid.Row="1">
 
@@ -82,4 +90,5 @@
 
         </StackPanel>
     </Grid>
+    </Border>
 </Window>

@@ -1,16 +1,16 @@
 ﻿using System.Runtime.InteropServices;
 using System.Windows;
-using System.Windows.Interop;
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
+using System.Windows.Interop;
 
-namespace SmartMarket.Desktop.Windows.Expenses;
+namespace SmartMarket.Desktop.Windows.Sales;
 
 /// <summary>
-/// Interaction logic for ExpensesWindow.xaml
+/// Interaction logic for SaleHistoryWindow.xaml
 /// </summary>
-public partial class ExpensesWindow : Window
+public partial class SaleHistoryWindow : Window
 {
-    public ExpensesWindow()
+    public SaleHistoryWindow()
     {
         InitializeComponent();
     }
@@ -42,10 +42,5 @@ public partial class ExpensesWindow : Window
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         EnableBlur();
-    }
-
-    private void close_btn_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
-    {
-        this.Close();
     }
 }
