@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.DTOs.Products.LoadReport;
 using SmartMarket.Service.Interfaces.Products.LoadReport;
 
-namespace SmartMarket.WebApi.Controllers.Products;
+namespace SmartMarket.WebApi.Controllers.Common.Products;
 
 [Route("api/load-reports")]
 [ApiController]

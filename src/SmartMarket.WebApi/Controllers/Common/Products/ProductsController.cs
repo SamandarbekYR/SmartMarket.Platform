@@ -4,7 +4,7 @@ using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.Interfaces.Products.Product;
 using SmartMarket.WebApi.Controllers.Common;
 
-namespace SmartMarket.WebApi.Controllers.Products
+namespace SmartMarket.WebApi.Controllers.Common.Products
 {
     [Route("api/products")]
     [ApiController]
