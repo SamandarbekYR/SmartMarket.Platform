@@ -2,6 +2,7 @@
 using SmartMarket.Desktop.Windows.Partners;
 using SmartMarket.Desktop.Windows.PaymentWindow;
 using SmartMarket.Desktop.Windows.ProductsForWindow;
+using SmartMarket.Desktop.Windows.Settings;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
@@ -167,7 +168,8 @@ public partial class SalePage : Page
 
     private void Sozlamalar_Click(object sender, RoutedEventArgs e)
     {
-
+        SettingPrinterWindow settingPrinterWindow = new SettingPrinterWindow();
+        settingPrinterWindow.ShowDialog();
     }
 
     private void Sotuv_Tarixi_Click(object sender, RoutedEventArgs e)
