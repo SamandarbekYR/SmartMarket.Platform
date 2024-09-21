@@ -92,6 +92,7 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpGet("search")]
         public async Task<IActionResult> SearchProductsAsync([FromQuery] string searchTerm, [FromQuery] PaginationParams @params)
         {
             try
