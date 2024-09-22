@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using SmartMarket.Desktop.Tablet.Pages;
+using System.Windows;
 
 namespace SmartMarket.Desktop.Tablet;
 
@@ -15,5 +16,11 @@ public partial class MainWindow : Window
     private void Close_Button_Click(object sender, RoutedEventArgs e)
     {
         Application.Current.Shutdown();
+    }
+
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        MainPage mainPage = new MainPage();
+        PageNavigator.Content = mainPage;
     }
 }
