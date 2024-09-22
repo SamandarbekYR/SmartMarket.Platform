@@ -4,7 +4,7 @@
     <Style x:Key="MainLabel" TargetType="{x:Type Label}">
         <Setter Property="FontSize" Value="18"/>
         <Setter Property="FontWeight" Value="SemiBold"/>
-        <Setter Property="Foreground" Value="{DynamicResource BorderColor}"/>
+        <Setter Property="Foreground" Value="Black"/>
 
     </Style>
 
