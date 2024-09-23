@@ -5,12 +5,15 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SmartMarket.Desktop.Tablet.Pages"
       mc:Ignorable="d" 
-      Title="MainPage">
+      Title="MainPage"
+      Loaded="Page_Loaded">
 
-    <Grid>
+    <Grid
+        Height="650"
+        Width="1000">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="0.9*"/>
+            <ColumnDefinition Width="0.8*"/>
         </Grid.ColumnDefinitions>
 
         <Border
@@ -24,6 +27,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="60"/>
+                    <RowDefinition Height="30"/>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="120"/>
                 </Grid.RowDefinitions>
@@ -46,6 +50,7 @@
                     HorizontalAlignment="Right"
                     Content="#202405083001"
                     Margin="0 0 10 0"
+                    FontSize="14"
                     Style="{DynamicResource TitleLabel}"/>
 
                 <Border
@@ -85,7 +90,7 @@
                     <TextBox
                         x:Name="Count"
                         Text="5"
-                        FontSize="15"
+                        FontSize="16"
                         BorderThickness="0"
                         FontWeight="SemiBold"
                         VerticalAlignment="Center"/>
@@ -96,7 +101,7 @@
 
                     <Label
                         Content="2500"
-                        FontSize="15"
+                        FontSize="16"
                         Style="{DynamicResource MainLabel}"/>
 
                     <Label
@@ -105,14 +110,59 @@
 
                     <Label
                         Content="12500"
-                        FontSize="15"
+                        FontSize="16"
                         Style="{DynamicResource MainLabel}"/>
 
                 </StackPanel>
 
+                <Grid
+                    Margin="5 0 15 0"
+                    Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="0.6*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="1.3*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                        Grid.Column="0"
+                        Content="#"
+                        HorizontalAlignment="Center"
+                        Style="{DynamicResource TitleLabel}"/>
+
+                    <Label
+                        Grid.Column="1"
+                        Content="PCode"
+                        Style="{DynamicResource TitleLabel}"/>
+
+                    <Label
+                        Grid.Column="2"
+                        Content="Nomi"
+                        Style="{DynamicResource TitleLabel}"/>
+
+                    <Label
+                        Grid.Column="3"
+                        Content="Soni"
+                        Style="{DynamicResource TitleLabel}"/>
+
+                    <Label
+                        Grid.Column="4"
+                        Content="Narxi"
+                        Style="{DynamicResource TitleLabel}"/>
+
+                    <Label
+                        Grid.Column="5"
+                        Content="Jami summa"
+                        Style="{DynamicResource TitleLabel}"/>
+
+                </Grid>
+
                 <ScrollViewer
-                    Margin="2"
-                    Grid.Row="2"
+                    Margin="1"
+                    Grid.Row="3"
                     >
 
                     <StackPanel
@@ -123,7 +173,7 @@
                 </ScrollViewer>
 
                 <Grid
-                    Grid.Row="3">
+                    Grid.Row="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -202,7 +252,7 @@
             Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="1.9*"/>
+                <RowDefinition Height="2.5*"/>
             </Grid.RowDefinitions>
 
             <Border
@@ -212,6 +262,57 @@
                 BorderThickness="0.5"
                 BorderBrush="{DynamicResource BorderColor}"
                 Background="{DynamicResource FirstColor}">
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel
+                        Grid.Row="0"
+                        Margin="10 0">
+
+                        <Label
+                            Content="Mijoz :"
+                            Style="{DynamicResource InfoLabel}"/>
+
+                        <Label
+                            FontSize="20"
+                            Content="Sobir aka"
+                            Style="{DynamicResource MainLabel}"/>
+
+                        <Label
+                            Margin="0 20 0 0"
+                            Content="Yig'uvchi :"
+                            Style="{DynamicResource InfoLabel}"/>
+
+                        <Label
+                            FontSize="20"
+                            Content="Sobir aka"
+                            Style="{DynamicResource MainLabel}"/>
+
+                    </StackPanel>
+
+                    <StackPanel
+                        VerticalAlignment="Center"
+                        Grid.Column="1">
+                    
+                        <Label
+                            Content="Jami summa :"
+                            FontSize="18"
+                            HorizontalAlignment="Center"
+                            Style="{DynamicResource InfoLabel}"/>
+
+                        <Label
+                            Content="5000000"
+                            FontSize="25"
+                            HorizontalAlignment="Center"
+                            Style="{DynamicResource MainLabel}"/>
+                        
+                    </StackPanel>
+
+                </Grid>
                 
             </Border>
 
@@ -222,6 +323,71 @@
                 BorderThickness="0.5"
                 BorderBrush="{DynamicResource BorderColor}"
                 Background="{DynamicResource FirstColor}">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBox
+                        Margin="50 0"
+                        Style="{DynamicResource search}"/>
+
+                    <Grid
+                        Margin="5 0 15 0"
+                        Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.8*"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="70"/>
+                            <ColumnDefinition Width="50"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                            Grid.Column="0"
+                            Content="PCode"
+                            Style="{DynamicResource TitleLabel}"/>
+
+                        <Label
+                            Grid.Column="1"
+                            Content="Nomi"
+                            Style="{DynamicResource TitleLabel}"/>
+
+                        <Label
+                            Grid.Column="2"
+                            Content="Kategoriya"
+                            Style="{DynamicResource TitleLabel}"/>
+
+                        <Label
+                            Grid.Column="3"
+                            Content="Soni"
+                            Style="{DynamicResource TitleLabel}"/>
+
+                        <Label
+                            Grid.Column="4"
+                            Content="Narxi"
+                            Style="{DynamicResource TitleLabel}"/>
+
+
+                    </Grid>
+
+                    <ScrollViewer
+                        Margin="1"
+                        Grid.Row="2">
+                        
+                        <StackPanel
+                            Margin="0 5"
+                            x:Name="st_searchproduct">
+
+                        </StackPanel>
+
+                    </ScrollViewer>
+
+                </Grid>
 
             </Border>
 

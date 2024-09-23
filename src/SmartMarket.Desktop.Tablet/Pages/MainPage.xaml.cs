@@ -1,28 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SmartMarket.Desktop.Tablet.Components;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace SmartMarket.Desktop.Tablet.Pages
+namespace SmartMarket.Desktop.Tablet.Pages;
+
+/// <summary>
+/// Interaction logic for MainPage.xaml
+/// </summary>
+public partial class MainPage : Page
 {
-    /// <summary>
-    /// Interaction logic for MainPage.xaml
-    /// </summary>
-    public partial class MainPage : Page
+    public MainPage()
     {
-        public MainPage()
+        InitializeComponent();
+    }
+
+    private void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        for (int i = 0; i < 20; i++)
         {
-            InitializeComponent();
+            SearchProductComponent searchProductComponent = new SearchProductComponent();
+            ProductComponent productComponent = new ProductComponent();
+
+            st_searchproduct.Children.Add(searchProductComponent);
+            st_product.Children.Add(productComponent);
         }
     }
 }
