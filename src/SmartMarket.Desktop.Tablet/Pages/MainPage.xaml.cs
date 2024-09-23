@@ -14,6 +14,25 @@ public partial class MainPage : Page
         InitializeComponent();
     }
 
+    public static MainWindow GetMainWindow()
+    {
+        MainWindow mainWindow = null!;
+
+        foreach (Window window in Application.Current.Windows)
+        {
+            Type type = typeof(MainWindow);
+            if (window != null && window.DependencyObjectType.Name == type.Name)
+            {
+                mainWindow = (MainWindow)window;
+                if (mainWindow != null)
+                {
+                    break;
+                }
+            }
+        }
+        return mainWindow!;
+    }
+
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
         for (int i = 0; i < 20; i++)
@@ -24,5 +43,12 @@ public partial class MainPage : Page
             st_searchproduct.Children.Add(searchProductComponent);
             st_product.Children.Add(productComponent);
         }
+    }
+
+    private void Sends_Button_Click(object sender, RoutedEventArgs e)
+    {
+        SecondPage secondPage = new SecondPage();
+        MainWindow mainWindow = GetMainWindow();
+        mainWindow.PageNavigator.Content = secondPage;
     }
 }
