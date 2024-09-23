@@ -175,20 +175,22 @@
 
                         <Label
                             Content="Mijoz :"
+                            FontSize="13"
                             Style="{DynamicResource InfoLabel}"/>
 
                         <Label
-                            FontSize="20"
+                            FontSize="16"
                             Content="Sobir aka"
                             Style="{DynamicResource MainLabel}"/>
 
                         <Label
                             Margin="0 10 0 0"
                             Content="Yig'uvchi :"
+                            FontSize="13"
                             Style="{DynamicResource InfoLabel}"/>
 
                         <Label
-                            FontSize="20"
+                            FontSize="16"
                             Content="Sobir aka"
                             Style="{DynamicResource MainLabel}"/>
 
@@ -200,13 +202,13 @@
 
                         <Label
                             Content="Jami summa :"
-                            FontSize="18"
+                            FontSize="15"
                             HorizontalAlignment="Center"
                             Style="{DynamicResource InfoLabel}"/>
 
                         <Label
                             Content="5000000"
-                            FontSize="25"
+                            FontSize="20"
                             HorizontalAlignment="Center"
                             Style="{DynamicResource MainLabel}"/>
 

@@ -148,8 +148,46 @@
                             Name="I"
                             Fill="Black" 
                             Data="{Binding Tag, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
-                            Height="25"
-                            Width="25"
+                            Height="22"
+                            Width="22"
+                            Stretch="Uniform"/>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#464646"/>
+                            <Setter TargetName="I" Property="Fill" Value="White"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#464646"/>
+                            <Setter TargetName="I" Property="Fill" Value="White"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CreateButton" TargetType="Button">
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Margin" Value="3 0"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        x:Name="B"
+                        CornerRadius="5"
+                        BorderThickness="1"
+                        BorderBrush="Black"
+                        Background="Transparent">
+
+                        <Path 
+                            Name="I"
+                            Fill="Black" 
+                            Data="{Binding Tag, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                            Height="15"
+                            Width="15"
                             Stretch="Uniform"/>
 
                     </Border>
