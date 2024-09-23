@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:SmartMarket.Desktop.Tablet.Components"
              mc:Ignorable="d">
     <Border
-        Height="40"
+        Height="30"
         CornerRadius="5"
         BorderThickness="0.5"
         Margin="5 3 15 3"

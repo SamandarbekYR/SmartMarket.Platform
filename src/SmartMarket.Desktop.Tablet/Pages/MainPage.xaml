@@ -48,7 +48,7 @@
                     HorizontalAlignment="Right"
                     Content="#202405083001"
                     Margin="0 0 10 0"
-                    FontSize="14"
+                    FontSize="13"
                     Style="{DynamicResource TitleLabel}"/>
 
                 <Border
@@ -61,7 +61,7 @@
                     Content="Nestle Kasha"
                     VerticalAlignment="Top"
                     Margin="10 0 0 0"
-                    FontSize="17"
+                    FontSize="16"
                     Style="{DynamicResource MainLabel}"/>
 
                 <Label
@@ -276,20 +276,22 @@
 
                         <Label
                             Content="Mijoz :"
+                            FontSize="13"
                             Style="{DynamicResource InfoLabel}"/>
 
                         <Label
-                            FontSize="20"
+                            FontSize="16"
                             Content="Sobir aka"
                             Style="{DynamicResource MainLabel}"/>
 
                         <Label
+                            FontSize="13"
                             Margin="0 20 0 0"
                             Content="Yig'uvchi :"
                             Style="{DynamicResource InfoLabel}"/>
 
                         <Label
-                            FontSize="20"
+                            FontSize="16"
                             Content="Sobir aka"
                             Style="{DynamicResource MainLabel}"/>
 
@@ -301,13 +303,13 @@
                     
                         <Label
                             Content="Jami summa :"
-                            FontSize="18"
+                            FontSize="16"
                             HorizontalAlignment="Center"
                             Style="{DynamicResource InfoLabel}"/>
 
                         <Label
                             Content="5000000"
-                            FontSize="25"
+                            FontSize="20"
                             HorizontalAlignment="Center"
                             Style="{DynamicResource MainLabel}"/>
                         
