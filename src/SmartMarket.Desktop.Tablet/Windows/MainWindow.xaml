@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartMarket.Desktop.Tablet"
         mc:Ignorable="d"
-        WindowState="Maximized"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Title="MainWindow"
         ResizeMode="NoResize"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        Height="700"
+        Width="1000">
     <Grid
         Background="{DynamicResource SecondColor}">
         <Grid.RowDefinitions>

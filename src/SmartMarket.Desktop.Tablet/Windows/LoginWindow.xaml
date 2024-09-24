@@ -1,0 +1,181 @@
+﻿<Window x:Class="SmartMarket.Desktop.Tablet.Windows.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmartMarket.Desktop.Tablet.Windows"
+        mc:Ignorable="d"
+        Title="LoginWindow" 
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Height="700" 
+        Width="1000">
+    <Grid
+        Background="{DynamicResource FirstColor}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Border
+            VerticalAlignment="Center"
+            Grid.Column="1"
+            Margin="50 80"
+            Padding="0 40"
+            CornerRadius="50"
+            Background="{DynamicResource FirstColor}">
+
+            <StackPanel
+                Margin="30 10 30 20">
+
+                <Label
+                    FontSize="30"
+                    Content="Kirish"
+                    FontWeight="Bold"
+                    HorizontalAlignment="Center"
+                    Foreground="{DynamicResource BorderColor}"/>
+
+                <Border
+                    Height="40"
+                    CornerRadius="5"
+                    Margin="0 30 0 0 "
+                    BorderThickness="0.5"
+                    BorderBrush="{DynamicResource BorderColor}">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Path 
+                            Name="I"
+                            Fill="{DynamicResource BSecondColor}" 
+                            Data="{DynamicResource user}"
+                            Height="25"
+                            Width="25"
+                            Stretch="Uniform"/>
+
+                        <TextBox
+                            Name="txt_Username"
+                            Text="Shodiyor"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            BorderThickness="0"/>
+
+                    </Grid>
+                    
+                </Border>
+                
+                <Border
+                    Height="40"
+                    CornerRadius="5"
+                    Margin="0 10 0 0 "
+                    BorderThickness="0.5"
+                    BorderBrush="{DynamicResource BorderColor}">
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Path 
+                            Fill="#F0A81A" 
+                            Data="{DynamicResource lock}"
+                            Height="25"
+                            Width="25"
+                            Stretch="Uniform"/>
+
+                        <PasswordBox
+                            Name="txt_Password"
+                            Password="Shodiyor0809"
+                            FontSize="16"
+                            FontWeight="SemiBold"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            BorderThickness="0"/>
+
+                    </Grid>
+
+                </Border>
+
+                <Button
+                    Name="Login_Button"
+                    Margin="0 20 0 20"
+                    Content="Kirish"
+                    FontSize="20"
+                    Click="Login_Button_Click"
+                    Background="{DynamicResource BSecondColor}"
+                    Style="{DynamicResource MainButton}"/>
+
+            </StackPanel>
+
+            <Border.Effect>
+                <DropShadowEffect
+                    BlurRadius="20"
+                    ShadowDepth="2"
+                    Color="Gray">
+                </DropShadowEffect>
+            </Border.Effect>
+
+        </Border>
+
+        <Grid
+            Margin="30 80 0 10"
+            Grid.Column="0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <Label
+                Grid.Row="0"
+                Content="Smart Market"
+                FontSize="30"
+                HorizontalAlignment="Center"
+                FontWeight="Bold"/>
+
+            <Label
+                Grid.Row="1"
+                Content="Tablet"
+                FontSize="16"
+                HorizontalAlignment="Center"
+                FontWeight="SemiBold"/>
+
+            <Image 
+                Grid.Row="2"
+                Source="/Assets/Images/login_background.png">
+
+            </Image>
+
+            <Image 
+                MouseDown="Image_MouseDown"
+                Grid.Row="3"
+                HorizontalAlignment="Left"
+                Height="60"
+                Source="/Assets/Images/login_close.png">
+
+            </Image>
+
+            <Label
+                Grid.Row="4"
+                FontSize="16"
+                FontWeight="SemiBold"
+                Content="By Smart Partners"/>
+            <Label
+                Margin="0 25 0 0"
+                Grid.Row="4"
+                Content="Version 1.00"/>
+
+        </Grid>
+        
+    </Grid>
+</Window>

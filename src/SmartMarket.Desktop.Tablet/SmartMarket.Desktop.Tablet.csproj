@@ -8,4 +8,14 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Assets\Images\login_background.png" />
+    <None Remove="Assets\Images\login_close.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\Images\login_background.png" />
+    <Resource Include="Assets\Images\login_close.png" />
+  </ItemGroup>
+
 </Project>

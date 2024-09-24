@@ -234,10 +234,12 @@
                         </Grid>
 
                         <Button
+                            Name="Logout"
                             Content="Chiqish"
                             FontSize="20"
                             Margin="0 10 0 0"
                             VerticalAlignment="Bottom"
+                            Click="Logout_Click"
                             Background="{DynamicResource BTheerdColor}"
                             Style="{DynamicResource MainButton}"/>
 
