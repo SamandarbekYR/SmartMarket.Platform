@@ -54,9 +54,11 @@
                 Style="{DynamicResource TitleLabel}"/>
 
             <Button
+                Name="Add_Button"
                 Grid.Column="5"
-                Tag="{DynamicResource pilus}"
                 Margin="5 3"
+                Click="Add_Button_Click"    
+                Tag="{DynamicResource pilus}"
                 Style="{DynamicResource CreateButton}"/>
 
         </Grid>
