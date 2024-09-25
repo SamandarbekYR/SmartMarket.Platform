@@ -57,10 +57,13 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <md:PackIcon 
-                                    Kind="Search"
-                                    VerticalAlignment="Center"
-                                    Margin="5 0 0 0"/>
+                                <Path
+                                    Grid.Column="0"
+                                    Stretch="Fill"
+                                    Height="15"
+                                    Width="15"
+                                    Fill="{DynamicResource BorderColor}"
+                                    Data="{DynamicResource qidirish}"/>
 
                                 <ScrollViewer
                                     Margin="0 0 0 2"

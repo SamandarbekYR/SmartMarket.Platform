@@ -6,9 +6,6 @@ using SmartMarket.Desktop.Windows.ProductsForWindow;
 using SmartMarketDeskop.Integrated.Services.Categories.Category;
 using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgents;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
-using SmartMarketDeskop.Integrated.ViewModelsForUI.PartnerCompany;
-using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
-using SmartMarketDesktop.ViewModels.Entities.Categories;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -20,9 +17,9 @@ namespace SmartMarket.Desktop.Pages.MainForPage;
 public partial class MainPage : Page
 {
     
-    private ICategoryService categoryService;
-    private IContrAgentService contrAgentService;
-    private IProductService productService;
+    private ICategoryService _categoryService;
+    private IContrAgentService _contrAgentService;
+    private IProductService _productService;
 
     int NumberCategory = 1;
     int NumberContrAgent= 1; 
@@ -31,9 +28,9 @@ public partial class MainPage : Page
     public MainPage()
     {
         InitializeComponent();
-        this.categoryService = new CategoryService();
-        this.contrAgentService = new ContrAgentService();
-        this.productService = new ProductService();  
+        this._categoryService = new CategoryService();
+        this._contrAgentService = new ContrAgentService();
+        this._productService = new ProductService();  
     }
 
     private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -53,7 +50,7 @@ public partial class MainPage : Page
     public async void GetAllCategory()
     {
      
-        var categoryViews = await this.categoryService.GetAllAsync();
+        var categoryViews = await _categoryService.GetAllAsync();
 
         St_categoryList.Visibility = Visibility.Visible;
         St_categoryList.Children.Clear();
@@ -71,7 +68,7 @@ public partial class MainPage : Page
 
     public async void GetAllContrAgents()
     {
-        var contrAgents = await this.contrAgentService.GetAll();  
+        var contrAgents = await _contrAgentService.GetAll();  
         St_contrAgents.Visibility = Visibility.Visible;
         St_contrAgents.Children.Clear();
         foreach(var contrAgent in contrAgents)
@@ -88,7 +85,7 @@ public partial class MainPage : Page
 
     public async void GetAllProducts()
     {
-        var products=await productService.GetAll();
+        var products = await _productService.GetAll();
 
         St_product.Visibility = Visibility.Visible; 
         St_product.Children.Clear();
@@ -107,13 +104,13 @@ public partial class MainPage : Page
   
     private void btnAddCategory_Click(object sender, RoutedEventArgs e)
     {
-        CategoryCreateWindow categoryCreateWindow=new CategoryCreateWindow();
+        CategoryCreateWindow categoryCreateWindow = new CategoryCreateWindow();
         categoryCreateWindow.ShowDialog();
     }
 
     private void btnAddKontrAgent_Click(object sender, RoutedEventArgs e)
     {
-        ContrAgentCreateWindow contrAgentCreateWindow=new ContrAgentCreateWindow(); 
+        ContrAgentCreateWindow contrAgentCreateWindow = new ContrAgentCreateWindow(); 
         contrAgentCreateWindow.ShowDialog();
     }
 
