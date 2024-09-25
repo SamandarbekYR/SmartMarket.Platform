@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Desktop.Windows.Category;
+using SmartMarket.Domain.Entities.Categories;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
 using SmartMarketDesktop.ViewModels.Entities.Categories;
 using System.Windows;

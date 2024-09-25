@@ -212,21 +212,22 @@
 
 
     <Style x:Key="btnCategory" TargetType="Button">
-       
-        <Setter Property="Margin" Value="5 5"/>
-        <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="5 7"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border
-                        CornerRadius="10"
+                        CornerRadius="8"
                         Background="White"
                         >
-                        <md:PackIcon Kind="Plus" Width="40" 
-                                     VerticalAlignment="Center"
-                                     HorizontalAlignment="Center"
-                                     Height="30"/>
+                        <Path
+                            Stretch="Fill"
+                            Height="20"
+                            Width="20"
+                            Fill="{DynamicResource BorderColor}"
+                            Data="{DynamicResource pilus}"/>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
