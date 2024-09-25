@@ -18,19 +18,18 @@ public partial class MainProductComponent : UserControl
         this.productService = new ProductService();
     }
 
-    public void GetData(int Number,string p_code ,string barcode,string productName, string category,string worker,double price,int count,double TotalPrice,string UnitofMeasure,double SellPrice)
+    public void GetData(ProductViewModels product)
     {
-        tbNumber.Text = Number.ToString();
-        tbP_Code.Text = p_code;
-        TbBarcode.Text = barcode;
-        tbProductName.Text = productName;
-        tbCategory.Text = category;
-        tbWorker.Text = worker;
-        tbBodyPrice.Text = price.ToString();
-        tbCount.Text = count.ToString();
-        tbTotalPrice.Text = TotalPrice.ToString();
-        tbMeasure.Text = UnitofMeasure.ToString();
-        tbSalePrice.Text = SellPrice.ToString();
+        tbP_Code.Text = product.P_Code;
+        TbBarcode.Text = product.BarCode;
+        tbProductName.Text = product.ProductName;
+        tbCategory.Text = product.CateogoryName;
+        tbWorker.Text = product.WorkerName;
+        tbBodyPrice.Text = product.Price.ToString();
+        tbCount.Text = product.Count.ToString();
+        tbTotalPrice.Text = product.TotalPrice.ToString();
+        tbMeasure.Text = product.UnitOfMeasure.ToString();
+        tbSalePrice.Text = product.SellPrice.ToString();
 
     }
 

@@ -4,12 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartMarket.Desktop.Components.MainForComponents"
-             mc:Ignorable="d" 
-             d:DesignHeight="30" d:DesignWidth="1024">
-    <Border Background="White"
-            CornerRadius="5"
-            BorderThickness="1"
-            BorderBrush="Black"
+             mc:Ignorable="d" >
+    <Border 
+        Margin="5 3 10 3"
+        Height="35"
+        Background="White"
+        CornerRadius="5"
+        BorderThickness="1"
+        BorderBrush="Black"
             >
         <Grid>
             <Grid.ColumnDefinitions>

@@ -24,9 +24,6 @@ public partial class MainPage : Page
     private IContrAgentService contrAgentService;
     private IProductService productService;
 
-    List<CategoryView> categoryViews=new List<CategoryView>();
-    List<ContrAgentViewModels> contrAgents=new List<ContrAgentViewModels>();
-    List<ProductViewModels> products = new List<ProductViewModels>(); 
     int NumberCategory = 1;
     int NumberContrAgent= 1; 
     int NumberProduct= 1;   
@@ -56,18 +53,17 @@ public partial class MainPage : Page
     public async void GetAllCategory()
     {
      
-        categoryViews = await this.categoryService.GetAllAsync();
+        var categoryViews = await this.categoryService.GetAllAsync();
 
         St_categoryList.Visibility = Visibility.Visible;
         St_categoryList.Children.Clear();
-        foreach (var i in categoryViews)
+        foreach (var category in categoryViews)
         {
-            MainCategoryComponent categoryComponent = new MainCategoryComponent();    
-            categoryComponent.Tag = i;
-            categoryComponent.SetValues(NumberCategory, i.Name);
-            NumberCategory++;
-            categoryComponent.BorderThickness=new Thickness(3,2,3,2);
+            MainCategoryComponent categoryComponent = new MainCategoryComponent();
+            categoryComponent.tbNumber.Text = NumberCategory.ToString();
+            categoryComponent.SetValues(category);
             St_categoryList.Children.Add(categoryComponent);    
+            NumberCategory++;
         }
         
     }
@@ -75,35 +71,35 @@ public partial class MainPage : Page
 
     public async void GetAllContrAgents()
     {
-        contrAgents = await this.contrAgentService.GetAll();  
+        var contrAgents = await this.contrAgentService.GetAll();  
         St_contrAgents.Visibility = Visibility.Visible;
         St_contrAgents.Children.Clear();
-        foreach(var i in contrAgents)
+        foreach(var contrAgent in contrAgents)
         {
-            
-            MainKontrAgentComponent mainKontrAgentComponent = new MainKontrAgentComponent();    
-            mainKontrAgentComponent.Tag = i;
-            mainKontrAgentComponent.GetData(NumberContrAgent,i.CompanyName,i.FirstName,i.LastName,i.PhoneNumber,i.DebtSum,i.PayedSum,i.LastPayedSum,i.LastPayedDate);
-            NumberContrAgent++;
-            mainKontrAgentComponent.BorderThickness= new Thickness(3,2,3,2);
+            MainKontrAgentComponent mainKontrAgentComponent = new MainKontrAgentComponent();
+            mainKontrAgentComponent.Tag = contrAgent;
+            mainKontrAgentComponent.tbNumber.Text = NumberContrAgent.ToString();
+            mainKontrAgentComponent.GetData(contrAgent);
             St_contrAgents.Children.Add(mainKontrAgentComponent);
+            NumberContrAgent++;
         }
     }
     
 
     public async void GetAllProducts()
     {
-       products=await productService.GetAll();
+        var products=await productService.GetAll();
 
         St_product.Visibility = Visibility.Visible; 
         St_product.Children.Clear();
-        foreach (var i in products)
+        foreach (var product in products)
         {
             MainProductComponent productComponent = new MainProductComponent(); 
-            productComponent.Tag = i;
-            productComponent.GetData(NumberProduct, i.P_Code, i.BarCode, i.ProductName, i.CateogoryName, i.WorkerName, i.Price, i.Count, i.TotalPrice, i.UnitOfMeasure, i.SellPrice);
-            productComponent.BorderThickness=new Thickness(3,2,3,3);
+            productComponent.Tag = product;
+            productComponent.tbNumber.Text = NumberProduct.ToString();
+            productComponent.GetData(product);
             St_product.Children.Add(productComponent);
+            NumberProduct++;
         }    
     }
     

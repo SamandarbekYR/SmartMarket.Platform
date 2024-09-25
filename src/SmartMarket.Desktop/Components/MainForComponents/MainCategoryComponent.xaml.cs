@@ -26,10 +26,9 @@ namespace SmartMarket.Desktop.Components.MainForComponents
         }
 
 
-        public void SetValues(long number,string Name)
+        public void SetValues(CategoryView category)
         {
-            tbNumber.Text=number.ToString();
-            tbName.Text =Name;
+            tbName.Text = category.Name;
         }
 
         private void BtnEditCategory_Click(object sender, RoutedEventArgs e)
@@ -51,11 +50,6 @@ namespace SmartMarket.Desktop.Components.MainForComponents
             {
               await  _server.DeleteAsync(categoryView.Id);
             }
-            
-        }
-
-        private void Border_MouseUp(object sender, MouseButtonEventArgs e)
-        {
             
         }
 

@@ -4,10 +4,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartMarket.Desktop.Components.MainForComponents"
-             mc:Ignorable="d" 
-
-             d:DesignHeight="30" d:DesignWidth="250">
-    <Border x:Name="brCategory" MouseDown="Border_MouseDown" Background="White" CornerRadius="5" BorderThickness="1" BorderBrush="Black" MouseUp="Border_MouseUp">
+             mc:Ignorable="d" >
+    <Border 
+        x:Name="brCategory" 
+        MouseDown="Border_MouseDown" 
+        Background="White" 
+        CornerRadius="5" 
+        BorderThickness="1" 
+        BorderBrush="Black" 
+        Height="30"
+        Margin="5 3 10 3">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
