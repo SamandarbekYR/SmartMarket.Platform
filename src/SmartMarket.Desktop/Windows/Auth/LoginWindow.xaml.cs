@@ -91,7 +91,7 @@ public partial class LoginWindow : Window
             }
             else
             {
-                notifier.ShowWarning("Internetizni tekshiring");
+                notifier.ShowWarning("Internetingizni tekshiring");
             }
            // notifier.Dispose();
         }

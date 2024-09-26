@@ -19,8 +19,9 @@ public partial class MainKontrAgentComponent : UserControl
     }
 
 
-    public void GetData(ContrAgentViewModels contrAgent)
+    public void GetData(ContrAgentViewModels contrAgent, int count)
     {
+        tbNumber.Text = count.ToString();
         tbCompanyName.Text = contrAgent.CompanyName;  
         tbFirstname.Text = contrAgent.FirstName;  
         tbLastname.Text = contrAgent.LastName;
