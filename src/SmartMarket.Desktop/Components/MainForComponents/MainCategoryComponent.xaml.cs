@@ -1,4 +1,5 @@
-﻿using SmartMarket.Desktop.Windows.Category;
+﻿using SmartMarket.Desktop.Pages.MainForPage;
+using SmartMarket.Desktop.Windows.Category;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
 using SmartMarketDesktop.ViewModels.Entities.Categories;
 using System.Windows;
@@ -13,16 +14,17 @@ namespace SmartMarket.Desktop.Components.MainForComponents;
 /// </summary>
 public partial class MainCategoryComponent : UserControl
 {
-    
 
     private ICategoryServer _server;
+
+    public bool selected { get; set; } = true;
 
 
     public MainCategoryComponent()
     {
         InitializeComponent();
         _server = new SmartMarketDeskop.Integrated.Server.Repositories.Categories.CategoryServer();
-       
+
     }
 
     public void SetValues(CategoryView category, int count)
@@ -33,40 +35,47 @@ public partial class MainCategoryComponent : UserControl
 
     private void BtnEditCategory_Click(object sender, RoutedEventArgs e)
     {
-        var categoryView=this.Tag as CategoryView;
+        var categoryView = this.Tag as CategoryView;
 
-        CategoryUpdateWindow categoryUpdateWindow = new CategoryUpdateWindow(); 
-        categoryUpdateWindow.GetData(categoryView);
+        CategoryUpdateWindow categoryUpdateWindow = new CategoryUpdateWindow();
+        categoryUpdateWindow.GetData(categoryView!);
         categoryUpdateWindow.ShowDialog();
     }
 
     private async void BntDeleteCategory_Click(object sender, RoutedEventArgs e)
     {
-        var categoryView=this.Tag as CategoryView;
+        var categoryView = this.Tag as CategoryView;
 
         var messageBoxResult = MessageBox.Show("O'chirishni hohlaysizmi!", "Ogohlantirish!", MessageBoxButton.YesNo);
 
-        if(messageBoxResult == MessageBoxResult.Yes)
+        if (messageBoxResult == MessageBoxResult.Yes)
         {
-          await  _server.DeleteAsync(categoryView.Id);
+            await _server.DeleteAsync(categoryView!.Id);
         }
-        
+
     }
 
     private void Border_MouseDown(object sender, MouseButtonEventArgs e)
     {
-        if(selected)
+        var page = FindParentPage(this);
+        if (page is MainPage mainPage)
         {
-            brCategory.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B6B6B6"));
-            selected = false;
-        }
-        else
-        {
-            brCategory.Background = Brushes.White;
-            selected = true;
+            mainPage.SelectCategory(this);
         }
     }
 
-    public bool selected { get; set; } = true;
+    private Page FindParentPage(DependencyObject child)
+    {
+        DependencyObject parentObject = VisualTreeHelper.GetParent(child);
 
+        if (parentObject is Page page)
+        {
+            return page;
+        }
+        else if (parentObject != null)
+        {
+            return FindParentPage(parentObject);
+        }
+        return null!;
+    }
 }
