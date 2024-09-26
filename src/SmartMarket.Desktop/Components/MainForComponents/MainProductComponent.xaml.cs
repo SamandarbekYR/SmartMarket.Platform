@@ -18,8 +18,9 @@ public partial class MainProductComponent : UserControl
         this.productService = new ProductService();
     }
 
-    public void GetData(ProductViewModels product)
+    public void GetData(ProductViewModels product, int count)
     {
+        tbNumber.Text = count.ToString();
         tbP_Code.Text = product.P_Code;
         TbBarcode.Text = product.BarCode;
         tbProductName.Text = product.ProductName;
