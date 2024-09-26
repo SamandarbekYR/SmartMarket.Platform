@@ -6,6 +6,7 @@ using SmartMarketDeskop.Integrated.Services.Categories.Category;
 using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgents;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace SmartMarket.Desktop.Pages.MainForPage;
 
@@ -76,6 +77,20 @@ public partial class MainPage : Page
             MainCategoryComponent categoryComponent = new MainCategoryComponent();
             St_categoryList.Children.Add(categoryComponent);
         }
+    }
+
+
+    private MainCategoryComponent selectedControl = null!;
+    public void SelectCategory(MainCategoryComponent category)
+    {
+        if (selectedControl != null)
+        {
+            selectedControl.brCategory.Background = Brushes.White;
+        }
+
+        category.brCategory.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B6B6B6")); ;
+
+        selectedControl = category;
     }
 
     public async Task GetAllContrAgents()
