@@ -12,14 +12,14 @@
         CornerRadius="5" 
         BorderThickness="1" 
         BorderBrush="Black" 
-        Height="30"
-        Margin="5 3 10 3">
+        Height="40"
+        Margin="5 3 15 3">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="40"/>
                 <ColumnDefinition Width="5*"/>
-                <ColumnDefinition Width="35"/>
-                <ColumnDefinition Width="35"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
             </Grid.ColumnDefinitions>
             
             <TextBlock Grid.Column="0"
@@ -34,7 +34,7 @@
                        x:Name="tbName"
                        Text="Choy"
                        VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
+                       HorizontalAlignment="Left"
                        FontSize="15"
                        FontWeight="SemiBold"
                        ></TextBlock>

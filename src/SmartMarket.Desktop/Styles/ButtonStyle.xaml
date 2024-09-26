@@ -276,8 +276,6 @@
     <!-- Begin MainForCommponents  Button Style -->
 
     <Style TargetType="Button" x:Key="BtnEditCategory">
-        <Setter Property="Width" Value="35"/>
-        <Setter Property="Height" Value="30"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Template">
@@ -290,7 +288,7 @@
                         >
                         <md:PackIcon Kind="Pencil"
                                      x:Name="I"
-                                     Width="25" Height="25" Foreground="#333333"></md:PackIcon>
+                                     Width="23" Height="23" Foreground="#333333"></md:PackIcon>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -306,8 +304,6 @@
     </Style>
 
     <Style TargetType="Button" x:Key="BtnDeleteCategory">
-        <Setter Property="Width" Value="35"/>
-        <Setter Property="Height" Value="30"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
         <Setter Property="Template">
@@ -320,7 +316,7 @@
                      >
                         <md:PackIcon Kind="Delete"
                                   x:Name="I"
-                                  Width="25" Height="25" Foreground="#FE0000"></md:PackIcon>
+                                  Width="23" Height="23" Foreground="#FE0000"></md:PackIcon>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
@@ -414,7 +410,7 @@
     <Style x:Key="BtnKontrAgentSum" TargetType="Button">
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="Margin" Value="0 2"/>
+        <Setter Property="Margin" Value=" 2"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -485,15 +481,15 @@
     <Style x:Key="BtnKontrAgentEdit" TargetType="Button">
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalAlignment" Value="Center"/>
-        <Setter Property="Margin" Value="0 2"/>
+        <Setter Property="Margin" Value="2"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
                     <Border
-                   x:Name="B"
-                   CornerRadius="8"
-                   Background="#373232"
-                   >
+                        x:Name="B"
+                        CornerRadius="8"
+                        Background="#373232"
+                        >
                         <md:PackIcon Margin="3" x:Name="I"
                                 VerticalAlignment="Center"
                                 HorizontalAlignment="Center"
