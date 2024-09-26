@@ -26,10 +26,6 @@ public partial class MainKontrAgentComponent : UserControl
         tbFirstname.Text = contrAgent.FirstName;  
         tbLastname.Text = contrAgent.LastName;
         tbPhonenumber.Text = contrAgent.PhoneNumber;
-        tbDebtAmount.Text = contrAgent.DebtSum.ToString();
-        tbPayedSum.Text = contrAgent.PayedSum.ToString();
-        tbLastPayedSum.Text = contrAgent.LastPayedSum.ToString();
-        tbLastPayedDate.Text = contrAgent.LastPayedDate;
     }
 
 

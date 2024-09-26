@@ -6,8 +6,8 @@
              xmlns:local="clr-namespace:SmartMarket.Desktop.Components.MainForComponents"
              mc:Ignorable="d" >
     <Border 
-        Margin="5 3 10 3"
-        Height="35"
+        Margin="5 3 15 3"
+        Height="40"
         Background="White"
         CornerRadius="5"
         BorderThickness="1"
@@ -15,19 +15,13 @@
             >
         <Grid>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="0.8*"/>
-                <ColumnDefinition Width="1.6*"/>
-                <ColumnDefinition Width="1.7*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="1.4*"/>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="1.5*"/>
                 <ColumnDefinition Width="0.8*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.7*"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock 
@@ -35,8 +29,8 @@
                 Grid.Column="0"
                 Text="1"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                FontSize="15"
+                HorizontalAlignment="Center"
+                FontSize="14"
                 Margin="5 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
@@ -47,7 +41,8 @@
                 Text="P001"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
-                FontSize="15"
+                FontSize="14"
+                Margin="5 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
 
@@ -57,8 +52,8 @@
                 Text="1000017725261"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
-                FontSize="15"
-                Margin="3 0 0 0"
+                FontSize="14"
+                Margin="5 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
 
@@ -68,97 +63,61 @@
                 Text="XPrinter"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
-                FontSize="15"
+                FontSize="14"
+                Margin="5 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
 
             <TextBlock
-                x:Name="tbCategory"
+                x:Name="tbPrice"
                 Grid.Column="4"
-                Text="Choy"
+                Text="30000"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></TextBlock>
-
-            <TextBlock
-                x:Name="tbWorker"
-                Grid.Column="5"
-                Text="Sherzod"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                FontSize="15"
-                Margin="0 0 0 0"
-                FontWeight="SemiBold"
-                ></TextBlock>
-
-            <TextBlock
-                x:Name="tbBodyPrice"
-                Grid.Column="6"
-                Text="25000.0"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                FontSize="15"
-                Margin="0 0 0 0"
-                FontWeight="SemiBold"
-                ></TextBlock>
-
-            <TextBlock
-                x:Name="tbCount"
-                Grid.Column="7"
-                Text="100"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                FontSize="15"
-                 Margin="0 0 0 0"
-                FontWeight="SemiBold"
-                ></TextBlock>
-
-            <TextBlock
-                x:Name="tbTotalPrice"
-                Grid.Column="8"
-                Text="2500000.0"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                FontSize="15"
-                 Margin="5 0 0 0"
-                FontWeight="SemiBold"
-                ></TextBlock>
-
-            <TextBlock
-                x:Name="tbMeasure"
-                Grid.Column="9"
-                Text="Dona"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                FontSize="15"
-                 Margin="5 0 0 0"
-                FontWeight="SemiBold"
-                ></TextBlock>
-
-            <TextBlock
-                x:Name="tbSalePrice"
-                Grid.Column="10"
-                Text="30000.0"
-                VerticalAlignment="Center"
-                Margin="5,0,19,0"
-                FontSize="15"
+                FontSize="14"
                 FontWeight="SemiBold"
                 />
 
-            <Button
-                x:Name="btnedit"
-                Click="btnedit_Click"
-                Grid.Column="11"
-                Style="{DynamicResource BtnKontrAgentEdit}"
-                ></Button>
-            <Button 
-                x:Name="btndelete"
-                Click="btndelete_Click"
-                Grid.Column="12"
-                Style="{DynamicResource BtnKontrAgentDelete}"
-                ></Button>
+            <TextBlock
+                x:Name="tbCount"
+                Grid.Column="5"
+                Text="100"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                FontSize="14"
+                Margin="5 0 0 0"
+                FontWeight="SemiBold"
+                ></TextBlock>
+
+            <Grid
+                Margin="0 0 5 0"
+                Grid.Column="6"
+                >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button 
+                    Grid.Column="0"
+                    Click="btnDocument_Click"
+                    Style="{DynamicResource BtnKontrAgentList}"
+                    />
+                <Button
+                    x:Name="btnedit"
+                    Click="btnedit_Click"
+                    Grid.Column="1"
+                    Style="{DynamicResource BtnKontrAgentEdit}"
+                    />
+                <Button
+                    x:Name="btndelete"
+                    Click="btndelete_Click"
+                    Grid.Column="2"
+                    Style="{DynamicResource BtnKontrAgentDelete}"
+                    />
+
+            </Grid>
 
         </Grid>
     </Border>

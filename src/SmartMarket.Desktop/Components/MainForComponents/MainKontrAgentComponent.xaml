@@ -5,27 +5,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartMarket.Desktop.Components.MainForComponents"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" 
-             d:DesignHeight="30" d:DesignWidth="800">
+             mc:Ignorable="d" >
     <Border
+        Height="40"
+        Margin="5 3 15 3"
         Background="White"
         CornerRadius="5"
         BorderThickness="1"
-        BorderBrush="Black"
+        BorderBrush="{StaticResource BorderColor}"
         >
         <Grid>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2.5*"/>
-                <ColumnDefinition Width="2.2*"/>
-                <ColumnDefinition Width="1.8*"/>
-                <ColumnDefinition Width="1.8*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="2.5*"/>
+                <ColumnDefinition Width="0.8*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.7*"/>
+                <ColumnDefinition Width="130"/>
             </Grid.ColumnDefinitions>
             
             <TextBlock
@@ -45,6 +41,7 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
                 FontSize="13"
+                Margin="5 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
 
@@ -56,7 +53,7 @@
                 HorizontalAlignment="Left"
                 FontSize="13"
                 FontWeight="SemiBold"
-                Margin="10 0 0 0"
+                Margin="5 0 0 0"
                 ></TextBlock>
 
             <TextBlock
@@ -66,6 +63,7 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
                 FontSize="13"
+                Margin="5 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
 
@@ -76,55 +74,15 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
                 FontSize="13"
+                Margin="5 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
 
-            <TextBlock
-                x:Name="tbDebtAmount"
-                Grid.Column="5"
-                Text="20000000"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                FontSize="13"
-                FontWeight="SemiBold"
-                Margin="10 0 0 0"
-                ></TextBlock>
-
-            <TextBlock
-                x:Name="tbPayedSum"
-                Grid.Column="6"
-                Text="7000000"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                FontSize="13"
-                FontWeight="SemiBold"
-                Margin="15 0 0 0"
-                ></TextBlock>
-
-            <TextBlock
-                x:Name="tbLastPayedSum"
-                Grid.Column="7"
-                Text="7000000"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                FontSize="13"
-                FontWeight="SemiBold"
-                Margin="15 0 0 0"
-                ></TextBlock>
             
-            <TextBlock
-                x:Name="tbLastPayedDate"
-                Grid.Column="8"
-                Text="24.02.2024"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                FontSize="13"
-                Margin="15 0 0 0"
-                FontWeight="SemiBold"
-                ></TextBlock>
 
             <Grid
-                Grid.Column="10"
+                Margin="0 0 5 0"
+                Grid.Column="5"
                 >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

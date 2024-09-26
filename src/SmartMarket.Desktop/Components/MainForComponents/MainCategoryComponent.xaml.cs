@@ -57,7 +57,7 @@ public partial class MainCategoryComponent : UserControl
     {
         if(selected)
         {
-            brCategory.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#988F8E"));
+            brCategory.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B6B6B6"));
             selected = false;
         }
         else

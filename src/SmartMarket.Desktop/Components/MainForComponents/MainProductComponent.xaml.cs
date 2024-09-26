@@ -24,13 +24,8 @@ public partial class MainProductComponent : UserControl
         tbP_Code.Text = product.P_Code;
         TbBarcode.Text = product.BarCode;
         tbProductName.Text = product.ProductName;
-        tbCategory.Text = product.CateogoryName;
-        tbWorker.Text = product.WorkerName;
-        tbBodyPrice.Text = product.Price.ToString();
+        tbPrice.Text = product.Price.ToString();
         tbCount.Text = product.Count.ToString();
-        tbTotalPrice.Text = product.TotalPrice.ToString();
-        tbMeasure.Text = product.UnitOfMeasure.ToString();
-        tbSalePrice.Text = product.SellPrice.ToString();
 
     }
 
@@ -48,6 +43,11 @@ public partial class MainProductComponent : UserControl
         {
             await productService.DeleteProduct(productViewModels.Id);
         }
+
+    }
+
+    private void btnDocument_Click(object sender, RoutedEventArgs e)
+    {
 
     }
 }
