@@ -1,4 +1,6 @@
-﻿using SmartMarket.Desktop.Windows.Expenses;
+﻿using SmartMarket.Desktop.Components.MainForComponents;
+using SmartMarket.Desktop.Components.SaleForComponent;
+using SmartMarket.Desktop.Windows.Expenses;
 using SmartMarket.Desktop.Windows.Partners;
 using SmartMarket.Desktop.Windows.PaymentWindow;
 using SmartMarket.Desktop.Windows.ProductsForWindow;
@@ -7,6 +9,7 @@ using SmartMarket.Desktop.Windows.Settings;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace SmartMarket.Desktop.Pages.SaleForPage;
@@ -153,6 +156,12 @@ public partial class SalePage : Page
     {
         GetData();
         St_product.Focus();
+
+        for (int i = 0; i < 10; i++)
+        {
+            SaleProductForComponent saleProductForComponent = new SaleProductForComponent();
+            St_product.Children.Add(saleProductForComponent);
+        }
     }
 
     private void Harajat_Click(object sender, RoutedEventArgs e)
@@ -182,5 +191,50 @@ public partial class SalePage : Page
     private void Log_Out_Click(object sender, RoutedEventArgs e)
     {
 
+    }
+
+    private SaleProductForComponent selectedControl = null!;
+    public void SelectCategory(SaleProductForComponent product)
+    {
+        if (selectedControl != null)
+        {
+            selectedControl.product_Border.Background = Brushes.White;
+        }
+
+        product.product_Border.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B6B6B6")); ;
+
+        selectedControl = product;
+    }
+
+    private void delete_button_Click(object sender, RoutedEventArgs e)
+    {
+        
+    }
+
+    private void plus_button_Click(object sender, RoutedEventArgs e)
+    {
+        if(selectedControl != null) 
+            selectedControl.tbQuantity.Text = (int.Parse(selectedControl.tbQuantity.Text) + 1).ToString();
+    }
+
+    private void minus_button_Click(object sender, RoutedEventArgs e)
+    {
+        if (selectedControl != null)
+        {
+            int quantity = int.Parse(selectedControl.tbQuantity.Text);
+            if (quantity > 1)
+                selectedControl.tbQuantity.Text = (quantity - 1).ToString();
+        }
+    }
+
+    private void percent_button_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void search_button_Click(object sender, RoutedEventArgs e)
+    {
+        SearchProductWindow searchProductWindow = new SearchProductWindow();
+        searchProductWindow.ShowDialog();
     }
 }
