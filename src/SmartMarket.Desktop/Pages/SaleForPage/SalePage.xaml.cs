@@ -6,6 +6,7 @@ using SmartMarket.Desktop.Windows.PaymentWindow;
 using SmartMarket.Desktop.Windows.ProductsForWindow;
 using SmartMarket.Desktop.Windows.Sales;
 using SmartMarket.Desktop.Windows.Settings;
+using SmartMarketDeskop.Integrated.Services.Products.Product;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,18 +20,22 @@ namespace SmartMarket.Desktop.Pages.SaleForPage;
 /// </summary>
 public partial class SalePage : Page
 {
+    private readonly IProductService _productService;
+
     private System.Timers.Timer timer = new System.Timers.Timer();
 
     private DispatcherTimer time;
 
 
     int activeTextboxIndex = 2;
+    int productCount = 1;
     string barcode = "";
     string barcodes = "";
 
     public SalePage()
     {
         InitializeComponent();
+        this._productService = new ProductService();
 
         timer.Elapsed += vaqt_ketdi;
         timer.Interval = 500;
@@ -131,18 +136,16 @@ public partial class SalePage : Page
         time.Start();
     }
 
-    private void ProcessBarcode(string barcode)
+    private async void ProcessBarcode(string barcode)
     {
         if (!string.IsNullOrEmpty(barcode))
         {
-            Label lblBarcode = new Label();
-            lblBarcode.Content = barcode.ToString();
-            lblBarcode.FontSize = 16;
-            lblBarcode.HorizontalAlignment = HorizontalAlignment.Center;
+            SaleProductForComponent saleProductForComponent = new SaleProductForComponent();
 
-            St_product.Children.Add(lblBarcode);
-
-            scrollViewer.ScrollToEnd();
+            var product = await _productService.GetByBarCode(barcode);
+            saleProductForComponent.SetData(product, productCount);
+            St_product.Children.Add(saleProductForComponent);
+            productCount++;
         }
     }
 
@@ -156,12 +159,6 @@ public partial class SalePage : Page
     {
         GetData();
         St_product.Focus();
-
-        for (int i = 0; i < 10; i++)
-        {
-            SaleProductForComponent saleProductForComponent = new SaleProductForComponent();
-            St_product.Children.Add(saleProductForComponent);
-        }
     }
 
     private void Harajat_Click(object sender, RoutedEventArgs e)
@@ -213,8 +210,11 @@ public partial class SalePage : Page
 
     private void plus_button_Click(object sender, RoutedEventArgs e)
     {
-        if(selectedControl != null) 
+        if(selectedControl != null)
+        {
             selectedControl.tbQuantity.Text = (int.Parse(selectedControl.tbQuantity.Text) + 1).ToString();
+            selectedControl.tbTotalPrice.Text = (double.Parse(selectedControl.tbQuantity.Text) * double.Parse(selectedControl.tbPrice.Text)).ToString();
+        }
     }
 
     private void minus_button_Click(object sender, RoutedEventArgs e)
@@ -223,7 +223,10 @@ public partial class SalePage : Page
         {
             int quantity = int.Parse(selectedControl.tbQuantity.Text);
             if (quantity > 1)
+            {
                 selectedControl.tbQuantity.Text = (quantity - 1).ToString();
+                selectedControl.tbTotalPrice.Text = (double.Parse(selectedControl.tbQuantity.Text) * double.Parse(selectedControl.tbPrice.Text)).ToString();
+            }
         }
     }
 

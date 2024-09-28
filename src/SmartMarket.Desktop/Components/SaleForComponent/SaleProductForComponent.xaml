@@ -60,9 +60,9 @@
                      Text="25000"
                      x:Name="tbPrice"
                      VerticalAlignment="Center"
-                     HorizontalAlignment="Left"
+                     HorizontalAlignment="Right"
                      FontSize="14"
-                     FontWeight="SemiBold"
+                     FontWeight="SemiBold" Grid.ColumnSpan="2" Margin="0,0,28,0"
                      />
 
             <TextBlock 

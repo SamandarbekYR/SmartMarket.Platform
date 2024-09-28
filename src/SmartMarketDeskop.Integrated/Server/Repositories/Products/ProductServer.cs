@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using NLog;
 using SmartMarket.Domain.Entities.Products;
+using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
@@ -12,7 +13,7 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Products;
 public class ProductServer : IProductServer
 {
     private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-    public async Task<bool> AddAsync(AddProductDto dto)
+    public async Task<bool> AddAsync(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto dto)
     {
 
         try
@@ -127,7 +128,37 @@ public class ProductServer : IProductServer
         }
     }
 
-    public async Task<bool> UpdateAsync(AddProductDto dto, Guid Id)
+    public async Task<ProductDto> GetByBarCodeAsync(string barcode)
+    {
+        try
+        {
+            HttpClient client = new HttpClient();
+            var token = IdentitySingelton.GetInstance().Token;
+            client.BaseAddress = new Uri(AuthApi.BASE_URL + $"/api/products/barcode{barcode}");
+
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            HttpResponseMessage message = await client.GetAsync(client.BaseAddress);
+
+            string response = await message.Content.ReadAsStringAsync();
+
+            var products = JsonConvert.DeserializeObject<ProductDto>(response)!;
+
+            return products;
+
+        }
+        catch
+        {
+            return new ProductDto();
+        } 
+    }
+
+    public Task<Product> GetByPCodeAsync(string PCode)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task<bool> UpdateAsync(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto dto, Guid Id)
     {
         try
         {
