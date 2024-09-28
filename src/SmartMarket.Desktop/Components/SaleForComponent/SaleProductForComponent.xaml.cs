@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Desktop.Pages.SaleForPage;
+using SmartMarket.Service.DTOs.Products.Product;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -38,5 +39,13 @@ public partial class SaleProductForComponent : UserControl
             return FindParentPage(parentObject);
         }
         return null!;
+    }
+
+    public void SetData(ProductDto product, int count)
+    {
+        tbNumber.Text = count.ToString();
+        tbPrice.Text = product.Price.ToString();
+        tbProductName.Text = product.Name;
+        tbTotalPrice.Text = (double.Parse(tbQuantity.Text) * product.Price).ToString();
     }
 }

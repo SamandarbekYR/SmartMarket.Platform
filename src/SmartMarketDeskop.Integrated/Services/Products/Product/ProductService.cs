@@ -1,11 +1,11 @@
-﻿using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
+﻿using SmartMarket.Service.DTOs.Products.Product;
+using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Workers;
 using SmartMarketDeskop.Integrated.Server.Repositories.Categories;
 using SmartMarketDeskop.Integrated.Server.Repositories.Products;
 using SmartMarketDeskop.Integrated.Server.Repositories.Workers;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
-using SmartMarketDesktop.DTOs.DTOs.Product;
 using System.Net;
 
 namespace SmartMarketDeskop.Integrated.Services.Products.Product;
@@ -24,7 +24,7 @@ public class ProductService : IProductService
 
     }
 
-    public async Task<bool> CreateProduct(AddProductDto dto)
+    public async Task<bool> CreateProduct(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto dto)
     {
         if(IsInternetAvailable())
         {
@@ -84,7 +84,7 @@ public class ProductService : IProductService
     
     }
 
-    public Task<bool> UpdateProduct(AddProductDto product, Guid Id)
+    public Task<bool> UpdateProduct(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto product, Guid Id)
     {
         throw new NotImplementedException();
     }
@@ -101,6 +101,21 @@ public class ProductService : IProductService
         catch
         {
             return false;
+        }
+    }
+
+
+    public async Task<ProductDto> GetByBarCode(string barCode)
+    {
+        if (IsInternetAvailable())
+        {
+            var productDto  = await productServer.GetByBarCodeAsync(barCode);
+
+            return productDto;
+        }
+        else
+        {
+            return new ProductDto();
         }
     }
 }
