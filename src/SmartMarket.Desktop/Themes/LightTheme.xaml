@@ -24,4 +24,8 @@
     <SolidColorBrush x:Key="Create_Btn_MouseClick" Color="#2696FF"/>
     <SolidColorBrush x:Key="Border_Mouse_Enter" Color="#57AEFF"/>
 
+    <SolidColorBrush x:Key="BFirstColor" Color="#04C217"/>
+    <SolidColorBrush x:Key="BSecondColor" Color="#0000F7"/>
+    <SolidColorBrush x:Key="BTheerdColor" Color="#D30000"/>
+
 </ResourceDictionary>
