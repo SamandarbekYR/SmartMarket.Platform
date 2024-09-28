@@ -1,12 +1,15 @@
 ﻿using SmartMarket.Desktop.Components.MainForComponents;
 using SmartMarket.Desktop.Components.SaleForComponent;
+using SmartMarket.Desktop.ViewModels.Transactions;
 using SmartMarket.Desktop.Windows.Expenses;
 using SmartMarket.Desktop.Windows.Partners;
 using SmartMarket.Desktop.Windows.PaymentWindow;
 using SmartMarket.Desktop.Windows.ProductsForWindow;
 using SmartMarket.Desktop.Windows.Sales;
 using SmartMarket.Desktop.Windows.Settings;
+using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
+using SmartMarketDesktop.DTOs.DTOs.Transactions;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,6 +29,8 @@ public partial class SalePage : Page
 
     private DispatcherTimer time;
 
+    TransactionViewModel tvm;
+
 
     int activeTextboxIndex = 2;
     int productCount = 1;
@@ -35,6 +40,7 @@ public partial class SalePage : Page
     public SalePage()
     {
         InitializeComponent();
+        this.tvm = new TransactionViewModel();
         this._productService = new ProductService();
 
         timer.Elapsed += vaqt_ketdi;
@@ -140,13 +146,38 @@ public partial class SalePage : Page
     {
         if (!string.IsNullOrEmpty(barcode))
         {
-            SaleProductForComponent saleProductForComponent = new SaleProductForComponent();
-
             var product = await _productService.GetByBarCode(barcode);
-            saleProductForComponent.SetData(product, productCount);
-            St_product.Children.Add(saleProductForComponent);
-            productCount++;
+
+            if (product != null)
+            {
+                if (!tvm.Transactions.Any(t => t.Barcode == barcode))
+                {
+                    tvm.Add(product);
+                    AddNewProduct(product);
+                }
+                else
+                    tvm.Increment(barcode);
+            }
+
         }
+    }
+
+    private void AddNewProduct(ProductDto product)
+    {
+        SaleProductForComponent saleProductForComponent = new SaleProductForComponent();
+        saleProductForComponent.DataContext = new TransactionDto
+        {
+            Name = product.Name,
+            Barcode = product.Barcode,
+            Price = product.Price,
+            Quantity = 1,
+            TotalPrice = product.Price,
+            AvailableCount = product.Count,
+            Discount = 0
+        };
+        saleProductForComponent.SetData(product, productCount);
+        St_product.Children.Add(saleProductForComponent);
+        productCount++;
     }
 
     private void Nasiya_Button_Click(object sender, RoutedEventArgs e)
@@ -210,24 +241,58 @@ public partial class SalePage : Page
 
     private void plus_button_Click(object sender, RoutedEventArgs e)
     {
+        //if(selectedControl != null)
+        //{
+        //    selectedControl.tbQuantity.Text = (int.Parse(selectedControl.tbQuantity.Text) + 1).ToString();
+        //    selectedControl.tbTotalPrice.Text = (double.Parse(selectedControl.tbQuantity.Text) * double.Parse(selectedControl.tbPrice.Text)).ToString();
+        //}
+
         if(selectedControl != null)
         {
-            selectedControl.tbQuantity.Text = (int.Parse(selectedControl.tbQuantity.Text) + 1).ToString();
-            selectedControl.tbTotalPrice.Text = (double.Parse(selectedControl.tbQuantity.Text) * double.Parse(selectedControl.tbPrice.Text)).ToString();
+            if (int.Parse(selectedControl.tbQuantity.Text) < selectedControl.AvailableCount)
+            {
+                foreach (var item in tvm.Transactions)
+                {
+                    if(item.Barcode == selectedControl.Barcode)
+                    {
+                        item.Quantity++;
+                        item.TotalPrice = item.Quantity * item.Price;
+                    }
+                }
+            }
         }
+
     }
 
     private void minus_button_Click(object sender, RoutedEventArgs e)
     {
+        //if (selectedControl != null)
+        //{
+        //    int quantity = int.Parse(selectedControl.tbQuantity.Text);
+        //    if (quantity > 1)
+        //    {
+        //        selectedControl.tbQuantity.Text = (quantity - 1).ToString();
+        //        selectedControl.tbTotalPrice.Text = (double.Parse(selectedControl.tbQuantity.Text) * double.Parse(selectedControl.tbPrice.Text)).ToString();
+        //    }
+        //}
+
         if (selectedControl != null)
         {
             int quantity = int.Parse(selectedControl.tbQuantity.Text);
+
             if (quantity > 1)
             {
-                selectedControl.tbQuantity.Text = (quantity - 1).ToString();
-                selectedControl.tbTotalPrice.Text = (double.Parse(selectedControl.tbQuantity.Text) * double.Parse(selectedControl.tbPrice.Text)).ToString();
+                foreach (var item in tvm.Transactions)
+                {
+                    if (item.Barcode == selectedControl.Barcode)
+                    {
+                        item.Quantity--;
+                        item.TotalPrice = item.Quantity * item.Price;
+                    }
+                }
             }
         }
+
     }
 
     private void percent_button_Click(object sender, RoutedEventArgs e)

@@ -12,6 +12,10 @@ namespace SmartMarket.Desktop.Components.SaleForComponent;
 /// </summary>
 public partial class SaleProductForComponent : UserControl
 {
+    public Guid Id { get; set; }
+    public string Barcode { get; set; }
+    public int AvailableCount { get; set; }
+
     public SaleProductForComponent()
     {
         InitializeComponent();
@@ -44,8 +48,8 @@ public partial class SaleProductForComponent : UserControl
     public void SetData(ProductDto product, int count)
     {
         tbNumber.Text = count.ToString();
-        tbPrice.Text = product.Price.ToString();
-        tbProductName.Text = product.Name;
-        tbTotalPrice.Text = (double.Parse(tbQuantity.Text) * product.Price).ToString();
+        Id = product.Id;
+        Barcode = product.Barcode;
+        AvailableCount = product.Count;
     }
 }

@@ -1,13 +1,7 @@
-﻿using Tr=SmartMarket.Domain.Entities.Transactions;
+﻿using SmartMarket.Domain.Entities.PayDesks;
 using SmartMarket.Domain.Entities.Workers;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
-using SmartMarket.Domain.Entities.PayDesks;
+using Tr = SmartMarket.Domain.Entities.Transactions;
 
 namespace SmartMarket.Domain.Entities.Products
 {
