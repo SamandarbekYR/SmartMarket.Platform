@@ -59,24 +59,24 @@ public partial class MainPage : Page
 
     public async Task GetAllCategory()
     {
-        //var categoryViews = await _categoryService.GetAllAsync();
+        var categoryViews = await _categoryService.GetAllAsync();
 
-        //St_categoryList.Children.Clear();
-        //foreach (var category in categoryViews)
-        //{
-        //    MainCategoryComponent categoryComponent = new MainCategoryComponent();
-        //    categoryComponent.Tag = category;
-        //    categoryComponent.SetValues(category, categoryCount);
-        //    St_categoryList.Children.Add(categoryComponent);
-        //    categoryCount++;
-        //}
-
-
-        for (int i = 0; i < 30; i++)
+        St_categoryList.Children.Clear();
+        foreach (var category in categoryViews)
         {
             MainCategoryComponent categoryComponent = new MainCategoryComponent();
+            categoryComponent.Tag = category;
+            categoryComponent.SetValues(category, categoryCount);
             St_categoryList.Children.Add(categoryComponent);
+            categoryCount++;
         }
+
+
+        //for (int i = 0; i < 30; i++)
+        //{
+        //    MainCategoryComponent categoryComponent = new MainCategoryComponent();
+        //    St_categoryList.Children.Add(categoryComponent);
+        //}
     }
 
 
@@ -95,44 +95,44 @@ public partial class MainPage : Page
 
     public async Task GetAllContrAgents()
     {
-        //var contrAgents = await _contrAgentService.GetAll();
+        var contrAgents = await _contrAgentService.GetAll();
 
-        //St_contragent.Children.Clear();
+        St_contragent.Children.Clear();
 
-        //foreach (var contrAgent in contrAgents)
-        //{
-        //    MainKontrAgentComponent mainKontrAgentComponent = new MainKontrAgentComponent();
-        //    mainKontrAgentComponent.Tag = contrAgent;
-        //    mainKontrAgentComponent.GetData(contrAgent, contragenCount);
-        //    St_contragent.Children.Add(mainKontrAgentComponent);
-        //    contragenCount++;
-        //}
-
-        for (int i = 0; i < 15; i++)
+        foreach (var contrAgent in contrAgents)
         {
             MainKontrAgentComponent mainKontrAgentComponent = new MainKontrAgentComponent();
+            mainKontrAgentComponent.Tag = contrAgent;
+            mainKontrAgentComponent.GetData(contrAgent, contragenCount);
             St_contragent.Children.Add(mainKontrAgentComponent);
+            contragenCount++;
         }
+
+        //for (int i = 0; i < 15; i++)
+        //{
+        //    MainKontrAgentComponent mainKontrAgentComponent = new MainKontrAgentComponent();
+        //    St_contragent.Children.Add(mainKontrAgentComponent);
+        //}
     }
 
     public async Task GetAllProducts()
     {
-        //var products = await _productService.GetAll();
+        var products = await _productService.GetAll();
 
-        //St_product.Children.Clear();
-        //foreach (var product in products)
-        //{
-        //    MainProductComponent productComponent = new MainProductComponent();
-        //    productComponent.Tag = product;
-        //    productComponent.GetData(product, productCount);
-        //    St_product.Children.Add(productComponent);
-        //    productCount++;
-        //}
-
-        for (int i = 0; i < 15; i++)
+        St_product.Children.Clear();
+        foreach (var product in products)
         {
             MainProductComponent productComponent = new MainProductComponent();
+            productComponent.Tag = product;
+            productComponent.GetData(product, productCount);
             St_product.Children.Add(productComponent);
+            productCount++;
         }
+
+        //for (int i = 0; i < 15; i++)
+        //{
+        //    MainProductComponent productComponent = new MainProductComponent();
+        //    St_product.Children.Add(productComponent);
+        //}
     }
 }

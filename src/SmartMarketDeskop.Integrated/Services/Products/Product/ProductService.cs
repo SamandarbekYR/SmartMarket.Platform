@@ -73,8 +73,8 @@ public class ProductService : IProductService
                 SellPrice = a.SellPrice,
                 TotalPrice = a.Price * a.Count,
                 UnitOfMeasure = a.UnitOfMeasure,
-                WorkerName = workers.Find(c => c.Id == a.WorkerId).FirstName,
-                CateogoryName = categorys.Find(c => c.Id == a.CategoryId).Name
+                //WorkerName = workers.Find(c => c.Id == a.WorkerId).FirstName,
+                //CateogoryName = categorys.Find(c => c.Id == a.CategoryId).Name
             }).ToList();
         }
         else
