@@ -103,7 +103,7 @@ public class ProductServer : IProductServer
         }
     }
 
-    public async Task<List<Product>> GetAllAsync()
+    public async Task<List<ProductDto>> GetAllAsync()
     {
         try
         {
@@ -117,14 +117,14 @@ public class ProductServer : IProductServer
 
             string response=await message.Content.ReadAsStringAsync();
 
-            List<Product> products=JsonConvert.DeserializeObject<List<Product>>(response)!;
+            List<ProductDto> products=JsonConvert.DeserializeObject<List<ProductDto>>(response)!;
 
             return products;
 
         }
         catch
         {
-            return new List<Product>();
+            return new List<ProductDto>();
         }
     }
 

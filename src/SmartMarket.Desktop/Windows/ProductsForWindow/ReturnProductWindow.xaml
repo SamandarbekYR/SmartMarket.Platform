@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:SmartMarket.Desktop.Windows.ProductsForWindow"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
         AllowsTransparency="True"

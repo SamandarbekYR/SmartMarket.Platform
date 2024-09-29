@@ -120,13 +120,17 @@ public partial class MainPage : Page
         var products = await _productService.GetAll();
 
         St_product.Children.Clear();
-        foreach (var product in products)
+
+        if (products != null)
         {
-            MainProductComponent productComponent = new MainProductComponent();
-            productComponent.Tag = product;
-            productComponent.GetData(product, productCount);
-            St_product.Children.Add(productComponent);
-            productCount++;
+            foreach (var product in products)
+            {
+                MainProductComponent productComponent = new MainProductComponent();
+                productComponent.Tag = product;
+                productComponent.GetData(product, productCount);
+                St_product.Children.Add(productComponent);
+                productCount++;
+            }
         }
 
         //for (int i = 0; i < 15; i++)

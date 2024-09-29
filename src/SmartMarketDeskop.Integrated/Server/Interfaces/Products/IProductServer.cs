@@ -5,7 +5,7 @@ namespace SmartMarketDeskop.Integrated.Server.Interfaces.Products;
 
 public interface IProductServer
 {
-    Task<List<Product>> GetAllAsync();
+    Task<List<ProductDto>> GetAllAsync();
     Task<bool> AddAsync(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto dto);
     Task<bool> DeleteAsync(Guid Id);
     Task<bool> UpdateAsync(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto dto, Guid Id);
