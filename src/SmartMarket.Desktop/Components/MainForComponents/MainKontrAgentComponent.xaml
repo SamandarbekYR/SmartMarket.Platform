@@ -93,12 +93,16 @@
 
 
                 <Button
+                    x:Name="Payment_Button"
                     Grid.Column="0"
+                    Click="Payment_Button_Click"
                     Style="{DynamicResource BtnKontrAgentSum}"
                     />
                 
                 <Button 
+                    Name="History_Button"
                     Grid.Column="1"
+                    Click="History_Button_Click"
                     Style="{DynamicResource BtnKontrAgentList}"
                     />
                 <Button

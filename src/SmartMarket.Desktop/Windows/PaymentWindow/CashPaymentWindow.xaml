@@ -36,7 +36,7 @@
 
         <TextBlock
             Grid.Row="0" 
-            Text="To'lov Naqd"
+            Text="To'lov naqd"
             VerticalAlignment="Center"
             Foreground="White"
             FontSize="20"
@@ -63,7 +63,7 @@
 
         <StackPanel Grid.Row="1">
 
-            <TextBlock Text="To'lov Miqdori"
+            <TextBlock Text="To'lov miqdori"
                        FontSize="18"
                        Margin="35 10 0 0"
                        ></TextBlock>
