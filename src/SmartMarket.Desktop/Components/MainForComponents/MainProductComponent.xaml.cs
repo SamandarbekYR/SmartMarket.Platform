@@ -1,4 +1,5 @@
-﻿using SmartMarketDeskop.Integrated.Services.Products.Product;
+﻿using SmartMarket.Service.DTOs.Products.Product;
+using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,19 +12,19 @@ namespace SmartMarket.Desktop.Components.MainForComponents;
 public partial class MainProductComponent : UserControl
 {
     private IProductService productService;
-    ProductViewModels productViewModels;
+    ProductDto productViewModels;
     public MainProductComponent()
     {
         InitializeComponent();
         this.productService = new ProductService();
     }
 
-    public void GetData(ProductViewModels product, int count)
+    public void GetData(ProductDto product, int count)
     {
         tbNumber.Text = count.ToString();
-        tbP_Code.Text = product.P_Code;
-        TbBarcode.Text = product.BarCode;
-        tbProductName.Text = product.ProductName;
+        tbP_Code.Text = product.PCode;
+        TbBarcode.Text = product.Barcode;
+        tbProductName.Text = product.Name;
         tbPrice.Text = product.Price.ToString();
         tbCount.Text = product.Count.ToString();
 
@@ -36,7 +37,7 @@ public partial class MainProductComponent : UserControl
 
     private async void btndelete_Click(object sender, System.Windows.RoutedEventArgs e)
     {
-        productViewModels = this.Tag as ProductViewModels;
+        productViewModels = this.Tag as ProductDto;
 
         var messageBoxResult = MessageBox.Show("O'chirishni hohlaysizmi!", "Ogohlantirish!", MessageBoxButton.YesNo);
         if(messageBoxResult == MessageBoxResult.Yes)

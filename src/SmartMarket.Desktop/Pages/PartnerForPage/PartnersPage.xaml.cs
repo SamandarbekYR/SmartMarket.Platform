@@ -29,7 +29,7 @@ public partial class PartnersPage : Page
 
         int count = 1;
 
-        if (partners.Count > 0)
+        if (partners != null)
         {
             foreach (var partner in partners)
             {

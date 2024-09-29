@@ -8,6 +8,6 @@ public interface IProductService
     Task<bool> CreateProduct(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto dto);
     Task<bool> UpdateProduct(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto product, Guid Id);
     Task<bool> DeleteProduct(Guid Id);
-    Task<List<ProductViewModels>> GetAll();
+    Task<List<ProductDto>> GetAll();
     Task<ProductDto> GetByBarCode(string barCode);
  }

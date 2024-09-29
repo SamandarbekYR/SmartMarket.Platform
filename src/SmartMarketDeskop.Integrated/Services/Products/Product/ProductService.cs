@@ -53,7 +53,7 @@ public class ProductService : IProductService
         }
     }
 
-    public async Task<List<ProductViewModels>> GetAll()
+    public async Task<List<ProductDto>> GetAll()
     {
         if (IsInternetAvailable())
         {
@@ -62,24 +62,11 @@ public class ProductService : IProductService
             var categorys=await categoryServer.GetAllAsync();
             var workers=await workerServer.GetAllAsync();
 
-            return products.Select(a => new ProductViewModels()
-            {
-                Id=a.Id,
-                BarCode = a.Barcode,
-                P_Code = a.PCode,
-                ProductName = a.Name,
-                Count = a.Count,
-                Price = a.Price,
-                SellPrice = a.SellPrice,
-                TotalPrice = a.Price * a.Count,
-                UnitOfMeasure = a.UnitOfMeasure,
-                //WorkerName = workers.Find(c => c.Id == a.WorkerId).FirstName,
-                //CateogoryName = categorys.Find(c => c.Id == a.CategoryId).Name
-            }).ToList();
+            return products;
         }
         else
         {
-            return new List<ProductViewModels>(); 
+            return new List<ProductDto>(); 
         }
     
     }
