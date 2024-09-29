@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Desktop.Windows.ContrAgents;
+using SmartMarket.Desktop.Windows.PaymentWindow;
 using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgents;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.PartnerCompany;
 using System.Windows;
@@ -56,5 +57,16 @@ public partial class MainKontrAgentComponent : UserControl
         {
             await contrAgentService.DeleteAsync(contragent.Id);
         }
+    }
+
+    private void Payment_Button_Click(object sender, RoutedEventArgs e)
+    {
+        PaymentKontrAgentWindow paymentKontrAgentWindow = new PaymentKontrAgentWindow();
+        paymentKontrAgentWindow.ShowDialog();
+    }
+
+    private void History_Button_Click(object sender, RoutedEventArgs e)
+    {
+
     }
 }
