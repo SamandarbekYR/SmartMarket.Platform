@@ -26,7 +26,7 @@ public partial class SaleProductForComponent : UserControl
         var page = FindParentPage(this);
         if (page is SalePage salePage)
         {
-            salePage.SelectCategory(this);
+            salePage.SelectProduct(this);
         }
     }
 
