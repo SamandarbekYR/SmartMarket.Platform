@@ -1,42 +1,88 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SmartMarket.Service.Common.Exceptions;
 using SmartMarket.Service.DTOs.Products.InvalidProduct;
 using SmartMarket.Service.Interfaces.Products.InvalidProduct;
 
-namespace SmartMarket.WebApi.Controllers.Common.Products;
-
-[Route("api/invalid-products")]
-[ApiController]
-public class InvalidProductsController(IInvalidProductService invalidProductService) : BaseController
+namespace SmartMarket.WebApi.Controllers.Common.Products
 {
-    private readonly IInvalidProductService _invalidProductService = invalidProductService;
-
-    [HttpGet]
-    public async Task<IActionResult> GetAllAsync()
+    [Route("api/invalid-products")]
+    [ApiController]
+    public class InvalidProductsController(IInvalidProductService invalidProductService) : ControllerBase
     {
-        var invalidProducts = await _invalidProductService.GetAllAsync();
-        return Ok(invalidProducts);
-    }
+        private readonly IInvalidProductService _invalidProductService = invalidProductService;
 
-    [HttpPost]
-    public async Task<IActionResult> AddAsync([FromBody] AddInvalidProductDto dto)
-    {
-        await _invalidProductService.AddAsync(dto);
-        return Ok();
-    }
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            try
+            {
+                var invalidProducts = await _invalidProductService.GetAllAsync();
+                return Ok(invalidProducts);
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteAsync(Guid id)
-    {
-        await _invalidProductService.DeleteAsync(id);
-        return Ok();
-    }
+        [HttpPost]
+        public async Task<IActionResult> AddAsync([FromBody] AddInvalidProductDto dto)
+        {
+            try
+            {
+                await _invalidProductService.AddAsync(dto);
+                return Ok();
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] AddInvalidProductDto dto)
-    {
-        await _invalidProductService.UpdateAsync(dto, id);
-        return Ok();
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(Guid id)
+        {
+            try
+            {
+                await _invalidProductService.DeleteAsync(id);
+                return Ok();
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] AddInvalidProductDto dto)
+        {
+            try
+            {
+                await _invalidProductService.UpdateAsync(dto, id);
+                return Ok();
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

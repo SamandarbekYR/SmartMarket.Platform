@@ -14,11 +14,12 @@ namespace SmartMarket.Service.Interfaces.Products.Product
         Task<bool> DeleteAsync(Guid Id);
         Task<IEnumerable<ProductDto>> GetAllAsync(PaginationParams @params);
         Task<bool> UpdateAsync(AddProductDto dto, Guid Id);
-
+        Task<bool> SellProductAsync(string barcode);
+        Task<IEnumerable<ProductDto>> GetProductsByCategoryIdAsync(Guid categoryId, PaginationParams @params);
 
         Task<ProductDto> GetProductByBarcodeAsync(string barcode);
         Task<ProductDto> GetProductByPCodeAsync(string pCode);
         Task<ProductDto> GetProductByWorkerIdAsync(Guid workerId);
-        Task<IEnumerable<ProductDto>> SearchProductsAsync(string searchTerm, PaginationParams @params);
+        Task<ProductDto> GetProductByNameAsync(string name);
     }
 }

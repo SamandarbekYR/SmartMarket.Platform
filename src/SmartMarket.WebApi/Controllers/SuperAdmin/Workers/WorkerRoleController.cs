@@ -8,7 +8,7 @@ namespace SmartMarket.WebApi.Controllers.SuperAdmin.Workers
 {
     [Route("api/super-admin/worker-role")]
     [ApiController]
-    public class WorkerRoleController(IWorkerRoleService workerRole) : SuperAdminController
+    public class WorkerRoleController(IWorkerRoleService workerRole) : ControllerBase
     {
         public IWorkerRoleService _workerRole = workerRole;
 

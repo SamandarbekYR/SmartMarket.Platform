@@ -1,43 +1,89 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SmartMarket.Service.Common.Exceptions;
 using SmartMarket.Service.DTOs.Expence;
 using SmartMarket.Service.Interfaces.Expence;
 using SmartMarket.WebApi.Controllers.Common;
 
-namespace SmartMarket.WebApi.Controllers.Common.Expence;
-
-[Route("api/expences")]
-[ApiController]
-public class ExpencesController(IExpenceService expenceService) : BaseController
+namespace SmartMarket.WebApi.Controllers.Common.Expence
 {
-    private readonly IExpenceService _expenceService = expenceService;
-
-    [HttpGet]
-    public async Task<IActionResult> GetAllAsync()
+    [Route("api/expences")]
+    [ApiController]
+    public class ExpencesController(IExpenceService expenceService) : ControllerBase
     {
-        var expenses = await _expenceService.GetAllAsync();
-        return Ok(expenses);
-    }
+        private readonly IExpenceService _expenceService = expenceService;
 
-    [HttpPost]
-    public async Task<IActionResult> AddAsync([FromBody] AddExpenceDto dto)
-    {
-        await _expenceService.AddAsync(dto);
-        return Ok();
-    }
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync()
+        {
+            try
+            {
+                var expenses = await _expenceService.GetAllAsync();
+                return Ok(expenses);
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message); 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message); 
+            }
+        }
 
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteAsync(Guid id)
-    {
-        await _expenceService.DeleteAsync(id);
-        return Ok();
-    }
+        [HttpPost]
+        public async Task<IActionResult> AddAsync([FromBody] AddExpenceDto dto)
+        {
+            try
+            {
+                await _expenceService.AddAsync(dto);
+                return Ok();
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] AddExpenceDto dto)
-    {
-        await _expenceService.UpdateAsync(dto, id);
-        return Ok();
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(Guid id)
+        {
+            try
+            {
+                await _expenceService.DeleteAsync(id);
+                return Ok();
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] AddExpenceDto dto)
+        {
+            try
+            {
+                await _expenceService.UpdateAsync(dto, id);
+                return Ok();
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

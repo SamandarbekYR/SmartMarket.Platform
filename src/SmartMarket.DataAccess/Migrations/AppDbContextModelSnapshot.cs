@@ -241,6 +241,9 @@ namespace SmartMarket.DataAccess.Migrations
 
                     b.HasIndex("CompanyId");
 
+                    b.HasIndex("FirstName", "PhoneNumber")
+                        .IsUnique();
+
                     b.ToTable("contr_agent");
                 });
 
@@ -560,6 +563,9 @@ namespace SmartMarket.DataAccess.Migrations
                     b.HasIndex("ContrAgentId");
 
                     b.HasIndex("WorkerId");
+
+                    b.HasIndex("Barcode", "PCode", "Name")
+                        .IsUnique();
 
                     b.ToTable("product");
                 });

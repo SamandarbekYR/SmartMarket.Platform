@@ -65,5 +65,16 @@ namespace SmartMarket.Service.Services.Category
 
             return await _unitOfWork.Category.Update(category);
         }
+        public async Task<CategoryDto> GetByIdAsync(Guid Id)
+        {
+            var category = await _unitOfWork.Category.GetById(Id);
+            if (category == null)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Category not found.");
+            }
+
+            return _mapper.Map<CategoryDto>(category);
+        }
+
     }
 }

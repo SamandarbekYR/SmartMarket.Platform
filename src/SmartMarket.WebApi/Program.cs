@@ -1,5 +1,5 @@
 using SmartMarket.Service.Common.Mapper;
-using SmartMarket.Service.Hubs;
+using SmartMarket.Service.Helpers;
 using SmartMarket.WebApi.Configurations;
 using SmartMarket.WebApi.Extensions;
 using SmartMarket.WebApi.Middlewares;
@@ -20,6 +20,8 @@ builder.ConfigureServiceLayer();
 builder.Services.AddSignalR();
 builder.Services.AddAutoMapper(typeof(MapperProfile));
 builder.ConfigurationValidators();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 
@@ -28,6 +30,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+if (app.Services.GetService<IHttpContextAccessor>() is not null)
+{
+    HttpContextHelper.Accessor = app.Services.GetRequiredService<IHttpContextAccessor>();
 }
 
 app.UseHttpsRedirection();

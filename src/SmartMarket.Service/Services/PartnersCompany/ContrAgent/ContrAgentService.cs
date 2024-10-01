@@ -8,68 +8,102 @@ using SmartMarket.Service.Common.Validators;
 using System.Net;
 using SmartMarket.Service.DTOs.PartnersCompany.ContrAgent;
 using SmartMarket.Service.Interfaces.PartnersCompany.ContrAgent;
+using SmartMarket.Service.Common.Utils;
+using SmartMarket.Service.Common.Extentions;
 
-namespace SmartMarket.Service.Services.PartnersCompany.ContrAgent;
-
-public class ContrAgentService(IUnitOfWork unitOfWork,
-                             IMapper mapper,
-                             IValidator<AddContrAgentDto> validator) : IContrAgentService
+namespace SmartMarket.Service.Services.PartnersCompany.ContrAgent
 {
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
-    private readonly IMapper _mapper = mapper;
-    private readonly IValidator<AddContrAgentDto> _validator = validator;
-
-    public async Task<bool> AddAsync(AddContrAgentDto dto)
+    public class ContrAgentService(IUnitOfWork unitOfWork,
+                                 IMapper mapper,
+                                 IValidator<AddContrAgentDto> validator) : IContrAgentService
     {
-        var validationResult = _validator.Validate(dto);
-        if (!validationResult.IsValid)
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IMapper _mapper = mapper;
+        private readonly IValidator<AddContrAgentDto> _validator = validator;
+
+        public async Task<bool> AddAsync(AddContrAgentDto dto)
         {
-            throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
+            var validationResult = _validator.Validate(dto);
+            if (!validationResult.IsValid)
+            {
+                throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
+            }
+
+            var companyExists = await _unitOfWork.PartnerCompany.GetById(dto.CompanyId) != null;
+            if (!companyExists)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Company not found.");
+            }
+
+            var contrAgent = _mapper.Map<Et.ContrAgent>(dto);
+            return await _unitOfWork.ContrAgent.Add(contrAgent);
         }
 
-        var companyExists = await _unitOfWork.PartnerCompany.GetById(dto.CompanyId) != null;
-        if (!companyExists)
+        public async Task<bool> DeleteAsync(Guid Id)
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Company not found.");
+            var contrAgent = await _unitOfWork.ContrAgent.GetById(Id);
+            if (contrAgent == null)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Counteragent not found.");
+            }
+
+            return await _unitOfWork.ContrAgent.Remove(contrAgent);
         }
 
-        var contrAgent = _mapper.Map<Et.ContrAgent>(dto);
-        return await _unitOfWork.ContrAgent.Add(contrAgent);
-    }
-
-    public async Task<bool> DeleteAsync(Guid Id)
-    {
-        var contrAgent = await _unitOfWork.ContrAgent.GetById(Id);
-        if (contrAgent == null)
+        public async Task<IEnumerable<ContrAgentDto>> GetAllAsync(PaginationParams @params)
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Counteragent not found.");
+            var contrAgents = await _unitOfWork.ContrAgent.GetAll()
+                                             .AsNoTracking()
+                                             .ToPagedListAsync(@params); 
+
+            return contrAgents.Select(ca => _mapper.Map<ContrAgentDto>(ca)).ToList();
         }
 
-        return await _unitOfWork.ContrAgent.Remove(contrAgent);
-    }
 
-    public async Task<List<ContrAgentDto>> GetAllAsync()
-    {
-        var contrAgents = await _unitOfWork.ContrAgent.GetContrAgentsFullInformationAsync();
-        return _mapper.Map<List<ContrAgentDto>>(contrAgents);
-    }
-
-    public async Task<bool> UpdateAsync(AddContrAgentDto dto, Guid Id)
-    {
-        var contrAgent = await _unitOfWork.ContrAgent.GetById(Id);
-        if (contrAgent == null)
+        public async Task<ContrAgentDto> GetContrAgentByNameAsync(string name)
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Counteragent not found.");
+            var contrAgent = await _unitOfWork.ContrAgent.GetAll()
+                .FirstOrDefaultAsync(ca => ca.FirstName == name);
+
+            if (contrAgent == null)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Counteragent not found.");
+            }
+
+            return _mapper.Map<ContrAgentDto>(contrAgent);
         }
 
-        var companyExists = await _unitOfWork.PartnerCompany.GetById(dto.CompanyId) != null;
-        if (!companyExists)
+        public async Task<ContrAgentDto> GetContrAgentByNumberAsync(string number)
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Company not found.");
+            var contrAgent = await _unitOfWork.ContrAgent.GetAll()
+                .FirstOrDefaultAsync(ca => ca.PhoneNumber == number);
+
+            if (contrAgent == null)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Counteragent not found.");
+            }
+
+            return _mapper.Map<ContrAgentDto>(contrAgent);
         }
 
-        _mapper.Map(dto, contrAgent);
+        public async Task<bool> UpdateAsync(AddContrAgentDto dto, Guid Id)
+        {
+            var contrAgent = await _unitOfWork.ContrAgent.GetById(Id);
+            if (contrAgent == null)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Counteragent not found.");
+            }
 
-        return await _unitOfWork.ContrAgent.Update(contrAgent);
+            var companyExists = await _unitOfWork.PartnerCompany.GetById(dto.CompanyId) != null;
+            if (!companyExists)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Company not found.");
+            }
+
+            _mapper.Map(dto, contrAgent);
+
+            return await _unitOfWork.ContrAgent.Update(contrAgent);
+        }
+
     }
 }

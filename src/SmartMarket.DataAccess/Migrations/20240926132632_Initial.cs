@@ -603,6 +603,12 @@ namespace SmartMarket.DataAccess.Migrations
                 column: "company_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_contr_agent_first_name_phone_number",
+                table: "contr_agent",
+                columns: new[] { "first_name", "phone_number" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_contr_agent_payment_contr_agent_id",
                 table: "contr_agent_payment",
                 column: "contr_agent_id");
@@ -666,6 +672,12 @@ namespace SmartMarket.DataAccess.Migrations
                 name: "IX_order_worker_id",
                 table: "order",
                 column: "worker_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_product_barcode_pcode_name",
+                table: "product",
+                columns: new[] { "barcode", "pcode", "name" },
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_product_category_id",
