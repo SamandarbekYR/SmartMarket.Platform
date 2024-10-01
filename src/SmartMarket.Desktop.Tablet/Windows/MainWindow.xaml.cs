@@ -1,6 +1,5 @@
 ﻿using SmartMarket.Desktop.Tablet.Pages;
 using System.Windows;
-
 namespace SmartMarket.Desktop.Tablet;
 
 /// <summary>
