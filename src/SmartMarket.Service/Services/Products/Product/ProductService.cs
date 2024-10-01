@@ -44,7 +44,7 @@ public class ProductService(IUnitOfWork unitOfWork,
             throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
         }
 
-        string pCode = GeneratePCode();
+        string pCode = await GenerateUniquePCodeAsync();
 
         var product = _mapper.Map<Et.Product>(dto);
         product.PCode = pCode;
@@ -99,10 +99,25 @@ public class ProductService(IUnitOfWork unitOfWork,
         return await _unitOfWork.Product.Update(product);
     }
 
-    private string GeneratePCode()
+    private async Task<string> GenerateUniquePCodeAsync()
     {
         Random random = new Random();
-        return random.Next(10000, 99999).ToString();
+        string pCode;
+        bool exists;
+
+        do
+        {
+            pCode = random.Next(10000, 99999).ToString();
+            exists = await CheckPCodeExistsAsync(pCode); 
+        } while (exists);
+
+        return pCode;
+    }
+
+    private async Task<bool> CheckPCodeExistsAsync(string pCode)
+    {
+        return await _unitOfWork.Product.GetAll()
+            .AnyAsync(p => p.PCode == pCode); 
     }
     public async Task<ProductDto> GetProductByBarcodeAsync(string barcode)
     {
@@ -143,10 +158,56 @@ public class ProductService(IUnitOfWork unitOfWork,
         return _mapper.Map<ProductDto>(product);
     }
 
-    public async Task<IEnumerable<ProductDto>> SearchProductsAsync(string searchTerm, PaginationParams @params)
+    public async Task<bool> SellProductAsync(string barcode)
+    {
+        if (string.IsNullOrEmpty(barcode) || barcode.Length != 13)
+        {
+            throw new StatusCodeException(HttpStatusCode.BadRequest, "Invalid barcode format.");
+        }
+
+        string quantityType = barcode.Substring(0, 2);
+
+        string pCode = barcode.Substring(2, 5);
+
+        int soldQuantity = int.Parse(barcode.Substring(7, 5));
+
+        var product = await _unitOfWork.Product.GetAll()
+            .FirstOrDefaultAsync(p => p.PCode == pCode);
+
+        if (product == null)
+        {
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
+        }
+
+        if (product.Count < soldQuantity)
+        {
+            throw new StatusCodeException(HttpStatusCode.BadRequest, "Insufficient product quantity.");
+        }
+
+        product.Count -= soldQuantity;
+
+        await _unitOfWork.Product.Update(product);
+        await _unitOfWork.SaveAsync();
+
+        return true;
+    }
+
+    public async Task<ProductDto> GetProductByNameAsync(string name)
+    {
+        var product = await _unitOfWork.Product.GetAll()
+            .FirstOrDefaultAsync(p => p.Name == name);
+
+        if (product == null)
+        {
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
+        }
+
+        return _mapper.Map<ProductDto>(product);
+    }
+    public async Task<IEnumerable<ProductDto>> GetProductsByCategoryIdAsync(Guid categoryId, PaginationParams @params)
     {
         var products = await _unitOfWork.Product.GetAll()
-            .Where(p => p.Name.Contains(searchTerm) || p.Barcode.Contains(searchTerm) || p.PCode.Contains(searchTerm))
+            .Where(p => p.CategoryId == categoryId)
             .AsNoTracking()
             .ToPagedListAsync(@params);
         return products.Select(p => _mapper.Map<ProductDto>(p)).ToList();
