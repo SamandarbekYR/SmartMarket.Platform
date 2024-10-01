@@ -14,6 +14,7 @@ using SmartMarket.Service.DTOs.Products.DebtPayment;
 using SmartMarket.Service.DTOs.Products.InvalidProduct;
 using SmartMarket.Service.DTOs.Products.LoadReport;
 using SmartMarket.Service.DTOs.Products.Product;
+using SmartMarket.Service.DTOs.Products.ProductImage;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.DTOs.Products.ReplaceProduct;
 using SmartMarket.Service.DTOs.Transaction;
@@ -46,6 +47,7 @@ public static class ValidatorsConfiguration
         builder.Services.AddScoped<IValidator<AddLoadReportDto>, LoadReportValidator>();
         builder.Services.AddScoped<IValidator<AddProductDto>, ProductValidator>();
         builder.Services.AddScoped<IValidator<AddProductSaleDto>, ProductSaleValidator>();
+        builder.Services.AddScoped<IValidator<AddProductImageDto>, ProductImageValidator>();
         builder.Services.AddScoped<IValidator<AddReplaceProductDto>, ReplaceProductValidator>();
         builder.Services.AddScoped<IValidator<AddTransactionDto>, TransactionValidator>();
         builder.Services.AddScoped<IValidator<AddSalaryWorkerDto>, SalaryWorkerValidator>();
