@@ -1,5 +1,6 @@
 using SmartMarket.Service.Common.Mapper;
 using SmartMarket.Service.Helpers;
+using SmartMarket.Service.Hubs;
 using SmartMarket.WebApi.Configurations;
 using SmartMarket.WebApi.Extensions;
 using SmartMarket.WebApi.Middlewares;
