@@ -39,32 +39,34 @@
                 </Grid.ColumnDefinitions>
 
                 <RadioButton  
-                x:Name="btnMain"
-                Grid.Column="0"
-                Content="Asosiy"
-                Click="btnMain_Click"
-                Style="{DynamicResource MenuButton2}"
-                Tag="{StaticResource main}"
-                IsChecked="True"
-            ></RadioButton>
+                    x:Name="btnMain"
+                    Grid.Column="0"
+                    Content="Asosiy"
+                    Click="btnMain_Click"
+                    Style="{DynamicResource MenuButton2}"
+                    Tag="{StaticResource main}">
+                    
+                </RadioButton>
 
                 <RadioButton  
-                x:Name="btnsale"
-                Click="btnsale_Click"
-                Grid.Column="1"
-                Content="Sotuv oynasi"
-                Style="{DynamicResource MenuButton2}"
-                Tag="{StaticResource cart}"
-            ></RadioButton>
+                    x:Name="btnsale"
+                    Click="btnsale_Click"
+                    Grid.Column="1"
+                    Content="Sotuv oynasi"
+                    Style="{DynamicResource MenuButton2}"
+                    Tag="{StaticResource cart}">
+                    
+                </RadioButton>
 
                 <RadioButton  
-                x:Name="btnSaleDetails"
-                Click="btnSaleDetails_Click"
-                Grid.Column="2"
-                Content="Sotuv tafsilotlari"
-                Style="{DynamicResource MenuButton2}"
-                Tag="{StaticResource sales_details}"
-            ></RadioButton>
+                    x:Name="btnSaleDetails"
+                    Click="btnSaleDetails_Click"
+                    Grid.Column="2"
+                    Content="Sotuv tafsilotlari"
+                    Style="{DynamicResource MenuButton2}"
+                    Tag="{StaticResource sales_details}">
+                    
+                </RadioButton>
 
                 <RadioButton  
             x:Name="btnShopworkers"

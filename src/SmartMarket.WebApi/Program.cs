@@ -17,6 +17,7 @@ builder.ConfigureSwaggerAuth();
 builder.ConfigureJwtAuth();
 builder.ConfigureCORSPolicy();
 builder.ConfigureServiceLayer();
+builder.Services.AddSignalR();
 builder.Services.AddAutoMapper(typeof(MapperProfile));
 builder.ConfigurationValidators();
 builder.Services.AddHttpContextAccessor();
@@ -48,5 +49,5 @@ app.UseMiddleware<ExceptionHandlerMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapHub<ShipmentsHub>("/ShipMentsHub");
 app.Run();

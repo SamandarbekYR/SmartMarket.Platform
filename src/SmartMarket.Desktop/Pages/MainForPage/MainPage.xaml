@@ -4,26 +4,28 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.MainForPage"
-      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-      mc:Ignorable="d" 
-      Loaded="Page_Loaded"
-      Title="MainPage">
+      mc:Ignorable="d"
+      Title="MainPage"
+      Loaded="Page_Loaded">
 
-    <Grid 
-        Margin="5 0 5 5"  
-        Background="{DynamicResource SecondColor}">
+    <Grid
+        Width="1000"
+        Height="700"
+        Margin="5 0 5 5" 
+        Background="White">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="3.5*"/>
         </Grid.ColumnDefinitions>
 
         <Border
+            Grid.Column="0"
             CornerRadius="5"
-            BorderBrush="{DynamicResource BorderColor}"
-            BorderThickness="1"
-            Margin="5">
-            
-            <Grid Grid.Column="0">
+            Margin="5"
+            BorderThickness="0.5"
+            BorderBrush="{StaticResource BorderColor}">
+
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="42"/>
                     <RowDefinition Height="*"/>
@@ -39,43 +41,38 @@
                             <ColumnDefinition Width="50"/>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock 
-                            Text="Kategoriya" 
+                        <Label 
+                            Content="Kategoriya" 
                             VerticalAlignment="Center" 
                             FontSize="18" 
                             Padding="10 0 0 0" 
                             Foreground="White"
-                            FontWeight="SemiBold"
-                            DockPanel.Dock="Left"/>
+                            FontWeight="SemiBold"/>
 
                         <Button 
                             Grid.Column="1"
                             x:Name="btnAddCategory"
                             Click="btnAddCategory_Click"
-                            Style="{DynamicResource btnCategory}" 
-                            VerticalAlignment="Center">
-
-
-                        </Button>
+                            Style="{StaticResource btnCategory}"/>
 
                     </Grid>
                 </Border>
 
                 <ScrollViewer
-                    Margin="5"
+                    Margin="0 10"
                     Grid.Row="1">
                     <StackPanel 
-                        x:Name="St_categoryList" 
-                        Visibility="Collapsed">
+                        x:Name="St_categoryList">
 
                     </StackPanel>
                 </ScrollViewer>
+
             </Grid>
+            
         </Border>
 
-        <Grid 
+        <Grid
             Grid.Column="1">
-            
             <Grid.RowDefinitions>
                 <RowDefinition Height="1.8*"/>
                 <RowDefinition Height="*"/>
@@ -85,9 +82,9 @@
                 Grid.Row="0"
                 CornerRadius="5"
                 Margin="2 5 5 5"
-                BorderThickness="1"
+                BorderThickness="0.5"
                 BorderBrush="{DynamicResource BorderColor}">
-                
+
                 <Grid>
 
                     <Grid.RowDefinitions>
@@ -100,9 +97,9 @@
                         CornerRadius="5 5 0 0"
                         Background="#D6D6D6"
                         BorderBrush="{DynamicResource BorderColor}"
-                        BorderThickness="0 0 0 1"
+                        BorderThickness="0 0 0 0.5"
                         Grid.Row="0">
-                        
+
                         <Grid >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -110,13 +107,11 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock 
-                                Text="Mahsulotlar" 
+                            <Label 
+                                Content="Mahsulotlar" 
                                 VerticalAlignment="Center" 
                                 FontSize="18" 
-                                Padding="10 0 0 0" 
-                                Foreground="Black" 
-                                DockPanel.Dock="Left"
+                                Margin="10 0 0 0"
                                 FontWeight="SemiBold"/>
 
 
@@ -138,139 +133,79 @@
                         </Grid>
 
                     </Border>
-                <Border 
-                    Grid.Row="1" 
-                    Margin="0 0 5 0" >
-                    <Grid>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="30"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1.5*"/>
-                        <ColumnDefinition Width="1.6*"/>
-                        <ColumnDefinition Width="1.5*"/>
-                        <ColumnDefinition Width="1.4*"/>
-                        <ColumnDefinition Width="0.5*"/>
-                        <ColumnDefinition Width="1.5*"/>
-                        <ColumnDefinition Width="0.8*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="1*"/>
-                        <ColumnDefinition Width="1*"/>
-                    </Grid.ColumnDefinitions>
+                    <Grid
+                        Grid.Row="1" 
+                        Margin="0 0 25 0">
 
-                    <TextBlock 
-                        Grid.Column="0" 
-                        Text="N%"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Left"
-                        Margin="5 0 0 0"
-                        FontSize="14"
-                        FontWeight="SemiBold"
-                        Foreground="{DynamicResource BorderColor}"/>
-                    <TextBlock 
-                        Grid.Column="1"
-                        Text="P-Code"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Left"
-                        FontSize="14"
-                        FontWeight="SemiBold"
-                        Foreground="{DynamicResource BorderColor}"
-                        Margin="3 0 0 0"
-                        ></TextBlock>
-                    <TextBlock Grid.Column="2"
-                               Text="Barcode"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left"
-                               FontSize="13"
-                               FontWeight="SemiBold"
-                               Foreground="{DynamicResource BorderColor}"
-                               Margin="3 0 0 0"
-                               ></TextBlock>
-                    <TextBlock Grid.Column="3"
-                               Text="Mahsulot nomi"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left"
-                               FontSize="13"
-                               FontWeight="SemiBold"
-                               Foreground="{DynamicResource BorderColor}"
-                               ></TextBlock>
-                    
-                    <TextBlock Grid.Column="4"
-                               Text="Ishchi"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left"
-                               FontSize="13"
-                               FontWeight="SemiBold"
-                               Margin="7 0 0 0"
-                               Foreground="{DynamicResource BorderColor}"
-                               ></TextBlock>
-                    <TextBlock Grid.Column="5"
-                               Text="Tan narxi"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left"
-                               FontSize="13"
-                               FontWeight="SemiBold"
-                               Foreground="{DynamicResource BorderColor}"
-                               ></TextBlock>
-                    <TextBlock Grid.Column="6"
-                               Text="Soni"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left"
-                               Foreground="{DynamicResource BorderColor}"
-                               FontSize="13"
-                               FontWeight="SemiBold"
-                               ></TextBlock>
-                    <TextBlock Grid.Column="7"
-                               Text="Jami summa"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left"
-                               Foreground="{DynamicResource BorderColor}"
-                               FontSize="13"
-                               FontWeight="SemiBold"
-                               ></TextBlock>
-                    <TextBlock Grid.Column="8"
-                               Text="O'lchov"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left"
-                               Foreground="{DynamicResource BorderColor}"
-                               FontSize="13"
-                               FontWeight="SemiBold"
-                               ></TextBlock>
-                    <TextBlock Grid.Column="9"
-                               Text="Sotuv narxi"
-                               VerticalAlignment="Center"
-                               HorizontalAlignment="Left"
-                               Foreground="{DynamicResource BorderColor}"
-                               FontSize="13"
-                               FontWeight="SemiBold"
-                               ></TextBlock>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.8*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.7*"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label
+                            Grid.Column="0"
+                            Content="No"
+                            HorizontalAlignment="Center"
+                            Style="{StaticResource Label}"/>
+
+                        <Label
+                            Grid.Column="1"
+                            Content="PCode"
+                            Style="{StaticResource Label}"/>
+
+                        <Label
+                            Grid.Column="2"
+                            Content="Barcode"
+                            Style="{StaticResource Label}"/>
+
+                        <Label
+                            Grid.Column="3"
+                            Content="Nomi"
+                            Style="{StaticResource Label}"/>
+
+                        <Label
+                            Grid.Column="4"
+                            Content="Narxi"
+                            Style="{StaticResource Label}"/>
+
+                        <Label
+                            Grid.Column="5"
+                            Content="Soni"
+                            Style="{DynamicResource Label}"/>
+
+
 
                     </Grid>
-                </Border>
                     
-                <Grid 
-                    Grid.Row="2"
-                    Margin="5">
-
-                    <ScrollViewer>
+                    <ScrollViewer
+                        Grid.Row="2"
+                        Margin="0 5">
+                        
                         <StackPanel 
                             x:Name="St_product">
                         </StackPanel>
+                        
                     </ScrollViewer>
 
-                </Grid>
 
-            </Grid>
+                </Grid>
             </Border>
 
             <Border
                 Grid.Row="1"
-                Margin="2 2 5 5"
                 CornerRadius="5"
-                BorderThickness="1"
+                Margin="2 5 5 5"
+                BorderThickness="0.5"
                 BorderBrush="{DynamicResource BorderColor}">
-                
-                <Grid Grid.Row="1">
+
+                <Grid>
+
                     <Grid.RowDefinitions>
                         <RowDefinition Height="45"/>
                         <RowDefinition Height="30"/>
@@ -278,158 +213,99 @@
                     </Grid.RowDefinitions>
 
                     <Border
-                        BorderBrush="{DynamicResource BorderColor}"
-                        BorderThickness="0 0 0 1"
                         CornerRadius="5 5 0 0"
                         Background="#D6D6D6"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="0 0 0 0.5"
                         Grid.Row="0">
-                        
-                        <Grid>
+
+                        <Grid >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="2.5*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <TextBlock Text="Kontr Agentlar" 
-                                       VerticalAlignment="Center" 
-                                       FontSize="18" 
-                                       Padding="10 0 0 0"
-                                       FontWeight="SemiBold"
-                                       HorizontalAlignment="Left"
-                                       Foreground="Black" />
+                            <Label 
+                                Content="Kontr Agentlar" 
+                                VerticalAlignment="Center" 
+                                FontSize="18" 
+                                Margin="10 0 0 0"
+                                FontWeight="SemiBold"/>
+
 
                             <TextBox
                                 Grid.Column="1"
                                 Style="{DynamicResource search}"/>
 
-
-
                             <Button 
-                                x:Name="btnAddKontrAgent"
-                                Click="btnAddKontrAgent_Click"
-                                Grid.Column="2" 
+                                x:Name="btnContrAgentCreate" 
+                                Grid.Column="2"
                                 Content="Qo'shish"
                                 FontSize="16"
-                                Margin="0 0 7 0"
                                 Height="32"
                                 Width="100"
+                                Margin="0 0 7 0"
                                 HorizontalAlignment="Right"
-                                Style="{DynamicResource Create_Button}">
-                            </Button>
+                                Click="btnContrAgentCreate_Click"
+                                Style="{DynamicResource Create_Button}"/>
                         </Grid>
+
                     </Border>
 
-                
-                    <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="0.5*"/>
-                        <ColumnDefinition Width="1.5*"/>
-                        <ColumnDefinition Width="1.5*"/>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="2.5*"/>
-                        <ColumnDefinition Width="2.2*"/>
-                        <ColumnDefinition Width="1.8*"/>
-                        <ColumnDefinition Width="1.8*"/>
-                        <ColumnDefinition Width="2*"/>
-                        <ColumnDefinition Width="0.5*"/>
-                        <ColumnDefinition Width="2.5*"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock
-                        Grid.Column="0"
-                        Text="No"
-                        VerticalAlignment="Center"
-                        Margin="5 0 0 0"
-                        FontSize="14"
-                        Foreground="{DynamicResource BorderColor}"
-                        FontWeight="SemiBold"
-                        ></TextBlock>
-                    <TextBlock
-                        Grid.Column="1"
-                        Text="Firma"
-                        VerticalAlignment="Center"
-                        FontSize="14"
-                        Foreground="{DynamicResource BorderColor}"
-                        FontWeight="SemiBold"
-                        ></TextBlock>
-                    <TextBlock
-                        Grid.Column="2"
-                        Text="Ism"
-                        VerticalAlignment="Center"
-                        FontSize="14"
-                        Foreground="{DynamicResource BorderColor}"
-                        FontWeight="SemiBold"
-                        Margin="15 0 0 0"
-                        ></TextBlock>
-                    <TextBlock
-                        Grid.Column="3"
-                        Text="Familiya"
-                        VerticalAlignment="Center"
-                        FontSize="14"
-                        Foreground="{DynamicResource BorderColor}"
-                        FontWeight="SemiBold"
-                        ></TextBlock>
-                    <TextBlock
-                        Grid.Column="4"
-                        Text="Telefon nomer"
-                        VerticalAlignment="Center"
-                        FontSize="14"
-                        Foreground="{DynamicResource BorderColor}"
-                        FontWeight="SemiBold"
-                        ></TextBlock>
-                    <TextBlock
-                        Grid.Column="5"
-                        Text="Qarz miqdori"
-                        VerticalAlignment="Center"
-                        FontSize="14"
-                        Foreground="{DynamicResource BorderColor}"
-                        FontWeight="SemiBold"
-                        HorizontalAlignment="Left"
-                        ></TextBlock>
+                    <Grid
+                        Grid.Row="1" 
+                        Margin="0 0 15 0">
 
-                    <TextBlock
-                        Grid.Column="6"
-                        Text="Qilingan to'lov"
-                        VerticalAlignment="Center"
-                        FontSize="14"
-                        Foreground="{DynamicResource BorderColor}"
-                        FontWeight="SemiBold"
-                        ></TextBlock>
-                    <TextBlock
-                        Grid.Column="7"
-                        Text="Oxirgi to'lov"
-                        VerticalAlignment="Center"
-                        FontSize="14"
-                        Foreground="{DynamicResource BorderColor}"
-                        FontWeight="SemiBold"
-                        ></TextBlock>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="0.5*"/>
+                            <ColumnDefinition Width="0.8*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.7*"/>
+                            <ColumnDefinition Width="130"/>
+                        </Grid.ColumnDefinitions>
 
-                    <TextBlock
-                        Grid.Column="8"
-                        Text="Oxirgi to'lov sanasi"
-                        VerticalAlignment="Center"
-                        FontSize="14"
-                        Foreground="{DynamicResource BorderColor}"
-                        FontWeight="SemiBold"
-                        ></TextBlock>
+                        <Label
+                            Grid.Column="0"
+                            Content="No"
+                            HorizontalAlignment="Center"
+                            Style="{StaticResource Label}"/>
+
+                        <Label
+                            Grid.Column="1"
+                            Content="Firmasi"
+                            Style="{StaticResource Label}"/>
+
+                        <Label
+                            Grid.Column="2"
+                            Content="Ismi"
+                            Style="{StaticResource Label}"/>
+
+                        <Label
+                            Grid.Column="3"
+                            Content="Fameliyasi"
+                            Style="{StaticResource Label}"/>
+
+                        <Label
+                            Grid.Column="4"
+                            Content="Telefon raqami"
+                            Style="{StaticResource Label}"/>
+
+                    </Grid>
+
+                    <ScrollViewer
+                        Grid.Row="2"
+                        Margin="0 5">
+
+                        <StackPanel 
+                            x:Name="St_contragent">
+                        </StackPanel>
+
+                    </ScrollViewer>
+
+
                 </Grid>
-
-                
-                <StackPanel 
-                    Grid.Row="2">
-
-                        <ScrollViewer>
-                            
-                            <StackPanel
-                                x:Name="St_contrAgents">
-                                
-                            </StackPanel>
-                        </ScrollViewer>
-
-                        <!--  -->
-                </StackPanel>
-
-            </Grid>
             </Border>
 
         </Grid>

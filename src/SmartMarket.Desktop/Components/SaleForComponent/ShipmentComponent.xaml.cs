@@ -1,6 +1,6 @@
 ﻿using System.Windows.Controls;
 
-namespace SmartMarket.Desktop.Tablet.Components;
+namespace SmartMarket.Desktop.Components.SaleForComponent;
 
 /// <summary>
 /// Interaction logic for ShipmentComponent.xaml

@@ -19,11 +19,12 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        btnMain.IsChecked = true;
     }
 
     private void Btnclose_Click(object sender, RoutedEventArgs e)
     {
-        this.Close();
+        Application.Current.Shutdown();
     }
 
 
@@ -82,6 +83,9 @@ public partial class MainWindow : Window
     {
         MainPage mainPage = new MainPage();
         PageNavigator.Content = mainPage;
+
+        //SettingsPage settingsPage = new SettingsPage();
+        //PageNavigator.Content = settingsPage;
     }
 
     private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -104,5 +108,8 @@ public partial class MainWindow : Window
     {
         MainPage mainPage = new MainPage();
         PageNavigator.Content = mainPage;
+
+        //SettingsPage settingsPage = new SettingsPage();
+        //PageNavigator.Content = settingsPage;
     }
 }

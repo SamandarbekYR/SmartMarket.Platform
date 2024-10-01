@@ -4,89 +4,86 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartMarket.Desktop.Components.SaleForComponent"
-             mc:Ignorable="d" 
-             d:DesignHeight="30" d:DesignWidth="600">
-    <Border Background="White" CornerRadius="8">
+             mc:Ignorable="d" >
+    <Border 
+        Name="product_Border"
+        Height="40"
+        Background="White" 
+        CornerRadius="5"
+        BorderThickness="0.5"
+        Margin="5 3 15 3"
+        MouseDown="Border_MouseDown"
+        BorderBrush="{DynamicResource BorderColor}">
         <Grid>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="3*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="1.5*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock
                      Grid.Column="0"
                      x:Name="tbNumber"
                      Text="1"
-                     FontSize="15"
+                     FontSize="14"
                      FontWeight="SemiBold"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Center"
-                     ></TextBlock>
-            <TextBlock
-                     Grid.Column="1"
-                     x:Name="tbP_code"
-                     Text="000755"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     FontSize="15"
-                     FontWeight="SemiBold"
-                     ></TextBlock>
+                     />
 
             <TextBlock
-                     Grid.Column="2"
+                     Grid.Column="1"
                      x:Name="tbProductName"
-                     Text="Nestle Kasha 9"
+                     Text="{Binding Name}"
                      VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     FontSize="15"
+                     HorizontalAlignment="Left"
+                     FontSize="14"
                      FontWeight="SemiBold"
-                     ></TextBlock>
+                     />
+
+            <TextBlock
+                Name="tbQuantity"
+                Grid.Column="2"
+                FontSize="14"
+                Text="{Binding Quantity}"
+                TextAlignment="Center"
+                FontWeight="SemiBold"
+                VerticalAlignment="Center"
+                Background="Transparent"/>
 
             <TextBlock
                      Grid.Column="3"
-                     x:Name="tbCount"
-                     Text="1"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     FontSize="15"
-                     FontWeight="SemiBold"
-                     ></TextBlock>
-
-            <TextBlock
-                     Grid.Column="4"
-                     Text="25000"
+                     Text="{Binding Price}"
                      x:Name="tbPrice"
                      VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     FontSize="15"
-                     FontWeight="SemiBold"
-                     ></TextBlock>
+                     HorizontalAlignment="Right"
+                     FontSize="14"
+                     FontWeight="SemiBold" Grid.ColumnSpan="2" Margin="0,0,28,0"
+                     />
 
             <TextBlock 
-                     Grid.Column="5"
+                     Grid.Column="4"
                      x:Name="tbDiscount"
-                     Text="0"
+                     Text="{Binding Discount}"
                      VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     FontSize="15"
+                     Margin="20 0 0 0"
+                     FontSize="14"
                      FontWeight="SemiBold"
-                     ></TextBlock>
+                     />
 
             <TextBlock
-                     Grid.Column="6"
+                     Grid.Column="5"
                      x:Name="tbTotalPrice"
-                     Text="25000"
+                     Text="{Binding TotalPrice}"
                      VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     FontSize="15"
+                     HorizontalAlignment="Left"
+                     FontSize="14"
                      FontWeight="SemiBold"
-                     ></TextBlock>
+                     />
 
         </Grid>
     </Border>

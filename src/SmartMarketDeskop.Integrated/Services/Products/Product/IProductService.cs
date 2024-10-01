@@ -1,12 +1,13 @@
-﻿using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
-using SmartMarketDesktop.DTOs.DTOs.Product;
+﻿using SmartMarket.Service.DTOs.Products.Product;
+using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
 
 namespace SmartMarketDeskop.Integrated.Services.Products.Product;
 
 public interface IProductService
 {
-    Task<bool> CreateProduct(AddProductDto dto);
-    Task<bool> UpdateProduct(AddProductDto product,Guid Id);
+    Task<bool> CreateProduct(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto dto);
+    Task<bool> UpdateProduct(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto product, Guid Id);
     Task<bool> DeleteProduct(Guid Id);
-    Task<List<ProductViewModels>> GetAll();
+    Task<List<ProductDto>> GetAll();
+    Task<ProductDto> GetByBarCode(string barCode);
  }

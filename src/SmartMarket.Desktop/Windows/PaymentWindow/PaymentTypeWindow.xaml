@@ -5,13 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartMarket.Desktop.Windows.PaymentWindow"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d" 
         WindowStyle="None"
         ResizeMode="NoResize"
         AllowsTransparency="True"
         Background="Transparent"
-        Title="PaymentTypeWindow" 
+        Title="PaymentTypeWindow"
         WindowState="Maximized"
         Loaded="Window_Loaded">
     <Border
@@ -25,14 +24,12 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
             <RowDefinition Height="*"/>
-            
         </Grid.RowDefinitions>
 
             <Border
                 CornerRadius="5 5 0 0"
                 Grid.Row="0" 
                 Background="#04C217"/>
-
 
             <TextBlock 
                 Grid.Row="0" 
