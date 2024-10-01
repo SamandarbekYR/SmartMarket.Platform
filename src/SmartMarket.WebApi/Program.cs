@@ -1,4 +1,5 @@
 using SmartMarket.Service.Common.Mapper;
+using SmartMarket.Service.Hubs;
 using SmartMarket.WebApi.Configurations;
 using SmartMarket.WebApi.Extensions;
 using SmartMarket.WebApi.Middlewares;
@@ -16,6 +17,7 @@ builder.ConfigureSwaggerAuth();
 builder.ConfigureJwtAuth();
 builder.ConfigureCORSPolicy();
 builder.ConfigureServiceLayer();
+builder.Services.AddSignalR();
 builder.Services.AddAutoMapper(typeof(MapperProfile));
 builder.ConfigurationValidators();
 
@@ -40,5 +42,5 @@ app.UseMiddleware<ExceptionHandlerMiddleware>();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapHub<ShipmentsHub>("/ShipMentsHub");
 app.Run();
