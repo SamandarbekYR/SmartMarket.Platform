@@ -17,18 +17,19 @@ namespace SmartMarket.DataAccess.Data
         public AppDbContext(DbContextOptions<AppDbContext> contextOptions)
             : base(contextOptions)
         {
-            //Database.EnsureCreated();
-            //Database.Migrate();
+            /*Database.EnsureCreated();
+            Database.Migrate();*/
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<ContrAgent>(entity =>
-           {
+            {
                 entity.HasOne(ca => ca.PartnerCompany)
                       .WithMany(pc => pc.ContrAgents)
                       .HasForeignKey(ca => ca.CompanyId)
                       .OnDelete(DeleteBehavior.Restrict);
-           });
+            });
 
             modelBuilder.Entity<ContrAgentPayment>(entity =>
             {
@@ -93,8 +94,8 @@ namespace SmartMarket.DataAccess.Data
                       .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(ip => ip.ProductSale)
-                      .WithMany(ps =>   ps.InvalidProducts)
-                      .HasForeignKey(ip => ip.ProductSaleId) 
+                      .WithMany(ps => ps.InvalidProducts)
+                      .HasForeignKey(ip => ip.ProductSaleId)
                       .OnDelete(DeleteBehavior.Restrict);
             });
 
@@ -111,7 +112,7 @@ namespace SmartMarket.DataAccess.Data
                       .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(lr => lr.ContrAgent)
-                      .WithMany(ca =>  ca.LoadReports)
+                      .WithMany(ca => ca.LoadReports)
                       .HasForeignKey(lr => lr.ContrAgentId)
                       .OnDelete(DeleteBehavior.Restrict);
             });
@@ -132,7 +133,24 @@ namespace SmartMarket.DataAccess.Data
                       .WithMany(w => w.Products)
                       .HasForeignKey(p => p.WorkerId)
                       .OnDelete(DeleteBehavior.Restrict);
+
+                //entity.HasIndex(p => p.Barcode)
+                //    .IsUnique()
+                //    .HasName("IX_Product_Barcode");
+
+                //entity.HasIndex(p => p.PCode)
+                //    .IsUnique()
+                //    .HasName("IX_Product_PCode");
             });
+            modelBuilder.Entity<Product>()
+                .HasIndex(p => new { p.Barcode, p.PCode, p.Name })
+                .IsUnique();
+
+            modelBuilder.Entity<ContrAgent>()
+                .HasIndex(c => new {c.PhoneNumber })
+                .IsUnique();
+            modelBuilder.Entity<ContrAgent>()
+                .HasIndex(c => c.FirstName);
 
             modelBuilder.Entity<ProductImage>(entity =>
             {

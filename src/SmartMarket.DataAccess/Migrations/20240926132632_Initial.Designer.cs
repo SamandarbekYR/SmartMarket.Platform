@@ -12,7 +12,7 @@ using SmartMarket.DataAccess.Data;
 namespace SmartMarket.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240909161206_Initial")]
+    [Migration("20240926132632_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -243,6 +243,9 @@ namespace SmartMarket.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("FirstName", "PhoneNumber")
+                        .IsUnique();
 
                     b.ToTable("contr_agent");
                 });
@@ -563,6 +566,9 @@ namespace SmartMarket.DataAccess.Migrations
                     b.HasIndex("ContrAgentId");
 
                     b.HasIndex("WorkerId");
+
+                    b.HasIndex("Barcode", "PCode", "Name")
+                        .IsUnique();
 
                     b.ToTable("product");
                 });

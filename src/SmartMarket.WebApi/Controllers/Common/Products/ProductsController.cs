@@ -11,33 +11,80 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
 {
     [Route("api/products")]
     [ApiController]
-    public class ProductsController(IProductService productService) : BaseController
+    public class ProductsController(IProductService productService) : ControllerBase
     {
         private readonly IProductService _productService = productService;
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync([FromQuery]PaginationParams @params)
-            => Ok(await _productService.GetAllAsync(@params));
+        public async Task<IActionResult> GetAllAsync([FromQuery] PaginationParams @params)
+        {
+            try
+            {
+                var products = await _productService.GetAllAsync(@params);
+                return Ok(products);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> AddAsync([FromForm] AddProductDto dto)
         {
-            var productId = await _productService.AddAsync(dto);
-            return Ok(productId);
+            try
+            {
+                var productId = await _productService.AddAsync(dto);
+                return Ok(productId);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
-            await _productService.DeleteAsync(id);
-            return Ok();
+            try
+            {
+                await _productService.DeleteAsync(id);
+                return Ok();
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] AddProductDto dto)
         {
-            await _productService.UpdateAsync(dto, id);
-            return Ok();
+            try
+            {
+                await _productService.UpdateAsync(dto, id);
+                return Ok();
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpGet("barcode/{barcode}")]
@@ -93,12 +140,49 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
                 return StatusCode(500, ex.Message);
             }
         }
-        [HttpGet("search")]
-        public async Task<IActionResult> SearchProductsAsync([FromQuery] string searchTerm, [FromQuery] PaginationParams @params)
+
+        [HttpGet("name/{name}")]
+        public async Task<IActionResult> GetProductByNameAsync(string name)
         {
             try
             {
-                var products = await _productService.SearchProductsAsync(searchTerm, @params);
+                var product = await _productService.GetProductByNameAsync(name);
+                return Ok(product);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPost("sell")]
+        public async Task<IActionResult> SellProductAsync([FromQuery] string barcode)
+        {
+            try
+            {
+                var success = await _productService.SellProductAsync(barcode);
+                return Ok(success);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("category/{categoryId}")]
+        public async Task<IActionResult> GetProductsByCategoryIdAsync(Guid categoryId, [FromQuery] PaginationParams @params)
+        {
+            try
+            {
+                var products = await _productService.GetProductsByCategoryIdAsync(categoryId, @params);
                 return Ok(products);
             }
             catch (StatusCodeException ex)

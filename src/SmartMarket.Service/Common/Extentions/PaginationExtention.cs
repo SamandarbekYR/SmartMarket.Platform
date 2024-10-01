@@ -7,7 +7,7 @@ namespace SmartMarket.Service.Common.Extentions;
 
 public static class PaginationExtention
 {
-    public static async Task<IQueryable<T>> ToPagedListAsync<T>(this IQueryable<T> source,
+    public static async Task<IEnumerable<T>> ToPagedListAsync<T>(this IQueryable<T> source,
                                                             PaginationParams @params)
     {
         if (@params.PageIndex == 0 || @params.PageSize == 0)

@@ -1,56 +1,103 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SmartMarket.Service.Common.Exceptions;
 using SmartMarket.Service.DTOs.Products.ProductImage;
 using SmartMarket.Service.Interfaces.Products.ProductImage;
 
-namespace SmartMarket.WebApi.Controllers.Common.Products;
-
-[Route("api/product-images")]
-[ApiController]
-public class ProductImagesController : BaseController
+namespace SmartMarket.WebApi.Controllers.Common.Products
 {
-    private readonly IProductImageService _productImageService;
-
-    public ProductImagesController(IProductImageService productImageService)
+    [Route("api/product-images")]
+    [ApiController]
+    public class ProductImagesController : ControllerBase
     {
-        _productImageService = productImageService;
-    }
+        private readonly IProductImageService _productImageService;
 
-    [HttpGet]
-    public async Task<IActionResult> GetAllAsync()
-    {
-        var productImages = await _productImageService.GetAllAsync();
-        return Ok(productImages);
-    }
-
-    [HttpPost]
-    public async Task<IActionResult> AddAsync([FromForm] AddProductImageDto dto)
-    {
-        if (dto.ImagePath == null || dto.ImagePath.Length == 0)
+        public ProductImagesController(IProductImageService productImageService)
         {
-            return BadRequest("Image is required.");
+            _productImageService = productImageService;
         }
 
-        await _productImageService.AddAsync(dto);
-        return Ok();
-    }
-
-    [HttpDelete("{id}")]
-    public async Task<IActionResult> DeleteAsync(Guid id)
-    {
-        await _productImageService.DeleteAsync(id);
-        return Ok();
-    }
-
-    [HttpPut("{id}")]
-    public async Task<IActionResult> UpdateAsync(Guid id, [FromForm] AddProductImageDto dto)
-    {
-        if (dto.ImagePath == null || dto.ImagePath.Length == 0)
+        [HttpGet]
+        public async Task<IActionResult> GetAllAsync()
         {
-            return BadRequest("Image is required.");
+            try
+            {
+                var productImages = await _productImageService.GetAllAsync();
+                return Ok(productImages);
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message); 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message); 
+            }
         }
 
-        await _productImageService.UpdateAsync(dto, id);
-        return Ok();
+        [HttpPost]
+        public async Task<IActionResult> AddAsync([FromForm] AddProductImageDto dto)
+        {
+            try
+            {
+                if (dto.ImagePath == null || dto.ImagePath.Length == 0)
+                {
+                    return BadRequest("Image is required.");
+                }
+
+                await _productImageService.AddAsync(dto);
+                return Ok();
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(Guid id)
+        {
+            try
+            {
+                await _productImageService.DeleteAsync(id);
+                return Ok();
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateAsync(Guid id, [FromForm] AddProductImageDto dto)
+        {
+            try
+            {
+                if (dto.ImagePath == null || dto.ImagePath.Length == 0)
+                {
+                    return BadRequest("Image is required.");
+                }
+
+                await _productImageService.UpdateAsync(dto, id);
+                return Ok();
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

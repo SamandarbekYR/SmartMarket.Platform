@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.SignalR;
 using SmartMarket.Service.Common.Mapper;
+using SmartMarket.Service.Helpers;
 using SmartMarket.Service.Hubs;
 using SmartMarket.WebApi.Configurations;
 using SmartMarket.WebApi.Extensions;
@@ -21,6 +22,8 @@ builder.ConfigureServiceLayer();
 builder.Services.AddSignalR();
 builder.Services.AddAutoMapper(typeof(MapperProfile));
 builder.ConfigurationValidators();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient();
 
 builder.Services.AddHostedService<PostgresListenerService>(provider =>
 {
@@ -36,6 +39,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+if (app.Services.GetService<IHttpContextAccessor>() is not null)
+{
+    HttpContextHelper.Accessor = app.Services.GetRequiredService<IHttpContextAccessor>();
 }
 
 app.UseHttpsRedirection();
