@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace SmartMarket.WebApi.Controllers.SuperAdmin
 {
-    [Authorize(Roles ="SuperAdmin")]
+ //   [Authorize(Roles ="SuperAdmin")]
     public class SuperAdminController : ControllerBase
     { }
 }

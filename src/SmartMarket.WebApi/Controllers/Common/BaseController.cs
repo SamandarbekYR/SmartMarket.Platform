@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace SmartMarket.WebApi.Controllers.Common
 {
     
-    [Authorize(Roles = "SuperAdmin, Admin, SimpleAdmin")]
+ //   [Authorize(Roles = "SuperAdmin, Admin, SimpleAdmin")]
     public class BaseController : ControllerBase
     { }
 }
