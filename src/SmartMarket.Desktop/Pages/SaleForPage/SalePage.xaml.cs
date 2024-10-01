@@ -10,11 +10,14 @@ using SmartMarket.Desktop.Windows.Settings;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
+using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
+using static MaterialDesignThemes.Wpf.Theme.ToolBar;
 
 namespace SmartMarket.Desktop.Pages.SaleForPage;
 
@@ -158,23 +161,31 @@ public partial class SalePage : Page
                 else
                     tvm.Increment(barcode);
             }
-
         }
     }
 
     private void AddNewProduct(ProductDto product)
     {
         SaleProductForComponent saleProductForComponent = new SaleProductForComponent();
+        int quantity;
+        if (string.IsNullOrEmpty(tbCalculator.Text))
+            quantity = 1;
+        else
+            quantity = int.Parse(tbCalculator.Text!);
+        
         saleProductForComponent.DataContext = new TransactionDto
         {
             Name = product.Name,
             Barcode = product.Barcode,
             Price = product.Price,
-            Quantity = 1,
             TotalPrice = product.Price,
             AvailableCount = product.Count,
-            Discount = 0
+            Discount = 0,
+            Quantity = quantity,
         };
+
+        GetPrice(product, quantity);
+
         saleProductForComponent.SetData(product, productCount);
         St_product.Children.Add(saleProductForComponent);
         productCount++;
@@ -222,21 +233,32 @@ public partial class SalePage : Page
     }
 
     private SaleProductForComponent selectedControl = null!;
-    public void SelectCategory(SaleProductForComponent product)
+    public void SelectProduct(SaleProductForComponent product)
     {
         if (selectedControl != null)
         {
             selectedControl.product_Border.Background = Brushes.White;
         }
 
-        product.product_Border.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B6B6B6")); ;
-
+        product.product_Border.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B6B6B6"));
+        EmptyPrice();
+        ColculateTotalPrice();
         selectedControl = product;
     }
 
     private void delete_button_Click(object sender, RoutedEventArgs e)
     {
-        
+        if (selectedControl != null)
+        {
+            foreach (var item in tvm.Transactions)
+            {
+                if (item.Barcode == selectedControl.Barcode)
+                {
+                    tvm.Transactions.Remove(item);
+                    ColculateTotalPrice();
+                }
+            }
+        }
     }
 
     private void plus_button_Click(object sender, RoutedEventArgs e)
@@ -256,12 +278,58 @@ public partial class SalePage : Page
                     if(item.Barcode == selectedControl.Barcode)
                     {
                         item.Quantity++;
-                        item.TotalPrice = item.Quantity * item.Price;
+                        item.TotalPrice = SetPrice(item.Price, item.Discount, item.Quantity);
+                        ColculateTotalPrice();
                     }
                 }
             }
         }
 
+    }
+
+    // Jami summani hisoblash uchun
+    private void ColculateTotalPrice()
+    {
+        if (tvm != null)
+        {
+            tvm.TransactionPrice = tvm.Transactions.Sum(x => x.TotalPrice);
+            tbTotalAmount.Text = tvm.TransactionPrice.ToString();
+            tbDiscountAmount.Text = tvm.DiscountPrice.ToString();
+            tbAmount.Text = (tvm.TransactionPrice + tvm.DiscountPrice).ToString();
+        }
+    }
+
+    // Har bir maxsulotni narxini hisoblash uchun
+    private double SetPrice(double price, float discount, int quantity)
+    {
+        double TotalPrice = 0;
+        if (discount > 0)
+        {
+            double discountprice = price - (price * (discount / 100));
+            tvm.DiscountPrice = discountprice;
+            TotalPrice = quantity * (price - discountprice);
+        }
+        else
+            TotalPrice = quantity * price;
+        return TotalPrice;
+    }
+
+    private void GetPrice(ProductDto product, int quantity)
+    {
+        Product_Count.Text = quantity.ToString();
+        Product_Price.Text = product.Price.ToString();
+        Total_Price.Text = (quantity * product.Price).ToString();
+        Product_Name.Text = product.Name;
+        Product_Barcode.Text = product.Barcode.ToString();
+    }
+
+    private void EmptyPrice()
+    {
+        Product_Count.Text = "";
+        Product_Price.Text = "";
+        Total_Price.Text = "";
+        Product_Name.Text = "";
+        Product_Barcode.Text = "";
     }
 
     private void minus_button_Click(object sender, RoutedEventArgs e)
@@ -287,7 +355,8 @@ public partial class SalePage : Page
                     if (item.Barcode == selectedControl.Barcode)
                     {
                         item.Quantity--;
-                        item.TotalPrice = item.Quantity * item.Price;
+                        item.TotalPrice = SetPrice(item.Price, item.Discount, item.Quantity);
+                        ColculateTotalPrice();
                     }
                 }
             }
