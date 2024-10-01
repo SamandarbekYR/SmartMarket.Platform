@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.SignalR;
 using SmartMarket.Service.Common.Mapper;
 using SmartMarket.Service.Hubs;
 using SmartMarket.WebApi.Configurations;
@@ -20,6 +21,13 @@ builder.ConfigureServiceLayer();
 builder.Services.AddSignalR();
 builder.Services.AddAutoMapper(typeof(MapperProfile));
 builder.ConfigurationValidators();
+
+builder.Services.AddHostedService<PostgresListenerService>(provider =>
+{
+    var configuration = provider.GetRequiredService<IConfiguration>();
+    var hubContext = provider.GetRequiredService<IHubContext<ShipmentsHub>>();
+    return new PostgresListenerService(configuration.GetConnectionString("DefaultConnection")!, hubContext);
+});
 
 var app = builder.Build();
 
