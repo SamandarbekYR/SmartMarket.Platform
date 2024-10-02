@@ -133,7 +133,6 @@
                                 <TextBlock
                                     x:Name="Product_Name"
                                     Grid.Row="0"
-                                    Text="Nestle Kasha"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Left"
                                     FontSize="25"
@@ -154,7 +153,6 @@
                                         ></TextBlock>
                                     <TextBlock
                                         Name="Product_Barcode"
-                                        Text="123456789"
                                         VerticalAlignment="Bottom"
                                         FontSize="16"
                                         FontWeight="SemiBold"
@@ -175,7 +173,7 @@
                                     x:Name="Product_Count"
                                     BorderThickness="0"
                                     VerticalAlignment="Center"
-                                    Text="5"
+                                    Text="0"
                                     Uid="1"
                                     IsReadOnly="True"
                                     GotFocus="TextBox_GotFocus"
@@ -196,7 +194,7 @@
                                     x:Name="Product_Price"
                                     BorderThickness="0"
                                     VerticalAlignment="Center"
-                                    Text="2500"
+                                    Text="0"
                                     IsReadOnly="True"
                                     VerticalContentAlignment="Center"
                                     TextAlignment="Right"
@@ -214,7 +212,7 @@
                                     Name="Total_Price"
                                     BorderThickness="0"
                                     VerticalAlignment="Center"
-                                    Text="12500"
+                                    Text="0"
                                     IsReadOnly="True"
                                     VerticalContentAlignment="Center"
                                     TextAlignment="Right"
@@ -406,7 +404,7 @@
                                     ></TextBlock>
                                 <TextBlock
                                     x:Name="tbAmount"
-                                    Text="625,025.25"
+                                    Text="0"
                                     FontSize="20"
                                     FontWeight="SemiBold"
                                     ></TextBlock>
@@ -419,7 +417,7 @@
                                     ></TextBlock>
                                 <TextBlock
                                     x:Name="tbDiscountAmount"
-                                    Text="50,000.0"
+                                    Text="0"
                                     FontSize="20"
                                     FontWeight="SemiBold"
                                     ></TextBlock>
@@ -439,7 +437,7 @@
                                 <TextBlock
                                     Margin="0 5 0 0"
                                     x:Name="tbTotalAmount"
-                                    Text="575.255.255"
+                                    Text="0"
                                     HorizontalAlignment="Center"
                                     FontSize="25"
                                     FontWeight="Bold"

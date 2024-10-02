@@ -144,11 +144,10 @@ public class ProductServer : IProductServer
             var products = JsonConvert.DeserializeObject<ProductDto>(response)!;
 
             return products;
-
         }
         catch
         {
-            return new ProductDto();
+            return null!;
         } 
     }
 

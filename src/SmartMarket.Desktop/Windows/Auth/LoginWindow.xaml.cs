@@ -80,8 +80,8 @@ public partial class LoginWindow : Window
                     IdentitySingelton.GetInstance().Token = TokenHandler.ParseToken(result.Token).Token;
                    
                     MainWindow window = new MainWindow();
-                    window.ShowDialog();
                     this.Close();
+                    window.ShowDialog();
                 }
                 else
                 {
