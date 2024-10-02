@@ -70,25 +70,20 @@ public partial class MainPage : Page
             St_categoryList.Children.Add(categoryComponent);
             categoryCount++;
         }
-
-
-        //for (int i = 0; i < 30; i++)
-        //{
-        //    MainCategoryComponent categoryComponent = new MainCategoryComponent();
-        //    St_categoryList.Children.Add(categoryComponent);
-        //}
     }
 
 
     private MainCategoryComponent selectedControl = null!;
-    public void SelectCategory(MainCategoryComponent category)
+    public async void SelectCategory(MainCategoryComponent category, Guid categoryId)
     {
         if (selectedControl != null)
         {
             selectedControl.brCategory.Background = Brushes.White;
         }
 
-        category.brCategory.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B6B6B6")); ;
+        category.brCategory.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B6B6B6")); 
+
+        await GetProductsByCategoryId(categoryId);
 
         selectedControl = category;
     }
@@ -107,12 +102,25 @@ public partial class MainPage : Page
             St_contragent.Children.Add(mainKontrAgentComponent);
             contragenCount++;
         }
+    }
 
-        //for (int i = 0; i < 15; i++)
-        //{
-        //    MainKontrAgentComponent mainKontrAgentComponent = new MainKontrAgentComponent();
-        //    St_contragent.Children.Add(mainKontrAgentComponent);
-        //}
+    public async Task GetProductsByCategoryId(Guid Id)
+    {
+        var products = await _productService.GetByCategoryId(Id);
+
+        St_product.Children.Clear();
+
+        if (products != null)
+        {
+            foreach (var product in products)
+            {
+                MainProductComponent productComponent = new MainProductComponent();
+                productComponent.Tag = product;
+                productComponent.GetData(product, productCount);
+                St_product.Children.Add(productComponent);
+                productCount++;
+            }
+        }
     }
 
     public async Task GetAllProducts()
@@ -132,11 +140,5 @@ public partial class MainPage : Page
                 productCount++;
             }
         }
-
-        //for (int i = 0; i < 15; i++)
-        //{
-        //    MainProductComponent productComponent = new MainProductComponent();
-        //    St_product.Children.Add(productComponent);
-        //}
     }
 }
