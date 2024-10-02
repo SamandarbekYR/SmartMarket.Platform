@@ -15,7 +15,6 @@ public class ProductServer : IProductServer
     private static readonly Logger logger = LogManager.GetCurrentClassLogger();
     public async Task<bool> AddAsync(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto dto)
     {
-
         try
         {
             var token = IdentitySingelton.GetInstance().Token;
@@ -134,7 +133,7 @@ public class ProductServer : IProductServer
         {
             HttpClient client = new HttpClient();
             var token = IdentitySingelton.GetInstance().Token;
-            client.BaseAddress = new Uri(AuthApi.BASE_URL + $"/api/products/barcode{barcode}");
+            client.BaseAddress = new Uri(AuthApi.BASE_URL + $"/api/products/barcode/{barcode}");
 
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
@@ -151,6 +150,31 @@ public class ProductServer : IProductServer
         {
             return new ProductDto();
         } 
+    }
+
+    public async Task<List<ProductDto>> GetByCategoryIdAsync(Guid categoryId)
+    {
+        try
+        {
+            HttpClient client = new HttpClient();
+            var token = IdentitySingelton.GetInstance().Token;
+            client.BaseAddress = new Uri(AuthApi.BASE_URL + $"/api/products/category/{categoryId}");
+
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            HttpResponseMessage message = await client.GetAsync(client.BaseAddress);
+
+            string response = await message.Content.ReadAsStringAsync();
+
+            List<ProductDto> products = JsonConvert.DeserializeObject<List<ProductDto>>(response)!;
+
+            return products;
+
+        }
+        catch
+        {
+            return new List<ProductDto>();
+        }
     }
 
     public Task<Product> GetByPCodeAsync(string PCode)

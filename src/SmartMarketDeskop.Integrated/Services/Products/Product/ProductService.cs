@@ -5,7 +5,6 @@ using SmartMarketDeskop.Integrated.Server.Interfaces.Workers;
 using SmartMarketDeskop.Integrated.Server.Repositories.Categories;
 using SmartMarketDeskop.Integrated.Server.Repositories.Products;
 using SmartMarketDeskop.Integrated.Server.Repositories.Workers;
-using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
 using System.Net;
 
 namespace SmartMarketDeskop.Integrated.Services.Products.Product;
@@ -59,8 +58,8 @@ public class ProductService : IProductService
         {
             var products = await productServer.GetAllAsync();
             
-            var categorys=await categoryServer.GetAllAsync();
-            var workers=await workerServer.GetAllAsync();
+            //var categorys=await categoryServer.GetAllAsync();
+            //var workers=await workerServer.GetAllAsync();
 
             return products;
         }
@@ -103,6 +102,20 @@ public class ProductService : IProductService
         else
         {
             return new ProductDto();
+        }
+    }
+
+    public async Task<List<ProductDto>> GetByCategoryId(Guid categoryId)
+    {
+        if (IsInternetAvailable())
+        {
+            var products = await productServer.GetByCategoryIdAsync(categoryId);
+
+            return products;
+        }
+        else
+        {
+            return new List<ProductDto>();
         }
     }
 }
