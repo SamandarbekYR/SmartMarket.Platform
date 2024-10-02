@@ -1,5 +1,4 @@
-﻿using SmartMarket.Desktop.Components.MainForComponents;
-using SmartMarket.Desktop.Components.SaleForComponent;
+﻿using SmartMarket.Desktop.Components.SaleForComponent;
 using SmartMarket.Desktop.ViewModels.Transactions;
 using SmartMarket.Desktop.Windows.Expenses;
 using SmartMarket.Desktop.Windows.Partners;
@@ -10,14 +9,11 @@ using SmartMarket.Desktop.Windows.Settings;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
-using System.Net.Http.Headers;
-using System.Runtime.CompilerServices;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
-using static MaterialDesignThemes.Wpf.Theme.ToolBar;
 
 namespace SmartMarket.Desktop.Pages.SaleForPage;
 
@@ -137,7 +133,7 @@ public partial class SalePage : Page
         {
             if (barcodes.Length >= 2)
             {
-                barcode = barcodes.Substring(0, barcodes.Length - 2);
+                barcode = barcodes.Substring(0, barcodes.Length - 1);
             }
         }
 
@@ -185,6 +181,7 @@ public partial class SalePage : Page
         };
 
         GetPrice(product, quantity);
+        ColculateTotalPrice();
 
         saleProductForComponent.SetData(product, productCount);
         St_product.Children.Add(saleProductForComponent);
@@ -373,5 +370,10 @@ public partial class SalePage : Page
     {
         SearchProductWindow searchProductWindow = new SearchProductWindow();
         searchProductWindow.ShowDialog();
+    }
+
+    private void Page_Unloaded(object sender, RoutedEventArgs e)
+    {
+        tvm = null!;
     }
 }

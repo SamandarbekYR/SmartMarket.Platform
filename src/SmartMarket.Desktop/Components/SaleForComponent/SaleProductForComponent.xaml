@@ -56,14 +56,14 @@
                 Background="Transparent"/>
 
             <TextBlock
-                     Grid.Column="3"
-                     Text="{Binding Price}"
-                     x:Name="tbPrice"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Right"
-                     FontSize="14"
-                     FontWeight="SemiBold" Grid.ColumnSpan="2" Margin="0,0,28,0"
-                     />
+                Grid.Column="3"
+                Text="{Binding Price}"
+                x:Name="tbPrice"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                FontSize="14"
+                FontWeight="SemiBold"
+                />
 
             <TextBlock 
                      Grid.Column="4"
