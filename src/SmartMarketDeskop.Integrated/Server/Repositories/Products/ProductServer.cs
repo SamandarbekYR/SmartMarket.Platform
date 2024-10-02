@@ -133,11 +133,11 @@ public class ProductServer : IProductServer
         {
             HttpClient client = new HttpClient();
             var token = IdentitySingelton.GetInstance().Token;
-            client.BaseAddress = new Uri(AuthApi.BASE_URL + $"/api/products/barcode/{barcode}");
+            client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/products/barcode/{barcode}");
 
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-            HttpResponseMessage message = await client.GetAsync(client.BaseAddress);
+            var message = await client.GetAsync(client.BaseAddress);
 
             string response = await message.Content.ReadAsStringAsync();
 
