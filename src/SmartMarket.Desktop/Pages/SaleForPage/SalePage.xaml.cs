@@ -325,9 +325,9 @@ public partial class SalePage : Page
 
     private void EmptyPrice()
     {
-        Product_Count.Text = "";
-        Product_Price.Text = "";
-        Total_Price.Text = "";
+        Product_Count.Text = "0";
+        Product_Price.Text = "0";
+        Total_Price.Text = "0";
         Product_Name.Text = "";
         Product_Barcode.Text = "";
     }
