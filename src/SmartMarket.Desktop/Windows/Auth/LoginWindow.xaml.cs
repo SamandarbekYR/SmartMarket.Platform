@@ -1,4 +1,6 @@
-﻿using SmartMarketDeskop.Integrated.Interfaces.Auth;
+﻿using SmartMarket.Desktop.Windows.Admin;
+using SmartMarket.Desktop.Windows.SimpleAdmin;
+using SmartMarketDeskop.Integrated.Interfaces.Auth;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Services.Auth;
 using SmartMarketDesktop.DTOs.DTOs.Auth;
@@ -76,22 +78,38 @@ public partial class LoginWindow : Window
                 
                 if (result.Result)
                 {
-
                     IdentitySingelton.GetInstance().Token = TokenHandler.ParseToken(result.Token).Token;
-                   
-                    MainWindow window = new MainWindow();
-                    this.Close();
-                    window.ShowDialog();
+
+                    string role = IdentitySingelton.GetInstance().RoleName;
+
+                    if (role == "superadmin")
+                    {
+                        MainWindow window = new MainWindow();
+                        this.Close();
+                        window.ShowDialog();
+                    }
+                    else if (role == "admin")
+                    {
+                        AdminWindow window = new AdminWindow();
+                        this.Close();
+                        window.ShowDialog();
+                    }
+                    else
+                    {
+                        SimpleAdminWindow window = new SimpleAdminWindow();
+                        this.Close();
+                        window.ShowDialog();
+                    }
                 }
                 else
                 {
-                    notifier.ShowWarning("Bunday foydalanuvchi mavjud emas !");
+                    notifier.ShowWarning("Bunday foydalanuvchi mavjud emas!");
 
                 }
             }
             else
             {
-                notifier.ShowWarning("Internetingizni tekshiring");
+                notifier.ShowWarning("Internetingizni tekshiring.");
             }
            // notifier.Dispose();
         }
