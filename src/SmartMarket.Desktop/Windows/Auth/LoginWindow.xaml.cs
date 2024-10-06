@@ -96,7 +96,11 @@ public partial class LoginWindow : Window
                     }
                     else
                     {
-                        SimpleAdminWindow window = new SimpleAdminWindow();
+                        //SimpleAdminWindow window = new SimpleAdminWindow();
+                        //this.Close();
+                        //window.ShowDialog();
+
+                        MainWindow window = new MainWindow();
                         this.Close();
                         window.ShowDialog();
                     }
@@ -104,7 +108,6 @@ public partial class LoginWindow : Window
                 else
                 {
                     notifier.ShowWarning("Bunday foydalanuvchi mavjud emas!");
-
                 }
             }
             else
@@ -113,7 +116,10 @@ public partial class LoginWindow : Window
             }
            // notifier.Dispose();
         }
-        catch (Exception ex) { }
+        catch (Exception ex) 
+        {
+            
+        }
 
     }
 

@@ -43,9 +43,6 @@ public partial class SaleHistoryWindow : Window
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         EnableBlur();
-
-        ShopHIstoryPage historyPage = new ShopHIstoryPage();
-        PageNavigator.Content = historyPage;
     }
 
     private void btnclose_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
