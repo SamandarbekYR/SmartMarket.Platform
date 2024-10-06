@@ -1,19 +1,8 @@
 ﻿using SmartMarket.Desktop.Components.ShopWorkerForComponent;
 using SmartMarket.Desktop.Windows.AccountSettings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
 {
@@ -56,12 +45,6 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
         {
             WorkerSoldProductPage workerSoldProductPage = new WorkerSoldProductPage();
             WorkerSoldProductPageNavigator.Content= workerSoldProductPage;
-        }
-
-        private void btnAddWorker_Click(object sender, RoutedEventArgs e)
-        {
-            AccountCreateWindow accountCreateWindow = new AccountCreateWindow();    
-            accountCreateWindow.ShowDialog();
         }
 
         private void CollectedCargoPageNavigator_Navigated(object sender, NavigationEventArgs e)
