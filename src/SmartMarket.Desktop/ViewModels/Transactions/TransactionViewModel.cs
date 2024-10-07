@@ -36,6 +36,7 @@ public class TransactionViewModel
             if (m.Barcode == barcode)
             {
                 m.Quantity++;
+                m.TotalPrice = m.Quantity * m.Price;
             }
         }
     }
