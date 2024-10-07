@@ -176,11 +176,13 @@
                            BorderThickness="1"
                            BorderBrush="{DynamicResource BorderColor}"
                            CornerRadius="5">
-                        <TextBox x:Name="txtQuantity"
-                                Margin="3 0"
-                                FontSize="20"
-                                Foreground="#656161"
-                                 BorderThickness="0"/>
+                        <TextBox 
+                            x:Name="txtQuantity"
+                            Margin="3 0"
+                            FontSize="20"
+                            Foreground="#656161"
+                            BorderThickness="0"
+                            TextChanged="phone_number_TextChanged"/>
                     </Border>
 
                     <Label Grid.Column="0"
@@ -199,6 +201,7 @@
                                 FontSize="20"
                                  BorderThickness="0"
                                 Foreground="#656161"
+                                 TextChanged="phone_number_TextChanged"
                                 />
                     </Border>
                 </StackPanel>
@@ -219,7 +222,8 @@
                                 Margin="3 0"
                                 FontSize="20"
                                 Foreground="#656161"
-                                 BorderThickness="0"/>
+                                 BorderThickness="0"
+                                 TextChanged="phone_number_TextChanged"/>
                     </Border>
                 </StackPanel>
                 <StackPanel Margin="0 5 0 0"
@@ -239,7 +243,8 @@
                                 Margin="3 0"
                                 FontSize="20"
                                 Foreground="#656161"
-                                 BorderThickness="0" />
+                                 BorderThickness="0"
+                                 TextChanged="phone_number_TextChanged"/>
                     </Border>
                 </StackPanel>
                 <StackPanel Margin="0 5 0 0"
@@ -317,11 +322,13 @@
                            BorderThickness="1"
                            BorderBrush="{DynamicResource BorderColor}"
                            CornerRadius="5">
-                        <TextBox x:Name="txtNoteAmount"
-                                Margin="3 0"
-                                FontSize="20"
-                                 BorderThickness="0"
-                                Foreground="#656161" />
+                        <TextBox 
+                            x:Name="txtNoteAmount"
+                            Margin="3 0"
+                            FontSize="20"
+                            BorderThickness="0"
+                            Foreground="#656161"
+                            TextChanged="phone_number_TextChanged"/>
                     </Border>
                 </StackPanel>
                 <StackPanel Margin="0 5 0 0"
@@ -330,32 +337,35 @@
                           VerticalAlignment="Center"
                           Margin="10 0 0 0"
                           FontSize="18"/>
-                    <Border Grid.Column="1"
-                           Margin="30 3 3 3"
-                           Width="357"
-                           Height="35"
-                           BorderThickness="1"
-                           BorderBrush="{DynamicResource BorderColor}"
-                           CornerRadius="5"
-                           HorizontalAlignment="Right">
+                    <Border 
+                        Grid.Column="1"
+                        Margin="30 3 3 3"
+                        Width="357"
+                        Height="35"
+                        BorderThickness="1"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        CornerRadius="5"
+                        MouseDown="Border_MouseDown"
+                        HorizontalAlignment="Right">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="30"/>
                             </Grid.ColumnDefinitions>
-                            <Label x:Name="lbImage"
-                                  Grid.Column="0"
-                                  VerticalAlignment="Center"
-                                  Margin="10 0 0 0"
-                                  FontSize="18"/>
-                            <Path Grid.Column="1"
-                                  MouseUp="Path_MouseUp"
-                                 Data="{DynamicResource dots}"
-                                 Fill="Black"
-                                 HorizontalAlignment="Right"
-                                 VerticalAlignment="Center"
-                                 Margin="0 0 10 0"
-                                 Cursor="Hand"/>
+                            <Label 
+                                x:Name="lbImage"
+                                Grid.Column="0"
+                                VerticalAlignment="Center"
+                                Margin="10 0 0 0"
+                                FontSize="18"/>
+                            <Path
+                                Grid.Column="1"
+                                Data="{DynamicResource dots}"
+                                Fill="Black"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Margin="0 0 10 0"
+                                Cursor="Hand"/>
                         </Grid>
                     </Border>
                 </StackPanel>

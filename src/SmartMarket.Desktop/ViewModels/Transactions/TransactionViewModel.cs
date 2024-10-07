@@ -8,6 +8,9 @@ public class TransactionViewModel
 {
     public ObservableCollection<TransactionDto> Transactions = new ObservableCollection<TransactionDto>();
 
+    internal double TransactionPrice { get; set; } = 0;
+    internal double DiscountPrice { get; set; } = 0;
+
     public TransactionViewModel()
     {
     }

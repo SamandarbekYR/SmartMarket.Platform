@@ -1,10 +1,5 @@
 ﻿using SmartMarket.Service.Common.Utils;
 using SmartMarket.Service.DTOs.Products.Product;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartMarket.Service.Interfaces.Products.Product
 {

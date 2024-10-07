@@ -1,18 +1,6 @@
 ﻿using SmartMarket.Desktop.Components.ShopDetailsForComponent;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
 {
@@ -28,9 +16,6 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
             GetAllProduct();
         }
 
-
-
-
         public void GetAllProduct()
         { 
 
@@ -43,7 +28,7 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
                 ShopDetailsProductComponent shopDetailsProductComponent = new ShopDetailsProductComponent();
                 shopDetailsProductComponent.Tag = item.Id;
                 shopDetailsProductComponent.SetValues(item.Id, item.TransactionNumber, item.ProductName, item.Barcode, item.Category, item.Worker,
-                    item.Discount, item.count, item.TotalPrice, item.Kasa, item.Price, item.Date);
+                item.Discount, item.count, item.TotalPrice, item.Kasa, item.Price, item.Date);
                 shopDetailsProductComponent.BorderThickness = new Thickness(2);
                 St_productList.Children.Add(shopDetailsProductComponent);
             }

@@ -21,30 +21,213 @@
         Background="White">
 
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-            <Border>
-                <Frame
-                    x:Name="PageNavigator"
-                    NavigationUIVisibility="Hidden"/>
 
+            <Border
+                Grid.Row="0"
+                BorderBrush="Black"
+                CornerRadius="5 5 0 0"
+                BorderThickness="1"
+                Background="#d6d6d6"
+                >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.7*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock 
+                        Grid.Column="0"
+                        Text="Sotuv tarixi"
+                        VerticalAlignment="Center"
+                        Margin="15 0 0 0"
+                        FontSize="20"
+                        FontWeight="DemiBold"
+                        ></TextBlock>
+
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Grid.Column="1">
+
+                        <DatePicker
+                            Style="{DynamicResource FormDatePicker}"/>
+                        <Label
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            VerticalAlignment="Center"
+                            Content="dan"/>
+
+                    </StackPanel>
+
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Grid.Column="2">
+
+
+                        <DatePicker
+                            Style="{DynamicResource FormDatePicker}"/>
+                        <Label
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            VerticalAlignment="Center"
+                            Content="gacha"/>
+
+                    </StackPanel>
+
+                    <ComboBox
+                        Margin="5 10 10 10"
+                        Grid.Column="3">
+                        <ComboBoxItem 
+                            IsEnabled="False" 
+                            IsSelected="True"
+                            Content="Sotuvchi"/>
+                        <ComboBoxItem
+                            Content="Aziz"/>
+                        <ComboBoxItem
+                            Content="Po'lat"/>
+                    </ComboBox>
+
+
+                    <TextBox
+                        Margin="0 0 10 0"
+                        Style="{DynamicResource search}"
+                        Grid.Column="4"/>
+
+                    <Border 
+                        Grid.Column="5"
+                        x:Name="btnclose"
+                        MouseUp="btnclose_MouseUp"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Margin="0 10 10 0"
+                        Background="Transparent"
+                        BorderThickness="0">
+
+                        <md:PackIcon Kind="Close"
+                            Width="30"
+                            Height="30"
+                            Foreground="{DynamicResource BorderColor}"
+                            ></md:PackIcon>
+                    </Border>
+                </Grid>
+            </Border>
+
+
+
+            <Border 
+                Background="White"
+                Grid.Row="1" 
+                BorderBrush="Black" 
+                BorderThickness="1 0 1 0">
+                <Grid 
+                    Grid.Row="1" 
+                    Margin="5 0 0 0"
+                    x:Name="ShopHIstoryTitle" 
+                    >
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="2*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                        Grid.Column="0"
+                        Content="N%"
+                        Style="{DynamicResource Label}"/>
+
+                    <Label
+                        Grid.Column="1"
+                        Content="Transaction No"
+                        Style="{DynamicResource Label}"/>
+
+                    <Label
+                        Content="Mahsulot nomi"
+                        Grid.Column="2"
+                        Style="{DynamicResource Label}"/>
+
+                    <Label
+                        Content="Barcode"
+                        Grid.Column="3"
+                        Style="{DynamicResource Label}"/>
+
+                    <Label
+                        Grid.Column="4"
+                        Content="Kategoriya"
+                        Style="{DynamicResource Label}"/>
+
+                    <Label
+                        Grid.Column="5"
+                        Content="Narxi"
+                        Style="{DynamicResource Label}"/>
+
+                    <Label
+                        Content="Chegirma"
+                        Grid.Column="6"
+                        Style="{DynamicResource Label}"/>
+
+                    <Label
+                        Content="Soni"
+                        Grid.Column="7"
+                        Style="{DynamicResource Label}"/>
+                    <Label
+                        Grid.Column="8"
+                        Content="Jami"
+                        Style="{DynamicResource Label}"/>
+
+                    <Label
+                        Grid.Column="9"
+                        Content="Sotuvchi"
+                        Style="{DynamicResource Label}"/>
+
+                    <Label
+                        Content="Kassa"
+                        Grid.Column="10"
+                        Style="{DynamicResource Label}"/>
+
+                    <Label
+                        Content="Sana"
+                        Grid.Column="11"
+                        Style="{DynamicResource Label}"/>
+
+                </Grid>
             </Border>
             <Border 
-                x:Name="btnclose"
-                MouseUp="btnclose_MouseUp"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Margin="0 10 10 0"
-                Background="Transparent"
-                BorderThickness="0">
+                Grid.Row="2" 
+                CornerRadius="0 0 5 5"  
+                BorderThickness="1 0 1 1" 
+                BorderBrush="{DynamicResource BorderColor}" 
+                Background="White">
+                <ScrollViewer Grid.Row="2">
+                    <StackPanel Grid.Row="2">
 
-                <md:PackIcon Kind="Close"
-                    Width="30"
-                    Height="30"
-                    Foreground="{DynamicResource BorderColor}"
-                    ></md:PackIcon>
+                        <StackPanel x:Name="St_productList">
+
+
+                        </StackPanel>
+
+                    </StackPanel>
+                </ScrollViewer>
             </Border>
-
         </Grid>
-
     </Border>
 </Window>

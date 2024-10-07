@@ -9,5 +9,6 @@ public interface IProductService
     Task<bool> UpdateProduct(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto product, Guid Id);
     Task<bool> DeleteProduct(Guid Id);
     Task<List<ProductDto>> GetAll();
+    Task<List<ProductDto>> GetByCategoryId(Guid categoryId);
     Task<ProductDto> GetByBarCode(string barCode);
  }

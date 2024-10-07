@@ -57,10 +57,12 @@ public partial class MainCategoryComponent : UserControl
 
     private void Border_MouseDown(object sender, MouseButtonEventArgs e)
     {
+        var categoryView = this.Tag as CategoryView;
+
         var page = FindParentPage(this);
         if (page is MainPage mainPage)
         {
-            mainPage.SelectCategory(this);
+            mainPage.SelectCategory(this, categoryView!.Id);
         }
     }
 

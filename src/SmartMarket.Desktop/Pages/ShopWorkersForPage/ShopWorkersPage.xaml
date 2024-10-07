@@ -36,21 +36,12 @@
                     BorderThickness="0.5"
                     Background="#F86259"
                     >
-                    <DockPanel>
-                        <TextBlock
+                    <TextBlock
                             Text="Ishchilarim"
                             VerticalAlignment="Center"
                             FontSize="18"
                             Margin="10 0 0 0"
                             ></TextBlock>
-                        <Button
-                            x:Name="btnAddWorker"
-                            HorizontalAlignment="Right"
-                            Click="btnAddWorker_Click"
-                            Style="{DynamicResource btnCategory}"
-                            ></Button>
-
-                    </DockPanel>
                 </Border>
                 <Border
                     Background="White"
