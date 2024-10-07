@@ -14,6 +14,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
+using static MaterialDesignThemes.Wpf.Theme.ToolBar;
 
 namespace SmartMarket.Desktop.Pages.SaleForPage;
 
@@ -155,8 +156,24 @@ public partial class SalePage : Page
                     AddNewProduct(product);
                 }
                 else
+                {
                     tvm.Increment(barcode);
+                    foreach (SaleProductForComponent child in St_product.Children)
+                    {
+                        if (child.Barcode == barcode)
+                        {
+                            int quantity = int.Parse(child.tbQuantity.Text);
+                            if (quantity < child.AvailableCount)
+                            {
+                                quantity++;
+                                child.tbQuantity.Text = quantity.ToString();
+                                child.tbTotalPrice.Text = (quantity * double.Parse(child.tbPrice.Text)).ToString();
+                                GetPrice(product, quantity);
+                            }
+                        }
+                    }
 
+                }
                 ColculateTotalPrice();
             }
         }
