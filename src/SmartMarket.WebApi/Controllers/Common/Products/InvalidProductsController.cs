@@ -49,6 +49,24 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
             }
         }
 
+        /*[HttpGet("product/{productName}")]
+        public async Task<IActionResult> GetInvalidProductsByProductNameAsync(string productName)
+        {
+            try
+            {
+                var invalidProducts = await _invalidProductService.GetInvalidProductsByProductNameAsync(productName);
+                return Ok(invalidProducts);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }*/
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {

@@ -68,6 +68,42 @@ namespace SmartMarket.WebApi.Controllers.Common.Partner
             }
         }
 
+        [HttpGet("phone/{phoneNumber}")]
+        public async Task<IActionResult> GetPartnerByPhoneNumberAsync(string phoneNumber)
+        {
+            try
+            {
+                var partner = await _partnerService.GetPartnerByPhoneNumberAsync(phoneNumber);
+                return Ok(partner);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("name/{firstName}")]
+        public async Task<IActionResult> GetPartnerByFirstNameAsync(string firstName)
+        {
+            try
+            {
+                var partner = await _partnerService.GetPartnerByFirstNameAsync(firstName);
+                return Ok(partner);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] AddPartnerDto dto)
         {

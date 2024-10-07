@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.Common.Exceptions;
+using SmartMarket.Service.Common.Utils;
 using SmartMarket.Service.DTOs.Expence;
 using SmartMarket.Service.Interfaces.Expence;
 using SmartMarket.WebApi.Controllers.Common;
@@ -43,6 +44,24 @@ namespace SmartMarket.WebApi.Controllers.Common.Expence
             catch (StatusCodeException ex)
             {
                 return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("reason/{reason}")]
+        public async Task<IActionResult> GetExpensesByReasonAsync(string reason, [FromQuery] PaginationParams @params)
+        {
+            try
+            {
+                var expenses = await _expenceService.GetExpensesByReasonAsync(reason, @params);
+                return Ok(expenses);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {
