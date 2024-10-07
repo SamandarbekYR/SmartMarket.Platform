@@ -8,4 +8,6 @@ public interface IInvalidProductService
     Task<bool> DeleteAsync(Guid Id);
     Task<List<InvalidProductDto>> GetAllAsync();
     Task<bool> UpdateAsync(AddInvalidProductDto dto, Guid Id);
+
+    Task<List<InvalidProductDto>> GetInvalidProductsByProductNameAsync(string productName);
 }

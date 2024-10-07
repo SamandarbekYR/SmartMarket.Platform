@@ -49,6 +49,42 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
             }
         }
 
+        [HttpGet("product/{productName}")]
+        public async Task<IActionResult> GetProductSalesByProductNameAsync(string productName)
+        {
+            try
+            {
+                var productSales = await _productSaleService.GetProductSalesByProductNameAsync(productName);
+                return Ok(productSales);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("transaction/{transactionId}")]
+        public async Task<IActionResult> GetProductSalesByTransactionAsync(Guid transactionId)
+        {
+            try
+            {
+                var productSales = await _productSaleService.GetProductSalesByTransactionAsync(transactionId);
+                return Ok(productSales);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {

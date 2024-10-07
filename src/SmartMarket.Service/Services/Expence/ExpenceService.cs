@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using SmartMarket.DataAccess.Interfaces;
 using SmartMarket.Domain.Entities.Expenses;
 using SmartMarket.Service.Common.Exceptions;
+using SmartMarket.Service.Common.Extentions;
+using SmartMarket.Service.Common.Utils;
 using SmartMarket.Service.Common.Validators;
 using SmartMarket.Service.DTOs.Expence;
 using SmartMarket.Service.Interfaces.Expence;
@@ -58,6 +60,16 @@ public class ExpenceService(IUnitOfWork unitOfWork,
     {
         var expenses = await _unitOfWork.Expense.GetExpensesFullInformationAsync();
         return _mapper.Map<List<ExpenceDto>>(expenses);
+    }
+
+    public async Task<IEnumerable<ExpenceDto>> GetExpensesByReasonAsync(string reason, PaginationParams paginationParams)
+    {
+        var expenses = await _unitOfWork.Expense.GetAll()
+            .Where(e => e.Reason.ToLower().Contains(reason.ToLower())) 
+            .AsNoTracking()
+            .ToPagedListAsync(paginationParams);
+
+        return _mapper.Map<IEnumerable<ExpenceDto>>(expenses);
     }
 
     public async Task<bool> UpdateAsync(AddExpenceDto dto, Guid Id)

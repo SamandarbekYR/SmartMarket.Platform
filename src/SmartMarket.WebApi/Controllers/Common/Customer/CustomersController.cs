@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.Common.Exceptions;
+using SmartMarket.Service.Common.Utils;
 using SmartMarket.Service.DTOs.Customer;
 using SmartMarket.Service.Interfaces.Customer;
 
@@ -24,6 +25,24 @@ namespace SmartMarket.WebApi.Controllers.Common.Customer
             catch (StatusCodeException ex)
             {
                 return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("search{firstName}")]
+        public async Task<IActionResult> SearchCustomersAsync(string firstName, [FromQuery] PaginationParams @params)
+        {
+            try
+            {
+                var customers = await _customerService.SearchCustomersAsync(firstName, @params);
+                return Ok(customers);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
             }
             catch (Exception ex)
             {
