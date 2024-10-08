@@ -54,9 +54,23 @@ namespace SmartMarket.Service.Services.PartnersCompany.ContrAgent
         {
             var contrAgents = await _unitOfWork.ContrAgent.GetAll()
                                              .AsNoTracking()
-                                             .ToPagedListAsync(@params); 
+                                             .ToPagedListAsync(@params);
 
             return contrAgents.Select(ca => _mapper.Map<ContrAgentDto>(ca)).ToList();
+        }
+
+        public async Task<ContrAgentDto> GetContrAgentByCompanyNameAsync(string companyName)
+        {
+            var contrAgents = await _unitOfWork.ContrAgent.GetContrAgentsFullInformationAsync();
+
+            var contrAgent = contrAgents.FirstOrDefault(ca => ca.PartnerCompany.Name == companyName);
+
+            if (contrAgent == null)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Counteragent not found.");
+            }
+
+            return _mapper.Map<ContrAgentDto>(contrAgent);
         }
 
 

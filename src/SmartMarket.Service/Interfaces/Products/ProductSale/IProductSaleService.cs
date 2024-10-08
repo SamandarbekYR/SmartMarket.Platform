@@ -8,4 +8,7 @@ public interface IProductSaleService
     Task<bool> DeleteAsync(Guid Id);
     Task<List<ProductSaleDto>> GetAllAsync();
     Task<bool> UpdateAsync(AddProductSaleDto dto, Guid Id);
+
+    Task<List<ProductSaleDto>> GetProductSalesByTransactionAsync(Guid transactionId);
+    Task<List<ProductSaleDto>> GetProductSalesByProductNameAsync(string productName);
 }

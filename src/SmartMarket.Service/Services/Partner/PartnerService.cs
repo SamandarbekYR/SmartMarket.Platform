@@ -48,6 +48,32 @@ public class PartnerService(IUnitOfWork unitOfWork,
         return _mapper.Map<List<PartnerDto>>(partners);
     }
 
+    public async Task<PartnerDto> GetPartnerByFirstNameAsync(string firstName)
+    {
+        var partner = await _unitOfWork.Partner.GetAll()
+            .FirstOrDefaultAsync(p => p.FirstName.ToLower() == firstName.ToLower());
+
+        if (partner == null)
+        {
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Partner not found.");
+        }
+
+        return _mapper.Map<PartnerDto>(partner);
+    }
+
+    public async Task<PartnerDto> GetPartnerByPhoneNumberAsync(string phoneNumber)
+    {
+        var partner = await _unitOfWork.Partner.GetAll()
+            .FirstOrDefaultAsync(p => p.PhoneNumber == phoneNumber);
+
+        if (partner == null)
+        {
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Partner not found.");
+        }
+
+        return _mapper.Map<PartnerDto>(partner);
+    }
+
     public async Task<bool> UpdateAsync(AddPartnerDto dto, Guid Id)
     {
         var partner = await _unitOfWork.Partner.GetById(Id);

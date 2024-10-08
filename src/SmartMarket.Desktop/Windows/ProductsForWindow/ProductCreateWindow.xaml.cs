@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using SmartMarket.Desktop.Windows.Category;
+using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Services.Categories.Category;
 using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgents;
 using SmartMarketDeskop.Integrated.Services.Products.Product;

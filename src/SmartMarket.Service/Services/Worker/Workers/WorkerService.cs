@@ -30,6 +30,17 @@ public class WorkerService(IUnitOfWork unitOfWork,
         if (!validationResult.IsValid)
             throw new ValidationException(validationResult.Errors.First().ErrorMessage);
 
+        var positionExists = await _unitOfWork.Position.GetById(dto.PositionId) != null;
+        if (!positionExists)
+        {
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Position not found.");
+        }
+
+        var workerRoleExists = await _unitOfWork.WorkerRole.GetById(dto.WorkerRoleId) != null;
+        if (!workerRoleExists)
+        {
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Worker Role not found.");
+        }
 
         (string Hash, string Salt) = PasswordHasher.Hash(dto.Password);
         var imagePath = await _fileService.UploadImageAsync(dto.ImgPath, ROOT_PATH);
@@ -69,5 +80,30 @@ public class WorkerService(IUnitOfWork unitOfWork,
         var worker = _mapper.Map<Et.Worker>(dto);
 
         return _unitOfWork.Worker.Update(worker);
+    }
+
+    public async Task<WorkerDto> GetWorkerByPhoneNumberAsync(string phoneNumber)
+    {
+        var worker = await _unitOfWork.Worker.GetPhoneNumberAsync(phoneNumber);
+
+        if (worker == null)
+        {
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+        }
+
+        return _mapper.Map<WorkerDto>(worker);
+    }
+
+    public async Task<WorkerDto> GetWorkerByNameAsync(string firstName)
+    {
+        var worker = await _unitOfWork.Worker.GetAll()
+            .FirstOrDefaultAsync(w => w.FirstName.ToLower() == firstName.ToLower());
+
+        if (worker == null)
+        {
+            throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+        }
+
+        return _mapper.Map<WorkerDto>(worker);
     }
 }

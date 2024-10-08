@@ -29,4 +29,16 @@ public class ProductRepository : Repository<Product>, IProduct
             .Include(p => p.Order) 
             .ToListAsync();
     }
+    public IQueryable<Product> GetAllProductsFullInformation()
+    {
+        return _products
+            .Include(p => p.Category)
+            .Include(p => p.ContrAgent)
+            .Include(p => p.Worker)
+            .Include(p => p.ProductImages)
+            .Include(p => p.ProductSale)
+            .Include(p => p.Debtors)
+            .Include(p => p.LoadReport)
+            .Include(p => p.Order);
+    }
 }

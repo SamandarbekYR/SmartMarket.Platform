@@ -66,6 +66,11 @@ namespace SmartMarket.Service.Services.Products.LoadReport
             return _mapper.Map<List<LoadReportDto>>(loadReports);
         }
 
+        public Task<List<LoadReportDto>> GetLoadReportsByCompanyNameAsync(string companyName)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<bool> UpdateAsync(AddLoadReportDto dto, Guid Id)
         {
             var loadReport = await _unitOfWork.LoadReport.GetById(Id);

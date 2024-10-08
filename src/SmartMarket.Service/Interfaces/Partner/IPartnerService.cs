@@ -8,4 +8,7 @@ public interface IPartnerService
     Task<bool> DeleteAsync(Guid Id);
     Task<List<PartnerDto>> GetAllAsync();
     Task<bool> UpdateAsync(AddPartnerDto dto, Guid Id);
+
+    Task<PartnerDto> GetPartnerByPhoneNumberAsync(string phoneNumber);
+    Task<PartnerDto> GetPartnerByFirstNameAsync(string phoneNumber);
 }
