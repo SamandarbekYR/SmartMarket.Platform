@@ -191,5 +191,13 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpGet("all")]
+        public async Task<IActionResult> GetAllProductsAsync([FromQuery] PaginationParams @params)
+        {
+
+            var products = await _productService.GetProductsFullInformationAsync(@params);
+            return Ok(products);
+        }
     }
 }
