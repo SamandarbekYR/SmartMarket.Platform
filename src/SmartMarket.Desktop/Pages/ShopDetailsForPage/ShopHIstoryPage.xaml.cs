@@ -1,164 +1,132 @@
 ﻿using SmartMarket.Desktop.Components.ShopDetailsForComponent;
-
+using SmartMarket.Service.ViewModels.Products;
 using SmartMarketDeskop.Integrated.Services.Products.ProductSale;
 
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
 {
-    /// <summary>
-    /// Interaction logic for ShopHIstoryPage.xaml
-    /// </summary>
     public partial class ShopHIstoryPage : Page
     {
-        List<Product> products=new List<Product>();
         private IProductSaleService _productSaleService;
-
-        private int rowNumber = 1;
 
         public ShopHIstoryPage()
         {
             InitializeComponent();
             _productSaleService = new ProductSaleService();
-            GetAllProduct();
         }
 
         public async void GetAllProduct()
         { 
             var productSales = await _productSaleService.GetAllAsync();
+
+            List<string> workerNames = productSales
+                .Select(ps => ps.WorkerName)
+                .Distinct() 
+                .ToList();
+
+            var defaultItem = new ComboBoxItem
+            {
+                Content = "Sotuvchi",
+                IsEnabled = false, 
+                IsSelected = true ,
+
+            };
+
+            workerComboBox.Items.Add(defaultItem);
+
+            foreach (var workerName in workerNames)
+            {
+                workerComboBox.Items.Add(new ComboBoxItem
+                {
+                    Content = workerName,
+                    IsEnabled = true 
+                });
+            }
+
+            workerComboBox.SelectedItem = defaultItem;
+
+            ShowProductSales(productSales);
+        }
+
+        private async void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
+            {
+                var productSales = await _productSaleService.GetAllAsync();
+
+                var fromDate = fromDateTime.SelectedDate;
+                var toDate = toDateTime.SelectedDate;
+
+                var filteredProductSales = productSales.Where(ps =>
+                    (!fromDate.HasValue || ps.CreatedDate >= fromDate.Value) &&
+                    (!toDate.HasValue || ps.CreatedDate <= toDate.Value));
+
+                ShowProductSales(filteredProductSales);
+            }
+        }
+
+        private async void WorkerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedWorkerName = (workerComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+           
+            var productSales = await _productSaleService.GetAllAsync();
+
+            if (!string.IsNullOrEmpty(selectedWorkerName) && !selectedWorkerName.Equals("Sotuvchi"))
+            {
+                var filteredProductSales = productSales
+                    .Where(ps => ps.WorkerName == selectedWorkerName)
+                    .ToList();
+
+                ShowProductSales(filteredProductSales);
+            }
+            else
+            {
+                ShowProductSales(productSales);
+            }
+        }
+
+        private async void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                var productSales = await _productSaleService.GetAllAsync();
+                var searchTerm = searchTextBox.Text.ToLower();
+
+                var filteredProductSales = productSales.Where(ps =>
+                    ps.ProductName.ToLower().Contains(searchTerm) ||
+                    ps.TransactionNumber.ToString().Contains(searchTerm)
+                );
+
+                ShowProductSales(filteredProductSales);
+            }
+        }
+
+        private void ShowProductSales(IEnumerable<ProductSaleViewModel> productSales)
+        {
             St_productList.Visibility = Visibility.Visible;
             St_productList.Children.Clear();
-            var newlist = ProductList();
+            int rowNumber = 1;
 
             foreach (var item in productSales)
             {
                 ShopDetailsProductComponent shopDetailsProductComponent = new ShopDetailsProductComponent();
                 shopDetailsProductComponent.Tag = rowNumber;
-                shopDetailsProductComponent.SetValues(rowNumber, item.TransactionNumber, item.ProductName, item.BarCode, item.CategoryName, item.WorkerName,
-                6, item.Count, item.TotalCost, "2", item.Price, item.CreatedDate);
+                shopDetailsProductComponent.SetValues(
+                    rowNumber,
+                    item.TransactionNumber,
+                    item.ProductName,
+                    item.Price,
+                    item.Count,
+                    item.TotalCost);
+
                 shopDetailsProductComponent.BorderThickness = new Thickness(2);
                 St_productList.Children.Add(shopDetailsProductComponent);
                 rowNumber++;
             }
-        }
-
-
-
-
-        public class Product()
-        {
-            public int Id { get; set; }
-
-            public string TransactionNumber { get; set; }
-            public string ProductName { get; set; }
-            public string Barcode { get; set; }
-            public string Category { get; set; }
-            public string Worker { get; set; }
-
-            public string Discount { get; set; }
-            public int count { get; set; }
-            public string TotalPrice { get; set; }
-            public string Kasa { get; set; }
-            public string Price { get; set; }
-            public string Date { get; set; }
-        }
-
-
-
-        public List<Product> ProductList()
-        {
-            products.Add(new Product()
-            {
-                Id = 1,
-                TransactionNumber = "0007512555",
-                Barcode = "#141214455135",
-                ProductName = "Nestle Kasha 9",
-                Category = "Mevalar",
-                Worker = "Sherzod",
-                Discount = "0%",
-                count = 10,
-                TotalPrice = "300000.0",
-                Kasa = "#2",
-                Price = "200000.0",
-                Date = "20/08/2024",
-            });
-            products.Add(new Product()
-            {
-                Id = 1,
-                TransactionNumber = "0007512555",
-                Barcode = "#14121001135",
-                ProductName = "Nestle Kasha 9",
-                Category = "kasha",
-                Worker = "Sherzod",
-                Discount = "0%",
-                count = 10,
-                TotalPrice = "300000.0",
-                Kasa = "#2",
-                Price = "200000.0",
-                Date = "20/08/2024",
-            });
-            products.Add(new Product()
-            {
-                Id = 1,
-                TransactionNumber = "0007512555",
-                Barcode = "#14121001135",
-                ProductName = "Nestle Kasha 9",
-                Category = "Mevalar",
-                Worker = "Sherzod",
-                Discount = "0%",
-                count = 10,
-                TotalPrice = "300000.0",
-                Kasa = "#2",
-                Price = "200000.0",
-                Date = "20/08/2024",
-            });
-            products.Add(new Product()
-            {
-                Id = 1,
-                TransactionNumber = "0007512555",
-                Barcode = "#14121001135",
-                ProductName = "Nestle Kasha 9",
-                Category = "Mevalar",
-                Worker = "Sherzod",
-                Discount = "0%",
-                count = 10,
-                TotalPrice = "300000.0",
-                Kasa = "#2",
-                Price = "200000.0",
-                Date = "20/08/2024",
-            });
-            products.Add(new Product()
-            {
-                Id = 1,
-                TransactionNumber = "0007512555",
-                Barcode = "#14121001135",
-                ProductName = "Nestle Kasha 9",
-                Category = "Mevalar",
-                Worker = "Sherzod",
-                Discount = "0%",
-                count = 10,
-                TotalPrice = "300000.0",
-                Kasa = "#2",
-                Price = "200000.0",
-                Date = "20/08/2024",
-            });
-            products.Add(new Product()
-            {
-                Id = 1,
-                TransactionNumber = "0007512555",
-                Barcode = "#14121001135",
-                ProductName = "Nestle Kasha 9",
-                Category = "Mevalar",
-                Worker = "Sherzod",
-                Discount = "0%",
-                count = 10,
-                TotalPrice = "300000.0",
-                Kasa = "#2",
-                Price = "200000.0",
-                Date = "20/08/2024",
-            });
-            return products;
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

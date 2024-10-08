@@ -38,20 +38,5 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Products
                 return new List<ProductSaleViewModel>();
             }
         }
-
-        public Task<List<ProductSaleView>> GetByDateTimeAsync(DateTime formDateTime, DateTime toDateTime)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<ProductSaleView>> GetByNameAsync(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<ProductSaleView>> GetBySellerNameAsync(string name)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -1,15 +1,8 @@
-﻿using SmartMarket.Service.DTOs.Products.Product;
-using SmartMarket.Service.DTOs.Products.ProductSale;
-using SmartMarket.Service.ViewModels.Products;
-
-using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
+﻿using SmartMarket.Service.ViewModels.Products;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Workers;
 using SmartMarketDeskop.Integrated.Server.Repositories.Products;
 using SmartMarketDeskop.Integrated.Server.Repositories.Workers;
-
-using SmartMarketDesktop.ViewModels.Entities.Products;
-
 using System.Net;
 
 namespace SmartMarketDeskop.Integrated.Services.Products.ProductSale
@@ -37,21 +30,6 @@ namespace SmartMarketDeskop.Integrated.Services.Products.ProductSale
             {
                 return new List<ProductSaleViewModel>();
             }
-        }
-
-        public Task<List<ProductSaleView>> GetByDateTime(DateTime formDateTime, DateTime toDateTime)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<ProductSaleView>> GetByName(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<ProductSaleView>> GetBySellerName(string name)
-        {
-            throw new NotImplementedException();
         }
 
         public bool IsInternetAvailable()

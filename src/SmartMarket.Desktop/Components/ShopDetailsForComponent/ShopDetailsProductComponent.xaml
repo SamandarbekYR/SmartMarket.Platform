@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartMarket.Desktop.Components.ShopDetailsForComponent"
              mc:Ignorable="d" 
-             Height="50">
+             Height="55">
 
     <Border
         CornerRadius="5"
@@ -21,10 +21,6 @@
                 <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="0.6*"/>
                 <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="0.6*"/>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="0.7*"/>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
@@ -65,33 +61,12 @@
                 Content="50000"
                 Style="{StaticResource Label}"/>
 
-            <Label
-                Name="lb_Discount"
-                Grid.Column="6"
-                Content="0"
-                HorizontalAlignment="Center"
-                Style="{DynamicResource Label}"/>
-
-            <Label
-                Name="lb_Seller"
-                Grid.Column="7"
-                Content="Alisher"
-                Style="{DynamicResource Label}"/>
-
-            <Label
-                Name="lb_Date"
-                Grid.Column="8"
-                Content="01.02.2024"
-                Style="{DynamicResource Label}"/>
-
             <Button
                 x:Name="Return_Button"
                 Grid.Column="9"
                 HorizontalAlignment="Right"
                 Click="Return_Button_Click"
                 Style="{DynamicResource BtnShopDetailsReturn}"/>
-
         </Grid>
-
     </Border>
 </UserControl>

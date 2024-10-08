@@ -73,18 +73,18 @@ namespace SmartMarket.Service.Services.Products.ProductSale
                 .Select(ps => new ProductSaleViewModel
                 {
                     TransactionNumber = ps.TransactionNumber,
-                    ProductName = ps.Product.Name,
-                    Price = ps.Product.Price,
-                    BarCode = ps.Product.Barcode,
-                    Count = ps.Count,
                     CategoryName = ps.Product.Category.Name,
-                    TotalCost = ps.TotalCost,
                     WorkerName = ps.Worker.FirstName,
+                    TransferMoney = ps.TransferMoney,
+                    ProductName = ps.Product.Name,
+                    BarCode = ps.Product.Barcode,
+                    CreatedDate = ps.CreatedDate,
+                    Price = ps.Product.Price,
+                    TotalCost = ps.TotalCost,
                     CardSum = ps.CardSum,
                     CashSum = ps.CashSum,
-                    TransferMoney = ps.TransferMoney,
                     DebtSum = ps.DebtSum,
-                    CreatedDate = ps.CreatedDate,
+                    Count = ps.Count,
                 }).ToList();
                 
             return productSales;
