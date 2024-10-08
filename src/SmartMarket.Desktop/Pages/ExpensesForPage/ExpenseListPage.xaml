@@ -172,8 +172,7 @@
                 HorizontalScrollBarVisibility="Auto">
                 <StackPanel 
                     x:Name="St_Expenses">
-                    
-                    
+                   
                 </StackPanel>
             </ScrollViewer>
         </Border>
