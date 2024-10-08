@@ -44,7 +44,6 @@ public partial class MainProductComponent : UserControl
         {
             await productService.DeleteProduct(productViewModels.Id);
         }
-
     }
 
     private void btnDocument_Click(object sender, RoutedEventArgs e)
