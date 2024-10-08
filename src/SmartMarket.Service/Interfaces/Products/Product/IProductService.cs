@@ -1,4 +1,5 @@
-﻿using SmartMarket.Service.Common.Utils;
+﻿using Et = SmartMarket.Domain.Entities.Products;
+using SmartMarket.Service.Common.Utils;
 using SmartMarket.Service.DTOs.Products.Product;
 
 namespace SmartMarket.Service.Interfaces.Products.Product
@@ -16,5 +17,6 @@ namespace SmartMarket.Service.Interfaces.Products.Product
         Task<ProductDto> GetProductByPCodeAsync(string pCode);
         Task<ProductDto> GetProductByWorkerIdAsync(Guid workerId);
         Task<ProductDto> GetProductByNameAsync(string name);
+        Task<IEnumerable<Et.Product>> GetProductsFullInformationAsync(PaginationParams @params);
     }
 }
