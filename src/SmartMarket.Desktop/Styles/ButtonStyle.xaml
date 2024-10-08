@@ -2124,12 +2124,12 @@
                         BorderThickness="0"
                         >
                         <md:PackIcon Kind="Close"
-                                     Width="25"
+                                     Width="30"
                                      x:Name="I"
-                                     Height="25"
+                                     Height="30"
                                      VerticalAlignment="Center"
                                      HorizontalAlignment="Center"
-                                     Foreground="White"
+                                     Foreground="{TemplateBinding Background}"
                                      ></md:PackIcon>
                     </Border>
                     <ControlTemplate.Triggers>
