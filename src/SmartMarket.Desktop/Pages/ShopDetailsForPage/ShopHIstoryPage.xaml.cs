@@ -13,7 +13,6 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
         public ShopHIstoryPage()
         {
             InitializeComponent();
-            GetAllProduct();
         }
 
         public void GetAllProduct()
@@ -25,7 +24,7 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
 
             foreach (var item in newlist)
             {
-                ShopDetailsProductComponent shopDetailsProductComponent = new ShopDetailsProductComponent();
+                ReturnProductComponent shopDetailsProductComponent = new ReturnProductComponent();
                 shopDetailsProductComponent.Tag = item.Id;
                 shopDetailsProductComponent.SetValues(item.Id, item.TransactionNumber, item.ProductName, item.Barcode, item.Category, item.Worker,
                 item.Discount, item.count, item.TotalPrice, item.Kasa, item.Price, item.Date);
@@ -150,6 +149,11 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
                 Date = "20/08/2024",
             });
             return products;
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            GetAllProduct();
         }
     }
 }
