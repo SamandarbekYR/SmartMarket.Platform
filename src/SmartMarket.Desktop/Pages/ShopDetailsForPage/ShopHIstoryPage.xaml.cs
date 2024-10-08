@@ -1,7 +1,9 @@
 ﻿using SmartMarket.Desktop.Components.ShopDetailsForComponent;
 using SmartMarket.Service.ViewModels.Products;
+
 using SmartMarketDeskop.Integrated.Services.Products.ProductSale;
 
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +14,7 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
     public partial class ShopHIstoryPage : Page
     {
         private IProductSaleService _productSaleService;
+        private List<ProductSaleViewModel> _cachedProductSales; 
 
         public ShopHIstoryPage()
         {
@@ -20,20 +23,19 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
         }
 
         public async void GetAllProduct()
-        { 
-            var productSales = await _productSaleService.GetAllAsync();
+        {
+            _cachedProductSales = await _productSaleService.GetAllAsync(); 
 
-            List<string> workerNames = productSales
+            List<string> workerNames = _cachedProductSales
                 .Select(ps => ps.Worker.FirstName)
-                .Distinct() 
+                .Distinct()
                 .ToList();
 
             var defaultItem = new ComboBoxItem
             {
-                Content = "Sotuvchi",
-                IsEnabled = false, 
-                IsSelected = true ,
-
+                Content = "Barcha sotuvchi",
+               // IsEnabled = false,
+                IsSelected = true,
             };
 
             workerComboBox.Items.Add(defaultItem);
@@ -43,41 +45,37 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
                 workerComboBox.Items.Add(new ComboBoxItem
                 {
                     Content = workerName,
-                    IsEnabled = true 
+                    IsEnabled = true
                 });
             }
 
             workerComboBox.SelectedItem = defaultItem;
 
-            ShowProductSales(productSales);
+            ShowProductSales(_cachedProductSales); 
         }
 
-        private async void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
             {
-                var productSales = await _productSaleService.GetAllAsync();
+                var fromDate = fromDateTime.SelectedDate.Value;
+                var toDate = toDateTime.SelectedDate.Value;
 
-                var fromDate = fromDateTime.SelectedDate;
-                var toDate = toDateTime.SelectedDate;
-
-                var filteredProductSales = productSales.Where(ps =>
-                    (!fromDate.HasValue || ps.CreatedDate >= fromDate.Value) &&
-                    (!toDate.HasValue || ps.CreatedDate <= toDate.Value));
+                var filteredProductSales = _cachedProductSales.Where(ps =>
+                    ps.CreatedDate >= fromDate &&
+                    ps.CreatedDate <= toDate);
 
                 ShowProductSales(filteredProductSales);
             }
         }
 
-        private async void WorkerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void WorkerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var selectedWorkerName = (workerComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
-           
-            var productSales = await _productSaleService.GetAllAsync();
 
-            if (!string.IsNullOrEmpty(selectedWorkerName) && !selectedWorkerName.Equals("Sotuvchi"))
+            if (!string.IsNullOrEmpty(selectedWorkerName) && !selectedWorkerName.Equals("Barcha sotuvchi"))
             {
-                var filteredProductSales = productSales
+                var filteredProductSales = _cachedProductSales
                     .Where(ps => ps.Worker.FirstName == selectedWorkerName)
                     .ToList();
 
@@ -85,21 +83,19 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
             }
             else
             {
-                ShowProductSales(productSales);
+                ShowProductSales(_cachedProductSales); 
             }
         }
 
-        private async void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
+        private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                var productSales = await _productSaleService.GetAllAsync();
                 var searchTerm = searchTextBox.Text.ToLower();
 
-                var filteredProductSales = productSales.Where(ps =>
+                var filteredProductSales = _cachedProductSales.Where(ps =>
                     ps.Product.Name.ToLower().Contains(searchTerm) ||
-                    ps.TransactionNumber.ToString().Contains(searchTerm)
-                );
+                    ps.TransactionNumber.ToString().Contains(searchTerm));
 
                 ShowProductSales(filteredProductSales);
             }
