@@ -1,4 +1,7 @@
 ﻿using SmartMarket.Desktop.Components.ShopDetailsForComponent;
+
+using SmartMarketDeskop.Integrated.Services.Products.ProductSale;
+
 using System.Windows;
 using System.Windows.Controls;
 
@@ -10,27 +13,33 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
     public partial class ShopHIstoryPage : Page
     {
         List<Product> products=new List<Product>();
+        private IProductSaleService _productSaleService;
+
+        private int rowNumber = 1;
+
         public ShopHIstoryPage()
         {
             InitializeComponent();
+            _productSaleService = new ProductSaleService();
             GetAllProduct();
         }
 
-        public void GetAllProduct()
+        public async void GetAllProduct()
         { 
-
+            var productSales = await _productSaleService.GetAllAsync();
             St_productList.Visibility = Visibility.Visible;
             St_productList.Children.Clear();
             var newlist = ProductList();
 
-            foreach (var item in newlist)
+            foreach (var item in productSales)
             {
                 ShopDetailsProductComponent shopDetailsProductComponent = new ShopDetailsProductComponent();
-                shopDetailsProductComponent.Tag = item.Id;
-                shopDetailsProductComponent.SetValues(item.Id, item.TransactionNumber, item.ProductName, item.Barcode, item.Category, item.Worker,
-                item.Discount, item.count, item.TotalPrice, item.Kasa, item.Price, item.Date);
+                shopDetailsProductComponent.Tag = rowNumber;
+                shopDetailsProductComponent.SetValues(rowNumber, item.TransactionNumber, item.ProductName, item.BarCode, item.CategoryName, item.WorkerName,
+                6, item.Count, item.TotalCost, "2", item.Price, item.CreatedDate);
                 shopDetailsProductComponent.BorderThickness = new Thickness(2);
                 St_productList.Children.Add(shopDetailsProductComponent);
+                rowNumber++;
             }
         }
 

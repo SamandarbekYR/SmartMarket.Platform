@@ -8,6 +8,7 @@ using SmartMarket.Service.Common.Validators;
 using System.Net;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.Interfaces.Products.ProductSale;
+using SmartMarket.Service.ViewModels.Products;
 
 namespace SmartMarket.Service.Services.Products.ProductSale
 {
@@ -66,10 +67,27 @@ namespace SmartMarket.Service.Services.Products.ProductSale
             return await _unitOfWork.ProductSale.Remove(productSale);
         }
 
-        public async Task<List<ProductSaleDto>> GetAllAsync()
+        public async Task<List<ProductSaleViewModel>> GetAllAsync()
         {
-            var productSales = await _unitOfWork.ProductSale.GetProductSalesFullInformationAsync();
-            return _mapper.Map<List<ProductSaleDto>>(productSales);
+            var productSales = (await _unitOfWork.ProductSale.GetProductSalesFullInformationAsync())
+                .Select(ps => new ProductSaleViewModel
+                {
+                    TransactionNumber = ps.TransactionNumber,
+                    ProductName = ps.Product.Name,
+                    Price = ps.Product.Price,
+                    BarCode = ps.Product.Barcode,
+                    Count = ps.Count,
+                    CategoryName = ps.Product.Category.Name,
+                    TotalCost = ps.TotalCost,
+                    WorkerName = ps.Worker.FirstName,
+                    CardSum = ps.CardSum,
+                    CashSum = ps.CashSum,
+                    TransferMoney = ps.TransferMoney,
+                    DebtSum = ps.DebtSum,
+                    CreatedDate = ps.CreatedDate,
+                }).ToList();
+                
+            return productSales;
         }
 
         public async Task<bool> UpdateAsync(AddProductSaleDto dto, Guid Id)

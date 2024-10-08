@@ -34,17 +34,17 @@ public partial class ShopDetailsProductComponent : UserControl
         return mainWindow!;
     }
 
-    public void SetValues(int id,string Transaction, string productName, string barcode, string category, string worker, string discount,int count, string totalprice,string kassa,string price,string date)
+    public void SetValues(int id, long transactionNumber, string productName, string barCode, string categoryName, string workerName, int discount, int count, double totalPrice, string kassa, double price, DateTime? date)
     {
         lb_Count.Content = id.ToString();
-        lb_Transaction.Content = Transaction;
+        lb_Transaction.Content = transactionNumber.ToString();
         lb_Productname.Content = productName; 
-        lb_Seller.Content = worker;
-        lb_Discount.Content = discount;
+        lb_Seller.Content = workerName;
+        lb_Discount.Content = discount.ToString();
         lb_Count.Content = count.ToString();
-        lb_Total_Price.Content = totalprice;
-        lb_Price.Content = price;
-        lb_Date.Content = date;
+        lb_Total_Price.Content = totalPrice.ToString();
+        lb_Price.Content = price.ToString();
+        lb_Date.Content = date.ToString();
 
     }
 
