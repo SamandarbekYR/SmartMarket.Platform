@@ -14,6 +14,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
+using static MaterialDesignThemes.Wpf.Theme.ToolBar;
 
 namespace SmartMarket.Desktop.Pages.SaleForPage;
 
@@ -155,7 +156,25 @@ public partial class SalePage : Page
                     AddNewProduct(product);
                 }
                 else
+                {
                     tvm.Increment(barcode);
+                    foreach (SaleProductForComponent child in St_product.Children)
+                    {
+                        if (child.Barcode == barcode)
+                        {
+                            int quantity = int.Parse(child.tbQuantity.Text);
+                            if (quantity < child.AvailableCount)
+                            {
+                                quantity++;
+                                child.tbQuantity.Text = quantity.ToString();
+                                child.tbTotalPrice.Text = (quantity * double.Parse(child.tbPrice.Text)).ToString();
+                                GetPrice(product, quantity);
+                            }
+                        }
+                    }
+
+                }
+                ColculateTotalPrice();
             }
         }
     }
@@ -252,6 +271,7 @@ public partial class SalePage : Page
                 if (item.Barcode == selectedControl.Barcode)
                 {
                     tvm.Transactions.Remove(item);
+                    St_product.Children.Remove(selectedControl);
                     ColculateTotalPrice();
                 }
             }
@@ -260,12 +280,6 @@ public partial class SalePage : Page
 
     private void plus_button_Click(object sender, RoutedEventArgs e)
     {
-        //if(selectedControl != null)
-        //{
-        //    selectedControl.tbQuantity.Text = (int.Parse(selectedControl.tbQuantity.Text) + 1).ToString();
-        //    selectedControl.tbTotalPrice.Text = (double.Parse(selectedControl.tbQuantity.Text) * double.Parse(selectedControl.tbPrice.Text)).ToString();
-        //}
-
         if(selectedControl != null)
         {
             if (int.Parse(selectedControl.tbQuantity.Text) < selectedControl.AvailableCount)
@@ -276,6 +290,8 @@ public partial class SalePage : Page
                     {
                         item.Quantity++;
                         item.TotalPrice = SetPrice(item.Price, item.Discount, item.Quantity);
+                        selectedControl.tbQuantity.Text = item.Quantity.ToString();
+                        selectedControl.tbTotalPrice.Text = item.TotalPrice.ToString();
                         ColculateTotalPrice();
                     }
                 }
@@ -331,16 +347,6 @@ public partial class SalePage : Page
 
     private void minus_button_Click(object sender, RoutedEventArgs e)
     {
-        //if (selectedControl != null)
-        //{
-        //    int quantity = int.Parse(selectedControl.tbQuantity.Text);
-        //    if (quantity > 1)
-        //    {
-        //        selectedControl.tbQuantity.Text = (quantity - 1).ToString();
-        //        selectedControl.tbTotalPrice.Text = (double.Parse(selectedControl.tbQuantity.Text) * double.Parse(selectedControl.tbPrice.Text)).ToString();
-        //    }
-        //}
-
         if (selectedControl != null)
         {
             int quantity = int.Parse(selectedControl.tbQuantity.Text);
@@ -353,12 +359,13 @@ public partial class SalePage : Page
                     {
                         item.Quantity--;
                         item.TotalPrice = SetPrice(item.Price, item.Discount, item.Quantity);
+                        selectedControl.tbQuantity.Text = item.Quantity.ToString();
+                        selectedControl.tbTotalPrice.Text = item.TotalPrice.ToString();
                         ColculateTotalPrice();
                     }
                 }
             }
         }
-
     }
 
     private void percent_button_Click(object sender, RoutedEventArgs e)

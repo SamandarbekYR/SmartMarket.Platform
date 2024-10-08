@@ -8,6 +8,8 @@ using SmartMarket.Service.Common.Validators;
 using SmartMarket.Service.DTOs.Customer;
 using SmartMarket.Service.Interfaces.Customer;
 using System.Net;
+using SmartMarket.Service.Common.Utils;
+using SmartMarket.Service.Common.Extentions;
 
 namespace SmartMarket.Service.Services.Customer
 {
@@ -46,6 +48,16 @@ namespace SmartMarket.Service.Services.Customer
         {
             var customers = await _unitOfWork.Customer.GetAll().ToListAsync();
             return _mapper.Map<List<CustomerDto>>(customers);
+        }
+
+        public async Task<IEnumerable<CustomerDto>> SearchCustomersAsync(string searchTerm, PaginationParams @params)
+        {
+            var customers = await _unitOfWork.Customer.GetAll()
+                                                .Where(c => c.FirstName.Contains(searchTerm)) 
+                                                .AsNoTracking()
+                                                .ToPagedListAsync(@params);
+
+            return _mapper.Map<IEnumerable<CustomerDto>>(customers);
         }
 
         public async Task<bool> UpdateAsync(AddCustomerDto dto, Guid Id)

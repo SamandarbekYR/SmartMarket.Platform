@@ -26,12 +26,6 @@ public class ProductServer : IProductServer
                 client.Timeout = TimeSpan.FromSeconds(30);
                 using (var request = new HttpRequestMessage(HttpMethod.Post, AuthApi.BASE_URL + "/api/products"))
                 {
-                    request.Headers.Add("Authorization", $"Bearer {token}");
-
-                    //var json = JsonConvert.SerializeObject(dto);
-                    //logger.Info($"DTO sent: {json}"); // Log the DTO
-
-                    //var content = new StringContent(json, Encoding.UTF8, "application/json");
                     var content = new MultipartFormDataContent();
                     content.Add(new StringContent(dto.BarCode), "Barcode");
                     content.Add(new StringContent(dto.P_Code), "PCode");

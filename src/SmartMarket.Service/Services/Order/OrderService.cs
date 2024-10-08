@@ -8,6 +8,8 @@ using SmartMarket.Service.Common.Validators;
 using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.Interfaces.Order;
 using System.Net;
+using SmartMarket.Service.Common.Utils;
+using SmartMarket.Service.Common.Extentions;
 
 namespace SmartMarket.Service.Services.Order
 {
@@ -58,6 +60,16 @@ namespace SmartMarket.Service.Services.Order
         {
             var orders = await _unitOfWork.Order.GetOrdersFullInformationAsync();
             return _mapper.Map<List<OrderDto>>(orders);
+        }
+
+        public async Task<IEnumerable<OrderDto>> GetOrdersByTransactionNumberAsync(string transactionNumber, PaginationParams @params)
+        {
+            var orders = await _unitOfWork.Order.GetAll()
+                .Where(o => o.TransactionNumber == transactionNumber)
+                .AsNoTracking()
+                .ToPagedListAsync(@params);
+
+            return orders.Select(o => _mapper.Map<OrderDto>(o)).ToList();
         }
 
         public async Task<bool> UpdateAsync(AddOrderDto dto, Guid Id)

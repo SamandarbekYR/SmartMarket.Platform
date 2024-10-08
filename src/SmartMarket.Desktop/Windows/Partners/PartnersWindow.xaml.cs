@@ -48,6 +48,7 @@ public partial class PartnersWindow : Window
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         GetAllPartners();
+        EnableBlur();
     }
 
     private async void GetAllPartners()

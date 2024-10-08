@@ -5,11 +5,11 @@ using System.Windows.Controls;
 namespace SmartMarket.Desktop.Components.ShopDetailsForComponent;
 
 /// <summary>
-/// Interaction logic for ShopDetailsProductComponent.xaml
+/// Interaction logic for ReturnProductComponent.xaml
 /// </summary>
-public partial class ShopDetailsProductComponent : UserControl
+public partial class ReturnProductComponent : UserControl
 {
-    public ShopDetailsProductComponent()
+    public ReturnProductComponent()
     {
         InitializeComponent();
     }
@@ -33,26 +33,19 @@ public partial class ShopDetailsProductComponent : UserControl
         return mainWindow!;
     }
 
-    public void SetValues(int id, long transactionNumber, string productName, string barCode, string categoryName, string workerName, int discount, int count, double totalPrice, string kassa, double price, DateTime? date)
+    public void SetValues(int id, string Transaction, string productName, string barcode, string category, string worker, string discount, int count, string totalprice, string kassa, string price, string date)
     {
         lb_Count.Content = id.ToString();
-        lb_Transaction.Content = transactionNumber.ToString();
-        lb_Productname.Content = productName; 
-        lb_Seller.Content = workerName;
-        lb_Discount.Content = discount.ToString();
+        lb_Transaction.Content = Transaction;
+        lb_Productname.Content = productName;
         lb_Count.Content = count.ToString();
-        lb_Total_Price.Content = totalPrice.ToString();
-        lb_Price.Content = price.ToString();
-        lb_Date.Content = date.ToString();
-
+        lb_Total_Price.Content = totalprice;
+        lb_Price.Content = price;
     }
 
     private void Return_Button_Click(object sender, RoutedEventArgs e)
     {
         ReturnProductViewWindow returnProductViewWindow = new ReturnProductViewWindow();
-        ReturnProductWindow returnProductWindow = GetReturnProductWindow();
-        returnProductWindow.Hide();
         returnProductViewWindow.ShowDialog();
-        returnProductWindow.Show();
     }
 }

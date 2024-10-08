@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ShopDetailsForPage"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      Title="ShopHIstoryPage">
+      Title="ShopHIstoryPage"
+      Loaded="Page_Loaded">
 
 
     <Grid>
@@ -101,25 +102,19 @@
             BorderThickness="1 0 1 0">
             <Grid 
                 Grid.Row="1" 
-                Margin="5 0 0 0"
+                Margin="5 0 15 0"
                 x:Name="ShopHIstoryTitle" 
                 >
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1.2*"/>
-                <ColumnDefinition Width="1.2*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="1.5*"/>
-            </Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.6*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
                 <Label
                     Grid.Column="0"
@@ -137,49 +132,19 @@
                     Style="{DynamicResource Label}"/>
 
                 <Label
-                    Content="Barcode"
                     Grid.Column="3"
-                    Style="{DynamicResource Label}"/>
-
-                <Label
-                    Grid.Column="4"
-                    Content="Kategoriya"
-                    Style="{DynamicResource Label}"/>
-
-                <Label
-                    Grid.Column="5"
                     Content="Narxi"
                     Style="{DynamicResource Label}"/>
 
                 <Label
-                    Content="Chegirma"
-                    Grid.Column="6"
-                    Style="{DynamicResource Label}"/>
-
-                <Label
                     Content="Soni"
-                    Grid.Column="7"
+                    Grid.Column="4"
                     Style="{DynamicResource Label}"/>
                 <Label
-                    Grid.Column="8"
+                    Grid.Column="5"
                     Content="Jami"
                     Style="{DynamicResource Label}"/>
 
-                <Label
-                    Grid.Column="9"
-                    Content="Sotuvchi"
-                    Style="{DynamicResource Label}"/>
-
-                <Label
-                    Content="Kassa"
-                    Grid.Column="10"
-                    Style="{DynamicResource Label}"/>
-
-                <Label
-                    Content="Sana"
-                    Grid.Column="11"
-                    Style="{DynamicResource Label}"/>
-               
             </Grid>
         </Border>
         <Border 
@@ -191,9 +156,8 @@
             <ScrollViewer Grid.Row="2">
             <StackPanel Grid.Row="2">
 
-                <StackPanel x:Name="St_productList">
-
-
+                <StackPanel 
+                    x:Name="St_productList">
                 </StackPanel>
 
             </StackPanel>

@@ -60,6 +60,11 @@ namespace SmartMarket.Service.Services.Products.InvalidProduct
             return _mapper.Map<List<InvalidProductDto>>(invalidProducts);
         }
 
+        public Task<List<InvalidProductDto>> GetInvalidProductsByProductNameAsync(string productName)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<bool> UpdateAsync(AddInvalidProductDto dto, Guid Id)
         {
             var invalidProduct = await _unitOfWork.InvalidProduct.GetById(Id);

@@ -12,8 +12,6 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
         public ShopDetailsPage()
         {
             InitializeComponent();
-            ShopHIstoryPage shopHIstoryPage = new ShopHIstoryPage();
-            SalePageNavigator.Content = shopHIstoryPage;
         }
 
         private void rbSaleHistory_Click(object sender, RoutedEventArgs e)
@@ -91,8 +89,10 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
             Invalid_Prods_2.Visibility = Visibility.Visible;
         }
 
-
-
-
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            ShopHIstoryPage shopHIstoryPage = new ShopHIstoryPage();
+            SalePageNavigator.Content = shopHIstoryPage;
+        }
     }
 }

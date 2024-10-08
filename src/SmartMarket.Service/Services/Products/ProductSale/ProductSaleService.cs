@@ -90,6 +90,40 @@ namespace SmartMarket.Service.Services.Products.ProductSale
             return productSales;
         }
 
+        public async Task<List<ProductSaleDto>> GetProductSalesByProductNameAsync(string productName)
+        {
+            var productSales = await _unitOfWork.ProductSale.GetProductSalesFullInformationAsync();
+
+            var filteredProductSales = productSales
+                .Where(ps => ps.Product.Name.ToLower().Contains(productName.ToLower()))
+                .ToList();
+
+            if (!filteredProductSales.Any())
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "No product sales found for the specified product name.");
+            }
+
+            return _mapper.Map<List<ProductSaleDto>>(filteredProductSales);
+        }
+
+
+        public async Task<List<ProductSaleDto>> GetProductSalesByTransactionAsync(Guid transactionId)
+        {
+            var productSales = await _unitOfWork.ProductSale.GetProductSalesFullInformationAsync();
+
+            var filteredProductSales = productSales
+                .Where(ps => ps.TransactionId == transactionId)
+                .ToList();
+
+            if (!filteredProductSales.Any())
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "No product sales found for the specified transaction.");
+            }
+
+            return _mapper.Map<List<ProductSaleDto>>(filteredProductSales);
+        }
+
+
         public async Task<bool> UpdateAsync(AddProductSaleDto dto, Guid Id)
         {
             var productSale = await _unitOfWork.ProductSale.GetById(Id);

@@ -160,5 +160,10 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
             });
             return products;
         }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            GetAllProduct();
+        }
     }
 }
