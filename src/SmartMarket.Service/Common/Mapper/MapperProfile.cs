@@ -34,6 +34,7 @@ using SmartMarket.Service.DTOs.Workers.SalaryWorker;
 using SmartMarket.Service.DTOs.Workers.Worker;
 using SmartMarket.Service.DTOs.Workers.WorkerDebt;
 using SmartMarket.Service.DTOs.Workers.WorkerRole;
+using SmartMarket.Service.ViewModels.Products;
 
 namespace SmartMarket.Service.Common.Mapper;
 
@@ -155,6 +156,23 @@ public class MapperProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
 
         /*---------ProductSale-----------------*/
+
+        CreateMap<ProductSale, ProductSaleViewModel>()
+            .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product))
+            .ForMember(dest => dest.Worker, opt => opt.MapFrom(src => src.Worker))
+            .ForMember(dest => dest.Transaction, opt => opt.MapFrom(src => src.Transaction))
+            .ForMember(dest => dest.PayDesk, opt => opt.MapFrom(src => src.PayDesk))
+            .ForMember(dest => dest.ReplaceProducts, opt => opt.MapFrom(src => src.ReplaceProducts))
+            .ForMember(dest => dest.InvalidProducts, opt => opt.MapFrom(src => src.InvalidProducts));
+
+        CreateMap<Product, Product>(); 
+        CreateMap<Worker, Worker>(); 
+        CreateMap<Transaction, Transaction>();
+        CreateMap<PayDesk, PayDesk>();
+        CreateMap<ReplaceProduct, ReplaceProduct>();
+        CreateMap<InvalidProduct, InvalidProduct>();
+        
+
         CreateMap<AddProductSaleDto, ProductSale>()
             .ForMember(dest => dest.Id, opt => opt.Ignore());
 

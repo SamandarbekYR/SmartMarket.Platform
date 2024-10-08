@@ -24,7 +24,7 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
             var productSales = await _productSaleService.GetAllAsync();
 
             List<string> workerNames = productSales
-                .Select(ps => ps.WorkerName)
+                .Select(ps => ps.Worker.FirstName)
                 .Distinct() 
                 .ToList();
 
@@ -78,7 +78,7 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
             if (!string.IsNullOrEmpty(selectedWorkerName) && !selectedWorkerName.Equals("Sotuvchi"))
             {
                 var filteredProductSales = productSales
-                    .Where(ps => ps.WorkerName == selectedWorkerName)
+                    .Where(ps => ps.Worker.FirstName == selectedWorkerName)
                     .ToList();
 
                 ShowProductSales(filteredProductSales);
@@ -97,7 +97,7 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
                 var searchTerm = searchTextBox.Text.ToLower();
 
                 var filteredProductSales = productSales.Where(ps =>
-                    ps.ProductName.ToLower().Contains(searchTerm) ||
+                    ps.Product.Name.ToLower().Contains(searchTerm) ||
                     ps.TransactionNumber.ToString().Contains(searchTerm)
                 );
 
@@ -118,8 +118,8 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
                 shopDetailsProductComponent.SetValues(
                     rowNumber,
                     item.TransactionNumber,
-                    item.ProductName,
-                    item.Price,
+                    item.Product.Name,
+                    item.Product.Price,
                     item.Count,
                     item.TotalCost);
 

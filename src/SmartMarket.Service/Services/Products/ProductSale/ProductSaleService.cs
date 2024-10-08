@@ -69,25 +69,25 @@ namespace SmartMarket.Service.Services.Products.ProductSale
 
         public async Task<List<ProductSaleViewModel>> GetAllAsync()
         {
-            var productSales = (await _unitOfWork.ProductSale.GetProductSalesFullInformationAsync())
-                .Select(ps => new ProductSaleViewModel
-                {
-                    TransactionNumber = ps.TransactionNumber,
-                    CategoryName = ps.Product.Category.Name,
-                    WorkerName = ps.Worker.FirstName,
-                    TransferMoney = ps.TransferMoney,
-                    ProductName = ps.Product.Name,
-                    BarCode = ps.Product.Barcode,
-                    CreatedDate = ps.CreatedDate,
-                    Price = ps.Product.Price,
-                    TotalCost = ps.TotalCost,
-                    CardSum = ps.CardSum,
-                    CashSum = ps.CashSum,
-                    DebtSum = ps.DebtSum,
-                    Count = ps.Count,
-                }).ToList();
+            var productSales = (await _unitOfWork.ProductSale.GetProductSalesFullInformationAsync());
+                //.Select(ps => new ProductSaleViewModel
+                //{
+                //    TransactionNumber = ps.TransactionNumber,
+                //    CategoryName = ps.Product.Category.Name,
+                //    WorkerName = ps.Worker.FirstName,
+                //    TransferMoney = ps.TransferMoney,
+                //    ProductName = ps.Product.Name,
+                //    BarCode = ps.Product.Barcode,
+                //    CreatedDate = ps.CreatedDate,
+                //    Price = ps.Product.Price,
+                //    TotalCost = ps.TotalCost,
+                //    CardSum = ps.CardSum,
+                //    CashSum = ps.CashSum,
+                //    DebtSum = ps.DebtSum,
+                //    Count = ps.Count,
+                //}).ToList();
                 
-            return productSales;
+            return _mapper.Map<List<ProductSaleViewModel>>(productSales);
         }
 
         public async Task<List<ProductSaleDto>> GetProductSalesByProductNameAsync(string productName)
