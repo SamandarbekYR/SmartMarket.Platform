@@ -24,6 +24,8 @@ builder.Services.AddAutoMapper(typeof(MapperProfile));
 builder.ConfigurationValidators();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 builder.Services.AddHostedService<PostgresListenerService>(provider =>
 {
