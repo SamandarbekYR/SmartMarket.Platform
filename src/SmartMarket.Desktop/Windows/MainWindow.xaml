@@ -54,7 +54,7 @@
                     Grid.Column="1"
                     Content="Sotuv oynasi"
                     Style="{DynamicResource MenuButton2}"
-                    Tag="{StaticResource cart}">
+                    Tag="{StaticResource cart}" Checked="btnsale_Checked">
                     
                 </RadioButton>
 
