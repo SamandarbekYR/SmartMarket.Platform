@@ -8,56 +8,92 @@ using SmartMarket.Service.Common.Validators;
 using System.Net;
 using SmartMarket.Service.DTOs.PartnersCompany.PartnerCompany;
 using SmartMarket.Service.Interfaces.PartnersCompany.PartnerCompany;
+using Microsoft.Extensions.Logging; 
 
-namespace SmartMarket.Service.Services.PartnersCompany.PartnerCompany;
-
-public class PartnerCompanyService(IUnitOfWork unitOfWork,
-                             IMapper mapper,
-                             IValidator<AddPartnerCompanyDto> validator) : IPartnerCompanyService
+namespace SmartMarket.Service.Services.PartnersCompany.PartnerCompany
 {
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
-    private readonly IMapper _mapper = mapper;
-    private readonly IValidator<AddPartnerCompanyDto> _validator = validator;
-
-    public async Task<bool> AddAsync(AddPartnerCompanyDto dto)
+    public class PartnerCompanyService(IUnitOfWork unitOfWork,
+                                 IMapper mapper,
+                                 IValidator<AddPartnerCompanyDto> validator,
+                                 ILogger<PartnerCompanyService> logger) : IPartnerCompanyService 
     {
-        var validationResult = _validator.Validate(dto);
-        if (!validationResult.IsValid)
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IMapper _mapper = mapper;
+        private readonly IValidator<AddPartnerCompanyDto> _validator = validator;
+        private readonly ILogger<PartnerCompanyService> _logger = logger;
+
+        public async Task<bool> AddAsync(AddPartnerCompanyDto dto)
         {
-            throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
+            try
+            {
+                var validationResult = _validator.Validate(dto);
+                if (!validationResult.IsValid)
+                {
+                    throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
+                }
+
+                var partnerCompany = _mapper.Map<Et.PartnerCompany>(dto);
+                return await _unitOfWork.PartnerCompany.Add(partnerCompany);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while adding a partner company.");
+                throw;
+            }
         }
 
-        var partnerCompany = _mapper.Map<Et.PartnerCompany>(dto);
-        return await _unitOfWork.PartnerCompany.Add(partnerCompany);
-    }
-
-    public async Task<bool> DeleteAsync(Guid Id)
-    {
-        var partnerCompany = await _unitOfWork.PartnerCompany.GetById(Id);
-        if (partnerCompany == null)
+        public async Task<bool> DeleteAsync(Guid Id)
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Partner Company not found.");
+            try
+            {
+                var partnerCompany = await _unitOfWork.PartnerCompany.GetById(Id);
+                if (partnerCompany == null)
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Partner Company not found.");
+                }
+
+                return await _unitOfWork.PartnerCompany.Remove(partnerCompany);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while deleting a partner company.");
+                throw;
+            }
         }
 
-        return await _unitOfWork.PartnerCompany.Remove(partnerCompany);
-    }
-
-    public async Task<List<PartnerCompanyDto>> GetAllAsync()
-    {
-        var partnerCompanies = await _unitOfWork.PartnerCompany.GetAll().ToListAsync();
-        return _mapper.Map<List<PartnerCompanyDto>>(partnerCompanies);
-    }
-
-    public async Task<bool> UpdateAsync(AddPartnerCompanyDto dto, Guid Id)
-    {
-        var partnerCompany = await _unitOfWork.PartnerCompany.GetById(Id);
-        if (partnerCompany == null)
+        public async Task<List<PartnerCompanyDto>> GetAllAsync()
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Partner Company not found.");
+            try
+            {
+                var partnerCompanies = await _unitOfWork.PartnerCompany.GetAll().ToListAsync();
+                return _mapper.Map<List<PartnerCompanyDto>>(partnerCompanies);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while getting all partner companies.");
+                throw;
+            }
         }
 
-        _mapper.Map(dto, partnerCompany);
+        public async Task<bool> UpdateAsync(AddPartnerCompanyDto dto, Guid Id)
+        {
+            try
+            {
+                var partnerCompany = await _unitOfWork.PartnerCompany.GetById(Id);
+                if (partnerCompany == null)
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Partner Company not found.");
+                }
 
-        return await _unitOfWork.PartnerCompany.Update(partnerCompany);
+                _mapper.Map(dto, partnerCompany);
+
+                return await _unitOfWork.PartnerCompany.Update(partnerCompany);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while updating a partner company.");
+                throw;
+            }
+        }
     }
 }
