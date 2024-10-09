@@ -10,90 +10,151 @@ using SmartMarket.Service.Common.Validators;
 using SmartMarket.Service.DTOs.Expence;
 using SmartMarket.Service.Interfaces.Expence;
 using System.Net;
+using Microsoft.Extensions.Logging; 
 
-namespace SmartMarket.Service.Services.Expence;
-
-public class ExpenceService(IUnitOfWork unitOfWork,
-                             IMapper mapper,
-                             IValidator<AddExpenceDto> validator) : IExpenceService
+namespace SmartMarket.Service.Services.Expence
 {
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
-    private readonly IMapper _mapper = mapper;
-    private readonly IValidator<AddExpenceDto> _validator = validator;
-
-    public async Task<bool> AddAsync(AddExpenceDto dto)
+    public class ExpenceService(IUnitOfWork unitOfWork,
+                                 IMapper mapper,
+                                 IValidator<AddExpenceDto> validator,
+                                 ILogger<ExpenceService> logger) : IExpenceService 
     {
-        var validationResult = _validator.Validate(dto);
-        if (!validationResult.IsValid)
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IMapper _mapper = mapper;
+        private readonly IValidator<AddExpenceDto> _validator = validator;
+        private readonly ILogger<ExpenceService> _logger = logger; 
+
+        public async Task<bool> AddAsync(AddExpenceDto dto)
         {
-            throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
+            try
+            {
+                var validationResult = _validator.Validate(dto);
+                if (!validationResult.IsValid)
+                {
+                    throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
+                }
+
+                var workerExists = await _unitOfWork.Worker.GetById(dto.WorkerId) != null;
+                if (!workerExists)
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+                }
+
+                var payDeskExists = await _unitOfWork.PayDesk.GetById(dto.PayDeskId) != null;
+                if (!payDeskExists)
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Pay Desk not found.");
+                }
+
+                var expense = _mapper.Map<Expense>(dto);
+                return await _unitOfWork.Expense.Add(expense);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while adding an expense.");
+                throw;
+            }
         }
 
-        var workerExists = await _unitOfWork.Worker.GetById(dto.WorkerId) != null;
-        if (!workerExists)
+        public async Task<bool> DeleteAsync(Guid Id)
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+            try
+            {
+                var expense = await _unitOfWork.Expense.GetById(Id);
+                if (expense == null)
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Expense not found.");
+                }
+
+                return await _unitOfWork.Expense.Remove(expense);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while deleting an expense.");
+                throw;
+            }
         }
 
-        var payDeskExists = await _unitOfWork.PayDesk.GetById(dto.PayDeskId) != null;
-        if (!payDeskExists)
+        public async Task<IEnumerable<FullExpenceDto>> GetAllAsync(PaginationParams paginationParams)
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Pay Desk not found.");
+            try
+            {
+                var expenses = await _unitOfWork.Expense.GetExpensesFullInformationAsync()
+                                        .AsNoTracking()
+                                        .ToPagedListAsync(paginationParams);
+
+                var expenseDtos = expenses.Select(e => new FullExpenceDto
+                {
+                    Id = e.Id,
+                    WorkerId = e.Worker.Id,
+                    PayDeskId = e.PayDesk.Id,
+                    Reason = e.Reason,
+                    Amount = e.Amount,
+                    TypeOfPayment = e.TypeOfPayment,
+                    WorkerFirsName = e.Worker.FirstName,
+                    WorkerLastName = e.Worker.LastName,
+                    PayDeskName = e.PayDesk.Name
+                });
+
+                return expenseDtos;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while getting all expenses.");
+                throw;
+            }
         }
 
-        var expense = _mapper.Map<Expense>(dto);
-        return await _unitOfWork.Expense.Add(expense);
-    }
 
-    public async Task<bool> DeleteAsync(Guid Id)
-    {
-        var expense = await _unitOfWork.Expense.GetById(Id);
-        if (expense == null)
+        public async Task<IEnumerable<ExpenceDto>> GetExpensesByReasonAsync(string reason, PaginationParams paginationParams)
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Expense not found.");
+            try
+            {
+                var expenses = await _unitOfWork.Expense.GetAll()
+                    .Where(e => e.Reason.ToLower().Contains(reason.ToLower()))
+                    .AsNoTracking()
+                    .ToPagedListAsync(paginationParams);
+
+                return _mapper.Map<IEnumerable<ExpenceDto>>(expenses);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while searching for expenses by reason.");
+                throw;
+            }
         }
 
-        return await _unitOfWork.Expense.Remove(expense);
-    }
-
-    public async Task<List<ExpenceDto>> GetAllAsync()
-    {
-        var expenses = await _unitOfWork.Expense.GetExpensesFullInformationAsync();
-        return _mapper.Map<List<ExpenceDto>>(expenses);
-    }
-
-    public async Task<IEnumerable<ExpenceDto>> GetExpensesByReasonAsync(string reason, PaginationParams paginationParams)
-    {
-        var expenses = await _unitOfWork.Expense.GetAll()
-            .Where(e => e.Reason.ToLower().Contains(reason.ToLower())) 
-            .AsNoTracking()
-            .ToPagedListAsync(paginationParams);
-
-        return _mapper.Map<IEnumerable<ExpenceDto>>(expenses);
-    }
-
-    public async Task<bool> UpdateAsync(AddExpenceDto dto, Guid Id)
-    {
-        var expense = await _unitOfWork.Expense.GetById(Id);
-        if (expense == null)
+        public async Task<bool> UpdateAsync(AddExpenceDto dto, Guid Id)
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Expense not found.");
+            try
+            {
+                var expense = await _unitOfWork.Expense.GetById(Id);
+                if (expense == null)
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Expense not found.");
+                }
+
+                var workerExists = await _unitOfWork.Worker.GetById(dto.WorkerId) != null;
+                if (!workerExists)
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+                }
+
+                var payDeskExists = await _unitOfWork.PayDesk.GetById(dto.PayDeskId) != null;
+                if (!payDeskExists)
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Pay Desk not found.");
+                }
+
+                _mapper.Map(dto, expense);
+
+                return await _unitOfWork.Expense.Update(expense);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while updating an expense.");
+                throw;
+            }
         }
-
-        var workerExists = await _unitOfWork.Worker.GetById(dto.WorkerId) != null;
-        if (!workerExists)
-        {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
-        }
-
-        var payDeskExists = await _unitOfWork.PayDesk.GetById(dto.PayDeskId) != null;
-        if (!payDeskExists)
-        {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Pay Desk not found.");
-        }
-
-        _mapper.Map(dto, expense);
-
-        return await _unitOfWork.Expense.Update(expense);
     }
 }

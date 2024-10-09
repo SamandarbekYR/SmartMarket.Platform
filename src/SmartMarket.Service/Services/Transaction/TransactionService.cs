@@ -8,56 +8,92 @@ using SmartMarket.Service.Common.Validators;
 using SmartMarket.Service.DTOs.Transaction;
 using SmartMarket.Service.Interfaces.Transaction;
 using System.Net;
+using Microsoft.Extensions.Logging;
 
-namespace SmartMarket.Service.Services.Transaction;
-
-public class TransactionService(IUnitOfWork unitOfWork,
-                             IMapper mapper,
-                             IValidator<AddTransactionDto> validator) : ITransactionService
+namespace SmartMarket.Service.Services.Transaction
 {
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;
-    private readonly IMapper _mapper = mapper;
-    private readonly IValidator<AddTransactionDto> _validator = validator;
-
-    public async Task<bool> AddAsync(AddTransactionDto dto)
+    public class TransactionService(IUnitOfWork unitOfWork,
+                             IMapper mapper,
+                             IValidator<AddTransactionDto> validator,
+                             ILogger<TransactionService> logger) : ITransactionService
     {
-        var validationResult = _validator.Validate(dto);
-        if (!validationResult.IsValid)
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IMapper _mapper = mapper;
+        private readonly IValidator<AddTransactionDto> _validator = validator;
+        private readonly ILogger<TransactionService> _logger = logger;
+
+        public async Task<bool> AddAsync(AddTransactionDto dto)
         {
-            throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
+            try
+            {
+                var validationResult = _validator.Validate(dto);
+                if (!validationResult.IsValid)
+                {
+                    throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
+                }
+
+                var transaction = _mapper.Map<Et.Transaction>(dto);
+                return await _unitOfWork.Transaction.Add(transaction);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while adding a transaction.");
+                throw;
+            }
         }
 
-        var transaction = _mapper.Map<Et.Transaction>(dto);
-        return await _unitOfWork.Transaction.Add(transaction);
-    }
-
-    public async Task<bool> DeleteAsync(Guid Id)
-    {
-        var transaction = await _unitOfWork.Transaction.GetById(Id);
-        if (transaction == null)
+        public async Task<bool> DeleteAsync(Guid Id)
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Transaction not found.");
+            try
+            {
+                var transaction = await _unitOfWork.Transaction.GetById(Id);
+                if (transaction == null)
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Transaction not found.");
+                }
+
+                return await _unitOfWork.Transaction.Remove(transaction);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while deleting a transaction.");
+                throw;
+            }
         }
 
-        return await _unitOfWork.Transaction.Remove(transaction);
-    }
-
-    public async Task<List<TransactionDto>> GetAllAsync()
-    {
-        var transactions = await _unitOfWork.Transaction.GetAll().ToListAsync();
-        return _mapper.Map<List<TransactionDto>>(transactions);
-    }
-
-    public async Task<bool> UpdateAsync(AddTransactionDto dto, Guid Id)
-    {
-        var transaction = await _unitOfWork.Transaction.GetById(Id);
-        if (transaction == null)
+        public async Task<List<TransactionDto>> GetAllAsync()
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Transaction not found.");
+            try
+            {
+                var transactions = await _unitOfWork.Transaction.GetAll().ToListAsync();
+                return _mapper.Map<List<TransactionDto>>(transactions);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while getting all transactions.");
+                throw;
+            }
         }
 
-        _mapper.Map(dto, transaction);
+        public async Task<bool> UpdateAsync(AddTransactionDto dto, Guid Id)
+        {
+            try
+            {
+                var transaction = await _unitOfWork.Transaction.GetById(Id);
+                if (transaction == null)
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Transaction not found.");
+                }
 
-        return await _unitOfWork.Transaction.Update(transaction);
+                _mapper.Map(dto, transaction);
+
+                return await _unitOfWork.Transaction.Update(transaction);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while updating a transaction.");
+                throw;
+            }
+        }
     }
 }

@@ -2,6 +2,8 @@
 using SmartMarket.DataAccess.Data;
 using SmartMarket.DataAccess.Interfaces.Expenses;
 using SmartMarket.Domain.Entities.Expenses;
+using SmartMarket.Domain.Entities.PayDesks;
+using SmartMarket.Domain.Entities.Workers;
 
 namespace SmartMarket.DataAccess.Repositories.Experses;
 
@@ -16,11 +18,29 @@ public class ExpenseRepository : Repository<Expense>, IExpense
         _expenses = appDb.Set<Expense>();
     }
 
-    public async Task<List<Expense>> GetExpensesFullInformationAsync()
+    public IQueryable<Expense> GetExpensesFullInformationAsync()
     {
-        return await _expenses
+        return _expenses
             .Include(e => e.Worker)
             .Include(e => e.PayDesk)
-            .ToListAsync();
+            .Select(e => new Expense
+            {
+                Id = e.Id,
+                Reason = e.Reason,
+                Amount = e.Amount,
+                TypeOfPayment = e.TypeOfPayment,
+                Worker = new Worker
+                {
+                    Id = e.Worker.Id,
+                    FirstName = e.Worker.FirstName,
+                    LastName = e.Worker.LastName
+                },
+                PayDesk = new PayDesk
+                {
+                    Id = e.PayDesk.Id,
+                    Name = e.PayDesk.Name
+                }
+            });
     }
+
 }
