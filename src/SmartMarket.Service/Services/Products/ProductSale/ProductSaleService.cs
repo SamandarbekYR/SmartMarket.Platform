@@ -67,9 +67,47 @@ namespace SmartMarket.Service.Services.Products.ProductSale
             return await _unitOfWork.ProductSale.Remove(productSale);
         }
 
+        public async Task<List<ProductSaleViewModel>> FilterProductSaleAsync(FilterProductSaleDto dto)
+        {
+            var productSales = await _unitOfWork.ProductSale.GetProductSalesFullInformationAsync();
+
+            if (dto.FromDateTime.HasValue && dto.ToDateTime.HasValue)
+            {
+                productSales = productSales.Where(
+                    ps => ps.CreatedDate >= dto.FromDateTime.Value 
+                    && ps.CreatedDate <= dto.ToDateTime.Value).ToList();
+            }
+            else
+            {
+                productSales = productSales.Where(
+                    ps => ps.CreatedDate.Value.Date == DateTime.Today).ToList();
+            }
+
+            if (!string.IsNullOrWhiteSpace(dto.ProductName))
+            {
+                productSales = productSales.Where(
+                    ps => ps.Product.Name.Contains(dto.ProductName)).ToList();
+            }
+
+            if (!string.IsNullOrWhiteSpace(dto.WorkerName))
+            {
+                productSales = productSales.Where(
+                    ps => ps.Worker.FirstName.Contains(dto.WorkerName)).ToList();
+            }
+
+            if (dto.Count.HasValue)
+            {
+                productSales = productSales.Where(ps => ps.Count >= dto.Count.Value).ToList();
+            }
+
+            var result = _mapper.Map<List<ProductSaleViewModel>>(productSales);
+
+            return result;
+        }
+
         public async Task<List<ProductSaleViewModel>> GetAllAsync()
         {
-            var productSales = (await _unitOfWork.ProductSale.GetProductSalesFullInformationAsync());
+            var productSales = await _unitOfWork.ProductSale.GetProductSalesFullInformationAsync();
                 
             return _mapper.Map<List<ProductSaleViewModel>>(productSales);
         }

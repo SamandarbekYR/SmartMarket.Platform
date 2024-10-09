@@ -8,5 +8,6 @@ namespace SmartMarketDeskop.Integrated.Server.Interfaces.Products
     public interface IProductSaleServer
     {
         Task<List<ProductSaleViewModel>> GetAllAsync();
+        Task<List<ProductSaleViewModel>> FilterProductSaleAsync(FilterProductSaleDto dto);
     }
 }

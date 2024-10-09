@@ -1,4 +1,5 @@
-﻿using SmartMarket.Service.ViewModels.Products;
+﻿using SmartMarket.Service.DTOs.Products.ProductSale;
+using SmartMarket.Service.ViewModels.Products;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Workers;
 using SmartMarketDeskop.Integrated.Server.Repositories.Products;
@@ -14,6 +15,18 @@ namespace SmartMarketDeskop.Integrated.Services.Products.ProductSale
         public ProductSaleService()
         {
             this.productSaleServer = new ProductSaleServer();
+        }
+
+        public Task<List<ProductSaleViewModel>> FilterProductSaleAsync(FilterProductSaleDto dto)
+        {
+            if (IsInternetAvailable())
+            {
+                return productSaleServer.FilterProductSaleAsync(dto);
+            }
+            else
+            {
+                return Task.FromResult(new List<ProductSaleViewModel>());
+            }
         }
 
         public async Task<List<ProductSaleViewModel>> GetAllAsync()

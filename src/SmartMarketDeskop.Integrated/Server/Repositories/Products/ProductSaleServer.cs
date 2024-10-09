@@ -11,11 +11,38 @@ using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
 
 using SmartMarketDesktop.ViewModels.Entities.Products;
 
+using System.Text;
+
 namespace SmartMarketDeskop.Integrated.Server.Repositories.Products
 {
     public class ProductSaleServer : IProductSaleServer
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+        public async Task<List<ProductSaleViewModel>> FilterProductSaleAsync(FilterProductSaleDto productSaleDto)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                var token = IdentitySingelton.GetInstance().Token;
+                client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/product-sales/filter");
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+                var json = JsonConvert.SerializeObject(productSaleDto);
+                var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage message = await client.PostAsync(client.BaseAddress, data);
+                string response = await message.Content.ReadAsStringAsync();
+
+                List<ProductSaleViewModel> products = JsonConvert.DeserializeObject<List<ProductSaleViewModel>>(response)!;
+
+                return products;
+            }
+            catch
+            {
+                return new List<ProductSaleViewModel>();
+            }
+        }
 
         public async Task<List<ProductSaleViewModel>> GetAllAsync()
         {
