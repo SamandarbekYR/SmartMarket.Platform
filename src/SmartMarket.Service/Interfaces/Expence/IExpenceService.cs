@@ -10,5 +10,5 @@ public interface IExpenceService
     Task<IEnumerable<FullExpenceDto>> GetAllAsync(PaginationParams @params);
     Task<bool> UpdateAsync(AddExpenceDto dto, Guid Id);
 
-    Task<IEnumerable<ExpenceDto>> GetExpensesByReasonAsync(string reason, PaginationParams paginationParams);
+    Task<IEnumerable<FullExpenceDto>> GetExpensesByReasonAsync(string reason, PaginationParams paginationParams);
 }

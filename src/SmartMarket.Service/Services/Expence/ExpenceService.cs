@@ -17,7 +17,7 @@ namespace SmartMarket.Service.Services.Expence
     public class ExpenceService(IUnitOfWork unitOfWork,
                                  IMapper mapper,
                                  IValidator<AddExpenceDto> validator,
-                                 ILogger<ExpenceService> logger) : IExpenceService 
+                                 ILogger<ExpenceService> logger) : IExpenceService
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IMapper _mapper = mapper;
@@ -106,16 +106,29 @@ namespace SmartMarket.Service.Services.Expence
         }
 
 
-        public async Task<IEnumerable<ExpenceDto>> GetExpensesByReasonAsync(string reason, PaginationParams paginationParams)
+        public async Task<IEnumerable<FullExpenceDto>> GetExpensesByReasonAsync(string reason, PaginationParams paginationParams)
         {
             try
             {
-                var expenses = await _unitOfWork.Expense.GetAll()
+                var expenses = await _unitOfWork.Expense.GetExpensesFullInformationAsync()
                     .Where(e => e.Reason.ToLower().Contains(reason.ToLower()))
                     .AsNoTracking()
                     .ToPagedListAsync(paginationParams);
 
-                return _mapper.Map<IEnumerable<ExpenceDto>>(expenses);
+                var expenseDtos = expenses.Select(e => new FullExpenceDto
+                {
+                    Id = e.Id,
+                    WorkerId = e.Worker.Id,
+                    PayDeskId = e.PayDesk.Id,
+                    Reason = e.Reason,
+                    Amount = e.Amount,
+                    TypeOfPayment = e.TypeOfPayment,
+                    WorkerFirsName = e.Worker.FirstName,
+                    WorkerLastName = e.Worker.LastName,
+                    PayDeskName = e.PayDesk.Name
+                });
+
+                return expenseDtos;
             }
             catch (Exception ex)
             {
@@ -123,6 +136,7 @@ namespace SmartMarket.Service.Services.Expence
                 throw;
             }
         }
+
 
         public async Task<bool> UpdateAsync(AddExpenceDto dto, Guid Id)
         {
