@@ -18,5 +18,6 @@ namespace SmartMarket.Service.Interfaces.Products.Product
         Task<ProductDto> GetProductByWorkerIdAsync(Guid workerId);
         Task<ProductDto> GetProductByNameAsync(string name);
         Task<IEnumerable<Et.Product>> GetProductsFullInformationAsync(PaginationParams @params);
+        Task<IEnumerable<Et.Product>> GetProductsWithRequiredInformationAsync(PaginationParams paginationParams);
     }
 }

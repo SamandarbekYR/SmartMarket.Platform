@@ -67,6 +67,25 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
             }
         }
 
+        [HttpGet("daterange/{fromDate}/{toDate}")]
+        public async Task<IActionResult> GetProductSalesByDateRangeAsync(DateTime fromDate, DateTime toDate)
+        {
+            try
+            {
+                var productSales = await _productSaleService.GetProductSalesByDateRangeAsync(fromDate, toDate);
+                return Ok(productSales);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+
         [HttpGet("transaction/{transactionId}")]
         public async Task<IActionResult> GetProductSalesByTransactionAsync(Guid transactionId)
         {

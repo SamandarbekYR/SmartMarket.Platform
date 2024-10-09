@@ -6,5 +6,6 @@ namespace SmartMarket.DataAccess.Interfaces.Products
     {
         public Task<List<Product>> GetProductsFullInformationAsync();
         public IQueryable<Product> GetAllProductsFullInformation();
+        public IQueryable<Product> GetProductsWithRequiredInformationAsync();
     }
 }
