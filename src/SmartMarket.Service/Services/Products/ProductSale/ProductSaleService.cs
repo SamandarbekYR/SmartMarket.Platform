@@ -51,7 +51,10 @@ namespace SmartMarket.Service.Services.Products.ProductSale
                 throw new StatusCodeException(HttpStatusCode.NotFound, "Pay Desk not found.");
             }
 
+            DateTime now = DateTime.UtcNow.AddHours(5); 
+
             var productSale = _mapper.Map<Et.ProductSale>(dto);
+            productSale.CreatedDate = now; 
             return await _unitOfWork.ProductSale.Add(productSale);
         }
 
@@ -105,6 +108,21 @@ namespace SmartMarket.Service.Services.Products.ProductSale
             return _mapper.Map<List<ProductSaleDto>>(filteredProductSales);
         }
 
+        public async Task<List<ProductSaleDto>> GetProductSalesByDateRangeAsync(DateTime fromDate, DateTime toDate)
+        {
+            var productSales = await _unitOfWork.ProductSale.GetProductSalesFullInformationAsync();
+
+            var filteredProductSales = productSales
+                .Where(ps => ps.CreatedDate >= fromDate && ps.CreatedDate <= toDate)
+                .ToList();
+
+            if (!filteredProductSales.Any())
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "No product sales found for the specified date range.");
+            }
+
+            return _mapper.Map<List<ProductSaleDto>>(filteredProductSales);
+        }   
 
         public async Task<bool> UpdateAsync(AddProductSaleDto dto, Guid Id)
         {

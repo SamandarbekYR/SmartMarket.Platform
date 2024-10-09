@@ -14,4 +14,5 @@ public class ProductSaleDto
     public string CardSum { get; set; } = string.Empty;
     public double TransferMoney { get; set; }
     public double DebtSum { get; set; }
+    public DateTime DateTime { get; set; }
 }

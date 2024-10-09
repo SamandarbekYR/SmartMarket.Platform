@@ -11,4 +11,5 @@ public interface IProductSaleService
 
     Task<List<ProductSaleDto>> GetProductSalesByTransactionAsync(Guid transactionId);
     Task<List<ProductSaleDto>> GetProductSalesByProductNameAsync(string productName);
+    Task<List<ProductSaleDto>> GetProductSalesByDateRangeAsync(DateTime fromDate, DateTime toDate);
 }

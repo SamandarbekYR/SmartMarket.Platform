@@ -220,4 +220,12 @@ public class ProductService(IUnitOfWork unitOfWork,
             .ToPagedListAsync(paginationParams);
         return _mapper.Map<IEnumerable<Et.Product>>(products);
     }
+
+    public async Task<IEnumerable<Et.Product>> GetProductsWithRequiredInformationAsync(PaginationParams paginationParams)
+    {
+        var products = await _unitOfWork.Product.GetProductsWithRequiredInformationAsync()
+            .AsNoTracking()
+            .ToPagedListAsync(paginationParams);
+        return _mapper.Map<IEnumerable<Et.Product>>(products);
+    }
 }
