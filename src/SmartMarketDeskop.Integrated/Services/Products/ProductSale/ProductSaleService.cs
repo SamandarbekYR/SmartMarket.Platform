@@ -10,12 +10,10 @@ namespace SmartMarketDeskop.Integrated.Services.Products.ProductSale
     public class ProductSaleService : IProductSaleService
     {
         private IProductSaleServer productSaleServer;
-        private IWorkerServer workerServer;
 
         public ProductSaleService()
         {
             this.productSaleServer = new ProductSaleServer();
-            this.workerServer = new WorkerServer();
         }
 
         public async Task<List<ProductSaleViewModel>> GetAllAsync()
