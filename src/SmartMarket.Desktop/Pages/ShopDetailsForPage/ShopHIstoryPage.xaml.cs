@@ -1,154 +1,128 @@
 ﻿using SmartMarket.Desktop.Components.ShopDetailsForComponent;
+using SmartMarket.Service.ViewModels.Products;
+
+using SmartMarketDeskop.Integrated.Services.Products.ProductSale;
+
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
 {
-    /// <summary>
-    /// Interaction logic for ShopHIstoryPage.xaml
-    /// </summary>
     public partial class ShopHIstoryPage : Page
     {
-        List<Product> products=new List<Product>();
+        private IProductSaleService _productSaleService;
+        private List<ProductSaleViewModel> _cachedProductSales; 
+
         public ShopHIstoryPage()
         {
             InitializeComponent();
+            _productSaleService = new ProductSaleService();
         }
 
-        public void GetAllProduct()
-        { 
+        public async void GetAllProduct()
+        {
+            _cachedProductSales = await _productSaleService.GetAllAsync(); 
 
-            St_productList.Visibility = Visibility.Visible;
-            St_productList.Children.Clear();
-            var newlist = ProductList();
+            List<string> workerNames = _cachedProductSales
+                .Select(ps => ps.Worker.FirstName)
+                .Distinct()
+                .ToList();
 
-            foreach (var item in newlist)
+            var defaultItem = new ComboBoxItem
             {
-                ReturnProductComponent shopDetailsProductComponent = new ReturnProductComponent();
-                shopDetailsProductComponent.Tag = item.Id;
-                shopDetailsProductComponent.SetValues(item.Id, item.TransactionNumber, item.ProductName, item.Barcode, item.Category, item.Worker,
-                item.Discount, item.count, item.TotalPrice, item.Kasa, item.Price, item.Date);
-                shopDetailsProductComponent.BorderThickness = new Thickness(2);
-                St_productList.Children.Add(shopDetailsProductComponent);
+                Content = "Barcha sotuvchi",
+               // IsEnabled = false,
+                IsSelected = true,
+            };
+
+            workerComboBox.Items.Add(defaultItem);
+
+            foreach (var workerName in workerNames)
+            {
+                workerComboBox.Items.Add(new ComboBoxItem
+                {
+                    Content = workerName,
+                    IsEnabled = true
+                });
+            }
+
+            workerComboBox.SelectedItem = defaultItem;
+
+            ShowProductSales(_cachedProductSales); 
+        }
+
+        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
+            {
+                var fromDate = fromDateTime.SelectedDate.Value;
+                var toDate = toDateTime.SelectedDate.Value;
+
+                var filteredProductSales = _cachedProductSales.Where(ps =>
+                    ps.CreatedDate >= fromDate &&
+                    ps.CreatedDate <= toDate);
+
+                ShowProductSales(filteredProductSales);
             }
         }
 
-
-
-
-        public class Product()
+        private void WorkerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            public int Id { get; set; }
+            var selectedWorkerName = (workerComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
 
-            public string TransactionNumber { get; set; }
-            public string ProductName { get; set; }
-            public string Barcode { get; set; }
-            public string Category { get; set; }
-            public string Worker { get; set; }
+            if (!string.IsNullOrEmpty(selectedWorkerName) && !selectedWorkerName.Equals("Barcha sotuvchi"))
+            {
+                var filteredProductSales = _cachedProductSales
+                    .Where(ps => ps.Worker.FirstName == selectedWorkerName)
+                    .ToList();
 
-            public string Discount { get; set; }
-            public int count { get; set; }
-            public string TotalPrice { get; set; }
-            public string Kasa { get; set; }
-            public string Price { get; set; }
-            public string Date { get; set; }
+                ShowProductSales(filteredProductSales);
+            }
+            else
+            {
+                ShowProductSales(_cachedProductSales); 
+            }
         }
 
-
-
-        public List<Product> ProductList()
+        private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            products.Add(new Product()
+            if (e.Key == Key.Enter)
             {
-                Id = 1,
-                TransactionNumber = "0007512555",
-                Barcode = "#141214455135",
-                ProductName = "Nestle Kasha 9",
-                Category = "Mevalar",
-                Worker = "Sherzod",
-                Discount = "0%",
-                count = 10,
-                TotalPrice = "300000.0",
-                Kasa = "#2",
-                Price = "200000.0",
-                Date = "20/08/2024",
-            });
-            products.Add(new Product()
+                var searchTerm = searchTextBox.Text.ToLower();
+
+                var filteredProductSales = _cachedProductSales.Where(ps =>
+                    ps.Product.Name.ToLower().Contains(searchTerm) ||
+                    ps.TransactionNumber.ToString().Contains(searchTerm));
+
+                ShowProductSales(filteredProductSales);
+            }
+        }
+
+        private void ShowProductSales(IEnumerable<ProductSaleViewModel> productSales)
+        {
+            St_productList.Visibility = Visibility.Visible;
+            St_productList.Children.Clear();
+            int rowNumber = 1;
+
+            foreach (var item in productSales)
             {
-                Id = 1,
-                TransactionNumber = "0007512555",
-                Barcode = "#14121001135",
-                ProductName = "Nestle Kasha 9",
-                Category = "kasha",
-                Worker = "Sherzod",
-                Discount = "0%",
-                count = 10,
-                TotalPrice = "300000.0",
-                Kasa = "#2",
-                Price = "200000.0",
-                Date = "20/08/2024",
-            });
-            products.Add(new Product()
-            {
-                Id = 1,
-                TransactionNumber = "0007512555",
-                Barcode = "#14121001135",
-                ProductName = "Nestle Kasha 9",
-                Category = "Mevalar",
-                Worker = "Sherzod",
-                Discount = "0%",
-                count = 10,
-                TotalPrice = "300000.0",
-                Kasa = "#2",
-                Price = "200000.0",
-                Date = "20/08/2024",
-            });
-            products.Add(new Product()
-            {
-                Id = 1,
-                TransactionNumber = "0007512555",
-                Barcode = "#14121001135",
-                ProductName = "Nestle Kasha 9",
-                Category = "Mevalar",
-                Worker = "Sherzod",
-                Discount = "0%",
-                count = 10,
-                TotalPrice = "300000.0",
-                Kasa = "#2",
-                Price = "200000.0",
-                Date = "20/08/2024",
-            });
-            products.Add(new Product()
-            {
-                Id = 1,
-                TransactionNumber = "0007512555",
-                Barcode = "#14121001135",
-                ProductName = "Nestle Kasha 9",
-                Category = "Mevalar",
-                Worker = "Sherzod",
-                Discount = "0%",
-                count = 10,
-                TotalPrice = "300000.0",
-                Kasa = "#2",
-                Price = "200000.0",
-                Date = "20/08/2024",
-            });
-            products.Add(new Product()
-            {
-                Id = 1,
-                TransactionNumber = "0007512555",
-                Barcode = "#14121001135",
-                ProductName = "Nestle Kasha 9",
-                Category = "Mevalar",
-                Worker = "Sherzod",
-                Discount = "0%",
-                count = 10,
-                TotalPrice = "300000.0",
-                Kasa = "#2",
-                Price = "200000.0",
-                Date = "20/08/2024",
-            });
-            return products;
+                ShopDetailsProductComponent shopDetailsProductComponent = new ShopDetailsProductComponent();
+                shopDetailsProductComponent.Tag = rowNumber;
+                shopDetailsProductComponent.SetValues(
+                    rowNumber,
+                    item.TransactionNumber,
+                    item.Product.Name,
+                    item.Product.Price,
+                    item.Count,
+                    item.TotalCost);
+
+                shopDetailsProductComponent.BorderThickness = new Thickness(2);
+                St_productList.Children.Add(shopDetailsProductComponent);
+                rowNumber++;
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

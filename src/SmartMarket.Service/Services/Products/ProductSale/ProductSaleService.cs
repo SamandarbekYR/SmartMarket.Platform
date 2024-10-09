@@ -8,6 +8,7 @@ using SmartMarket.Service.Common.Validators;
 using System.Net;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.Interfaces.Products.ProductSale;
+using SmartMarket.Service.ViewModels.Products;
 
 namespace SmartMarket.Service.Services.Products.ProductSale
 {
@@ -66,10 +67,11 @@ namespace SmartMarket.Service.Services.Products.ProductSale
             return await _unitOfWork.ProductSale.Remove(productSale);
         }
 
-        public async Task<List<ProductSaleDto>> GetAllAsync()
+        public async Task<List<ProductSaleViewModel>> GetAllAsync()
         {
-            var productSales = await _unitOfWork.ProductSale.GetProductSalesFullInformationAsync();
-            return _mapper.Map<List<ProductSaleDto>>(productSales);
+            var productSales = (await _unitOfWork.ProductSale.GetProductSalesFullInformationAsync());
+                
+            return _mapper.Map<List<ProductSaleViewModel>>(productSales);
         }
 
         public async Task<List<ProductSaleDto>> GetProductSalesByProductNameAsync(string productName)

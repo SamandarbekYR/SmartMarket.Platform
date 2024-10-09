@@ -9,14 +9,12 @@
       Title="ShopHIstoryPage"
       Loaded="Page_Loaded">
 
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
-            <RowDefinition Height="35"/>
+            <RowDefinition Height="38"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
 
         <Border
               Grid.Row="0"
@@ -46,9 +44,10 @@
                     Orientation="Horizontal"
                     Grid.Column="1">
 
-
                     <DatePicker
+                        x:Name="fromDateTime"
                         Style="{DynamicResource FormDatePicker}"/>
+                    
                     <Label
                         FontSize="14"
                         FontWeight="SemiBold"
@@ -61,9 +60,11 @@
                     Orientation="Horizontal"
                     Grid.Column="2">
 
-
                     <DatePicker
-                        Style="{DynamicResource FormDatePicker}"/>
+                        x:Name="toDateTime"
+                        Style="{DynamicResource FormDatePicker}"
+                        SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+                    
                     <Label
                         FontSize="14"
                         FontWeight="SemiBold"
@@ -73,27 +74,20 @@
                 </StackPanel>
 
                 <ComboBox
+                    x:Name="workerComboBox"
                     Margin="5 10 10 10"
-                    Grid.Column="3">
-                    <ComboBoxItem 
-                        IsEnabled="False" 
-                        IsSelected="True"
-                        Content="Sotuvchi"/>
-                    <ComboBoxItem
-                        Content="Aziz"/>
-                    <ComboBoxItem
-                        Content="Po'lat"/>
+                    Grid.Column="3"
+                    SelectionChanged="WorkerComboBox_SelectionChanged">
                 </ComboBox>
 
-
                 <TextBox
+                    x:Name="searchTextBox"
                     Margin="0 0 10 0"
                     Style="{DynamicResource search}"
-                    Grid.Column="4"/>
+                    Grid.Column="4"
+                    KeyDown="SearchTextBox_KeyDown"/>
             </Grid>
         </Border>
-
-
 
         <Border 
             Background="White"
@@ -106,24 +100,23 @@
                 x:Name="ShopHIstoryTitle" 
                 >
 
-            <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="0.6*"/>
                     <ColumnDefinition Width="0.5*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
 
                 <Label
                     Grid.Column="0"
-                    Content="N%"
+                    Content="№"
                     Style="{DynamicResource Label}"/>
 
                 <Label
                     Grid.Column="1"
-                    Content="Transaction No"
+                    Content="Transaction №"
                     Style="{DynamicResource Label}"/>
 
                 <Label
@@ -142,7 +135,7 @@
                     Style="{DynamicResource Label}"/>
                 <Label
                     Grid.Column="5"
-                    Content="Jami"
+                    Content="Umumiy narxi"
                     Style="{DynamicResource Label}"/>
 
             </Grid>
@@ -159,10 +152,8 @@
                 <StackPanel 
                     x:Name="St_productList">
                 </StackPanel>
-
             </StackPanel>
         </ScrollViewer>
         </Border>
     </Grid>
-
 </Page>

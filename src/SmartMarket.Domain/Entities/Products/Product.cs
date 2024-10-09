@@ -28,11 +28,11 @@ namespace SmartMarket.Domain.Entities.Products
         [Column("count")]
         public int Count { get; set; }
         [Column("price")]
-        public double Price { get; set; }
+        public double Price { get; set; } // Narx   
         [Column("sell_price")]
-        public double SellPrice { get; set; }
+        public double SellPrice { get; set; } // Sotish narxi
         [Column("sell_price_persentage")]
-        public int SellPricePersentage { get; set; }
+        public int SellPricePersentage { get; set; } // Foiz miqdori 3000 => 10% => 300 == 3300
         [Column("unit_of_measure")]
         public string UnitOfMeasure { get; set; } = string.Empty;
         [Column("payment_status")]
