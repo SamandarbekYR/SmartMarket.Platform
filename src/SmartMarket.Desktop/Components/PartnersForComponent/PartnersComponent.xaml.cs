@@ -1,16 +1,15 @@
-﻿using SmartMarket.Desktop.Windows.DebtForWindow;
-using SmartMarket.Desktop.Windows;
+﻿using SmartMarket.Desktop.Windows;
+using SmartMarket.Desktop.Windows.Partners;
 using SmartMarket.Domain.Entities.Partners;
 using SmartMarketDeskop.Integrated.Services.Partners;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using static SmartMarket.Desktop.Windows.MessageBoxWindow;
 using ToastNotifications;
-using ToastNotifications.Position;
 using ToastNotifications.Lifetime;
-using System.Windows;
 using ToastNotifications.Messages;
-using SmartMarket.Desktop.Windows.Partners;
+using ToastNotifications.Position;
+using static SmartMarket.Desktop.Windows.MessageBoxWindow;
 
 namespace SmartMarket.Desktop.Components.PartnersForComponent;
 

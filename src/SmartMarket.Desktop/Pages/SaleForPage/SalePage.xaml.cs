@@ -1,5 +1,6 @@
 ﻿using SmartMarket.Desktop.Components.SaleForComponent;
 using SmartMarket.Desktop.ViewModels.Transactions;
+using SmartMarket.Desktop.Windows;
 using SmartMarket.Desktop.Windows.Expenses;
 using SmartMarket.Desktop.Windows.Partners;
 using SmartMarket.Desktop.Windows.PaymentWindow;
@@ -14,7 +15,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
-using static MaterialDesignThemes.Wpf.Theme.ToolBar;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
+using static SmartMarket.Desktop.Windows.MessageBoxWindow;
 
 namespace SmartMarket.Desktop.Pages.SaleForPage;
 
@@ -30,6 +35,7 @@ public partial class SalePage : Page
     private DispatcherTimer time;
 
     TransactionViewModel tvm;
+    string message = "";
 
 
     int activeTextboxIndex = 2;
@@ -51,6 +57,21 @@ public partial class SalePage : Page
         time.Interval = TimeSpan.FromMilliseconds(200);
         time.Tick += Timer_Tick;
     }
+
+    Notifier notifier = new Notifier(cfg =>
+    {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
+            corner: Corner.BottomCenter,
+            offsetX: 20,
+            offsetY: 20);
+
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(3),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+    });
 
     private void Timer_Tick(object sender, EventArgs e)
     {
@@ -176,6 +197,10 @@ public partial class SalePage : Page
                 }
                 ColculateTotalPrice();
             }
+            else
+            {
+                notifier.ShowWarning("Bunday maxsulot topilmadi.");
+            }
         }
     }
 
@@ -266,15 +291,25 @@ public partial class SalePage : Page
     {
         if (selectedControl != null)
         {
+            message = selectedControl.tbProductName.Text;
             foreach (var item in tvm.Transactions)
             {
                 if (item.Barcode == selectedControl.Barcode)
                 {
-                    tvm.Transactions.Remove(item);
-                    St_product.Children.Remove(selectedControl);
-                    ColculateTotalPrice();
+                    var messageBox = new MessageBoxWindow(message + "ni o'chirmoqchimisiz?", MessageType.Confirmation, MessageButtons.OkCancel);
+                    var result = messageBox.ShowDialog();
+                    if (result == true)
+                    {
+                        tvm.Transactions.Remove(item);
+                        St_product.Children.Remove(selectedControl);
+                        ColculateTotalPrice();
+                    }
                 }
             }
+        }
+        else
+        {
+            notifier.ShowInformation("Maxsulot tanlanmagan.");
         }
     }
 
@@ -296,6 +331,14 @@ public partial class SalePage : Page
                     }
                 }
             }
+            else
+            {
+                notifier.ShowInformation("Bu maxsulot tugadi.");
+            }
+        }
+        else
+        {
+            notifier.ShowInformation("Maxsulot tanlanmagan.");
         }
 
     }
@@ -365,6 +408,10 @@ public partial class SalePage : Page
                     }
                 }
             }
+        }
+        else
+        {
+            notifier.ShowInformation("Maxsulot tanlanmagan.");
         }
     }
 
