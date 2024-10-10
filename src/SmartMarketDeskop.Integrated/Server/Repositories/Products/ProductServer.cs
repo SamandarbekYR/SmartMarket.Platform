@@ -106,7 +106,7 @@ public class ProductServer : IProductServer
 
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-            HttpResponseMessage message= await client.GetAsync(client.BaseAddress);
+            HttpResponseMessage message = await client.GetAsync(client.BaseAddress);
 
             string response=await message.Content.ReadAsStringAsync();
 

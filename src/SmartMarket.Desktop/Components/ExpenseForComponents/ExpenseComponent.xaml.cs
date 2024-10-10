@@ -1,4 +1,7 @@
-﻿using System;
+﻿using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
+using SmartMarketDeskop.Integrated.Server.Repositories.Expenses;
+using SmartMarketDesktop.ViewModels.Entities.Expenses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +23,21 @@ namespace SmartMarket.Desktop.Components.ExpenseForComponents
     /// </summary>
     public partial class ExpenseComponent : UserControl
     {
+        private readonly IExpensesServer server;
         public ExpenseComponent()
         {
             InitializeComponent();
+            this.server = new ExpensesServer();
+        }
+        public Guid ExpenseId { get; set; }
+
+        public void SetData(ExpenseView expense)
+        {
+            tbReason.Text = expense.Reason;
+            tbAmount.Text = expense.Amount.ToString();
+            tbTypeOfPayment.Text = expense.TypeOfPayment;
+            tbWorker.Text = expense.WorkerFirstname;
+            tbPayDesk.Text = expense.PayDeskName;
         }
     }
 }
