@@ -71,7 +71,8 @@
                 <ColumnDefinition Width="1.2*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" Text="N%"
+            <TextBlock Grid.Column="0" 
+                       Text="N%"
                        VerticalAlignment="Center"
                        FontSize="15"
                        FontWeight="SemiBold"

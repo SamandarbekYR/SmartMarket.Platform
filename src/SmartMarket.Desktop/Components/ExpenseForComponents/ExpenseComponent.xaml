@@ -24,7 +24,7 @@
                     <ColumnDefinition Width="1.5*"/>
                 </Grid.ColumnDefinitions>
 
-                <Label 
+                <TextBlock 
                     x:Name="tbNumber"
                     Grid.Column="0"
                     Text="1"
@@ -32,7 +32,7 @@
                     HorizontalAlignment="Center"
                     FontSize="26"
                     FontWeight="SemiBold">
-                    
+
                 </TextBlock>
 
                 <TextBlock
