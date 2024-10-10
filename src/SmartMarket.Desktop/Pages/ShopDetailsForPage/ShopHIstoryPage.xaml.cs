@@ -1,10 +1,6 @@
 ﻿using SmartMarket.Desktop.Components.ShopDetailsForComponent;
 using SmartMarket.Service.ViewModels.Products;
-
 using SmartMarketDeskop.Integrated.Services.Products.ProductSale;
-
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -103,14 +99,13 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
 
         private void ShowProductSales(IEnumerable<ProductSaleViewModel> productSales)
         {
-            St_productList.Visibility = Visibility.Visible;
             St_productList.Children.Clear();
             int rowNumber = 1;
 
             foreach (var item in productSales)
             {
                 ShopDetailsProductComponent shopDetailsProductComponent = new ShopDetailsProductComponent();
-                shopDetailsProductComponent.Tag = rowNumber;
+                shopDetailsProductComponent.Tag = item;
                 shopDetailsProductComponent.SetValues(
                     rowNumber,
                     item.TransactionNumber,
