@@ -195,9 +195,37 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
         [HttpGet("all")]
         public async Task<IActionResult> GetAllProductsAsync([FromQuery] PaginationParams @params)
         {
+            try
+            {
+                var products = await _productService.GetProductsFullInformationAsync(@params);
+                return Ok(products);
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
 
-            var products = await _productService.GetProductsFullInformationAsync(@params);
-            return Ok(products);
+        [HttpGet("finished")]
+        public async Task<IActionResult> GetFinishedProductsAsync([FromQuery] PaginationParams @params)
+        {
+            try
+            {
+                var finishedProducts = await _productService.GetFinishedProductsAsync(@params);
+                return Ok(finishedProducts);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
     }
 }

@@ -14,12 +14,12 @@ public partial class ShopWorkerAccountComponent : UserControl
 
     public void SetValues(string firstname,string lastName,string salary,string phonenumber, string RecivedSum, string RemainingSum)
     {
-        //tbFullName.Text = firstname+" "+lastName;
-        //tbSalary.Text = salary;
-        //tbReceievedSum.Text = RecivedSum;
-        //tbRemainingSum.Text = RemainingSum;
-        //tbPhoneNumber.Text=phonenumber;
-        //tbPosition.Text = "Sotuvchi";
+        tbFirstName.Text = firstname;
+        tbLastName.Text = lastName;
+        tbSalary.Text = salary;
+        tbPhoneNumber.Text = phonenumber;
+        tbReceivedSum.Text = RecivedSum;
+        tbRemainingSum.Text = RemainingSum;
     }
 
 }

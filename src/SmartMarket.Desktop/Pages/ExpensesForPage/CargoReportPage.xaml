@@ -18,12 +18,12 @@
 
 
         <Border
-      Grid.Row="0"
-      BorderBrush="Black"
-      CornerRadius="5 5 0 0"
-      BorderThickness="1"
-      Background="#d6d6d6"
-      >
+              Grid.Row="0"
+              BorderBrush="Black"
+              CornerRadius="5 5 0 0"
+              BorderThickness="1"
+              Background="#d6d6d6"
+              >
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1.2*"/>

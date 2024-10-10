@@ -5,11 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartMarket.Desktop.Components.ExpenseForComponents"
              mc:Ignorable="d"
-             d:DesignHeight="30" d:DesignWidth="520">
+             d:DesignHeight="39" d:DesignWidth="1100">
     <Grid>
         <Border CornerRadius="8" Background="White">
 
-            <Grid>
+            <Grid Margin="10 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="3*"/>
@@ -25,41 +25,65 @@
                     Text="1"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    FontSize="15"
-                    FontWeight="SemiBold"
-            ></TextBlock>
-
-                <TextBlock
-                    x:Name="tbFirstName"
-                    Grid.Column="1"
-                    Text="Azimjon"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    FontSize="15"
-                    FontWeight="SemiBold"
-            ></TextBlock>
-
-                <TextBlock
-                    x:Name="tbLastName"
-                    Grid.Column="2"
-                    Text="Ergashev"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    FontSize="15"
-                    FontWeight="SemiBold"
-            ></TextBlock>
-
-                <TextBlock
-                    x:Name="tbPhoneNumber"
-                    Grid.Column="3"
-                    Text="+998996661132"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    FontSize="15"
+                    FontSize="26"
                     FontWeight="SemiBold">
                     
                 </TextBlock>
 
+                <TextBlock
+                    x:Name="tbReason"
+                    Grid.Column="1"
+                    Text="Abet uchun"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontSize="26"
+                    FontWeight="SemiBold">
+                    
+                </TextBlock>
+
+                <TextBlock
+                    x:Name="tbAmount"
+                    Grid.Column="2"
+                    Text="100000"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontSize="26"
+                    FontWeight="SemiBold">
+
+                </TextBlock>
+
+                <TextBlock
+                    x:Name="tbTypeOfPayment"
+                    Grid.Column="3"
+                    Text="Naqt"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontSize="26"
+                    FontWeight="SemiBold">
+
+                </TextBlock>
+
+                <TextBlock
+                    x:Name="tbPayDesk"
+                    Grid.Column="4"
+                    Text="Kassa"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontSize="26"
+                    FontWeight="SemiBold">
+
+                </TextBlock>
+
+                <TextBlock
+                    x:Name="tbWorker"
+                    Grid.Column="5"
+                    Text="Abdulvosid"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    FontSize="26"
+                    FontWeight="SemiBold">
+
+                </TextBlock>
             </Grid>
         </Border>
     </Grid>

@@ -8,7 +8,7 @@ namespace SmartMarket.Service.Interfaces.Products.Product
     {
         Task<Guid> AddAsync(AddProductDto dto);
         Task<bool> DeleteAsync(Guid Id);
-        Task<IEnumerable<ProductDto>> GetAllAsync(PaginationParams @params);
+        Task<IEnumerable<FullProductDto>> GetAllAsync(PaginationParams @params);
         Task<bool> UpdateAsync(AddProductDto dto, Guid Id);
         Task<bool> SellProductAsync(string barcode);
         Task<IEnumerable<ProductDto>> GetProductsByCategoryIdAsync(Guid categoryId, PaginationParams @params);
@@ -18,5 +18,6 @@ namespace SmartMarket.Service.Interfaces.Products.Product
         Task<ProductDto> GetProductByWorkerIdAsync(Guid workerId);
         Task<ProductDto> GetProductByNameAsync(string name);
         Task<IEnumerable<Et.Product>> GetProductsFullInformationAsync(PaginationParams @params);
+        Task<IEnumerable<ProductDto>> GetFinishedProductsAsync(PaginationParams @params);
     }
 }

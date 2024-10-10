@@ -9,58 +9,77 @@ using SmartMarket.Service.DTOs.Workers.Worker;
 using SmartMarket.Service.Interfaces.Common;
 using SmartMarket.Service.Interfaces.Worker.Workers;
 using System.Net;
+using Microsoft.Extensions.Logging; 
 
-namespace SmartMarket.Service.Services.Worker.Workers;
-
-public class WorkerService(IUnitOfWork unitOfWork,
+namespace SmartMarket.Service.Services.Worker.Workers
+{
+    public class WorkerService(IUnitOfWork unitOfWork,
                            IMapper mapper,
                            IValidator<AddWorkerDto> validator,
-                           IFileService fileService) : IWorkerService
-{
-    public readonly IMapper _mapper = mapper;
-    public readonly IValidator<AddWorkerDto> _validator = validator;
-    public readonly IUnitOfWork _unitOfWork = unitOfWork;
-    public readonly IFileService _fileService = fileService;
-    private const string ROOT_PATH = "WorkerImages";
-
-    public async Task<bool> AddAsync(AddWorkerDto dto)
+                           IFileService fileService,
+                           ILogger<WorkerService> logger) : IWorkerService 
     {
-        var validationResult = _validator.Validate(dto);
+        public readonly IMapper _mapper = mapper;
+        public readonly IValidator<AddWorkerDto> _validator = validator;
+        public readonly IUnitOfWork _unitOfWork = unitOfWork;
+        public readonly IFileService _fileService = fileService;
+        private readonly ILogger<WorkerService> _logger = logger;
+        private const string ROOT_PATH = "WorkerImages";
 
-        if (!validationResult.IsValid)
-            throw new ValidationException(validationResult.Errors.First().ErrorMessage);
-
-        var positionExists = await _unitOfWork.Position.GetById(dto.PositionId) != null;
-        if (!positionExists)
+        public async Task<bool> AddAsync(AddWorkerDto dto)
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Position not found.");
+            try
+            {
+                var validationResult = _validator.Validate(dto);
+
+                if (!validationResult.IsValid)
+                    throw new ValidationException(validationResult.Errors.First().ErrorMessage);
+
+                var positionExists = await _unitOfWork.Position.GetById(dto.PositionId) != null;
+                if (!positionExists)
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Position not found.");
+                }
+
+                var workerRoleExists = await _unitOfWork.WorkerRole.GetById(dto.WorkerRoleId) != null;
+                if (!workerRoleExists)
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Worker Role not found.");
+                }
+
+                (string Hash, string Salt) = PasswordHasher.Hash(dto.Password);
+                var imagePath = await _fileService.UploadImageAsync(dto.ImgPath, ROOT_PATH);
+                var worker = _mapper.Map<Et.Worker>(dto);
+                worker.ImgPath = imagePath;
+                worker.PasswordHash = Hash;
+                worker.PasswordSalt = Salt;
+
+                return await _unitOfWork.Worker.Add(worker);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while adding a worker.");
+                throw;
+            }
         }
 
-        var workerRoleExists = await _unitOfWork.WorkerRole.GetById(dto.WorkerRoleId) != null;
-        if (!workerRoleExists)
+        public async Task<bool> DeleteAsync(Guid Id)
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Worker Role not found.");
+            try
+            {
+                var worker = await _unitOfWork.Worker.GetById(Id);
+
+                if (worker == null)
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+
+                return await _unitOfWork.Worker.Remove(worker);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while deleting a worker.");
+                throw;
+            }
         }
-
-        (string Hash, string Salt) = PasswordHasher.Hash(dto.Password);
-        var imagePath = await _fileService.UploadImageAsync(dto.ImgPath, ROOT_PATH);
-        var worker = _mapper.Map<Et.Worker>(dto);
-        worker.ImgPath = imagePath;
-        worker.PasswordHash = Hash;
-        worker.PasswordSalt = Salt;
-
-        return await _unitOfWork.Worker.Add(worker);
-    }
-
-    public async Task<bool> DeleteAsync(Guid Id)
-    {
-        var worker = await _unitOfWork.Worker.GetById(Id);
-
-        if (worker == null)
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
-
-        return await _unitOfWork.Worker.Remove(worker);
-    }
 
     public async Task<List<WorkerDto>> GetAllAsync()
     {
@@ -69,45 +88,70 @@ public class WorkerService(IUnitOfWork unitOfWork,
         return _mapper.Map<List<WorkerDto>>(workers);
     }
 
-    public Task<bool> UpdateAsync(AddWorkerDto dto, Guid Id)
-    {
-        var workerId = _unitOfWork.Worker.GetById(Id);
-
-        if (workerId == null)
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found");
-
-        var validationResult = _validator.Validate(dto);
-
-        if (!validationResult.IsValid)
-            throw new ValidationException(validationResult.Errors.First().ErrorMessage);
-
-        var worker = _mapper.Map<Et.Worker>(dto);
-
-        return _unitOfWork.Worker.Update(worker);
-    }
-
-    public async Task<WorkerDto> GetWorkerByPhoneNumberAsync(string phoneNumber)
-    {
-        var worker = await _unitOfWork.Worker.GetPhoneNumberAsync(phoneNumber);
-
-        if (worker == null)
+        public Task<bool> UpdateAsync(AddWorkerDto dto, Guid Id)
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+            try
+            {
+                var workerId = _unitOfWork.Worker.GetById(Id);
+
+                if (workerId == null)
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found");
+
+                var validationResult = _validator.Validate(dto);
+
+                if (!validationResult.IsValid)
+                    throw new ValidationException(validationResult.Errors.First().ErrorMessage);
+
+                var worker = _mapper.Map<Et.Worker>(dto);
+
+                return _unitOfWork.Worker.Update(worker);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while updating a worker.");
+                throw;
+            }
         }
 
-        return _mapper.Map<WorkerDto>(worker);
-    }
-
-    public async Task<WorkerDto> GetWorkerByNameAsync(string firstName)
-    {
-        var worker = await _unitOfWork.Worker.GetAll()
-            .FirstOrDefaultAsync(w => w.FirstName.ToLower() == firstName.ToLower());
-
-        if (worker == null)
+        public async Task<WorkerDto> GetWorkerByPhoneNumberAsync(string phoneNumber)
         {
-            throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+            try
+            {
+                var worker = await _unitOfWork.Worker.GetPhoneNumberAsync(phoneNumber);
+
+                if (worker == null)
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+                }
+
+                return _mapper.Map<WorkerDto>(worker);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while getting a worker by phone number.");
+                throw;
+            }
         }
 
-        return _mapper.Map<WorkerDto>(worker);
+        public async Task<WorkerDto> GetWorkerByNameAsync(string firstName)
+        {
+            try
+            {
+                var worker = await _unitOfWork.Worker.GetAll()
+                    .FirstOrDefaultAsync(w => w.FirstName.ToLower() == firstName.ToLower());
+
+                if (worker == null)
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+                }
+
+                return _mapper.Map<WorkerDto>(worker);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while getting a worker by first name.");
+                throw;
+            }
+        }
     }
 }

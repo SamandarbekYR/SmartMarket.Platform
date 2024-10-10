@@ -16,22 +16,23 @@ namespace SmartMarket.WebApi.Controllers.Common.Expence
         private readonly IExpenceService _expenceService = expenceService;
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetAllAsync([FromQuery] PaginationParams paginationParams)
         {
             try
             {
-                var expenses = await _expenceService.GetAllAsync();
+                var expenses = await _expenceService.GetAllAsync(paginationParams);
                 return Ok(expenses);
             }
             catch (StatusCodeException ex)
             {
-                return StatusCode((int)ex.StatusCode, ex.Message); 
+                return StatusCode((int)ex.StatusCode, ex.Message);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message); 
+                return StatusCode(500, ex.Message);
             }
         }
+
 
         [HttpPost]
         public async Task<IActionResult> AddAsync([FromBody] AddExpenceDto dto)
