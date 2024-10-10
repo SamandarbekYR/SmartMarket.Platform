@@ -112,6 +112,17 @@ namespace SmartMarket.Service.Services.Products.ProductSale
             return _mapper.Map<List<ProductSaleViewModel>>(productSales);
         }
 
+        public async Task<ProductSaleViewModel> GetByIdAsync(Guid Id)
+        {
+            var productSale = await _unitOfWork.ProductSale.GetById(Id);
+            if (productSale == null)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Product Sale not found.");
+            }
+
+            return _mapper.Map<ProductSaleViewModel>(productSale);
+        }
+
         public async Task<List<ProductSaleDto>> GetProductSalesByProductNameAsync(string productName)
         {
             var productSales = await _unitOfWork.ProductSale.GetProductSalesFullInformationAsync();

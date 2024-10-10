@@ -45,10 +45,9 @@ public partial class ShopDetailsProductComponent : UserControl
 
     private void Return_Button_Click(object sender, RoutedEventArgs e)
     {
-        ReturnProductViewWindow returnProductViewWindow = new ReturnProductViewWindow();
-        ReturnProductWindow returnProductWindow = GetReturnProductWindow();
-        returnProductWindow.Hide();
+        Guid productSaleId = (Guid)((Button)sender).Tag;
+
+        ReturnProductViewWindow returnProductViewWindow = new ReturnProductViewWindow(productSaleId);
         returnProductViewWindow.ShowDialog();
-        returnProductWindow.Show();
     }
 }

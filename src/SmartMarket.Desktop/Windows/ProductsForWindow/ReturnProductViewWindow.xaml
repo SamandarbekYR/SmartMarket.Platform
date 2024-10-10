@@ -145,12 +145,19 @@
                         Name="tb_Seller"
                         Margin="10 100 0 0"
                         Style="{DynamicResource Create_TextBox_Style}"/>
-                    <TextBox
+                    <!--<TextBox
                         FontSize="18"   
                         Name="tb_Returner"
                         Margin="10 16 0 0"
-                        Style="{DynamicResource Create_TextBox_Style}"/>
+                        Style="{DynamicResource Create_TextBox_Style}"/>-->
                     <ComboBox
+                        Height="30"
+                        x:Name="cb_Workers"
+                        Margin="10 16 0 0">
+                    </ComboBox>
+                    
+                    <ComboBox
+                        x:Name="cb_Valid"
                         Height="30"
                         Margin="10 20 0 0">
 
@@ -270,6 +277,7 @@
             </Grid>
 
             <Button
+                Click="SaveReturnProduct_Button_Click"
                 Grid.Row="2"
                 Width="250"
                 Height="40"

@@ -62,8 +62,12 @@ public class WorkerService(IUnitOfWork unitOfWork,
         return await _unitOfWork.Worker.Remove(worker);
     }
 
-    public async Task<List<Et.Worker>> GetAllAsync()
-    => await _unitOfWork.Worker.GetWorkersFullInformationAsync();
+    public async Task<List<WorkerDto>> GetAllAsync()
+    {
+        var workers = await _unitOfWork.Worker.GetWorkersFullInformationAsync();
+
+        return _mapper.Map<List<WorkerDto>>(workers);
+    }
 
     public Task<bool> UpdateAsync(AddWorkerDto dto, Guid Id)
     {

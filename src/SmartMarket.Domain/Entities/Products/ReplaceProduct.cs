@@ -12,6 +12,8 @@ namespace SmartMarket.Domain.Entities.Products
         [Column("worker_id")]
         public Guid WorkerId { get; set; }
         public Worker Worker { get; set; }
+        [Column("count")]
+        public int Count { get; set; }
 
         [Column("reason")]
         public string Reason { get; set; } = string.Empty;

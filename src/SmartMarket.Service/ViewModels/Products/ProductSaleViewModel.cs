@@ -10,6 +10,7 @@ namespace SmartMarket.Service.ViewModels.Products
 {
     public class ProductSaleViewModel
     {
+        public Guid Id { get; set; }
         public Guid ProductId { get; set; }
         public Product Product { get; set; }
         public Guid WorkerId { get; set; }

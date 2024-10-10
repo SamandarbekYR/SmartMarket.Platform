@@ -13,6 +13,6 @@ namespace SmartMarketDeskop.Integrated.Services.Workers.Worker
         Task<bool> CreateProduct(WorkerDto dto);
         Task<bool> UpdateProduct(WorkerDto worker, Guid Id);
         Task<bool> DeleteProduct(Guid Id);
-       
+        Task<List<WorkerDto>> GetAllAsync();
     }
 }

@@ -4,6 +4,7 @@ using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Workers;
 using SmartMarketDeskop.Integrated.Server.Repositories.Products;
 using SmartMarketDeskop.Integrated.Server.Repositories.Workers;
+
 using System.Net;
 
 namespace SmartMarketDeskop.Integrated.Services.Products.ProductSale
@@ -40,6 +41,31 @@ namespace SmartMarketDeskop.Integrated.Services.Products.ProductSale
             else
             {
                 return new List<ProductSaleViewModel>();
+            }
+        }
+
+        public async Task<ProductSaleViewModel> GetByIdAsync(Guid id)
+        {
+            if (IsInternetAvailable())
+            {
+                var productSale = await productSaleServer.GetByIdAsync(id);
+                return productSale;
+            }
+            else
+            {
+                return new ProductSaleViewModel();
+            }
+        }
+
+        public Task<bool> UpdateAsync(AddProductSaleDto dto, Guid id)
+        {
+            if (IsInternetAvailable())
+            {
+                return productSaleServer.UpdateAsync(dto, id);
+            }
+            else
+            {
+                return Task.FromResult(false);
             }
         }
 

@@ -7,7 +7,7 @@ public interface IWorkerService
 {
     Task<bool> AddAsync(AddWorkerDto dto);
     Task<bool> DeleteAsync(Guid Id);
-    Task<List<Et.Worker>> GetAllAsync();
+    Task<List<WorkerDto>> GetAllAsync();
     Task<bool> UpdateAsync(AddWorkerDto dto, Guid Id);
 
     Task<WorkerDto> GetWorkerByPhoneNumberAsync(string phoneNumber);
