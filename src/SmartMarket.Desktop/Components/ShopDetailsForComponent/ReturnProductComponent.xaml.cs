@@ -45,7 +45,9 @@ public partial class ReturnProductComponent : UserControl
 
     private void Return_Button_Click(object sender, RoutedEventArgs e)
     {
-        ReturnProductViewWindow returnProductViewWindow = new ReturnProductViewWindow();
+        Guid guid = Guid.NewGuid();
+
+        ReturnProductViewWindow returnProductViewWindow = new ReturnProductViewWindow(guid);
         returnProductViewWindow.ShowDialog();
     }
 }

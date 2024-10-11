@@ -64,7 +64,7 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Workers
             throw new NotImplementedException();
         }
 
-        public async Task<List<Worker>> GetAllAsync()
+        public async Task<List<WorkerDto>> GetAllAsync()
         {
             try
             {
@@ -78,14 +78,14 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Workers
 
                 string response = await message.Content.ReadAsStringAsync();
 
-                List<Worker> workers = JsonConvert.DeserializeObject<List<Worker>>(response)!;
+                List<WorkerDto> workers = JsonConvert.DeserializeObject<List<WorkerDto>>(response)!;
 
                 return workers;
 
             }
             catch
             {
-                return new List<Worker>();
+                return new List<WorkerDto>();
             }
         }
 

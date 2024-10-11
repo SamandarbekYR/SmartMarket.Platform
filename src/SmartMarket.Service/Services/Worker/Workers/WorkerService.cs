@@ -81,18 +81,12 @@ namespace SmartMarket.Service.Services.Worker.Workers
             }
         }
 
-        public async Task<List<Et.Worker>> GetAllAsync()
-        {
-            try
-            {
-                return await _unitOfWork.Worker.GetWorkersFullInformationAsync();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error occurred while getting all workers.");
-                throw;
-            }
-        }
+    public async Task<List<WorkerDto>> GetAllAsync()
+    {
+        var workers = await _unitOfWork.Worker.GetWorkersFullInformationAsync();
+
+        return _mapper.Map<List<WorkerDto>>(workers);
+    }
 
         public Task<bool> UpdateAsync(AddWorkerDto dto, Guid Id)
         {

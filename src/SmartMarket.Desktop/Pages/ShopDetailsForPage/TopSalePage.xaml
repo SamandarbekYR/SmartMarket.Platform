@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ShopDetailsForPage"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      Title="TopSalePage">
+      Title="TopSalePage"
+      Loaded="Page_Loaded">
 
     <Grid 
         Background="White">
@@ -43,24 +44,24 @@
                     Orientation="Horizontal"
                     Grid.Column="1">
 
-
                     <DatePicker
+                        x:Name="fromDateTime"
                         Style="{DynamicResource FormDatePicker}"/>
                     <Label
                         FontSize="14"
                         FontWeight="SemiBold"
                         VerticalAlignment="Center"
                         Content="dan"/>
-
                 </StackPanel>
 
                 <StackPanel
                     Orientation="Horizontal"
                     Grid.Column="2">
 
-
                     <DatePicker
-                        Style="{DynamicResource FormDatePicker}"/>
+                        x:Name="toDateTime"
+                        Style="{DynamicResource FormDatePicker}"
+                        SelectedDateChanged="DatePicker_SelectedDateChanged"/>
                     <Label
                         FontSize="14"
                         FontWeight="SemiBold"
@@ -69,27 +70,37 @@
 
                 </StackPanel>
 
-                <ComboBox
-                    Margin="5 10 10 10"
-                    Grid.Column="3">
-                    <ComboBoxItem 
-                        IsEnabled="False" 
-                        IsSelected="True"
-                        Content="Sotuvchi"/>
-                    <ComboBoxItem
-                        Content="Aziz"/>
-                    <ComboBoxItem
-                        Content="Po'lat"/>
-                </ComboBox>
+                <StackPanel
+                     Orientation="Horizontal"
+                     Grid.Column="3">
 
+                    <Label
+                        FontSize="18"
+                        FontWeight="SemiBold"
+                        VerticalAlignment="Center"
+                        Content="Soni"/>
+                    
+                    <TextBox
+                        x:Name="countTextBox"
+                        FontSize="15"
+                        FontWeight="SemiBold"
+                        Margin="5 11 10 10"
+                        Height="24.48"
+                        Width="100"
+                        KeyDown="CountTextBox_KeyDown"
+                        PreviewTextInput="CountTextBox_PreviewTextInput"
+                        DataObject.Pasting="CountTextBox_Pasting"/>
 
+                </StackPanel>
+                
                 <TextBox
+                    x:Name="searchTextBox"
                     Margin="0 0 10 0"
                     Style="{DynamicResource search}"
-                    Grid.Column="4"/>
+                    Grid.Column="4"
+                    KeyDown="SearchTextBox_KeyDown"/>
             </Grid>
         </Border>
-
 
         <Border 
             Grid.Row="1"
@@ -97,55 +108,10 @@
             BorderBrush="{DynamicResource BorderColor}" 
             BorderThickness="1 0 1 1" 
             CornerRadius="0 0 5 5">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
 
-                <Grid
-                    Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <Label
-                        Margin="10 0"
-                        Content="Maxsulot nomi"
-                        x:Name="tbProductName"
-                        Grid.Column="0"
-                        Style="{DynamicResource Label}"/>
-
-                    <Label
-                        Content="Maxsulot soni"
-                        x:Name="tbCount"
-                        Grid.Column="1"
-                        Style="{DynamicResource Label}"/>
-
-                    <Label
-                        Content="Jami summasi"
-                        x:Name="tbTotalPrice"
-                        Grid.Column="2"
-                        Style="{DynamicResource Label}"/>
-
-                    <Label
-                        Content="Foyda"
-                        x:Name="tbProfit"
-                        Grid.Column="3"
-                        Style="{DynamicResource Label}"/>
-
-                </Grid>
-
-                <ScrollViewer
-                    Grid.Row="1">
+                <ScrollViewer>
                     <StackPanel x:Name="St_TopSale"></StackPanel>
                 </ScrollViewer>
-            </Grid>
-    </Border>
-        
+        </Border>
     </Grid>
-   
 </Page>

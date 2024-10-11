@@ -25,7 +25,7 @@ namespace SmartMarket.Desktop.Components.ShopDetailsForComponent
             InitializeComponent();
         }
 
-        public void SetValues(string ProductName,int count,string TotalPrice,string profit)
+        public void SetValues(string ProductName,int count,double TotalPrice,double profit)
         {
             tbProductName.Content = ProductName;
             tbTotalPrice.Content = TotalPrice;

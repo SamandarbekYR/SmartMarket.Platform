@@ -20,6 +20,7 @@ public class ReplaceProductRepository : Repository<ReplaceProduct>, IReplaceProd
     {
         return await _replaceProducts
             .Include(rp => rp.ProductSale) 
+                .ThenInclude(ps => ps.Product)
             .Include(rp => rp.Worker) 
             .ToListAsync();
     }

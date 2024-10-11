@@ -89,6 +89,44 @@ namespace SmartMarket.Service.Services.Products.ProductSale
             }
         }
 
+        public async Task<List<ProductSaleViewModel>> FilterProductSaleAsync(FilterProductSaleDto dto)
+        {
+            var productSales = await _unitOfWork.ProductSale.GetProductSalesFullInformationAsync();
+
+            if (dto.FromDateTime.HasValue && dto.ToDateTime.HasValue)
+            {
+                productSales = productSales.Where(
+                    ps => ps.CreatedDate >= dto.FromDateTime.Value 
+                    && ps.CreatedDate <= dto.ToDateTime.Value).ToList();
+            }
+            else
+            {
+                productSales = productSales.Where(
+                    ps => ps.CreatedDate.Value.Date == DateTime.Today).ToList();
+            }
+
+            if (!string.IsNullOrWhiteSpace(dto.ProductName))
+            {
+                productSales = productSales.Where(
+                    ps => ps.Product.Name.Contains(dto.ProductName)).ToList();
+            }
+
+            if (!string.IsNullOrWhiteSpace(dto.WorkerName))
+            {
+                productSales = productSales.Where(
+                    ps => ps.Worker.FirstName.Contains(dto.WorkerName)).ToList();
+            }
+
+            if (dto.Count.HasValue)
+            {
+                productSales = productSales.Where(ps => ps.Count >= dto.Count.Value).ToList();
+            }
+
+            var result = _mapper.Map<List<ProductSaleViewModel>>(productSales);
+
+            return result;
+        }
+
         public async Task<List<ProductSaleViewModel>> GetAllAsync()
         {
             try
@@ -102,6 +140,17 @@ namespace SmartMarket.Service.Services.Products.ProductSale
                 _logger.LogError(ex, "Error occurred while getting all product sales.");
                 throw;
             }
+        }
+
+        public async Task<ProductSaleViewModel> GetByIdAsync(Guid Id)
+        {
+            var productSale = await _unitOfWork.ProductSale.GetById(Id);
+            if (productSale == null)
+            {
+                throw new StatusCodeException(HttpStatusCode.NotFound, "Product Sale not found.");
+            }
+
+            return _mapper.Map<ProductSaleViewModel>(productSale);
         }
 
         public async Task<List<ProductSaleDto>> GetProductSalesByProductNameAsync(string productName)

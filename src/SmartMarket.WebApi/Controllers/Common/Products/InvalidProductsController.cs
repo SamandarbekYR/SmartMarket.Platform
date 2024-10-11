@@ -49,6 +49,24 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
             }
         }
 
+        [HttpPost("filter")]
+        public async Task<IActionResult> FilterInvalidProductAsync([FromBody] FilterInvalidProductDto filterInvalidProductDto)
+        {
+            try
+            {
+                var invalidProducts = await _invalidProductService.FilterInvalidProductAsync(filterInvalidProductDto);
+                return Ok(invalidProducts);
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         /*[HttpGet("product/{productName}")]
         public async Task<IActionResult> GetInvalidProductsByProductNameAsync(string productName)
         {

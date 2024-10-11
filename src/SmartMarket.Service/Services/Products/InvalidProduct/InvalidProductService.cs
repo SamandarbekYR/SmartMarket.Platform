@@ -73,6 +73,42 @@ namespace SmartMarket.Service.Services.Products.InvalidProduct
             }
         }
 
+        public async Task<List<InvalidProductDto>> FilterInvalidProductAsync(FilterInvalidProductDto filterInvalidProductDto)
+        {
+            try
+            {
+                var invalidProducts = await _unitOfWork.InvalidProduct.GetInvalidProductsFullInformationAsync();
+                if (filterInvalidProductDto.FromDateTime != null && filterInvalidProductDto.ToDateTime != null)
+                {
+                    invalidProducts = invalidProducts.Where(
+                        ps => ps.CreatedDate >= filterInvalidProductDto.FromDateTime 
+                        && ps.CreatedDate <= filterInvalidProductDto.ToDateTime)
+                        .ToList();
+                }
+
+                if (!string.IsNullOrEmpty(filterInvalidProductDto.WorkerName))
+                {
+                    invalidProducts = invalidProducts.Where(
+                        ps => ps.Worker.FirstName.ToLower().Contains(filterInvalidProductDto.WorkerName.ToLower()))
+                        .ToList();
+                }
+
+                if (!string.IsNullOrEmpty(filterInvalidProductDto.ProductName))
+                {
+                    invalidProducts = invalidProducts.Where(
+                        ps => ps.ProductSale.Product.Name.ToLower().Contains(filterInvalidProductDto.ProductName.ToLower()))
+                        .ToList();
+                }
+
+                return _mapper.Map<List<InvalidProductDto>>(invalidProducts);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while filtering invalid products.");
+                throw;
+            }
+        }
+
         public async Task<List<InvalidProductDto>> GetAllAsync()
         {
             try
