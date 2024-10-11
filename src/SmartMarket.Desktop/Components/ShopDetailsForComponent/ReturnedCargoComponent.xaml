@@ -14,7 +14,7 @@
         >
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.3*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -25,56 +25,38 @@
             <Label 
                 x:Name="lb_Number"
                 Grid.Column="0"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></Label>
+                Style="{DynamicResource Label}"
+                />
 
             <Label 
                 x:Name="lb_TransactionNo"
                 Grid.Column="1"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></Label>
+                Style="{DynamicResource Label}"
+                />
 
             <Label
                 x:Name="lb_ProductName"
-                Grid.Column="3"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></Label>
+                Grid.Column="2"
+                Style="{DynamicResource Label}"
+                />
 
             <Label
                 x:Name="lb_Price"
-                Grid.Column="5"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></Label>
+                Grid.Column="3"
+                Style="{DynamicResource Label}"
+                />
 
             <Label
                 x:Name="lb_Count"
-                Grid.Column="7"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></Label>
+                Grid.Column="4"
+                Style="{DynamicResource Label}"
+                />
 
             <Label
                 x:Name="lb_TotalPrice"
-                Grid.Column="8"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></Label>
+                Grid.Column="5"
+                Style="{DynamicResource Label}"
+                />
         </Grid>
 
     </Border>

@@ -74,7 +74,7 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
             foreach (var item in productSales)
             {
                 ShopDetailsProductComponent shopDetailsProductComponent = new ShopDetailsProductComponent();
-                shopDetailsProductComponent.Tag = item.Id;
+                shopDetailsProductComponent.Tag = item;
                 shopDetailsProductComponent.SetValues(
                     rowNumber,
                     item.TransactionNumber,

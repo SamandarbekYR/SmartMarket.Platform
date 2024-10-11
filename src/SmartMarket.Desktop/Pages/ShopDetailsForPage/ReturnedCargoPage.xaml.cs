@@ -54,42 +54,47 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
 
         private async void FilterReplaceProducts()
         {
-            FilterReplaceProductDto filterProductSaleDto = new FilterReplaceProductDto();
+            FilterReplaceProductDto filterReplaceProductDto = new FilterReplaceProductDto();
 
             if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
             {
-                filterProductSaleDto.FromDateTime = fromDateTime.SelectedDate.Value;
-                filterProductSaleDto.ToDateTime = toDateTime.SelectedDate.Value;
+                filterReplaceProductDto.FromDateTime = fromDateTime.SelectedDate.Value;
+                filterReplaceProductDto.ToDateTime = toDateTime.SelectedDate.Value;
             }
 
             var selectedWorkerName = workerComboBox.SelectedItem?.ToString();
             if (!string.IsNullOrEmpty(selectedWorkerName) && !selectedWorkerName.Equals("Barcha sotuvchi"))
             {
-                filterProductSaleDto.WorkerName = selectedWorkerName;
+                filterReplaceProductDto.WorkerName = selectedWorkerName;
             }
 
             var searchTerm = searchTextBox.Text.ToLower();
             if (!string.IsNullOrEmpty(searchTerm))
             {
-                filterProductSaleDto.ProductName = searchTerm;
+                filterReplaceProductDto.ProductName = searchTerm;
             }
 
-            var filteredProductSales = await _replaceProductService.FilterReplaceProductAsync(filterProductSaleDto);
+            var filterReplaceProducts = await _replaceProductService.FilterReplaceProductAsync(filterReplaceProductDto);
 
-            ShowReplaceProducts(filteredProductSales);
+            ShowReplaceProducts(filterReplaceProducts);
         }
 
-        private void ShowReplaceProducts(IEnumerable<ReplaceProductDto> productSales)
+        private void ShowReplaceProducts(IEnumerable<ReplaceProductDto> replaceProducts)
         {
-            productSales = productSales.OrderByDescending(ps => ps.CreatedDate).ToList();
+            replaceProducts = replaceProducts.OrderByDescending(ps => ps.CreatedDate).ToList();
+
+            var count = replaceProducts.Sum(sum => sum.Count);
+            var totalCost = replaceProducts.Sum(sum => sum.ProductSale.Product.SellPrice * sum.Count);
+            ShopDetailsPage shopDetailsPage = new ShopDetailsPage();
+            shopDetailsPage.SetValuesReturnProducts(count, totalCost);
 
             St_ReturnedProducts.Visibility = Visibility.Visible;
             St_ReturnedProducts.Children.Clear();
             int rowNumber = 1;
 
-            foreach (var item in productSales)
+            foreach (var item in replaceProducts)
             {
-                double totalPrice = item.ProductSale.Product.Price * item.Count;
+                double totalPrice = item.ProductSale.Product.SellPrice * item.Count;
                 ReturnedCargoComponent returnedCargoComponent = new ReturnedCargoComponent();
                 returnedCargoComponent.Tag = item.Id;
                 returnedCargoComponent.SetValues(

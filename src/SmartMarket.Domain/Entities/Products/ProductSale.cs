@@ -25,6 +25,8 @@ namespace SmartMarket.Domain.Entities.Products
         public long TransactionNumber { get; set; }
         [Column("count")]
         public int Count { get; set; }
+        [Column("discount")]
+        public double Discount { get; set; }
         [Column("total_cost")]
         public double TotalCost { get; set; }
         [Column("cash_sum")]

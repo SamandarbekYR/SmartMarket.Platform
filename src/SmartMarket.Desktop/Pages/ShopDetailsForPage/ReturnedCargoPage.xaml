@@ -96,7 +96,7 @@
             Background="White">
             <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.3*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -104,59 +104,35 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock
-                  Grid.Column="0"
-                  Text="№"
-                  VerticalAlignment="Center"
-                  HorizontalAlignment="Center"
-                  FontSize="15"
-                  FontWeight="SemiBold"
-                  ></TextBlock>
+             <Label
+                 Grid.Column="0"
+                 Content="№"
+                 Style="{DynamicResource Label}"/>
 
-            <TextBlock
-                  Grid.Column="1"
-                  Text="Transaction №"
-                  VerticalAlignment="Center"
-                  HorizontalAlignment="Center"
-                  FontSize="15"
-                  FontWeight="SemiBold"
-                  ></TextBlock>
+             <Label
+                 Grid.Column="1"
+                 Content="Transaction №"
+                 Style="{DynamicResource Label}"/>
 
-            <TextBlock
-                  Grid.Column="2"
-                  Text="Mahsulot nomi"
-                  VerticalAlignment="Center"
-                  HorizontalAlignment="Center"
-                  FontSize="15"
-                  FontWeight="SemiBold"
-                  ></TextBlock>
+             <Label
+                 Content="Mahsulot nomi"
+                 Grid.Column="2"
+                 Style="{DynamicResource Label}"/>
 
-            <TextBlock
-                  Grid.Column="3"
-                  Text="Narxi"
-                  VerticalAlignment="Center"
-                  HorizontalAlignment="Center"
-                  FontSize="15"
-                  FontWeight="SemiBold"
-                  ></TextBlock>
+             <Label
+                 Grid.Column="3"
+                 Content="Narxi"
+                 Style="{DynamicResource Label}"/>
 
-            <TextBlock
-                  Grid.Column="4"
-                  Text="Soni"
-                  VerticalAlignment="Center"
-                  HorizontalAlignment="Center"
-                  FontSize="15"
-                  FontWeight="SemiBold"
-                  ></TextBlock>
+             <Label
+                 Content="Soni"
+                 Grid.Column="4"
+                 Style="{DynamicResource Label}"/>
+             <Label
+                 Grid.Column="5"
+                 Content="Umumiy narxi"
+                 Style="{DynamicResource Label}"/>
 
-            <TextBlock
-                  Grid.Column="5"
-                  Text="Umumiy narxi"
-                  VerticalAlignment="Center"
-                  HorizontalAlignment="Center"
-                  FontSize="15"
-                  FontWeight="SemiBold"
-                  ></TextBlock>
             </Grid>
         </Border>
 

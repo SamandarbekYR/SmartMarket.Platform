@@ -1,4 +1,6 @@
 ﻿using SmartMarket.Desktop.Windows.ProductsForWindow;
+using SmartMarket.Service.ViewModels.Products;
+
 using System.Windows;
 using System.Windows.Controls;
 
@@ -45,9 +47,7 @@ public partial class ReturnProductComponent : UserControl
 
     private void Return_Button_Click(object sender, RoutedEventArgs e)
     {
-        Guid guid = Guid.NewGuid();
-
-        ReturnProductViewWindow returnProductViewWindow = new ReturnProductViewWindow(guid);
+        ReturnProductViewWindow returnProductViewWindow = new ReturnProductViewWindow(new ProductSaleViewModel());
         returnProductViewWindow.ShowDialog();
     }
 }
