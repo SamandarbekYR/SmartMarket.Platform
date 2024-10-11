@@ -11,11 +11,13 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
     public partial class ShopHIstoryPage : Page
     {
         private IProductSaleService _productSaleService;
+        private ShopDetailsPage _shopDetailsPage;
 
-        public ShopHIstoryPage()
+        public ShopHIstoryPage(ShopDetailsPage shopDetailsPage)
         {
             InitializeComponent();
             _productSaleService = new ProductSaleService();
+            _shopDetailsPage = shopDetailsPage;
         }
 
         public async void GetAllProduct()
@@ -65,7 +67,12 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
 
         private void ShowProductSales(IEnumerable<ProductSaleViewModel> productSales)
         {
-            productSales = productSales.OrderByDescending(ps => ps.CreatedDate).ToList();
+            productSales = productSales.Where(ps => ps.Count != 0)
+                .OrderByDescending(ps => ps.CreatedDate).ToList();
+
+            var totalCost = productSales.Sum(p => p.TotalCost);
+            var Profit = productSales.Sum(p => (p.Product.SellPrice - p.Product.Price) * p.Count);
+            _shopDetailsPage.SetValuesShopHitory(totalCost, Profit);
 
             St_productList.Visibility = Visibility.Visible;
             St_productList.Children.Clear();
@@ -79,7 +86,7 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
                     rowNumber,
                     item.TransactionNumber,
                     item.Product.Name,
-                    item.Product.Price,
+                    item.Product.SellPrice,
                     item.Count,
                     item.TotalCost);
 

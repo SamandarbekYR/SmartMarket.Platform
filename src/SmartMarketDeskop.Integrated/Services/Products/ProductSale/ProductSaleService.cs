@@ -69,6 +69,18 @@ namespace SmartMarketDeskop.Integrated.Services.Products.ProductSale
             }
         }
 
+        public Task<bool> DeleteAsync(Guid id)
+        {
+            if (IsInternetAvailable())
+            {
+                return productSaleServer.DeleteAsync(id);
+            }
+            else
+            {
+                return Task.FromResult(false);
+            }
+        }
+
         public bool IsInternetAvailable()
         {
             try

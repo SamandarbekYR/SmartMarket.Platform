@@ -58,8 +58,8 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
                 {
                     ProductName = group.Key,
                     TotalCount = group.Sum(p => p.Count), // Mahsulotning umumiy sotilgan soni
-                    TotalSales = group.Sum(p => p.Product.SellPrice), // Jami sotuv summasi
-                    Profit = group.Sum(p => p.Product.SellPrice - p.Product.Price) // Foyda summasi
+                    TotalSales = group.Sum(p => p.Product.SellPrice * p.Count), // Jami sotuv summasi
+                    Profit = group.Sum(p => (p.Product.SellPrice - p.Product.Price) * p.Count) // Foyda summasi
                 }).OrderByDescending(p => p.TotalCount).ToList();
 
             if(!string.IsNullOrEmpty(countTextBox.Text))
