@@ -12,5 +12,6 @@ namespace SmartMarketDeskop.Integrated.Server.Interfaces.Products
         Task<List<ProductSaleViewModel>> FilterProductSaleAsync(FilterProductSaleDto dto);
         Task<bool> AddAsync(AddProductSaleDto dto);
         Task<bool> UpdateAsync(AddProductSaleDto dto, Guid id);
+        Task<bool> DeleteAsync(Guid id);
     }
 }

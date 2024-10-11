@@ -66,16 +66,12 @@ public partial class ReturnProductViewWindow : Window
             tb_Description.Text = _productSale.Product.Category.Description;
             tb_Transaction.Text = _productSale.TransactionNumber.ToString();
             tb_Price.Text = _productSale.Product.Price.ToString();
+            tb_Discount.Text = _productSale.Discount.ToString();
             tb_Quantity.Text = _productSale.Count.ToString();
             tb_Total.Text = _productSale.TotalCost.ToString();
             tb_Seller.Text = _productSale.Worker.FirstName;
+            tb_Returner.Text = _productSale.Product.Worker.FirstName;
         }
-
-        var workers = await _workerService.GetAllAsync();
-        cb_Workers.DisplayMemberPath = "FirstName";  
-        cb_Workers.SelectedValuePath = "Id";         
-        cb_Workers.ItemsSource = workers;
-
     }
 
     private async void SaveReturnProduct_Button_Click(object sender, RoutedEventArgs e)
@@ -83,7 +79,7 @@ public partial class ReturnProductViewWindow : Window
         var replaceProductDto = new AddReplaceProductDto
         {
             ProductSaleId = Guid.TryParse(tb_Id.Text, out var productSaleId) ? productSaleId : Guid.Empty,
-            WorkerId = cb_Workers.SelectedValue is Guid workerId ? workerId : Guid.Empty,
+            WorkerId = _productSale.Product.WorkerId,
             Count = int.TryParse(tb_Cancel_Quantity.Text, out var count) ? count : 0,
             Reason = tb_Reason.Text
         };
@@ -96,7 +92,7 @@ public partial class ReturnProductViewWindow : Window
         {
             MessageBox.Show("Qaytarib oluvchi tanlanmagan!", "Xatolik", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
-        if (replaceProductDto.Count <= 0)
+        if (replaceProductDto.Count <= 0 || replaceProductDto.Count > _productSale.Count)
         {
             MessageBox.Show("Qaytarilgan miqdori noto'g'ri yoki nolga teng!", "Xatolik", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
@@ -121,25 +117,61 @@ public partial class ReturnProductViewWindow : Window
             AddProductSaleDto productSaleDto = new AddProductSaleDto()
             {
                 ProductId = _productSale.ProductId,
-                WorkerId = (Guid)cb_Workers.SelectedValue,
+                WorkerId = _productSale.Product.WorkerId,
                 TransactionId = _productSale.TransactionId,
                 PayDeskId = _productSale.PayDeskId,
                 TransactionNumber = _productSale.TransactionNumber,
                 Count = _productSale.Count - replaceProductDto.Count,
-                TotalCost = _productSale.TotalCost - _productSale.Product.Price * replaceProductDto.Count,
+                TotalCost = _productSale.TotalCost - _productSale.Product.SellPrice * replaceProductDto.Count,
                 CashSum = _productSale.CashSum,
                 CardSum = _productSale.CardSum,
                 TransferMoney = _productSale.TransferMoney,
                 DebtSum = _productSale.DebtSum
             };
 
-            await _productSaleService.UpdateAsync(productSaleDto, _productSale.Id);
+            var result =  await _productSaleService.UpdateAsync(productSaleDto, _productSale.Id);
+            
+            if(!result)
+            {
+                MessageBox.Show("Product Sale ma'lumotlari yangilashda xatolik yuz berdi!", "Xatolik", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                this.Close();
+            }
         }
         else
         {
             MessageBox.Show("Saqlashda xatolik yuz berdi!", "Xatolik", MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
+
+    private void CountTextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+    {
+        e.Handled = !IsTextAllowed(e.Text);
+    }
+
+    private void CountTextBox_Pasting(object sender, DataObjectPastingEventArgs e)
+    {
+        if (e.DataObject.GetDataPresent(typeof(string)))
+        {
+            string text = (string)e.DataObject.GetData(typeof(string));
+            if (!IsTextAllowed(text))
+            {
+                e.CancelCommand();
+            }
+        }
+        else
+        {
+            e.CancelCommand();
+        }
+    }
+
+    private static bool IsTextAllowed(string text)
+    {
+        return text.All(char.IsDigit);
+    }
+
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {

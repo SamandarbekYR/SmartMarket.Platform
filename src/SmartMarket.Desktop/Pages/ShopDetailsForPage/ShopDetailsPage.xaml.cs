@@ -15,7 +15,7 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
 
         private void rbSaleHistory_Click(object sender, RoutedEventArgs e)
         {
-            ShopHIstoryPage shopHIstoryPage = new ShopHIstoryPage();
+            ShopHIstoryPage shopHIstoryPage = new ShopHIstoryPage(this);
             SalePageNavigator.Content = shopHIstoryPage;
 
             Main_Border.Visibility = Visibility.Visible;      
@@ -53,7 +53,7 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
 
         private void rbReturnProds_Click(object sender, RoutedEventArgs e)
         {
-            ReturnedCargoPage returnedCargoPage = new ReturnedCargoPage();
+            ReturnedCargoPage returnedCargoPage = new ReturnedCargoPage(this);
             SalePageNavigator.Content= returnedCargoPage;
 
             Main_Border.Visibility = Visibility.Visible;
@@ -88,6 +88,13 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
             Invalid_Prods_2.Visibility = Visibility.Visible;
         }
 
+        public void SetValuesShopHitory(double totalCost = 0, double totalProfit = 0, double totalExpence = 0)
+        {
+            lb_TotalCost.Content = totalCost.ToString();
+            lb_TotalExpence.Content = totalExpence.ToString();
+            lb_TotalProfit.Content = totalProfit.ToString();
+        }
+
         public void SetValuesReturnProducts(int count, double totalCost)
         {
             lb_ReturnProductCount.Content = count.ToString();
@@ -102,7 +109,7 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            ShopHIstoryPage shopHIstoryPage = new ShopHIstoryPage();
+            ShopHIstoryPage shopHIstoryPage = new ShopHIstoryPage(this);
             SalePageNavigator.Content = shopHIstoryPage;
         }
     }
