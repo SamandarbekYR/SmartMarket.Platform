@@ -73,7 +73,7 @@ namespace SmartMarket.Desktop.Windows.Category
 
         public void GetData(CategoryView _category)
         {
-            categoryView = _category;
+            categoryView =_category ;
         }
 
 

@@ -10,7 +10,7 @@ namespace SmartMarketDeskop.Integrated.Server.Interfaces.Workers
 {
     public interface IWorkerServer
     {
-        Task<List<Worker>> GetAllAsync();
+        Task<List<WorkerDto>> GetAllAsync();
         Task<bool> AddAsync(WorkerDto dto);
 
         Task<bool> DeleteAsync(Guid Id);

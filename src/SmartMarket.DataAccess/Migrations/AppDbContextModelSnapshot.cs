@@ -241,7 +241,9 @@ namespace SmartMarket.DataAccess.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("FirstName", "PhoneNumber")
+                    b.HasIndex("FirstName");
+
+                    b.HasIndex("PhoneNumber")
                         .IsUnique();
 
                     b.ToTable("contr_agent");
@@ -423,6 +425,10 @@ namespace SmartMarket.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("integer")
+                        .HasColumnName("count");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
@@ -625,6 +631,10 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("double precision")
                         .HasColumnName("debt_sum");
 
+                    b.Property<double>("Discount")
+                        .HasColumnType("double precision")
+                        .HasColumnName("discount");
+
                     b.Property<Guid>("PayDeskId")
                         .HasColumnType("uuid")
                         .HasColumnName("pay_desk_id");
@@ -672,6 +682,10 @@ namespace SmartMarket.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("integer")
+                        .HasColumnName("count");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")

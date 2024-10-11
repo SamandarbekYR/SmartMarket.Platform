@@ -8,7 +8,6 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
     /// </summary>
     public partial class ShopDetailsPage : Page
     {
-      
         public ShopDetailsPage()
         {
             InitializeComponent();
@@ -73,8 +72,8 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
 
         private void rbInvalidProds_Click(object sender, RoutedEventArgs e)
         {
-            InValidProductPage inValidProductPage = new InValidProductPage();
-            SalePageNavigator.Content= inValidProductPage;
+            InValidProductPage inValidProductPage = new InValidProductPage(this);
+            SalePageNavigator.Content = inValidProductPage;
 
             Main_Border.Visibility = Visibility.Visible;
 
@@ -87,6 +86,18 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
 
             Invalid_Prods_1.Visibility = Visibility.Visible;
             Invalid_Prods_2.Visibility = Visibility.Visible;
+        }
+
+        public void SetValuesReturnProducts(int count, double totalCost)
+        {
+            lb_ReturnProductCount.Content = count.ToString();
+            lb_ReturnProductTotalCost.Content = totalCost.ToString();
+        }
+
+        public void SetValuesInvalidProducts(int count, double totalCost)
+        {
+            lb_InvalidProductCount.Content = count.ToString();
+            lb_InvalidProductTotalCost.Content = totalCost.ToString();
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

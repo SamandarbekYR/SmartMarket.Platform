@@ -1,4 +1,9 @@
 ﻿using SmartMarket.Desktop.Windows.ProductsForWindow;
+using SmartMarket.Service.DTOs.Products.ProductSale;
+using SmartMarket.Service.ViewModels.Products;
+
+using SmartMarketDesktop.ViewModels.Entities.Products;
+
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,6 +14,7 @@ namespace SmartMarket.Desktop.Components.ShopDetailsForComponent;
 /// </summary>
 public partial class ShopDetailsProductComponent : UserControl
 {
+
     public ShopDetailsProductComponent()
     {
         InitializeComponent();
@@ -45,10 +51,9 @@ public partial class ShopDetailsProductComponent : UserControl
 
     private void Return_Button_Click(object sender, RoutedEventArgs e)
     {
-        ReturnProductViewWindow returnProductViewWindow = new ReturnProductViewWindow();
-        ReturnProductWindow returnProductWindow = GetReturnProductWindow();
-        returnProductWindow.Hide();
+        var productSale = this.Tag as ProductSaleViewModel;
+
+        ReturnProductViewWindow returnProductViewWindow = new ReturnProductViewWindow(productSale);
         returnProductViewWindow.ShowDialog();
-        returnProductWindow.Show();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Desktop.Components.ShopDetailsForComponent;
+using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.ViewModels.Products;
 using SmartMarketDeskop.Integrated.Services.Products.ProductSale;
 using System.Windows;
@@ -10,7 +11,6 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
     public partial class ShopHIstoryPage : Page
     {
         private IProductSaleService _productSaleService;
-        private List<ProductSaleViewModel> _cachedProductSales; 
 
         public ShopHIstoryPage()
         {
@@ -20,85 +20,54 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
 
         public async void GetAllProduct()
         {
-            _cachedProductSales = await _productSaleService.GetAllAsync(); 
+            var productSales = await _productSaleService.GetAllAsync();
 
-            List<string> workerNames = _cachedProductSales
+            List<string> workerNames = productSales
                 .Select(ps => ps.Worker.FirstName)
                 .Distinct()
                 .ToList();
 
-            var defaultItem = new ComboBoxItem
-            {
-                Content = "Barcha sotuvchi",
-               // IsEnabled = false,
-                IsSelected = true,
-            };
+            workerNames.Insert(0, "Barcha sotuvchi");
+            workerComboBox.ItemsSource = workerNames;
 
-            workerComboBox.Items.Add(defaultItem);
+            var today = DateTime.Today;
+            productSales = productSales.Where(ps => ps.CreatedDate.Value.Date == today).ToList();
 
-            foreach (var workerName in workerNames)
-            {
-                workerComboBox.Items.Add(new ComboBoxItem
-                {
-                    Content = workerName,
-                    IsEnabled = true
-                });
-            }
-
-            workerComboBox.SelectedItem = defaultItem;
-
-            ShowProductSales(_cachedProductSales); 
+            ShowProductSales(productSales);
         }
 
-        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        private async void FilterProductSales()
         {
+            FilterProductSaleDto filterProductSaleDto = new FilterProductSaleDto();
+
             if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
             {
-                var fromDate = fromDateTime.SelectedDate.Value;
-                var toDate = toDateTime.SelectedDate.Value;
-
-                var filteredProductSales = _cachedProductSales.Where(ps =>
-                    ps.CreatedDate >= fromDate &&
-                    ps.CreatedDate <= toDate);
-
-                ShowProductSales(filteredProductSales);
+                filterProductSaleDto.FromDateTime = fromDateTime.SelectedDate.Value;
+                filterProductSaleDto.ToDateTime = toDateTime.SelectedDate.Value;
             }
-        }
 
-        private void WorkerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selectedWorkerName = (workerComboBox.SelectedItem as ComboBoxItem)?.Content.ToString();
-
+            var selectedWorkerName = workerComboBox.SelectedItem?.ToString();
             if (!string.IsNullOrEmpty(selectedWorkerName) && !selectedWorkerName.Equals("Barcha sotuvchi"))
             {
-                var filteredProductSales = _cachedProductSales
-                    .Where(ps => ps.Worker.FirstName == selectedWorkerName)
-                    .ToList();
-
-                ShowProductSales(filteredProductSales);
+                filterProductSaleDto.WorkerName = selectedWorkerName;
             }
-            else
+
+            var searchTerm = searchTextBox.Text.ToLower();
+            if (!string.IsNullOrEmpty(searchTerm))
             {
-                ShowProductSales(_cachedProductSales); 
+                filterProductSaleDto.ProductName = searchTerm;
             }
-        }
 
-        private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                var searchTerm = searchTextBox.Text.ToLower();
+            var filteredProductSales = await _productSaleService.FilterProductSaleAsync(filterProductSaleDto);
 
-                var filteredProductSales = _cachedProductSales.Where(ps =>
-                    ps.Product.Name.ToLower().Contains(searchTerm) ||
-                    ps.TransactionNumber.ToString().Contains(searchTerm));
-
-                ShowProductSales(filteredProductSales);
-            }
+            ShowProductSales(filteredProductSales);
         }
 
         private void ShowProductSales(IEnumerable<ProductSaleViewModel> productSales)
         {
+            productSales = productSales.OrderByDescending(ps => ps.CreatedDate).ToList();
+
+            St_productList.Visibility = Visibility.Visible;
             St_productList.Children.Clear();
             int rowNumber = 1;
 
@@ -117,6 +86,24 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
                 shopDetailsProductComponent.BorderThickness = new Thickness(2);
                 St_productList.Children.Add(shopDetailsProductComponent);
                 rowNumber++;
+            }
+        }
+
+        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FilterProductSales();
+        }
+
+        private void WorkerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FilterProductSales();
+        }
+
+        private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                FilterProductSales();
             }
         }
 

@@ -31,6 +31,10 @@ public class ProductSaleValidator : AbstractValidator<AddProductSaleDto>
             .GreaterThanOrEqualTo(0)
             .WithMessage("Product count must be greater than or equal to zero.");
 
+        RuleFor(ps => ps.Discount)
+            .GreaterThanOrEqualTo(0)
+            .WithMessage("Discount must be greater than or equal to zero.");
+
         RuleFor(ps => ps.TotalCost)
             .GreaterThanOrEqualTo(0)
             .WithMessage("Total cost must be greater than or equal to zero.");

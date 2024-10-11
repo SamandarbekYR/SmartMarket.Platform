@@ -1,4 +1,7 @@
 ﻿using SmartMarket.Service.DTOs.Workers.Worker;
+
+using SmartMarketDeskop.Integrated.Server.Interfaces.Workers;
+using SmartMarketDeskop.Integrated.Server.Repositories.Workers;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
 using System;
 using System.Collections.Generic;
@@ -11,7 +14,12 @@ namespace SmartMarketDeskop.Integrated.Services.Workers.Worker
 {
     public class WorkerService : IWorkerService
     {
-       
+       private IWorkerServer _workerServer;
+
+        public WorkerService()
+        {
+            _workerServer = new WorkerServer();
+        }
         public async Task<bool> CreateProduct(WorkerDto dto)
         {
             throw new NotImplementedException();
@@ -29,6 +37,17 @@ namespace SmartMarketDeskop.Integrated.Services.Workers.Worker
             throw new NotImplementedException();
         }
 
+        public async Task<List<WorkerDto>> GetAllAsync()
+        {
+            if (IsInternetAvailable())
+            {
+                return await _workerServer.GetAllAsync();
+            }
+            else
+            {
+                return new List<WorkerDto>();
+            }
+        }
 
         public bool IsInternetAvailable()
         {
