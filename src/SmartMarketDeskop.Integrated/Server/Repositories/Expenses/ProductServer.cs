@@ -1,35 +1,38 @@
 ﻿using Newtonsoft.Json;
 using NLog;
+using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
-using SmartMarketDesktop.ViewModels.Entities.Expenses;
+using SmartMarketDesktop.ViewModels.Entities.Products;
 
 namespace SmartMarketDeskop.Integrated.Server.Repositories.Expenses
 {
-
-    public class ExpensesServer : IExpensesServer
+    public class ProductServer : IProductServer
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        public async Task<List<ExpenseView>> GetExpensesFullInformationAsync()
+        public async Task<List<ProductView>> GetAllProduct()
         {
             try
             {
                 HttpClient client = new HttpClient();
-
                 var token = IdentitySingelton.GetInstance().Token;
-                client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/expences");
+                client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/products");
+
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-                HttpResponseMessage responseMessage = await client.GetAsync(client.BaseAddress);
 
-                string response = await responseMessage.Content.ReadAsStringAsync();
-                List<ExpenseView> expenses = JsonConvert.DeserializeObject<List<ExpenseView>>(response)!;
+                HttpResponseMessage message = await client.GetAsync(client.BaseAddress);
 
-                return expenses;
+                string response = await message.Content.ReadAsStringAsync();
+
+                List<ProductView> products = JsonConvert.DeserializeObject<List<ProductView>>(response)!;
+
+                return products;
+
             }
-            catch (Exception ex)
+            catch
             {
-                return new List<ExpenseView>();
+                return new List<ProductView>();
             }
         }
     }

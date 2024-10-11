@@ -96,9 +96,7 @@
             BorderBrush="{DynamicResource BorderColor}"
             BorderThickness="1 0 1 0" 
             Background="White">
-            <Grid
-           
-            >
+            <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="2.2*"/>

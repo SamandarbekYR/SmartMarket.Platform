@@ -7,16 +7,21 @@
              mc:Ignorable="d"
              d:DesignHeight="39" d:DesignWidth="1100">
     <Grid>
-        <Border CornerRadius="8" Background="White">
+        <Border Style="{DynamicResource StyleBorder}"
+                CornerRadius="8"
+                Margin="5 5 5 0"
+                Background="White"
+                BorderBrush="Black"
+                BorderThickness="1">
 
-            <Grid Margin="10 0">
+            <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="2.2*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="1.2*"/>
+                    <ColumnDefinition Width="1.2*"/>
+                    <ColumnDefinition Width="1.5*"/>
                 </Grid.ColumnDefinitions>
 
                 <TextBlock 
@@ -27,7 +32,7 @@
                     HorizontalAlignment="Center"
                     FontSize="26"
                     FontWeight="SemiBold">
-                    
+
                 </TextBlock>
 
                 <TextBlock

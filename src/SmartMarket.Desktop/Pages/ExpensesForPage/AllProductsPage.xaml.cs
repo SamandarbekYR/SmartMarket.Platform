@@ -1,4 +1,7 @@
-﻿using System;
+﻿using SmartMarket.Desktop.Components.ExpenseForComponents;
+using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
+using SmartMarketDeskop.Integrated.Server.Repositories.Expenses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +23,40 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
     /// </summary>
     public partial class AllProductsPage : Page
     {
+        private readonly IProductServer server;
         public AllProductsPage()
         {
             InitializeComponent();
+            this.server = new ProductServer();
+            Loaded += Page_Loaded;
+        }
+
+        public async void GetAllProduct()
+        {
+            St_AllProducts.Children.Clear();
+
+            int count = 1;
+
+            var products = await server.GetAllProduct();
+
+            if (products != null)
+            {
+                foreach (var product in products)
+                {
+                    ProductsComponent productsComponent = new ProductsComponent();
+                    productsComponent.tbNumber.Text = count.ToString();
+                    productsComponent.SetData(product);
+                    St_AllProducts.Children.Add(productsComponent);
+                    count++;
+                }
+            }
+            else
+            { }
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            GetAllProduct();
         }
     }
 }
