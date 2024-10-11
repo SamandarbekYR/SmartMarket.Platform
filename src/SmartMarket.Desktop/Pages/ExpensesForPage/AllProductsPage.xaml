@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ExpensesForPage"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      Title="AllProductsPage">
+      Title="AllProductsPage"
+      Loaded="Page_Loaded">
 
     <Grid 
         Background="White">
@@ -56,74 +57,44 @@
             <Grid >
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="0.8*"/>
-                <ColumnDefinition Width="1.6*"/>
-                <ColumnDefinition Width="1.7*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="1.4*"/>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="0.8*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="1.2*"/>
-                <ColumnDefinition Width="1.2*"/>
-            </Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="1.7*"/>
+                    <ColumnDefinition Width="1.4*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="1.2*"/>
+                    <ColumnDefinition Width="1.2*"/>
+                </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Column="0" 
+                <TextBlock Grid.Column="0" 
                        Text="N%"
                        VerticalAlignment="Center"
                        FontSize="15"
                        FontWeight="SemiBold"
                        Margin="5 0 0 0"
-                       ></TextBlock>
-            <TextBlock Grid.Column="1"
-                       Text="P-Code"
-                       VerticalAlignment="Center"
-                       FontSize="15"
-                       FontWeight="SemiBold"
-                       ></TextBlock>
-            <TextBlock Grid.Column="2"
-                       Text="Barcode"
-                       VerticalAlignment="Center"
-                      FontSize="15"
-                       FontWeight="SemiBold"
-                       ></TextBlock>
-            <TextBlock Grid.Column="3"
+                ></TextBlock>
+                <TextBlock Grid.Column="1"
                        Text="Mahsulot Nomi"
                        VerticalAlignment="Center"
                        FontSize="15"
                        FontWeight="SemiBold"
                        ></TextBlock>
-            <TextBlock Grid.Column="4"
-                       Text="Kategoriya"
-                       VerticalAlignment="Center"
-                       FontSize="15"
-                       FontWeight="SemiBold"
-                       ></TextBlock>
-            <TextBlock Grid.Column="5"
-                       Text="Ishchi"
-                       VerticalAlignment="Center"
-                       FontSize="15"
-                       FontWeight="SemiBold"
-                       ></TextBlock>
-            <TextBlock Grid.Column="6"
-                       Text="Tan Narxi"
+                <TextBlock Grid.Column="2"
+                       Text="Narxi"
                        VerticalAlignment="Center"
                        
                        FontSize="15"
                        FontWeight="SemiBold"
                        
                        ></TextBlock>
-            <TextBlock Grid.Column="7"
+                <TextBlock Grid.Column="3"
                        Text="Soni"
                        VerticalAlignment="Center"
                        FontSize="15"
                        FontWeight="SemiBold"
                        Margin="0 0 15 0"
                        ></TextBlock>
-            <TextBlock Grid.Column="8"
+                <TextBlock Grid.Column="4"
                        Text="Jami Summa"
                        VerticalAlignment="Center"
                        
@@ -131,22 +102,7 @@
                        FontWeight="SemiBold"
                        Margin="0 0 15 0"
                        ></TextBlock>
-            <TextBlock Grid.Column="9"
-                       Text="O'lchov"
-                       VerticalAlignment="Center"
-                      FontSize="15"
-                       FontWeight="SemiBold"
-                       Margin="0 0 15 0"
-                       ></TextBlock>
-            <TextBlock Grid.Column="10"
-                       Text="Sotuv Narxi"
-                       VerticalAlignment="Center"
-                       FontSize="15"
-                       FontWeight="SemiBold"
-                    
-                       ></TextBlock>
-
-        </Grid>
+            </Grid>
         </Border>
 
         <Border

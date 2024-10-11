@@ -33,15 +33,15 @@ namespace SmartMarket.Desktop.Components.ExpenseForComponents
         public Guid LoadReportId { get; set; }
         public void SetData(LoadReportViewModel loadReport)
         {
-            tbPCode.Text = loadReport.PCode;
-            tbBarcode.Text = loadReport.Barcode;
-            tbCategory.Text = loadReport.CategoryName;
-            tbCount.Text = loadReport.Count.ToString();
-            tbDate.Text = loadReport.Date.ToString();
-            tbManuFacturer.Text = loadReport.ManuFacture;
-            tbPrice.Text = loadReport.Price.ToString(); //SellPrice yoki Price?
-            tbWorker.Text = loadReport.WorkerName;
-            tbTotalPrice.Text = loadReport.TotalPrice.ToString();
+            //tbPCode.Text = loadReport.PCode;
+            //tbBarcode.Text = loadReport.Barcode;
+            //tbCategory.Text = loadReport.CategoryName;
+            //tbCount.Text = loadReport.Count.ToString();
+            //tbDate.Text = loadReport.Date.ToString();
+            //tbManuFacturer.Text = loadReport.ManuFacture;
+            //tbPrice.Text = loadReport.Price.ToString(); //SellPrice yoki Price?
+            //tbWorker.Text = loadReport.WorkerName;
+            //tbTotalPrice.Text = loadReport.TotalPrice.ToString();
         }
     }
 }

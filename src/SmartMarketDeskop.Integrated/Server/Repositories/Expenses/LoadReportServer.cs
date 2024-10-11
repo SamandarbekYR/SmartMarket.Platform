@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using NLog;
+using SmartMarket.Service.DTOs.Products.LoadReport;
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
@@ -16,7 +17,7 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Expenses
     public class LoadReportServer : ILoadReportServer
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        public async Task<List<LoadReportView>> GetAllAsync()
+        public async Task<List<LoadReportDto>> GetAllAsync()
         {
             try
             {
@@ -28,13 +29,13 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Expenses
                 HttpResponseMessage responseMessage = await client.GetAsync(client.BaseAddress);
 
                 string response = await responseMessage.Content.ReadAsStringAsync();
-                List<LoadReportView> expenses = JsonConvert.DeserializeObject<List<LoadReportView>>(response)!;
+                List<LoadReportDto> expenses = JsonConvert.DeserializeObject<List<LoadReportDto>>(response)!;
 
                 return expenses;
             }
             catch (Exception ex)
             {
-                return new List<LoadReportView>();
+                return new List<LoadReportDto>();
             }
         }
     }

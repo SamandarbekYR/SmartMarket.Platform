@@ -1,4 +1,5 @@
-﻿using SmartMarketDesktop.ViewModels.Entities.Products;
+﻿using SmartMarket.Service.DTOs.Products.LoadReport;
+using SmartMarketDesktop.ViewModels.Entities.Products;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace SmartMarketDeskop.Integrated.Server.Interfaces.Expenses
 {
     public interface ILoadReportServer
     {
-        Task<List<LoadReportView>> GetAllAsync();
+        Task<List<LoadReportDto>> GetAllAsync();
     }
 }

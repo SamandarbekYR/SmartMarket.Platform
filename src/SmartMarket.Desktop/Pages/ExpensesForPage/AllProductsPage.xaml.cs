@@ -34,42 +34,48 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         public async void GetAllProduct()
         {
-            St_AllProducts.Children.Clear();
+            //St_AllProducts.Children.Clear();
 
-            var products = await server.GetAllAsync();
+            //var products = await server.GetAllAsync();
 
-            int count = 1;
+            //int count = 1;
 
-            if (products != null)
+            //if (products != null)
+            //{
+            //    foreach (var product in products)
+            //    {
+            //        var productView = new ProductViewModels
+            //        {
+            //            P_Code = product.PCode,
+            //            BarCode = product.Barcode,
+            //            ProductName = product.Name,
+            //            CateogoryName = "example", //api categoryName olish kerak
+            //            WorkerName = "Abdulvosid", //api workerName olish kerak
+            //            Price = product.Price,
+            //            SellPrice = product.SellPrice,
+            //            TotalPrice = product.SellPrice * product.Count,
+            //            UnitOfMeasure = product.UnitOfMeasure
+            //        };
+
+            //        ProductsComponent productsComponent = new ProductsComponent();
+            //        productsComponent.tbNumber.Text = count.ToString();
+            //        productsComponent.SetData(productView);
+            //        St_AllProducts.Children.Add(productsComponent);
+            //        count++;
+
+            //        MessageBox.Show("Componentlar yuklanyapdi");
+            //    }
+
+            //    MessageBox.Show($"jami {count - 1} component qoshildi");
+            //}
+            //else
+            //{ MessageBox.Show("component null"); }
+
+            for(int i = 0; i < 20; i++)
             {
-                foreach (var product in products)
-                {
-                    var productView = new ProductViewModels
-                    {
-                        P_Code = product.PCode,
-                        BarCode = product.Barcode,
-                        ProductName = product.Name,
-                        CateogoryName = "example", //api categoryName olish kerak
-                        WorkerName = "Abdulvosid", //api workerName olish kerak
-                        Price = product.Price,
-                        SellPrice = product.SellPrice,
-                        TotalPrice = product.SellPrice * product.Count,
-                        UnitOfMeasure = product.UnitOfMeasure
-                    };
-
-                    ProductsComponent productsComponent = new ProductsComponent();
-                    productsComponent.tbNumber.Text = count.ToString();
-                    productsComponent.SetData(productView);
-                    St_AllProducts.Children.Add(productsComponent);
-                    count++;
-
-                    MessageBox.Show("Componentlar yuklanyapdi");
-                }
-
-                MessageBox.Show($"jami {count - 1} component qoshildi");
+                ProductsComponent productsComponent = new ProductsComponent();
+                St_AllProducts.Children.Add(productsComponent);
             }
-            else
-            { MessageBox.Show("component null"); }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

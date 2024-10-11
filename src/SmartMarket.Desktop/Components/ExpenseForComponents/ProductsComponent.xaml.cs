@@ -33,16 +33,16 @@ namespace SmartMarket.Desktop.Components.ExpenseForComponents
         public Guid ProductId { get; set; }
         public void SetData(ProductViewModels product)
         {
-            tbPCode.Text = product.P_Code;
-            tbBarcode.Text = product.BarCode;
-            tbProductName.Text = product.ProductName;
-            tbCategory.Text = product.CateogoryName;
-            tbWorker.Text = product.WorkerName;
-            tbSellPrice.Text = product.SellPrice.ToString();
-            tbTotalPrice.Text = (product.SellPrice * product.Count).ToString();
-            tbCount.Text = product.Count.ToString();
-            tbPrice.Text = product.Price.ToString();
-            tbUnitOfMeasure.Text = product.UnitOfMeasure;
+            //tbPCode.Text = product.P_Code;
+            //tbBarcode.Text = product.BarCode;
+            //tbProductName.Text = product.ProductName;
+            //tbCategory.Text = product.CateogoryName;
+            //tbWorker.Text = product.WorkerName;
+            //tbSellPrice.Text = product.SellPrice.ToString();
+            //tbTotalPrice.Text = (product.SellPrice * product.Count).ToString();
+            //tbCount.Text = product.Count.ToString();
+            //tbPrice.Text = product.Price.ToString();
+            //tbUnitOfMeasure.Text = product.UnitOfMeasure;
         }
     }
 }

@@ -6,139 +6,69 @@
              xmlns:local="clr-namespace:SmartMarket.Desktop.Components.ExpenseForComponents"
              mc:Ignorable="d">
     <Border CornerRadius="5"
-            Height="45"
+                Height="45"
                 Margin="5 3 15 3"
-                BorderBrush="Black"
+                BorderBrush="{DynamicResource BorderColor}"
                 Background="White"
-                BorderThickness="1">
+                BorderThickness="0.5">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*"/>
-                    <ColumnDefinition Width="0.8*"/>
-                    <ColumnDefinition Width="1.6*"/>
-                    <ColumnDefinition Width="1.7*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="1.5*"/>
-                    <ColumnDefinition Width="1.4*"/>
-                    <ColumnDefinition Width="0.5*"/>
-                    <ColumnDefinition Width="1.5*"/>
-                    <ColumnDefinition Width="0.8*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="1.2*"/>
-                    <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="1.7*"/>
+                <ColumnDefinition Width="1.4*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="1.2*"/>
+                <ColumnDefinition Width="1.2*"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock 
+            <TextBlock 
                     x:Name="tbNumber"
                     Grid.Column="0"
                     Text="1"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    FontSize="16"
+                    Margin="5 0 0 0"
+                    FontSize="14"
                     FontWeight="SemiBold">
 
-                </TextBlock>
-                <TextBlock 
-                     x:Name="tbPCode"
-                     Grid.Column="1"
-                     Text="P001"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     FontSize="16"
-                     FontWeight="SemiBold">
-
-                </TextBlock>
-                <TextBlock 
-                     x:Name="tbBarcode"
-                     Grid.Column="2"
-                     Text="1000017725261"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     FontSize="16"
-                     FontWeight="SemiBold">
-
-                </TextBlock>
-                <TextBlock 
+            </TextBlock>
+            <TextBlock 
                      x:Name="tbProductName"
-                     Grid.Column="3"
+                     Grid.Column="1"
                      Text="Daftar"
                      VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     FontSize="16"
+                     FontSize="14"
                      FontWeight="SemiBold">
 
-                </TextBlock>
-                <TextBlock 
-                     x:Name="tbCategory"
-                     Grid.Column="4"
-                     Text="O'quv anjomi"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     FontSize="16"
-                     FontWeight="SemiBold">
-
-                </TextBlock>
-                <TextBlock 
-                     x:Name="tbWorker"
-                     Grid.Column="5"
-                     Text="Sherzod"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     FontSize="16"
-                     FontWeight="SemiBold">
-
-                </TextBlock>
-                <TextBlock 
+            </TextBlock>
+            <TextBlock 
                      x:Name="tbPrice"
-                     Grid.Column="6"
+                     Grid.Column="2"
                      Text="25,000"
                      VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     FontSize="16"
+                     FontSize="14"
                      FontWeight="SemiBold">
 
                 </TextBlock>
                 <TextBlock 
                      x:Name="tbCount"
-                     Grid.Column="7"
+                     Grid.Column="3"
                      Text="100"
                      VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     FontSize="16"
+                     FontSize="14"
                      FontWeight="SemiBold">
 
                 </TextBlock>
-                <TextBlock 
+            <TextBlock 
                      x:Name="tbTotalPrice"
-                     Grid.Column="8"
+                     Grid.Column="4"
                      Text="2,500,000"
                      VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     FontSize="16"
+                     FontSize="14"
                      FontWeight="SemiBold">
 
-                </TextBlock>
-                <TextBlock 
-                     x:Name="tbUnitOfMeasure"
-                     Grid.Column="9"
-                     Text="Dona"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     FontSize="16"
-                     FontWeight="SemiBold">
-
-                </TextBlock>
-                <TextBlock 
-                     x:Name="tbSellPrice"
-                     Grid.Column="10"
-                     Text="30000"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     FontSize="16"
-                     FontWeight="SemiBold">
-
-                </TextBlock>
-                <Button x:Name="tbEditBtn"
-                        Grid.Column="11"
+            </TextBlock>
+            <Button x:Name="tbEditBtn"
+                        Grid.Column="5"
                         Margin="5 2"
                         Content="Tahrirlash"
                         BorderThickness="0"
@@ -147,7 +77,7 @@
                     
                 </Button>
                 <Button x:Name="tbDeleteBtn"
-                        Grid.Column="12"
+                        Grid.Column="6"
                         Margin="5 2"
                         Content="O'chirish"
                         BorderThickness="0"

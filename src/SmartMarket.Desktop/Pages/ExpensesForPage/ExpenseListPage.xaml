@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ExpensesForPage"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      Title="ExpenseListPage">
+      Title="ExpenseListPage"
+      Loaded="Page_Loaded">
 
     <Grid>
         <Grid.RowDefinitions>

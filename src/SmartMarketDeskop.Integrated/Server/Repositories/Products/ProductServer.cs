@@ -96,7 +96,7 @@ public class ProductServer : IProductServer
         }
     }
 
-    public async Task<List<ProductDto>> GetAllAsync()
+    public async Task<List<FullProductDto>> GetAllAsync()
     {
         try
         {
@@ -110,14 +110,14 @@ public class ProductServer : IProductServer
 
             string response=await message.Content.ReadAsStringAsync();
 
-            List<ProductDto> products=JsonConvert.DeserializeObject<List<ProductDto>>(response)!;
+            List<FullProductDto> products=JsonConvert.DeserializeObject<List<FullProductDto>>(response)!;
 
             return products;
 
         }
         catch
         {
-            return new List<ProductDto>();
+            return new List<FullProductDto>();
         }
     }
 
@@ -145,7 +145,7 @@ public class ProductServer : IProductServer
         } 
     }
 
-    public async Task<List<ProductDto>> GetByCategoryIdAsync(Guid categoryId)
+    public async Task<List<FullProductDto>> GetByCategoryIdAsync(Guid categoryId)
     {
         try
         {
@@ -159,14 +159,14 @@ public class ProductServer : IProductServer
 
             string response = await message.Content.ReadAsStringAsync();
 
-            List<ProductDto> products = JsonConvert.DeserializeObject<List<ProductDto>>(response)!;
+            List<FullProductDto> products = JsonConvert.DeserializeObject<List<FullProductDto>>(response)!;
 
             return products;
 
         }
         catch
         {
-            return new List<ProductDto>();
+            return new List<FullProductDto>();
         }
     }
 
