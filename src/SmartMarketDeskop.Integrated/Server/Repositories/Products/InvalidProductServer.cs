@@ -86,6 +86,31 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Products
             }
         }
 
+        public async Task<List<InvalidProductDto>> FilterInvalidProductAsync(FilterInvalidProductDto filterInvalidProductDto)
+        {
+            try 
+            {                 
+                HttpClient client = new HttpClient();
+                var token = IdentitySingelton.GetInstance().Token;
+                client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/invalid-products/filter");
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            
+                var json = JsonConvert.SerializeObject(filterInvalidProductDto);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+            
+                HttpResponseMessage message = client.PostAsync(client.BaseAddress, content).Result;
+                string response = await message.Content.ReadAsStringAsync();
+                List<InvalidProductDto> replaceProducts = JsonConvert.DeserializeObject<List<InvalidProductDto>>(response)!;
+            
+                return replaceProducts;
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Failed to filter Invalid Products.");
+                return new List<InvalidProductDto>();
+            }
+        }
+
         public Task<bool> UpdateAsync(AddInvalidProductDto dto, Guid Id)
         {
             throw new NotImplementedException();

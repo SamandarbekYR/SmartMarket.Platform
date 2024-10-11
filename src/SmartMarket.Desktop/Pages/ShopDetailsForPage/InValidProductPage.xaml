@@ -47,6 +47,7 @@
 
 
                     <DatePicker
+                        x:Name="fromDateTime"
                         Style="{DynamicResource FormDatePicker}"/>
                     <Label
                         FontSize="14"
@@ -62,6 +63,8 @@
 
 
                     <DatePicker
+                        x:Name="toDateTime"
+                        SelectedDateChanged="DatePicker_SelectedDateChanged"
                         Style="{DynamicResource FormDatePicker}"/>
                     <Label
                         FontSize="14"
@@ -73,19 +76,14 @@
 
                 <ComboBox
                     Margin="5 10 10 10"
+                    x:Name="workerComboBox"
+                    SelectionChanged="WorkerComboBox_SelectionChanged"
                     Grid.Column="3">
-                    <ComboBoxItem 
-                        IsEnabled="False" 
-                        IsSelected="True"
-                        Content="Sotuvchi"/>
-                    <ComboBoxItem
-                        Content="Aziz"/>
-                    <ComboBoxItem
-                        Content="Po'lat"/>
                 </ComboBox>
 
-
                 <TextBox
+                    x:Name="searchTextBox"
+                    KeyDown="SearchTextBox_KeyDown"
                     Margin="0 0 10 0"
                     Style="{DynamicResource search}"
                     Grid.Column="4"/>
@@ -108,59 +106,59 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock
+            <Label
                 Grid.Column="0"
-                Text="№"
+                Content="№"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 FontSize="15"
                 FontWeight="SemiBold"
-                ></TextBlock>
+                ></Label>
 
-                <TextBlock
+                <Label
                 Grid.Column="1"
-                Text="Transaction №"
+                Content="Transaction №"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 FontSize="15"
                 FontWeight="SemiBold"
-                ></TextBlock>
+                ></Label>
 
-                <TextBlock
+                <Label
                 Grid.Column="2"
-                Text="Mahsulot nomi"
+                Content="Mahsulot nomi"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 FontSize="15"
                 FontWeight="SemiBold"
-                ></TextBlock>
+                ></Label>
 
-                <TextBlock
+                <Label
                 Grid.Column="3"
-                Text="Narxi"
+                Content="Narxi"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 FontSize="15"
                 FontWeight="SemiBold"
-                ></TextBlock>
+                ></Label>
 
-            <TextBlock
+            <Label
                 Grid.Column="4"
-                Text="Soni"
+                Content="Soni"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 FontSize="15"
                 FontWeight="SemiBold"
-                ></TextBlock>
+                ></Label>
 
-                <TextBlock
+                <Label
                 Grid.Column="5"
-                Text="Umumiy narxi"
+                Content="Umumiy narxi"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 FontSize="15"
                 FontWeight="SemiBold"
-                ></TextBlock>
+                ></Label>
             </Grid>
         </Border>
 

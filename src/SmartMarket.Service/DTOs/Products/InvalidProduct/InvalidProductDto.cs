@@ -13,4 +13,5 @@ public class InvalidProductDto
     public PS.ProductSale ProductSale { get; set; }
     public int Count { get; set; }
     public string ReturnReason { get; set; } = string.Empty;
+    public DateTime CreatedDate { get; set; }
 }

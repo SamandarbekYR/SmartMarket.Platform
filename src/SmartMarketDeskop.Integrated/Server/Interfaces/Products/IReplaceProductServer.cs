@@ -6,7 +6,8 @@ namespace SmartMarketDeskop.Integrated.Server.Interfaces.Products
     {
         Task<bool> AddAsync(AddReplaceProductDto dto);
         Task<bool> DeleteAsync(Guid Id);
-        Task<List<ReplaceProductDto>> GetAllAsync();
         Task<bool> UpdateAsync(AddReplaceProductDto dto, Guid Id);
+        Task<List<ReplaceProductDto>> GetAllAsync();
+        Task<List<ReplaceProductDto>> FilterReplaceProductAsync(FilterReplaceProductDto dto);
     }
 }

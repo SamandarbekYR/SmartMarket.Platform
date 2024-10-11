@@ -52,6 +52,18 @@ namespace SmartMarketDeskop.Integrated.Services.Products.InvalidProduct
             }
         }
 
+        public async Task<List<InvalidProductDto>> FilterInvalidProductAsync(FilterInvalidProductDto filterInvalidProductDto)
+        {
+            if(IsInternetAvailable())
+            {
+                return await _invalidProductServer.FilterInvalidProductAsync(filterInvalidProductDto);
+            }
+            else
+            {
+                return new List<InvalidProductDto>();
+            }
+        }
+
         public async Task<bool> UpdateAsync(AddInvalidProductDto dto, Guid Id)
         {
             if(IsInternetAvailable())

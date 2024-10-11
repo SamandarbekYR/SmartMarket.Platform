@@ -12,4 +12,6 @@ public class ReplaceProductDto
     public PS.ProductSale? ProductSale { get; set; }
     public Guid WorkerId { get; set; }
     public Worker? Worker { get; set; }
+    public int Count { get; set; }
+    public DateTime? CreatedDate { get; set; }
 }

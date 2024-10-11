@@ -2,7 +2,9 @@
 using NLog;
 
 using SmartMarket.Service.DTOs.Products.Product;
+using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.DTOs.Products.ReplaceProduct;
+using SmartMarket.Service.ViewModels.Products;
 
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
@@ -81,6 +83,32 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Products
             catch
             {
                 logger.Error("Failed to get Replace Products.");
+                return new List<ReplaceProductDto>();
+            }
+        }
+
+        public async Task<List<ReplaceProductDto>> FilterReplaceProductAsync(FilterReplaceProductDto dto)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                var token = IdentitySingelton.GetInstance().Token;
+                client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/replace-products/filter");
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+                var json = JsonConvert.SerializeObject(dto);
+                var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage message = await client.PostAsync(client.BaseAddress, data);
+                string response = await message.Content.ReadAsStringAsync();
+
+                List<ReplaceProductDto> products = JsonConvert.DeserializeObject<List<ReplaceProductDto>>(response)!;
+
+                return products;
+            }
+            catch
+            {
+                logger.Error("Failed to filter Replace Products.");
                 return new List<ReplaceProductDto>();
             }
         }

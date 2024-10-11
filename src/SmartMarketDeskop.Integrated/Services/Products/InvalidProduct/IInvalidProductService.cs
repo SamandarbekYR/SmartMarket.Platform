@@ -7,7 +7,8 @@ namespace SmartMarketDeskop.Integrated.Services.Products.InvalidProduct
     {
         Task<bool> AddAsync(AddReplaceProductDto dto);
         Task<bool> DeleteAsync(Guid Id);
-        Task<List<InvalidProductDto>> GetAllAsync();
         Task<bool> UpdateAsync(AddInvalidProductDto dto, Guid Id);
+        Task<List<InvalidProductDto>> GetAllAsync();
+        Task<List<InvalidProductDto>> FilterInvalidProductAsync(FilterInvalidProductDto filterInvalidProductDto);
     }
 }

@@ -22,59 +22,59 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <TextBlock 
-                x:Name="tbNumber"
+            <Label 
+                x:Name="lb_Number"
                 Grid.Column="0"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 FontSize="15"
                 FontWeight="SemiBold"
-                ></TextBlock>
+                ></Label>
 
-            <TextBlock 
-                x:Name="tbTransactionNo"
+            <Label 
+                x:Name="lb_TransactionNo"
                 Grid.Column="1"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 FontSize="15"
                 FontWeight="SemiBold"
-                ></TextBlock>
+                ></Label>
     
-            <TextBlock
-                x:Name="tbProductName"
+            <Label
+                x:Name="lb_ProductName"
                 Grid.Column="3"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 FontSize="15"
                 FontWeight="SemiBold"
-                ></TextBlock>
+                ></Label>
 
-            <TextBlock
-                x:Name="tbPrice"
+            <Label
+                x:Name="lb_Price"
                 Grid.Column="5"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 FontSize="15"
                 FontWeight="SemiBold"
-                ></TextBlock>
+                ></Label>
 
-            <TextBlock
-                x:Name="tbCount"
+            <Label
+                x:Name="lb_Count"
                 Grid.Column="7"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 FontSize="15"
                 FontWeight="SemiBold"
-                ></TextBlock>
+                ></Label>
 
-            <TextBlock
-                x:Name="tbTotalPrice"
+            <Label
+                x:Name="lb_TotalPrice"
                 Grid.Column="8"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 FontSize="15"
                 FontWeight="SemiBold"
-                ></TextBlock>
+                ></Label>
         </Grid>
     </Border>
 </UserControl>

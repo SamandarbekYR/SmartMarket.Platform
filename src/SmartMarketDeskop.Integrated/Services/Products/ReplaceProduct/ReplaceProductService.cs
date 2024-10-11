@@ -62,6 +62,18 @@ namespace SmartMarketDeskop.Integrated.Services.Products.ReplaceProduct
             }
         }
 
+        public async Task<List<ReplaceProductDto>> FilterReplaceProductAsync(FilterReplaceProductDto dto)
+        {
+            if (IsInternetAvailable())
+            {
+                return await replaceProductServer.FilterReplaceProductAsync(dto);
+            }
+            else
+            {
+                return new List<ReplaceProductDto>();
+            }
+        }
+
         public bool IsInternetAvailable()
         {
             try

@@ -7,7 +7,8 @@
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ReturnedCargoPage">
+      Title="ReturnedCargoPage"
+      Loaded="Page_Loaded">
 
     <Grid >
         <Grid.RowDefinitions>
@@ -45,6 +46,7 @@
                     Grid.Column="1">
 
                     <DatePicker
+                        x:Name="fromDateTime"
                         Style="{DynamicResource FormDatePicker}"/>
                     <Label
                         FontSize="14"
@@ -59,7 +61,9 @@
                     Grid.Column="2">
 
                     <DatePicker
-                        Style="{DynamicResource FormDatePicker}"/>
+                        x:Name="toDateTime"
+                        Style="{DynamicResource FormDatePicker}"
+                        SelectedDateChanged="DatePicker_SelectedDateChanged"/>
                     <Label
                         FontSize="14"
                         FontWeight="SemiBold"
@@ -70,20 +74,16 @@
 
                 <ComboBox
                     Margin="5 10 10 10"
-                    Grid.Column="3">
-                    <ComboBoxItem 
-                        IsEnabled="False" 
-                        IsSelected="True"
-                        Content="Sotuvchi"/>
-                    <ComboBoxItem
-                        Content="Aziz"/>
-                    <ComboBoxItem
-                        Content="Po'lat"/>
+                    x:Name="workerComboBox"
+                    Grid.Column="3"
+                    SelectionChanged="WorkerComboBox_SelectionChanged">
                 </ComboBox>
 
                 <TextBox
                     Margin="0 0 10 0"
+                    x:Name="searchTextBox"
                     Style="{DynamicResource search}"
+                    KeyDown="SearchTextBox_KeyDown"
                     Grid.Column="4"/>
             </Grid>
         </Border>

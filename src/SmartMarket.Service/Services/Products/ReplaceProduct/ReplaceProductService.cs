@@ -73,6 +73,47 @@ namespace SmartMarket.Service.Services.Products.ReplaceProduct
             }
         }
 
+        public async Task<List<ReplaceProductDto>> FilterReplaceProductAsync(FilterReplaceProductDto dto)
+        {
+            try
+            {
+                var replaceProducts = await _unitOfWork.ReplaceProduct.GetReplaceProductsFullInformationAsync();
+
+                if (dto.FromDateTime.HasValue && dto.ToDateTime.HasValue)
+                {
+                    replaceProducts = replaceProducts.Where(
+                        ps => ps.CreatedDate >= dto.FromDateTime.Value
+                        && ps.CreatedDate <= dto.ToDateTime.Value).ToList();
+                }
+                else
+                {
+                    replaceProducts = replaceProducts.Where(
+                        ps => ps.CreatedDate.Value.Date == DateTime.Today).ToList();
+                }
+
+                if (!string.IsNullOrWhiteSpace(dto.ProductName))
+                {
+                    replaceProducts = replaceProducts.Where(
+                        ps => ps.ProductSale.Product.Name.Contains(dto.ProductName)).ToList();
+                }
+
+                if (!string.IsNullOrWhiteSpace(dto.WorkerName))
+                {
+                    replaceProducts = replaceProducts.Where(
+                        ps => ps.Worker.FirstName.Contains(dto.WorkerName)).ToList();
+                }
+
+                var result = _mapper.Map<List<ReplaceProductDto>>(replaceProducts);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while filtering replace products.");
+                throw;
+            }
+        }
+
         public async Task<List<ReplaceProductDto>> GetAllAsync()
         {
             try
