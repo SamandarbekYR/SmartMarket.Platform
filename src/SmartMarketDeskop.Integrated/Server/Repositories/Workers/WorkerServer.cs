@@ -2,6 +2,7 @@
 using NLog;
 using SmartMarket.Domain.Entities.Products;
 using SmartMarket.Domain.Entities.Workers;
+using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.DTOs.Workers.Worker;
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;

@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartMarket.Desktop.Components.ExpenseForComponents"
              mc:Ignorable="d"
-             d:DesignHeight="39" d:DesignWidth="1100">
+             d:DesignHeight="39"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Top">
     <Grid>
         <Border Style="{DynamicResource StyleBorder}"
                 CornerRadius="8"
@@ -29,7 +31,7 @@
                     Grid.Column="0"
                     Text="1"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
                     FontSize="26"
                     FontWeight="SemiBold">
 
@@ -40,7 +42,7 @@
                     Grid.Column="1"
                     Text="Abet uchun"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
                     FontSize="26"
                     FontWeight="SemiBold">
                     
@@ -51,7 +53,7 @@
                     Grid.Column="2"
                     Text="100000"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
                     FontSize="26"
                     FontWeight="SemiBold">
 
@@ -62,7 +64,7 @@
                     Grid.Column="3"
                     Text="Naqt"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
                     FontSize="26"
                     FontWeight="SemiBold">
 
@@ -73,7 +75,7 @@
                     Grid.Column="4"
                     Text="Kassa"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
                     FontSize="26"
                     FontWeight="SemiBold">
 
@@ -84,7 +86,7 @@
                     Grid.Column="5"
                     Text="Abdulvosid"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
+                    HorizontalAlignment="Left"
                     FontSize="26"
                     FontWeight="SemiBold">
 

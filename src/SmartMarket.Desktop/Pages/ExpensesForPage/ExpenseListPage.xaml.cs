@@ -30,7 +30,6 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
         {
             InitializeComponent();
             this.server = new ExpensesServer();
-            Loaded += Page_Loaded;
         }
 
         public async void GetAllExpence()

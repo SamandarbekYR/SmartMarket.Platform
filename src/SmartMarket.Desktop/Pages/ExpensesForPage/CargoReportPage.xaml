@@ -222,7 +222,7 @@
             <ScrollViewer 
                 VerticalScrollBarVisibility="Auto" 
                 HorizontalScrollBarVisibility="Auto">
-                <StackPanel>
+                <StackPanel x:Name="St_CargoReports">
                     
                 </StackPanel>
             </ScrollViewer>
