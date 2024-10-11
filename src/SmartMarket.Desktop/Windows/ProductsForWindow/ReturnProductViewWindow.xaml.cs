@@ -8,6 +8,7 @@ using SmartMarket.Service.DTOs.Products.ReplaceProduct;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
 using SmartMarketDeskop.Integrated.Server.Repositories.Products;
 using SmartMarket.Service.DTOs.Products.ProductSale;
+using SmartMarket.Service.ViewModels.Products;
 
 namespace SmartMarket.Desktop.Windows.ProductsForWindow;
 
@@ -20,12 +21,12 @@ public partial class ReturnProductViewWindow : Window
     private IInvalidProductServer _invalidProductServer;
     private IProductSaleService _productSaleService;
     private IWorkerService _workerService;
-    private Guid ProductId { get; set; }
+    private ProductSaleViewModel _productSale;
 
-    public ReturnProductViewWindow(Guid productId)
+    public ReturnProductViewWindow(ProductSaleViewModel productSale)
     {
         InitializeComponent();
-        ProductId = productId;
+        _productSale = productSale;
         _replaceProductServer = new ReplaceProductServer();
         _invalidProductServer = new InvalidProductServer();
         _productSaleService = new ProductSaleService();
@@ -58,18 +59,16 @@ public partial class ReturnProductViewWindow : Window
 
     private async void GetProductSale()
     {
-        var productSale = await _productSaleService.GetByIdAsync(ProductId);
-
-        if (productSale != null)
+        if (_productSale != null)
         {
-            tb_Id.Text = productSale.Id.ToString();
-            tb_PCode.Text = productSale.Product.PCode;
-            tb_Description.Text = productSale.Product.Category.Description;
-            tb_Transaction.Text = productSale.TransactionNumber.ToString();
-            tb_Price.Text = productSale.Product.Price.ToString();
-            tb_Quantity.Text = productSale.Count.ToString();
-            tb_Total.Text = productSale.TotalCost.ToString();
-            tb_Seller.Text = productSale.Worker.FirstName;
+            tb_Id.Text = _productSale.Id.ToString();
+            tb_PCode.Text = _productSale.Product.PCode;
+            tb_Description.Text = _productSale.Product.Category.Description;
+            tb_Transaction.Text = _productSale.TransactionNumber.ToString();
+            tb_Price.Text = _productSale.Product.Price.ToString();
+            tb_Quantity.Text = _productSale.Count.ToString();
+            tb_Total.Text = _productSale.TotalCost.ToString();
+            tb_Seller.Text = _productSale.Worker.FirstName;
         }
 
         var workers = await _workerService.GetAllAsync();
@@ -119,23 +118,22 @@ public partial class ReturnProductViewWindow : Window
 
         if(resultReplaceProduct || resultInvalidProduct)
         {
-            var productSale = await _productSaleService.GetByIdAsync(ProductId);
             AddProductSaleDto productSaleDto = new AddProductSaleDto()
             {
-                ProductId = productSale.ProductId,
+                ProductId = _productSale.ProductId,
                 WorkerId = (Guid)cb_Workers.SelectedValue,
-                TransactionId = productSale.TransactionId,
-                PayDeskId = productSale.PayDeskId,
-                TransactionNumber = productSale.TransactionNumber,
-                Count = productSale.Count - replaceProductDto.Count,
-                TotalCost = productSale.TotalCost - productSale.Product.Price * replaceProductDto.Count,
-                CashSum = productSale.CashSum,
-                CardSum = productSale.CardSum,
-                TransferMoney = productSale.TransferMoney,
-                DebtSum = productSale.DebtSum
+                TransactionId = _productSale.TransactionId,
+                PayDeskId = _productSale.PayDeskId,
+                TransactionNumber = _productSale.TransactionNumber,
+                Count = _productSale.Count - replaceProductDto.Count,
+                TotalCost = _productSale.TotalCost - _productSale.Product.Price * replaceProductDto.Count,
+                CashSum = _productSale.CashSum,
+                CardSum = _productSale.CardSum,
+                TransferMoney = _productSale.TransferMoney,
+                DebtSum = _productSale.DebtSum
             };
 
-            await _productSaleService.UpdateAsync(productSaleDto, productSale.Id);
+            await _productSaleService.UpdateAsync(productSaleDto, _productSale.Id);
         }
         else
         {

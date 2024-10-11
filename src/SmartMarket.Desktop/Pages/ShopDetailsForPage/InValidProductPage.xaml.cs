@@ -79,17 +79,22 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
             ShowInvalidProducts(filterInvalidProducts);
         }
 
-        private void ShowInvalidProducts(IEnumerable<InvalidProductDto> productSales)
+        private void ShowInvalidProducts(IEnumerable<InvalidProductDto> invalidProducts)
         {
-            productSales = productSales.OrderByDescending(ps => ps.CreatedDate).ToList();
+            invalidProducts = invalidProducts.OrderByDescending(ps => ps.CreatedDate).ToList();
+
+            var count = invalidProducts.Sum(sum => sum.Count);
+            var totalCost = invalidProducts.Sum(sum => sum.ProductSale.Product.SellPrice * sum.Count);
+            ShopDetailsPage shopDetailsPage = new ShopDetailsPage();
+            shopDetailsPage.SetValuesInvalidProducts(count, totalCost);
 
             St_InValidProducts.Visibility = Visibility.Visible;
             St_InValidProducts.Children.Clear();
             int rowNumber = 1;
 
-            foreach (var item in productSales)
+            foreach (var item in invalidProducts)
             {
-                double totalPrice = item.ProductSale.Product.Price * item.Count;
+                double totalPrice = item.ProductSale.Product.SellPrice * item.Count;
                 InValidProdutComponent inValidProdutComponent = new InValidProdutComponent();
                 inValidProdutComponent.Tag = item.Id;
                 inValidProdutComponent.SetValues(
