@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ExpensesForPage"
       mc:Ignorable="d" 
-      Title="ExpensesPage">
+      Title="ExpensesPage"
+      Loaded="Page_Loaded">
 
     <Grid 
         Margin="10 0 10 10"
