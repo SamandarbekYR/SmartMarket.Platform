@@ -1,24 +1,11 @@
 ﻿using SmartMarket.Desktop.Components.ShopDetailsForComponent;
+using SmartMarket.Desktop.Windows;
 using SmartMarket.Service.DTOs.Products.InvalidProduct;
-using SmartMarket.Service.DTOs.Products.ProductSale;
-using SmartMarket.Service.ViewModels.Products;
 
 using SmartMarketDeskop.Integrated.Services.Products.InvalidProduct;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
 {
@@ -28,10 +15,12 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
     public partial class InValidProductPage : Page
     {
         private IInvalidProductService _invalidProductService;
-        public InValidProductPage()
+        private ShopDetailsPage _shopDetailsPage;
+        public InValidProductPage(ShopDetailsPage shopDetailsPage)
         {
             InitializeComponent();
             _invalidProductService = new InvalidProductService();
+            _shopDetailsPage = shopDetailsPage;
         }
 
         public async void GetAllProduct()
@@ -85,10 +74,7 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
 
             var count = invalidProducts.Sum(sum => sum.Count);
             var totalCost = invalidProducts.Sum(sum => sum.ProductSale.Product.SellPrice * sum.Count);
-            ShopDetailsPage shopDetailsPage = new ShopDetailsPage();
-            shopDetailsPage.SetValuesInvalidProducts(count, totalCost);
-
-            St_InValidProducts.Visibility = Visibility.Visible;
+            _shopDetailsPage.SetValuesInvalidProducts(count, totalCost);
             St_InValidProducts.Children.Clear();
             int rowNumber = 1;
 

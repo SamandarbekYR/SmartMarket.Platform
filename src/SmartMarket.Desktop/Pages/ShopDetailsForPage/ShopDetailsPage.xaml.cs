@@ -1,8 +1,4 @@
-﻿using SmartMarketDeskop.Integrated.Services.Products.InvalidProduct;
-using SmartMarketDeskop.Integrated.Services.Products.ProductSale;
-using SmartMarketDeskop.Integrated.Services.Products.ReplaceProduct;
-
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 
 namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
@@ -76,7 +72,7 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
 
         private void rbInvalidProds_Click(object sender, RoutedEventArgs e)
         {
-            InValidProductPage inValidProductPage = new InValidProductPage();
+            InValidProductPage inValidProductPage = new InValidProductPage(this);
             SalePageNavigator.Content = inValidProductPage;
 
             Main_Border.Visibility = Visibility.Visible;
