@@ -109,10 +109,8 @@
                                 FontWeight="SemiBold"
                                 />
 
-                            
-                                
                                 <Label
-                                    Content="100,000,000"
+                                    Name="lb_TotalCost"
                                     Foreground="White"
                                     FontSize="18"
                                     HorizontalAlignment="Center"
@@ -147,7 +145,7 @@
                                 FontWeight="DemiBold"/>
 
                             <Label
-                                Content="3,000,000"
+                                Name="lb_TotalExpence"
                                 Foreground="White"
                                 FontSize="18"
                                 HorizontalAlignment="Center"
@@ -182,7 +180,7 @@
                         
                             
                                 <Label
-                                    Content="40,000,000"
+                                    Name="lb_TotalProfit"
                                     Foreground="White"
                                     FontSize="18"
                                     HorizontalAlignment="Center"
@@ -298,7 +296,7 @@
                             <DockPanel 
                                 HorizontalAlignment="Center">
                                 <Label
-                                    x:Name="lb_InvalidProductTotalCost"
+                                    x:Name="lb_InvalidProductCount"
                                     Foreground="White"
                                     FontSize="18"
                                     FontWeight="SemiBold"/>
@@ -333,7 +331,7 @@
                                 TextWrapping="WrapWithOverflow"/>
 
                                 <Label
-                                    x:Name="lb_InvalidProductCount"
+                                    x:Name="lb_InvalidProductTotalCost"
                                     Foreground="White"
                                     FontSize="18"
                                     HorizontalAlignment="Center"

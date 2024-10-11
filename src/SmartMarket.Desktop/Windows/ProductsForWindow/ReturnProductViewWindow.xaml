@@ -145,16 +145,11 @@
                         Name="tb_Seller"
                         Margin="10 100 0 0"
                         Style="{DynamicResource Create_TextBox_Style}"/>
-                    <!--<TextBox
+                    <TextBox
                         FontSize="18"   
                         Name="tb_Returner"
                         Margin="10 16 0 0"
-                        Style="{DynamicResource Create_TextBox_Style}"/>-->
-                    <ComboBox
-                        Height="30"
-                        x:Name="cb_Workers"
-                        Margin="10 16 0 0">
-                    </ComboBox>
+                        Style="{DynamicResource Create_TextBox_Style}"/>
                     
                     <ComboBox
                         x:Name="cb_Valid"
@@ -254,7 +249,9 @@
                         x:Name="tb_Cancel_Quantity"
                         Margin="10 90 0 0"
                         FontSize="18"
-                        Style="{DynamicResource Create_TextBox_Style}"/>
+                        Style="{DynamicResource Create_TextBox_Style}"
+                        PreviewTextInput="CountTextBox_PreviewTextInput"
+                        DataObject.Pasting="CountTextBox_Pasting"/>
 
                     <Border
                         BorderThickness="0.7"

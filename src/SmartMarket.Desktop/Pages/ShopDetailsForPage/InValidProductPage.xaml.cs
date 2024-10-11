@@ -87,7 +87,7 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
                     rowNumber,
                     item.ProductSale.TransactionNumber,
                     item.ProductSale.Product.Name,
-                    item.ProductSale.Product.Price,
+                    item.ProductSale.Product.SellPrice,
                     item.Count,
                     totalPrice);
 

@@ -22,6 +22,7 @@ namespace SmartMarket.Service.ViewModels.Products
 
         public long TransactionNumber { get; set; }
         public int Count { get; set; }
+        public double Discount { get; set; }
         public double TotalCost { get; set; }
         public double CashSum { get; set; }
         public string CardSum { get; set; } 

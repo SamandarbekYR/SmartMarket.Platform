@@ -130,5 +130,40 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Products
                 return false;
             }
         }
+
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            try
+            {
+                var token = IdentitySingelton.GetInstance().Token;
+
+                using (var client = new HttpClient())
+                {
+                    client.Timeout = TimeSpan.FromSeconds(30);
+                    using (var request = new HttpRequestMessage(HttpMethod.Delete, AuthApi.BASE_URL + $"/api/product-sales/{id}"))
+                    {
+                        request.Headers.Add("Authorization", $"Bearer {token}");
+                        var response = await client.SendAsync(request);
+                        var resultContent = await response.Content.ReadAsStringAsync();
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            logger.Error($"Failed to delete Partner. Status Code: {response.StatusCode}, Reason: {response.ReasonPhrase}, Response: {resultContent}");
+                        }
+
+                        return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex, "Failed to delete Partner.");
+                return false;
+            }
+        }
     }
 }

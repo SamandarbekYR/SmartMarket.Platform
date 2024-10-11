@@ -28,10 +28,12 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
     public partial class ReturnedCargoPage : Page
     {
         private IReplaceProductService _replaceProductService;
-        public ReturnedCargoPage()
+        private ShopDetailsPage _shopDetailsPage;
+        public ReturnedCargoPage(ShopDetailsPage shopDetailsPage)
         {
             InitializeComponent();
             _replaceProductService = new ReplaceProductService();
+            _shopDetailsPage = shopDetailsPage;
         }
 
         public async void GetAllProduct()
@@ -85,8 +87,7 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
 
             var count = replaceProducts.Sum(sum => sum.Count);
             var totalCost = replaceProducts.Sum(sum => sum.ProductSale.Product.SellPrice * sum.Count);
-            ShopDetailsPage shopDetailsPage = new ShopDetailsPage();
-            shopDetailsPage.SetValuesReturnProducts(count, totalCost);
+            _shopDetailsPage.SetValuesReturnProducts(count, totalCost);
 
             St_ReturnedProducts.Visibility = Visibility.Visible;
             St_ReturnedProducts.Children.Clear();
@@ -101,7 +102,7 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
                     rowNumber,
                     item.ProductSale.TransactionNumber,
                     item.ProductSale.Product.Name,
-                    item.ProductSale.Product.Price,
+                    item.ProductSale.Product.SellPrice,
                     item.Count,
                     totalPrice);
 
