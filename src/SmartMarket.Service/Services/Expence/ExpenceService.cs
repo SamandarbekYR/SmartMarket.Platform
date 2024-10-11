@@ -91,7 +91,7 @@ namespace SmartMarket.Service.Services.Expence
                     Reason = e.Reason,
                     Amount = e.Amount,
                     TypeOfPayment = e.TypeOfPayment,
-                    WorkerFirsName = e.Worker.FirstName,
+                    WorkerFirstName = e.Worker.FirstName,
                     WorkerLastName = e.Worker.LastName,
                     PayDeskName = e.PayDesk.Name
                 });
@@ -123,7 +123,7 @@ namespace SmartMarket.Service.Services.Expence
                     Reason = e.Reason,
                     Amount = e.Amount,
                     TypeOfPayment = e.TypeOfPayment,
-                    WorkerFirsName = e.Worker.FirstName,
+                    WorkerFirstName = e.Worker.FirstName,
                     WorkerLastName = e.Worker.LastName,
                     PayDeskName = e.PayDesk.Name
                 });

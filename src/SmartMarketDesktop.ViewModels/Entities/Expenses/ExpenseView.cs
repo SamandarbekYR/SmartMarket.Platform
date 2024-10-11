@@ -18,7 +18,6 @@ namespace SmartMarketDesktop.ViewModels.Entities.Expenses
         [Column("pay_desk_id")]
         public Guid PayDeskViewId { get; set; }
         public PayDeskView PayDeskView { get; set; }
-
         [Column("reason")]
         public string Reason { get; set; } = string.Empty;
         [Column("amount")]
@@ -27,5 +26,11 @@ namespace SmartMarketDesktop.ViewModels.Entities.Expenses
         public string TypeOfPayment { get; set; } = string.Empty;
         [Column("issynced")]
         public bool IsSynced { get; set; }
+        [Column("pay_desk_name")]
+        public string PayDeskName { get; set; } = string.Empty;
+        [Column("worker_firstname")]
+        public string WorkerFirstname { get; set; } = string.Empty;
+        [Column("worker_lastname")]
+        public string WorkerLastname { get; set; } = string.Empty;
     }
 }
