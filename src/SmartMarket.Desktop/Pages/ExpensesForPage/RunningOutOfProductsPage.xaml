@@ -4,7 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ExpensesForPage"
-      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:local1="clr-namespace:SmartMarket.Desktop.Components.ExpenseForComponents"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"
       Title="RunningOutOfProductsPage"
       Loaded="Page_Loaded">
@@ -55,8 +55,7 @@
             BorderBrush="Black"
             >
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <StackPanel x:Name="St_Products"
-                            Orientation="Horizontal">
+                <StackPanel x:Name="St_Products">
                 </StackPanel>
             </ScrollViewer>
         </Border>

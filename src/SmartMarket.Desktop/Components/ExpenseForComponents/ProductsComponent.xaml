@@ -11,16 +11,16 @@
                 BorderBrush="{DynamicResource BorderColor}"
                 Background="White"
                 BorderThickness="0.5">
-            <Grid>
-                <Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="1.7*"/>
                 <ColumnDefinition Width="1.4*"/>
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="1.2*"/>
-                <ColumnDefinition Width="1.2*"/>
-                </Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.4*"/>
+            </Grid.ColumnDefinitions>
             <TextBlock 
                     x:Name="tbNumber"
                     Grid.Column="0"
@@ -48,8 +48,8 @@
                      FontSize="14"
                      FontWeight="SemiBold">
 
-                </TextBlock>
-                <TextBlock 
+            </TextBlock>
+            <TextBlock 
                      x:Name="tbCount"
                      Grid.Column="3"
                      Text="100"
@@ -57,34 +57,36 @@
                      FontSize="14"
                      FontWeight="SemiBold">
 
-                </TextBlock>
+            </TextBlock>
             <TextBlock 
-                     x:Name="tbTotalPrice"
-                     Grid.Column="4"
-                     Text="2,500,000"
-                     VerticalAlignment="Center"
-                     FontSize="14"
-                     FontWeight="SemiBold">
+                         x:Name="tbTotalPrice"
+                         Grid.Column="4"
+                         Text="2,500,000"
+                         VerticalAlignment="Center"
+                         FontSize="14"
+                         FontWeight="SemiBold">
 
             </TextBlock>
-            <Button x:Name="tbEditBtn"
-                        Grid.Column="5"
-                        Margin="5 2"
-                        Content="Tahrirlash"
-                        BorderThickness="0"
-                        Background="#413c3c"
-                        Foreground="White">
-                    
+
+            <Grid Grid.Column="6"
+                  Margin="0 0 5 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="tbEditBtn"
+                        Margin="5 0"
+                        Style="{DynamicResource MainPorductedit}"
+                        Grid.Column="0">
+
                 </Button>
                 <Button x:Name="tbDeleteBtn"
-                        Grid.Column="6"
-                        Margin="5 2"
-                        Content="O'chirish"
-                        BorderThickness="0"
-                        Background="#D80F0F"
-                        Foreground="White">  
+                        Margin="5 0"
+                        Style="{DynamicResource MainPorductDelete}"
+                        Grid.Column="1">
 
                 </Button>
             </Grid>
-        </Border> 
+        </Grid>
+    </Border> 
 </UserControl>

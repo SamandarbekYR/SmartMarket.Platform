@@ -175,6 +175,31 @@ public class ProductServer : IProductServer
         throw new NotImplementedException();
     }
 
+    public async Task<List<ProductDto>> GetFinishedProductsAsync()
+    {
+        try
+        {
+            HttpClient client = new HttpClient();
+            var token = IdentitySingelton.GetInstance().Token;
+            client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/products/finished");
+
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            HttpResponseMessage message = await client.GetAsync(client.BaseAddress);
+
+            string response = await message.Content.ReadAsStringAsync();
+
+            List<ProductDto> products = JsonConvert.DeserializeObject<List<ProductDto>>(response)!;
+
+            return products;
+
+        }
+        catch
+        {
+            return new List<ProductDto>();
+        }
+    }
+
     public async Task<bool> UpdateAsync(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto dto, Guid Id)
     {
         try
