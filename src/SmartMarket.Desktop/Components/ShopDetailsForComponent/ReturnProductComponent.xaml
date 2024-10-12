@@ -16,13 +16,16 @@
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
                 <ColumnDefinition Width="0.6*"/>
                 <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.6*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="0.7*"/>
+                <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
 
             <Label
@@ -62,9 +65,24 @@
                 Content="50000"
                 Style="{StaticResource Label}"/>
 
+            <Label
+                Grid.Column="6"
+                Content="0"
+                Style="{DynamicResource Label}"/>
+
+            <Label
+                Grid.Column="7"
+                Content="Shodiyor"
+                Style="{DynamicResource Label}"/>
+
+            <Label
+                Grid.Column="8"
+                Content="08.09.2024"
+                Style="{DynamicResource Label}"/>
+
             <Button
                 x:Name="Return_Button"
-                Grid.Column="6"
+                Grid.Column="9"
                 HorizontalAlignment="Right"
                 Click="Return_Button_Click"
                 Style="{DynamicResource BtnShopDetailsReturn}"/>

@@ -1,28 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using SmartMarket.Domain.Entities.Partners;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace SmartMarket.Desktop.Components.PartnersForComponent
+namespace SmartMarket.Desktop.Components.PartnersForComponent;
+
+/// <summary>
+/// Interaction logic for PartnerNationComponent.xaml
+/// </summary>
+public partial class PartnerNationComponent : UserControl
 {
-    /// <summary>
-    /// Interaction logic for PartnerNationComponent.xaml
-    /// </summary>
-    public partial class PartnerNationComponent : UserControl
+    public PartnerNationComponent()
     {
-        public PartnerNationComponent()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
+
+    public void SetData(Partner partner, int count)
+    {
+        lb_Count.Content = count.ToString();
+        lb_Firstname.Content = partner.FirstName;
+        lb_Lastname.Content = partner.LastName;
+        lb_Phonenumber.Content = partner.PhoneNumber;
+        lb_Nation.Content = partner.TotalDebt;
     }
 }
