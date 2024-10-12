@@ -7,5 +7,6 @@ namespace SmartMarketDeskop.Integrated.Server.Interfaces.Expenses
     {
         Task<List<FullExpenceDto>> GetExpensesFullInformationAsync();
         Task<List<FullExpenceDto>> GetExpensesByReasonAsync(string reason);
+        Task<List<FullExpenceDto>> FilterExpensesAsync(FilterExpenseDto dto);
     }
 }

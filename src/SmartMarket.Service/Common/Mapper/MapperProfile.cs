@@ -106,6 +106,9 @@ public class MapperProfile : Profile
 
         CreateMap<Expense, ExpenceDto>();
 
+        CreateMap<Expense, FullExpenceDto>()
+            .ForMember(dest => dest.WorkerFirstName, opt => opt.MapFrom(src => src.Worker.FirstName));
+
         /*---------Order-----------------*/
         CreateMap<AddOrderDto, Order>()
             .ForMember(dest => dest.Id, opt => opt.Ignore());
