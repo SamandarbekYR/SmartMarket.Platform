@@ -145,6 +145,10 @@ public partial class SalePage : Page
         {
             tbCalculator.Text = tbCalculator.Text.ToString() + number;
         }
+        else if(activeTextboxIndex == 3)
+        {
+            selectedControl.tbDiscount.Text = selectedControl.tbDiscount.Text + number;
+        }
     }
 
     private void Page_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
@@ -417,7 +421,29 @@ public partial class SalePage : Page
 
     private void percent_button_Click(object sender, RoutedEventArgs e)
     {
+        if (selectedControl != null)
+        {
+            float discount = int.Parse(selectedControl.tbDiscount.Text);
 
+            if (discount > 0)
+            {
+                foreach (var item in tvm.Transactions)
+                {
+                    if (item.Barcode == selectedControl.Barcode)
+                    {
+                        item.Discount = discount;
+                        item.TotalPrice = SetPrice(item.Price, item.Discount, item.Quantity);
+                        selectedControl.tbDiscount.Text = item.Discount.ToString();
+                        selectedControl.tbTotalPrice.Text = item.TotalPrice.ToString();
+                        ColculateTotalPrice();
+                    }
+                }
+            }
+        }
+        else
+        {
+            notifier.ShowInformation("Maxsulot tanlanmagan.");
+        }
     }
 
     private void search_button_Click(object sender, RoutedEventArgs e)
