@@ -48,6 +48,8 @@ public partial class ReturnProductComponent : UserControl
     private void Return_Button_Click(object sender, RoutedEventArgs e)
     {
         ReturnProductViewWindow returnProductViewWindow = new ReturnProductViewWindow(new ProductSaleViewModel());
+        ReturnProductWindow returnProductWindow = GetReturnProductWindow();
+        returnProductWindow.Close();
         returnProductViewWindow.ShowDialog();
     }
 }

@@ -86,7 +86,7 @@ namespace SmartMarket.Service.Services.Products.Product
             }
         }
 
-        public async Task<IEnumerable<FullProductDto>> GetAllAsync(PaginationParams paginationParams)
+        public async Task<IList<FullProductDto>> GetAllAsync(PaginationParams paginationParams)
         {
             try
             {
@@ -117,7 +117,7 @@ namespace SmartMarket.Service.Services.Products.Product
                     NoteAmount = p.NoteAmount
                 });
 
-                return _mapper.Map<IEnumerable<FullProductDto>>(productDtos);
+                return _mapper.Map<IList<FullProductDto>>(productDtos);
             }
             catch (Exception ex)
             {

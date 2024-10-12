@@ -25,6 +25,8 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
         public async void GetALlTopSale()
         {
             var topSaleProducts = await _productSaleService.GetAllAsync();
+            var today = DateTime.Today;
+            topSaleProducts = topSaleProducts.Where(ps => ps.CreatedDate.Value.Date == today).ToList();
             ShowProductSales(topSaleProducts);
         }
 
@@ -51,7 +53,9 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
 
         private void ShowProductSales(IEnumerable<ProductSaleViewModel> productSales)
         {
-            productSales = productSales.OrderByDescending(ps => ps.CreatedDate).ToList();
+            productSales = productSales.Where(ps => ps.Count != 0)
+                .OrderByDescending(ps => ps.CreatedDate).ToList();
+
             var groupedProducts = productSales
                 .GroupBy(p => p.Product.Name)
                 .Select(group => new

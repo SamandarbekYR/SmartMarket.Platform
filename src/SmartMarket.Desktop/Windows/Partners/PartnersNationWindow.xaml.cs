@@ -3,6 +3,7 @@ using System.Windows;
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 using System.Windows.Interop;
 using SmartMarket.Desktop.Components.PartnersForComponent;
+using SmartMarketDeskop.Integrated.Services.Partners;
 
 namespace SmartMarket.Desktop.Windows.Partners;
 
@@ -11,9 +12,12 @@ namespace SmartMarket.Desktop.Windows.Partners;
 /// </summary>
 public partial class PartnersNationWindow : Window
 {
+    private readonly IPartnerService _partnerService;
+
     public PartnersNationWindow()
     {
         InitializeComponent();
+        this._partnerService = new PartnerService();
     }
 
     [DllImport("user32.dll")]
@@ -57,11 +61,25 @@ public partial class PartnersNationWindow : Window
     {
         EnableBlur();
 
-        for (int i = 1; i <= 20; i++)
+        GetPartners();
+    }
+
+    private async void GetPartners()
+    {
+        var partners = await _partnerService.GetAll();
+
+        St_Nationer.Children.Clear();
+        int count = 1;
+
+        if(partners.Count > 0)
         {
-            PartnerNationComponent partnerNationComponent = new PartnerNationComponent();
-            partnerNationComponent.lb_Count.Content = i;
-            St_Nationer.Children.Add(partnerNationComponent);
+            foreach (var partner in partners)
+            {
+                PartnerNationComponent partnerNationComponent = new PartnerNationComponent();
+                partnerNationComponent.SetData(partner, count);
+                St_Nationer.Children.Add(partnerNationComponent);
+                count++;
+            }
         }
     }
 

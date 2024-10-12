@@ -179,7 +179,7 @@
 
                     <Label
                         Grid.Column="8"
-                        Content="04.02.2020"
+                        Content="Sana"
                         Style="{DynamicResource Label}"/>
 
                 </Grid>
