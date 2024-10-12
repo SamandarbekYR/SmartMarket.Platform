@@ -51,6 +51,24 @@ namespace SmartMarket.WebApi.Controllers.Common.Expence
                 return StatusCode(500, ex.Message);
             }
         }
+        [HttpPost("filter")]
+        public async Task<IActionResult> FilterExpenseAsync([FromBody] FilterExpenseDto dto)
+        {
+            try
+            {
+                var expenses = await _expenceService.FilterExpenseAsync(dto);
+                return Ok(expenses);
+            }
+            catch(StatusCodeException e)
+            {
+                return StatusCode((int)e.StatusCode, e.Message);
+            }
+            catch(Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
+
 
         [HttpGet("reason/{reason}")]
         public async Task<IActionResult> GetExpensesByReasonAsync(string reason, [FromQuery] PaginationParams @params)
