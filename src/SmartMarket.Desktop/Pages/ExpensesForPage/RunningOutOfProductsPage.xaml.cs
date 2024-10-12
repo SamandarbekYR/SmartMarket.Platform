@@ -1,4 +1,7 @@
-﻿using SmartMarket.Desktop.Components.ShopDetailsAndExpensesComponent;
+﻿using SmartMarket.Desktop.Components.ExpenseForComponents;
+using SmartMarket.Desktop.Components.ShopDetailsAndExpensesComponent;
+using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
+using SmartMarketDeskop.Integrated.Server.Repositories.Products;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,20 +24,37 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
     /// </summary>
     public partial class RunningOutOfProductsPage : Page
     {
+        private readonly IProductServer productServer;
         public RunningOutOfProductsPage()
         {
             InitializeComponent();
+            this.productServer = new ProductServer();
         }
 
-        public async void GetAllRunningOutOfProducts()
+        public async void GetAllFinishedProducts()
         {
-            RunningOutOfProductComponent runningOutOfProductComponent = new RunningOutOfProductComponent();
-            St_Products.Children.Add(runningOutOfProductComponent);
+            St_Products.Children.Clear();
+
+            var finishedProducts = await productServer.GetFinishedProductsAsync();
+
+            int count = 1;
+
+            if(finishedProducts != null)
+            {
+                foreach(var item in finishedProducts)
+                {
+                    RunningProductComponent runningProductComponent = new RunningProductComponent();
+                    runningProductComponent.SetData(item);
+                    St_Products.Children.Add(runningProductComponent);
+                    count++;
+                }
+            }
+            else { }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            GetAllRunningOutOfProducts();
+            GetAllFinishedProducts();
         }
     }
 }

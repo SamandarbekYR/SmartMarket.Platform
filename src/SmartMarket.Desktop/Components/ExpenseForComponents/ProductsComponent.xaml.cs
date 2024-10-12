@@ -1,4 +1,5 @@
-﻿using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
+﻿using SmartMarket.Service.DTOs.Products.Product;
+using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
 using SmartMarketDeskop.Integrated.Server.Repositories.Products;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
 using SmartMarketDesktop.ViewModels.Entities.Products;
@@ -31,18 +32,12 @@ namespace SmartMarket.Desktop.Components.ExpenseForComponents
             this.server = new ProductServer();
         }
         public Guid ProductId { get; set; }
-        public void SetData(ProductViewModels product)
+        public void SetData(FullProductDto product)
         {
-            //tbPCode.Text = product.P_Code;
-            //tbBarcode.Text = product.BarCode;
-            //tbProductName.Text = product.ProductName;
-            //tbCategory.Text = product.CateogoryName;
-            //tbWorker.Text = product.WorkerName;
-            //tbSellPrice.Text = product.SellPrice.ToString();
-            //tbTotalPrice.Text = (product.SellPrice * product.Count).ToString();
-            //tbCount.Text = product.Count.ToString();
-            //tbPrice.Text = product.Price.ToString();
-            //tbUnitOfMeasure.Text = product.UnitOfMeasure;
+            tbProductName.Text = product.Name;
+            tbTotalPrice.Text = (product.SellPrice * product.Count).ToString();
+            tbCount.Text = product.Count.ToString();
+            tbPrice.Text = product.Price.ToString();
         }
     }
 }

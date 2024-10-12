@@ -34,29 +34,27 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         public async void GetAllExpence()
         {
-            //St_Expenses.Children.Clear();
+            St_Expenses.Children.Clear();
 
-            //var expenses = await server.GetExpensesFullInformationAsync();
+            var expenses = await server.GetExpensesFullInformationAsync();
 
-            //int count = 1;
+            int count = 1;
 
-            //if (expenses != null)
-            //{
-            //    foreach (var expense in expenses)
-            //    {
-            //        ExpenseComponent expenseComponent = new ExpenseComponent();
-            //        expenseComponent.tbNumber.Text = count.ToString();
-            //        expenseComponent.SetData(expense);
-            //        St_Expenses.Children.Add(expenseComponent);
-            //        count++;
-            //    }
-            //}
-            //else
-            //{
+            if (expenses != null)
+            {
+                foreach (var expense in expenses)
+                {
+                    ExpenseComponent expenseComponent = new ExpenseComponent();
+                    expenseComponent.tbNumber.Text = count.ToString();
+                    expenseComponent.SetData(expense);
+                    St_Expenses.Children.Add(expenseComponent);
+                    count++;
+                }
+            }
+            else
+            {
 
-            //}
-            ExpenseComponent expenseComponent = new ExpenseComponent();
-            St_Expenses.Children.Add(expenseComponent);
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

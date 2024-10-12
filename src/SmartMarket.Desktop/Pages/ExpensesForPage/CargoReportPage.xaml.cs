@@ -23,6 +23,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ToastNotifications.Utilities;
 
 namespace SmartMarket.Desktop.Pages.ExpensesForPage
 {
@@ -37,15 +38,27 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             InitializeComponent();
             this.loadReportServer = new LoadReportServer();
         }
-        private readonly List<LoadReportViewModel> loadReports;
 
         public async void GetAllCargoReport()
         {
-            for(int i = 0; i < 20; i++)
+            St_CargoReports.Children.Clear();
+
+            var loadReports = await loadReportServer.GetAllAsync();
+
+            int count = 1;
+
+            if(loadReports != null)
             {
-                CargoReportComponent cargoReportComponent = new CargoReportComponent();
-                St_CargoReports.Children.Add(cargoReportComponent);
+                foreach(var report in loadReports)
+                {
+                    CargoReportComponent cargoReportComponent = new CargoReportComponent();
+                    cargoReportComponent.tbNumber.Text = count.ToString();
+                    cargoReportComponent.SetData(report);
+                    St_CargoReports.Children.Add(cargoReportComponent);
+                    count++;
+                }
             }
+            else { }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
