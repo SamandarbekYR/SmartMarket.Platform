@@ -9,19 +9,19 @@ using System.Net;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.Interfaces.Products.ProductSale;
 using SmartMarket.Service.ViewModels.Products;
-using Microsoft.Extensions.Logging; // Import ILogger
+using Microsoft.Extensions.Logging; 
 
 namespace SmartMarket.Service.Services.Products.ProductSale
 {
     public class ProductSaleService(IUnitOfWork unitOfWork,
                              IMapper mapper,
                              IValidator<AddProductSaleDto> validator,
-                             ILogger<ProductSaleService> logger) : IProductSaleService // Inject ILogger
+                             ILogger<ProductSaleService> logger) : IProductSaleService 
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IMapper _mapper = mapper;
         private readonly IValidator<AddProductSaleDto> _validator = validator;
-        private readonly ILogger<ProductSaleService> _logger = logger; // Store the logger
+        private readonly ILogger<ProductSaleService> _logger = logger;
 
         public async Task<bool> AddAsync(AddProductSaleDto dto)
         {
@@ -31,12 +31,6 @@ namespace SmartMarket.Service.Services.Products.ProductSale
                 if (!validationResult.IsValid)
                 {
                     throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
-                }
-
-                var productExists = await _unitOfWork.Product.GetById(dto.ProductId) != null;
-                if (!productExists)
-                {
-                    throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
                 }
 
                 var workerExists = await _unitOfWork.Worker.GetById(dto.WorkerId) != null;
@@ -58,10 +52,28 @@ namespace SmartMarket.Service.Services.Products.ProductSale
                 }
 
                 DateTime now = DateTime.UtcNow.AddHours(5);
+                foreach (var item in dto.ProductItems)
+                {
+                    var productExists = await _unitOfWork.Product.GetById(item.ProductId) != null;
+                    if (!productExists)
+                    {
+                        throw new StatusCodeException(HttpStatusCode.NotFound, $"Product with ID {item.ProductId} not found.");
+                    }
 
-                var productSale = _mapper.Map<Et.ProductSale>(dto);
-                productSale.CreatedDate = now;
-                return await _unitOfWork.ProductSale.Add(productSale);
+                    var productSale = _mapper.Map<Et.ProductSale>(item);
+                    productSale.WorkerId = dto.WorkerId;
+                    productSale.TransactionId = dto.TransactionId;
+                    productSale.PayDeskId = dto.PayDeskId;
+                    productSale.CreatedDate = now;
+
+                    bool result = await _unitOfWork.ProductSale.Add(productSale);
+                    if (!result)
+                    {
+                        throw new Exception("Failed to add product sale.");
+                    }
+                }
+
+                return true;
             }
             catch (Exception ex)
             {
@@ -69,6 +81,7 @@ namespace SmartMarket.Service.Services.Products.ProductSale
                 throw;
             }
         }
+
 
         public async Task<bool> DeleteAsync(Guid Id)
         {
@@ -181,16 +194,16 @@ namespace SmartMarket.Service.Services.Products.ProductSale
         {
             try
             {
-                var productSale = await _unitOfWork.ProductSale.GetById(Id);
-                if (productSale == null)
+                var existingProductSale = await _unitOfWork.ProductSale.GetById(Id);
+                if (existingProductSale == null)
                 {
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Product Sale not found.");
                 }
 
-                var productExists = await _unitOfWork.Product.GetById(dto.ProductId) != null;
-                if (!productExists)
+                var validationResult = _validator.Validate(dto);
+                if (!validationResult.IsValid)
                 {
-                    throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
+                    throw new ValidatorException(validationResult.Errors.First().ErrorMessage);
                 }
 
                 var workerExists = await _unitOfWork.Worker.GetById(dto.WorkerId) != null;
@@ -211,9 +224,15 @@ namespace SmartMarket.Service.Services.Products.ProductSale
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Pay Desk not found.");
                 }
 
-                _mapper.Map(dto, productSale);
+                existingProductSale.WorkerId = dto.WorkerId;
+                existingProductSale.TransactionId = dto.TransactionId;
+                existingProductSale.PayDeskId = dto.PayDeskId;
+                existingProductSale.CashSum = dto.CashSum;
+                existingProductSale.CardSum = dto.CardSum;
+                existingProductSale.TransferMoney = dto.TransferMoney;
+                existingProductSale.DebtSum = dto.DebtSum;
 
-                return await _unitOfWork.ProductSale.Update(productSale);
+                return await _unitOfWork.ProductSale.Update(existingProductSale);
             }
             catch (Exception ex)
             {

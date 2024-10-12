@@ -32,7 +32,7 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddAsync([FromBody] AddProductSaleDto dto)
+        public async Task<IActionResult> AddAsync([FromForm] AddProductSaleDto dto)
         {
             try
             {
