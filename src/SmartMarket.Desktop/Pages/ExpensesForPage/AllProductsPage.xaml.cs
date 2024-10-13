@@ -5,6 +5,7 @@ using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
 using SmartMarketDesktop.ViewModels.Entities.Products;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,29 +35,35 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         public async void GetAllProduct()
         {
-            St_AllProducts.Children.Clear();
+            //St_AllProducts.Children.Clear();
 
-            var products = await server.GetAllAsync();
+            //var products = await server.GetAllAsync();
 
-            int count = 1;
+            //int count = 1;
 
-            if (products != null)
+            //if (products != null)
+            //{
+            //    foreach (var product in products)
+            //    {
+            //        ProductsComponent productsComponent = new ProductsComponent();
+            //        productsComponent.tbNumber.Text = count.ToString();
+            //        productsComponent.SetData(product);
+            //        St_AllProducts.Children.Add(productsComponent);
+            //        count++;
+
+            //        MessageBox.Show("Componentlar yuklanyapdi");
+            //    }
+
+            //    MessageBox.Show($"jami {count - 1} component qoshildi");
+            //}
+            //else
+            //{ MessageBox.Show("component null"); }
+
+            for(int i = 0; i < 20; i++)
             {
-                foreach (var product in products)
-                {
-                    ProductsComponent productsComponent = new ProductsComponent();
-                    productsComponent.tbNumber.Text = count.ToString();
-                    productsComponent.SetData(product);
-                    St_AllProducts.Children.Add(productsComponent);
-                    count++;
-
-                    MessageBox.Show("Componentlar yuklanyapdi");
-                }
-
-                MessageBox.Show($"jami {count - 1} component qoshildi");
+                ProductsComponent productsComponent = new ProductsComponent();
+                St_AllProducts.Children.Add(productsComponent);
             }
-            else
-            { MessageBox.Show("component null"); }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

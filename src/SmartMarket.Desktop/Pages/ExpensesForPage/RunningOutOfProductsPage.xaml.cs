@@ -33,23 +33,28 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         public async void GetAllFinishedProducts()
         {
-            St_Products.Children.Clear();
+            //St_Products.Children.Clear();
 
-            var finishedProducts = await productServer.GetFinishedProductsAsync();
+            //var finishedProducts = await productServer.GetFinishedProductsAsync();
 
-            int count = 1;
+            //int count = 1;
 
-            if(finishedProducts != null)
+            //if(finishedProducts != null)
+            //{
+            //    foreach(var item in finishedProducts)
+            //    {
+            //        RunningProductComponent runningProductComponent = new RunningProductComponent();
+            //        runningProductComponent.SetData(item);
+            //        St_Products.Children.Add(runningProductComponent);
+            //        count++;
+            //    }
+            //}
+            //else { }
+            for(int i = 0; i < 20; i++)
             {
-                foreach(var item in finishedProducts)
-                {
-                    RunningProductComponent runningProductComponent = new RunningProductComponent();
-                    runningProductComponent.SetData(item);
-                    St_Products.Children.Add(runningProductComponent);
-                    count++;
-                }
+                RunningOutOfProductComponent runningOutOfProductComponent = new RunningOutOfProductComponent();
+                St_Products.Children.Add(runningOutOfProductComponent);
             }
-            else { }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

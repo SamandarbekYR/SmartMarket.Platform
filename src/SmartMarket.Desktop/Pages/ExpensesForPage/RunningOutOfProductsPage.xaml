@@ -55,8 +55,11 @@
             BorderBrush="Black"
             >
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <StackPanel x:Name="St_Products">
-                </StackPanel>
+                <UniformGrid x:Name="St_Products"
+                           Columns="2"
+                           Rows="0"
+                           Margin="10">
+                </UniformGrid>
             </ScrollViewer>
         </Border>
     </Grid>
