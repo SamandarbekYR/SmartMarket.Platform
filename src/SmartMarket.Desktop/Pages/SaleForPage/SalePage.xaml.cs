@@ -296,7 +296,7 @@ public partial class SalePage : Page
         if (selectedControl != null)
         {
             message = selectedControl.tbProductName.Text;
-            foreach (var item in tvm.Transactions)
+            foreach (var item in tvm.Transactions.ToList())
             {
                 if (item.Barcode == selectedControl.Barcode)
                 {
