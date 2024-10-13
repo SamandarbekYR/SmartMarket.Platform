@@ -1,5 +1,4 @@
-﻿using SmartMarket.Domain.Entities.Categories;
-using SmartMarket.Service.DTOs.Products.Product;
+﻿using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Workers;
