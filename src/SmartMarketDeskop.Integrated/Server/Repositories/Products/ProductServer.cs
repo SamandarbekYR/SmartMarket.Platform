@@ -97,7 +97,7 @@ public class ProductServer : IProductServer
         }
     }
 
-    public async Task<List<ProductDto>> GetAllAsync()
+    public async Task<List<FullProductDto>> GetAllAsync()
     {
         try
         {
@@ -111,14 +111,14 @@ public class ProductServer : IProductServer
 
             string response=await message.Content.ReadAsStringAsync();
 
-            List<ProductDto> products=JsonConvert.DeserializeObject<List<ProductDto>>(response)!;
+            List<FullProductDto> products=JsonConvert.DeserializeObject<List<FullProductDto>>(response)!;
 
             return products;
 
         }
         catch
         {
-            return new List<ProductDto>();
+            return new List<FullProductDto>();
         }
     }
 
@@ -146,7 +146,7 @@ public class ProductServer : IProductServer
         } 
     }
 
-    public async Task<List<ProductDto>> GetByCategoryIdAsync(Guid categoryId)
+    public async Task<List<FullProductDto>> GetByCategoryIdAsync(Guid categoryId)
     {
         try
         {
@@ -160,18 +160,18 @@ public class ProductServer : IProductServer
 
             string response = await message.Content.ReadAsStringAsync();
 
-            List<ProductDto> products = JsonConvert.DeserializeObject<List<ProductDto>>(response)!;
+            List<FullProductDto> products = JsonConvert.DeserializeObject<List<FullProductDto>>(response)!;
 
             return products;
 
         }
         catch
         {
-            return new List<ProductDto>();
+            return new List<FullProductDto>();
         }
     }
 
-    public async Task <ProductDto> GetByPCodeAsync(string PCode)
+    public async Task<ProductDto> GetByPCodeAsync(string PCode)
     {
         try
         {
@@ -193,6 +193,31 @@ public class ProductServer : IProductServer
         catch
         {
             return null!;
+        }
+    }
+
+    public async Task<List<ProductDto>> GetFinishedProductsAsync()
+    {
+        try
+        {
+            HttpClient client = new HttpClient();
+            var token = IdentitySingelton.GetInstance().Token;
+            client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/products/finished");
+
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            HttpResponseMessage message = await client.GetAsync(client.BaseAddress);
+
+            string response = await message.Content.ReadAsStringAsync();
+
+            List<ProductDto> products = JsonConvert.DeserializeObject<List<ProductDto>>(response)!;
+
+            return products;
+
+        }
+        catch
+        {
+            return new List<ProductDto>();
         }
     }
 
@@ -255,5 +280,4 @@ public class ProductServer : IProductServer
             return false;
         }
     }
-
 }

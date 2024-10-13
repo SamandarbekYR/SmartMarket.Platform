@@ -5,7 +5,7 @@ public class ProductViewModels
     public Guid Id { get; set; }
     public string BarCode { get; set; }=string.Empty;
     public string P_Code { get; set; }=string.Empty ;
-    public string ProductName { get; set; } = string.Empty ;
+    public string ProductName { get; set; } = string.Empty;
     public string CateogoryName { get; set; } = string.Empty;
     public string WorkerName { get; set; } = string.Empty;
     public double Price { get; set; }
