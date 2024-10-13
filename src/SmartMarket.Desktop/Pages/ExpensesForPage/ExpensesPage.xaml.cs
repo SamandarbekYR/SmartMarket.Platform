@@ -28,7 +28,6 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             AllProductsPage allProductsPage = new AllProductsPage();
             ShopDetailsPageNavigator.Content =allProductsPage;
             DisableForTwo(BrAllExpenses, BrPaymentSum);
-
         }
 
         private void btnRunningOutOfProduct_Click(object sender, RoutedEventArgs e)
