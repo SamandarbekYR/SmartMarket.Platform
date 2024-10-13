@@ -75,7 +75,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             }
 
             var searchReason = reasonTextBox.Text.ToLower();
-            if(!string.IsNullOrEmpty(searchReason))
+            if (!string.IsNullOrEmpty(searchReason))
             {
                 filter.Reason = searchReason;
             }
@@ -103,19 +103,19 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         private void DataPicter_SelectedDataChanged(object sender, SelectionChangedEventArgs e)
         {
-            FilterExpensesAsync();
+            //FilterExpensesAsync();
         }
 
         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            FilterExpensesAsync();
+            //FilterExpensesAsync();
         }
 
         private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
             {
-                FilterExpensesAsync();
+                //FilterExpensesAsync();
             }
         }
 
