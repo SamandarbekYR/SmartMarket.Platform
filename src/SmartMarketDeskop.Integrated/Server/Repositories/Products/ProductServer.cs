@@ -171,7 +171,7 @@ public class ProductServer : IProductServer
         }
     }
 
-    public async Task<List<ProductDto>> GetByPCodeAsync(string PCode)
+    public async Task <ProductDto> GetByPCodeAsync(string PCode)
     {
         try
         {
@@ -185,14 +185,14 @@ public class ProductServer : IProductServer
 
             string response = await message.Content.ReadAsStringAsync();
 
-            var products = JsonConvert.DeserializeObject<List<ProductDto>>(response)!;
+            var products = JsonConvert.DeserializeObject<ProductDto>(response)!;
 
             return products;
 
         }
         catch
         {
-            return new List<ProductDto>();
+            return null!;
         }
     }
 

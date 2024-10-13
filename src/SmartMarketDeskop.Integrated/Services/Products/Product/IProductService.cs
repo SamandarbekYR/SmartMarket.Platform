@@ -10,6 +10,6 @@ public interface IProductService
     Task<List<ProductDto>> GetAll();
     Task<List<ProductDto>> GetByCategoryId(Guid categoryId);
     Task<ProductDto> GetByBarCode(string barCode);
-    Task<List<ProductDto>> GetByPCode(string PCode);
+    Task<ProductDto> GetByPCode(string PCode);
     Task<ProductDto> GetByProductName(string productName);
  }
