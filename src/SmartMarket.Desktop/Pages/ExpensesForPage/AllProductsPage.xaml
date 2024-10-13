@@ -54,7 +54,7 @@
             BorderBrush="Black" 
             BorderThickness="1 0 1 0" 
             Background="White">
-            <Grid >
+            <Grid Margin="0 0 15 0">
 
             <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.5*"/>
@@ -69,9 +69,9 @@
                 <TextBlock Grid.Column="0" 
                        Text="N%"
                        VerticalAlignment="Center"
+                       Margin="15 0 0 0"
                        FontSize="15"
                        FontWeight="SemiBold"
-                       Margin="5 0 0 0"
                 ></TextBlock>
                 <TextBlock Grid.Column="1"
                        Text="Mahsulot Nomi"
@@ -82,7 +82,6 @@
                 <TextBlock Grid.Column="2"
                        Text="Narxi"
                        VerticalAlignment="Center"
-                       
                        FontSize="15"
                        FontWeight="SemiBold"
                        
@@ -92,15 +91,12 @@
                        VerticalAlignment="Center"
                        FontSize="15"
                        FontWeight="SemiBold"
-                       Margin="0 0 15 0"
                        ></TextBlock>
                 <TextBlock Grid.Column="4"
                        Text="Jami Summa"
                        VerticalAlignment="Center"
-                       
                        FontSize="15"
                        FontWeight="SemiBold"
-                       Margin="0 0 15 0"
                        ></TextBlock>
             </Grid>
         </Border>

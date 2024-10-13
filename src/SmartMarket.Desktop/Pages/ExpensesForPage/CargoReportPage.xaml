@@ -96,7 +96,7 @@
             Background="White" 
             BorderBrush="{DynamicResource BorderColor}" 
             BorderThickness="1 0 1 0">
-            <Grid           
+            <Grid Margin="0 0 15 0"    
             >
             <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.5*"/>
@@ -111,6 +111,7 @@
                 Text="No"
                 VerticalAlignment="Center"
                 FontSize="15"
+                Margin="15 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
 
