@@ -3,6 +3,9 @@ using System.Windows;
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 using System.Windows.Interop;
 using SmartMarket.Desktop.Components.SaleForComponent;
+using SmartMarketDeskop.Integrated.Services.Products.Product;
+using SmartMarket.Service.DTOs.Products.Product;
+using System.Text.RegularExpressions;
 
 namespace SmartMarket.Desktop.Windows.ProductsForWindow;
 
