@@ -49,6 +49,7 @@ public partial class SearchProductWindow : Window
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         EnableBlur();
+        tb_search.Focus();
     }
 
     private void Close_Button_Click(object sender, RoutedEventArgs e)
@@ -76,15 +77,27 @@ public partial class SearchProductWindow : Window
     {
         string search = tb_search.Text;
 
-        if(IsNumeric(search) && search.Length >= 5)
+        await Task.Run(async () =>
         {
-            var products = await _productService.GetByPCode(search);
-            SetProduct(products);
-        }
-        else if(!IsNumeric(search) && search.Length >=2)
-        {
-            var products = await _productService.GetByProductName(search);
-            SetProduct(products);
-        }
+            if (IsNumeric(search) && search.Length >= 5)
+            {
+                var products = await _productService.GetByPCode(search);
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    SetProduct(products);
+                });
+            }
+            else if (!IsNumeric(search) && search.Length >= 2)
+            {
+                var products = await _productService.GetByProductName(search);
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    SetProduct(products);
+                });
+            }
+        });
+
     }
 }
