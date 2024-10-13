@@ -1,4 +1,5 @@
-﻿using SmartMarket.Service.DTOs.Products.Product;
+﻿using SmartMarket.Domain.Entities.Categories;
+using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Workers;
@@ -57,9 +58,6 @@ public class ProductService : IProductService
         if (IsInternetAvailable())
         {
             var products = await productServer.GetAllAsync();
-            
-            //var categorys=await categoryServer.GetAllAsync();
-            //var workers=await workerServer.GetAllAsync();
 
             return products;
         }
@@ -75,7 +73,6 @@ public class ProductService : IProductService
         throw new NotImplementedException();
     }
 
-
     public bool IsInternetAvailable()
     {
         try
@@ -89,7 +86,6 @@ public class ProductService : IProductService
             return false;
         }
     }
-
 
     public async Task<ProductDto> GetByBarCode(string barCode)
     {
@@ -116,6 +112,34 @@ public class ProductService : IProductService
         else
         {
             return new List<ProductDto>();
+        }
+    }
+
+    public async Task<List<ProductDto>> GetByPCode(string PCode)
+    {
+        if (IsInternetAvailable())
+        {
+            var products = await productServer.GetByPCodeAsync(PCode);
+
+            return products;
+        }
+        else
+        {
+            return new List<ProductDto>();
+        }
+    }
+
+    public async Task<ProductDto> GetByProductName(string productName)
+    {
+        if (IsInternetAvailable())
+        {
+            var products = await productServer.GetByProductNameAsync(productName);
+
+            return products;
+        }
+        else
+        {
+            return new ProductDto();
         }
     }
 }

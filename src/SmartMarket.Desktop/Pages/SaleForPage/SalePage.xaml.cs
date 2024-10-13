@@ -175,37 +175,42 @@ public partial class SalePage : Page
 
             if (product != null)
             {
-                if (!tvm.Transactions.Any(t => t.Barcode == barcode))
-                {
-                    tvm.Add(product);
-                    AddNewProduct(product);
-                }
-                else
-                {
-                    tvm.Increment(barcode);
-                    foreach (SaleProductForComponent child in St_product.Children)
-                    {
-                        if (child.Barcode == barcode)
-                        {
-                            int quantity = int.Parse(child.tbQuantity.Text);
-                            if (quantity < child.AvailableCount)
-                            {
-                                quantity++;
-                                child.tbQuantity.Text = quantity.ToString();
-                                child.tbTotalPrice.Text = (quantity * double.Parse(child.tbPrice.Text)).ToString();
-                                GetPrice(product, quantity);
-                            }
-                        }
-                    }
-
-                }
-                ColculateTotalPrice();
+                AddNewProductTvm(product);
             }
             else
             {
                 notifier.ShowWarning("Bunday maxsulot topilmadi.");
             }
         }
+    }
+
+    public void AddNewProductTvm(ProductDto product)
+    {
+        if (!tvm.Transactions.Any(t => t.Barcode == barcode))
+        {
+            tvm.Add(product);
+            AddNewProduct(product);
+        }
+        else
+        {
+            tvm.Increment(barcode);
+            foreach (SaleProductForComponent child in St_product.Children)
+            {
+                if (child.Barcode == barcode)
+                {
+                    int quantity = int.Parse(child.tbQuantity.Text);
+                    if (quantity < child.AvailableCount)
+                    {
+                        quantity++;
+                        child.tbQuantity.Text = quantity.ToString();
+                        child.tbTotalPrice.Text = (quantity * double.Parse(child.tbPrice.Text)).ToString();
+                        GetPrice(product, quantity);
+                    }
+                }
+            }
+
+        }
+        ColculateTotalPrice();
     }
 
     private void AddNewProduct(ProductDto product)
