@@ -79,7 +79,7 @@ public partial class SearchProductWindow : Window
         if(IsNumeric(search) && search.Length >= 5)
         {
             var products = await _productService.GetByPCode(search);
-            //SetProduct(products);
+            SetProduct(products);
         }
         else if(!IsNumeric(search) && search.Length >=2)
         {

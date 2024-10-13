@@ -10,7 +10,7 @@ public interface IProductServer
     Task<bool> DeleteAsync(Guid Id);
     Task<bool> UpdateAsync(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto dto, Guid Id);
     Task<ProductDto> GetByBarCodeAsync(string barcode);
-    Task<List<ProductDto>> GetByPCodeAsync(string PCode);    
+    Task<ProductDto> GetByPCodeAsync(string PCode);    
     Task<ProductDto> GetByProductNameAsync(string productName);    
 }
 

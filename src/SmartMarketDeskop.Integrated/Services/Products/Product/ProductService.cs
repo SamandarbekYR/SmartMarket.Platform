@@ -97,7 +97,7 @@ public class ProductService : IProductService
         }
         else
         {
-            return new ProductDto();
+            return null!;
         }
     }
 
@@ -115,7 +115,7 @@ public class ProductService : IProductService
         }
     }
 
-    public async Task<List<ProductDto>> GetByPCode(string PCode)
+    public async Task<ProductDto> GetByPCode(string PCode)
     {
         if (IsInternetAvailable())
         {
@@ -125,7 +125,7 @@ public class ProductService : IProductService
         }
         else
         {
-            return new List<ProductDto>();
+            return null!;
         }
     }
 
@@ -139,7 +139,7 @@ public class ProductService : IProductService
         }
         else
         {
-            return new ProductDto();
+            return null!;
         }
     }
 }
