@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SmartMarket.Desktop.Components.ExpenseForComponents;
+using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
+using SmartMarketDeskop.Integrated.Server.Repositories.Expenses;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SmartMarket.Desktop.Pages.ExpensesForPage
 {
