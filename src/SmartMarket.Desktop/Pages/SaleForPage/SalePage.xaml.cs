@@ -199,6 +199,7 @@ public partial class SalePage : Page
 
     public void AddNewProductTvm(ProductDto product)
     {
+        string barcode = product.Barcode;
         if (!tvm.Transactions.Any(t => t.Barcode == barcode))
         {
             tvm.Add(product);
@@ -328,6 +329,7 @@ public partial class SalePage : Page
                     }
                 }
             }
+            selectedControl = null!; 
         }
         else
         {
@@ -473,6 +475,11 @@ public partial class SalePage : Page
 
     private void search_button_Click(object sender, RoutedEventArgs e)
     {
+        if(selectedControl != null)
+        {
+            selectedControl.product_Border.Background = Brushes.White;
+            selectedControl = null!;
+        }
         SearchProductWindow searchProductWindow = new SearchProductWindow();
         searchProductWindow.ShowDialog();
     }
