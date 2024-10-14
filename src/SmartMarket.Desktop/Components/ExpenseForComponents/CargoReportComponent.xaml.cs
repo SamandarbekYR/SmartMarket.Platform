@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartMarket.Service.DTOs.Products.LoadReport;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,11 @@ namespace SmartMarket.Desktop.Components.ExpenseForComponents
         public CargoReportComponent()
         {
             InitializeComponent();
+        }
+
+        public void SetData(LoadReportDto dto)
+        {
+
         }
     }
 }
