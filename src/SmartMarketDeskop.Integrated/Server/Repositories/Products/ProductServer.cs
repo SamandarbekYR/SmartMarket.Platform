@@ -1,12 +1,9 @@
 ﻿using Newtonsoft.Json;
 using NLog;
-using SmartMarket.Domain.Entities.Categories;
-using SmartMarket.Domain.Entities.Products;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
-using SmartMarketDesktop.DTOs.DTOs.Product;
 using System.Text;
 
 namespace SmartMarketDeskop.Integrated.Server.Repositories.Products;

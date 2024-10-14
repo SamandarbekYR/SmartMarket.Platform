@@ -67,7 +67,7 @@ public partial class SalePage : Page
             offsetY: 20);
 
         cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-            notificationLifetime: TimeSpan.FromSeconds(3),
+            notificationLifetime: TimeSpan.FromSeconds(4),
             maximumNotificationCount: MaximumNotificationCount.FromCount(2));
 
         cfg.Dispatcher = Application.Current.Dispatcher;
