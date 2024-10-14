@@ -4,6 +4,6 @@ namespace SmartMarket.DataAccess.Interfaces.Products
 {
     public interface ILoadReport : IRepository<LoadReport>
     {
-       IQueryable<LoadReport> GetLoadReportsFullInformationAsync();
+       public IQueryable<LoadReport> GetLoadReportsFullInformationAsync();
     }
 }

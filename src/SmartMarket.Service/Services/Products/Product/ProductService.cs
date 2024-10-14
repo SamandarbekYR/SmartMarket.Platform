@@ -94,6 +94,11 @@ namespace SmartMarket.Service.Services.Products.Product
                                         .AsNoTracking()
                                         .ToPagedListAsync(paginationParams);
 
+                if (!products.Any()) 
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "No products found.");
+                }
+
                 var productDtos = products.Select(p => new FullProductDto
                 {
                     Id = p.Id,
@@ -329,6 +334,12 @@ namespace SmartMarket.Service.Services.Products.Product
                 var products = await _unitOfWork.Product.GetAllProductsFullInformation()
                     .AsNoTracking()
                     .ToPagedListAsync(paginationParams);
+
+                if (!products.Any()) 
+                {
+                    throw new KeyNotFoundException("No products found.");
+                }
+
                 return _mapper.Map<IEnumerable<Et.Product>>(products);
             }
             catch (Exception ex)
@@ -337,6 +348,7 @@ namespace SmartMarket.Service.Services.Products.Product
                 throw;
             }
         }
+
         public async Task<IEnumerable<ProductDto>> GetFinishedProductsAsync(PaginationParams @params)
         {
             try
@@ -346,6 +358,11 @@ namespace SmartMarket.Service.Services.Products.Product
                     .AsNoTracking()
                     .ToPagedListAsync(@params);
 
+                if (!finishedProducts.Any()) 
+                {
+                    throw new KeyNotFoundException("No finished products found.");
+                }
+
                 return _mapper.Map<IEnumerable<ProductDto>>(finishedProducts);
             }
             catch (Exception ex)
@@ -354,5 +371,6 @@ namespace SmartMarket.Service.Services.Products.Product
                 throw;
             }
         }
+
     }
 }

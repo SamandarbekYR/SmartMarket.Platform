@@ -46,7 +46,6 @@ public class LoadReportRepository : Repository<LoadReport>, ILoadReport
                     UnitOfMeasure = lr.Product.UnitOfMeasure,
                     ContrAgent = new ContrAgent
                     {
-                        CompanyName = lr.ContrAgent.PartnerCompany.Name,
                         FirstName = lr.ContrAgent.FirstName,
                         LastName = lr.ContrAgent.LastName,
                         PhoneNumber = lr.ContrAgent.PhoneNumber
