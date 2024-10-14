@@ -1,12 +1,7 @@
 ﻿using SmartMarket.Service.DTOs.Expence;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
 using SmartMarketDeskop.Integrated.Server.Repositories.Expenses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartMarketDeskop.Integrated.Services.Expenses
 {
@@ -21,8 +16,9 @@ namespace SmartMarketDeskop.Integrated.Services.Expenses
         {
             if(IsInternetAvialable())
             {
-                var expenses = await _expensesServer.FilterExpensesAsync(dto);
-                return expenses;
+                //var expenses = await _expensesServer.FilterExpensesAsync(dto);
+                //return expenses;
+                return null;
             }
             else
             {
@@ -35,7 +31,7 @@ namespace SmartMarketDeskop.Integrated.Services.Expenses
             if(IsInternetAvialable())
             {
                 var expenses = await _expensesServer.GetExpensesFullInformationAsync();
-                return expenses;
+                return null;
             }
             else
             {  return new List<FullExpenceDto>(); }
