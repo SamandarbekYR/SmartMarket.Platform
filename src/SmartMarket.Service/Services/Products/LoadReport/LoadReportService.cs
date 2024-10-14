@@ -8,14 +8,16 @@ using SmartMarket.Service.Common.Validators;
 using System.Net;
 using SmartMarket.Service.DTOs.Products.LoadReport;
 using SmartMarket.Service.Interfaces.Products.LoadReport;
-using Microsoft.Extensions.Logging; 
+using Microsoft.Extensions.Logging;
+using SmartMarket.Service.Common.Utils;
+using SmartMarket.Service.Common.Extentions;
 
 namespace SmartMarket.Service.Services.Products.LoadReport
 {
     public class LoadReportService(IUnitOfWork unitOfWork,
                              IMapper mapper,
                              IValidator<AddLoadReportDto> validator,
-                             ILogger<LoadReportService> logger) : ILoadReportService 
+                             ILogger<LoadReportService> logger) : ILoadReportService
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IMapper _mapper = mapper;
@@ -79,12 +81,20 @@ namespace SmartMarket.Service.Services.Products.LoadReport
             }
         }
 
-        public async Task<List<LoadReportDto>> GetAllAsync()
+        public async Task<IEnumerable<LoadReportDto>> GetAllAsync(PaginationParams @params)
         {
             try
             {
-                var loadReports = await _unitOfWork.LoadReport.GetLoadReportsFullInformationAsync();
-                return _mapper.Map<List<LoadReportDto>>(loadReports);
+                var loadReports = await _unitOfWork.LoadReport.GetLoadReportsFullInformationAsync()
+                                        .AsNoTracking()
+                                        .ToPagedListAsync(@params);
+
+                if (!loadReports.Any())
+                {
+                    throw new KeyNotFoundException("No load reports found.");
+                }
+
+                return _mapper.Map<IEnumerable<LoadReportDto>>(loadReports);
             }
             catch (Exception ex)
             {
@@ -92,6 +102,7 @@ namespace SmartMarket.Service.Services.Products.LoadReport
                 throw;
             }
         }
+
 
         public Task<List<LoadReportDto>> GetLoadReportsByCompanyNameAsync(string companyName)
         {

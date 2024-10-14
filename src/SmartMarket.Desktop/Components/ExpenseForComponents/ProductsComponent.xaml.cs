@@ -1,6 +1,8 @@
 ﻿using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
 using SmartMarketDeskop.Integrated.Server.Repositories.Products;
+using SmartMarketDeskop.Integrated.Services.Products.Product;
+using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
 using SmartMarketDesktop.ViewModels.Entities.Products;
 using System;
 using System.Collections.Generic;
@@ -24,26 +26,19 @@ namespace SmartMarket.Desktop.Components.ExpenseForComponents
     /// </summary>
     public partial class ProductsComponent : UserControl
     {
-        private readonly IProductServer server;
+        private readonly IProductService productService;
         public ProductsComponent()
         {
             InitializeComponent();
-            this.server = new ProductServer();
+            this.productService = new ProductService();
         }
         public Guid ProductId { get; set; }
-        //ProductDto ni orniga ProductViewga otqazish kerak.
-        public void SetData(ProductView product)
+        public void SetData(FullProductDto product)
         {
-            tbPCode.Text = product.PCode;
-            tbBarcode.Text = product.Barcode;
             tbProductName.Text = product.Name;
-            tbCategory.Text = product.CategoryView.Name;
-            tbWorker.Text = product.WorkerView.FirstName;
-            tbSellPrice.Text = product.SellPrice.ToString();
             tbTotalPrice.Text = (product.SellPrice * product.Count).ToString();
             tbCount.Text = product.Count.ToString();
             tbPrice.Text = product.Price.ToString();
-            tbUnitOfMeasure.Text = product.UnitOfMeasure;
         }
     }
 }

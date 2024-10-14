@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ExpensesForPage"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      Title="ExpenseListPage">
+      Title="ExpenseListPage"
+      Loaded="Page_Loaded">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -45,6 +46,7 @@
 
 
                     <DatePicker
+                        x:Name="fromDateTime"
                         Style="{DynamicResource FormDatePicker}"/>
                     <Label
                         FontSize="14"
@@ -59,7 +61,9 @@
                     Grid.Column="2">
 
                     <DatePicker
-                        Style="{DynamicResource FormDatePicker}"/>
+                        x:Name="toDateTime"
+                        Style="{DynamicResource FormDatePicker}"
+                        SelectedDateChanged="DataPicter_SelectedDataChanged"/>
                     <Label
                         FontSize="14"
                         FontWeight="SemiBold"
@@ -69,6 +73,8 @@
                 </StackPanel>
 
                 <ComboBox
+                    x:Name="workerNameComboBox"
+                    SelectionChanged="ComboBox_SelectionChanged"
                     Margin="5 10 10 10"
                     Grid.Column="3">
                     <ComboBoxItem 
@@ -83,8 +89,10 @@
 
 
                 <TextBox
+                    x:Name="reasonTextBox"
                     Margin="0 0 10 0"
                     Style="{DynamicResource search}"
+                    KeyDown="SearchTextBox_KeyDown"
                     Grid.Column="4"/>
             </Grid>
         </Border>
@@ -96,7 +104,7 @@
             BorderBrush="{DynamicResource BorderColor}"
             BorderThickness="1 0 1 0" 
             Background="White">
-            <Grid>
+            <Grid Margin="0 0 15 0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"/>
                 <ColumnDefinition Width="2.2*"/>
@@ -112,7 +120,7 @@
                 VerticalAlignment="Center"
                 FontSize="15"
                 FontWeight="SemiBold"
-                Margin="10 0 0 0"
+                Margin="15 0 0 0"
                 ></TextBlock>
 
             <TextBlock

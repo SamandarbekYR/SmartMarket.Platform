@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.Common.Exceptions;
+using SmartMarket.Service.Common.Utils;
 using SmartMarket.Service.DTOs.Products.LoadReport;
 using SmartMarket.Service.Interfaces.Products.LoadReport;
 
@@ -14,20 +15,20 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
         private readonly ILoadReportService _loadReportService = loadReportService;
 
         [HttpGet]
-        public async Task<IActionResult> GetAllAsync()
+        public async Task<IActionResult> GetAllAsync([FromQuery] PaginationParams @params)
         {
             try
             {
-                var loadReports = await _loadReportService.GetAllAsync();
+                var loadReports = await _loadReportService.GetAllAsync(@params);
                 return Ok(loadReports);
             }
             catch (StatusCodeException ex)
             {
-                return StatusCode((int)ex.StatusCode, ex.Message); 
+                return StatusCode((int)ex.StatusCode, ex.Message);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, ex.Message); 
+                return StatusCode(500, ex.Message);
             }
         }
 

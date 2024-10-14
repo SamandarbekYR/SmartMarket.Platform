@@ -9,6 +9,6 @@ public interface IExpenceService
     Task<bool> DeleteAsync(Guid Id);
     Task<IEnumerable<FullExpenceDto>> GetAllAsync(PaginationParams @params);
     Task<bool> UpdateAsync(AddExpenceDto dto, Guid Id);
-
+    Task<IEnumerable<FullExpenceDto>> FilterExpenseAsync(FilterExpenseDto dto);
     Task<IEnumerable<FullExpenceDto>> GetExpensesByReasonAsync(string reason, PaginationParams paginationParams);
 }

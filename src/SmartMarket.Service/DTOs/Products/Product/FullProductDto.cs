@@ -1,10 +1,9 @@
-﻿using System;
+﻿using SmartMarket.Service.DTOs.Products.ProductImage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using SmartMarket.Service.DTOs.Products.ProductImage;
-using SmartMarket.Service.DTOs.Workers.Worker;
 
 namespace SmartMarket.Service.DTOs.Products.Product
 {

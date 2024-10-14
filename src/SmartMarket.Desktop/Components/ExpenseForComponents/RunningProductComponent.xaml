@@ -4,30 +4,31 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartMarket.Desktop.Components.ExpenseForComponents"
-             mc:Ignorable="d" 
-             d:DesignHeight="117" d:DesignWidth="540">
-    <Grid>
-        <Border Style="{DynamicResource StyleBorder}"
-                CornerRadius="12"
-                BorderThickness="1">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="0.2*"/>
-                </Grid.ColumnDefinitions>
-                <Border Grid.Column="0"
+             mc:Ignorable="d">
+    <Border 
+        Margin="5 3 15 3"
+        Background="White"
+        CornerRadius="5"
+        BorderBrush="{DynamicResource BorderColor}"
+        BorderThickness="0.5">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.2*"/>
+            </Grid.ColumnDefinitions>
+            <Border Grid.Column="0"
                         Margin="5 5 0 5"
                         Background="White">
-                    <Image Source="/Assets/Basket.png"
+                <Image Source="/Assets/Basket.png"
                     Stretch="Uniform"/>
-                </Border>
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
-                    </Grid.RowDefinitions>
-                    <Label x:Name="tbName"
+            </Border>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label x:Name="tbName"
                            Grid.Row="0"
                            Content="Nestle kasha 9"
                            Style="{DynamicResource TitleLabel}"
@@ -35,15 +36,15 @@
                            Margin="5 0"
                            HorizontalAlignment="Left"/>
 
-                    <Label x:Name="tbCount"
+                <Label x:Name="tbCount"
                            Grid.Row="1"
                            Foreground="#d80f0f"
                            Content="5 dona"
                            FontSize="38"
                            HorizontalAlignment="Left"
                            Style="{DynamicResource Label}"/>
-                    
-                    <Label x:Name="tbPrice"
+
+                <Label x:Name="tbPrice"
                            Grid.Row="1"
                            Content="25,000"
                            Foreground="#000"
@@ -51,8 +52,7 @@
                            FontSize="32"
                            HorizontalAlignment="Right"
                            Margin="0 0  40 0"/>
-                </Grid> 
             </Grid>
-        </Border>
-    </Grid>
+        </Grid>
+    </Border>
 </UserControl>

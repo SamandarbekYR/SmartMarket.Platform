@@ -1,9 +1,12 @@
-﻿using SmartMarketDesktop.ViewModels.Entities.Expenses;
+﻿using SmartMarket.Service.DTOs.Expence;
+using SmartMarketDesktop.ViewModels.Entities.Expenses;
 
 namespace SmartMarketDeskop.Integrated.Server.Interfaces.Expenses
 {
     public interface IExpensesServer
     {
-        Task<List<ExpenseView>> GetExpensesFullInformationAsync();
+        Task<List<FullExpenceDto>> GetExpensesFullInformationAsync();
+        Task<List<FullExpenceDto>> GetExpensesByReasonAsync(string reason);
+        Task<List<FullExpenceDto>> FilterExpensesAsync(FilterExpenseDto dto);
     }
 }

@@ -1,5 +1,7 @@
-﻿using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
+﻿using SmartMarket.Service.DTOs.Expence;
+using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
 using SmartMarketDeskop.Integrated.Server.Repositories.Expenses;
+using SmartMarketDeskop.Integrated.Services.Expenses;
 using SmartMarketDesktop.ViewModels.Entities.Expenses;
 using System;
 using System.Collections.Generic;
@@ -23,20 +25,20 @@ namespace SmartMarket.Desktop.Components.ExpenseForComponents
     /// </summary>
     public partial class ExpenseComponent : UserControl
     {
-        private readonly IExpensesServer server;
+        private readonly IExpenseService server;
         public ExpenseComponent()
         {
             InitializeComponent();
-            this.server = new ExpensesServer();
+            this.server = new ExpenseService();
         }
         public Guid ExpenseId { get; set; }
 
-        public void SetData(ExpenseView expense)
+        public void SetData(FullExpenceDto expense)
         {
             tbReason.Text = expense.Reason;
             tbAmount.Text = expense.Amount.ToString();
             tbTypeOfPayment.Text = expense.TypeOfPayment;
-            tbWorker.Text = expense.WorkerFirstname;
+            tbWorker.Text = expense.WorkerFirstName;
             tbPayDesk.Text = expense.PayDeskName;
         }
     }
