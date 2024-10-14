@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Desktop.Windows.ProductsForWindow;
+using SmartMarket.Service.ViewModels.Products;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,28 +10,10 @@ namespace SmartMarket.Desktop.Components.ShopDetailsForComponent;
 /// </summary>
 public partial class ShopDetailsProductComponent : UserControl
 {
+
     public ShopDetailsProductComponent()
     {
         InitializeComponent();
-    }
-
-    public static ReturnProductWindow GetReturnProductWindow()
-    {
-        ReturnProductWindow mainWindow = null!;
-
-        foreach (Window window in Application.Current.Windows)
-        {
-            Type type = typeof(ReturnProductWindow);
-            if (window != null && window.DependencyObjectType.Name == type.Name)
-            {
-                mainWindow = (ReturnProductWindow)window;
-                if (mainWindow != null)
-                {
-                    break;
-                }
-            }
-        }
-        return mainWindow!;
     }
 
     public void SetValues(int id, long transactionNumber, string productName, double price, int count, double totalPrice)
@@ -45,10 +28,9 @@ public partial class ShopDetailsProductComponent : UserControl
 
     private void Return_Button_Click(object sender, RoutedEventArgs e)
     {
-        ReturnProductViewWindow returnProductViewWindow = new ReturnProductViewWindow();
-        ReturnProductWindow returnProductWindow = GetReturnProductWindow();
-        returnProductWindow.Hide();
+        var productSale = this.Tag as ProductSaleViewModel;
+
+        ReturnProductViewWindow returnProductViewWindow = new ReturnProductViewWindow(productSale);
         returnProductViewWindow.ShowDialog();
-        returnProductWindow.Show();
     }
 }

@@ -5,51 +5,91 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartMarket.Desktop.Components.ShopDetailsForComponent"
              mc:Ignorable="d"
-             Height="50">
+             Height="90">
     <Border
         Name="brand_Border"
         Margin="10 5 10 0"
         CornerRadius="7"
         BorderBrush="{DynamicResource BorderColor}"
         BorderThickness="1"
-        Background="white" 
+        Background="LightGray"
         HorizontalAlignment="Stretch">
 
         <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <Label
-                Margin="10 0"
-                Content="Nestle kasha 9"
-                x:Name="tbProductName"
+            <StackPanel 
+                Orientation="Horizontal" 
+                Grid.Row="0" 
+                Grid.Column="0" 
+                Margin="15, 5, 0, 0">
+
+                <Label 
+                    Content="Mahsulot nomi:" 
+                    FontSize="18"
+                    FontWeight="Bold" />
+                <Label 
+                    x:Name="tbProductName" 
+                    FontSize="18"
+                    Foreground="White"/>
+            </StackPanel>
+
+            <StackPanel 
+                Orientation="Horizontal" 
+                Grid.Row="0" 
+                Grid.Column="1" 
+                Margin="0, 5, 0, 0">
+
+                <Label 
+                    Content="Jami sotuv summasi:"
+                    FontSize="18"
+                    FontWeight="Bold" />
+                <Label 
+                    x:Name="tbCount"
+                    FontSize="18"
+                    Foreground="White"/>
+            </StackPanel>
+
+            <StackPanel 
+                Orientation="Horizontal" 
+                Grid.Row="1" 
                 Grid.Column="0"
-                Style="{DynamicResource TitleLabel}"/>
+                Margin="15, 0, 0, 5">
 
-            <Label
-                Content="300"
-                x:Name="tbCount"
-                Grid.Column="1"
-                Style="{DynamicResource TitleLabel}"/>
+                <Label 
+                    Content="Sotilgan soni:"
+                    FontSize="18"
+                    FontWeight="Bold" />
+                <Label
+                    x:Name="tbTotalPrice" 
+                    FontSize="18"
+                    Foreground="White"/>
+            </StackPanel>
 
-            <Label
-                Content="25,000,000"
-                x:Name="tbTotalPrice"
-                Grid.Column="2"
-                Style="{DynamicResource TitleLabel}"/>
+            <StackPanel 
+                Orientation="Horizontal" 
+                Grid.Row="1" 
+                Grid.Column="1" 
+                Margin="0, 0, 0, 5">
 
-            <Label
-                Content="3 000 000"
-                x:Name="tbProfit"
-                Grid.Column="3"
-                Foreground="Red"
-                Style="{DynamicResource TitleLabel}"/>
-
+                <Label 
+                    Content="Foyda:"
+                    FontWeight="Bold"
+                    FontSize="18"
+                    Foreground="Red"/>
+                <Label 
+                    x:Name="tbProfit"  
+                    FontSize="18"
+                    Foreground="White"/>
+            </StackPanel>
         </Grid>
-
     </Border>
 </UserControl>

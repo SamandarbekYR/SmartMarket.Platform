@@ -75,6 +75,39 @@ namespace SmartMarket.Service.Services.Expence
             }
         }
 
+        public async Task<IEnumerable<FullExpenceDto>> FilterExpenseAsync(FilterExpenseDto dto)
+        {
+            var expenses = await _unitOfWork.Expense.GetExpensesFullInformationAsync().ToListAsync();
+
+            if (dto.FromDateTime.HasValue && dto.ToDateTime.HasValue)
+            {
+                expenses = expenses.Where(
+                    e => e.CreatedDate >= dto.FromDateTime.Value &&
+                    e.CreatedDate <= dto.ToDateTime.Value).ToList();
+            }
+            else
+            {
+                expenses = expenses.Where(
+                    e => e.CreatedDate.Value.Date == DateTime.Today).ToList();
+            }
+
+            if (!string.IsNullOrWhiteSpace(dto.Reason))
+            {
+                expenses = expenses.Where(
+                    e => e.Reason == dto.Reason).ToList();
+            }
+
+            if (!string.IsNullOrWhiteSpace(dto.WorkerName))
+            {
+                expenses = expenses.Where(
+                    e => e.Worker.FirstName.Contains(dto.WorkerName)).ToList();
+            }
+
+            var result = _mapper.Map<IEnumerable<FullExpenceDto>>(expenses);
+
+            return result;
+        }
+
         public async Task<IEnumerable<FullExpenceDto>> GetAllAsync(PaginationParams paginationParams)
         {
             try
@@ -91,7 +124,7 @@ namespace SmartMarket.Service.Services.Expence
                     Reason = e.Reason,
                     Amount = e.Amount,
                     TypeOfPayment = e.TypeOfPayment,
-                    WorkerFirsName = e.Worker.FirstName,
+                    WorkerFirstName = e.Worker.FirstName,
                     WorkerLastName = e.Worker.LastName,
                     PayDeskName = e.PayDesk.Name
                 });
@@ -123,7 +156,7 @@ namespace SmartMarket.Service.Services.Expence
                     Reason = e.Reason,
                     Amount = e.Amount,
                     TypeOfPayment = e.TypeOfPayment,
-                    WorkerFirsName = e.Worker.FirstName,
+                    WorkerFirstName = e.Worker.FirstName,
                     WorkerLastName = e.Worker.LastName,
                     PayDeskName = e.PayDesk.Name
                 });

@@ -1,0 +1,94 @@
+﻿<UserControl x:Class="SmartMarket.Desktop.Components.ExpenseForComponents.ProductsComponent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartMarket.Desktop.Components.ExpenseForComponents"
+             mc:Ignorable="d">
+    <Border CornerRadius="5"
+                Height="45"
+                Margin="5 3 15 3"
+                BorderBrush="{DynamicResource BorderColor}"
+                Background="White"
+                BorderThickness="0.5">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="1.7*"/>
+                <ColumnDefinition Width="1.4*"/>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="1.5*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.4*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock 
+                    x:Name="tbNumber"
+                    Grid.Column="0"
+                    Text="1"
+                    VerticalAlignment="Center"
+                    Margin="15 0 0 0"
+                    FontSize="14"
+                    FontWeight="SemiBold">
+
+            </TextBlock>
+            <TextBlock 
+                     x:Name="tbProductName"
+                     Grid.Column="1"
+                     Text="Daftar"
+                     VerticalAlignment="Center"
+                     FontSize="14"
+                     FontWeight="SemiBold">
+
+            </TextBlock>
+            <TextBlock 
+                     x:Name="tbPrice"
+                     Grid.Column="2"
+                     Text="25,000"
+                     VerticalAlignment="Center"
+                     FontSize="14"
+                     FontWeight="SemiBold">
+
+            </TextBlock>
+            <TextBlock 
+                     x:Name="tbCount"
+                     Grid.Column="3"
+                     Text="100"
+                     VerticalAlignment="Center"
+                     FontSize="14"
+                     FontWeight="SemiBold">
+
+            </TextBlock>
+            <TextBlock 
+                         x:Name="tbTotalPrice"
+                         Grid.Column="4"
+                         Text="2,500,000"
+                         VerticalAlignment="Center"
+                         FontSize="14"
+                         FontWeight="SemiBold">
+
+            </TextBlock>
+
+            <Grid Grid.Column="6"
+                  Margin="0 0 5 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="tbEditBtn"
+                        Margin="5 0"
+                        Height="30"
+                        Style="{DynamicResource MainPorductedit}"
+                        Grid.Column="0">
+
+                </Button>
+                <Button x:Name="tbDeleteBtn"
+                        Margin="5 0"
+                        Height="30"
+                        Style="{DynamicResource MainPorductDelete}"
+                        Grid.Column="1">
+
+                </Button>
+            </Grid>
+        </Grid>
+    </Border> 
+</UserControl>

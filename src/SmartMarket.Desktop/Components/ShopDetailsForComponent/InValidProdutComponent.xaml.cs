@@ -24,5 +24,15 @@ namespace SmartMarket.Desktop.Components.ShopDetailsForComponent
         {
             InitializeComponent();
         }
+
+        public void SetValues(int id, long transactionNumber, string productName, double price, int count, double totalprice)
+        {
+            lb_Number.Content = id.ToString();
+            lb_Count.Content = count.ToString();
+            lb_Price.Content = price.ToString();
+            lb_ProductName.Content = productName;
+            lb_TotalPrice.Content = totalprice.ToString();
+            lb_TransactionNo.Content = transactionNumber.ToString();
+        }
     }
-}
+}   

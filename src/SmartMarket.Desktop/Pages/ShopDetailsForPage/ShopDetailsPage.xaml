@@ -109,10 +109,8 @@
                                 FontWeight="SemiBold"
                                 />
 
-                            
-                                
                                 <Label
-                                    Content="100,000,000"
+                                    Name="lb_TotalCost"
                                     Foreground="White"
                                     FontSize="18"
                                     HorizontalAlignment="Center"
@@ -147,7 +145,7 @@
                                 FontWeight="DemiBold"/>
 
                             <Label
-                                Content="3,000,000"
+                                Name="lb_TotalExpence"
                                 Foreground="White"
                                 FontSize="18"
                                 HorizontalAlignment="Center"
@@ -182,7 +180,7 @@
                         
                             
                                 <Label
-                                    Content="40,000,000"
+                                    Name="lb_TotalProfit"
                                     Foreground="White"
                                     FontSize="18"
                                     HorizontalAlignment="Center"
@@ -221,6 +219,7 @@
                             <DockPanel 
                                 HorizontalAlignment="Center">
                                 <Label
+                                    x:Name="lb_ReturnProductCount"
                                     Content="100"
                                     Foreground="White"
                                     FontSize="18"
@@ -258,6 +257,7 @@
 
                             
                                 <Label
+                                    x:Name="lb_ReturnProductTotalCost"
                                     Content="3,000,000"
                                     Foreground="White"
                                     FontSize="18"
@@ -296,7 +296,7 @@
                             <DockPanel 
                                 HorizontalAlignment="Center">
                                 <Label
-                                    Content="100"
+                                    x:Name="lb_InvalidProductCount"
                                     Foreground="White"
                                     FontSize="18"
                                     FontWeight="SemiBold"/>
@@ -331,7 +331,7 @@
                                 TextWrapping="WrapWithOverflow"/>
 
                                 <Label
-                                    Content="50,000,000"
+                                    x:Name="lb_InvalidProductTotalCost"
                                     Foreground="White"
                                     FontSize="18"
                                     HorizontalAlignment="Center"

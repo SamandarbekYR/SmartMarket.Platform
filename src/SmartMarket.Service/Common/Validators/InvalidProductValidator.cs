@@ -15,7 +15,7 @@ public class InvalidProductValidator : AbstractValidator<AddInvalidProductDto>
             .NotEmpty()
             .WithMessage("Product Sale ID is required.");
 
-        RuleFor(ip => ip.ReturnReason)
+        RuleFor(ip => ip.Reason)
             .NotEmpty()
             .WithMessage("Return reason is required.");
     }

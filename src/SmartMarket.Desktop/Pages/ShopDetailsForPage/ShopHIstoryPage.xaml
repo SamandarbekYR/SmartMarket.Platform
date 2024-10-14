@@ -77,6 +77,7 @@
                     x:Name="workerComboBox"
                     Margin="5 10 10 10"
                     Grid.Column="3"
+                    Text="Barcha Sotuvchi"
                     SelectionChanged="WorkerComboBox_SelectionChanged">
                 </ComboBox>
 

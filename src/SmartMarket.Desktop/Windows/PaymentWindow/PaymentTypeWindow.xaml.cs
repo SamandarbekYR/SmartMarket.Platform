@@ -53,42 +53,26 @@ namespace SmartMarket.Desktop.Windows.PaymentWindow
 
         private void BntCash_Click(object sender, RoutedEventArgs e)
         {
-            CashPaymentWindow cashPaymentWindow = new CashPaymentWindow();
-            this.Hide();
-            cashPaymentWindow.ShowDialog();
-            this.Show();
         }
 
         private void BntCard_Click(object sender, RoutedEventArgs e)
         {
-            CashPaymentWindow cashPaymentWindow = new CashPaymentWindow();
-            this.Hide(); 
-            cashPaymentWindow.ShowDialog();
-            this.Show();
         }
 
         private void BntTransferMoney_Click(object sender, RoutedEventArgs e)
         {
-            CashPaymentWindow cashPaymentWindow = new CashPaymentWindow();
-            this.Hide(); 
-            cashPaymentWindow.ShowDialog();
-            this.Show();
+            
         }
 
         private void BtnClik_Click(object sender, RoutedEventArgs e)
         {
-            CashPaymentWindow cashPaymentWindow = new CashPaymentWindow();
-            this.Hide();
-            cashPaymentWindow.ShowDialog();
-            this.Show();
         }
 
         private void BntClikAndCash_Click(object sender, RoutedEventArgs e)
         {
             ClikAndCashWindow clikAndCashWindow = new ClikAndCashWindow();
-            this.Hide();
+            this.Close();
             clikAndCashWindow.ShowDialog();
-            this.Show();
         }
     }
 }

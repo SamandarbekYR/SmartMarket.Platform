@@ -150,7 +150,9 @@
                         Name="tb_Returner"
                         Margin="10 16 0 0"
                         Style="{DynamicResource Create_TextBox_Style}"/>
+                    
                     <ComboBox
+                        x:Name="cb_Valid"
                         Height="30"
                         Margin="10 20 0 0">
 
@@ -247,7 +249,9 @@
                         x:Name="tb_Cancel_Quantity"
                         Margin="10 90 0 0"
                         FontSize="18"
-                        Style="{DynamicResource Create_TextBox_Style}"/>
+                        Style="{DynamicResource Create_TextBox_Style}"
+                        PreviewTextInput="CountTextBox_PreviewTextInput"
+                        DataObject.Pasting="CountTextBox_Pasting"/>
 
                     <Border
                         BorderThickness="0.7"
@@ -270,6 +274,7 @@
             </Grid>
 
             <Button
+                Click="SaveReturnProduct_Button_Click"
                 Grid.Row="2"
                 Width="250"
                 Height="40"

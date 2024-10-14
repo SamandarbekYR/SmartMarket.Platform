@@ -52,7 +52,7 @@ public class ProductService : IProductService
         }
     }
 
-    public async Task<List<ProductDto>> GetAll()
+    public async Task<List<FullProductDto>> GetAll()
     {
         if (IsInternetAvailable())
         {
@@ -65,7 +65,7 @@ public class ProductService : IProductService
         }
         else
         {
-            return new List<ProductDto>(); 
+            return new List<FullProductDto>(); 
         }
     
     }
@@ -105,7 +105,7 @@ public class ProductService : IProductService
         }
     }
 
-    public async Task<List<ProductDto>> GetByCategoryId(Guid categoryId)
+    public async Task<List<FullProductDto>> GetByCategoryId(Guid categoryId)
     {
         if (IsInternetAvailable())
         {
@@ -115,7 +115,7 @@ public class ProductService : IProductService
         }
         else
         {
-            return new List<ProductDto>();
+            return new List<FullProductDto>();
         }
     }
 }

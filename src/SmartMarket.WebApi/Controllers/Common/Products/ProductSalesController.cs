@@ -139,5 +139,41 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpPost("filter")]
+        public async Task<IActionResult> FilterProductSaleAsync([FromBody] FilterProductSaleDto dto)
+        {
+            try
+            {
+                var productSales = await _productSaleService.FilterProductSaleAsync(dto);
+                return Ok(productSales);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync(Guid id)
+        {
+            try
+            {
+                var productSale = await _productSaleService.GetByIdAsync(id);
+                return Ok(productSale);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

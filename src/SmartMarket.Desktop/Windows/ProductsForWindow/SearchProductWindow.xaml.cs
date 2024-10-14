@@ -3,6 +3,9 @@ using System.Windows;
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 using System.Windows.Interop;
 using SmartMarket.Desktop.Components.SaleForComponent;
+using SmartMarketDeskop.Integrated.Services.Products.Product;
+using SmartMarket.Service.DTOs.Products.Product;
+using System.Text.RegularExpressions;
 
 namespace SmartMarket.Desktop.Windows.ProductsForWindow;
 
@@ -11,9 +14,12 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow;
 /// </summary>
 public partial class SearchProductWindow : Window
 {
+    private readonly IProductService _productService;
+
     public SearchProductWindow()
     {
         InitializeComponent();
+        this._productService = new ProductService();
     }
 
     [DllImport("user32.dll")]
@@ -43,16 +49,55 @@ public partial class SearchProductWindow : Window
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         EnableBlur();
-
-        for (int i = 0; i < 15; i++)
-        {
-            SearchProductComponent searchProductComponent = new SearchProductComponent();
-            St_Products.Children.Add(searchProductComponent);
-        }
+        tb_search.Focus();
     }
 
     private void Close_Button_Click(object sender, RoutedEventArgs e)
     {
         this.Close();
+    }
+
+    private bool IsNumeric(string text)
+    {
+        return Regex.IsMatch(text, @"^\d+$");
+    }
+
+    private void SetProduct(ProductDto product)
+    {
+        St_Products.Children.Clear();
+        if (product != null)
+        {
+            SearchProductComponent searchProductComponent = new SearchProductComponent();
+            searchProductComponent.Tag = product;
+            searchProductComponent.SetData(product);
+            St_Products.Children.Add(searchProductComponent);
+        }
+    }
+    private async void tb_search_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+    {
+        string search = tb_search.Text;
+
+        await Task.Run(async () =>
+        {
+            if (IsNumeric(search) && search.Length >= 5)
+            {
+                var products = await _productService.GetByPCode(search);
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    SetProduct(products);
+                });
+            }
+            else if (!IsNumeric(search) && search.Length >= 2)
+            {
+                var products = await _productService.GetByProductName(search);
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    SetProduct(products);
+                });
+            }
+        });
+
     }
 }

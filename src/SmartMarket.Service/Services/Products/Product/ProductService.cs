@@ -86,7 +86,7 @@ namespace SmartMarket.Service.Services.Products.Product
             }
         }
 
-        public async Task<IEnumerable<FullProductDto>> GetAllAsync(PaginationParams paginationParams)
+        public async Task<IEnumerable<Et.Product>> GetAllAsync(PaginationParams paginationParams)
         {
             try
             {

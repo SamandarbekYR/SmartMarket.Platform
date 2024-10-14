@@ -2,6 +2,7 @@
 using NLog;
 using SmartMarket.Domain.Entities.Products;
 using SmartMarket.Domain.Entities.Workers;
+using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.DTOs.Workers.Worker;
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
@@ -64,7 +65,7 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Workers
             throw new NotImplementedException();
         }
 
-        public async Task<List<Worker>> GetAllAsync()
+        public async Task<List<WorkerDto>> GetAllAsync()
         {
             try
             {
@@ -78,14 +79,14 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Workers
 
                 string response = await message.Content.ReadAsStringAsync();
 
-                List<Worker> workers = JsonConvert.DeserializeObject<List<Worker>>(response)!;
+                List<WorkerDto> workers = JsonConvert.DeserializeObject<List<WorkerDto>>(response)!;
 
                 return workers;
 
             }
             catch
             {
-                return new List<Worker>();
+                return new List<WorkerDto>();
             }
         }
 

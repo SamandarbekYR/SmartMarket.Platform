@@ -9,6 +9,6 @@ public class FullExpenceDto
     public double Amount { get; set; }
     public string TypeOfPayment { get; set; } = string.Empty;
     public string PayDeskName { get; set; } = string.Empty;
-    public string WorkerFirsName { get; set; } = string.Empty;
+    public string WorkerFirstName { get; set; } = string.Empty;
     public string WorkerLastName { get; set; } = string.Empty;
 }

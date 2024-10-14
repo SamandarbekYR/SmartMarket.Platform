@@ -21,6 +21,7 @@ public class InvalidProductRepository : Repository<InvalidProduct>, IInvalidProd
         return await _invalidProducts
             .Include(ip => ip.Worker) 
             .Include(ip => ip.ProductSale) 
+                .ThenInclude(ps => ps.Product)
             .ToListAsync();
     }
 }

@@ -77,7 +77,11 @@ public partial class MainWindow : Window
         PageNavigator.Content = settingsPage;
     }
 
-
+    private void btnsale_Checked(object sender, RoutedEventArgs e)
+    {
+        SalePage salePage = new SalePage();
+        PageNavigator.Content = salePage;
+    }
 
     private void btnMain_Click(object sender, RoutedEventArgs e)
     {

@@ -52,7 +52,22 @@ public class MapperProfile : Profile
         CreateMap<AddWorkerDto, Worker>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
                 .ForMember(dest => dest.ImgPath, opt => opt.Ignore());
-   
+
+        CreateMap<Worker, WorkerDto>()
+            .ForMember(dest => dest.Position, opt => opt.MapFrom(src => src.Position))
+            .ForMember(dest => dest.WorkerRole, opt => opt.MapFrom(src => src.WorkerRole))
+            .ForMember(dest => dest.SalaryWorkers, opt => opt.MapFrom(src => src.SalaryWorkers))
+            .ForMember(dest => dest.SalaryChecks, opt => opt.MapFrom(src => src.SalaryChecks))
+            .ForMember(dest => dest.WorkerDebts, opt => opt.MapFrom(src => src.WorkerDebts))
+            .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products))
+            .ForMember(dest => dest.ProductSales, opt => opt.MapFrom(src => src.ProductSales))
+            .ForMember(dest => dest.LoadReports, opt => opt.MapFrom(src => src.LoadReports))
+            .ForMember(dest => dest.ReplaceProducts, opt => opt.MapFrom(src => src.ReplaceProducts))
+            .ForMember(dest => dest.InvalidProducts, opt => opt.MapFrom(src => src.InvalidProducts))
+            .ForMember(dest => dest.Orders, opt => opt.MapFrom(src => src.Orders))
+            .ForMember(dest => dest.Expenses, opt => opt.MapFrom(src => src.Expenses))
+            .ReverseMap();
+
         CreateMap<Worker, WorkerDto>();
 
         /*---------Position-----------*/
@@ -90,6 +105,9 @@ public class MapperProfile : Profile
                 .ForMember(dest => dest.Id, opt => opt.Ignore());
 
         CreateMap<Expense, ExpenceDto>();
+
+        CreateMap<Expense, FullExpenceDto>()
+            .ForMember(dest => dest.WorkerFirstName, opt => opt.MapFrom(src => src.Worker.FirstName));
 
         /*---------Order-----------------*/
         CreateMap<AddOrderDto, Order>()
@@ -165,14 +183,6 @@ public class MapperProfile : Profile
             .ForMember(dest => dest.ReplaceProducts, opt => opt.MapFrom(src => src.ReplaceProducts))
             .ForMember(dest => dest.InvalidProducts, opt => opt.MapFrom(src => src.InvalidProducts));
 
-        CreateMap<Product, Product>(); 
-        CreateMap<Worker, Worker>(); 
-        CreateMap<Transaction, Transaction>();
-        CreateMap<PayDesk, PayDesk>();
-        CreateMap<ReplaceProduct, ReplaceProduct>();
-        CreateMap<InvalidProduct, InvalidProduct>();
-        
-
         CreateMap<AddProductSaleDto, ProductSale>()
             .ForMember(dest => dest.Id, opt => opt.Ignore());
 
@@ -184,7 +194,9 @@ public class MapperProfile : Profile
             .ForMember(dest => dest.Id, opt => opt.Ignore());
 
         CreateMap<ReplaceProduct, ReplaceProductDto>()
-            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.ProductSale, opt => opt.MapFrom(src => src.ProductSale))
+            .ForMember(dest => dest.Worker, opt => opt.MapFrom(src => src.Worker));
 
         /*---------Transaction-----------------*/
         CreateMap<AddTransactionDto, Transaction>()
@@ -234,5 +246,12 @@ public class MapperProfile : Profile
 
         CreateMap<PartnerCompany, PartnerCompanyDto>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        CreateMap<Product, Product>(); 
+        CreateMap<Worker, Worker>(); 
+        CreateMap<Transaction, Transaction>();
+        CreateMap<PayDesk, PayDesk>();
+        CreateMap<ReplaceProduct, ReplaceProduct>();
+        CreateMap<InvalidProduct, InvalidProduct>();
     }
 }

@@ -28,7 +28,6 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             AllProductsPage allProductsPage = new AllProductsPage();
             ShopDetailsPageNavigator.Content =allProductsPage;
             DisableForTwo(BrAllExpenses, BrPaymentSum);
-
         }
 
         private void btnRunningOutOfProduct_Click(object sender, RoutedEventArgs e)
@@ -45,10 +44,6 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             DisableForOne(BrCargoReport);
         }
 
-
-
-
-
         public void DisableForOne(Border border)
         {
             BrAllExpenses.Visibility = Visibility.Collapsed;
@@ -58,7 +53,6 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
             border.Visibility = Visibility.Visible;
         }
-
 
         public void DisableForTwo(Border border,Border border1)
         {
@@ -71,5 +65,9 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             border1.Visibility = Visibility.Visible;    
         }
 
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
