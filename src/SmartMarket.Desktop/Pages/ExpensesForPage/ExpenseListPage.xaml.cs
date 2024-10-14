@@ -1,5 +1,6 @@
 ﻿using SmartMarket.Desktop.Components.ExpenseForComponents;
 using SmartMarket.Domain.Entities.Expenses;
+using SmartMarket.Service.DTOs.Expence;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
 using SmartMarketDeskop.Integrated.Server.Repositories.Expenses;
 using SmartMarketDesktop.ViewModels.Entities.Expenses;
@@ -30,7 +31,6 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
         {
             InitializeComponent();
             this.server = new ExpensesServer();
-            Loaded += Page_Loaded;
         }
 
         public async void GetAllExpence()
@@ -55,6 +55,67 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             else
             {
 
+            }
+        }
+
+        public async void FilterExpensesAsync()
+        {
+            FilterExpenseDto filter = new FilterExpenseDto();
+
+            if(fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
+            {
+                filter.FromDateTime = fromDateTime.SelectedDate.Value;
+                filter.ToDateTime = toDateTime.SelectedDate.Value;
+            }
+
+            var workerFirstName = workerNameComboBox.SelectedItem?.ToString();
+            if(!string.IsNullOrEmpty(workerFirstName) && !workerNameComboBox.Equals("Sotuvchi"))
+            {
+                filter.WorkerName = workerFirstName;
+            }
+
+            var searchReason = reasonTextBox.Text.ToLower();
+            if (!string.IsNullOrEmpty(searchReason))
+            {
+                filter.Reason = searchReason;
+            }
+
+            var filterResult = await server.FilterExpensesAsync(filter);
+
+            ShowExpense(filterResult);
+        }
+
+        private void ShowExpense(IEnumerable<FullExpenceDto> expences)
+        {
+            St_Expenses.Visibility = Visibility.Visible;
+            St_Expenses.Children.Clear();
+            int count = 1;
+
+            foreach(var expense in expences)
+            {
+                ExpenseComponent expenseComponent = new ExpenseComponent();
+                expenseComponent.Tag = expense;
+                expenseComponent.SetData(expense);
+                St_Expenses.Children.Add(expenseComponent);
+                count++;
+            }
+        }
+
+        private void DataPicter_SelectedDataChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //FilterExpensesAsync();
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //FilterExpensesAsync();
+        }
+
+        private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                //FilterExpensesAsync();
             }
         }
 

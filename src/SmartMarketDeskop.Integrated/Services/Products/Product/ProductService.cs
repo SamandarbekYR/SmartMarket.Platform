@@ -1,5 +1,4 @@
-﻿using SmartMarket.Domain.Entities.Categories;
-using SmartMarket.Service.DTOs.Products.Product;
+﻿using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Workers;
@@ -53,7 +52,7 @@ public class ProductService : IProductService
         }
     }
 
-    public async Task<List<ProductDto>> GetAll()
+    public async Task<List<FullProductDto>> GetAll()
     {
         if (IsInternetAvailable())
         {
@@ -63,7 +62,7 @@ public class ProductService : IProductService
         }
         else
         {
-            return new List<ProductDto>(); 
+            return new List<FullProductDto>(); 
         }
     
     }
@@ -72,6 +71,7 @@ public class ProductService : IProductService
     {
         throw new NotImplementedException();
     }
+
 
     public bool IsInternetAvailable()
     {
@@ -87,6 +87,7 @@ public class ProductService : IProductService
         }
     }
 
+
     public async Task<ProductDto> GetByBarCode(string barCode)
     {
         if (IsInternetAvailable())
@@ -97,11 +98,11 @@ public class ProductService : IProductService
         }
         else
         {
-            return null!;
+            return new ProductDto();
         }
     }
 
-    public async Task<List<ProductDto>> GetByCategoryId(Guid categoryId)
+    public async Task<List<FullProductDto>> GetByCategoryId(Guid categoryId)
     {
         if (IsInternetAvailable())
         {
@@ -111,35 +112,7 @@ public class ProductService : IProductService
         }
         else
         {
-            return new List<ProductDto>();
-        }
-    }
-
-    public async Task<ProductDto> GetByPCode(string PCode)
-    {
-        if (IsInternetAvailable())
-        {
-            var products = await productServer.GetByPCodeAsync(PCode);
-
-            return products;
-        }
-        else
-        {
-            return null!;
-        }
-    }
-
-    public async Task<ProductDto> GetByProductName(string productName)
-    {
-        if (IsInternetAvailable())
-        {
-            var products = await productServer.GetByProductNameAsync(productName);
-
-            return products;
-        }
-        else
-        {
-            return null!;
+            return new List<FullProductDto>();
         }
     }
 }

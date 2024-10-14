@@ -67,7 +67,7 @@ public partial class SalePage : Page
             offsetY: 20);
 
         cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-            notificationLifetime: TimeSpan.FromSeconds(3),
+            notificationLifetime: TimeSpan.FromSeconds(4),
             maximumNotificationCount: MaximumNotificationCount.FromCount(2));
 
         cfg.Dispatcher = Application.Current.Dispatcher;
@@ -96,16 +96,9 @@ public partial class SalePage : Page
 
     private void btnBackKlav_Click(object sender, RoutedEventArgs e)
     {
-        if(activeTextboxIndex == 2 && tbCalculator.Text.Length > 0)
+        if (tbCalculator.Text.Length > 0)
         {
             tbCalculator.Text = tbCalculator.Text.Substring(0, tbCalculator.Text.Length - 1);
-        }
-        else if(activeTextboxIndex == 3)
-        {
-            if (selectedControl.tbDiscount.Text.Length == 1)
-                selectedControl.tbDiscount.Text = "0";
-            else if (selectedControl.tbDiscount.Text.Length > 1)
-                selectedControl.tbDiscount.Text = selectedControl.tbDiscount.Text.Substring(0, selectedControl.tbDiscount.Text.Length - 1);
         }
     }
 
@@ -154,13 +147,7 @@ public partial class SalePage : Page
         }
         else if(activeTextboxIndex == 3)
         {
-            if(selectedControl.tbDiscount.Text == "0")
-            {
-                selectedControl.tbDiscount.Text = "";
-                selectedControl.tbDiscount.Text = selectedControl.tbDiscount.Text + number;
-            }
-            else
-                selectedControl.tbDiscount.Text = selectedControl.tbDiscount.Text + number;
+            selectedControl.tbDiscount.Text = selectedControl.tbDiscount.Text + number;
         }
     }
 
@@ -188,42 +175,37 @@ public partial class SalePage : Page
 
             if (product != null)
             {
-                AddNewProductTvm(product);
+                if (!tvm.Transactions.Any(t => t.Barcode == barcode))
+                {
+                    tvm.Add(product);
+                    AddNewProduct(product);
+                }
+                else
+                {
+                    tvm.Increment(barcode);
+                    foreach (SaleProductForComponent child in St_product.Children)
+                    {
+                        if (child.Barcode == barcode)
+                        {
+                            int quantity = int.Parse(child.tbQuantity.Text);
+                            if (quantity < child.AvailableCount)
+                            {
+                                quantity++;
+                                child.tbQuantity.Text = quantity.ToString();
+                                child.tbTotalPrice.Text = (quantity * double.Parse(child.tbPrice.Text)).ToString();
+                                GetPrice(product, quantity);
+                            }
+                        }
+                    }
+
+                }
+                ColculateTotalPrice();
             }
             else
             {
                 notifier.ShowWarning("Bunday maxsulot topilmadi.");
             }
         }
-    }
-
-    public void AddNewProductTvm(ProductDto product)
-    {
-        if (!tvm.Transactions.Any(t => t.Barcode == barcode))
-        {
-            tvm.Add(product);
-            AddNewProduct(product);
-        }
-        else
-        {
-            tvm.Increment(barcode);
-            foreach (SaleProductForComponent child in St_product.Children)
-            {
-                if (child.Barcode == barcode)
-                {
-                    int quantity = int.Parse(child.tbQuantity.Text);
-                    if (quantity < child.AvailableCount)
-                    {
-                        quantity++;
-                        child.tbQuantity.Text = quantity.ToString();
-                        child.tbTotalPrice.Text = (quantity * double.Parse(child.tbPrice.Text)).ToString();
-                        GetPrice(product, quantity);
-                    }
-                }
-            }
-
-        }
-        ColculateTotalPrice();
     }
 
     private void AddNewProduct(ProductDto product)
@@ -375,12 +357,6 @@ public partial class SalePage : Page
             tbDiscountAmount.Text = tvm.DiscountPrice.ToString();
             tbAmount.Text = (tvm.TransactionPrice + tvm.DiscountPrice).ToString();
         }
-        else
-        {
-            tbAmount.Text = "0";
-            tbDiscountAmount.Text = "0";
-            tbTotalAmount.Text = "0";
-        }
     }
 
     // Har bir maxsulotni narxini hisoblash uchun
@@ -389,8 +365,8 @@ public partial class SalePage : Page
         double TotalPrice = 0;
         if (discount > 0)
         {
-            double discountprice = (price * (discount / 100));
-            tvm.DiscountPrice += discountprice;
+            double discountprice = price - (price * (discount / 100));
+            tvm.DiscountPrice = discountprice;
             TotalPrice = quantity * (price - discountprice);
         }
         else
@@ -447,7 +423,6 @@ public partial class SalePage : Page
     {
         if (selectedControl != null)
         {
-            activeTextboxIndex = 3;
             float discount = int.Parse(selectedControl.tbDiscount.Text);
 
             if (discount > 0)

@@ -1,4 +1,5 @@
-﻿using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
+﻿using SmartMarket.Service.DTOs.Expence;
+using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
 using SmartMarketDeskop.Integrated.Server.Repositories.Expenses;
 using SmartMarketDesktop.ViewModels.Entities.Expenses;
 using System;
@@ -31,12 +32,12 @@ namespace SmartMarket.Desktop.Components.ExpenseForComponents
         }
         public Guid ExpenseId { get; set; }
 
-        public void SetData(ExpenseView expense)
+        public void SetData(FullExpenceDto expense)
         {
             tbReason.Text = expense.Reason;
             tbAmount.Text = expense.Amount.ToString();
             tbTypeOfPayment.Text = expense.TypeOfPayment;
-            tbWorker.Text = expense.WorkerFirstname;
+            tbWorker.Text = expense.WorkerFirstName;
             tbPayDesk.Text = expense.PayDeskName;
         }
     }

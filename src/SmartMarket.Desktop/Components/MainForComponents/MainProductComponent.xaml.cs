@@ -19,7 +19,7 @@ public partial class MainProductComponent : UserControl
         this.productService = new ProductService();
     }
 
-    public void GetData(ProductDto product, int count)
+    public void GetData(FullProductDto product, int count)
     {
         tbNumber.Text = count.ToString();
         tbP_Code.Text = product.PCode;

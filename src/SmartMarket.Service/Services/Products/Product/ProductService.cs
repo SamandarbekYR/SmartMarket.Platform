@@ -86,7 +86,7 @@ namespace SmartMarket.Service.Services.Products.Product
             }
         }
 
-        public async Task<IList<FullProductDto>> GetAllAsync(PaginationParams paginationParams)
+        public async Task<IEnumerable<Et.Product>> GetAllAsync(PaginationParams paginationParams)
         {
             try
             {
@@ -94,30 +94,7 @@ namespace SmartMarket.Service.Services.Products.Product
                                         .AsNoTracking()
                                         .ToPagedListAsync(paginationParams);
 
-                var productDtos = products.Select(p => new FullProductDto
-                {
-                    Id = p.Id,
-                    PCode = p.PCode,
-                    Name = p.Name,
-                    Barcode = p.Barcode,
-                    Price = p.Price,
-                    SellPrice = p.SellPrice,
-                    Count = p.Count,
-                    UnitOfMeasure = p.UnitOfMeasure,
-                    CategoryId = p.Category.Id,
-                    CategoryName = p.Category.Name,
-                    WorkerId = p.Worker.Id,
-                    WorkerFirstName = p.Worker.FirstName,
-                    WorkerLastName = p.Worker.LastName,
-                    ProductImages = p.ProductImages.Select(img => new ProductImageDto
-                    {
-                        Id = img.Id,
-                        ImagePath = img.ImagePath
-                    }).ToList(),
-                    NoteAmount = p.NoteAmount
-                });
-
-                return _mapper.Map<IList<FullProductDto>>(productDtos);
+                return products;
             }
             catch (Exception ex)
             {
