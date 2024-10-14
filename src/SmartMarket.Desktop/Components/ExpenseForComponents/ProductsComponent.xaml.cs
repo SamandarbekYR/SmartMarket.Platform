@@ -1,6 +1,7 @@
 ﻿using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
 using SmartMarketDeskop.Integrated.Server.Repositories.Products;
+using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
 using SmartMarketDesktop.ViewModels.Entities.Products;
 using System;
@@ -25,11 +26,11 @@ namespace SmartMarket.Desktop.Components.ExpenseForComponents
     /// </summary>
     public partial class ProductsComponent : UserControl
     {
-        private readonly IProductServer server;
+        private readonly IProductService productService;
         public ProductsComponent()
         {
             InitializeComponent();
-            this.server = new ProductServer();
+            this.productService = new ProductService();
         }
         public Guid ProductId { get; set; }
         public void SetData(FullProductDto product)

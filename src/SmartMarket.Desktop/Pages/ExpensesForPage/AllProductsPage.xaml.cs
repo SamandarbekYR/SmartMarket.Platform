@@ -1,6 +1,7 @@
 ﻿using SmartMarket.Desktop.Components.ExpenseForComponents;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
 using SmartMarketDeskop.Integrated.Server.Repositories.Products;
+using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
 using SmartMarketDesktop.ViewModels.Entities.Products;
 using System;
@@ -26,18 +27,18 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
     /// </summary>
     public partial class AllProductsPage : Page
     {
-        private readonly IProductServer server;
+        private readonly IProductService productService;
         public AllProductsPage()
         {
             InitializeComponent();
-            this.server = new ProductServer();
+            this.productService = new ProductService();
         }
 
         public async void GetAllProduct()
         {
             //St_AllProducts.Children.Clear();
 
-            //var products = await server.GetAllAsync();
+            //var products = await productService.GetAll();
 
             //int count = 1;
 
@@ -50,16 +51,14 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             //        productsComponent.SetData(product);
             //        St_AllProducts.Children.Add(productsComponent);
             //        count++;
-
-            //        MessageBox.Show("Componentlar yuklanyapdi");
             //    }
-
-            //    MessageBox.Show($"jami {count - 1} component qoshildi");
             //}
             //else
-            //{ MessageBox.Show("component null"); }
+            //{ 
 
-            for(int i = 0; i < 20; i++)
+            //}
+
+            for (int i = 0; i < 20; i++)
             {
                 ProductsComponent productsComponent = new ProductsComponent();
                 St_AllProducts.Children.Add(productsComponent);

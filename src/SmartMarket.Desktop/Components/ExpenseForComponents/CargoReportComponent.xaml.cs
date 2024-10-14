@@ -1,6 +1,7 @@
 ﻿using SmartMarket.Service.DTOs.Products.LoadReport;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
 using SmartMarketDeskop.Integrated.Server.Repositories.Expenses;
+using SmartMarketDeskop.Integrated.Services.Expenses;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
 using System;
 using System.Collections.Generic;
@@ -24,11 +25,11 @@ namespace SmartMarket.Desktop.Components.ExpenseForComponents
     /// </summary>
     public partial class CargoReportComponent : UserControl
     {
-        private readonly ILoadReportServer loadReportServer;
+        private readonly ILoadReportService loadReportService;
         public CargoReportComponent()
         {
             InitializeComponent();
-            this.loadReportServer = new LoadReportServer();
+            this.loadReportService = new LoadReportService();
         }
 
         public Guid LoadReportId { get; set; }

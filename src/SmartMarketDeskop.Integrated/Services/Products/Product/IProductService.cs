@@ -11,4 +11,5 @@ public interface IProductService
     Task<List<FullProductDto>> GetAll();
     Task<List<FullProductDto>> GetByCategoryId(Guid categoryId);
     Task<ProductDto> GetByBarCode(string barCode);
- }
+    Task<List<ProductDto>> GetFinishedProducts();
+}
