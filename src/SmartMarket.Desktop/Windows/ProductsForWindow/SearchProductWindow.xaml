@@ -47,13 +47,11 @@
                 Margin="0 0 10 0"
                 Click="Close_Button_Click"
                 Foreground="White"
-                Style="{DynamicResource btnClose}"/>
+                Style="{DynamicResource bntmainclose}"/>
 
             <TextBox
                 Grid.Row="1"
                 Margin="100 5 100 0"
-                Name="tb_search"
-                TextChanged="tb_search_TextChanged"
                 Style="{DynamicResource search}"/>
 
             <ScrollViewer
