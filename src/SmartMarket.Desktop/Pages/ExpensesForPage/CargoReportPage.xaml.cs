@@ -1,29 +1,7 @@
 ﻿using SmartMarket.Desktop.Components.ExpenseForComponents;
-using SmartMarket.Domain.Entities.Products;
-using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
-using SmartMarketDeskop.Integrated.Server.Interfaces.PartnerCompany;
-using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
-using SmartMarketDeskop.Integrated.Server.Interfaces.Workers;
-using SmartMarketDeskop.Integrated.Server.Repositories.Expenses;
-using SmartMarketDeskop.Integrated.Server.Repositories.PartnerCompany;
-using SmartMarketDeskop.Integrated.Server.Repositories.Products;
-using SmartMarketDeskop.Integrated.Server.Repositories.Workers;
-using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SmartMarketDeskop.Integrated.Services.Expenses;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ToastNotifications.Utilities;
 
 namespace SmartMarket.Desktop.Pages.ExpensesForPage
 {
@@ -32,18 +10,18 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
     /// </summary>
     public partial class CargoReportPage : Page
     {
-        private readonly ILoadReportServer loadReportServer;
+        private readonly ILoadReportService loadReportService;
         public CargoReportPage()
         {
             InitializeComponent();
-            this.loadReportServer = new LoadReportServer();
+            this.loadReportService = new LoadReportService();
         }
 
         public async void GetAllCargoReport()
         {
             St_CargoReports.Children.Clear();
 
-            var loadReports = await loadReportServer.GetAllAsync();
+            var loadReports = await loadReportService.GetAll();
 
             int count = 1;
 

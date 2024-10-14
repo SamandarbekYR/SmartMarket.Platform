@@ -118,4 +118,14 @@ public class ProductService : IProductService
             return new List<FullProductDto>();
         }
     }
+
+    public async Task<List<ProductDto>> GetFinishedProducts()
+    {
+        if(IsInternetAvailable())
+        {
+            var finishedProducts = await productServer.GetFinishedProductsAsync();
+            return finishedProducts;
+        }
+        else { return new List<ProductDto>(); }
+    }
 }

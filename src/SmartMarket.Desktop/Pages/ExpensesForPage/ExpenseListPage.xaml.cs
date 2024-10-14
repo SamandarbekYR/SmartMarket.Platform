@@ -3,6 +3,7 @@ using SmartMarket.Domain.Entities.Expenses;
 using SmartMarket.Service.DTOs.Expence;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
 using SmartMarketDeskop.Integrated.Server.Repositories.Expenses;
+using SmartMarketDeskop.Integrated.Services.Expenses;
 using SmartMarketDesktop.ViewModels.Entities.Expenses;
 using System;
 using System.Collections.Generic;
@@ -26,18 +27,18 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
     /// </summary>
     public partial class ExpenseListPage : Page
     {
-        private readonly IExpensesServer server;
+        private readonly IExpenseService expenseService;
         public ExpenseListPage()
         {
             InitializeComponent();
-            this.server = new ExpensesServer();
+            this.expenseService = new ExpenseService();
         }
 
         public async void GetAllExpence()
         {
             St_Expenses.Children.Clear();
 
-            var expenses = await server.GetExpensesFullInformationAsync();
+            var expenses = await expenseService.GetAll();
 
             int count = 1;
 
@@ -80,7 +81,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
                 filter.Reason = searchReason;
             }
 
-            var filterResult = await server.FilterExpensesAsync(filter);
+            var filterResult = await expenseService.FilterExpense(filter);
 
             ShowExpense(filterResult);
         }

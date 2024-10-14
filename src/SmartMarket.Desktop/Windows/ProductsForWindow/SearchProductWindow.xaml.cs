@@ -49,7 +49,7 @@ public partial class SearchProductWindow : Window
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         EnableBlur();
-        tb_search.Focus();
+        //tb_search.Focus();
     }
 
     private void Close_Button_Click(object sender, RoutedEventArgs e)
@@ -64,40 +64,40 @@ public partial class SearchProductWindow : Window
 
     private void SetProduct(ProductDto product)
     {
-        St_Products.Children.Clear();
-        if (product != null)
-        {
-            SearchProductComponent searchProductComponent = new SearchProductComponent();
-            searchProductComponent.Tag = product;
-            searchProductComponent.SetData(product);
-            St_Products.Children.Add(searchProductComponent);
-        }
+        //St_Products.Children.Clear();
+        //if (product != null)
+        //{
+        //    SearchProductComponent searchProductComponent = new SearchProductComponent();
+        //    searchProductComponent.Tag = product;
+        //    searchProductComponent.SetData(product);
+        //    St_Products.Children.Add(searchProductComponent);
+        //}
     }
     private async void tb_search_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
     {
-        string search = tb_search.Text;
+        //string search = tb_search.Text;
 
-        await Task.Run(async () =>
-        {
-            if (IsNumeric(search) && search.Length >= 5)
-            {
-                var products = await _productService.GetByPCode(search);
+        //await Task.Run(async () =>
+        //{
+        //    if (IsNumeric(search) && search.Length >= 5)
+        //    {
+        //        var products = await _productService.GetByPCode(search);
 
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    SetProduct(products);
-                });
-            }
-            else if (!IsNumeric(search) && search.Length >= 2)
-            {
-                var products = await _productService.GetByProductName(search);
+        //        Application.Current.Dispatcher.Invoke(() =>
+        //        {
+        //            SetProduct(products);
+        //        });
+        //    }
+        //    else if (!IsNumeric(search) && search.Length >= 2)
+        //    {
+        //        var products = await _productService.GetByProductName(search);
 
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    SetProduct(products);
-                });
-            }
-        });
+        //        Application.Current.Dispatcher.Invoke(() =>
+        //        {
+        //            SetProduct(products);
+        //        });
+        //    }
+        //});
 
     }
 }
