@@ -57,6 +57,9 @@ public class ProductService : IProductService
         if (IsInternetAvailable())
         {
             var products = await productServer.GetAllAsync();
+            
+            //var categorys=await categoryServer.GetAllAsync();
+            //var workers=await workerServer.GetAllAsync();
 
             return products;
         }

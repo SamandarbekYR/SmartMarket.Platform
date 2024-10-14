@@ -1,4 +1,5 @@
-﻿using SmartMarket.Service.DTOs.Products.Product;
+﻿using SmartMarket.Domain.Entities.Products;
+using SmartMarket.Service.DTOs.Products.Product;
 
 namespace SmartMarketDeskop.Integrated.Server.Interfaces.Products;
 
