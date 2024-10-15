@@ -31,19 +31,12 @@ namespace SmartMarket.Desktop.Components.ExpenseForComponents
             this.server = new ProductServer();
         }
         public Guid ProductId { get; set; }
-        //ProductDto ni orniga ProductViewga otqazish kerak.
-        public void SetData(ProductView product)
+        public void SetData(ProductDto product)
         {
-            tbPCode.Text = product.PCode;
-            tbBarcode.Text = product.Barcode;
             tbProductName.Text = product.Name;
-            tbCategory.Text = product.CategoryView.Name;
-            tbWorker.Text = product.WorkerView.FirstName;
-            tbSellPrice.Text = product.SellPrice.ToString();
             tbTotalPrice.Text = (product.SellPrice * product.Count).ToString();
             tbCount.Text = product.Count.ToString();
             tbPrice.Text = product.Price.ToString();
-            tbUnitOfMeasure.Text = product.UnitOfMeasure;
         }
     }
 }

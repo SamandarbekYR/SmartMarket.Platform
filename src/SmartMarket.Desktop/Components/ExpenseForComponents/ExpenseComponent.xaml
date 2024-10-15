@@ -4,19 +4,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartMarket.Desktop.Components.ExpenseForComponents"
-             mc:Ignorable="d"
-             d:DesignHeight="39" d:DesignWidth="1100">
+             mc:Ignorable="d">
     <Grid>
-        <Border Style="{DynamicResource StyleBorder}"
-                CornerRadius="8"
-                Margin="5 5 5 0"
+        <Border Height="45"
+                CornerRadius="5"
                 Background="White"
-                BorderBrush="Black"
-                BorderThickness="1">
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="1" 
+                Margin="5 3 15 3">
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="40"/>
                     <ColumnDefinition Width="2.2*"/>
                     <ColumnDefinition Width="1.5*"/>
                     <ColumnDefinition Width="1.2*"/>
@@ -30,7 +29,7 @@
                     Text="1"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
-                    FontSize="26"
+                    FontSize="14"
                     FontWeight="SemiBold">
 
                 </TextBlock>
@@ -40,8 +39,8 @@
                     Grid.Column="1"
                     Text="Abet uchun"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    FontSize="26"
+                    HorizontalAlignment="Left"
+                    FontSize="14"
                     FontWeight="SemiBold">
                     
                 </TextBlock>
@@ -51,8 +50,8 @@
                     Grid.Column="2"
                     Text="100000"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    FontSize="26"
+                    HorizontalAlignment="Left"
+                    FontSize="14"
                     FontWeight="SemiBold">
 
                 </TextBlock>
@@ -62,8 +61,8 @@
                     Grid.Column="3"
                     Text="Naqt"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    FontSize="26"
+                    HorizontalAlignment="Left"
+                    FontSize="14"
                     FontWeight="SemiBold">
 
                 </TextBlock>
@@ -73,8 +72,8 @@
                     Grid.Column="4"
                     Text="Kassa"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    FontSize="26"
+                    HorizontalAlignment="Left"
+                    FontSize="14"
                     FontWeight="SemiBold">
 
                 </TextBlock>
@@ -84,8 +83,8 @@
                     Grid.Column="5"
                     Text="Abdulvosid"
                     VerticalAlignment="Center"
-                    HorizontalAlignment="Center"
-                    FontSize="26"
+                    HorizontalAlignment="Left"
+                    FontSize="14"
                     FontWeight="SemiBold">
 
                 </TextBlock>

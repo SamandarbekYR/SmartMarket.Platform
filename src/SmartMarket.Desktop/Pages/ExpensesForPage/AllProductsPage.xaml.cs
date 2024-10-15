@@ -1,6 +1,8 @@
 ﻿using SmartMarket.Desktop.Components.ExpenseForComponents;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
 using SmartMarketDeskop.Integrated.Server.Repositories.Expenses;
+using SmartMarketDeskop.Integrated.Server.Repositories.Products;
+using SmartMarketDeskop.Integrated.Services.Products.Product;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,34 +25,40 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
     /// </summary>
     public partial class AllProductsPage : Page
     {
-        private readonly IProductServer server;
+        private readonly IProductService productService;
         public AllProductsPage()
         {
             InitializeComponent();
-            this.server = new ProductServer();
+            this.productService = new ProductService();
         }
 
         public async void GetAllProduct()
         {
-            St_AllProducts.Children.Clear();
+            //St_AllProducts.Children.Clear();
 
-            int count = 1;
+            //int count = 1;
 
-            var products = await server.GetAllProduct();
+            //var products = await productService.GetAll();
 
-            if (products != null)
+            //if (products != null)
+            //{
+            //    foreach (var product in products)
+            //    {
+            //        ProductsComponent productsComponent = new ProductsComponent();
+            //        productsComponent.tbNumber.Text = count.ToString();
+            //        productsComponent.SetData(product);
+            //        St_AllProducts.Children.Add(productsComponent);
+            //        count++;
+            //    }
+            //}
+            //else
+            //{ }
+
+            for(int i = 0; i < 20; i++)
             {
-                foreach (var product in products)
-                {
-                    ProductsComponent productsComponent = new ProductsComponent();
-                    productsComponent.tbNumber.Text = count.ToString();
-                    productsComponent.SetData(product);
-                    St_AllProducts.Children.Add(productsComponent);
-                    count++;
-                }
+                ProductsComponent productsComponent = new ProductsComponent();
+                St_AllProducts.Children.Add(productsComponent);
             }
-            else
-            { }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
