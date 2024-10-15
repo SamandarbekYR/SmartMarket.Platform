@@ -9,6 +9,7 @@ using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
 using SmartMarketDeskop.Integrated.Server.Repositories.Products;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.ViewModels.Products;
+using System.Reflection.Emit;
 
 namespace SmartMarket.Desktop.Windows.ProductsForWindow;
 

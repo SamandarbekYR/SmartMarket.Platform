@@ -35,19 +35,24 @@ public partial class ReturnProductComponent : UserControl
         return mainWindow!;
     }
 
-    public void SetValues(int id, string Transaction, string productName, string barcode, string category, string worker, string discount, int count, string totalprice, string kassa, string price, string date)
+    public void SetValues(int id, long Transaction, string productName, double price, int count, double totalprice, double discount, string worker, DateTime? date)
     {
         lb_Count.Content = id.ToString();
         lb_Transaction.Content = Transaction;
         lb_Productname.Content = productName;
-        lb_Count.Content = count.ToString();
+        lb_Product_Count.Content = count.ToString();
         lb_Total_Price.Content = totalprice;
         lb_Price.Content = price;
+        lb_Discount.Content = discount;
+        lb_Saller.Content = worker;
+        lb_Date.Content = date?.ToString("dd.MM.yyyy");
     }
 
     private void Return_Button_Click(object sender, RoutedEventArgs e)
     {
-        ReturnProductViewWindow returnProductViewWindow = new ReturnProductViewWindow(new ProductSaleViewModel());
+        var productSale = this.Tag as ProductSaleViewModel;
+
+        ReturnProductViewWindow returnProductViewWindow = new ReturnProductViewWindow(productSale);
         ReturnProductWindow returnProductWindow = GetReturnProductWindow();
         returnProductWindow.Close();
         returnProductViewWindow.ShowDialog();
