@@ -47,8 +47,44 @@ namespace SmartMarket.WebApi.Controllers.SuperAdmin.Workers
         {
             try
             {
-                var worker = await _workerService.GetWorkerByNameAsync(firstName);
-                return Ok(worker);
+                var workers = await _workerService.GetWorkerByNameAsync(firstName);
+                return Ok(workers);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(AddWorkerDto workerDto, Guid id)
+        {
+            try
+            {
+                await _workerService.UpdateAsync(workerDto, id);
+                return Ok();
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            try
+            {
+                await _workerService.DeleteAsync(id);
+                return Ok();
             }
             catch (StatusCodeException ex)
             {

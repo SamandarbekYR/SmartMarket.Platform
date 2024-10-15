@@ -20,21 +20,29 @@ namespace SmartMarketDeskop.Integrated.Services.Workers.Worker
         {
             _workerServer = new WorkerServer();
         }
-        public async Task<bool> CreateProduct(WorkerDto dto)
+
+        public async Task<bool> CreateAsync(AddWorkerDto dto)
         {
-            throw new NotImplementedException();
+            if (IsInternetAvailable())
+            {
+                return await _workerServer.AddAsync(dto);
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public Task<bool> DeleteProduct(Guid Id)
+        public async Task<bool> DeleteAsync(Guid Id)
         {
-            throw new NotImplementedException();
-        }
-
-      
-
-        public Task<bool> UpdateProduct(WorkerDto worker, Guid Id)
-        {
-            throw new NotImplementedException();
+            if (IsInternetAvailable())
+            {
+                return await _workerServer.DeleteAsync(Id);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public async Task<List<WorkerDto>> GetAllAsync()
@@ -46,6 +54,30 @@ namespace SmartMarketDeskop.Integrated.Services.Workers.Worker
             else
             {
                 return new List<WorkerDto>();
+            }
+        }
+
+        public async Task<List<WorkerDto>> GetWorkerByName(string name)
+        {
+            if (IsInternetAvailable())
+            {
+                return await _workerServer.GetWorkerByName(name);
+            }
+            else
+            {
+                return new List<WorkerDto>();
+            }
+        }
+
+        public async Task<bool> UpdateAsync(AddWorkerDto worker, Guid Id)
+        {
+            if (IsInternetAvailable())
+            {
+                return await _workerServer.UpdateAsync(worker, Id);
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -62,5 +94,6 @@ namespace SmartMarketDeskop.Integrated.Services.Workers.Worker
                 return false;
             }
         }
+
     }
 }

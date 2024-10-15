@@ -9,6 +9,6 @@ namespace SmartMarketDeskop.Integrated.Server.Interfaces.Workers
 {
     public interface IWorkerRoleServer
     {
-        Task<List<WorkerRole>> GetAll();
+        Task<List<WorkerRole>> GetAllAsync();
     }
 }

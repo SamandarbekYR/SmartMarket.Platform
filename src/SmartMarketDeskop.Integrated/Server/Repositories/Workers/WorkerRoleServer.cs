@@ -15,7 +15,7 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Workers
     public class WorkerRoleServer : IWorkerRoleServer
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        public async Task<List<WorkerRole>> GetAll()
+        public async Task<List<WorkerRole>> GetAllAsync()
         {
             try
             {

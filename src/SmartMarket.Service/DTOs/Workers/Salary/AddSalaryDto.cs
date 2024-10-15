@@ -2,7 +2,7 @@
 
 public class AddSalaryDto
 {
-    public string Description { get; set; } = string.Empty;
-    public double Amount { get; set; }
-    public double Advance { get; set; }
+    public string? Description { get; set; }
+    public double? Amount { get; set; }
+    public double? Advance { get; set; }
 }
