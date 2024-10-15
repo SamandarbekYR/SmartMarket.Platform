@@ -5,7 +5,7 @@ namespace SmartMarketDeskop.Integrated.Server.Interfaces.Expenses
 {
     public interface IExpensesServer
     {
-        Task<List<ExpenseView>> GetExpensesFullInformationAsync();
+        Task<List<FullExpenceDto>> GetExpensesFullInformationAsync();
         Task<List<FullExpenceDto>>  FilterExpenceAsync(FilterExpenseDto filterExpenceDto);
     }
 }
