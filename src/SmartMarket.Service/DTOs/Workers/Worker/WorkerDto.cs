@@ -16,6 +16,7 @@ public class WorkerDto
     public string ImgPath { get; set; } = string.Empty;
     public string PasswordHash { get; set; } = string.Empty;
     public string PasswordSalt { get; set; } = string.Empty;
+    public DateTime? CreatedDate { get; set; }
     public W.Position Position { get; set; }
     public W.WorkerRole WorkerRole { get; set; }
     public List<W.SalaryWorker> SalaryWorkers { get; set; }

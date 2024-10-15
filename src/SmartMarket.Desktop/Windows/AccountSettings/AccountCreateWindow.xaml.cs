@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Input;
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 using System.Windows.Interop;
+using SmartMarketDeskop.Integrated.Services.Workers.Position;
 
 namespace SmartMarket.Desktop.Windows.AccountSettings
 {
@@ -11,11 +12,13 @@ namespace SmartMarket.Desktop.Windows.AccountSettings
     /// </summary>
     public partial class AccountCreateWindow : Window
     {
+        private IPositionService _positionService;
+
         public AccountCreateWindow()
         {
             InitializeComponent();
+            _positionService = new PositionService();
         }
-
 
         [DllImport("user32.dll")]
         internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
@@ -54,6 +57,7 @@ namespace SmartMarket.Desktop.Windows.AccountSettings
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             EnableBlur();
+            
         }
     }
 }

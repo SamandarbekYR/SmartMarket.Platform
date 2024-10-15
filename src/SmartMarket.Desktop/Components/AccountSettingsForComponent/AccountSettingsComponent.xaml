@@ -58,7 +58,7 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBlock x:Name="lbRole"
+                    <TextBlock x:Name="lbPositon"
                            Grid.Row="0"
                            Text="Sotuvchi"
                            HorizontalAlignment="Left"

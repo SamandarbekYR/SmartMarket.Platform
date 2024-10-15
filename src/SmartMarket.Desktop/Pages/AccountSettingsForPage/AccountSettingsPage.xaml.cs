@@ -1,8 +1,13 @@
 ﻿using SmartMarket.Desktop.Components.AccountSettingsForComponent;
 using SmartMarket.Desktop.Windows.AccountSettings;
 using SmartMarket.Desktop.Windows.Position;
+using SmartMarket.Service.DTOs.Workers.Worker;
+
+using SmartMarketDeskop.Integrated.Services.Workers.Worker;
+
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SmartMarket.Desktop.Pages.AccountSettingsForPage
 {
@@ -11,56 +16,50 @@ namespace SmartMarket.Desktop.Pages.AccountSettingsForPage
     /// </summary>
     public partial class AccountSettingsPage : Page
     {
-
-        List<Worker>    workers = new List<Worker>();
+        private IWorkerService _workerService;
         public AccountSettingsPage()
         {
             InitializeComponent();
-            GetAllworkers();
+            _workerService = new WorkerService();
+            GetAllWorkers();
         }
 
-
-
-
-
-        public class Worker()
+        public async void GetAllWorkers()
         {
-            public string FirstName { get; set; }
-            public string LastName { get; set; }
+            var workers = await _workerService.GetAllAsync();
+            ShowWorkers(workers);
         }
 
-
-
-
-        public void GetAllworkers()
+        private void ShowWorkers(IEnumerable<WorkerDto> workers)
         {
-            var newlist = WorkerList();
-            Wr_Account.Visibility = Visibility.Visible; 
+            Wr_Account.Visibility = Visibility.Visible;
             Wr_Account.Children.Clear();
-            foreach (var item in newlist)
+
+            foreach (var item in workers)
             {
-                AccountSettingsComponent accountSettingsComponent = new AccountSettingsComponent(); 
+                AccountSettingsComponent accountSettingsComponent = new AccountSettingsComponent();
                 accountSettingsComponent.Tag = item;
-                accountSettingsComponent.SetData(item.FirstName,item.LastName);
-                accountSettingsComponent.BorderThickness=new Thickness(15,5,15,5);
+                accountSettingsComponent.SetData(item.FirstName, item.LastName);
+                accountSettingsComponent.BorderThickness = new Thickness(15, 5, 15, 5);
                 Wr_Account.Children.Add(accountSettingsComponent);
             }
         }
 
-
-        public List<Worker> WorkerList()
+        private async void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            workers.Add(new Worker() { FirstName="Alisher",LastName="Ergashev"});
-            workers.Add(new Worker() { FirstName = "Ramziddin", LastName = "Aliyev" });
-            workers.Add(new Worker() { FirstName = "Alisher", LastName = "Ergashev" });
-            workers.Add(new Worker() { FirstName = "Xumoyun", LastName = "Ergashev" });
-            workers.Add(new Worker() { FirstName = "Alisher", LastName = "Ergashev" });
-            workers.Add(new Worker() { FirstName = "Ulug;bek", LastName = "Abdullayev" });
-            workers.Add(new Worker() { FirstName = "Alisher", LastName = "Ergashev" });
-            workers.Add(new Worker() { FirstName = "Alisher", LastName = "Ergashev" });
-            workers.Add(new Worker() { FirstName = "Alisher", LastName = "Ergashev" });
-            workers.Add(new Worker() { FirstName = "Alisher", LastName = "Ergashev" });
-            return workers; 
+            if (e.Key == Key.Enter)
+            {
+                var searchTerm = txtSearch.Text;
+                if (!string.IsNullOrEmpty(searchTerm))
+                {
+                    var workers = await _workerService.GetWorkerByName(searchTerm);
+                    ShowWorkers(workers);
+                }
+                else
+                {
+                    GetAllWorkers();
+                }
+            }
         }
 
         private void btnAddAccount_Click(object sender, RoutedEventArgs e)
@@ -71,8 +70,13 @@ namespace SmartMarket.Desktop.Pages.AccountSettingsForPage
 
         private void btnAddPosition_Click(object sender, RoutedEventArgs e)
         {
-            PositionCreateWindow positionCreateWindow = new PositionCreateWindow(); 
+            PositionCreateWindow positionCreateWindow = new PositionCreateWindow();
             positionCreateWindow.ShowDialog();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            GetAllWorkers();
         }
 
         private void btnAddPosition_Click_1(object sender, RoutedEventArgs e)

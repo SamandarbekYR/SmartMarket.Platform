@@ -1,10 +1,13 @@
 ﻿using SmartMarket.Service.DTOs.Workers.Position;
 using SmartMarketDeskop.Integrated.Interfaces.Workers;
+using SmartMarketDeskop.Integrated.Server.Interfaces.Workers;
+using SmartMarketDeskop.Integrated.Server.Repositories.Workers;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.Products;
 using SmartMarketDesktop.ViewModels.Entities.Workers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,24 +15,73 @@ namespace SmartMarketDeskop.Integrated.Services.Workers.Position
 {
     public class PositionService : IPositionService
     {
-        public Task<bool> CreateProduct(PositionDto dto)
+        private IPositionServer _positionServer;
+
+        public PositionService()
         {
-            throw new NotImplementedException();
+            _positionServer = new PositionServer();
         }
 
-        public Task<bool> DeleteProduct(Guid Id)
+        public async Task<bool> AddAsync(AddPositionDto dto)
         {
-            throw new NotImplementedException();
+            if (IsInternetAvailable())
+            {
+                return await _positionServer.AddAsync(dto);
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public Task<List<ProductViewModels>> GetAll()
+        public async Task<bool> DeleteAsync(Guid Id)
         {
-            throw new NotImplementedException();
+            if (IsInternetAvailable())
+            {
+                return await _positionServer.DeleteAsync(Id);
+            }
+            else
+            {
+                return false;
+            }
         }
 
-        public Task<bool> UpdateProduct(PositionDto positionDto, Guid Id)
+        public async Task<List<PositionDto>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            if (IsInternetAvailable())
+            {
+                return await _positionServer.GetAllAsync();
+            }
+            else
+            {
+                return new List<PositionDto>();
+            }
+        }
+
+        public async Task<bool> UpdateAsync(AddPositionDto positionDto, Guid Id)
+        {
+            if (IsInternetAvailable())
+            {
+                return await _positionServer.UpdateAsync(positionDto, Id);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool IsInternetAvailable()
+        {
+            try
+            {
+                using (var client = new WebClient()!)
+                using (client.OpenRead("http://google.com"))
+                    return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

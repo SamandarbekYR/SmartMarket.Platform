@@ -73,7 +73,7 @@
                              Margin="3 0"
                              FontSize="16"
                                  BorderThickness="0"
-                             Foreground="#656161"/>
+                             Foreground="Black"/>
                     </Border>
                 </Grid>
                 <Grid>
@@ -94,7 +94,7 @@
                         <TextBox x:Name="txtLastName"
                              Margin="3 0"
                              FontSize="16"
-                             Foreground="#656161"
+                             Foreground="Black"
                                  BorderThickness="0"/>
                     </Border>
                 </Grid>
@@ -116,7 +116,7 @@
                         <TextBox x:Name="txtPhoneNumber"
                              Margin="3 0"
                              FontSize="16"
-                             Foreground="#656161"
+                             Foreground="Black"
                                  BorderThickness="0"/>
                     </Border>
                 </Grid>
@@ -135,14 +135,12 @@
                         BorderThickness="1"
                         BorderBrush="{DynamicResource BorderColor}"
                         CornerRadius="5">
-                        <ComboBox x:Name="comboxRole"
+                        <ComboBox x:Name="comboxPosition"
                               Margin="3 0"
                               FontSize="16"
-                              Foreground="#656161"
+                              Foreground="Black"
                                   BorderThickness="0"
                               VerticalAlignment="Center">
-                            <ComboBoxItem Content="Admin"/>
-                            <ComboBoxItem Content="Sotuvchi"/>
                         </ComboBox>
                     </Border>
                 </Grid>
@@ -165,7 +163,7 @@
                              Margin="3 0"
                              FontSize="16"
                                  BorderThickness="0"
-                             Foreground="#656161"/>
+                             Foreground="Black"/>
                     </Border>
                 </Grid>
                 <Grid>
@@ -187,7 +185,7 @@
                              Margin="3 0"
                              FontSize="16"
                                  BorderThickness="0"
-                             Foreground="#656161"/>
+                             Foreground="Black"/>
                     </Border>
                 </Grid>
                 <Border x:Name="btnCreateAccount" Background="Green"
