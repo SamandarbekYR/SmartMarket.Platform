@@ -33,8 +33,8 @@ namespace SmartMarket.Desktop.Components.ExpenseForComponents
         {
             tbProductName.Text = "Ruchka"; //dto ProductName
             tbTotalPrice.Text = dto.TotalPrice.ToString();
-            tbPrice.Text = "2000";
-            tbCount.Text = "1000";
+            tbPrice.Text = "2000"; //dto Price
+            tbCount.Text = "1000"; //dto Count
         }
     }
 }

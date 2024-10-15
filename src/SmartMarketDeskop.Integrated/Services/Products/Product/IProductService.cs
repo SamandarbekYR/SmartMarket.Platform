@@ -12,4 +12,5 @@ public interface IProductService
     Task<ProductDto> GetByBarCode(string barCode);
     Task<ProductDto> GetByPCode(string PCode);
     Task<ProductDto> GetByProductName(string productName);
+    Task<List<ProductDto>> GetFinishedProducts();
  }
