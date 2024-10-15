@@ -207,7 +207,8 @@ public partial class SalePage : Page
         }
         else
         {
-            tvm.Increment(barcode);
+            double totalPrice = 0;
+            double discountPrice = 0;
             foreach (SaleProductForComponent child in St_product.Children)
             {
                 if (child.Barcode == barcode)
@@ -216,13 +217,16 @@ public partial class SalePage : Page
                     if (quantity < child.AvailableCount)
                     {
                         quantity++;
+                        (totalPrice, discountPrice) = SetPrice(double.Parse(child.tbPrice.Text), float.Parse(child.tbDiscount.Text), quantity);
+
+                        child.tbTotalPrice.Text = totalPrice.ToString();
                         child.tbQuantity.Text = quantity.ToString();
-                        child.tbTotalPrice.Text = (quantity * double.Parse(child.tbPrice.Text)).ToString();
+
                         GetPrice(product, quantity);
                     }
                 }
             }
-
+            tvm.Increment(barcode, totalPrice, discountPrice);
         }
         ColculateTotalPrice();
     }
@@ -240,8 +244,8 @@ public partial class SalePage : Page
         {
             Name = product.Name,
             Barcode = product.Barcode,
-            Price = product.Price,
-            TotalPrice = product.Price,
+            Price = product.SellPrice,
+            TotalPrice = product.SellPrice,
             AvailableCount = product.Count,
             Discount = 0,
             Quantity = quantity,
@@ -326,10 +330,11 @@ public partial class SalePage : Page
                         tvm.Transactions.Remove(item);
                         St_product.Children.Remove(selectedControl);
                         ColculateTotalPrice();
+                        selectedControl.product_Border.Background = Brushes.White;
+                        selectedControl = null!;
                     }
                 }
             }
-            selectedControl = null!; 
         }
         else
         {
@@ -348,7 +353,9 @@ public partial class SalePage : Page
                     if(item.Barcode == selectedControl.Barcode)
                     {
                         item.Quantity++;
-                        item.TotalPrice = SetPrice(item.Price, item.Discount, item.Quantity);
+                        var (totalPrice, discountPrice) = SetPrice(item.Price, item.Discount, item.Quantity);
+                        item.TotalPrice = totalPrice;
+                        item.DiscountSum = discountPrice;
                         selectedControl.tbQuantity.Text = item.Quantity.ToString();
                         selectedControl.tbTotalPrice.Text = item.TotalPrice.ToString();
                         ColculateTotalPrice();
@@ -373,6 +380,7 @@ public partial class SalePage : Page
         if (tvm != null)
         {
             tvm.TransactionPrice = tvm.Transactions.Sum(x => x.TotalPrice);
+            tvm.DiscountPrice = tvm.Transactions.Sum(x => x.DiscountSum);
             tbTotalAmount.Text = tvm.TransactionPrice.ToString();
             tbDiscountAmount.Text = tvm.DiscountPrice.ToString();
             tbAmount.Text = (tvm.TransactionPrice + tvm.DiscountPrice).ToString();
@@ -386,25 +394,29 @@ public partial class SalePage : Page
     }
 
     // Har bir maxsulotni narxini hisoblash uchun
-    private double SetPrice(double price, float discount, int quantity)
+    private (double totalPrice, double discountprice) SetPrice(double price, float discount, int quantity)
     {
-        double TotalPrice = 0;
+        double totalPrice = 0;
+        double discountPrice = 0;
+
         if (discount > 0)
         {
-            double discountprice = (price * (discount / 100));
-            tvm.DiscountPrice += discountprice;
-            TotalPrice = quantity * (price - discountprice);
+            discountPrice = ((price / 100) * discount) * quantity;
+            totalPrice = (quantity * price) - discountPrice;
         }
         else
-            TotalPrice = quantity * price;
-        return TotalPrice;
+        {
+            totalPrice = quantity * price;
+        }
+
+        return (totalPrice, discountPrice);
     }
 
     private void GetPrice(ProductDto product, int quantity)
     {
         Product_Count.Text = quantity.ToString();
-        Product_Price.Text = product.Price.ToString();
-        Total_Price.Text = (quantity * product.Price).ToString();
+        Product_Price.Text = product.SellPrice.ToString();
+        Total_Price.Text = (quantity * product.SellPrice).ToString();
         Product_Name.Text = product.Name;
         Product_Barcode.Text = product.Barcode.ToString();
     }
@@ -431,7 +443,9 @@ public partial class SalePage : Page
                     if (item.Barcode == selectedControl.Barcode)
                     {
                         item.Quantity--;
-                        item.TotalPrice = SetPrice(item.Price, item.Discount, item.Quantity);
+                        var (totalPrice, discountPrice) = SetPrice(item.Price, item.Discount, item.Quantity);
+                        item.TotalPrice = totalPrice;
+                        item.DiscountSum = discountPrice;
                         selectedControl.tbQuantity.Text = item.Quantity.ToString();
                         selectedControl.tbTotalPrice.Text = item.TotalPrice.ToString();
                         ColculateTotalPrice();
@@ -452,16 +466,20 @@ public partial class SalePage : Page
             activeTextboxIndex = 3;
             float discount = int.Parse(selectedControl.tbDiscount.Text);
 
-            if (discount > 0)
+            if (discount >= 0)
             {
                 foreach (var item in tvm.Transactions)
                 {
                     if (item.Barcode == selectedControl.Barcode)
                     {
                         item.Discount = discount;
-                        item.TotalPrice = SetPrice(item.Price, item.Discount, item.Quantity);
+                        var (totalPrice, discountPrice) = SetPrice(item.Price, item.Discount, item.Quantity);
+                        item.TotalPrice = totalPrice;
+                        item.DiscountSum = discountPrice;
+
                         selectedControl.tbDiscount.Text = item.Discount.ToString();
                         selectedControl.tbTotalPrice.Text = item.TotalPrice.ToString();
+
                         ColculateTotalPrice();
                     }
                 }
