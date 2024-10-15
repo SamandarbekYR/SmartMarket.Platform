@@ -51,7 +51,7 @@ public partial class ReturnProductWindow : Window
 
         for (int i = 1; i <= 30; i++)
         {
-            ShopDetailsProductComponent product = new ShopDetailsProductComponent();
+            ReturnProductComponent product = new ReturnProductComponent();
             product.lb_Count.Content = i;
             St_ReturnProduct.Children.Add(product);
         }

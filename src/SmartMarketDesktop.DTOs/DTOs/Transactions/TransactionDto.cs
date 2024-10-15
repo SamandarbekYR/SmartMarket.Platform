@@ -10,4 +10,5 @@ public class TransactionDto
     public double TotalPrice { get; set; }
     public int AvailableCount { get; set; }
     public float Discount { get; set; }
+    public double DiscountSum { get; set; }
 }

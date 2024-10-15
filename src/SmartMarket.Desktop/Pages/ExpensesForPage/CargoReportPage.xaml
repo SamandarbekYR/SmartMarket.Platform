@@ -6,7 +6,6 @@
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ExpensesForPage"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
       Title="CargoReportPage">
 
     <Grid Background="White">
@@ -98,119 +97,57 @@
             BorderBrush="{DynamicResource BorderColor}" 
             BorderThickness="1 0 1 0">
             <Grid           
-            >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="1.3*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="1.5*"/>
-                <ColumnDefinition Width="1.2*"/>
-            </Grid.ColumnDefinitions>
+                Margin="5 0 15 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <TextBlock
-                Grid.Column="0"
-                Text="No"
-                VerticalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></TextBlock>
+                <TextBlock
+                    Grid.Column="0"
+                    Text="No"
+                    VerticalAlignment="Center"
+                    FontSize="15"
+                    FontWeight="SemiBold"
+                    ></TextBlock>
 
-            <TextBlock
-                Grid.Column="1"
-                Text="P-Code"
-                VerticalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></TextBlock>
 
-            <TextBlock
-                Grid.Column="2"
-                Text="Barcode"
-                VerticalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></TextBlock>
+                <TextBlock
+                    Grid.Column="1"
+                    Text="Mahsulot nomi"
+                    VerticalAlignment="Center"
+                    FontSize="15"
+                    FontWeight="SemiBold"
+                    ></TextBlock>
 
-            <TextBlock
-                Grid.Column="3"
-                Text="Mahsulot nomi"
-                VerticalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></TextBlock>
+                <TextBlock
+                    Text="Narxi"
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    FontSize="15"
+                    FontWeight="SemiBold"
+                    ></TextBlock>
 
-            <TextBlock
-                Grid.Column="4"
-                Text="Kategoriya"
-                VerticalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></TextBlock>
+                <TextBlock
+                    Grid.Column="3"
+                    Text="Soni"
+                    VerticalAlignment="Center"
+                    FontSize="15"
+                    FontWeight="SemiBold"
+                    ></TextBlock>
 
-            <TextBlock
-                Grid.Column="5"
-                Text="Ishchi"
-                VerticalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></TextBlock>
+                <TextBlock
+                    Grid.Column="4"
+                    Text="Jami summasi"
+                    VerticalAlignment="Center"
+                    FontSize="15"
+                    FontWeight="SemiBold"
+                    ></TextBlock>
 
-            <TextBlock
-                Text="Tan Narxi"
-                Grid.Column="6"
-                VerticalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></TextBlock>
-
-            <TextBlock
-                Grid.Column="7"
-                Text="Soni"
-                VerticalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></TextBlock>
-
-            <TextBlock
-                Grid.Column="8"
-                Text="Jami summasi"
-                VerticalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></TextBlock>
-
-            <TextBlock
-                Grid.Column="9"
-                Text="O'lchov"
-                VerticalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></TextBlock>
-
-            <TextBlock
-                Grid.Column="10"
-                Text="Sana"
-                VerticalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></TextBlock>
-
-            <TextBlock
-                Grid.Column="11"
-                Text="Firma"
-                VerticalAlignment="Center"
-                FontSize="15"
-                FontWeight="SemiBold"
-                ></TextBlock>
-            
-        </Grid>
+            </Grid>
         </Border>
 
         <Border 
@@ -222,7 +159,8 @@
             <ScrollViewer 
                 VerticalScrollBarVisibility="Auto" 
                 HorizontalScrollBarVisibility="Auto">
-                <StackPanel>
+                <StackPanel
+                    Name="St_CargoReports">
                     
                 </StackPanel>
             </ScrollViewer>

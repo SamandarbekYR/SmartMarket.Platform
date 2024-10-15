@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using NLog;
+using SmartMarket.Domain.Entities.Categories;
 using SmartMarket.Domain.Entities.Products;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Api.Auth;
@@ -170,9 +171,54 @@ public class ProductServer : IProductServer
         }
     }
 
-    public Task<Product> GetByPCodeAsync(string PCode)
+    public async Task <ProductDto> GetByPCodeAsync(string PCode)
     {
-        throw new NotImplementedException();
+        try
+        {
+            HttpClient client = new HttpClient();
+            var token = IdentitySingelton.GetInstance().Token;
+            client.BaseAddress = new Uri(AuthApi.BASE_URL + $"/api/products/pcode/{PCode}");
+
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            HttpResponseMessage message = await client.GetAsync(client.BaseAddress);
+
+            string response = await message.Content.ReadAsStringAsync();
+
+            var products = JsonConvert.DeserializeObject<ProductDto>(response)!;
+
+            return products;
+
+        }
+        catch
+        {
+            return null!;
+        }
+    }
+
+    public async Task<ProductDto> GetByProductNameAsync(string productName)
+    {
+        try
+        {
+            HttpClient client = new HttpClient();
+            var token = IdentitySingelton.GetInstance().Token;
+            client.BaseAddress = new Uri(AuthApi.BASE_URL + $"/api/products/name/{productName}");
+
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            HttpResponseMessage message = await client.GetAsync(client.BaseAddress);
+
+            string response = await message.Content.ReadAsStringAsync();
+
+            var products = JsonConvert.DeserializeObject<ProductDto>(response)!;
+
+            return products;
+
+        }
+        catch
+        {
+            return null!;
+        }
     }
 
     public async Task<bool> UpdateAsync(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto dto, Guid Id)
@@ -209,4 +255,5 @@ public class ProductServer : IProductServer
             return false;
         }
     }
+
 }
