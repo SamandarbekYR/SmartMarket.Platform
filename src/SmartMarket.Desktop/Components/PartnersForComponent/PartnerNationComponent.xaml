@@ -7,11 +7,13 @@
              mc:Ignorable="d" 
              Height="50">
     <Border
+        Name="br_Partner"
         CornerRadius="5"
-        BorderThickness="0.7"
-        Margin="5 5 15 5"
+        BorderThickness="0.5"
+        Margin="5 3 15 3"
         BorderBrush="{DynamicResource BorderColor}"
-        Background="White">
+        Background="White"
+        MouseDown="Border_MouseDown">
 
         <Grid>
             <Grid.ColumnDefinitions>
