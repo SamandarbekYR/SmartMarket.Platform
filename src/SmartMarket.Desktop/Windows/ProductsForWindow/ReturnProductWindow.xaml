@@ -106,7 +106,8 @@
                         Grid.Column="5"
                         Click="btnClose_Click"
                         Foreground="White"
-                        Style="{DynamicResource bntmainclose}"/>
+                        Margin="0 0 5 0"
+                        Style="{DynamicResource btnClose}"/>
 
                 </Grid>
             </Border>
