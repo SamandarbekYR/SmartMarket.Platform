@@ -7,7 +7,8 @@
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="RunningOutOfProductsPage">
+      Title="RunningOutOfProductsPage"
+      Loaded="Page_Loaded">
 
     <Grid 
         Background="White">
@@ -55,10 +56,11 @@
             BorderBrush="Black"
             >
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <StackPanel x:Name="St_Products">
+                <UniformGrid x:Name="St_Products"
+                             Columns="2">
                     
                     
-                </StackPanel>
+                </UniformGrid>
             </ScrollViewer>
         </Border>
     </Grid>

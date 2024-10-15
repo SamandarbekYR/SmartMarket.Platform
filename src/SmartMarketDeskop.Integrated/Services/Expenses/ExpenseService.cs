@@ -31,7 +31,7 @@ namespace SmartMarketDeskop.Integrated.Services.Expenses
             if(IsInternetAvialable())
             {
                 var expenses = await _expensesServer.GetExpensesFullInformationAsync();
-                return null;
+                return expenses;
             }
             else
             {  return new List<FullExpenceDto>(); }

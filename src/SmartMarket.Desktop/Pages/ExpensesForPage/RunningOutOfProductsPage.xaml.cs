@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartMarket.Desktop.Components.ShopDetailsAndExpensesComponent;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,20 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
         public RunningOutOfProductsPage()
         {
             InitializeComponent();
+        }
+
+        public async void GetAll()
+        {
+            for(int i = 0; i < 20; i++)
+            {
+                RunningOutOfProductComponent runningOutOfProductComponent = new RunningOutOfProductComponent();
+                St_Products.Children.Add(runningOutOfProductComponent); 
+            }
+        }
+
+        public void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            GetAll();
         }
     }
 }
