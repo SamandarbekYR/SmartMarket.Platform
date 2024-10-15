@@ -43,7 +43,7 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Expenses
             }
         }
 
-        public async Task<List<ExpenseView>> GetExpensesFullInformationAsync()
+        public async Task<List<FullExpenceDto>> GetExpensesFullInformationAsync()
         {
             try
             {
