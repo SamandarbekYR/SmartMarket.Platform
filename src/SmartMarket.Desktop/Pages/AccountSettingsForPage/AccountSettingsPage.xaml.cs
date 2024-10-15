@@ -39,7 +39,7 @@ namespace SmartMarket.Desktop.Pages.AccountSettingsForPage
             {
                 AccountSettingsComponent accountSettingsComponent = new AccountSettingsComponent();
                 accountSettingsComponent.Tag = item;
-                accountSettingsComponent.SetData(item.FirstName, item.LastName);
+                accountSettingsComponent.SetData(item.FirstName, item.LastName, item.Position.Name);
                 accountSettingsComponent.BorderThickness = new Thickness(15, 5, 15, 5);
                 Wr_Account.Children.Add(accountSettingsComponent);
             }

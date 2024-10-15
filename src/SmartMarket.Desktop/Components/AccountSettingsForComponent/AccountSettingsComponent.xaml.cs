@@ -29,9 +29,10 @@ namespace SmartMarket.Desktop.Components.AccountSettingsForComponent
         }
 
 
-        public void SetData(string FirstName,string LastName)
+        public void SetData(string firstName,string lastName, string position)
         {
-            lbName.Text=FirstName+"  "+LastName;
+            lbName.Text = firstName + "  " + lastName;
+            lbPositon.Text = position;
         }
 
         private void Border_MouseUp(object sender, MouseButtonEventArgs e)

@@ -8,7 +8,7 @@
              d:DesignHeight="150" d:DesignWidth="400" >
     <Border Background="White"
         CornerRadius="5"
-        Margin="5"
+        Margin="13"
         BorderThickness="1"
         BorderBrush="Black"
             Width="450" Height="120">
@@ -60,7 +60,6 @@
                     </Grid.ColumnDefinitions>
                     <TextBlock x:Name="lbPositon"
                            Grid.Row="0"
-                           Text="Sotuvchi"
                            HorizontalAlignment="Left"
                            VerticalAlignment="Top"
                            Foreground="Red"

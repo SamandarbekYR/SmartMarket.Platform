@@ -14,7 +14,7 @@
         Loaded="Window_Loaded"
         Title="AccountCreateWindow" >
     <Grid
-        Height="350" Width="450">
+        Height="420" Width="450">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
@@ -135,7 +135,7 @@
                         BorderThickness="1"
                         BorderBrush="{DynamicResource BorderColor}"
                         CornerRadius="5">
-                        <ComboBox x:Name="comboxPosition"
+                        <ComboBox x:Name="cbPosition"
                               Margin="3 0"
                               FontSize="16"
                               Foreground="Black"
@@ -144,6 +144,30 @@
                         </ComboBox>
                     </Border>
                 </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2.2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"
+                       Content="Roli"
+                       FontWeight="SemiBold"
+                       VerticalAlignment="Center"
+                       FontSize="20"/>
+                    <Border Grid.Column="1"
+                        Margin="3"
+                        BorderThickness="1"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        CornerRadius="5">
+                        <ComboBox x:Name="cbRole"
+                          Margin="3 0"
+                          FontSize="16"
+                          Foreground="Black"
+                          BorderThickness="0"
+                          VerticalAlignment="Center">
+                        </ComboBox>
+                    </Border>
+                </Grid>     
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -181,11 +205,33 @@
                         BorderThickness="1"
                         BorderBrush="{DynamicResource BorderColor}"
                         CornerRadius="5">
-                        <TextBox x:Name="txtOylik"
+                        <TextBox x:Name="txtSalary"
                              Margin="3 0"
                              FontSize="16"
                                  BorderThickness="0"
                              Foreground="Black"/>
+                    </Border>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2.2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"
+                       Content="Avans"
+                       FontWeight="SemiBold"
+                       VerticalAlignment="Center"
+                       FontSize="20"/>
+                    <Border Grid.Column="1"
+                        Margin="3"
+                        BorderThickness="1"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        CornerRadius="5">
+                        <TextBox x:Name="txtAdvance"
+                         Margin="3 0"
+                         FontSize="16"
+                         BorderThickness="0"
+                         Foreground="Black"/>
                     </Border>
                 </Grid>
                 <Border x:Name="btnCreateAccount" Background="Green"

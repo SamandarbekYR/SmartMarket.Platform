@@ -11,6 +11,7 @@ using System.Windows.Interop;
 
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 using SmartMarketDeskop.Integrated.Services.Workers.Position;
+using SmartMarketDeskop.Integrated.Services.Workers.WorkerRoles;
 
 namespace SmartMarket.Desktop.Windows.AccountSettings;
 
@@ -21,6 +22,7 @@ public partial class AccountUpdateWindow : Window
 {
     private IWorkerService _workerService;
     private IPositionService _positionService;
+    private IWorkerRoleService _workerRoleService;
 
     private WorkerDto _worker;
     public AccountUpdateWindow(WorkerDto worker)
@@ -29,6 +31,7 @@ public partial class AccountUpdateWindow : Window
         _worker = worker;
         _workerService = new WorkerService();
         _positionService = new PositionService();
+        _workerRoleService = new WorkerRoleService();
     }
 
     [DllImport("user32.dll")]
@@ -57,11 +60,14 @@ public partial class AccountUpdateWindow : Window
 
     private async void btnUpdateAccount_MouseUp(object sender, MouseButtonEventArgs e)
     {
-        var positionId = Guid.Parse(cbPosition.SelectedValue.ToString());
+        var positionId = Guid.Parse(cbPosition.SelectedValue?.ToString() ?? Guid.Empty.ToString());
+        var roleId = Guid.Parse(cbRole.SelectedValue?.ToString() ?? Guid.Empty.ToString());
         var firstName = txtFirstName.Text.Trim();
         var lastName = txtLastName.Text.Trim();
         var password = txtPassword.Text.Trim(); 
         var phone = txtPhoneNumber.Text.Trim();
+        var salary = txtSalary.Text.Trim();
+        var advance = txtAdvance.Text.Trim();
 
         bool isValid = true;
         StringBuilder errorMessage = new StringBuilder();
@@ -148,19 +154,22 @@ public partial class AccountUpdateWindow : Window
         txtFirstName.Text = _worker.FirstName;
         txtLastName.Text = _worker.LastName;
         txtPhoneNumber.Text = _worker.PhoneNumber;
-
-        var salaryWorker = _worker.SalaryWorkers.FirstOrDefault(x => x.WorkerId == _worker.Id);
-        if (salaryWorker?.Salary != null)
-        {
-            txtSalary.Text = salaryWorker.Salary.Amount.ToString();
-        }
+        txtSalary.Text = _worker.Salary.ToString();  
+        txtAdvance.Text = _worker.Advance.ToString();  
 
         var positions = await _positionService.GetAllAsync();
-        cbPosition.ItemsSource = positions.DistinctBy(p => p.Name).ToList(); 
-        cbPosition.Tag = positions; 
-        cbPosition.DisplayMemberPath = "Name"; 
-        cbPosition.SelectedValuePath = "Id"; 
+        cbPosition.ItemsSource = positions.DistinctBy(p => p.Name).ToList();
+        cbPosition.Tag = positions;
+        cbPosition.DisplayMemberPath = "Name";
+        cbPosition.SelectedValuePath = "Id";
         cbPosition.SelectedValue = _worker.Position.Id;
+
+        var roles = await _workerRoleService.GetAllAsync();
+        cbRole.ItemsSource = roles.DistinctBy(r => r.RoleName).ToList();
+        cbRole.Tag = roles;
+        cbRole.DisplayMemberPath = "RoleName";
+        cbRole.SelectedValuePath = "Id";
+        cbRole.SelectedValue = _worker.WorkerRole.Id;
     }
 
     private void Border_MouseUp(object sender, MouseButtonEventArgs e)

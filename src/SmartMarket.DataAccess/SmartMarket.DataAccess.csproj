@@ -19,4 +19,8 @@
     <ProjectReference Include="..\SmartMarket.Domain\SmartMarket.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>
