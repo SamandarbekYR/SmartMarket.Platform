@@ -22,21 +22,23 @@ public class TransactionViewModel
             Id = product.Id,
             Barcode = product.Barcode,
             Name = product.Name,
-            Price = product.Price,
+            Price = product.SellPrice,
             Quantity = 1,
-            TotalPrice = product.Price,
-            AvailableCount = product.Count
+            TotalPrice = product.SellPrice,
+            AvailableCount = product.Count,
+            Discount = 0
         });
     }
 
-    public void Increment(string barcode)
+    public void Increment(string barcode, double price, double discountSum)
     {
         foreach (var m in Transactions)
         {
             if (m.Barcode == barcode)
             {
                 m.Quantity++;
-                m.TotalPrice = m.Quantity * m.Price;
+                m.TotalPrice = price;
+                m.DiscountSum = discountSum;
             }
         }
     }
