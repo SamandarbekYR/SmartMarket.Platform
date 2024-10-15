@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Service.DTOs.Products.LoadReport;
+using SmartMarketDeskop.Integrated.Services.Expenses;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,14 +22,19 @@ namespace SmartMarket.Desktop.Components.ExpenseForComponents
     /// </summary>
     public partial class CargoReportComponent : UserControl
     {
+        private readonly ILoadReportService loadReportService;
         public CargoReportComponent()
         {
             InitializeComponent();
+            this.loadReportService = new LoadReportService();
         }
-
+        public Guid LoadReportId { get; set; }
         public void SetData(LoadReportDto dto)
         {
-
+            tbProductName.Text = "Ruchka"; //dto ProductName
+            tbTotalPrice.Text = dto.TotalPrice.ToString();
+            tbPrice.Text = "2000"; //dto Price
+            tbCount.Text = "1000"; //dto Count
         }
     }
 }

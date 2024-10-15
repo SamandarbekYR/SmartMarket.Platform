@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ExpensesForPage"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      Title="ExpenseListPage">
+      Title="ExpenseListPage"
+      Loaded="Page_Loaded">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -91,14 +92,14 @@
 
 
 
-        <Border 
+        <Border
             Grid.Row="1" 
             BorderBrush="{DynamicResource BorderColor}"
             BorderThickness="1 0 1 0" 
             Background="White">
-            <Grid>
+            <Grid Margin="0 0 15 0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="40"/>
                 <ColumnDefinition Width="2.2*"/>
                 <ColumnDefinition Width="1.5*"/>
                 <ColumnDefinition Width="1.2*"/>
@@ -110,9 +111,9 @@
                 Grid.Column="0"
                 Text="No"
                 VerticalAlignment="Center"
+                HorizontalAlignment="Center"
                 FontSize="15"
                 FontWeight="SemiBold"
-                Margin="10 0 0 0"
                 ></TextBlock>
 
             <TextBlock

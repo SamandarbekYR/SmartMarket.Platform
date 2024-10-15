@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SmartMarket.Service.DTOs.Products.Product;
+using SmartMarketDeskop.Integrated.Services.Products.Product;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,19 @@ namespace SmartMarket.Desktop.Components.ExpenseForComponents
     /// </summary>
     public partial class RunningProductComponent : UserControl
     {
+        private readonly IProductService productService;
         public RunningProductComponent()
         {
             InitializeComponent();
+            this.productService = new ProductService();
+        }
+        public Guid ProductId { get; set; }
+
+        public void SetData(ProductDto dto)
+        {
+            tbName.Content = dto.Name;
+            tbCount.Content = dto.Count;
+            tbPrice.Content = dto.Price;
         }
     }
 }

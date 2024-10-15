@@ -11,6 +11,7 @@ public interface IProductServer
     Task<bool> UpdateAsync(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto dto, Guid Id);
     Task<ProductDto> GetByBarCodeAsync(string barcode);
     Task<ProductDto> GetByPCodeAsync(string PCode);    
-    Task<ProductDto> GetByProductNameAsync(string productName);    
+    Task<ProductDto> GetByProductNameAsync(string productName);
+    Task<List<ProductDto>> GetFinishedProductsAsync();
 }
 
