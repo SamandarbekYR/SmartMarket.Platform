@@ -56,7 +56,7 @@ public partial class SearchProductComponent : UserControl
     {
         lb_PCode.Content = product.PCode;
         lb_ProductName.Content = product.Name;  
-        lb_Price.Content = product.Price;
+        lb_Price.Content = product.SellPrice;
         lb_CategoryName.Content = product.CategoryId.ToString();
         lb_Quantity.Content = product.Count.ToString();
     }
