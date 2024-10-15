@@ -11,5 +11,5 @@ public interface IWorkerService
     Task<bool> UpdateAsync(AddWorkerDto dto, Guid Id);
 
     Task<WorkerDto> GetWorkerByPhoneNumberAsync(string phoneNumber);
-    Task<WorkerDto> GetWorkerByNameAsync(string phoneNumber);
+    Task<List<WorkerDto>> GetWorkerByNameAsync(string name);
 }

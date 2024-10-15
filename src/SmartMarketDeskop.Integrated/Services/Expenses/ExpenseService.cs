@@ -16,9 +16,8 @@ namespace SmartMarketDeskop.Integrated.Services.Expenses
         {
             if(IsInternetAvialable())
             {
-                //var expenses = await _expensesServer.FilterExpensesAsync(dto);
-                //return expenses;
-                return null;
+                var expenses = await _expensesServer.FilterExpenceAsync(dto);
+                return expenses;
             }
             else
             {
@@ -31,7 +30,7 @@ namespace SmartMarketDeskop.Integrated.Services.Expenses
             if(IsInternetAvialable())
             {
                 var expenses = await _expensesServer.GetExpensesFullInformationAsync();
-                return null;
+                return expenses;
             }
             else
             {  return new List<FullExpenceDto>(); }

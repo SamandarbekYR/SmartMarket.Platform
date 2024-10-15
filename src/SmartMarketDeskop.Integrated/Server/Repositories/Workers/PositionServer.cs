@@ -18,7 +18,7 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Workers
     public class PositionServer : IPositionServer
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        public async Task<bool> AddAsync(PositionDto dto)
+        public async Task<bool> AddAsync(AddPositionDto dto)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Workers
             throw new NotImplementedException();
         }
 
-        public async Task<List<Position>> GetAllAsync()
+        public async Task<List<PositionDto>> GetAllAsync()
         {
             try
             {
@@ -79,20 +79,51 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Workers
 
                 string response = await message.Content.ReadAsStringAsync();
 
-                List<Position> positions = JsonConvert.DeserializeObject<List<Position>>(response)!;
+                List<PositionDto> positions = JsonConvert.DeserializeObject<List<PositionDto>>(response)!;
 
                 return positions;
 
             }
             catch
             {
-                return new List<Position>();
+                return new List<PositionDto>();
             }
         }
 
-        public Task<bool> UpdateAsync(PositionDto dto, Guid Id)
+        public async Task<bool> UpdateAsync(AddPositionDto dto, Guid Id)
         {
-            throw new NotImplementedException();
+            try 
+            {                 
+                var token = IdentitySingelton.GetInstance().Token;
+            
+                using (var client = new HttpClient())
+                using (var request = new HttpRequestMessage(HttpMethod.Put, AuthApi.BASE_URL + $"/api/super-admin/positions/{Id}"))
+                {
+                    request.Headers.Add("Authorization", $"Bearer {token}");
+                    var json = JsonConvert.SerializeObject(dto);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+                    request.Content = content;
+                    
+                    var response = await client.SendAsync(request);
+                    var resultContent = await response.Content.ReadAsStringAsync();
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        logger.Error($"Failed to add Contr Agent. Status Code: {response.StatusCode}, Response: {resultContent}");
+                    }
+
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("ContrAgentServer: AddAsync method exception: ", ex);
+                return false;
+            }
         }
     }
 }

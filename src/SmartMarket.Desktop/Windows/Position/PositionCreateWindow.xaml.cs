@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Input;
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 using System.Windows.Interop;
+using SmartMarket.Service.DTOs.Workers.Position;
+using SmartMarketDeskop.Integrated.Services.Workers.Position;
 
 namespace SmartMarket.Desktop.Windows.Position;
 
@@ -11,11 +13,12 @@ namespace SmartMarket.Desktop.Windows.Position;
 /// </summary>
 public partial class PositionCreateWindow : Window
 {
+    private IPositionService _positionService;
     public PositionCreateWindow()
     {
         InitializeComponent();
+        _positionService = new PositionService();
     }
-
 
     [DllImport("user32.dll")]
     internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
@@ -41,12 +44,27 @@ public partial class PositionCreateWindow : Window
         Marshal.FreeHGlobal(accentPtr);
     }
 
-    private void btnPositionCreate_MouseUp(object sender, MouseButtonEventArgs e)
+    private async void btnPositionCreate_MouseUp(object sender, MouseButtonEventArgs e)
     {
-
+        var name = txtName.Text;
+        if (!string.IsNullOrEmpty(name))
+        {
+            AddPositionDto addPositionDto = new AddPositionDto()
+            {
+                Name = name
+            };
+           
+            var result = await _positionService.AddAsync(addPositionDto);
+            if (result)
+            {
+                this.Close();
+            }
+        }
+        else
+        {
+            MessageBox.Show("Xatolik mavjud! Dasturni qo'llab quvvatlovchi shaxslarga murojaat qiling!");
+        }
     }
-
-    
 
     private void brClose_MouseUp(object sender, MouseButtonEventArgs e)
     {

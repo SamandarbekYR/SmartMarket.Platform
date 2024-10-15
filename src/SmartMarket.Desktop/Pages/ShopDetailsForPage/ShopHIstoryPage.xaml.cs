@@ -1,6 +1,9 @@
 ﻿using SmartMarket.Desktop.Components.ShopDetailsForComponent;
+using SmartMarket.Service.DTOs.Expence;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.ViewModels.Products;
+
+using SmartMarketDeskop.Integrated.Services.Expenses;
 using SmartMarketDeskop.Integrated.Services.Products.ProductSale;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,12 +14,14 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
     public partial class ShopHIstoryPage : Page
     {
         private IProductSaleService _productSaleService;
+        private IExpenseService expenseService;
         private ShopDetailsPage _shopDetailsPage;
 
         public ShopHIstoryPage(ShopDetailsPage shopDetailsPage)
         {
             InitializeComponent();
             _productSaleService = new ProductSaleService();
+            expenseService = new ExpenseService();
             _shopDetailsPage = shopDetailsPage;
         }
 
@@ -65,14 +70,24 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
             ShowProductSales(filteredProductSales);
         }
 
-        private void ShowProductSales(IEnumerable<ProductSaleViewModel> productSales)
+        private async void ShowProductSales(IEnumerable<ProductSaleViewModel> productSales)
         {
             productSales = productSales.Where(ps => ps.Count != 0)
                 .OrderByDescending(ps => ps.CreatedDate).ToList();
 
+            FilterExpenseDto filterExpenseDto = new FilterExpenseDto();
+            if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
+            {
+                filterExpenseDto.FromDateTime = fromDateTime.SelectedDate.Value;
+                filterExpenseDto.ToDateTime = toDateTime.SelectedDate.Value;
+            }
+
+            var expenses = await expenseService.FilterExpense(filterExpenseDto);
+
             var totalCost = productSales.Sum(p => p.TotalCost);
             var Profit = productSales.Sum(p => (p.Product.SellPrice - p.Product.Price) * p.Count);
-            _shopDetailsPage.SetValuesShopHitory(totalCost, Profit);
+            var totalExpense = expenses.Sum(e => e.Amount); 
+            _shopDetailsPage.SetValuesShopHitory(totalCost, Profit, totalExpense);
 
             St_productList.Visibility = Visibility.Visible;
             St_productList.Children.Clear();

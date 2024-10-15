@@ -41,6 +41,11 @@ namespace SmartMarket.Service.Services.Worker.Workers
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Position not found.");
                 }
 
+                if(dto.WorkerRoleId == Guid.Empty)
+                {
+                    dto.WorkerRoleId = Guid.Parse("4c7f1cf0-ac93-4b9b-a078-74c6fed2e9f0");
+                }
+
                 var workerRoleExists = await _unitOfWork.WorkerRole.GetById(dto.WorkerRoleId) != null;
                 if (!workerRoleExists)
                 {
@@ -48,9 +53,9 @@ namespace SmartMarket.Service.Services.Worker.Workers
                 }
 
                 (string Hash, string Salt) = PasswordHasher.Hash(dto.Password);
-                var imagePath = await _fileService.UploadImageAsync(dto.ImgPath, ROOT_PATH);
+                //var imagePath = await _fileService.UploadImageAsync(dto.ImgPath, ROOT_PATH);
                 var worker = _mapper.Map<Et.Worker>(dto);
-                worker.ImgPath = imagePath;
+               //    worker.ImgPath = imagePath;
                 worker.PasswordHash = Hash;
                 worker.PasswordSalt = Salt;
 
@@ -88,7 +93,7 @@ namespace SmartMarket.Service.Services.Worker.Workers
         return _mapper.Map<List<WorkerDto>>(workers);
     }
 
-        public Task<bool> UpdateAsync(AddWorkerDto dto, Guid Id)
+        public async Task<bool> UpdateAsync(AddWorkerDto dto, Guid Id)
         {
             try
             {
@@ -103,8 +108,12 @@ namespace SmartMarket.Service.Services.Worker.Workers
                     throw new ValidationException(validationResult.Errors.First().ErrorMessage);
 
                 var worker = _mapper.Map<Et.Worker>(dto);
+                (string Hash, string Salt) = PasswordHasher.Hash(dto.Password);
+                worker.Id = Id;
+                worker.PasswordHash = Hash;
+                worker.PasswordSalt = Salt;
 
-                return _unitOfWork.Worker.Update(worker);
+                return await _unitOfWork.Worker.Update(worker);
             }
             catch (Exception ex)
             {
@@ -133,19 +142,15 @@ namespace SmartMarket.Service.Services.Worker.Workers
             }
         }
 
-        public async Task<WorkerDto> GetWorkerByNameAsync(string firstName)
+        public async Task<List<WorkerDto>> GetWorkerByNameAsync(string name)
         {
             try
             {
-                var worker = await _unitOfWork.Worker.GetAll()
-                    .FirstOrDefaultAsync(w => w.FirstName.ToLower() == firstName.ToLower());
+                var workers = await _unitOfWork.Worker.GetAll()
+                    .Where(w => w.FirstName.ToLower().Contains(name.ToLower()) || w.LastName.ToLower().Contains(name.ToLower()))
+                    .ToListAsync();
 
-                if (worker == null)
-                {
-                    throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
-                }
-
-                return _mapper.Map<WorkerDto>(worker);
+                return _mapper.Map<List<WorkerDto>>(workers);
             }
             catch (Exception ex)
             {

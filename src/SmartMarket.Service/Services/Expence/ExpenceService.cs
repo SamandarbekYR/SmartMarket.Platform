@@ -75,6 +75,46 @@ namespace SmartMarket.Service.Services.Expence
             }
         }
 
+        public async Task<List<FullExpenceDto>> FilterExpenceAsync(FilterExpenseDto filterExpenseDto)
+        {
+            try
+            {
+                var expences = await _unitOfWork.Expense.GetExpensesFullInformationAsync().ToListAsync();
+
+                if (filterExpenseDto.FromDateTime.HasValue && filterExpenseDto.ToDateTime.HasValue)
+                {
+                    expences = expences.Where(
+                        ps => ps.CreatedDate >= filterExpenseDto.FromDateTime.Value
+                        && ps.CreatedDate <= filterExpenseDto.ToDateTime.Value).ToList();
+                }
+                else
+                {
+                    expences = expences.Where(
+                        ps => ps.CreatedDate.Value.Date == DateTime.Today).ToList();
+                }
+
+                var expenseDtos = expences.Select(e => new FullExpenceDto
+                {
+                    Id = e.Id,
+                    WorkerId = e.Worker.Id,
+                    PayDeskId = e.PayDesk.Id,
+                    Reason = e.Reason,
+                    Amount = e.Amount,
+                    TypeOfPayment = e.TypeOfPayment,
+                    WorkerFirstName = e.Worker.FirstName,
+                    WorkerLastName = e.Worker.LastName,
+                    PayDeskName = e.PayDesk.Name
+                }).ToList();
+
+                return expenseDtos;
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while filter expenses.");
+                throw;
+            }
+        }
+
         public async Task<IEnumerable<FullExpenceDto>> GetAllAsync(PaginationParams paginationParams)
         {
             try

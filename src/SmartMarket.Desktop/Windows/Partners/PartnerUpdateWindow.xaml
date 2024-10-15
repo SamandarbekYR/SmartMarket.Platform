@@ -44,7 +44,8 @@
                 Margin="0 0 10 0"
                 HorizontalAlignment="Right"
                 Click="Close_Button_Click"
-                Style="{DynamicResource bntmainclose}"/>
+                Background="Black"
+                Style="{DynamicResource btnClose}"/>
 
             <Grid
                 Grid.Row="1">

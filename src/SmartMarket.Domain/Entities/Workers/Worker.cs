@@ -27,7 +27,10 @@ namespace SmartMarket.Domain.Entities.Workers
         public string PasswordHash { get; set; } = string.Empty;
         [Column("password_salt")]
         public string PasswordSalt { get; set; } = string.Empty;
-
+        [Column("salary")]
+        public double Salary { get; set; }
+        [Column("advance")]
+        public double Advance { get; set; }
         public List<SalaryWorker> SalaryWorkers { get; set; }
         public List<SalaryCheck> SalaryChecks { get; set; }
         public List<WorkerDebt> WorkerDebts { get; set; }
