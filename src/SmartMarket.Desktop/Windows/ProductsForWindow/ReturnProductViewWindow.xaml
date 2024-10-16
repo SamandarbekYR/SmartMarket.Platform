@@ -251,7 +251,8 @@
                         FontSize="18"
                         Style="{DynamicResource Create_TextBox_Style}"
                         PreviewTextInput="CountTextBox_PreviewTextInput"
-                        DataObject.Pasting="CountTextBox_Pasting"/>
+                        DataObject.Pasting="CountTextBox_Pasting"
+                        TextChanged="tb_Cancel_Quantity_TextChanged"/> 
 
                     <Border
                         BorderThickness="0.7"
