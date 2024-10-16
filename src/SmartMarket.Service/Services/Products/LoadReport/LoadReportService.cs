@@ -116,7 +116,10 @@ namespace SmartMarket.Service.Services.Products.LoadReport
                     WorkerId = l.WorkerId,
                     ProductId = l.ProductId,
                     ContrAgentId = l.ContrAgentId,
-                    TotalPrice = l.TotalPrice
+                    TotalPrice = l.TotalPrice,
+                    ProductName = l.Product.Name,
+                    ProductPrice = l.Product.Price,
+                    ProductCount = l.Product.Count
                 }).ToList();
 
                 return loadReportDtos;
@@ -133,7 +136,20 @@ namespace SmartMarket.Service.Services.Products.LoadReport
             try
             {
                 var loadReports = await _unitOfWork.LoadReport.GetLoadReportsFullInformationAsync();
-                return _mapper.Map<List<LoadReportDto>>(loadReports);
+
+                var loadReportDto = loadReports.Select(l => new LoadReportDto
+                {
+                    Id = l.Id,
+                    WorkerId = l.WorkerId,
+                    ProductId = l.ProductId,
+                    ContrAgentId = l.ContrAgentId,
+                    TotalPrice = l.TotalPrice,
+                    ProductName = l.Product.Name,
+                    ProductCount= l.Product.Count,
+                    ProductPrice= l.Product.Price
+                }).ToList();
+
+                return loadReportDto;
             }
             catch (Exception ex)
             {
