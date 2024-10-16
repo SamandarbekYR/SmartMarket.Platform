@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using NLog;
 using SmartMarket.Domain.Entities.Partners;
+using SmartMarket.Service.DTOs.Partner;
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Partners;
@@ -97,6 +98,32 @@ public class PartnerServer : IPartnerServer
         var partners = JsonConvert.DeserializeObject<List<Partner>>(response);
 
         return partners!;
+    }
+
+    public async Task<PartnerDto> GetByNameAsync(string name)
+    {
+        try
+        {
+            HttpClient client = new HttpClient();
+            var token = IdentitySingelton.GetInstance().Token;
+
+            client.BaseAddress = new Uri(AuthApi.BASE_URL + $"/api/partners/name/{name}");
+
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
+            var result = await client.GetAsync(client.BaseAddress);
+
+            string response = await result.Content.ReadAsStringAsync();
+
+            var partner = JsonConvert.DeserializeObject<PartnerDto>(response);
+
+            return partner!;
+        }
+        catch 
+        {
+            return null!;
+        }
+        
     }
 
     public async Task<bool> UpdateAsync(PartnerCreateDto dto, Guid Id)
