@@ -1,4 +1,5 @@
-﻿using SmartMarket.Service.DTOs.Products.LoadReport;
+﻿using SmartMarket.Service.DTOs.Expence;
+using SmartMarket.Service.DTOs.Products.LoadReport;
 
 namespace SmartMarket.Service.Interfaces.Products.LoadReport;
 
@@ -10,4 +11,5 @@ public interface ILoadReportService
     Task<bool> UpdateAsync(AddLoadReportDto dto, Guid Id);
 
     Task<List<LoadReportDto>> GetLoadReportsByCompanyNameAsync(string companyName);
+    Task<List<LoadReportDto>> FilterLoadReportAsync(FilterLoadReportDto dto);
 }

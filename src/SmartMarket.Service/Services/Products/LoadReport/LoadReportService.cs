@@ -8,7 +8,8 @@ using SmartMarket.Service.Common.Validators;
 using System.Net;
 using SmartMarket.Service.DTOs.Products.LoadReport;
 using SmartMarket.Service.Interfaces.Products.LoadReport;
-using Microsoft.Extensions.Logging; 
+using Microsoft.Extensions.Logging;
+using SmartMarket.Service.DTOs.Expence;
 
 namespace SmartMarket.Service.Services.Products.LoadReport
 {
@@ -79,12 +80,76 @@ namespace SmartMarket.Service.Services.Products.LoadReport
             }
         }
 
+        public async Task<List<LoadReportDto>> FilterLoadReportAsync(FilterLoadReportDto dto)
+        {
+            try
+            {
+                var loadReports = await _unitOfWork.LoadReport.GetLoadReportsFullInformationAsync();
+
+                if(dto.FromDateTime.HasValue && dto.ToDateTime.HasValue)
+                {
+                    loadReports = loadReports.Where(
+                        l => l.CreatedDate >= dto.FromDateTime.Value
+                        && l.CreatedDate <= dto.ToDateTime.Value).ToList();
+                }
+                else
+                {
+                    loadReports = loadReports.Where(
+                        l => l.CreatedDate.Value.Date == DateTime.Today).ToList();
+                }
+
+                if(!string.IsNullOrWhiteSpace(dto.ProductName))
+                {
+                    loadReports = loadReports.Where(
+                        l => l.Product.Name.Contains(dto.ProductName)).ToList();
+                }
+
+                if(!string.IsNullOrWhiteSpace(dto.WorkerName))
+                {
+                    loadReports = loadReports.Where(
+                        l => l.Worker.FirstName.Contains(dto.WorkerName)).ToList();
+                }
+
+                var loadReportDtos = loadReports.Select(l => new LoadReportDto
+                {
+                    Id = l.Id,
+                    WorkerId = l.WorkerId,
+                    ProductId = l.ProductId,
+                    ContrAgentId = l.ContrAgentId,
+                    TotalPrice = l.TotalPrice,
+                    ProductName = l.Product.Name,
+                    ProductPrice = l.Product.Price,
+                    ProductCount = l.Product.Count
+                }).ToList();
+
+                return loadReportDtos;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occured while filter loadReport");
+                throw;
+            }
+        }
+
         public async Task<List<LoadReportDto>> GetAllAsync()
         {
             try
             {
                 var loadReports = await _unitOfWork.LoadReport.GetLoadReportsFullInformationAsync();
-                return _mapper.Map<List<LoadReportDto>>(loadReports);
+
+                var loadReportDto = loadReports.Select(l => new LoadReportDto
+                {
+                    Id = l.Id,
+                    WorkerId = l.WorkerId,
+                    ProductId = l.ProductId,
+                    ContrAgentId = l.ContrAgentId,
+                    TotalPrice = l.TotalPrice,
+                    ProductName = l.Product.Name,
+                    ProductCount= l.Product.Count,
+                    ProductPrice= l.Product.Price
+                }).ToList();
+
+                return loadReportDto;
             }
             catch (Exception ex)
             {
