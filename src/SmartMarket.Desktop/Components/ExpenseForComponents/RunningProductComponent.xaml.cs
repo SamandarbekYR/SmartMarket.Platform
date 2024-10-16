@@ -2,6 +2,7 @@
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,9 +33,12 @@ namespace SmartMarket.Desktop.Components.ExpenseForComponents
 
         public void SetData(ProductDto dto)
         {
+            var imgPath = @"D:\SmartPartnersProjects\src\SmartMarket.Desktop\Assets\Basket.png";
+
             tbName.Content = dto.Name;
             tbCount.Content = dto.Count;
             tbPrice.Content = dto.Price;
+            productImg.Source = new BitmapImage(new Uri(imgPath, UriKind.Absolute)); //imgPath dto yoqligi uchun testga localdan
         }
     }
 }
