@@ -10,6 +10,7 @@ using SmartMarketDeskop.Integrated.Server.Repositories.Products;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.ViewModels.Products;
 using System.Reflection.Emit;
+using System.Windows.Controls;
 
 namespace SmartMarket.Desktop.Windows.ProductsForWindow;
 
@@ -173,6 +174,17 @@ public partial class ReturnProductViewWindow : Window
         return text.All(char.IsDigit);
     }
 
+    private void tb_Cancel_Quantity_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (int.TryParse(tb_Cancel_Quantity.Text, out int value))
+        {
+            if (value > _productSale.Count)
+            {
+                tb_Cancel_Quantity.Text = _productSale.Count.ToString();
+                tb_Cancel_Quantity.CaretIndex = tb_Cancel_Quantity.Text.Length; 
+            }
+        }
+    }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
