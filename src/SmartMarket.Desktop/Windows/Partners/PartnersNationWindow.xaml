@@ -51,8 +51,10 @@
                 Style="{DynamicResource ClosedButton}"/>
 
             <TextBox
+                Name="tb_search"
                 Grid.Row="1"
                 Margin="180 10 180 0"
+                TextChanged="TextBox_TextChanged"
                 Style="{DynamicResource search}"/>
 
             <Grid

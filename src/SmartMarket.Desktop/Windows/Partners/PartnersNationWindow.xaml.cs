@@ -1,15 +1,16 @@
-﻿using System.Runtime.InteropServices;
-using System.Windows;
-using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
-using System.Windows.Interop;
-using SmartMarket.Desktop.Components.PartnersForComponent;
+﻿using SmartMarket.Desktop.Components.PartnersForComponent;
+using SmartMarket.Domain.Entities.Partners;
+using SmartMarket.Service.DTOs.Partner;
 using SmartMarketDeskop.Integrated.Services.Partners;
-using SmartMarket.Desktop.Components.MainForComponents;
+using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media;
 using ToastNotifications;
-using ToastNotifications.Position;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
+using ToastNotifications.Position;
+using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 
 namespace SmartMarket.Desktop.Windows.Partners;
 
@@ -117,6 +118,26 @@ public partial class PartnersNationWindow : Window
         }
     }
 
+    private void SetPartner(PartnerDto dto)
+    {
+        St_Nationer.Children.Clear();
+        if (dto != null)
+        {
+            Partner partner = new Partner()
+            {
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                PhoneNumber = dto.PhoneNumber,
+                LastPayment = dto.LastPayment,
+                TotalDebt = dto.TotalDebt
+            };
+            PartnerNationComponent partnerNationComponent = new PartnerNationComponent();
+            partnerNationComponent.Tag = partner;
+            partnerNationComponent.SetData(partner, 1);
+            St_Nationer.Children.Add(partnerNationComponent);
+        }
+    }
+
     private void Save_Button_Click(object sender, RoutedEventArgs e)
     {
         if(selectedPartner != null)
@@ -128,5 +149,23 @@ public partial class PartnersNationWindow : Window
             notifier.ShowInformation("Hamkor tanlanmagan.");
         }
 
+    }
+
+    private async void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+    {
+        string search = tb_search.Text;
+
+        await Task.Run(async () =>
+        {
+            if (search.Length >= 3)
+            {
+                var partner = await _partnerService.GetByName(search);
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    SetPartner(partner);
+                });
+            }
+        });
     }
 }

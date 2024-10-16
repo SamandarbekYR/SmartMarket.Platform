@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.Common.Exceptions;
 using SmartMarket.Service.DTOs.Partner;
 using SmartMarket.Service.Interfaces.Partner;
-using SmartMarket.WebApi.Controllers.Common;
 
 namespace SmartMarket.WebApi.Controllers.Common.Partner
 {
