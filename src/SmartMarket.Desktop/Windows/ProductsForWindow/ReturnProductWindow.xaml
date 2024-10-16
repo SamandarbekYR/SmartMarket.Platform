@@ -59,6 +59,7 @@
 
 
                         <DatePicker
+                            x:Name="fromDateTime"
                             Style="{DynamicResource FormDatePicker}"/>
                         <Label
                             FontSize="14"
@@ -72,9 +73,10 @@
                         Orientation="Horizontal"
                         Grid.Column="2">
 
-
                         <DatePicker
-                            Style="{DynamicResource FormDatePicker}"/>
+                            x:Name="toDateTime"
+                            Style="{DynamicResource FormDatePicker}"
+                            SelectedDateChanged="DatePicker_SelectedDateChanged"/>
                         <Label
                             FontSize="14"
                             FontWeight="SemiBold"
@@ -84,22 +86,18 @@
                     </StackPanel>
 
                     <ComboBox
+                        x:Name="workerComboBox"
                         Margin="5 10 10 10"
-                        Grid.Column="3">
-                        <ComboBoxItem 
-                            IsEnabled="False" 
-                            IsSelected="True"
-                            Content="Sotuvchi"/>
-                        <ComboBoxItem
-                            Content="Aziz"/>
-                        <ComboBoxItem
-                            Content="Po'lat"/>
+                        Grid.Column="3"
+                        SelectionChanged="WorkerComboBox_SelectionChanged">
                     </ComboBox>
 
 
                     <TextBox
+                        x:Name="searchTextBox"
                         Margin="10 5 10 5"
                         Style="{DynamicResource search}"
+                        KeyDown="SearchTextBox_KeyDown"
                         Grid.Column="4"/>
 
                     <Button

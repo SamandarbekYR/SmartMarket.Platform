@@ -1,5 +1,7 @@
 ﻿using SmartMarket.Domain.Entities.Expenses;
 using SmartMarket.Domain.Entities.Products;
+using System.ComponentModel.DataAnnotations.Schema;
+
 using O = SmartMarket.Domain.Entities.Orders;
 using W = SmartMarket.Domain.Entities.Workers;
 
@@ -16,6 +18,9 @@ public class WorkerDto
     public string ImgPath { get; set; } = string.Empty;
     public string PasswordHash { get; set; } = string.Empty;
     public string PasswordSalt { get; set; } = string.Empty;
+    public double Salary { get; set; }
+    public double Advance { get; set; }
+    public DateTime? CreatedDate { get; set; }
     public W.Position Position { get; set; }
     public W.WorkerRole WorkerRole { get; set; }
     public List<W.SalaryWorker> SalaryWorkers { get; set; }

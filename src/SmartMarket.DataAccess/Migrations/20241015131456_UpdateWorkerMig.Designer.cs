@@ -12,8 +12,8 @@ using SmartMarket.DataAccess.Data;
 namespace SmartMarket.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241011070502_UpdateProductSale")]
-    partial class UpdateProductSale
+    [Migration("20241015131456_UpdateWorkerMig")]
+    partial class UpdateWorkerMig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -875,6 +875,10 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
+                    b.Property<double>("Advance")
+                        .HasColumnType("double precision")
+                        .HasColumnName("advance");
+
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
@@ -912,6 +916,10 @@ namespace SmartMarket.DataAccess.Migrations
                     b.Property<Guid>("PositionId")
                         .HasColumnType("uuid")
                         .HasColumnName("position_id");
+
+                    b.Property<double>("Salary")
+                        .HasColumnType("double precision")
+                        .HasColumnName("salary");
 
                     b.Property<Guid>("WorkerRoleId")
                         .HasColumnType("uuid")
@@ -1236,13 +1244,13 @@ namespace SmartMarket.DataAccess.Migrations
                     b.HasOne("SmartMarket.Domain.Entities.Workers.Position", "Position")
                         .WithMany("Workers")
                         .HasForeignKey("PositionId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SmartMarket.Domain.Entities.Workers.WorkerRole", "WorkerRole")
                         .WithMany("Workers")
                         .HasForeignKey("WorkerRoleId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Position");

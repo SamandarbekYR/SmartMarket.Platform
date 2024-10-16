@@ -11,10 +11,10 @@ namespace SmartMarketDeskop.Integrated.Server.Interfaces.Workers
 {
     public interface IPositionServer
     {
-        Task<List<Position>> GetAllAsync();
-        Task<bool> AddAsync(PositionDto dto);
+        Task<List<PositionDto>> GetAllAsync();
+        Task<bool> AddAsync(AddPositionDto dto);
 
         Task<bool> DeleteAsync(Guid Id);
-        Task<bool> UpdateAsync(PositionDto dto, Guid Id);
+        Task<bool> UpdateAsync(AddPositionDto dto, Guid Id);
     }
 }

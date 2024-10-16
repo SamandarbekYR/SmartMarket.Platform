@@ -1,4 +1,6 @@
 ﻿using SmartMarket.Desktop.Windows.AccountSettings;
+using SmartMarket.Service.DTOs.Workers.Worker;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,18 +29,17 @@ namespace SmartMarket.Desktop.Components.AccountSettingsForComponent
         }
 
 
-        public void SetData(string FirstName,string LastName)
+        public void SetData(string firstName,string lastName, string position)
         {
-            lbName.Text=FirstName+"  "+LastName;
+            lbName.Text = firstName + "  " + lastName;
+            lbPositon.Text = position;
         }
 
         private void Border_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            AccountUpdateWindow accountUpdateWindow = new AccountUpdateWindow();
-            string[] res = lbName.Text.Split(" ");
-            accountUpdateWindow.txtFirstName.Text = res[0];
-            accountUpdateWindow.txtLastName.Text = res[2];
-            accountUpdateWindow.txtRole.Text=lbRole.Text;
+            var worker = this.Tag as WorkerDto;
+
+            AccountUpdateWindow accountUpdateWindow = new AccountUpdateWindow(worker);
             accountUpdateWindow.ShowDialog();   
         }
     }

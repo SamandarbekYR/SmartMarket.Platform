@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SmartMarket.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class UpdateWorkerMig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -182,6 +182,8 @@ namespace SmartMarket.DataAccess.Migrations
                     img_path = table.Column<string>(type: "text", nullable: false),
                     password_hash = table.Column<string>(type: "text", nullable: false),
                     password_salt = table.Column<string>(type: "text", nullable: false),
+                    salary = table.Column<double>(type: "double precision", nullable: false),
+                    advance = table.Column<double>(type: "double precision", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
@@ -192,13 +194,13 @@ namespace SmartMarket.DataAccess.Migrations
                         column: x => x.position_id,
                         principalTable: "position",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_worker_worker_role_worker_roleid",
                         column: x => x.worker_roleid,
                         principalTable: "worker_role",
                         principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -484,6 +486,7 @@ namespace SmartMarket.DataAccess.Migrations
                     pay_desk_id = table.Column<Guid>(type: "uuid", nullable: false),
                     transaction_number = table.Column<long>(type: "bigint", nullable: false),
                     count = table.Column<int>(type: "integer", nullable: false),
+                    discount = table.Column<double>(type: "double precision", nullable: false),
                     total_cost = table.Column<double>(type: "double precision", nullable: false),
                     cash_sum = table.Column<double>(type: "double precision", nullable: false),
                     card_sum = table.Column<string>(type: "text", nullable: false),
@@ -550,6 +553,7 @@ namespace SmartMarket.DataAccess.Migrations
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     worker_id = table.Column<Guid>(type: "uuid", nullable: false),
                     product_sale_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    count = table.Column<int>(type: "integer", nullable: false),
                     return_reason = table.Column<string>(type: "text", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -577,6 +581,7 @@ namespace SmartMarket.DataAccess.Migrations
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     product_sale_id = table.Column<Guid>(type: "uuid", nullable: false),
                     worker_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    count = table.Column<int>(type: "integer", nullable: false),
                     reason = table.Column<string>(type: "text", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
@@ -603,9 +608,14 @@ namespace SmartMarket.DataAccess.Migrations
                 column: "company_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_contr_agent_first_name_phone_number",
+                name: "IX_contr_agent_first_name",
                 table: "contr_agent",
-                columns: new[] { "first_name", "phone_number" },
+                column: "first_name");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_contr_agent_phone_number",
+                table: "contr_agent",
+                column: "phone_number",
                 unique: true);
 
             migrationBuilder.CreateIndex(

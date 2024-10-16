@@ -222,12 +222,12 @@ namespace SmartMarket.DataAccess.Data
                 entity.HasOne(w => w.Position)
                       .WithMany(p => p.Workers)
                       .HasForeignKey(w => w.PositionId)
-                      .OnDelete(DeleteBehavior.Restrict);
+                      .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasOne(w => w.WorkerRole)
                       .WithMany(wr => wr.Workers)
                       .HasForeignKey(w => w.WorkerRoleId)
-                      .OnDelete(DeleteBehavior.Restrict);
+                      .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<WorkerDebt>(entity =>

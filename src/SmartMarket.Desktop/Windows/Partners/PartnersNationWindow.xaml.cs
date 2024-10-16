@@ -4,6 +4,12 @@ using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 using System.Windows.Interop;
 using SmartMarket.Desktop.Components.PartnersForComponent;
 using SmartMarketDeskop.Integrated.Services.Partners;
+using SmartMarket.Desktop.Components.MainForComponents;
+using System.Windows.Media;
+using ToastNotifications;
+using ToastNotifications.Position;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
 
 namespace SmartMarket.Desktop.Windows.Partners;
 
@@ -19,6 +25,21 @@ public partial class PartnersNationWindow : Window
         InitializeComponent();
         this._partnerService = new PartnerService();
     }
+
+    Notifier notifier = new Notifier(cfg =>
+    {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
+            corner: Corner.TopRight,
+            offsetX: 20,
+            offsetY: 20);
+
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(3),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+    });
 
     [DllImport("user32.dll")]
     internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
@@ -44,6 +65,19 @@ public partial class PartnersNationWindow : Window
         Marshal.FreeHGlobal(accentPtr);
     }
 
+    private PartnerNationComponent selectedPartner = null!;
+    public async void SelectPartner(PartnerNationComponent partner, Guid partnerId)
+    {
+        if (selectedPartner != null)
+        {
+            selectedPartner.br_Partner.Background = Brushes.White;
+        }
+
+        partner.br_Partner.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B6B6B6"));
+
+        selectedPartner = partner;
+    }
+
     private void Close_Button_Click(object sender, RoutedEventArgs e)
     {
         this.Close();
@@ -52,9 +86,8 @@ public partial class PartnersNationWindow : Window
     private void Create_Button_Click(object sender, RoutedEventArgs e)
     {
         PartnerCreateWindow partnerCreateWindow = new PartnerCreateWindow();
-        this.Hide();
+        this.Close();
         partnerCreateWindow.ShowDialog();
-        this.Show();
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -76,6 +109,7 @@ public partial class PartnersNationWindow : Window
             foreach (var partner in partners)
             {
                 PartnerNationComponent partnerNationComponent = new PartnerNationComponent();
+                partnerNationComponent.Tag = partner;
                 partnerNationComponent.SetData(partner, count);
                 St_Nationer.Children.Add(partnerNationComponent);
                 count++;
@@ -85,6 +119,14 @@ public partial class PartnersNationWindow : Window
 
     private void Save_Button_Click(object sender, RoutedEventArgs e)
     {
+        if(selectedPartner != null)
+        {
+            this.Close();
+        }
+        else
+        {
+            notifier.ShowInformation("Hamkor tanlanmagan.");
+        }
 
     }
 }

@@ -66,16 +66,19 @@
                 Style="{StaticResource Label}"/>
 
             <Label
+                Name="lb_Discount"
                 Grid.Column="6"
                 Content="0"
                 Style="{DynamicResource Label}"/>
 
             <Label
+                x:Name="lb_Saller"
                 Grid.Column="7"
                 Content="Shodiyor"
                 Style="{DynamicResource Label}"/>
 
             <Label
+                x:Name="lb_Date"
                 Grid.Column="8"
                 Content="08.09.2024"
                 Style="{DynamicResource Label}"/>

@@ -25,7 +25,11 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <Border Grid.Row="0" Grid.ColumnSpan="2" MouseDown="Grid_MouseDown" CornerRadius="55 55 0 0" Background="White">
+        <Border 
+            Grid.Row="0" 
+            Grid.ColumnSpan="2" 
+            CornerRadius="55 55 0 0" 
+            Background="White">
 
         </Border>
 

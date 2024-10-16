@@ -17,7 +17,7 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Workers
     public class WorkerServer : IWorkerServer
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        public async Task<bool> AddAsync(WorkerDto dto)
+        public async Task<bool> AddAsync(AddWorkerDto dto)
         {
             try
             {
@@ -59,9 +59,30 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Workers
             }
         }
 
-        public Task<bool> DeleteAsync(Guid Id)
+        public async Task<bool> DeleteAsync(Guid Id)
         {
-            throw new NotImplementedException();
+             try
+            {
+                HttpClient client = new HttpClient();
+                var token = IdentitySingelton.GetInstance().Token;
+                client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/super-admin/worker/{Id}");
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+                HttpResponseMessage message = await client.DeleteAsync(client.BaseAddress);
+
+                if (message.IsSuccessStatusCode)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public async Task<List<WorkerDto>> GetAllAsync()
@@ -89,9 +110,64 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Workers
             }
         }
 
-        public Task<bool> UpdateAsync(WorkerDto dto, Guid Id)
+        public async Task<List<WorkerDto>> GetWorkerByName(string name)
         {
-            throw new NotImplementedException();
+            try
+            {
+                HttpClient client = new HttpClient();
+                var token = IdentitySingelton.GetInstance().Token;
+                client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/super-admin/worker/name/{name}");
+
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+                HttpResponseMessage message = await client.GetAsync(client.BaseAddress);
+
+                string response = await message.Content.ReadAsStringAsync();
+
+                List<WorkerDto> workers = JsonConvert.DeserializeObject<List<WorkerDto>>(response)!;
+
+                return workers;
+
+            }
+            catch
+            {
+                return new List<WorkerDto>();
+            }
+        }
+
+        public async Task<bool> UpdateAsync(AddWorkerDto dto, Guid Id)
+        {
+            try
+            {
+                var token = IdentitySingelton.GetInstance().Token;
+
+                using (var client = new HttpClient())
+                using (var request = new HttpRequestMessage(HttpMethod.Put, AuthApi.BASE_URL + $"/api/super-admin/worker/{Id}"))
+                {
+                    request.Headers.Add("Authorization", $"Bearer {token}");
+
+                    var json = JsonConvert.SerializeObject(dto);
+
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+                    request.Content = content;
+
+                    var response = await client.SendAsync(request);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
         }
     }
 }

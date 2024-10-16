@@ -14,7 +14,7 @@
         WindowState="Maximized"
         Loaded="Window_Loaded">
     <Grid 
-        Height="350" Width="450">
+        Height="420" Width="450">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
@@ -74,7 +74,7 @@
                               Margin="3 0"
                               FontSize="16"
                                  BorderThickness="0"
-                              Foreground="#656161"/>
+                              Foreground="Black"/>
                     </Border>
                 </Grid>
                 <Grid>
@@ -96,7 +96,7 @@
                               Margin="3 0"
                               FontSize="16"
                                  BorderThickness="0"
-                              Foreground="#656161"/>
+                              Foreground="Black"/>
                     </Border>
                 </Grid>
                 <Grid>
@@ -118,7 +118,7 @@
                               Margin="3 0"
                               FontSize="16"
                                  BorderThickness="0"
-                              Foreground="#656161"/>
+                              Foreground="Black"/>
                     </Border>
                 </Grid>
                 <Grid>
@@ -132,17 +132,43 @@
                         VerticalAlignment="Center"
                         FontSize="20"/>
                     <Border Grid.Column="1"
-                         Margin="3"
-                         BorderThickness="1"
-                         BorderBrush="{DynamicResource BorderColor}"
-                         CornerRadius="5">
-                        <ComboBox Margin="3 0"
-                               FontSize="16"
-                               Foreground="#656161"
-                                  BorderThickness="0"
-                               VerticalAlignment="Center">
-                            <ComboBoxItem Content="Admin"/>
-                            <ComboBoxItem Content="Sotuvchi"/>
+                      Margin="3"
+                      BorderThickness="1"
+                      BorderBrush="{DynamicResource BorderColor}"
+                      CornerRadius="5">
+                        <ComboBox Margin="3,0,3,1"
+                            FontSize="16"
+                            Name="cbPosition"
+                            Foreground="Black"
+                            BorderThickness="0"
+                            VerticalAlignment="Bottom"
+                            DisplayMemberPath ="Name"
+                                  >
+                        </ComboBox>
+                    </Border>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2.2*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"
+                        Content="Roli"
+                        FontWeight="SemiBold"
+                        VerticalAlignment="Center"
+                        FontSize="20"/>
+                    <Border Grid.Column="1"
+                          Margin="3"
+                          BorderThickness="1"
+                          BorderBrush="{DynamicResource BorderColor}"
+                          CornerRadius="5">
+                        <ComboBox Margin="3,0,3,1"
+                                FontSize="16"
+                                Name="cbRole"
+                                Foreground="Black"
+                                BorderThickness="0"
+                                VerticalAlignment="Bottom"
+                                DisplayMemberPath ="Name">
                         </ComboBox>
                     </Border>
                 </Grid>
@@ -161,11 +187,11 @@
                          BorderThickness="1"
                          BorderBrush="{DynamicResource BorderColor}"
                          CornerRadius="5">
-                        <TextBox x:Name="txtRole"
+                        <TextBox x:Name="txtPassword"
                               Margin="3 0"
                               FontSize="16"
-                                 BorderThickness="0"
-                              Foreground="#656161"/>
+                              BorderThickness="0"
+                              Foreground="Black"/>
                     </Border>
                 </Grid>
                 <Grid>
@@ -183,25 +209,73 @@
                          BorderThickness="1"
                          BorderBrush="{DynamicResource BorderColor}"
                          CornerRadius="5">
-                        <TextBox x:Name="txtOylik"
+                        <TextBox x:Name="txtSalary"
                               Margin="3 0"
                               FontSize="16"
                                  BorderThickness="0"
-                              Foreground="#656161"/>
+                              Foreground="Black"/>
                     </Border>
                 </Grid>
-                <Border Background="#008000"
-                     HorizontalAlignment="Right"
-                     Margin="4 10"
-                     CornerRadius="5"
-                     Cursor="Hand">
-                    <Label Content="Saqlash"
-                        FontWeight="SemiBold"
-                        VerticalAlignment="Center"
-                        Foreground="White"
-                        FontSize="20"
-                        Margin="30 2"/>
-                </Border>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="32*"/>
+                        <ColumnDefinition Width="99*"/>
+                        <ColumnDefinition Width="287*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"
+                         Content="Avans"
+                         FontWeight="SemiBold"
+                         VerticalAlignment="Center"
+                         FontSize="20" Grid.ColumnSpan="3" Margin="0,0,287,0"/>
+                    <Border Grid.Column="2"
+                          Margin="3,3,3,3"
+                          BorderThickness="1"
+                          BorderBrush="{DynamicResource BorderColor}"
+                          CornerRadius="5">
+                        <TextBox x:Name="txtAdvance"
+                           Margin="3 0"
+                           FontSize="16"
+                           BorderThickness="0"
+                           Foreground="Black"/>
+                    </Border>
+                </Grid>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="1.1*"/>
+                        <ColumnDefinition Width="1.1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Background="#CC0011"
+                         HorizontalAlignment="Right"
+                         Grid.Column="1"
+                         Margin="0 10"
+                         CornerRadius="5"
+                         Cursor="Hand"
+                         MouseUp="btnDeleteAccount_MouseUp">
+                        <Label Content="O'chirish"
+                            FontWeight="SemiBold"
+                            VerticalAlignment="Center"
+                            Foreground="White"
+                            FontSize="20"
+                            Margin="20 2"/>
+                    </Border>
+
+                    <Border Background="#008000"
+                         HorizontalAlignment="Right"
+                         Grid.Column="2"
+                         Margin="2 10"
+                         CornerRadius="5"
+                         Cursor="Hand"
+                         MouseUp="btnUpdateAccount_MouseUp">
+                        <Label Content="Saqlash"
+                            FontWeight="SemiBold"
+                            VerticalAlignment="Center"
+                            Foreground="White"
+                            FontSize="20"
+                            Margin="20 2"/>
+                    </Border>
+                </Grid>
             </StackPanel>
         </Border>
     </Grid>
