@@ -7,8 +7,10 @@
              mc:Ignorable="d">
     <Border BorderBrush="{DynamicResource BorderColor}"
             Background="White"
-                CornerRadius="12"
-                BorderThickness="1">
+            Height="100"
+            VerticalAlignment="Top"
+            CornerRadius="12"
+            BorderThickness="1">                 
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"/>
@@ -18,7 +20,8 @@
             <Border Grid.Column="0"
                         Margin="5 5 0 5"
                         Background="White">
-                <Image Source="/Assets/Basket.png"
+                <Image x:Name="productImg"  
+                    Source="/Assets/Basket.png"
                     Stretch="Uniform"/>
             </Border>
             <Grid Grid.Column="1">

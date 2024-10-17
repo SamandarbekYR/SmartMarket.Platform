@@ -93,6 +93,18 @@ namespace SmartMarket.Service.Services.Expence
                         ps => ps.CreatedDate.Value.Date == DateTime.Today).ToList();
                 }
 
+                if(!string.IsNullOrWhiteSpace(filterExpenseDto.Reason))
+                {
+                    expences = expences.Where(
+                        ps => ps.Reason.Contains(filterExpenseDto.Reason)).ToList();
+                }
+
+                if(!string.IsNullOrWhiteSpace(filterExpenseDto.WorkerName))
+                {
+                    expences = expences.Where(
+                        ps => ps.Worker.FirstName.Contains(filterExpenseDto.WorkerName)).ToList();
+                }
+
                 var expenseDtos = expences.Select(e => new FullExpenceDto
                 {
                     Id = e.Id,

@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Domain.Entities.Partners;
+using SmartMarket.Service.DTOs.Partner;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Partners;
 using SmartMarketDeskop.Integrated.Server.Repositories.Partners;
 using SmartMarketDesktop.DTOs.DTOs.Partners;
@@ -87,6 +88,19 @@ public class PartnerService : IPartnerService
         else
         {
             return false;
+        }
+    }
+
+    public async Task<PartnerDto> GetByName(string name)
+    {
+        if (IsInternetAvailable())
+        {
+            var partner = await _partnerServer.GetByNameAsync(name);
+            return partner;
+        }
+        else
+        {
+            return null!;
         }
     }
 }

@@ -57,7 +57,8 @@
             >
             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <UniformGrid x:Name="St_Products"
-                             Columns="2">
+                             Columns="2"
+                             Margin="10">
                     
                     
                 </UniformGrid>
