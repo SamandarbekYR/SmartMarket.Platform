@@ -23,6 +23,24 @@ namespace SmartMarket.WebApi.Controllers.SuperAdmin.Workers
         public async Task<IActionResult> GetAll()
             => Ok( await _workerService.GetAllAsync());
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync(Guid id)
+        {
+            try
+            {
+                var worker = await _workerService.GetByIdAsync(id);
+                return Ok(worker);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
 
         [HttpGet("phone/{phoneNumber}")]
         public async Task<IActionResult> GetWorkerByPhoneNumberAsync(string phoneNumber)
