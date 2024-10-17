@@ -1,5 +1,6 @@
 ﻿using SmartMarket.Desktop.Components.ExpenseForComponents;
 using SmartMarket.Domain.Entities.Expenses;
+using SmartMarket.Service.DTOs.Expence;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
 using SmartMarketDeskop.Integrated.Server.Repositories.Expenses;
 using SmartMarketDeskop.Integrated.Services.Expenses;
@@ -35,9 +36,40 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         public async void GetAllExpence()
         {
-            St_Expenses.Children.Clear();
-
             var expenses = await expenseService.GetAll();
+            ShowExpenses(expenses);
+        }
+
+        private async void FilterExpenses()
+        {
+            FilterExpenseDto filter = new FilterExpenseDto();
+
+            if(fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
+            {
+                filter.FromDateTime = fromDateTime.SelectedDate.Value;
+                filter.ToDateTime = toDateTime.SelectedDate.Value;
+            }
+
+            var selectionWorkerName = workerComboBox.SelectedItem?.ToString();
+
+            if(!string.IsNullOrEmpty(selectionWorkerName) && !selectionWorkerName.Equals("Sotuvchi"))
+            {
+                filter.WorkerName = selectionWorkerName;
+            }
+
+            var filterReason = filterTextBox.Text.ToLower();
+            if(!string.IsNullOrEmpty(filterReason))
+            {
+                filter.Reason = filterReason;
+            }
+
+            var filterExpense = await expenseService.FilterExpense(filter);
+            ShowExpenses(filterExpense);
+        }
+
+        private async void ShowExpenses(IEnumerable<FullExpenceDto> expenses)
+        {
+            St_Expenses.Children.Clear();
 
             int count = 1;
 
@@ -55,6 +87,28 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             else
             {
 
+            }
+        }
+
+        private void toDateTime_SelectadDataChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FilterExpenses();
+        }
+
+        private void workerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FilterExpenses();
+        }
+
+        private void FilterTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(filterTextBox == null)
+            {
+                MessageBox.Show("Search filter null");
+            }
+            else if(e.Key == Key.Enter)
+            {
+                FilterExpenses();
             }
         }
 

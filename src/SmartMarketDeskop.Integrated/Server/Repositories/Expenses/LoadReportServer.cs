@@ -17,6 +17,33 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Expenses
     public class LoadReportServer : ILoadReportServer
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
+
+        public async Task<List<LoadReportDto>> FilterLoadReportAsync(FilterLoadReportDto dto)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                var token = IdentitySingelton.GetInstance().Token;
+                client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/load-reports/filter");
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+                var json = JsonConvert.SerializeObject(dto);
+                var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+                HttpResponseMessage responseMessage = await client.PostAsync(client.BaseAddress, data);
+                string response = await responseMessage.Content.ReadAsStringAsync();
+
+                List<LoadReportDto> loadReports = JsonConvert.DeserializeObject<List<LoadReportDto>>(response)!;
+
+                return loadReports;
+            }
+            catch(Exception ex)
+            {
+                logger.Error(ex);
+                return new List<LoadReportDto>();
+            }
+        }
+
         public async Task<List<LoadReportDto>> GetAllAsync()
         {
             try

@@ -19,30 +19,26 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         public async void GetAllProduct()
         {
-            //St_AllProducts.Children.Clear();
+            St_AllProducts.Children.Clear();
 
-            //int count = 1;
+            int count = 1;
 
-            //var products = await _productService.GetAll();
+            var products = await _productService.GetAll();
 
-            //if (products != null)
-            //{
-            //    foreach (var product in products)
-            //    {
-            //        MainProductComponent productsComponent = new MainProductComponent();
-            //        productsComponent.tbNumber.Text = count.ToString();
-            //        productsComponent.SetData(product);
-            //        St_AllProducts.Children.Add(productsComponent);
-            //        count++;
-            //    }
-            //}
-            //else
-            //{ }
-
-            for (int i = 0; i < 20; i++)
+            if (products != null)
             {
-                MainProductComponent productsComponent = new MainProductComponent();
-                St_AllProducts.Children.Add(productsComponent);
+                foreach (var product in products)
+                {
+                    MainProductComponent productsComponent = new MainProductComponent();
+                    productsComponent.tbNumber.Text = count.ToString();
+                    productsComponent.GetData(product, count);
+                    St_AllProducts.Children.Add(productsComponent);
+                    count++;
+                }
+            }
+            else
+            { 
+            
             }
         }
 
