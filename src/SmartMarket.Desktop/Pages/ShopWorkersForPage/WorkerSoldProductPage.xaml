@@ -83,11 +83,11 @@
             </Border>
 
             <Border 
-            Grid.Row="2" 
-            CornerRadius="0 0 5 5"  
-            BorderThickness="1 0 1 1" 
-            BorderBrush="{DynamicResource BorderColor}" 
-            Background="White">
+                Grid.Row="2" 
+                CornerRadius="0 0 5 5"  
+                BorderThickness="1 0 1 1" 
+                BorderBrush="{DynamicResource BorderColor}" 
+                Background="White">
                 <ScrollViewer Grid.Row="2">
                     <StackPanel Grid.Row="2">
                         <StackPanel 
