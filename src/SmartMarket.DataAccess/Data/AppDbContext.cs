@@ -134,6 +134,7 @@ namespace SmartMarket.DataAccess.Data
                       .HasForeignKey(p => p.WorkerId)
                       .OnDelete(DeleteBehavior.Restrict);
 
+
                 //entity.HasIndex(p => p.Barcode)
                 //    .IsUnique()
                 //    .HasName("IX_Product_Barcode");
@@ -167,20 +168,11 @@ namespace SmartMarket.DataAccess.Data
                       .HasForeignKey(ps => ps.ProductId)
                       .OnDelete(DeleteBehavior.Restrict);
 
-                entity.HasOne(ps => ps.PayDesk)
-                      .WithMany(pd => pd.ProductSales)
-                      .HasForeignKey(ps => ps.PayDeskId)
-                      .OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(ps => ps.SalesRequest)
+                     .WithMany(p => p.ProductSaleItems)
+                     .HasForeignKey(ps => ps.SalesRequesId)
+                     .OnDelete(DeleteBehavior.Restrict);
 
-                entity.HasOne(ps => ps.Worker)
-                      .WithMany(w => w.ProductSales)
-                      .HasForeignKey(ps => ps.WorkerId)
-                      .OnDelete(DeleteBehavior.Restrict);
-
-                entity.HasOne(ps => ps.Transaction)
-                      .WithMany(t => t.ProductSales)
-                      .HasForeignKey(ps => ps.TransactionId)
-                      .OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<ReplaceProduct>(entity =>
