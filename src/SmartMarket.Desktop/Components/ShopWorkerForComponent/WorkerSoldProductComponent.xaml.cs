@@ -1,7 +1,11 @@
-﻿using SmartMarket.Desktop.Windows.ProductsForWindow;
+﻿using SmartMarket.Desktop.Pages.ShopWorkersForPage;
+using SmartMarket.Desktop.Windows.ProductsForWindow;
+using SmartMarket.Service.DTOs.Workers.Worker;
 using SmartMarket.Service.ViewModels.Products;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace SmartMarket.Desktop.Components.ShopWorkerForComponent
 {

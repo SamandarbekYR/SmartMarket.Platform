@@ -1,6 +1,7 @@
 ﻿using SmartMarket.Desktop.Components.MainForComponents;
 using SmartMarket.Desktop.Components.ShopWorkerForComponent;
 using SmartMarket.Desktop.Windows.AccountSettings;
+using SmartMarket.Service.DTOs.Workers.Worker;
 
 using SmartMarketDeskop.Integrated.Services.Workers.Worker;
 
@@ -43,23 +44,14 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
         }
 
         private WorkerListComponent selectedControl = null!;
-        public async void SelectCategory(WorkerListComponent worker, Guid workerId)
+        public void SelectWorker(WorkerListComponent workerComponent, WorkerDto? worker)
         {
             if (selectedControl != null)
             {
                 selectedControl.brWorker.Background = Brushes.White;
             }
 
-            worker.brWorker.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B6B6B6"));
-
-            await GetWorkerByIdAsync(workerId);
-
-            selectedControl = worker;
-        }
-
-        public async Task GetWorkerByIdAsync(Guid Id)
-        {
-            var worker = await _workerService.GetByIdAsync(Id);
+            workerComponent.brWorker.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B6B6B6"));
 
             if (worker != null)
             {
@@ -70,6 +62,16 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
                 lb_PaidPart.Content = worker.Advance;
                 lb_UnpaidPart.Content = worker.Salary - worker.Advance;
             }
+
+            selectedControl = workerComponent;
+        }
+
+        private void UpdateWorker_Button_Click(object sender, RoutedEventArgs e)
+        {
+            var worker = selectedControl.Tag as WorkerDto;
+
+            AccountUpdateWindow workerUpdateWindow = new AccountUpdateWindow(worker!);
+            workerUpdateWindow.ShowDialog();
         }
 
         public void CollectedCargoPageView()
@@ -91,9 +93,9 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            WorkersoldProduct();
             GetWorkers();
             CollectedCargoPageView();
-            WorkersoldProduct();
         }
     }
 }

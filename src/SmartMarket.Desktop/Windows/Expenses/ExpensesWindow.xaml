@@ -27,35 +27,21 @@
                 Height="40"
                 CornerRadius="5 5 0 0"
                 Background="#1FB5E5">
-                <StackPanel
-                    Orientation="Horizontal"
-                    >
+                <Grid>
                     <TextBlock 
                         FontSize="22" 
                         VerticalAlignment="Center" 
                         Margin="10 0" Text="Harajatlar" 
-                        Foreground="White"
-                        >
-                        
-                    </TextBlock>
-                    <Border 
-                        x:Name="close_btn"
-                        Background="Transparent" 
-                        BorderThickness="0" 
+                        Foreground="White"/>
+
+                    <Button
+                        Grid.Row="0"
+                        Name="close_button"
                         HorizontalAlignment="Right"
-                        MouseDown="close_btn_MouseDown">
-                        <md:PackIcon 
-                            Kind="Close" 
-                            VerticalAlignment="Center" 
-                            Margin="295 0 10 0"
-                            Width="30" Height="30" 
-                            Foreground="Red"
-                            Name="Close_Button"
-                            >
-                            
-                        </md:PackIcon>
-                    </Border>
-                </StackPanel>
+                        Click="close_button_Click"
+                        Style="{DynamicResource btnClose}"/>
+
+                </Grid>
             </Border>
 
             <DockPanel 
@@ -71,9 +57,10 @@
                     Height="30" 
                     Margin="0 0 30 0" 
                     HorizontalAlignment="Right"
-                    BorderBrush="Black" 
-                    BorderThickness="1" 
-                    Width="250">
+                    BorderBrush="{DynamicResource BorderColor}" 
+                    BorderThickness="0.7" 
+                    Width="250"
+                    FontSize="15">
                     
                 </TextBox>
             </DockPanel>
@@ -91,9 +78,11 @@
                     Height="30"  
                     Margin="0 0 30 0" 
                     HorizontalAlignment="Right" 
-                    BorderBrush="Black" 
-                    BorderThickness="1" 
-                    Width="250">
+                    BorderBrush="{DynamicResource BorderColor}" 
+                    BorderThickness="0.7" 
+                    TextChanged="expenceSumma_txt_TextChanged"
+                    Width="250"
+                    FontSize="15">
                     
                 </TextBox>
             </DockPanel>
@@ -113,7 +102,8 @@
                     HorizontalAlignment="Right"
                     BorderBrush="Black"
                     BorderThickness="1"
-                    Width="250">
+                    Width="250" 
+                    SelectionChanged="PaymentType_combo_SelectionChanged">
                     <ComboBoxItem Content="Naq"/>
                     <ComboBoxItem Content="Karta"/>
                     <ComboBoxItem Content="Pul ko'chirish"/>
@@ -135,11 +125,9 @@
                     Height="30"
                     Margin="0 0 30 0" 
                     HorizontalAlignment="Right"
-                    BorderBrush="Black"
                     BorderThickness="1" 
-                    Width="250">
-                    <ComboBoxItem Content="Kassa 1"/>
-                    <ComboBoxItem Content="Kassa 2"/>
+                    Width="250"
+                    SelectionChanged ="where_txt_SelectionChanged" >
                 </ComboBox>
             </DockPanel>
 
@@ -149,6 +137,7 @@
                 Width="170"
                 Content="Saqlash"
                 FontSize="18"
+                Click="Button_Click"
                 Style="{DynamicResource Create_Button}"/>
 
         </StackPanel>
