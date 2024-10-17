@@ -20,8 +20,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.6*"/>
                 <ColumnDefinition Width="3*"/>
-                <ColumnDefinition Width="0.6*"/>
-                <ColumnDefinition Width="0.6*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock
@@ -46,16 +45,11 @@
             <Button
                 Grid.Column="2"
                 Style="{DynamicResource BtnEditCategory}"
+                Click="UpdateWorker_Button_Click"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 >
             </Button>
-
-            <Button 
-                Grid.Column="3"
-                Style="{DynamicResource BtnDeleteCategory}"
-                ></Button>
-            
         </Grid>
     </Border>
 </UserControl>

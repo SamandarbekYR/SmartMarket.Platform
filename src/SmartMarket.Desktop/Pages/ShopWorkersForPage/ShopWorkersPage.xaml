@@ -160,6 +160,7 @@
 
                     <Button
                         Content="Saqlash"
+                        Click="UpdateWorker_Button_Click"
                         FontSize="16"
                         Style="{DynamicResource BtnSaveAccount}"
                         Grid.Row="2"
