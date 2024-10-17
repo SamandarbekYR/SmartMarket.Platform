@@ -11,5 +11,6 @@ namespace SmartMarketDeskop.Integrated.Server.Interfaces.Expenses
     public interface ILoadReportServer
     {
         Task<List<LoadReportDto>> GetAllAsync();
+        Task<List<LoadReportDto>> FilterLoadReportAsync(FilterLoadReportDto dto);
     }
 }

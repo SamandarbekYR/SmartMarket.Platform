@@ -18,6 +18,17 @@ namespace SmartMarketDeskop.Integrated.Services.Expenses
         {
             this._loadReportServer = new LoadReportServer();
         }
+
+        public async Task<List<LoadReportDto>> FilterAsync(FilterLoadReportDto dto)
+        {
+            if(IsInternetAvialable())
+            {
+                var loadReports = await _loadReportServer.FilterLoadReportAsync(dto);
+                return loadReports;
+            }
+            else { return new List<LoadReportDto>(); }
+        }
+
         public async Task<List<LoadReportDto>> GetAll()
         {
             if(IsInternetAvialable())
