@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ShopWorkersForPage"
       mc:Ignorable="d"
       Title="ShopWorkersPage"
-      >
+      Loaded="Page_Loaded">
 
     <Grid 
         Background="white">
@@ -130,25 +130,30 @@
 
                             <Label
                                 Style="{DynamicResource TitleLabel}"
+                                Name="lb_WorkerName"
                                 Content="Shodiyor"/>
                             <Label
                                 Style="{DynamicResource TitleLabel}"
+                                Name="lb_WorkerLastName"
                                 Content="Erqo'ziyev"/>
                             <Label
                                 Style="{DynamicResource TitleLabel}"
+                                Name="lb_Salary"
                                 Content="4 000 000"/>
                             <Label
                                 Style="{DynamicResource TitleLabel}"
+                                Name="lb_PhoneNumber"
                                 Content="917727005"/>
                             <Label
                                 FontSize="13"
                                 Style="{DynamicResource TitleLabel}"
+                                Name="lb_PaidPart"
                                 Content="400 000"/>
                             <Label
                                 FontSize="13"
                                 Style="{DynamicResource TitleLabel}"
+                                Name="lb_UnpaidPart"
                                 Content="3 600 000"/>
-
                         </StackPanel>
 
                     </Grid>
@@ -187,7 +192,7 @@
                      x:Name="CollectedCargoPageNavigator" 
                      Navigated="CollectedCargoPageNavigator_Navigated"/>
 
-                </Border>
+            </Border>
              
             <Border 
                 Margin="0 7 0 0"

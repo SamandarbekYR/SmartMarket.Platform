@@ -81,6 +81,18 @@ namespace SmartMarketDeskop.Integrated.Services.Workers.Worker
             }
         }
 
+        public async Task<WorkerDto> GetByIdAsync(Guid Id)
+        {
+            if (IsInternetAvailable())
+            {
+                return await _workerServer.GetByIdAsync(Id);
+            }
+            else
+            {
+                return new WorkerDto();
+            }
+        }
+
         public bool IsInternetAvailable()
         {
             try

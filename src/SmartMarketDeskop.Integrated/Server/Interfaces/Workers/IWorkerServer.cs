@@ -9,5 +9,6 @@ namespace SmartMarketDeskop.Integrated.Server.Interfaces.Workers
         Task<bool> UpdateAsync(AddWorkerDto dto, Guid Id);
         Task<List<WorkerDto>> GetAllAsync();
         Task<List<WorkerDto>> GetWorkerByName(string name);
+        Task<WorkerDto> GetByIdAsync(Guid Id);
     }
 }

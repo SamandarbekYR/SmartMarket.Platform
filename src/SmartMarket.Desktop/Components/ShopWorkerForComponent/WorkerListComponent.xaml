@@ -37,7 +37,6 @@
                 Grid.Column="1"
                 Text="Sherzod"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
                 FontSize="15"
                 FontWeight="SemiBold"
                 ></TextBlock>

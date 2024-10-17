@@ -25,10 +25,10 @@ namespace SmartMarket.Desktop.Components.ShopWorkerForComponent
             InitializeComponent();
         }
 
-        public void SetValues(string id,string Name)
+        public void SetValues(int id, string name, string lastName)
         {
-            tbNumber.Text = id;
-            tbName.Text = Name;
+            tbNumber.Text = id.ToString();
+            tbName.Text = name + " " + lastName;
         }
     }
 }
