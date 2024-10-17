@@ -24,7 +24,7 @@ public class ExpensesServer : IExpensesServer
             using (var client = new HttpClient())
             {
                 client.Timeout = TimeSpan.FromSeconds(30);
-                using (var request = new HttpRequestMessage(HttpMethod.Post, AuthApi.BASE_URL + "/api/expense"))
+                using (var request = new HttpRequestMessage(HttpMethod.Post, AuthApi.BASE_URL + "/api/expences"))
                 {
                     request.Headers.Add("Authorization", $"Bearer {token}");
 
