@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Desktop.Pages.ShopWorkersForPage;
+using SmartMarket.Desktop.Windows.AccountSettings;
 using SmartMarket.Service.DTOs.Workers.Worker;
 
 using System;
@@ -35,7 +36,12 @@ namespace SmartMarket.Desktop.Components.ShopWorkerForComponent
             var page = FindParentPage(this);
             if (page is ShopWorkersPage shopWorkerPage)
             {
-                shopWorkerPage.SelectCategory(this, worker!.Id);
+                shopWorkerPage.SelectWorker(this, worker);
+            }
+
+            if (page is WorkerSoldProductPage workerSoldProductPage)
+            { 
+                workerSoldProductPage.SelectWorkerProductSold(this, worker);
             }
         }
 
@@ -58,6 +64,14 @@ namespace SmartMarket.Desktop.Components.ShopWorkerForComponent
         {
             tbNumber.Text = id.ToString();
             tbName.Text = name + " " + lastName;
+        }
+
+        private void UpdateWorker_Button_Click(object sender, RoutedEventArgs e)
+        {
+            var worker = this.Tag as WorkerDto;
+
+            AccountUpdateWindow updateWorkerWindow = new AccountUpdateWindow(worker);
+            updateWorkerWindow.ShowDialog();
         }
     }
 }

@@ -35,6 +35,7 @@ namespace SmartMarket.DataAccess.Repositories.Workers
                 .Include(w => w.WorkerDebts)
                 .Include(w => w.Products)
                 .Include(w => w.ProductSales)
+                    .ThenInclude(ps => ps.Product)
                 .Include(w => w.LoadReports)
                 .Include(w => w.ReplaceProducts)
                 .Include(w => w.InvalidProducts)
