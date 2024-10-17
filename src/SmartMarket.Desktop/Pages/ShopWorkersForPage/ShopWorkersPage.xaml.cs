@@ -70,7 +70,7 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
         {
             var worker = selectedControl.Tag as WorkerDto;
 
-            AccountUpdateWindow workerUpdateWindow = new AccountUpdateWindow(worker);
+            AccountUpdateWindow workerUpdateWindow = new AccountUpdateWindow(worker!);
             workerUpdateWindow.ShowDialog();
         }
 
