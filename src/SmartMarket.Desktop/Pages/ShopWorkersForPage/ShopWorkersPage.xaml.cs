@@ -1,10 +1,12 @@
-﻿using SmartMarket.Desktop.Components.ShopWorkerForComponent;
+﻿using SmartMarket.Desktop.Components.MainForComponents;
+using SmartMarket.Desktop.Components.ShopWorkerForComponent;
 using SmartMarket.Desktop.Windows.AccountSettings;
 
 using SmartMarketDeskop.Integrated.Services.Workers.Worker;
 
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Navigation;
 
 namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
@@ -37,6 +39,36 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
                 workerListComponent.BorderThickness = new Thickness(3, 2, 3, 2);
                 St_Workers.Children.Add(workerListComponent);
                 rowNumber++;
+            }
+        }
+
+        private WorkerListComponent selectedControl = null!;
+        public async void SelectCategory(WorkerListComponent worker, Guid workerId)
+        {
+            if (selectedControl != null)
+            {
+                selectedControl.brWorker.Background = Brushes.White;
+            }
+
+            worker.brWorker.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B6B6B6"));
+
+            await GetWorkerByIdAsync(workerId);
+
+            selectedControl = worker;
+        }
+
+        public async Task GetWorkerByIdAsync(Guid Id)
+        {
+            var worker = await _workerService.GetByIdAsync(Id);
+
+            if (worker != null)
+            {
+                lb_WorkerName.Content = worker.FirstName;
+                lb_WorkerLastName.Content = worker.LastName;
+                lb_Salary.Content = worker.Salary;
+                lb_PhoneNumber.Content = worker.PhoneNumber;
+                lb_PaidPart.Content = worker.Advance;
+                lb_UnpaidPart.Content = worker.Salary - worker.Advance;
             }
         }
 
