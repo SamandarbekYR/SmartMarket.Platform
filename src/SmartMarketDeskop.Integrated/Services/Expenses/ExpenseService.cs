@@ -12,6 +12,23 @@ namespace SmartMarketDeskop.Integrated.Services.Expenses
         {
             this._expensesServer = new ExpensesServer();
         }
+
+        public async Task<bool> CreateExpense(AddExpenceDto dto)
+        {
+            if (IsInternetAvialable())
+            {
+                bool result = await _expensesServer.CreateAsync(dto);
+                if (result)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public async Task<List<FullExpenceDto>> FilterExpense(FilterExpenseDto dto)
         {
             if(IsInternetAvialable())

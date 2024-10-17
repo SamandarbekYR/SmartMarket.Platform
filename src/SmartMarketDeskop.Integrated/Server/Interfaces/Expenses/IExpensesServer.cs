@@ -1,11 +1,10 @@
 ﻿using SmartMarket.Service.DTOs.Expence;
-using SmartMarketDesktop.ViewModels.Entities.Expenses;
 
-namespace SmartMarketDeskop.Integrated.Server.Interfaces.Expenses
+namespace SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
+
+public interface IExpensesServer
 {
-    public interface IExpensesServer
-    {
-        Task<List<FullExpenceDto>> GetExpensesFullInformationAsync();
-        Task<List<FullExpenceDto>>  FilterExpenceAsync(FilterExpenseDto filterExpenceDto);
-    }
+    Task<List<FullExpenceDto>> GetExpensesFullInformationAsync();
+    Task<List<FullExpenceDto>>  FilterExpenceAsync(FilterExpenseDto filterExpenceDto);
+    Task<bool> CreateAsync(AddExpenceDto expence);
 }
