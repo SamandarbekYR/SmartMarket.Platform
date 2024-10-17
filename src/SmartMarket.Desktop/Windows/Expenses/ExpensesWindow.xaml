@@ -59,7 +59,8 @@
                     HorizontalAlignment="Right"
                     BorderBrush="{DynamicResource BorderColor}" 
                     BorderThickness="0.7" 
-                    Width="250">
+                    Width="250"
+                    FontSize="15">
                     
                 </TextBox>
             </DockPanel>
@@ -80,7 +81,8 @@
                     BorderBrush="{DynamicResource BorderColor}" 
                     BorderThickness="0.7" 
                     TextChanged="expenceSumma_txt_TextChanged"
-                    Width="250">
+                    Width="250"
+                    FontSize="15">
                     
                 </TextBox>
             </DockPanel>
@@ -100,7 +102,8 @@
                     HorizontalAlignment="Right"
                     BorderBrush="Black"
                     BorderThickness="1"
-                    Width="250">
+                    Width="250" 
+                    SelectionChanged="PaymentType_combo_SelectionChanged">
                     <ComboBoxItem Content="Naq"/>
                     <ComboBoxItem Content="Karta"/>
                     <ComboBoxItem Content="Pul ko'chirish"/>
@@ -123,9 +126,8 @@
                     Margin="0 0 30 0" 
                     HorizontalAlignment="Right"
                     BorderThickness="1" 
-                    Width="250">
-                    <ComboBoxItem Content="Kassa 1"/>
-                    <ComboBoxItem Content="Kassa 2"/>
+                    Width="250"
+                    SelectionChanged ="where_txt_SelectionChanged" >
                 </ComboBox>
             </DockPanel>
 
