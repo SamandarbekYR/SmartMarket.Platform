@@ -12,9 +12,8 @@
         Name="brWorker"
         MouseDown="Border_MouseDown"
         CornerRadius="5"
-        BorderThickness="1"
+        BorderThickness="0.5"
         BorderBrush="Black"
-        Style="{DynamicResource StyleBorder}"
         >
 
         <Grid>
