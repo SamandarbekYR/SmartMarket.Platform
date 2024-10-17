@@ -169,5 +169,30 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Workers
                 return false;
             }
         }
+
+        public async Task<WorkerDto> GetByIdAsync(Guid Id)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                var token = IdentitySingelton.GetInstance().Token;
+                client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/super-admin/worker/{Id}");
+
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+                HttpResponseMessage message = await client.GetAsync(client.BaseAddress);
+
+                string response = await message.Content.ReadAsStringAsync();
+
+                WorkerDto worker = JsonConvert.DeserializeObject<WorkerDto>(response)!;
+
+                return worker;
+
+            }
+            catch
+            {
+                return new WorkerDto();
+            }
+        }
     }
 }

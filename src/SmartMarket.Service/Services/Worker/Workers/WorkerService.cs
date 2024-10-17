@@ -122,6 +122,26 @@ namespace SmartMarket.Service.Services.Worker.Workers
             }
         }
 
+        public async Task<WorkerDto> GetByIdAsync(Guid Id)
+        {
+            try
+            {
+                var worker = await _unitOfWork.Worker.GetById(Id);
+
+                if (worker == null)
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+                }
+
+                return _mapper.Map<WorkerDto>(worker);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while getting a worker by id.");
+                throw;
+            }
+        }
+
         public async Task<WorkerDto> GetWorkerByPhoneNumberAsync(string phoneNumber)
         {
             try

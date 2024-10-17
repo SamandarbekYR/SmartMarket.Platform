@@ -15,5 +15,6 @@ namespace SmartMarketDeskop.Integrated.Services.Workers.Worker
         Task<bool> DeleteAsync(Guid Id);
         Task<List<WorkerDto>> GetAllAsync();
         Task<List<WorkerDto>> GetWorkerByName(string name);
+        Task<WorkerDto> GetByIdAsync(Guid Id);
     }
 }
