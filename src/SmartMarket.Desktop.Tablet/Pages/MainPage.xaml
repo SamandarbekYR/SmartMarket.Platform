@@ -215,19 +215,27 @@
                             </Grid.ColumnDefinitions>
 
                             <Button
+                                Name="Edit_Button"
                                 Grid.Column="0"
+                                Click="Edit_Button_Click"
                                 Tag="{DynamicResource edit}"
                                 Style="{DynamicResource ActionButton}"/>
                             <Button
+                                Name="Delete_Button"
                                 Grid.Column="1"
+                                Click="Delete_Button_Click"
                                 Tag="{DynamicResource delete}"
                                 Style="{DynamicResource ActionButton}"/>
                             <Button
+                                Name="Plus_Button"
                                 Grid.Column="2"
+                                Click="Plus_Button_Click"
                                 Tag="{DynamicResource pilus}"
                                 Style="{DynamicResource ActionButton}"/>
                             <Button
+                                Name="Minus_Button"
                                 Grid.Column="3"
+                                Click="Minus_Button_Click"
                                 Tag="{DynamicResource minus}"
                                 Style="{DynamicResource ActionButton}"/>
 

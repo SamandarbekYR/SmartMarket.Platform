@@ -1,28 +1,42 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SmartMarket.Desktop.Tablet.Pages;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace SmartMarket.Desktop.Tablet.Components
+namespace SmartMarket.Desktop.Tablet.Components;
+
+/// <summary>
+/// Interaction logic for ProductComponent.xaml
+/// </summary>
+public partial class ProductComponent : UserControl
 {
-    /// <summary>
-    /// Interaction logic for ProductComponent.xaml
-    /// </summary>
-    public partial class ProductComponent : UserControl
+    public ProductComponent()
     {
-        public ProductComponent()
+        InitializeComponent();
+    }
+
+    private Page FindParentPage(DependencyObject child)
+    {
+        DependencyObject parentObject = VisualTreeHelper.GetParent(child);
+
+        if (parentObject is Page page)
         {
-            InitializeComponent();
+            return page;
+        }
+        else if (parentObject != null)
+        {
+            return FindParentPage(parentObject);
+        }
+        return null!;
+    }
+
+    private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+        var page = FindParentPage(this);
+        if (page is MainPage mainPage)
+        {
+            mainPage.SelectProduct(this);
         }
     }
 }
