@@ -2,6 +2,10 @@
 using SmartMarket.Desktop.Tablet.Windows;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Position;
 
 namespace SmartMarket.Desktop.Tablet.Pages;
 
@@ -14,6 +18,21 @@ public partial class MainPage : Page
     {
         InitializeComponent();
     }
+
+    Notifier notifier = new Notifier(cfg =>
+    {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
+            corner: Corner.BottomCenter,
+            offsetX: 20,
+            offsetY: 20);
+
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(3),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+    });
 
     public static MainWindow GetMainWindow()
     {
@@ -60,5 +79,39 @@ public partial class MainPage : Page
 
         mainWindow.Close();
         loginWindow.ShowDialog();
+    }
+
+    private ProductComponent selectedProduct = null!;
+    public void SelectProduct(ProductComponent product)
+    {
+        if (selectedProduct != null)
+        {
+            selectedProduct.product_Border.Background = Brushes.White;
+        }
+
+        product.product_Border.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B6B6B6"));
+        //EmptyPrice();
+        //ColculateTotalPrice();
+        selectedProduct = product;
+    }
+
+    private void Edit_Button_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void Delete_Button_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void Plus_Button_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void Minus_Button_Click(object sender, RoutedEventArgs e)
+    {
+
     }
 }
