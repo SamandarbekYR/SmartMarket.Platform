@@ -23,9 +23,6 @@ public class ProductSaleRepository : Repository<ProductSale>, IProductSale
                 .ThenInclude(p => p.Category)
             .Include(ps => ps.Product)
                 .ThenInclude(p => p.Worker)
-            .Include(ps => ps.Worker) 
-            .Include(ps => ps.Transaction) 
-            .Include(ps => ps.PayDesk) 
             .Include(ps => ps.ReplaceProducts) 
             .Include(ps => ps.InvalidProducts) 
             .ToListAsync();

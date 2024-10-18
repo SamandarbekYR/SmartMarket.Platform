@@ -50,7 +50,6 @@ public class ProductRepository : Repository<Product>, IProduct
             .Include(p => p.Worker)
             .Include(p => p.ProductImages)
             .Include(p => p.ProductSale)
-                .ThenInclude(ps => ps.Transaction)
             .Select(p => new Product
             {
                 Id = p.Id,
