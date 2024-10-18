@@ -14,6 +14,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="ToastNotifications" Version="2.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Assets\Images\login_background.png" />
     <Resource Include="Assets\Images\login_close.png" />
   </ItemGroup>
