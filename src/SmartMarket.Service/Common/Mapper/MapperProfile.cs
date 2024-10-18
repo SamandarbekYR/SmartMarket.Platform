@@ -174,9 +174,9 @@ public class MapperProfile : Profile
 
         CreateMap<ProductSale, ProductSaleViewModel>()
             .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product))
-            .ForMember(dest => dest.Worker, opt => opt.MapFrom(src => src.Worker))
-            .ForMember(dest => dest.Transaction, opt => opt.MapFrom(src => src.Transaction))
-            .ForMember(dest => dest.PayDesk, opt => opt.MapFrom(src => src.PayDesk))
+            //.ForMember(dest => dest.Worker, opt => opt.MapFrom(src => src.Worker))
+            //.ForMember(dest => dest.Transaction, opt => opt.MapFrom(src => src.Transaction))
+            //.ForMember(dest => dest.PayDesk, opt => opt.MapFrom(src => src.PayDesk))
             .ForMember(dest => dest.ReplaceProducts, opt => opt.MapFrom(src => src.ReplaceProducts))
             .ForMember(dest => dest.InvalidProducts, opt => opt.MapFrom(src => src.InvalidProducts));
 
