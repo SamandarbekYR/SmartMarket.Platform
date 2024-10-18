@@ -83,13 +83,13 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
                 double totalPrice = item.ProductSale.Product.SellPrice * item.Count;
                 ReturnedCargoComponent returnedCargoComponent = new ReturnedCargoComponent();
                 returnedCargoComponent.Tag = item.Id;
-                returnedCargoComponent.SetValues(
-                    rowNumber,
-                    item.ProductSale.TransactionNumber,
-                    item.ProductSale.Product.Name,
-                    item.ProductSale.Product.SellPrice,
-                    item.Count,
-                    totalPrice);
+                //returnedCargoComponent.SetValues(
+                //    rowNumber,
+                //    item.ProductSale.TransactionNumber,
+                //    item.ProductSale.Product.Name,
+                //    item.ProductSale.Product.SellPrice,
+                //    item.Count,
+                //    totalPrice);
 
                 returnedCargoComponent.BorderThickness = new Thickness(2);
                 St_ReturnedProducts.Children.Add(returnedCargoComponent);
