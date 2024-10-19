@@ -54,9 +54,10 @@
                     BorderBrush="{DynamicResource BorderColor}">
 
                     <TextBox
+                        x:Name="tb_quantity"
                         Margin="5 0"
                         BorderThickness="0"
-                        Text="5"
+                        Text="1"
                         FontSize="16"
                         TextChanged="TextBox_TextChanged"
                         TextAlignment="Center"
@@ -65,9 +66,11 @@
                 </Border>
 
                 <Button
+                    Name="Save_Button"
                     Margin="0 20"
                     Content="Qabul qilish"
                     FontSize="15"
+                    Click="Save_Button_Click"
                     Background="{DynamicResource BSecondColor}"
                     Style="{DynamicResource MainButton}"/>
 

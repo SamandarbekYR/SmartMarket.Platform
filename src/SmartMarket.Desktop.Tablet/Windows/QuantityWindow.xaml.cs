@@ -1,9 +1,10 @@
-﻿using System.Runtime.InteropServices;
+﻿using SmartMarket.Desktop.Tablet.Components;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using static SmartMarket.Desktop.Tablet.Windows.BlurWindow.BlurEffect;
 using System.Windows.Interop;
+using static SmartMarket.Desktop.Tablet.Windows.BlurWindow.BlurEffect;
 
 namespace SmartMarket.Desktop.Tablet.Windows;
 
@@ -12,9 +13,11 @@ namespace SmartMarket.Desktop.Tablet.Windows;
 /// </summary>
 public partial class QuantityWindow : Window
 {
-    public QuantityWindow()
+    private readonly SearchProductComponent _searchProductComponent;
+    public QuantityWindow(SearchProductComponent searchProductComponent)
     {
         InitializeComponent();
+        this._searchProductComponent = searchProductComponent;
     }
 
     [DllImport("user32.dll")]
@@ -63,5 +66,11 @@ public partial class QuantityWindow : Window
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         EnableBlur();
+    }
+
+    private void Save_Button_Click(object sender, RoutedEventArgs e)
+    {
+        _searchProductComponent.Quantity = int.Parse(tb_quantity.Text);
+        this.Close();
     }
 }
