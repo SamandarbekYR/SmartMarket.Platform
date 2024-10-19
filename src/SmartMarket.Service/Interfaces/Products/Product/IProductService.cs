@@ -13,10 +13,10 @@ namespace SmartMarket.Service.Interfaces.Products.Product
         Task<bool> SellProductAsync(string barcode);
         Task<IEnumerable<ProductDto>> GetProductsByCategoryIdAsync(Guid categoryId, PaginationParams @params);
 
-        Task<ProductDto> GetProductByBarcodeAsync(string barcode);
-        Task<ProductDto> GetProductByPCodeAsync(string pCode);
-        Task<ProductDto> GetProductByWorkerIdAsync(Guid workerId);
-        Task<ProductDto> GetProductByNameAsync(string name);
+        Task<FullProductDto> GetProductByBarcodeAsync(string barcode);
+        Task<FullProductDto> GetProductByPCodeAsync(string pCode);
+        Task<FullProductDto> GetProductByWorkerIdAsync(Guid workerId);
+        Task<FullProductDto> GetProductByNameAsync(string name);
         Task<IEnumerable<Et.Product>> GetProductsFullInformationAsync(PaginationParams @params);
         Task<IEnumerable<ProductDto>> GetFinishedProductsAsync(PaginationParams @params);
     }

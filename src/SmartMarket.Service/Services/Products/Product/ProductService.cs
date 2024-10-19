@@ -181,11 +181,12 @@ namespace SmartMarket.Service.Services.Products.Product
             return await _unitOfWork.Product.GetAll()
                 .AnyAsync(p => p.PCode == pCode);
         }
-        public async Task<ProductDto> GetProductByBarcodeAsync(string barcode)
+        public async Task<FullProductDto> GetProductByBarcodeAsync(string barcode)
         {
             try
             {
-                var product = await _unitOfWork.Product.GetAll()
+                var product = await _unitOfWork.Product.GetAllProductsFullInformation()
+                    .AsNoTracking()
                     .FirstOrDefaultAsync(p => p.Barcode == barcode);
 
                 if (product == null)
@@ -193,7 +194,30 @@ namespace SmartMarket.Service.Services.Products.Product
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
                 }
 
-                return _mapper.Map<ProductDto>(product);
+                var fullProductDto = new FullProductDto
+                {
+                    Id = product.Id,
+                    PCode = product.PCode,
+                    Name = product.Name,
+                    Barcode = product.Barcode,
+                    Price = product.Price,
+                    SellPrice = product.SellPrice,
+                    Count = product.Count,
+                    UnitOfMeasure = product.UnitOfMeasure,
+                    CategoryId = product.Category.Id,
+                    CategoryName = product.Category.Name,
+                    WorkerId = product.Worker.Id,
+                    WorkerFirstName = product.Worker.FirstName,
+                    WorkerLastName = product.Worker.LastName,
+                    ProductImages = product.ProductImages.Select(img => new ProductImageDto
+                    {
+                        Id = img.Id,
+                        ImagePath = img.ImagePath
+                    }).ToList(),
+                    NoteAmount = product.NoteAmount
+                };
+
+                return fullProductDto;
             }
             catch (Exception ex)
             {
@@ -202,11 +226,13 @@ namespace SmartMarket.Service.Services.Products.Product
             }
         }
 
-        public async Task<ProductDto> GetProductByPCodeAsync(string pCode)
+
+        public async Task<FullProductDto> GetProductByPCodeAsync(string pCode)
         {
             try
             {
-                var product = await _unitOfWork.Product.GetAll()
+                var product = await _unitOfWork.Product.GetAllProductsFullInformation()
+                    .AsNoTracking()
                     .FirstOrDefaultAsync(p => p.PCode == pCode);
 
                 if (product == null)
@@ -214,7 +240,30 @@ namespace SmartMarket.Service.Services.Products.Product
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
                 }
 
-                return _mapper.Map<ProductDto>(product);
+                var fullProductDto = new FullProductDto
+                {
+                    Id = product.Id,
+                    PCode = product.PCode,
+                    Name = product.Name,
+                    Barcode = product.Barcode,
+                    Price = product.Price,
+                    SellPrice = product.SellPrice,
+                    Count = product.Count,
+                    UnitOfMeasure = product.UnitOfMeasure,
+                    CategoryId = product.Category.Id,
+                    CategoryName = product.Category.Name,
+                    WorkerId = product.Worker.Id,
+                    WorkerFirstName = product.Worker.FirstName,
+                    WorkerLastName = product.Worker.LastName,
+                    ProductImages = product.ProductImages.Select(img => new ProductImageDto
+                    {
+                        Id = img.Id,
+                        ImagePath = img.ImagePath
+                    }).ToList(),
+                    NoteAmount = product.NoteAmount
+                };
+
+                return fullProductDto;
             }
             catch (Exception ex)
             {
@@ -223,19 +272,44 @@ namespace SmartMarket.Service.Services.Products.Product
             }
         }
 
-        public async Task<ProductDto> GetProductByWorkerIdAsync(Guid workerId)
+
+        public async Task<FullProductDto> GetProductByWorkerIdAsync(Guid workerId)
         {
             try
             {
-                var product = await _unitOfWork.Product.GetAll()
-                    .FirstOrDefaultAsync(p => p.WorkerId == workerId);
+                var product = await _unitOfWork.Product.GetAllProductsFullInformation()
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(p => p.Worker.Id == workerId);
 
                 if (product == null)
                 {
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
                 }
 
-                return _mapper.Map<ProductDto>(product);
+                var fullProductDto = new FullProductDto
+                {
+                    Id = product.Id,
+                    PCode = product.PCode,
+                    Name = product.Name,
+                    Barcode = product.Barcode,
+                    Price = product.Price,
+                    SellPrice = product.SellPrice,
+                    Count = product.Count,
+                    UnitOfMeasure = product.UnitOfMeasure,
+                    CategoryId = product.Category.Id,
+                    CategoryName = product.Category.Name,
+                    WorkerId = product.Worker.Id,
+                    WorkerFirstName = product.Worker.FirstName,
+                    WorkerLastName = product.Worker.LastName,
+                    ProductImages = product.ProductImages.Select(img => new ProductImageDto
+                    {
+                        Id = img.Id,
+                        ImagePath = img.ImagePath
+                    }).ToList(),
+                    NoteAmount = product.NoteAmount
+                };
+
+                return fullProductDto;
             }
             catch (Exception ex)
             {
@@ -243,6 +317,7 @@ namespace SmartMarket.Service.Services.Products.Product
                 throw;
             }
         }
+
         public async Task<bool> SellProductAsync(string barcode)
         {
             try
@@ -285,19 +360,43 @@ namespace SmartMarket.Service.Services.Products.Product
             }
         }
 
-        public async Task<ProductDto> GetProductByNameAsync(string name)
+        public async Task<FullProductDto> GetProductByNameAsync(string name)
         {
             try
             {
-                var product = await _unitOfWork.Product.GetAll()
-                    .FirstOrDefaultAsync(p => p.Name == name);
+                var product = await _unitOfWork.Product.GetAllProductsFullInformation()
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync(p => p.Name.ToLower() == name.ToLower());
 
                 if (product == null)
                 {
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
                 }
 
-                return _mapper.Map<ProductDto>(product);
+                var fullProductDto = new FullProductDto
+                {
+                    Id = product.Id,
+                    PCode = product.PCode,
+                    Name = product.Name,
+                    Barcode = product.Barcode,
+                    Price = product.Price,
+                    SellPrice = product.SellPrice,
+                    Count = product.Count,
+                    UnitOfMeasure = product.UnitOfMeasure,
+                    CategoryId = product.Category.Id,
+                    CategoryName = product.Category.Name,
+                    WorkerId = product.Worker.Id,
+                    WorkerFirstName = product.Worker.FirstName,
+                    WorkerLastName = product.Worker.LastName,
+                    ProductImages = product.ProductImages.Select(img => new ProductImageDto
+                    {
+                        Id = img.Id,
+                        ImagePath = img.ImagePath
+                    }).ToList(),
+                    NoteAmount = product.NoteAmount
+                };
+
+                return fullProductDto;
             }
             catch (Exception ex)
             {
@@ -305,6 +404,7 @@ namespace SmartMarket.Service.Services.Products.Product
                 throw;
             }
         }
+
         public async Task<IEnumerable<ProductDto>> GetProductsByCategoryIdAsync(Guid categoryId, PaginationParams @params)
         {
             try
