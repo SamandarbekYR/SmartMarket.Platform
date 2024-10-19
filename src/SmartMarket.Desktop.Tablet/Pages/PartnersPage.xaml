@@ -7,11 +7,8 @@
       mc:Ignorable="d" 
       Loaded="Page_Loaded"
       Title="PartnersPage">
-
-    <Grid 
-        Background="White">
-
-        <Border
+    <Border
+            Background="White"
             BorderBrush="{DynamicResource BorderColor}"
             BorderThickness="0.5"
             CornerRadius="5"
@@ -21,9 +18,8 @@
                     <RowDefinition Height="45"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="*"/>
+                    <RowDefinition Height="45"/>
                 </Grid.RowDefinitions>
-
-
 
                 <Border 
                     Grid.Row="0"  
@@ -44,8 +40,10 @@
                             ></TextBlock>
 
                         <TextBox
+                            x:Name="tb_search"
                             Grid.Column="1"
-                            Margin="0 0 10 0"
+                            Margin="10 0 10 0"
+                            TextChanged="tb_search_TextChanged"
                             Style="{DynamicResource search}"/>
 
                         <Button
@@ -119,9 +117,22 @@
                         </StackPanel>
                     </ScrollViewer>
                 </Border>
+
+                <Border
+                    HorizontalAlignment="Right"
+                    MouseDown="Border_MouseDown"
+                    Grid.Row="3"
+                    Background="White"
+                    Margin="0 0 15 0">
+                    <Path 
+                        x:Name="Logout" 
+                        Data="{DynamicResource chiqish }"
+                        Fill="{DynamicResource BorderColor}"
+                        Height="25"
+                        Stretch="Uniform"/>
+                </Border>
+
             </Grid>
             
         </Border>
-        
-    </Grid>
 </Page>
