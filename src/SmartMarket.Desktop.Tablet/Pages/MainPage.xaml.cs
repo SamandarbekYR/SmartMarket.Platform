@@ -77,7 +77,7 @@ public partial class MainPage : Page
 
             if (product != null)
             {
-                AddNewProductTvm(product);
+                AddNewProductTvm(product, 1);
             }
             else
             {
@@ -86,13 +86,13 @@ public partial class MainPage : Page
         }
     }
 
-    public void AddNewProductTvm(ProductDto product)
+    public void AddNewProductTvm(ProductDto product, int count)
     {
         string barcode = product.Barcode;
         if (!tvm.Transactions.Any(t => t.Barcode == barcode))
         {
-            tvm.Add(product);
-            AddNewProduct(product);
+            tvm.Add(product, count);
+            AddNewProduct(product, count);
         }
         else
         {
@@ -120,14 +120,14 @@ public partial class MainPage : Page
         ColculateTotalPrice();
     }
 
-    private void AddNewProduct(ProductDto product)
+    private void AddNewProduct(ProductDto product, int quantity)
     {
         ProductComponent productComponent = new ProductComponent();
 
-        GetPrice(product, 1);
+        GetPrice(product, quantity);
         ColculateTotalPrice();
 
-        productComponent.SetData(product);
+        productComponent.SetData(product, quantity);
         st_product.Children.Add(productComponent);
     }
 
@@ -223,13 +223,13 @@ public partial class MainPage : Page
 
     private void SetProduct(ProductDto product)
     {
-        st_product.Children.Clear();
+        st_searchproduct.Children.Clear();
         if (product != null)
         {
             SearchProductComponent searchProductComponent = new SearchProductComponent();
             searchProductComponent.Tag = product;
             searchProductComponent.SetData(product);
-            st_product.Children.Add(searchProductComponent);
+            st_searchproduct.Children.Add(searchProductComponent);
         }
     }
 
@@ -240,14 +240,7 @@ public partial class MainPage : Page
 
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        for (int i = 0; i < 20; i++)
-        {
-            SearchProductComponent searchProductComponent = new SearchProductComponent();
-            ProductComponent productComponent = new ProductComponent();
-
-            st_searchproduct.Children.Add(searchProductComponent);
-            st_product.Children.Add(productComponent);
-        }
+        st_product.Focus();
     }
 
     private void Sends_Button_Click(object sender, RoutedEventArgs e)

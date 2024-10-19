@@ -46,6 +46,7 @@
                         Click="close_Btn_Click"
                         Height="25"
                         Margin="350 0 0 0"
+                        Background="White"
                         Style="{DynamicResource ClosedButton}"
                         HorizontalAlignment="Right"/>
 
@@ -77,7 +78,7 @@
                     FontSize="16"
                     HorizontalAlignment="Center"
                     Background="{DynamicResource BSecondColor}"
-                    Style="{DynamicResource MainButton}"
+                    Style="{DynamicResource MessageWindow_Button}"
                     Content="Ha"/>
 
                 <Button
@@ -88,7 +89,7 @@
                     FontSize="16"
                     HorizontalAlignment="Left"
                     Background="{DynamicResource BSecondColor}"
-                    Style="{DynamicResource MainButton}"
+                    Style="{DynamicResource MessageWindow_Button}"
                     Content="Bekor qilish"/>
 
                 <Button
@@ -99,7 +100,7 @@
                     FontSize="16"
                     HorizontalAlignment="Right"
                     Background="{DynamicResource BSecondColor}"
-                    Style="{DynamicResource MainButton}"
+                    Style="{DynamicResource MessageWindow_Button}"
                     Content="Ha"/>
 
                 <Button
@@ -110,7 +111,7 @@
                     FontSize="16"
                     HorizontalAlignment="Left"
                     Background="{DynamicResource BSecondColor}"
-                    Style="{DynamicResource MainButton}"
+                    Style="{DynamicResource MessageWindow_Button}"
                     Content="Yo'q"/>
 
                 <Button
@@ -121,7 +122,7 @@
                     FontSize="16"
                     HorizontalAlignment="Center"
                     Background="{DynamicResource BSecondColor}"
-                    Style="{DynamicResource MainButton}"
+                    Style="{DynamicResource MessageWindow_Button}"
                     Content="Qayta urinish"/>
 
             </Grid>

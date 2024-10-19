@@ -11,12 +11,12 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border 
-                        Background="{DynamicResource BSecondColor}">
+                        Background="Transparent">
                         <Path 
-                            Fill="White" 
+                            Fill="{TemplateBinding Background}" 
                             Data="{DynamicResource x}"
-                            Height="25"
-                            Width="25"
+                            Height="20"
+                            Width="20"
                             Stretch="Uniform"/>
                     </Border>
                 </ControlTemplate>
@@ -148,6 +148,45 @@
                             Content="{TemplateBinding Content}"/>
 
                     </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MessageWindow_Button" TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Width" Value="140"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border 
+                        x:Name="B"
+                        CornerRadius="5"
+                        Background="#1710ED">
+
+                        <Label
+                            FontFamily="Jetbrains Mono"
+                            FontWeight="SemiBold"
+                            Foreground="White"
+                            FontSize="{TemplateBinding FontSize}"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Content="{TemplateBinding Content}"/>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#3D40DF"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="B" Property="Background" Value="#1710ED"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#140ECE"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

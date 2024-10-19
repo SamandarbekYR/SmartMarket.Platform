@@ -46,8 +46,16 @@ public partial class ProductComponent : UserControl
         }
     }
 
-    public void SetData(ProductDto productDto)
+    public void SetData(ProductDto product, int quantity)
     {
+        Id = product.Id;
+        AvailableCount = product.Count;
+        Barcode = product.Barcode;
 
+        lb_Discount.Content = 0;
+        lb_ProductName.Content = product.Name;
+        lb_Price.Content = product.SellPrice;
+        lb_Quantity.Content = quantity;
+        lb_Total.Content = (quantity * product.SellPrice);
     }
 }
