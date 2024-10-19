@@ -13,6 +13,10 @@
                 <ResourceDictionary Source="\Styles\TextBoxStyles.xaml"/>
                 <ResourceDictionary Source="\Assets\Icons\Icon.xaml"/>
 
+                <ResourceDictionary Source="/WPFNotification;component/Assets/NotificationUI.xaml" />
+
+                <ResourceDictionary Source="pack://application:,,,/ToastNotifications.Messages;component/Themes/Default.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -60,7 +60,6 @@
                 <Label
                     Name="Product_Name"
                     Grid.Row="1"
-                    Content="Nestle Kasha"
                     VerticalAlignment="Top"
                     Margin="10 0 0 0"
                     FontSize="16"
@@ -76,7 +75,6 @@
                 <Label
                     Name="Product_Barcode"
                     Grid.Row="1"
-                    Content="33256448793"
                     Margin="85 0 0 0"
                     VerticalContentAlignment="Bottom"
                     FontSize="13"/>
@@ -90,10 +88,11 @@
 
                     <TextBox
                         x:Name="Product_Count"
-                        Text="5"
+                        Text="0"
                         FontSize="16"
                         BorderThickness="0"
                         FontWeight="SemiBold"
+                        IsReadOnly="True"
                         VerticalAlignment="Center"/>
 
                     <Label
@@ -102,7 +101,7 @@
 
                     <Label
                         Name="Product_Price"
-                        Content="2500"
+                        Content="0"
                         FontSize="16"
                         Style="{DynamicResource MainLabel}"/>
 
@@ -112,7 +111,7 @@
 
                     <Label
                         Name="Total_Price"
-                        Content="12500"
+                        Content="0"
                         FontSize="16"
                         Style="{DynamicResource MainLabel}"/>
 
@@ -209,30 +208,23 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-
-                            <Button
-                                Name="Edit_Button"
-                                Grid.Column="0"
-                                Click="Edit_Button_Click"
-                                Tag="{DynamicResource edit}"
-                                Style="{DynamicResource ActionButton}"/>
+                            
                             <Button
                                 Name="Delete_Button"
-                                Grid.Column="1"
+                                Grid.Column="0"
                                 Click="Delete_Button_Click"
                                 Tag="{DynamicResource delete}"
                                 Style="{DynamicResource ActionButton}"/>
                             <Button
                                 Name="Plus_Button"
-                                Grid.Column="2"
+                                Grid.Column="1"
                                 Click="Plus_Button_Click"
                                 Tag="{DynamicResource pilus}"
                                 Style="{DynamicResource ActionButton}"/>
                             <Button
                                 Name="Minus_Button"
-                                Grid.Column="3"
+                                Grid.Column="2"
                                 Click="Minus_Button_Click"
                                 Tag="{DynamicResource minus}"
                                 Style="{DynamicResource ActionButton}"/>
@@ -353,7 +345,6 @@
                         Margin="5 0 15 0"
                         Grid.Row="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="50"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="0.8*"/>
                             <ColumnDefinition Width="50"/>
@@ -363,26 +354,21 @@
 
                         <Label
                             Grid.Column="0"
-                            Content="PCode"
-                            Style="{DynamicResource TitleLabel}"/>
-
-                        <Label
-                            Grid.Column="1"
                             Content="Nomi"
                             Style="{DynamicResource TitleLabel}"/>
 
                         <Label
-                            Grid.Column="2"
+                            Grid.Column="1"
                             Content="Kategoriya"
                             Style="{DynamicResource TitleLabel}"/>
 
                         <Label
-                            Grid.Column="3"
+                            Grid.Column="2"
                             Content="Soni"
                             Style="{DynamicResource TitleLabel}"/>
 
                         <Label
-                            Grid.Column="4"
+                            Grid.Column="3"
                             Content="Narxi"
                             Style="{DynamicResource TitleLabel}"/>
 

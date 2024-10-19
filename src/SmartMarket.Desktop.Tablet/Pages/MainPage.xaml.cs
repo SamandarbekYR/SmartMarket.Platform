@@ -45,8 +45,8 @@ public partial class MainPage : Page
     Notifier notifier = new Notifier(cfg =>
     {
         cfg.PositionProvider = new WindowPositionProvider(
-            parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
-            corner: Corner.BottomCenter,
+            parentWindow: Application.Current.MainWindow,
+            corner: Corner.TopRight,
             offsetX: 20,
             offsetY: 20);
 
@@ -115,7 +115,7 @@ public partial class MainPage : Page
                     }
                 }
             }
-            tvm.Increment(barcode, totalPrice, discountPrice);
+            tvm.Increment(barcode, totalPrice, discountPrice, count);
         }
         ColculateTotalPrice();
     }
@@ -257,11 +257,6 @@ public partial class MainPage : Page
 
         mainWindow.Close();
         loginWindow.ShowDialog();
-    }
-
-    private void Edit_Button_Click(object sender, RoutedEventArgs e)
-    {
-
     }
 
     private void Delete_Button_Click(object sender, RoutedEventArgs e)

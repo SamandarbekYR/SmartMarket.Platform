@@ -12,7 +12,8 @@ namespace SmartMarket.Desktop.Tablet.Components;
 public partial class SearchProductComponent : UserControl
 {
 
-    public int Quantity { get; set; }
+    public int Quantity { get; set; } = 1;
+    public int AvailabeCount { get; set; }
 
     public SearchProductComponent()
     {
@@ -41,7 +42,7 @@ public partial class SearchProductComponent : UserControl
 
     public void SetData(ProductDto product)
     {
-        lb_PCode.Content = product.PCode;
+        AvailabeCount = product.Count;
         lb_ProductName.Content = product.Name;
         lb_Price.Content = product.SellPrice;
         lb_CategoryName.Content = product.CategoryId.ToString();
