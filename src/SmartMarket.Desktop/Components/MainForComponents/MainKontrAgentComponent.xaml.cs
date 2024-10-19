@@ -31,7 +31,7 @@ public partial class MainKontrAgentComponent : UserControl
 
 
 
-    private async void btnedit_Click(object sender, RoutedEventArgs e)
+    private async void Edit_Button_Click(object sender, RoutedEventArgs e)
     {
         var contragent = this.Tag as ContrAgentViewModels;
 
@@ -41,15 +41,11 @@ public partial class MainKontrAgentComponent : UserControl
         ContrAgentUpdateWindow updateWindow = new ContrAgentUpdateWindow();
         updateWindow.GetCompany(contragent);
         updateWindow.ShowDialog();
-
-
-
     }
 
-    private async void btndelete_Click(object sender, RoutedEventArgs e)
+    private async void Delete_Button_Click(object sender, RoutedEventArgs e)
     {
         var contragent = this.Tag as ContrAgentViewModels;
-
 
         var messageBoxResult = MessageBox.Show("O'chirishni hohlaysizmi!", "Ogohlantirish!", MessageBoxButton.YesNo);
 
