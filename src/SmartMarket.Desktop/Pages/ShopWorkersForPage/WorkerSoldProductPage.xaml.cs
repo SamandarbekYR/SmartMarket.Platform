@@ -46,11 +46,12 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
                 workerSoldProductComponent.Tag = workerSoldProduct;
                 workerSoldProductComponent.SetValues(
                     rowNumber,
-                    workerSoldProduct.TransactionNumber,
+                    //workerSoldProduct.TransactionNumber,
                     workerSoldProduct.Product.Name,
                     workerSoldProduct.Product.SellPrice,
-                    workerSoldProduct.Count,
-                    workerSoldProduct.TotalCost);
+                    workerSoldProduct.Count
+                    //workerSoldProduct.TotalCost
+                    );
 
                 workerSoldProductComponent.BorderThickness = new Thickness(3, 2, 3, 2);
                 St_WorkerSoldProducts.Children.Add(workerSoldProductComponent);

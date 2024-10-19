@@ -85,7 +85,7 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
                 returnedCargoComponent.Tag = item.Id;
                 returnedCargoComponent.SetValues(
                     rowNumber,
-                    item.ProductSale.TransactionNumber,
+                    //item.ProductSale.TransactionNumber,
                     item.ProductSale.Product.Name,
                     item.ProductSale.Product.SellPrice,
                     item.Count,
