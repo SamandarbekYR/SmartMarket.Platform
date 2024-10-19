@@ -44,6 +44,10 @@ public partial class ProductComponent : UserControl
         {
             mainPage.SelectProduct(this);
         }
+        else if (page is SecondPage secondPage)
+        {
+            secondPage.SelectProduct(this);
+        }
     }
 
     public void SetData(ProductDto product, int quantity)
