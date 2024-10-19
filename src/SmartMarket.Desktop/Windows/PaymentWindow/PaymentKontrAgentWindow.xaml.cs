@@ -5,6 +5,7 @@ using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using SmartMarket.Service.DTOs.PartnersCompany.ContrAgent;
 
 namespace SmartMarket.Desktop.Windows.PaymentWindow;
 
@@ -73,6 +74,9 @@ public partial class PaymentKontrAgentWindow : Window
 
     private void BtnPayHistory_Click(object sender, RoutedEventArgs e)
     {
-
+        var contrAgent = this.Tag as ContrAgentDto;
+       
+        PaymentContrAgentWindow paymentContrAgentWindow = new PaymentContrAgentWindow(contrAgent);
+        paymentContrAgentWindow.ShowDialog();
     }
 }
