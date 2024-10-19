@@ -53,7 +53,7 @@ public partial class MainPage : Page
             offsetY: 20);
 
         cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-            notificationLifetime: TimeSpan.FromSeconds(3),
+            notificationLifetime: TimeSpan.FromSeconds(2),
             maximumNotificationCount: MaximumNotificationCount.FromCount(2));
 
         cfg.Dispatcher = Application.Current.Dispatcher;
@@ -243,7 +243,7 @@ public partial class MainPage : Page
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
         st_product.Focus();
-        Client_Name.Content = lb_client_name.Content = Partner.FirstName + " " + Partner.LastName;
+        //Client_Name.Content = lb_client_name.Content = Partner.FirstName + " " + Partner.LastName;
     }
 
     private void Sends_Button_Click(object sender, RoutedEventArgs e)

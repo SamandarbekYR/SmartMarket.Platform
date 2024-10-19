@@ -57,7 +57,16 @@ public partial class SecondPage : Page
 
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
+        for (int i = 0; i < 20; i++)
+        {
+            ShipmentComponent shipmentComponent = new ShipmentComponent();
+            SearchProductComponent searchProductComponent = new SearchProductComponent();
+            ProductComponent productComponent = new ProductComponent();
 
+            st_searchproduct.Children.Add(searchProductComponent);
+            st_product.Children.Add(productComponent);
+            st_shipments.Children.Add(shipmentComponent);
+        }
     }
 
     private void Minus_Button_Click(object sender, RoutedEventArgs e)
