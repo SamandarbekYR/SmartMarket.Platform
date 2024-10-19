@@ -50,4 +50,63 @@
 
     </Style>
 
+    <Style x:Key="Create_TextBox_Style" TargetType="{x:Type TextBox}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{ x:Type TextBox}">
+                    <Border
+                    Height="35"
+                    CornerRadius="5"
+                    BorderThickness="0.7"
+                    BorderBrush="{DynamicResource BorderColor}">
+
+                        <ScrollViewer
+                        Margin="7 5 0 0"
+                        x:Name="PART_ContentHost"/>
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
+
+    <Style x:Key="Phone_Number_TextBox_Style" TargetType="{x:Type TextBox}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{ x:Type TextBox}">
+
+                    <Border
+                    Height="35"
+                    CornerRadius="5"
+                    BorderThickness="0.7"
+                    BorderBrush="{DynamicResource BorderColor}">
+                        <Grid
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="55"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label
+                            Content="+998"
+                            FontSize="18"
+                            VerticalAlignment="Center"
+                            Grid.Column="0"
+                            Style="{DynamicResource TitleLabel}"/>
+
+                            <ScrollViewer 
+                            Margin="0 2 0 0"
+                            Width="150"
+                            x:Name="PART_ContentHost"
+                            Grid.Column="1"/>
+
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

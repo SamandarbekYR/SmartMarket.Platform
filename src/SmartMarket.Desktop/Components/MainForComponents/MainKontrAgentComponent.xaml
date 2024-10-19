@@ -107,13 +107,13 @@
                     />
                 <Button
                     x:Name="btnedit"
-                    Click="btnedit_Click"
+                    Click="Edit_Button_Click"
                     Grid.Column="2"
                     Style="{DynamicResource BtnKontrAgentEdit}"
                     />
                 <Button
                     x:Name="btndelete"
-                    Click="btndelete_Click"
+                    Click="Delete_Button_Click"
                     Grid.Column="3"
                     Style="{DynamicResource BtnKontrAgentDelete}"
                     />

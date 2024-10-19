@@ -38,6 +38,7 @@
             Grid.Row="0"
             HorizontalAlignment="Right"
             Click="Close_Button_Click"
+            Background="Black"
             Style="{DynamicResource ClosedButton }"/>
 
         <Border

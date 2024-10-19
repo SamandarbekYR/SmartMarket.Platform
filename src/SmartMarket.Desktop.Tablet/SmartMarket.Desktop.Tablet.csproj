@@ -15,11 +15,29 @@
 
   <ItemGroup>
     <PackageReference Include="ToastNotifications" Version="2.5.1" />
+    <PackageReference Include="ToastNotifications.Messages" Version="2.5.1" />
+    <PackageReference Include="WPFNotification" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SmartMarketDeskop.Integrated\SmartMarketDeskop.Integrated.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Assets\Images\login_background.png" />
     <Resource Include="Assets\Images\login_close.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Windows\MessageBoxWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\Partners\PartnerCreateWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\Partners\PartnerUpdateWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
 
 </Project>
