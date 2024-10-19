@@ -61,9 +61,8 @@ namespace SmartMarket.Desktop.Windows.ContrAgents
         private async void Br_Change_MouseUp(object sender, MouseButtonEventArgs e)
         {
             ContrAgentDto contrAgentDto = new ContrAgentDto();
-
             {
-                PartnerCompanyView partnerCompany = partnerCompanyViews.Where(x => x.Name == Combo_Company.SelectedValue).FirstOrDefault();
+                PartnerCompanyView partnerCompany = partnerCompanyViews.Where(x => x.Name == Combo_Company.SelectedValue.ToString()).FirstOrDefault();
                 contrAgentDto.CompanyId = partnerCompany.Id;
             }
             contrAgentDto.FirstName = txtFirstName.Text;
@@ -75,7 +74,7 @@ namespace SmartMarket.Desktop.Windows.ContrAgents
             this.Close();
         }
 
-        public async void GetAllCompany()
+        public async void GetContrAgent()
         {
             partnerCompanyViews=await partnerCompanyService.GetAllCompany();
             if(partnerCompanyViews!=null && partnerCompanyViews.Any() )
@@ -83,6 +82,11 @@ namespace SmartMarket.Desktop.Windows.ContrAgents
                 Combo_Company.ItemsSource = partnerCompanyViews.Select(a=>a.Name);
                 Combo_Company.Items.Refresh();
             }
+
+            Combo_Company.SelectedValue = _contrAgentViewModels.CompanyName;
+            txtFirstName.Text = _contrAgentViewModels.FirstName;
+            txtLastName.Text = _contrAgentViewModels.LastName;
+            txtPhoneNumber.Text = _contrAgentViewModels.PhoneNumber;
         }
 
         public void GetCompany(ContrAgentViewModels contrAgentView)
@@ -97,7 +101,7 @@ namespace SmartMarket.Desktop.Windows.ContrAgents
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            GetAllCompany();
+            GetContrAgent();
             EnableBlur();
         }
     }

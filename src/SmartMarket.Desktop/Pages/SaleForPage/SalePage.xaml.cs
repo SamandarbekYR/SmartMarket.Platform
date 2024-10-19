@@ -49,13 +49,13 @@ public partial class SalePage : Page
         this.tvm = new TransactionViewModel();
         this._productService = new ProductService();
 
-        timer.Elapsed += vaqt_ketdi;
+        timer.Elapsed += vaqt_ketdi!;
         timer.Interval = 500;
         timer.Enabled = true;
 
         time = new DispatcherTimer();
-        time.Interval = TimeSpan.FromMilliseconds(200);
-        time.Tick += Timer_Tick;
+        time.Interval = TimeSpan.FromMilliseconds(50);
+        time.Tick += Timer_Tick!;
     }
 
     Notifier notifier = new Notifier(cfg =>
@@ -75,7 +75,7 @@ public partial class SalePage : Page
 
     private void Timer_Tick(object sender, EventArgs e)
     {
-        timer.Stop();
+        time.Stop();
         ProcessBarcode(barcode);
         barcode = "";
         barcodes = "";

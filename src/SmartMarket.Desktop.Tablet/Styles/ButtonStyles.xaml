@@ -11,12 +11,12 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border 
-                        Background="White">
+                        Background="Transparent">
                         <Path 
-                            Fill="Black" 
+                            Fill="{TemplateBinding Background}" 
                             Data="{DynamicResource x}"
-                            Height="25"
-                            Width="25"
+                            Height="20"
+                            Width="20"
                             Stretch="Uniform"/>
                     </Border>
                 </ControlTemplate>
@@ -153,6 +153,45 @@
         </Setter>
     </Style>
 
+    <Style x:Key="MessageWindow_Button" TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="40"/>
+        <Setter Property="Width" Value="140"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border 
+                        x:Name="B"
+                        CornerRadius="5"
+                        Background="#1710ED">
+
+                        <Label
+                            FontFamily="Jetbrains Mono"
+                            FontWeight="SemiBold"
+                            Foreground="White"
+                            FontSize="{TemplateBinding FontSize}"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Content="{TemplateBinding Content}"/>
+
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#3D40DF"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="B" Property="Background" Value="#1710ED"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#140ECE"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="ActionButton" TargetType="Button">
         <Setter Property="VerticalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -223,6 +262,44 @@
                             <Setter TargetName="B" Property="Background" Value="#464646"/>
                             <Setter TargetName="I" Property="Fill" Value="White"/>
                         </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ActionButton2" TargetType="{x:Type Button}">
+        <Setter Property="Height" Value="28"/>
+        <Setter Property="Width" Value="28"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border 
+                    Background="White"
+                    x:Name="B" 
+                    CornerRadius="10">
+
+                        <Path 
+                        Grid.Column="0"
+                        x:Name="Icon" 
+                        Data="{Binding Tag, RelativeSource={RelativeSource AncestorType={x:Type Button}}}"
+                        Fill="{TemplateBinding Background}"
+                        Height="16"
+                        Stretch="Uniform"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#CFCFCF"/>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="B" Property="Background" Value="Transparent"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#B6B6B6"/>
+                        </Trigger>
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

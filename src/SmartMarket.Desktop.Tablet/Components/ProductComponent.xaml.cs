@@ -1,28 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SmartMarket.Desktop.Tablet.Pages;
+using SmartMarket.Service.DTOs.Products.Product;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace SmartMarket.Desktop.Tablet.Components
+namespace SmartMarket.Desktop.Tablet.Components;
+
+/// <summary>
+/// Interaction logic for ProductComponent.xaml
+/// </summary>
+public partial class ProductComponent : UserControl
 {
-    /// <summary>
-    /// Interaction logic for ProductComponent.xaml
-    /// </summary>
-    public partial class ProductComponent : UserControl
+
+    public Guid Id { get; set; }
+    public string Barcode { get; set; } = string.Empty;
+    public int AvailableCount { get; set; }
+
+    public ProductComponent()
     {
-        public ProductComponent()
+        InitializeComponent();
+    }
+
+    private Page FindParentPage(DependencyObject child)
+    {
+        DependencyObject parentObject = VisualTreeHelper.GetParent(child);
+
+        if (parentObject is Page page)
         {
-            InitializeComponent();
+            return page;
         }
+        else if (parentObject != null)
+        {
+            return FindParentPage(parentObject);
+        }
+        return null!;
+    }
+
+    private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+        var page = FindParentPage(this);
+        if (page is MainPage mainPage)
+        {
+            mainPage.SelectProduct(this);
+        }
+    }
+
+    public void SetData(ProductDto product, int quantity)
+    {
+        Id = product.Id;
+        AvailableCount = product.Count;
+        Barcode = product.Barcode;
+
+        lb_Discount.Content = 0;
+        lb_ProductName.Content = product.Name;
+        lb_Price.Content = product.SellPrice;
+        lb_Quantity.Content = quantity;
+        lb_Total.Content = (quantity * product.SellPrice);
     }
 }

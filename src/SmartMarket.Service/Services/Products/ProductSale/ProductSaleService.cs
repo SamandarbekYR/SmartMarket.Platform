@@ -113,8 +113,8 @@ namespace SmartMarket.Service.Services.Products.ProductSale
 
             if (!string.IsNullOrWhiteSpace(dto.WorkerName))
             {
-                productSales = productSales.Where(
-                    ps => ps.Worker.FirstName.Contains(dto.WorkerName)).ToList();
+                //productSales = productSales.Where(
+                //    ps => ps.Worker.FirstName.Contains(dto.WorkerName)).ToList();
             }
 
             if (dto.Count.HasValue)
@@ -184,9 +184,8 @@ namespace SmartMarket.Service.Services.Products.ProductSale
             {
                 var productSales = await _unitOfWork.ProductSale.GetProductSalesFullInformationAsync();
 
-                var filteredProductSales = productSales
-                    .Where(ps => ps.TransactionId == transactionId)
-                    .ToList();
+                var filteredProductSales = productSales;
+                    
 
                 if (!filteredProductSales.Any())
                 {

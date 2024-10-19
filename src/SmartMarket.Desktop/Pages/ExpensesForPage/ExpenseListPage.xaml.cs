@@ -1,23 +1,9 @@
 ﻿using SmartMarket.Desktop.Components.ExpenseForComponents;
-using SmartMarket.Domain.Entities.Expenses;
-using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
-using SmartMarketDeskop.Integrated.Server.Repositories.Expenses;
+using SmartMarket.Service.DTOs.Expence;
 using SmartMarketDeskop.Integrated.Services.Expenses;
-using SmartMarketDesktop.ViewModels.Entities.Expenses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SmartMarket.Desktop.Pages.ExpensesForPage
 {
@@ -35,9 +21,40 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         public async void GetAllExpence()
         {
-            St_Expenses.Children.Clear();
-
             var expenses = await expenseService.GetAll();
+            ShowExpenses(expenses);
+        }
+
+        private async void FilterExpenses()
+        {
+            FilterExpenseDto filter = new FilterExpenseDto();
+
+            if(fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
+            {
+                filter.FromDateTime = fromDateTime.SelectedDate.Value;
+                filter.ToDateTime = toDateTime.SelectedDate.Value;
+            }
+
+            var selectionWorkerName = workerComboBox.SelectedItem?.ToString();
+
+            if(!string.IsNullOrEmpty(selectionWorkerName) && !selectionWorkerName.Equals("Sotuvchi"))
+            {
+                filter.WorkerName = selectionWorkerName;
+            }
+
+            var filterReason = filterTextBox.Text.ToLower();
+            if(!string.IsNullOrEmpty(filterReason))
+            {
+                filter.Reason = filterReason;
+            }
+
+            var filterExpense = await expenseService.FilterExpense(filter);
+            ShowExpenses(filterExpense);
+        }
+
+        private async void ShowExpenses(IEnumerable<FullExpenceDto> expenses)
+        {
+            St_Expenses.Children.Clear();
 
             int count = 1;
 
@@ -56,6 +73,28 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             {
 
             }
+        }
+
+        private void toDateTime_SelectadDataChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FilterExpenses();
+        }
+
+        private void workerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            FilterExpenses();
+        }
+
+        private void FilterTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(filterTextBox.Text.Length == 3)
+            {
+                if (e.Key == Key.Enter)
+                {
+                    FilterExpenses();
+                }
+            }
+            
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

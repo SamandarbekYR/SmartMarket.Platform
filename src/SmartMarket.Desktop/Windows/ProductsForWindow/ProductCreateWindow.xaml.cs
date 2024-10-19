@@ -1,5 +1,7 @@
 ﻿using Microsoft.Win32;
 using SmartMarket.Desktop.Windows.Category;
+using SmartMarket.Desktop.Windows.ContrAgents;
+
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Services.Categories.Category;
 using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgents;
@@ -122,6 +124,12 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
         {
             CategoryCreateWindow categoryCreate = new CategoryCreateWindow();
             categoryCreate.ShowDialog();
+        }
+
+        private void btnCreateContrAgent_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ContrAgentCreateWindow contrAgentCreate = new ContrAgentCreateWindow();
+            contrAgentCreate.ShowDialog();
         }
 
 

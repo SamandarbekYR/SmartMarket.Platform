@@ -15,7 +15,6 @@
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="0.8*"/>
                 <ColumnDefinition Width="50"/>
@@ -24,38 +23,33 @@
             </Grid.ColumnDefinitions>
 
             <Label
-                Name="lb_PCode"
-                Grid.Column="0"
-                Content="15140"
-                Style="{DynamicResource TitleLabel}"/>
-
-            <Label
                 Name="lb_ProductName"
-                Grid.Column="1"
+                Grid.Column="0"
                 Content="Fuse Tea"
+                Margin="10 0 0 0"
                 Style="{DynamicResource TitleLabel}"/>
 
             <Label
                 Name="lb_CategoryName"
-                Grid.Column="2"
+                Grid.Column="1"
                 Content="Ichimlik"
                 Style="{DynamicResource TitleLabel}"/>
 
             <Label
                 Name="lb_Quantity"
-                Grid.Column="3"
+                Grid.Column="2"
                 Content="100"
                 Style="{DynamicResource TitleLabel}"/>
 
             <Label
                 Name="lb_Price"
-                Grid.Column="4"
+                Grid.Column="3"
                 Content="10000"
                 Style="{DynamicResource TitleLabel}"/>
 
             <Button
                 Name="Add_Button"
-                Grid.Column="5"
+                Grid.Column="4"
                 Margin="6"
                 Click="Add_Button_Click"    
                 Tag="{DynamicResource pilus}"
