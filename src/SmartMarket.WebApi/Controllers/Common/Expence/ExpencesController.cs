@@ -49,7 +49,7 @@ public class ExpencesController(IExpenceService expenceService) : ControllerBase
     }
 
     [HttpPost("filter")]
-    public async Task<IActionResult> FilterExpenceAsync(FilterExpenseDto filterExpenseDto)
+    public async Task<IActionResult> FilterExpenceAsync([FromBody] FilterExpenseDto filterExpenseDto)
     {
         try
         {
