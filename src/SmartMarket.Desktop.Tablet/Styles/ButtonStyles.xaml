@@ -11,9 +11,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border 
-                        Background="White">
+                        Background="{DynamicResource BSecondColor}">
                         <Path 
-                            Fill="Black" 
+                            Fill="White" 
                             Data="{DynamicResource x}"
                             Height="25"
                             Width="25"

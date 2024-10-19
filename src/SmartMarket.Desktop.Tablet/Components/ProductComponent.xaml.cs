@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Desktop.Tablet.Pages;
+using SmartMarket.Service.DTOs.Products.Product;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -11,6 +12,11 @@ namespace SmartMarket.Desktop.Tablet.Components;
 /// </summary>
 public partial class ProductComponent : UserControl
 {
+
+    public Guid Id { get; set; }
+    public string Barcode { get; set; } = string.Empty;
+    public int AvailableCount { get; set; }
+
     public ProductComponent()
     {
         InitializeComponent();
@@ -38,5 +44,10 @@ public partial class ProductComponent : UserControl
         {
             mainPage.SelectProduct(this);
         }
+    }
+
+    public void SetData(ProductDto productDto)
+    {
+
     }
 }

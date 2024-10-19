@@ -13,7 +13,7 @@ namespace SmartMarket.Desktop.Components.SaleForComponent;
 public partial class SaleProductForComponent : UserControl
 {
     public Guid Id { get; set; }
-    public string Barcode { get; set; }
+    public string Barcode { get; set; } = string.Empty;
     public int AvailableCount { get; set; }
 
     public SaleProductForComponent()
