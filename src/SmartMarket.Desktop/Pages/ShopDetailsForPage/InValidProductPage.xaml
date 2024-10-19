@@ -9,7 +9,6 @@
       Title="InValidProductPage"
       Loaded="Page_Loaded">
 
-
      <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
