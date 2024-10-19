@@ -13,8 +13,8 @@
         Loaded="Window_Loaded">
     <Border
         CornerRadius="5"
-        Width="300"
-        Height="200"
+        Width="320"
+        Height="250"
         BorderThickness="0.5"
         BorderBrush="{DynamicResource BorderColor}"
         Background="{DynamicResource FirstColor}">
@@ -47,6 +47,20 @@
                 Margin="30"
                 Grid.Row="1">
 
+                <StackPanel
+                    Margin="0 0 0 10"
+                    Orientation="Horizontal">
+
+                    <Label
+                        Content="Hozircha bizda bor : "
+                        Style="{DynamicResource InfoLabel}"/>
+
+                    <Label
+                        Name="lb_AvailableCount"
+                        Style="{DynamicResource InfoLabel}"/>
+
+                </StackPanel>
+
                 <Border
                     BorderThickness="0.5"
                     CornerRadius="5"
@@ -59,6 +73,7 @@
                         BorderThickness="0"
                         Text="1"
                         FontSize="16"
+                        PreviewTextInput="tb_quantity_PreviewTextInput"
                         TextChanged="TextBox_TextChanged"
                         TextAlignment="Center"
                         VerticalAlignment="Center"/>

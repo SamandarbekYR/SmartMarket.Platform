@@ -30,13 +30,13 @@ public class TransactionViewModel
         });
     }
 
-    public void Increment(string barcode, double price, double discountSum)
+    public void Increment(string barcode, double price, double discountSum, int quantity)
     {
         foreach (var m in Transactions)
         {
             if (m.Barcode == barcode)
             {
-                m.Quantity++;
+                m.Quantity += quantity;
                 m.TotalPrice = price;
                 m.DiscountSum = discountSum;
             }
