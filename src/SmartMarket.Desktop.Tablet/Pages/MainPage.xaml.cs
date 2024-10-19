@@ -1,6 +1,7 @@
 ﻿using SmartMarket.Desktop.Tablet.Components;
 using SmartMarket.Desktop.Tablet.ViewModels.Transactions;
 using SmartMarket.Desktop.Tablet.Windows;
+using SmartMarket.Domain.Entities.Partners;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using System.Text.RegularExpressions;
@@ -21,10 +22,11 @@ namespace SmartMarket.Desktop.Tablet.Pages;
 /// </summary>
 public partial class MainPage : Page
 {
+    private readonly IProductService _productService;
 
+    public Partner Partner { get; set; }
     TransactionViewModel tvm;
 
-    private readonly IProductService _productService;
     private DispatcherTimer time;
 
     string barcode = "";
@@ -241,6 +243,7 @@ public partial class MainPage : Page
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
         st_product.Focus();
+        Client_Name.Content = lb_client_name.Content = Partner.FirstName + " " + Partner.LastName;
     }
 
     private void Sends_Button_Click(object sender, RoutedEventArgs e)
@@ -250,13 +253,11 @@ public partial class MainPage : Page
         mainWindow.PageNavigator.Content = secondPage;
     }
 
-    private void Logout_Click(object sender, RoutedEventArgs e)
+    private void Partners_Click(object sender, RoutedEventArgs e)
     {
-        LoginWindow loginWindow = new LoginWindow();
+        PartnersPage partnersPage = new PartnersPage();
         MainWindow mainWindow = GetMainWindow();
-
-        mainWindow.Close();
-        loginWindow.ShowDialog();
+        mainWindow.PageNavigator.Content = partnersPage;
     }
 
     private void Delete_Button_Click(object sender, RoutedEventArgs e)
