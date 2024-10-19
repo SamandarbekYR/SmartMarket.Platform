@@ -23,13 +23,13 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
         {
             var loadReports = await loadReportService.GetAll();
 
-            //List<string> workerNames = loadReports
-            //    .Select(x => x.Worker.FirstName)
-            //    .Distinct()
-            //    .ToList();
+            List<string> workerNames = loadReports
+                .Select(x => x.Worker.FirstName)
+                .Distinct()
+                .ToList();
 
-            //workerNames.Insert(0, "Sotuvchi");  
-            //workerComboBox.ItemsSource = workerNames;
+            workerNames.Insert(0, "Sotuvchi");
+            workerComboBox.ItemsSource = workerNames;
 
             showLoadReport(loadReports);
         }
@@ -96,11 +96,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         private void FilterTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if(filterTextBox != null)
-            {
-                MessageBox.Show("Search filter box");
-            }
-            else if(e.Key == Key.Enter)
+            if(e.Key == Key.Enter)
             {
                 FilterLoadReport();
             }

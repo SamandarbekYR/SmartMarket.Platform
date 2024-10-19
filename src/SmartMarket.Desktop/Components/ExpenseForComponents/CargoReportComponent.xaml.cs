@@ -31,10 +31,10 @@ namespace SmartMarket.Desktop.Components.ExpenseForComponents
         public Guid LoadReportId { get; set; }
         public void SetData(LoadReportDto dto)
         {
-            tbProductName.Text = "Ruchka"; //dto ProductName
+            tbProductName.Text = dto.ProductName; //dto ProductName
             tbTotalPrice.Text = dto.TotalPrice.ToString();
-            tbPrice.Text = "2000"; //dto Price
-            tbCount.Text = "1000"; //dto Count
+            tbPrice.Text = dto.ProductPrice.ToString(); //dto Price
+            tbCount.Text = dto.ProductCount.ToString(); //dto Count
         }
     }
 }
