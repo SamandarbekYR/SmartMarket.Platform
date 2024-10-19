@@ -292,6 +292,8 @@
                     </Border>
 
                     <Border Grid.Column="1"
+                           x:Name="btnContrAgent"
+                           MouseDown="btnCreateContrAgent_MouseDown"
                            Margin="10 3 3 3"
                            Width="48"
                            BorderThickness="1"
