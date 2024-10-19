@@ -1,0 +1,122 @@
+﻿<Window x:Class="SmartMarket.Desktop.Tablet.Windows.Partners.PartnerCreateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmartMarket.Desktop.Tablet.Windows.Partners"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Title="PartnerCreateWindow"
+        Loaded="Window_Loaded">
+    <Border
+        Height="350"
+        Width="500"
+        CornerRadius="10"
+        BorderThickness="1"
+        BorderBrush="{DynamicResource BorderColor}"
+        Background="White">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+            <Border
+                CornerRadius="5 5 0 0"
+                Grid.Row="0"
+                Background="#1EB7E8"/>
+            
+            <Label
+                Grid.Row="0"
+                Content="Hamkor yaratish"
+                HorizontalAlignment="Center"
+                FontSize="22"
+                Foreground="White"
+                Style="{DynamicResource TitleLabel}"/>
+
+            <Button
+                Name="Close_Button"
+                Grid.Row="0"
+                Margin="0 0 10 0"
+                HorizontalAlignment="Right"
+                Click="Close_Button_Click"
+                Background="White"
+                Style="{DynamicResource ClosedButton}"/>
+
+            <Grid
+                Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+                    Margin="30 30 0 10"
+                    Grid.Column="0">
+
+                    <Label
+                        Content="Ismi :"
+                        FontSize="18"
+                        Margin="10 5"
+                        Style="{DynamicResource TitleLabel}"/>
+                    <Label
+                        Content="Fameliyasi :"
+                        FontSize="18"
+                        Margin="10"
+                        Style="{DynamicResource TitleLabel}"/>
+                    <Label
+                        Content="Telefon raqami :"
+                        FontSize="18"
+                        Margin="10 5"
+                        Style="{DynamicResource TitleLabel}"/>
+
+                </StackPanel>
+
+                <StackPanel
+                    Margin="30 30 30 10"
+                    Grid.Column="1">
+
+                    <TextBox
+                        Name="tb_Firstname"
+                        FontSize="18"
+                        Margin="10 5"
+                        FontWeight="SemiBold"
+                        Style="{DynamicResource Create_TextBox_Style}"/>
+                    <TextBox
+                        Name="tb_Lastname"
+                        FontSize="18"
+                        Margin="10 5"
+                        FontWeight="SemiBold"
+                        Style="{DynamicResource Create_TextBox_Style}"/>
+                    <TextBox
+                        Name="tb_PhoneNumber"
+                        FontSize="18"
+                        Margin="10 5"
+                        MaxLength="9"
+                        FontWeight="SemiBold"
+                        TextChanged="phone_number_TextChanged"
+                        Style="{DynamicResource Phone_Number_TextBox_Style}"/>
+
+                </StackPanel>
+
+            </Grid>
+
+            <Button
+                x:Name="Partner_Create_Button"
+                Grid.Row="2"
+                Content="Saqlash"
+                FontSize="17"
+                Height="40"
+                Width="170"
+                Click="Partner_Create_Button_Click"
+                Background="{DynamicResource BSecondColor}"
+                Style="{DynamicResource MainButton}"/>
+
+        </Grid>
+        
+    </Border>
+</Window>

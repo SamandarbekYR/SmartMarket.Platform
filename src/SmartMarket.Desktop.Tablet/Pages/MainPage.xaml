@@ -309,7 +309,7 @@
 
                         <Label
                             Name="lb_TotalSum"
-                            Content="5000000"
+                            Content="0"
                             FontSize="20"
                             HorizontalAlignment="Center"
                             Style="{DynamicResource MainLabel}"/>

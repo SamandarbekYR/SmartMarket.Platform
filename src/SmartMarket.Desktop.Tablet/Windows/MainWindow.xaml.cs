@@ -19,7 +19,7 @@ public partial class MainWindow : Window
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        MainPage mainPage = new MainPage();
-        PageNavigator.Content = mainPage;
+        PartnersPage partnersPage = new PartnersPage();
+        PageNavigator.Content = partnersPage;
     }
 }
