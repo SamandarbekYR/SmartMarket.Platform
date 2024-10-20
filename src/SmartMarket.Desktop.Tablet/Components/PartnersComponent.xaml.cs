@@ -1,4 +1,5 @@
-﻿using SmartMarket.Desktop.Tablet.Windows;
+﻿using SmartMarket.Desktop.Tablet.Pages;
+using SmartMarket.Desktop.Tablet.Windows;
 using SmartMarket.Desktop.Tablet.Windows.Partners;
 using SmartMarket.Domain.Entities.Partners;
 using SmartMarketDeskop.Integrated.Services.Partners;
@@ -53,6 +54,25 @@ public partial class PartnersComponent : UserControl
         partnerId = partner.Id;
     }
 
+    public static MainWindow GetMainWindow()
+    {
+        MainWindow mainWindow = null!;
+
+        foreach (Window window in Application.Current.Windows)
+        {
+            Type type = typeof(MainWindow);
+            if (window != null && window.DependencyObjectType.Name == type.Name)
+            {
+                mainWindow = (MainWindow)window;
+                if (mainWindow != null)
+                {
+                    break;
+                }
+            }
+        }
+        return mainWindow!;
+    }
+
     private void Border_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
     {
         Partner_Border.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E8E8E8"));
@@ -65,7 +85,11 @@ public partial class PartnersComponent : UserControl
 
     private void Border_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-
+        MainWindow mainWindow = GetMainWindow();
+        MainPage mainPage = new MainPage();
+        var partner = this.Tag as Partner;
+        mainPage.Partner = partner!;
+        mainWindow.PageNavigator.Content = mainPage;
     }
 
     private void Action_Button_Click(object sender, System.Windows.RoutedEventArgs e)
