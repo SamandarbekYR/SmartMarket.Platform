@@ -20,8 +20,17 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
         }
 
         public async void GetAllExpence()
-        {
+            {
             var expenses = await expenseService.GetAll();
+
+            List<string> workerNames = expenses
+                .Select(x => x.WorkerFirstName)
+                .Distinct()
+                .ToList();
+
+            workerNames.Insert(0, "Sotuvchi");
+            workerComboBox.ItemsSource = workerNames;
+
             ShowExpenses(expenses);
         }
 
@@ -35,17 +44,19 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
                 filter.ToDateTime = toDateTime.SelectedDate.Value;
             }
 
-            var selectionWorkerName = workerComboBox.SelectedItem?.ToString();
-
-            if(!string.IsNullOrEmpty(selectionWorkerName) && !selectionWorkerName.Equals("Sotuvchi"))
+            if (workerComboBox.SelectedItem != null)
             {
-                filter.WorkerName = selectionWorkerName;
+                var selectionWorkerName = workerComboBox.SelectedItem?.ToString();
+
+                if (!string.IsNullOrEmpty(selectionWorkerName) && !selectionWorkerName.Equals("Sotuvchi"))
+                {
+                    filter.WorkerName = selectionWorkerName;
+                }
             }
 
-            var filterReason = filterTextBox.Text.ToLower();
-            if(!string.IsNullOrEmpty(filterReason))
+            if(filterTextBox != null)
             {
-                filter.Reason = filterReason;
+                filter.Reason = filterTextBox.Text;
             }
 
             var filterExpense = await expenseService.FilterExpense(filter);
@@ -87,14 +98,14 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         private void FilterTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if(filterTextBox.Text.Length == 3)
+            if(filterTextBox == null)
             {
-                if (e.Key == Key.Enter)
-                {
-                    FilterExpenses();
-                }
+                MessageBox.Show("Search filter null");
             }
-            
+            else if(e.Key == Key.Enter)
+            {
+                FilterExpenses();
+            }
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)

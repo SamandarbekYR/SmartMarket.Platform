@@ -75,7 +75,7 @@ namespace SmartMarket.Service.Services.Expence
             }
         }
 
-        public async Task<List<FullExpenceDto>> FilterExpenceAsync(FilterExpenseDto filterExpenseDto)
+        public async Task<IEnumerable<FullExpenceDto>> FilterExpenceAsync(FilterExpenseDto filterExpenseDto)
         {
             try
             {
@@ -93,7 +93,7 @@ namespace SmartMarket.Service.Services.Expence
                         ps => ps.CreatedDate.Value.Date == DateTime.Today).ToList();
                 }
 
-                if(!string.IsNullOrWhiteSpace(filterExpenseDto.Reason))
+                if(!string.IsNullOrEmpty(filterExpenseDto.Reason))
                 {
                     expences = expences.Where(
                         ps => ps.Reason.Contains(filterExpenseDto.Reason)).ToList();

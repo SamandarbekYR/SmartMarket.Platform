@@ -141,6 +141,7 @@ namespace SmartMarket.Service.Services.Products.LoadReport
                 {
                     Id = l.Id,
                     WorkerId = l.WorkerId,
+                    Worker = l.Worker,
                     ProductId = l.ProductId,
                     ContrAgentId = l.ContrAgentId,
                     TotalPrice = l.TotalPrice,

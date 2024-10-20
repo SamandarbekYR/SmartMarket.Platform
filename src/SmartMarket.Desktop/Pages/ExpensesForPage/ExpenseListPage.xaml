@@ -76,14 +76,7 @@
                     Margin="5 10 10 10"
                     Grid.Column="3"
                     SelectionChanged="workerComboBox_SelectionChanged">
-                    <ComboBoxItem 
-                        IsEnabled="False" 
-                        IsSelected="True"
-                        Content="Sotuvchi"/>
-                    <ComboBoxItem
-                        Content="Aziz"/>
-                    <ComboBoxItem
-                        Content="Po'lat"/>
+                    
                 </ComboBox>
 
 
