@@ -18,7 +18,7 @@ namespace SmartMarket.Service.Services.Products.Product
     public class ProductService(IUnitOfWork unitOfWork,
                                  IMapper mapper,
                                  IValidator<AddProductDto> validator,
-                                 ILogger<ProductService> logger) : IProductService 
+                                 ILogger<ProductService> logger) : IProductService
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IMapper _mapper = mapper;
@@ -182,20 +182,21 @@ namespace SmartMarket.Service.Services.Products.Product
             return await _unitOfWork.Product.GetAll()
                 .AnyAsync(p => p.PCode == pCode);
         }
-        public async Task<FullProductDto> GetProductByBarcodeAsync(string barcode)
+        public async Task<IList<FullProductDto>> GetProductByBarcodeAsync(string barcode)
         {
             try
             {
-                var product = await _unitOfWork.Product.GetAllProductsFullInformation()
+                var products = await _unitOfWork.Product.GetAllProductsFullInformation()
                     .AsNoTracking()
-                    .FirstOrDefaultAsync(p => p.Barcode == barcode);
+                    .Where(p => p.Barcode == barcode)
+                    .ToListAsync();
 
-                if (product == null)
+                if (products == null || !products.Any())
                 {
-                    throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "No products found with the specified barcode.");
                 }
 
-                var fullProductDto = new FullProductDto
+                var fullProductDtos = products.Select(product => new FullProductDto
                 {
                     Id = product.Id,
                     PCode = product.PCode,
@@ -216,32 +217,34 @@ namespace SmartMarket.Service.Services.Products.Product
                         ImagePath = img.ImagePath
                     }).ToList(),
                     NoteAmount = product.NoteAmount
-                };
+                }).ToList();
 
-                return fullProductDto;
+                return fullProductDtos;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while getting a product by barcode.");
+                _logger.LogError(ex, "Error occurred while getting products by barcode.");
                 throw;
             }
         }
 
 
-        public async Task<FullProductDto> GetProductByPCodeAsync(string pCode)
+
+        public async Task<IList<FullProductDto>> GetProductByPCodeAsync(string pCode)
         {
             try
             {
-                var product = await _unitOfWork.Product.GetAllProductsFullInformation()
+                var products = await _unitOfWork.Product.GetAllProductsFullInformation()
                     .AsNoTracking()
-                    .FirstOrDefaultAsync(p => p.PCode == pCode);
+                    .Where(p => p.PCode == pCode)
+                    .ToListAsync();
 
-                if (product == null)
+                if (products == null || !products.Any())
                 {
-                    throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "No products found with the specified PCode.");
                 }
 
-                var fullProductDto = new FullProductDto
+                var fullProductDtos = products.Select(product => new FullProductDto
                 {
                     Id = product.Id,
                     PCode = product.PCode,
@@ -262,32 +265,34 @@ namespace SmartMarket.Service.Services.Products.Product
                         ImagePath = img.ImagePath
                     }).ToList(),
                     NoteAmount = product.NoteAmount
-                };
+                }).ToList();
 
-                return fullProductDto;
+                return fullProductDtos;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while getting a product by PCode.");
+                _logger.LogError(ex, "Error occurred while getting products by PCode.");
                 throw;
             }
         }
 
 
-        public async Task<FullProductDto> GetProductByWorkerIdAsync(Guid workerId)
+
+        public async Task<IList<FullProductDto>> GetProductByWorkerIdAsync(Guid workerId)
         {
             try
             {
-                var product = await _unitOfWork.Product.GetAllProductsFullInformation()
+                var products = await _unitOfWork.Product.GetAllProductsFullInformation()
                     .AsNoTracking()
-                    .FirstOrDefaultAsync(p => p.Worker.Id == workerId);
+                    .Where(p => p.Worker.Id == workerId)
+                    .ToListAsync();
 
-                if (product == null)
+                if (products == null || !products.Any())
                 {
-                    throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "No products found for the specified worker ID.");
                 }
 
-                var fullProductDto = new FullProductDto
+                var fullProductDtos = products.Select(product => new FullProductDto
                 {
                     Id = product.Id,
                     PCode = product.PCode,
@@ -308,16 +313,17 @@ namespace SmartMarket.Service.Services.Products.Product
                         ImagePath = img.ImagePath
                     }).ToList(),
                     NoteAmount = product.NoteAmount
-                };
+                }).ToList();
 
-                return fullProductDto;
+                return fullProductDtos;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while getting a product by worker ID.");
+                _logger.LogError(ex, "Error occurred while getting products by worker ID.");
                 throw;
             }
         }
+
 
         public async Task<bool> SellProductAsync(string barcode)
         {
@@ -361,20 +367,21 @@ namespace SmartMarket.Service.Services.Products.Product
             }
         }
 
-        public async Task<FullProductDto> GetProductByNameAsync(string name)
+        public async Task<IList<FullProductDto>> GetProductsByNameAsync(string name)
         {
             try
             {
-                var product = await _unitOfWork.Product.GetAllProductsFullInformation()
+                var products = await _unitOfWork.Product.GetAllProductsFullInformation()
                     .AsNoTracking()
-                    .FirstOrDefaultAsync(p => p.Name.ToLower() == name.ToLower());
+                    .Where(p => p.Name.ToLower().Contains(name.ToLower()))
+                    .ToListAsync();
 
-                if (product == null)
+                if (products == null || !products.Any())
                 {
-                    throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "No products found.");
                 }
 
-                var fullProductDto = new FullProductDto
+                var fullProductDtos = products.Select(product => new FullProductDto
                 {
                     Id = product.Id,
                     PCode = product.PCode,
@@ -395,16 +402,18 @@ namespace SmartMarket.Service.Services.Products.Product
                         ImagePath = img.ImagePath
                     }).ToList(),
                     NoteAmount = product.NoteAmount
-                };
+                }).ToList();
 
-                return fullProductDto;
+                return fullProductDtos;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while getting a product by name.");
+                _logger.LogError(ex, "Error occurred while getting products by name.");
                 throw;
             }
         }
+
+
 
         public async Task<IEnumerable<ProductDto>> GetProductsByCategoryIdAsync(Guid categoryId, PaginationParams @params)
         {
