@@ -115,9 +115,9 @@ namespace SmartMarket.Service.Services.Products.Product
                         ImagePath = img.ImagePath
                     }).ToList(),
                     NoteAmount = p.NoteAmount
-                });
+                }).ToList(); 
 
-                return _mapper.Map<IList<FullProductDto>>(productDtos);
+                return productDtos;
             }
             catch (Exception ex)
             {
@@ -125,6 +125,7 @@ namespace SmartMarket.Service.Services.Products.Product
                 throw;
             }
         }
+
 
         public async Task<bool> UpdateAsync(AddProductDto dto, Guid Id)
         {
