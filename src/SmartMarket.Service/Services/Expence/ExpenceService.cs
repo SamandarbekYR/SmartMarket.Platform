@@ -75,7 +75,7 @@ namespace SmartMarket.Service.Services.Expence
             }
         }
 
-        public async Task<List<FullExpenceDto>> FilterExpenceAsync(FilterExpenseDto filterExpenseDto)
+        public async Task<IEnumerable<FullExpenceDto>> FilterExpenceAsync(FilterExpenseDto filterExpenseDto)
         {
             try
             {
