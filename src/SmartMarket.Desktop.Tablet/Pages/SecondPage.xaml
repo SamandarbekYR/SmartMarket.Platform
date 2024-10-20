@@ -97,7 +97,9 @@
                     </Grid.RowDefinitions>
 
                     <TextBox
+                        Name="tb_search"
                         Margin="50 0"
+                        TextChanged="tb_search_TextChanged"
                         Style="{DynamicResource search}"/>
 
                     <Grid
@@ -202,7 +204,7 @@
                             Style="{DynamicResource InfoLabel}"/>
 
                         <Label
-                            Content="5000000"
+                            Content="0"
                             FontSize="20"
                             HorizontalAlignment="Center"
                             Style="{DynamicResource MainLabel}"/>
