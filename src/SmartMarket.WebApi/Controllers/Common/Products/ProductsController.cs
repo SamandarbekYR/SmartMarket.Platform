@@ -143,7 +143,7 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
         {
             try
             {
-                var product = await _productService.GetProductByNameAsync(name);
+                var product = await _productService.GetProductsByNameAsync(name);
                 return Ok(product);
             }
             catch (StatusCodeException ex)
