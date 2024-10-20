@@ -93,7 +93,7 @@ namespace SmartMarket.Service.Services.Products.Product
                 var products = await _unitOfWork.Product.GetAllProductsFullInformation()
                                         .AsNoTracking()
                                         .ToPagedListAsync(paginationParams);
-
+                 
                 var productDtos = products.Select(p => new FullProductDto
                 {
                     Id = p.Id,
