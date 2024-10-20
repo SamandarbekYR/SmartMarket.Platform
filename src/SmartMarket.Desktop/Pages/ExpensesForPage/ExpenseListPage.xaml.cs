@@ -20,7 +20,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
         }
 
         public async void GetAllExpence()
-            {
+        {
             var expenses = await expenseService.GetAll();
 
             List<string> workerNames = expenses
