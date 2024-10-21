@@ -27,17 +27,24 @@ public partial class AccountSettingsPage : Page
         ShowWorkers(workers);
     }
 
-    private void ShowWorkers(IEnumerable<WorkerDto> workers)
+    private void ShowWorkers(IList<WorkerDto> workers)
     {
-        Wr_Account.Visibility = Visibility.Visible;
         Wr_Account.Children.Clear();
+        Loader.Visibility = Visibility.Collapsed;
 
-        foreach (var item in workers)
+        if (workers.Count > 0)
         {
-            AccountSettingsComponent accountSettingsComponent = new AccountSettingsComponent();
-            accountSettingsComponent.Tag = item;
-            accountSettingsComponent.SetData(item);
-            Wr_Account.Children.Add(accountSettingsComponent);
+            foreach (var item in workers)
+            {
+                AccountSettingsComponent accountSettingsComponent = new AccountSettingsComponent();
+                accountSettingsComponent.Tag = item;
+                accountSettingsComponent.SetData(item);
+                Wr_Account.Children.Add(accountSettingsComponent);
+            }
+        }
+        else
+        {
+            EmptyData.Visibility = Visibility.Visible;
         }
     }
 

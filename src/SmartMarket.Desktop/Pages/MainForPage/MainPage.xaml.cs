@@ -7,6 +7,7 @@ using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgents;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows;
 
 namespace SmartMarket.Desktop.Pages.MainForPage;
 
@@ -58,16 +59,24 @@ public partial class MainPage : Page
         St_categoryList.Children.Clear();
 
         var categoryViews = await Task.Run(async () => await _categoryService.GetAllAsync());
+        CategoryLoader.Visibility = Visibility.Collapsed;
 
         int categoryCount = 1;
 
-        foreach (var category in categoryViews)
+        if (categoryViews.Count > 0)
         {
-            MainCategoryComponent categoryComponent = new MainCategoryComponent();
-            categoryComponent.Tag = category;
-            categoryComponent.SetValues(category, categoryCount);
-            St_categoryList.Children.Add(categoryComponent);
-            categoryCount++;
+            foreach (var category in categoryViews)
+            {
+                MainCategoryComponent categoryComponent = new MainCategoryComponent();
+                categoryComponent.Tag = category;
+                categoryComponent.SetValues(category, categoryCount);
+                St_categoryList.Children.Add(categoryComponent);
+                categoryCount++;
+            }
+        }
+        else
+        {
+            EmptyDataCategory.Visibility = Visibility.Visible;
         }
     }
 
@@ -92,10 +101,11 @@ public partial class MainPage : Page
         St_contragent.Children.Clear();
 
         var contrAgents = await Task.Run(async () => await _contrAgentService.GetAll());
+        ContragentLoader.Visibility = Visibility.Collapsed;
 
         int contragenCount = 1;
 
-        if (contrAgents != null)
+        if (contrAgents.Count > 0)
         {
             foreach (var contrAgent in contrAgents)
             {
@@ -108,20 +118,20 @@ public partial class MainPage : Page
         }
         else
         {
-            // Agar kontragentlar bo'lmasa, xabar yoki boshqa elementni ko'rsatish
+            EmptyDataContragent.Visibility = Visibility.Visible;
         }
     }
-
 
     public async Task GetProductsByCategoryId(Guid Id)
     {
         St_product.Children.Clear();
 
         var products = await Task.Run(async () => await _productService.GetByCategoryId(Id));
+        ProductLoader.Visibility = Visibility.Collapsed;
 
         int productCount = 1;
 
-        if (products != null && products.Count > 0)
+        if (products.Count > 0)
         {
             foreach (var product in products)
             {
@@ -134,20 +144,20 @@ public partial class MainPage : Page
         }
         else
         {
-            // Agar mahsulotlar bo'lmasa, xabar yoki boshqa elementni ko'rsatish
+            EmptyDataProduct.Visibility = Visibility.Visible;
         }
     }
-
 
     public async Task GetAllProducts()
     {
         St_product.Children.Clear();
 
         var products = await Task.Run(async () => await _productService.GetAll());
+        ProductLoader.Visibility = Visibility.Collapsed;    
 
         int productCount = 1;
 
-        if (products != null)
+        if (products.Count > 0)
         {
             foreach (var product in products)
             {
@@ -160,7 +170,7 @@ public partial class MainPage : Page
         }
         else
         {
-            // Agar mahsulotlar bo'lmasa, xabar yoki boshqa elementni ko'rsatish
+            EmptyDataProduct.Visibility = Visibility.Visible;
         }
     }
 

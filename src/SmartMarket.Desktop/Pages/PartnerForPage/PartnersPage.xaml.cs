@@ -24,10 +24,11 @@ public partial class PartnersPage : Page
     {
         St_partners.Children.Clear();
         var partners = await Task.Run(async () => await _partnerService.GetAll());
+        Loader.Visibility = Visibility.Collapsed;
 
         int count = 1;
 
-        if (partners != null)
+        if (partners.Count > 0)
         {
             foreach (var partner in partners)
             {
@@ -40,7 +41,7 @@ public partial class PartnersPage : Page
         }
         else
         {
-            // Ma'lumot topilmasa loaderni o'chirish va xabar chiqarish
+            EmptyData.Visibility = Visibility.Visible;
         }
 
     }
