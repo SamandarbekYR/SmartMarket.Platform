@@ -12,7 +12,7 @@ namespace SmartMarket.Domain.Entities.Products
     public class SalesRequest : BaseEntity
     {
         [Column("transaction_id")]
-        public Guid TransactionId { get; set; }
+        public long TransactionId { get; set; }
         [Column("worker_id")]
         public Guid WorkerId { get; set; }
         public Worker Worker { get; set; }
@@ -30,5 +30,6 @@ namespace SmartMarket.Domain.Entities.Products
         [Column("debt_sum")]
         public double DebtSum { get; set; }
         public List<ProductSale> ProductSaleItems { get; set; }
+       
     }
 }

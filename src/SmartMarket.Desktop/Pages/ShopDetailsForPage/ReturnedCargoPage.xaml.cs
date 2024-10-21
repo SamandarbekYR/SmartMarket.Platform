@@ -81,17 +81,18 @@ public partial class ReturnedCargoPage : Page
         St_ReturnedProducts.Children.Clear();
         int rowNumber = 1;
 
-        foreach (var item in replaceProducts)
-        {
-            double totalPrice = item.ProductSale!.Product.SellPrice * item.Count;
-            ReturnedCargoComponent returnedCargoComponent = new ReturnedCargoComponent();
-            returnedCargoComponent.Tag = item.Id;
-            returnedCargoComponent.SetValues(
-                rowNumber,
-                item.ProductSale.Product.Name,
-                item.ProductSale.Product.SellPrice,
-                item.Count,
-                totalPrice);
+            foreach (var item in replaceProducts)
+            {
+                double totalPrice = item.ProductSale.Product.SellPrice * item.Count;
+                ReturnedCargoComponent returnedCargoComponent = new ReturnedCargoComponent();
+                returnedCargoComponent.Tag = item.Id;
+                //returnedCargoComponent.SetValues(
+                //    rowNumber,
+                //    item.ProductSale.TransactionNumber,
+                //    item.ProductSale.Product.Name,
+                //    item.ProductSale.Product.SellPrice,
+                //    item.Count,
+                //    totalPrice);
 
             returnedCargoComponent.BorderThickness = new Thickness(2);
             St_ReturnedProducts.Children.Add(returnedCargoComponent);

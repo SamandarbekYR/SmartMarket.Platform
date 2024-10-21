@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SmartMarket.Domain.Entities.Products;
 using SmartMarket.Service.Common.Exceptions;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.Interfaces.Products.ProductSale;
