@@ -47,14 +47,35 @@
                     Style="{DynamicResource search}"
                     Grid.Row="1"/>
 
-                <ScrollViewer Grid.Row="2">
-                    <Grid>
-                        <StackPanel 
-                             x:Name="stackPanelOrders">
+                <Grid
+                    Grid.Row="2">
 
-                        </StackPanel>
-                    </Grid>
-                </ScrollViewer>
+                    <local:Loader
+                        x:Name="Loader"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"/>
+
+                    <ScrollViewer>
+                        <Grid>
+                            <StackPanel 
+                                x:Name="stackPanelOrders">
+
+                            </StackPanel>
+                        </Grid>
+                    </ScrollViewer>
+
+                    <Label
+                        Name="EmptyData"
+                        Visibility="Collapsed"
+                        FontSize="16"
+                        Foreground="#a6a6a6"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="Ma'lumot topilmadi."/>
+
+                </Grid>
+
+                
             </Grid>
         </Border>
 

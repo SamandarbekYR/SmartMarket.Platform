@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.AccountSettingsForPage"
+      xmlns:local="clr-namespace:SmartMarket.Desktop.Components.Loader"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       Title="AccountSettingsPage"
@@ -84,12 +84,30 @@
                 CornerRadius="0 0 5 5"
                 Grid.Row="1"
                 >
-                <ScrollViewer>
-                    <WrapPanel x:Name="Wr_Account">
+                <Grid>
+
+                    <local:Loader
+                        x:Name="Loader"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"/>
+
+                    <ScrollViewer>
+                        <WrapPanel 
+                            x:Name="Wr_Account">
                         
-                        
-                    </WrapPanel>
-                </ScrollViewer>
+                        </WrapPanel>
+                    </ScrollViewer>
+
+                    <Label
+                        Name="EmptyData"
+                        Visibility="Collapsed"
+                        FontSize="16"
+                        Foreground="#a6a6a6"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="Ma'lumot topilmadi."/>
+
+                </Grid>
             </Border>
         </Grid>
         
