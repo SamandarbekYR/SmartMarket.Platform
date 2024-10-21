@@ -20,12 +20,10 @@ public partial class PartnersPage : Page
         this._partnerService = new PartnerService();
     }
 
-
-    public async void GetAllDebtor()
+    public async Task GetAllDebtor()
     {
         St_partners.Children.Clear();
-
-        var partners = await _partnerService.GetAll();
+        var partners = await Task.Run(async () => await _partnerService.GetAll());
 
         int count = 1;
 
@@ -42,13 +40,14 @@ public partial class PartnersPage : Page
         }
         else
         {
-            // loader o'chirilib malumot topilmadi degan yozuv chiqarib qo'yiladi
+            // Ma'lumot topilmasa loaderni o'chirish va xabar chiqarish
         }
+
     }
 
-    private void Page_Loaded(object sender, RoutedEventArgs e)
+    private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        GetAllDebtor();
+        await GetAllDebtor();
     }
 
     private void Partner_Create_Button_Click(object sender, RoutedEventArgs e)
@@ -56,4 +55,5 @@ public partial class PartnersPage : Page
         PartnerCreateWindow partnerCreateWindow = new PartnerCreateWindow();
         partnerCreateWindow.ShowDialog();
     }
+
 }

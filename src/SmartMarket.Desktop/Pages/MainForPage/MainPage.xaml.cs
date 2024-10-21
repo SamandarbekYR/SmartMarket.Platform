@@ -20,10 +20,6 @@ public partial class MainPage : Page
     private IContrAgentService _contrAgentService;
     private IProductService _productService;
 
-    int categoryCount = 1;
-    int productCount = 1;
-    int contragenCount = 1;
-
     public MainPage()
     {
         InitializeComponent();
@@ -59,9 +55,12 @@ public partial class MainPage : Page
 
     public async Task GetAllCategory()
     {
-        var categoryViews = await _categoryService.GetAllAsync();
-
         St_categoryList.Children.Clear();
+
+        var categoryViews = await Task.Run(async () => await _categoryService.GetAllAsync());
+
+        int categoryCount = 1;
+
         foreach (var category in categoryViews)
         {
             MainCategoryComponent categoryComponent = new MainCategoryComponent();
@@ -90,27 +89,39 @@ public partial class MainPage : Page
 
     public async Task GetAllContrAgents()
     {
-        var contrAgents = await _contrAgentService.GetAll();
-
         St_contragent.Children.Clear();
 
-        foreach (var contrAgent in contrAgents)
+        var contrAgents = await Task.Run(async () => await _contrAgentService.GetAll());
+
+        int contragenCount = 1;
+
+        if (contrAgents != null)
         {
-            MainKontrAgentComponent mainKontrAgentComponent = new MainKontrAgentComponent();
-            mainKontrAgentComponent.Tag = contrAgent;
-            mainKontrAgentComponent.GetData(contrAgent, contragenCount);
-            St_contragent.Children.Add(mainKontrAgentComponent);
-            contragenCount++;
+            foreach (var contrAgent in contrAgents)
+            {
+                MainKontrAgentComponent mainKontrAgentComponent = new MainKontrAgentComponent();
+                mainKontrAgentComponent.Tag = contrAgent;
+                mainKontrAgentComponent.GetData(contrAgent, contragenCount);
+                St_contragent.Children.Add(mainKontrAgentComponent);
+                contragenCount++;
+            }
+        }
+        else
+        {
+            // Agar kontragentlar bo'lmasa, xabar yoki boshqa elementni ko'rsatish
         }
     }
 
+
     public async Task GetProductsByCategoryId(Guid Id)
     {
-        var products = await _productService.GetByCategoryId(Id);
-
         St_product.Children.Clear();
 
-        if (products.Count > 0)
+        var products = await Task.Run(async () => await _productService.GetByCategoryId(Id));
+
+        int productCount = 1;
+
+        if (products != null && products.Count > 0)
         {
             foreach (var product in products)
             {
@@ -121,13 +132,20 @@ public partial class MainPage : Page
                 productCount++;
             }
         }
+        else
+        {
+            // Agar mahsulotlar bo'lmasa, xabar yoki boshqa elementni ko'rsatish
+        }
     }
+
 
     public async Task GetAllProducts()
     {
-        var products = await _productService.GetAll();
-
         St_product.Children.Clear();
+
+        var products = await Task.Run(async () => await _productService.GetAll());
+
+        int productCount = 1;
 
         if (products != null)
         {
@@ -140,5 +158,10 @@ public partial class MainPage : Page
                 productCount++;
             }
         }
+        else
+        {
+            // Agar mahsulotlar bo'lmasa, xabar yoki boshqa elementni ko'rsatish
+        }
     }
+
 }
