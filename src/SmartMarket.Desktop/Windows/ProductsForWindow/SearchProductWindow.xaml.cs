@@ -78,6 +78,7 @@ public partial class SearchProductWindow : Window
     }
     private async void tb_search_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
     {
+        St_Products.Children.Clear();
         string search = tb_search.Text;
 
         await Task.Run(async () =>
