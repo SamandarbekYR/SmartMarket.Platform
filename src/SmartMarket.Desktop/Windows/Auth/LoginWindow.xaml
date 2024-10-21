@@ -117,7 +117,7 @@
                                      FontWeight="SemiBold"
                                      BorderThickness="0"
                                      Padding="2 0 0 0"
-                                     Text="+998882881144"
+                                     Text="+998917727005"
                                      ></TextBox>
                             <!--<xctk:MaskedTextBox  x:Name="txtPhone" Focusable="True" IsReadOnly="False"   Padding="0 0 0 0" FontSize="18" Width="159"   Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Mask="+\9\98 00 000-00-00"  Grid.Column="1" BorderThickness="0"  Margin="-5 -9 0 0"  Foreground="Black" />-->
 
