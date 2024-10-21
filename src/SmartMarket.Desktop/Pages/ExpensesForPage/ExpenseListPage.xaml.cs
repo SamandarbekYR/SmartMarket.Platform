@@ -21,7 +21,8 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         public async void GetAllExpence()
         {
-            var expenses = await expenseService.GetAll();
+            St_Expenses.Children.Clear();
+            var expenses = await Task.Run(async () => await expenseService.GetAll());
 
             List<string> workerNames = expenses
                 .Select(x => x.WorkerFirstName)
@@ -36,6 +37,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         private async void FilterExpenses()
         {
+            St_Expenses.Children.Clear();
             FilterExpenseDto filter = new FilterExpenseDto();
 
             if(fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
@@ -59,7 +61,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
                 filter.Reason = filterTextBox.Text;
             }
 
-            var filterExpense = await expenseService.FilterExpense(filter);
+            var filterExpense = await Task.Run(async () => await expenseService.FilterExpense(filter));
             ShowExpenses(filterExpense);
         }
 

@@ -21,7 +21,9 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         public async void GetAllCargoReport()
         {
-            var loadReports = await loadReportService.GetAll();
+            St_CargoReports.Children.Clear();
+
+            var loadReports = await Task.Run(async () => await loadReportService.GetAll());
 
             List<string> workerNames = loadReports
                 .Select(x => x.Worker.FirstName)
@@ -36,6 +38,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         private async void FilterLoadReport()
         {
+            St_CargoReports.Children.Clear();
             FilterLoadReportDto loadReportDto = new FilterLoadReportDto();
 
             if(fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
@@ -59,7 +62,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
                 loadReportDto.ProductName = filterTextBox.Text;
             }
 
-            var filterLoadReports = await loadReportService.FilterAsync(loadReportDto);
+            var filterLoadReports = await Task.Run(async () => await loadReportService.FilterAsync(loadReportDto));
             showLoadReport(filterLoadReports);
         }
 
