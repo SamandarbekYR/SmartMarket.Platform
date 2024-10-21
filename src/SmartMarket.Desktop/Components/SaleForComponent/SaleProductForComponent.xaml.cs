@@ -45,7 +45,7 @@ public partial class SaleProductForComponent : UserControl
         return null!;
     }
 
-    public void SetData(ProductDto product, int count)
+    public void SetData(FullProductDto product, int count)
     {
         tbNumber.Text = count.ToString();
         Id = product.Id;

@@ -197,7 +197,7 @@ public partial class SalePage : Page
         }
     }
 
-    public void AddNewProductTvm(ProductDto product)
+    public void AddNewProductTvm(FullProductDto product)
     {
         string barcode = product.Barcode;
         if (!tvm.Transactions.Any(t => t.Barcode == barcode))
@@ -231,7 +231,7 @@ public partial class SalePage : Page
         ColculateTotalPrice();
     }
 
-    private void AddNewProduct(ProductDto product)
+    private void AddNewProduct(FullProductDto product)
     {
         SaleProductForComponent saleProductForComponent = new SaleProductForComponent();
         int quantity;
@@ -412,7 +412,7 @@ public partial class SalePage : Page
         return (totalPrice, discountPrice);
     }
 
-    private void GetPrice(ProductDto product, int quantity)
+    private void GetPrice(FullProductDto product, int quantity)
     {
         Product_Count.Text = quantity.ToString();
         Product_Price.Text = product.SellPrice.ToString();
