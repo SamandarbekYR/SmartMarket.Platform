@@ -23,7 +23,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
             int count = 1;
 
-            var products = await _productService.GetFinishedProducts();
+            var products = await Task.Run(async () => await _productService.GetFinishedProducts());
 
             if (products.Count > 0)
             {
