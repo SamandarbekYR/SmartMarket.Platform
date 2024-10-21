@@ -110,7 +110,7 @@ public partial class MainPage : Page
 
         St_product.Children.Clear();
 
-        if (products != null)
+        if (products.Count > 0)
         {
             foreach (var product in products)
             {
