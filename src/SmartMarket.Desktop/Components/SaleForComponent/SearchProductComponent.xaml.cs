@@ -37,7 +37,7 @@ public partial class SearchProductComponent : UserControl
 
     private void Add_Button_Click(object sender, RoutedEventArgs e)
     {
-        var product = this.Tag as ProductDto;
+        var product = this.Tag as FullProductDto;
 
         foreach (Window window in Application.Current.Windows)
         {
@@ -52,12 +52,12 @@ public partial class SearchProductComponent : UserControl
         searchProductWindow.Close();
     }
 
-    public void SetData(ProductDto product)
+    public void SetData(FullProductDto product)
     {
         lb_PCode.Content = product.PCode;
         lb_ProductName.Content = product.Name;  
         lb_Price.Content = product.SellPrice;
-        lb_CategoryName.Content = product.CategoryId.ToString();
+        lb_CategoryName.Content = product.CategoryName;
         lb_Quantity.Content = product.Count.ToString();
     }
 }

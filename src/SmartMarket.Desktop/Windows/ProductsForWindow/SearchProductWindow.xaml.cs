@@ -62,19 +62,23 @@ public partial class SearchProductWindow : Window
         return Regex.IsMatch(text, @"^\d+$");
     }
 
-    private void SetProduct(ProductDto product)
+    private void SetProduct(List<FullProductDto> product)
     {
         St_Products.Children.Clear();
-        if (product != null)
+        if (product.Count > 0)
         {
-            SearchProductComponent searchProductComponent = new SearchProductComponent();
-            searchProductComponent.Tag = product;
-            searchProductComponent.SetData(product);
-            St_Products.Children.Add(searchProductComponent);
+            foreach (var item in product)
+            {
+                SearchProductComponent searchProductComponent = new SearchProductComponent();
+                searchProductComponent.Tag = item;
+                searchProductComponent.SetData(item);
+                St_Products.Children.Add(searchProductComponent);
+            }
         }
     }
     private async void tb_search_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
     {
+        St_Products.Children.Clear();
         string search = tb_search.Text;
 
         await Task.Run(async () =>

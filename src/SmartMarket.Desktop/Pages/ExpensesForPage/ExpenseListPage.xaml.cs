@@ -1,24 +1,9 @@
 ﻿using SmartMarket.Desktop.Components.ExpenseForComponents;
-using SmartMarket.Domain.Entities.Expenses;
 using SmartMarket.Service.DTOs.Expence;
-using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
-using SmartMarketDeskop.Integrated.Server.Repositories.Expenses;
 using SmartMarketDeskop.Integrated.Services.Expenses;
-using SmartMarketDesktop.ViewModels.Entities.Expenses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SmartMarket.Desktop.Pages.ExpensesForPage
 {
@@ -37,6 +22,15 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
         public async void GetAllExpence()
         {
             var expenses = await expenseService.GetAll();
+
+            List<string> workerNames = expenses
+                .Select(x => x.WorkerFirstName)
+                .Distinct()
+                .ToList();
+
+            workerNames.Insert(0, "Sotuvchi");
+            workerComboBox.ItemsSource = workerNames;
+
             ShowExpenses(expenses);
         }
 
@@ -50,17 +44,19 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
                 filter.ToDateTime = toDateTime.SelectedDate.Value;
             }
 
-            var selectionWorkerName = workerComboBox.SelectedItem?.ToString();
-
-            if(!string.IsNullOrEmpty(selectionWorkerName) && !selectionWorkerName.Equals("Sotuvchi"))
+            if (workerComboBox.SelectedItem != null)
             {
-                filter.WorkerName = selectionWorkerName;
+                var selectionWorkerName = workerComboBox.SelectedItem?.ToString();
+
+                if (!string.IsNullOrEmpty(selectionWorkerName) && !selectionWorkerName.Equals("Sotuvchi"))
+                {
+                    filter.WorkerName = selectionWorkerName;
+                }
             }
 
-            var filterReason = filterTextBox.Text.ToLower();
-            if(!string.IsNullOrEmpty(filterReason))
+            if(filterTextBox != null)
             {
-                filter.Reason = filterReason;
+                filter.Reason = filterTextBox.Text;
             }
 
             var filterExpense = await expenseService.FilterExpense(filter);

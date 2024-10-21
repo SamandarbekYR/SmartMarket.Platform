@@ -13,8 +13,8 @@
         Loaded="Window_Loaded">
     <Border
         CornerRadius="5"
-        Width="300"
-        Height="200"
+        Width="320"
+        Height="250"
         BorderThickness="0.5"
         BorderBrush="{DynamicResource BorderColor}"
         Background="{DynamicResource FirstColor}">
@@ -47,6 +47,20 @@
                 Margin="30"
                 Grid.Row="1">
 
+                <StackPanel
+                    Margin="0 0 0 10"
+                    Orientation="Horizontal">
+
+                    <Label
+                        Content="Hozircha bizda bor : "
+                        Style="{DynamicResource InfoLabel}"/>
+
+                    <Label
+                        Name="lb_AvailableCount"
+                        Style="{DynamicResource InfoLabel}"/>
+
+                </StackPanel>
+
                 <Border
                     BorderThickness="0.5"
                     CornerRadius="5"
@@ -54,10 +68,12 @@
                     BorderBrush="{DynamicResource BorderColor}">
 
                     <TextBox
+                        x:Name="tb_quantity"
                         Margin="5 0"
                         BorderThickness="0"
-                        Text="5"
+                        Text="1"
                         FontSize="16"
+                        PreviewTextInput="tb_quantity_PreviewTextInput"
                         TextChanged="TextBox_TextChanged"
                         TextAlignment="Center"
                         VerticalAlignment="Center"/>
@@ -65,9 +81,11 @@
                 </Border>
 
                 <Button
+                    Name="Save_Button"
                     Margin="0 20"
                     Content="Qabul qilish"
                     FontSize="15"
+                    Click="Save_Button_Click"
                     Background="{DynamicResource BSecondColor}"
                     Style="{DynamicResource MainButton}"/>
 

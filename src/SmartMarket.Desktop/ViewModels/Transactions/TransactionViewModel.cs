@@ -15,7 +15,7 @@ public class TransactionViewModel
     {
     }
 
-    public void Add(ProductDto product)
+    public void Add(FullProductDto product)
     {
         Transactions.Add(new TransactionDto()
         {

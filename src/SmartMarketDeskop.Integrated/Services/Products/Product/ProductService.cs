@@ -52,7 +52,7 @@ public class ProductService : IProductService
         }
     }
 
-    public async Task<List<ProductDto>> GetAll()
+    public async Task<List<FullProductDto>> GetAll()
     {
         if (IsInternetAvailable())
         {
@@ -62,7 +62,7 @@ public class ProductService : IProductService
         }
         else
         {
-            return new List<ProductDto>(); 
+            return new List<FullProductDto>(); 
         }
     
     }
@@ -86,7 +86,7 @@ public class ProductService : IProductService
         }
     }
 
-    public async Task<ProductDto> GetByBarCode(string barCode)
+    public async Task<FullProductDto> GetByBarCode(string barCode)
     {
         if (IsInternetAvailable())
         {
@@ -100,7 +100,7 @@ public class ProductService : IProductService
         }
     }
 
-    public async Task<List<ProductDto>> GetByCategoryId(Guid categoryId)
+    public async Task<List<FullProductDto>> GetByCategoryId(Guid categoryId)
     {
         if (IsInternetAvailable())
         {
@@ -110,11 +110,11 @@ public class ProductService : IProductService
         }
         else
         {
-            return new List<ProductDto>();
+            return new List<FullProductDto>();
         }
     }
 
-    public async Task<ProductDto> GetByPCode(string PCode)
+    public async Task<List<FullProductDto>> GetByPCode(string PCode)
     {
         if (IsInternetAvailable())
         {
@@ -124,11 +124,11 @@ public class ProductService : IProductService
         }
         else
         {
-            return null!;
+            return new List<FullProductDto>();
         }
     }
 
-    public async Task<ProductDto> GetByProductName(string productName)
+    public async Task<List<FullProductDto>> GetByProductName(string productName)
     {
         if (IsInternetAvailable())
         {
@@ -138,11 +138,11 @@ public class ProductService : IProductService
         }
         else
         {
-            return null!;
+            return new List<FullProductDto>();
         }
     }
 
-    public async Task<List<ProductDto>> GetFinishedProducts()
+    public async Task<List<FullProductDto>> GetFinishedProducts()
     {
         if(IsInternetAvailable())
         {

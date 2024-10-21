@@ -28,6 +28,7 @@ public class ExpenseRepository : Repository<Expense>, IExpense
                 Id = e.Id,
                 Reason = e.Reason,
                 Amount = e.Amount,
+                CreatedDate = e.CreatedDate,
                 TypeOfPayment = e.TypeOfPayment,
                 Worker = new Worker
                 {

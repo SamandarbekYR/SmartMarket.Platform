@@ -25,24 +25,27 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
 
         public async void GetAllProduct()
         {
-            var invalidProducts = await _invalidProductService.GetAllAsync();
+            St_InValidProducts.Children.Clear();
+
+            var invalidProducts = await Task.Run(async () => await _invalidProductService.GetAllAsync());
 
             List<string> workerNames = invalidProducts
                 .Select(ps => ps.Worker.FirstName)
                 .Distinct()
                 .ToList();
-
             workerNames.Insert(0, "Barcha sotuvchi");
             workerComboBox.ItemsSource = workerNames;
 
             var today = DateTime.Today;
-            invalidProducts = invalidProducts.Where(ps => ps.CreatedDate.Date == today).ToList();
+            var filteredProducts = invalidProducts.Where(ps => ps.CreatedDate.Date == today).ToList();
 
-            ShowInvalidProducts(invalidProducts);
+            ShowInvalidProducts(filteredProducts);
         }
 
         private async void FilterInvalidProducts()
         {
+            St_InValidProducts.Children.Clear();
+
             FilterInvalidProductDto filterInvalidProductDto = new FilterInvalidProductDto();
 
             if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
@@ -63,9 +66,9 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
                 filterInvalidProductDto.ProductName = searchTerm;
             }
 
-            var filterInvalidProducts = await _invalidProductService.FilterInvalidProductAsync(filterInvalidProductDto);
+            var filteredProducts = await Task.Run(async () => await _invalidProductService.FilterInvalidProductAsync(filterInvalidProductDto));
 
-            ShowInvalidProducts(filterInvalidProducts);
+            ShowInvalidProducts(filteredProducts);
         }
 
         private void ShowInvalidProducts(IEnumerable<InvalidProductDto> invalidProducts)
@@ -75,6 +78,7 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
             var count = invalidProducts.Sum(sum => sum.Count);
             var totalCost = invalidProducts.Sum(sum => sum.ProductSale.Product.SellPrice * sum.Count);
             _shopDetailsPage.SetValuesInvalidProducts(count, totalCost);
+
             St_InValidProducts.Children.Clear();
             int rowNumber = 1;
 
@@ -119,5 +123,6 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
         {
             GetAllProduct();
         }
+
     }
 }

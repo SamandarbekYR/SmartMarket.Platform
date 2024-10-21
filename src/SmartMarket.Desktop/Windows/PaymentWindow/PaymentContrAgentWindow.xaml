@@ -1,0 +1,194 @@
+﻿<Window x:Class="SmartMarket.Desktop.Windows.PaymentWindow.PaymentContrAgentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmartMarket.Desktop.Windows.PaymentWindow" 
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="PaymentContrAgentWindow"
+        WindowState="Maximized"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Loaded="Window_Loaded">
+    <Border
+        Height="700"
+        Width="1000"
+        CornerRadius="8"
+        BorderThickness="1"
+        BorderBrush="{DynamicResource BorderColor}"
+        Background="White">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"/>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+            <Border
+                Grid.Row="0"
+                BorderBrush="Black"
+                CornerRadius="5 5 0 0"
+                BorderThickness="1"
+                Background="#d6d6d6">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.5*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="40"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock 
+                        Grid.Column="0"
+                        Text="To'lov tasnifi"
+                        VerticalAlignment="Center"
+                        Margin="15 0 0 0"
+                        FontSize="20"
+                        FontWeight="DemiBold">
+                    </TextBlock>
+
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Grid.Column="1">
+
+                        <DatePicker
+                            x:Name="fromDateTime"
+                            Style="{DynamicResource FormDatePicker}"/>
+                        <Label
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            VerticalAlignment="Center"
+                            Content="dan"/>
+                    </StackPanel>
+
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Grid.Column="2">
+
+                        <DatePicker
+                            x:Name="toDateTime"
+                            Style="{DynamicResource FormDatePicker}"
+                            SelectedDateChanged="DatePicker_SelectedDateChanged"/>
+                        <Label
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            VerticalAlignment="Center"
+                            Content="gacha"/>
+                    </StackPanel>
+
+                    <TextBox
+                        Margin="0 0 10 0"
+                        Name="searchTextBox"
+                        Style="{DynamicResource search}"
+                        KeyDown="SearchTextBox_KeyDown"
+                        Grid.Column="3"/>
+
+                    <Border 
+                        Grid.Column="5"
+                        x:Name="btnclose"
+                        MouseUp="btnclose_MouseUp"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Margin="0 10 10 0"
+                        Background="Transparent"
+                        BorderThickness="0">
+
+                        <md:PackIcon Kind="Close"
+                            Width="30"
+                            Height="30"
+                            Foreground="{DynamicResource BorderColor}">
+                        </md:PackIcon>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Border 
+                 Background="White"
+                 Grid.Row="1" 
+                 BorderBrush="Black" 
+                 BorderThickness="1 0 1 0">
+                <Grid 
+                     Grid.Row="1" 
+                     Margin="5 0 15 0"
+                     x:Name="ShopHIstoryTitle">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.4*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="1.2*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label
+                         Grid.Column="0"
+                         Content="№"
+                         Style="{DynamicResource Label}" Margin="5,0,5,0"/>
+
+                    <Label
+                         Grid.Column="1"
+                         Content="Firma nomi"
+                         Style="{DynamicResource Label}" Margin="5,0,5,0"/>
+
+                    <Label
+                         Content="Ism K/A"
+                         Grid.Column="2"
+                         Style="{DynamicResource Label}" Margin="5,0,5,0"/>
+
+                    <Label
+                         Grid.Column="3"
+                         Content="Familiya"
+                         Style="{DynamicResource Label}" Margin="5,0,5,0"/>
+
+                    <Label
+                         Content="Tel nomer"
+                         Grid.Column="4"
+                         Style="{DynamicResource Label}" Margin="5,0,5,0"/>
+                    
+                    <Label
+                         Grid.Column="5"
+                         Content="To'lov summa"
+                         Style="{DynamicResource Label}" Grid.ColumnSpan="2" Margin="5,0,5,0"/>
+
+                    <Label
+                         Content="To'lov turi"
+                         Grid.Column="6"
+                         Style="{DynamicResource Label}" Margin="5,0,5,0"/>
+
+                    <Label
+                         Content="Sana"
+                         Grid.Column="7"
+                         Style="{DynamicResource Label}" Margin="5,0,5,0"/>
+
+                    <Label
+                         Content="Qayerdan"
+                         Grid.Column="8"
+                         Style="{DynamicResource Label}" Margin="5,0,5,0"/>
+                </Grid>
+            </Border>
+            <Border 
+                Grid.Row="2" 
+                CornerRadius="0 0 5 5"  
+                BorderThickness="1 0 1 1" 
+                BorderBrush="{DynamicResource BorderColor}" 
+                Background="White">
+                <ScrollViewer Grid.Row="2">
+                    <StackPanel Grid.Row="2">
+                        <StackPanel 
+                            x:Name="St_paymentContrAgent">
+                        </StackPanel>
+                    </StackPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Border>
+</Window>

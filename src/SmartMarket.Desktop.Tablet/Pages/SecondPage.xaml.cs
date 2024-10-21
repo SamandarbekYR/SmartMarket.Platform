@@ -1,6 +1,10 @@
 ﻿using SmartMarket.Desktop.Tablet.Components;
+using SmartMarket.Service.DTOs.Products.Product;
+using SmartMarketDeskop.Integrated.Services.Products.Product;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace SmartMarket.Desktop.Tablet.Pages;
 
@@ -9,10 +13,17 @@ namespace SmartMarket.Desktop.Tablet.Pages;
 /// </summary>
 public partial class SecondPage : Page
 {
+
+    private readonly IProductService _productService; 
+
     public SecondPage()
     {
         InitializeComponent();
+        this._productService = new ProductService();
     }
+
+
+    #region Method
 
     public static MainWindow GetMainWindow()
     {
@@ -33,6 +44,40 @@ public partial class SecondPage : Page
         return mainWindow!;
     }
 
+    private ProductComponent selectedProduct = null!;
+    public void SelectProduct(ProductComponent product)
+    {
+        if (selectedProduct != null)
+        {
+            selectedProduct.product_Border.Background = Brushes.White;
+        }
+
+        product.product_Border.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B6B6B6"));
+        //EmptyPrice();
+        //ColculateTotalPrice();
+        selectedProduct = product;
+    }
+
+    private bool IsNumeric(string text)
+    {
+        return Regex.IsMatch(text, @"^\d+$");
+    }
+
+    private void SetProduct(ProductDto product)
+    {
+        st_searchproduct.Children.Clear();
+        if (product != null)
+        {
+            SearchProductComponent searchProductComponent = new SearchProductComponent();
+            searchProductComponent.Tag = product;
+            searchProductComponent.SetData(product);
+            st_searchproduct.Children.Add(searchProductComponent);
+        }
+    }
+
+    #endregion
+
+
     private void Exit_Button_Click(object sender, RoutedEventArgs e)
     {
         MainPage mainPage = new MainPage();
@@ -45,12 +90,57 @@ public partial class SecondPage : Page
         for (int i = 0; i < 20; i++)
         {
             ShipmentComponent shipmentComponent = new ShipmentComponent();
-            SearchProductComponent searchProductComponent = new SearchProductComponent();
             ProductComponent productComponent = new ProductComponent();
 
-            st_searchproduct.Children.Add(searchProductComponent);
             st_product.Children.Add(productComponent);
             st_shipments.Children.Add(shipmentComponent);
         }
+    }
+
+    private void Minus_Button_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void Plus_Button_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void Delete_Button_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void Save_Button_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private async void tb_search_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        string search = tb_search.Text;
+
+        await Task.Run(async () =>
+        {
+            if (IsNumeric(search) && search.Length >= 5)
+            {
+                var products = await _productService.GetByPCode(search);
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    SetProduct(products);
+                });
+            }
+            else if (!IsNumeric(search) && search.Length >= 2)
+            {
+                var products = await _productService.GetByProductName(search);
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    SetProduct(products);
+                });
+            }
+        });
     }
 }

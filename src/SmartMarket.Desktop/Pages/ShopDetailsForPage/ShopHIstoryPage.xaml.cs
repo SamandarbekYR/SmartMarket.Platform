@@ -2,136 +2,139 @@
 using SmartMarket.Service.DTOs.Expence;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.ViewModels.Products;
-
 using SmartMarketDeskop.Integrated.Services.Expenses;
 using SmartMarketDeskop.Integrated.Services.Products.ProductSale;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace SmartMarket.Desktop.Pages.ShopDetailsForPage
+namespace SmartMarket.Desktop.Pages.ShopDetailsForPage;
+
+public partial class ShopHIstoryPage : Page
 {
-    public partial class ShopHIstoryPage : Page
+    private IProductSaleService _productSaleService;
+    private IExpenseService expenseService;
+    private ShopDetailsPage _shopDetailsPage;
+
+    public ShopHIstoryPage(ShopDetailsPage shopDetailsPage)
     {
-        private IProductSaleService _productSaleService;
-        private IExpenseService expenseService;
-        private ShopDetailsPage _shopDetailsPage;
+        InitializeComponent();
+        _productSaleService = new ProductSaleService();
+        expenseService = new ExpenseService();
+        _shopDetailsPage = shopDetailsPage;
+    }
 
-        public ShopHIstoryPage(ShopDetailsPage shopDetailsPage)
+    public async void GetAllProduct()
+    {
+        St_productList.Children.Clear();
+
+        var productSales = await Task.Run(async () => await _productSaleService.GetAllAsync());
+
+        List<string> workerNames = productSales
+            .Select(ps => ps.Worker.FirstName)
+            .Distinct()
+            .ToList();
+        workerNames.Insert(0, "Barcha sotuvchi");
+        workerComboBox.ItemsSource = workerNames;
+
+        var today = DateTime.Today;
+        var filteredProductSales = productSales.Where(ps => ps.CreatedDate!.Value.Date == today).ToList();
+
+        await ShowProductSales(filteredProductSales);
+    }
+
+    private async void FilterProductSales()
+    {
+        St_productList.Children.Clear();
+
+        FilterProductSaleDto filterProductSaleDto = new FilterProductSaleDto();
+
+        if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
         {
-            InitializeComponent();
-            _productSaleService = new ProductSaleService();
-            expenseService = new ExpenseService();
-            _shopDetailsPage = shopDetailsPage;
+            filterProductSaleDto.FromDateTime = fromDateTime.SelectedDate.Value;
+            filterProductSaleDto.ToDateTime = toDateTime.SelectedDate.Value;
         }
 
-        public async void GetAllProduct()
+        var selectedWorkerName = workerComboBox.SelectedItem?.ToString();
+        if (!string.IsNullOrEmpty(selectedWorkerName) && !selectedWorkerName.Equals("Barcha sotuvchi"))
         {
-            var productSales = await _productSaleService.GetAllAsync();
-
-            List<string> workerNames = productSales
-                .Select(ps => ps.Worker.FirstName)
-                .Distinct()
-                .ToList();
-
-            workerNames.Insert(0, "Barcha sotuvchi");
-            workerComboBox.ItemsSource = workerNames;
-
-            var today = DateTime.Today;
-            productSales = productSales.Where(ps => ps.CreatedDate.Value.Date == today).ToList();
-
-            ShowProductSales(productSales);
+            filterProductSaleDto.WorkerName = selectedWorkerName;
         }
 
-        private async void FilterProductSales()
+        var searchTerm = searchTextBox.Text.ToLower();
+        if (!string.IsNullOrEmpty(searchTerm))
         {
-            FilterProductSaleDto filterProductSaleDto = new FilterProductSaleDto();
-
-            if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
-            {
-                filterProductSaleDto.FromDateTime = fromDateTime.SelectedDate.Value;
-                filterProductSaleDto.ToDateTime = toDateTime.SelectedDate.Value;
-            }
-
-            var selectedWorkerName = workerComboBox.SelectedItem?.ToString();
-            if (!string.IsNullOrEmpty(selectedWorkerName) && !selectedWorkerName.Equals("Barcha sotuvchi"))
-            {
-                filterProductSaleDto.WorkerName = selectedWorkerName;
-            }
-
-            var searchTerm = searchTextBox.Text.ToLower();
-            if (!string.IsNullOrEmpty(searchTerm))
-            {
-                filterProductSaleDto.ProductName = searchTerm;
-            }
-
-            var filteredProductSales = await _productSaleService.FilterProductSaleAsync(filterProductSaleDto);
-
-            ShowProductSales(filteredProductSales);
+            filterProductSaleDto.ProductName = searchTerm;
         }
 
-        private async void ShowProductSales(IEnumerable<ProductSaleViewModel> productSales)
+        var filteredProductSales = await Task.Run(async () => await _productSaleService.FilterProductSaleAsync(filterProductSaleDto));
+
+        await ShowProductSales(filteredProductSales);
+
+    }
+
+    private async Task ShowProductSales(IEnumerable<ProductSaleViewModel> productSales)
+    {
+        productSales = productSales.Where(ps => ps.Count != 0)
+            .OrderByDescending(ps => ps.CreatedDate).ToList();
+
+        FilterExpenseDto filterExpenseDto = new FilterExpenseDto();
+        if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
         {
-            productSales = productSales.Where(ps => ps.Count != 0)
-                .OrderByDescending(ps => ps.CreatedDate).ToList();
-
-            FilterExpenseDto filterExpenseDto = new FilterExpenseDto();
-            if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
-            {
-                filterExpenseDto.FromDateTime = fromDateTime.SelectedDate.Value;
-                filterExpenseDto.ToDateTime = toDateTime.SelectedDate.Value;
-            }
-
-            var expenses = await expenseService.FilterExpense(filterExpenseDto);
-
-            var totalCost = productSales.Sum(p => p.TotalCost);
-            var Profit = productSales.Sum(p => (p.Product.SellPrice - p.Product.Price) * p.Count);
-            var totalExpense = expenses.Sum(e => e.Amount); 
-            _shopDetailsPage.SetValuesShopHitory(totalCost, Profit, totalExpense);
-
-            St_productList.Visibility = Visibility.Visible;
-            St_productList.Children.Clear();
-            int rowNumber = 1;
-
-            foreach (var item in productSales)
-            {
-                ShopDetailsProductComponent shopDetailsProductComponent = new ShopDetailsProductComponent();
-                shopDetailsProductComponent.Tag = item;
-                shopDetailsProductComponent.SetValues(
-                    rowNumber,
-                    item.TransactionNumber,
-                    item.Product.Name,
-                    item.Product.SellPrice,
-                    item.Count,
-                    item.TotalCost);
-
-                shopDetailsProductComponent.BorderThickness = new Thickness(2);
-                St_productList.Children.Add(shopDetailsProductComponent);
-                rowNumber++;
-            }
+            filterExpenseDto.FromDateTime = fromDateTime.SelectedDate.Value;
+            filterExpenseDto.ToDateTime = toDateTime.SelectedDate.Value;
         }
 
-        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            FilterProductSales();
-        }
+        var expenses = await Task.Run(async () => await expenseService.FilterExpense(filterExpenseDto));
 
-        private void WorkerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            FilterProductSales();
-        }
+        var totalCost = productSales.Sum(p => p.TotalCost);
+        var profit = productSales.Sum(p => (p.Product.SellPrice - p.Product.Price) * p.Count);
+        var totalExpense = expenses.Sum(e => e.Amount);
+        _shopDetailsPage.SetValuesShopHitory(totalCost, profit, totalExpense);
 
-        private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                FilterProductSales();
-            }
-        }
+        St_productList.Visibility = Visibility.Visible;
+        St_productList.Children.Clear();
+        int rowNumber = 1;
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        foreach (var item in productSales)
         {
-            GetAllProduct();
+            ShopDetailsProductComponent shopDetailsProductComponent = new ShopDetailsProductComponent();
+            shopDetailsProductComponent.Tag = item;
+            shopDetailsProductComponent.SetValues(
+                rowNumber,
+                item.TransactionNumber,
+                item.Product.Name,
+                item.Product.SellPrice,
+                item.Count,
+                item.TotalCost);
+
+            shopDetailsProductComponent.BorderThickness = new Thickness(2);
+            St_productList.Children.Add(shopDetailsProductComponent);
+            rowNumber++;
         }
     }
+
+    private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+    {
+        FilterProductSales();
+    }
+
+    private void WorkerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        FilterProductSales();
+    }
+
+    private void SearchTextBox_KeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Enter)
+        {
+            FilterProductSales();
+        }
+    }
+
+    private void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        GetAllProduct();
+    }
+
 }

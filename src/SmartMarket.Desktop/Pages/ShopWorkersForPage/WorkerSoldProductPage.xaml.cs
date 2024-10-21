@@ -33,7 +33,8 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
 
         public void ShowWorkerSoldProducts(WorkerDto? worker)
         {
-            var productSales = worker?.ProductSales.OrderByDescending(p => p.CreatedDate).ToList();
+            var productSales = worker?.ProductSales.Where(p => p.Count != 0)
+                .OrderByDescending(p => p.CreatedDate).ToList();
 
             St_WorkerSoldProducts.Visibility = Visibility.Visible;
             St_WorkerSoldProducts.Children.Clear();
