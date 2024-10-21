@@ -7,6 +7,7 @@ using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
 using SmartMarketDesktop.DTOs.DTOs.Product;
+using System.Collections.Generic;
 using System.Text;
 
 namespace SmartMarketDeskop.Integrated.Server.Repositories.Products;
@@ -97,7 +98,7 @@ public class ProductServer : IProductServer
         }
     }
 
-    public async Task<List<ProductDto>> GetAllAsync()
+    public async Task<List<FullProductDto>> GetAllAsync()
     {
         try
         {
@@ -111,18 +112,18 @@ public class ProductServer : IProductServer
 
             string response=await message.Content.ReadAsStringAsync();
 
-            List<ProductDto> products=JsonConvert.DeserializeObject<List<ProductDto>>(response)!;
+            List<FullProductDto> products=JsonConvert.DeserializeObject<List<FullProductDto>>(response)!;
 
             return products;
 
         }
         catch
         {
-            return new List<ProductDto>();
+            return new List<FullProductDto>();
         }
     }
 
-    public async Task<ProductDto> GetByBarCodeAsync(string barcode)
+    public async Task<FullProductDto> GetByBarCodeAsync(string barcode)
     {
         try
         {
@@ -136,7 +137,7 @@ public class ProductServer : IProductServer
 
             string response = await message.Content.ReadAsStringAsync();
 
-            var products = JsonConvert.DeserializeObject<ProductDto>(response)!;
+            var products = JsonConvert.DeserializeObject<FullProductDto>(response)!;
 
             return products;
         }
@@ -146,7 +147,7 @@ public class ProductServer : IProductServer
         } 
     }
 
-    public async Task<List<ProductDto>> GetByCategoryIdAsync(Guid categoryId)
+    public async Task<List<FullProductDto>> GetByCategoryIdAsync(Guid categoryId)
     {
         try
         {
@@ -160,18 +161,18 @@ public class ProductServer : IProductServer
 
             string response = await message.Content.ReadAsStringAsync();
 
-            List<ProductDto> products = JsonConvert.DeserializeObject<List<ProductDto>>(response)!;
+            List<FullProductDto> products = JsonConvert.DeserializeObject<List<FullProductDto>>(response)!;
 
             return products;
 
         }
         catch
         {
-            return new List<ProductDto>();
+            return new List<FullProductDto>();
         }
     }
 
-    public async Task <ProductDto> GetByPCodeAsync(string PCode)
+    public async Task<List<FullProductDto>> GetByPCodeAsync(string PCode)
     {
         try
         {
@@ -185,18 +186,18 @@ public class ProductServer : IProductServer
 
             string response = await message.Content.ReadAsStringAsync();
 
-            var products = JsonConvert.DeserializeObject<ProductDto>(response)!;
+            var products = JsonConvert.DeserializeObject<List<FullProductDto>>(response)!;
 
             return products;
 
         }
         catch
         {
-            return null!;
+            return new List<FullProductDto>();
         }
     }
 
-    public async Task<ProductDto> GetByProductNameAsync(string productName)
+    public async Task<List<FullProductDto>> GetByProductNameAsync(string productName)
     {
         try
         {
@@ -210,18 +211,18 @@ public class ProductServer : IProductServer
 
             string response = await message.Content.ReadAsStringAsync();
 
-            var products = JsonConvert.DeserializeObject<ProductDto>(response)!;
+            var products = JsonConvert.DeserializeObject<List<FullProductDto>>(response)!;
 
             return products;
 
         }
         catch
         {
-            return null!;
+            return new List<FullProductDto>();
         }
     }
 
-    public async Task<List<ProductDto>> GetFinishedProductsAsync()
+    public async Task<List<FullProductDto>> GetFinishedProductsAsync()
     {
         try
         {
@@ -235,13 +236,13 @@ public class ProductServer : IProductServer
 
             string response = await message.Content.ReadAsStringAsync();
 
-            List<ProductDto> products = JsonConvert.DeserializeObject<List<ProductDto>>(response)!;
+            List<FullProductDto> products = JsonConvert.DeserializeObject<List<FullProductDto>>(response)!;
 
             return products;
         }
         catch(Exception ex)
         { 
-            return new List<ProductDto>();
+            return new List<FullProductDto>();
         }
     }
 

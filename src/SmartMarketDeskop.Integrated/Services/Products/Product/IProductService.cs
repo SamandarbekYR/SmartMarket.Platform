@@ -7,10 +7,10 @@ public interface IProductService
     Task<bool> CreateProduct(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto dto);
     Task<bool> UpdateProduct(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto product, Guid Id);
     Task<bool> DeleteProduct(Guid Id);
-    Task<List<ProductDto>> GetAll();
-    Task<List<ProductDto>> GetByCategoryId(Guid categoryId);
-    Task<ProductDto> GetByBarCode(string barCode);
-    Task<ProductDto> GetByPCode(string PCode);
-    Task<ProductDto> GetByProductName(string productName);
-    Task<List<ProductDto>> GetFinishedProducts();
+    Task<List<FullProductDto>> GetAll();
+    Task<List<FullProductDto>> GetByCategoryId(Guid categoryId);
+    Task<FullProductDto> GetByBarCode(string barCode);
+    Task<List<FullProductDto>> GetByPCode(string PCode);
+    Task<List<FullProductDto>> GetByProductName(string productName);
+    Task<List<FullProductDto>> GetFinishedProducts();
  }
