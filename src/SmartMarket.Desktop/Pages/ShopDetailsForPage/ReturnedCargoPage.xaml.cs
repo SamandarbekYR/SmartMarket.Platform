@@ -69,7 +69,7 @@ public partial class ReturnedCargoPage : Page
         ShowReplaceProducts(filteredProducts);
     }
 
-    private void ShowReplaceProducts(IEnumerable<ReplaceProductDto> replaceProducts)
+    private void ShowReplaceProducts(IList<ReplaceProductDto> replaceProducts)
     {
         replaceProducts = replaceProducts.OrderByDescending(ps => ps.CreatedDate).ToList();
 
@@ -77,13 +77,15 @@ public partial class ReturnedCargoPage : Page
         var totalCost = replaceProducts.Sum(sum => sum.ProductSale!.Product.SellPrice * sum.Count);
         _shopDetailsPage.SetValuesReturnProducts(count, totalCost);
 
-        St_ReturnedProducts.Visibility = Visibility.Visible;
+        Loader.Visibility = Visibility.Collapsed;
         St_ReturnedProducts.Children.Clear();
         int rowNumber = 1;
 
+        if (replaceProducts.Count > 0)
+        {
             foreach (var item in replaceProducts)
             {
-                double totalPrice = item.ProductSale.Product.SellPrice * item.Count;
+                double totalPrice = item.ProductSale!.Product.SellPrice * item.Count;
                 ReturnedCargoComponent returnedCargoComponent = new ReturnedCargoComponent();
                 returnedCargoComponent.Tag = item.Id;
                 //returnedCargoComponent.SetValues(
@@ -94,9 +96,14 @@ public partial class ReturnedCargoPage : Page
                 //    item.Count,
                 //    totalPrice);
 
-            returnedCargoComponent.BorderThickness = new Thickness(2);
-            St_ReturnedProducts.Children.Add(returnedCargoComponent);
-            rowNumber++;
+                returnedCargoComponent.BorderThickness = new Thickness(2);
+                St_ReturnedProducts.Children.Add(returnedCargoComponent);
+                rowNumber++;
+            }
+        }
+        else
+        {
+            EmptyData.Visibility = Visibility.Visible;
         }
     }
     

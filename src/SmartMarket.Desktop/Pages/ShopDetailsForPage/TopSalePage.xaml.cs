@@ -55,7 +55,7 @@ public partial class TopSalePage : Page
         await ShowProductSales(filteredProductSales);
     }
 
-    private async Task ShowProductSales(IEnumerable<ProductSaleViewModel> productSales)
+    private async Task ShowProductSales(IList<ProductSaleViewModel> productSales)
     {
         productSales = productSales.Where(ps => ps.Count != 0)
             .OrderByDescending(ps => ps.CreatedDate).ToList();
@@ -79,24 +79,30 @@ public partial class TopSalePage : Page
                 groupedProducts = groupedProducts.Take(count).ToList();
             }
         }
-
-        St_TopSale.Visibility = Visibility.Visible;
+        Loader.Visibility = Visibility.Collapsed;
         St_TopSale.Children.Clear();
         int rowNumber = 1;
 
-        foreach (var item in groupedProducts)
+        if (groupedProducts.Count > 0)
         {
-            TopSaleComponent topSaleComponent = new TopSaleComponent();
-            topSaleComponent.Tag = rowNumber;
-            topSaleComponent.SetValues(
-                item.ProductName,
-                item.TotalCount,
-                item.TotalSales,
-                item.Profit);
+            foreach (var item in groupedProducts)
+            {
+                TopSaleComponent topSaleComponent = new TopSaleComponent();
+                topSaleComponent.Tag = rowNumber;
+                topSaleComponent.SetValues(
+                    item.ProductName,
+                    item.TotalCount,
+                    item.TotalSales,
+                    item.Profit);
 
-            topSaleComponent.BorderThickness = new Thickness(2);
-            St_TopSale.Children.Add(topSaleComponent);
-            rowNumber++;
+                topSaleComponent.BorderThickness = new Thickness(2);
+                St_TopSale.Children.Add(topSaleComponent);
+                rowNumber++;
+            }
+        }
+        else
+        {
+            EmptyData.Visibility = Visibility.Visible;
         }
     }
 

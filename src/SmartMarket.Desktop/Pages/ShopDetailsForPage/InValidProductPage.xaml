@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ShopDetailsForPage"
+      xmlns:local="clr-namespace:SmartMarket.Desktop.Components.Loader"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       Title="InValidProductPage"
@@ -145,10 +145,30 @@
             BorderThickness="1 0 1 1"
             Background="White">
 
-            <ScrollViewer>
-                <StackPanel  x:Name="St_InValidProducts">
-                </StackPanel>
-            </ScrollViewer>
+            <Grid>
+
+                <local:Loader
+                    x:Name="Loader"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"/>
+
+                <ScrollViewer>
+                    <StackPanel  
+                        x:Name="St_InValidProducts">
+                    </StackPanel>
+                </ScrollViewer>
+
+                <Label
+                    Name="EmptyData"
+                    Visibility="Collapsed"
+                    FontSize="16"
+                    Foreground="#a6a6a6"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="Ma'lumot topilmadi."/>
+
+            </Grid>
+
             
         </Border>
     </Grid>

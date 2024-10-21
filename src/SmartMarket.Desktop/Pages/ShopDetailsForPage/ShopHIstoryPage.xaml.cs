@@ -73,7 +73,7 @@ public partial class ShopHIstoryPage : Page
 
     }
 
-    private async Task ShowProductSales(IEnumerable<ProductSaleViewModel> productSales)
+    private async Task ShowProductSales(IList<ProductSaleViewModel> productSales)
     {
         productSales = productSales.Where(ps => ps.Count != 0)
             .OrderByDescending(ps => ps.CreatedDate).ToList();
@@ -92,25 +92,32 @@ public partial class ShopHIstoryPage : Page
         var totalExpense = expenses.Sum(e => e.Amount);
         _shopDetailsPage.SetValuesShopHitory(totalCost, profit, totalExpense);
 
-        St_productList.Visibility = Visibility.Visible;
         St_productList.Children.Clear();
+        Loader.Visibility = Visibility.Collapsed;
         int rowNumber = 1;
 
-        foreach (var item in productSales)
+        if (productSales.Count > 0)
         {
-            ShopDetailsProductComponent shopDetailsProductComponent = new ShopDetailsProductComponent();
-            shopDetailsProductComponent.Tag = item;
-            shopDetailsProductComponent.SetValues(
-                rowNumber,
-                item.TransactionNumber,
-                item.Product.Name,
-                item.Product.SellPrice,
-                item.Count,
-                item.TotalCost);
+            foreach (var item in productSales)
+            {
+                ShopDetailsProductComponent shopDetailsProductComponent = new ShopDetailsProductComponent();
+                shopDetailsProductComponent.Tag = item;
+                shopDetailsProductComponent.SetValues(
+                    rowNumber,
+                    item.TransactionNumber,
+                    item.Product.Name,
+                    item.Product.SellPrice,
+                    item.Count,
+                    item.TotalCost);
 
-            shopDetailsProductComponent.BorderThickness = new Thickness(2);
-            St_productList.Children.Add(shopDetailsProductComponent);
-            rowNumber++;
+                shopDetailsProductComponent.BorderThickness = new Thickness(2);
+                St_productList.Children.Add(shopDetailsProductComponent);
+                rowNumber++;
+            }
+        }
+        else
+        {
+            EmptyData.Visibility = Visibility.Visible;
         }
     }
 
