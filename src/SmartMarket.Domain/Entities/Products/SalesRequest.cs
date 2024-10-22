@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace SmartMarket.Domain.Entities.Products
 {
+    [Table("sales_request")]
     public class SalesRequest : BaseEntity
     {
         [Column("transaction_id")]
