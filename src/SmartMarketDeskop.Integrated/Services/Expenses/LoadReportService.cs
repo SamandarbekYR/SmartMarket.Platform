@@ -1,13 +1,7 @@
 ﻿using SmartMarket.Service.DTOs.Products.LoadReport;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
 using SmartMarketDeskop.Integrated.Server.Repositories.Expenses;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartMarketDeskop.Integrated.Services.Expenses
 {
@@ -34,6 +28,16 @@ namespace SmartMarketDeskop.Integrated.Services.Expenses
             if(IsInternetAvialable())
             {
                 var loadReports = await _loadReportServer.GetAllAsync();
+                return loadReports;
+            }
+            else { return new List<LoadReportDto>(); }
+        }
+
+        public async Task<List<LoadReportDto>> GetByContrAgentIdAsync(Guid contrAgentId)
+        {
+            if(IsInternetAvialable())
+            {
+                var loadReports = await _loadReportServer.GetLoadReportsByContrAgentIdAsync(contrAgentId);
                 return loadReports;
             }
             else { return new List<LoadReportDto>(); }

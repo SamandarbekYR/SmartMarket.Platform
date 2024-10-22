@@ -4,13 +4,7 @@ using SmartMarket.Service.DTOs.Products.LoadReport;
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
-using SmartMarketDesktop.ViewModels.Entities.Expenses;
-using SmartMarketDesktop.ViewModels.Entities.Products;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SmartMarketDeskop.Integrated.Server.Repositories.Expenses
 {
@@ -61,6 +55,28 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Expenses
                 return expenses;
             }
             catch (Exception ex)
+            {
+                return new List<LoadReportDto>();
+            }
+        }
+
+        public async Task<List<LoadReportDto>> GetLoadReportsByContrAgentIdAsync(Guid contrAgentId)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+
+                var token = IdentitySingelton.GetInstance().Token;
+                client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/load-reports/contr-agent/{contrAgentId}");
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                HttpResponseMessage responseMessage = await client.GetAsync(client.BaseAddress);
+
+                string response = await responseMessage.Content.ReadAsStringAsync();
+                List<LoadReportDto> loadReports = JsonConvert.DeserializeObject<List<LoadReportDto>>(response)!;
+
+                return loadReports;
+            }
+            catch(Exception ex)
             {
                 return new List<LoadReportDto>();
             }

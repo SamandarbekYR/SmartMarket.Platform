@@ -9,7 +9,7 @@ public interface ILoadReportService
     Task<bool> DeleteAsync(Guid Id);
     Task<List<LoadReportDto>> GetAllAsync();
     Task<bool> UpdateAsync(AddLoadReportDto dto, Guid Id);
-
+    Task<IEnumerable<LoadReportDto>> GetLoadReportsByContrAgentIdAsync(Guid contrAgentId);
     Task<List<LoadReportDto>> GetLoadReportsByCompanyNameAsync(string companyName);
     Task<List<LoadReportDto>> FilterLoadReportAsync(FilterLoadReportDto dto);
 }
