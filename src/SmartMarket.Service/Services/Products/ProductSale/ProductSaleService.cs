@@ -39,24 +39,6 @@ namespace SmartMarket.Service.Services.Products.ProductSale
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
                 }
 
-                var workerExists = await _unitOfWork.Worker.GetById(dto.WorkerId) != null;
-                if (!workerExists)
-                {
-                    throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
-                }
-
-                var transactionExists = await _unitOfWork.Transaction.GetById(dto.TransactionId) != null;
-                if (!transactionExists)
-                {
-                    throw new StatusCodeException(HttpStatusCode.NotFound, "Transaction not found.");
-                }
-
-                var payDeskExists = await _unitOfWork.PayDesk.GetById(dto.PayDeskId) != null;
-                if (!payDeskExists)
-                {
-                    throw new StatusCodeException(HttpStatusCode.NotFound, "Pay Desk not found.");
-                }
-
                 DateTime now = DateTime.UtcNow.AddHours(5);
 
                 var productSale = _mapper.Map<Et.ProductSale>(dto);
@@ -239,24 +221,6 @@ namespace SmartMarket.Service.Services.Products.ProductSale
                 if (!productExists)
                 {
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
-                }
-
-                var workerExists = await _unitOfWork.Worker.GetById(dto.WorkerId) != null;
-                if (!workerExists)
-                {
-                    throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
-                }
-
-                var transactionExists = await _unitOfWork.Transaction.GetById(dto.TransactionId) != null;
-                if (!transactionExists)
-                {
-                    throw new StatusCodeException(HttpStatusCode.NotFound, "Transaction not found.");
-                }
-
-                var payDeskExists = await _unitOfWork.PayDesk.GetById(dto.PayDeskId) != null;
-                if (!payDeskExists)
-                {
-                    throw new StatusCodeException(HttpStatusCode.NotFound, "Pay Desk not found.");
                 }
 
                 _mapper.Map(dto, productSale);

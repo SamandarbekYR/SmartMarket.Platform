@@ -23,6 +23,13 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity
 
         return result > 0;
     }
+    public async Task<bool> AddRange(IEnumerable<TEntity> entities)
+    {
+        await _dbSet.AddRangeAsync(entities);
+        int result = await _appDb.SaveChangesAsync();
+
+        return result > 0;
+    }
     public IQueryable<TEntity> GetAll()
     => _dbSet.AsQueryable();
     public async Task<TEntity?> GetById(Guid id)

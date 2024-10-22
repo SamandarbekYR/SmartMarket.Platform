@@ -32,6 +32,7 @@ namespace SmartMarket.DataAccess.Interfaces
         IReplaceProduct ReplaceProduct { get; set; }
         ITransaction Transaction { get; set; }
         IPosition Position { get; set; }
+        ISalesRequest SalesRequest { get; set; }
         ISalary Salary { get; set; }
         ISalaryCheck SalaryCheck { get; set; }
         ISalaryWorker SalaryWorker { get; set; }
