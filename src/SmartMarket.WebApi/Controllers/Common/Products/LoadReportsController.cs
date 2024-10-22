@@ -49,7 +49,25 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
             }
         }
 
-            [HttpPost]
+        [HttpGet("contr-agent/{contrAgentId}")]
+        public async Task<IActionResult> GetLoadReportsByContrAgentIdAsync([FromRoute] Guid contrAgentId)
+        {
+            try
+            {
+                var loadReports = await _loadReportService.GetLoadReportsByContrAgentIdAsync(contrAgentId);
+                return Ok(loadReports);
+            }
+            catch(StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPost]
         public async Task<IActionResult> AddAsync([FromBody] AddLoadReportDto dto)
         {
             try

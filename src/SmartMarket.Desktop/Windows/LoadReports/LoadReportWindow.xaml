@@ -1,0 +1,175 @@
+﻿<Window x:Class="SmartMarket.Desktop.Windows.LoadReports.LoadReportWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmartMarket.Desktop.Windows.LoadReports"
+        mc:Ignorable="d"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Title="ExpensesWindow" 
+        WindowState="Maximized"
+        Loaded="Window_Loaded">
+    <Border
+        Background="White"
+        Height="700" 
+        Width="1000"
+        BorderThickness="1"
+        CornerRadius="8"
+        BorderBrush="{DynamicResource BorderColor}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border
+               Grid.Row="0"
+               BorderBrush="Black"
+               CornerRadius="8 8 0 0"
+               BorderThickness="0 0 0 1"
+               Background="#04C217"
+               >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.4*"/>
+                        <ColumnDefinition Width="0.7*"/>
+                        <ColumnDefinition Width="0.7*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="60"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0"
+                        Text="Barcha Mahsulotlar"
+                        VerticalAlignment="Center"
+                        Margin="15 0 0 0"
+                        FontSize="20"
+                        Foreground="White"
+                        FontWeight="DemiBold"
+                        ></TextBlock>
+
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Grid.Column="1">
+
+
+                        <DatePicker
+                            x:Name="fromDateTime"
+                            Style="{DynamicResource FormDatePicker}"/>
+                        <Label
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            VerticalAlignment="Center"
+                            Content="dan"/>
+
+                    </StackPanel>
+
+                    <StackPanel
+                        Orientation="Horizontal"
+                        Grid.Column="2">
+
+                        <DatePicker
+                                x:Name="toDateTime"
+                                SelectedDateChanged="DatePicker_SelectedDateChanged"
+                                Style="{DynamicResource FormDatePicker}"/>
+                        <Label
+                            FontSize="14"
+                            FontWeight="SemiBold"
+                            VerticalAlignment="Center"
+                            Content="gacha"/>
+
+                    </StackPanel>
+
+                    <TextBox
+                        x:Name="searchTextBox"
+                        Margin="10 5 10 5"
+                        KeyDown="SearchTextBox_KeyDown"
+                        Style="{DynamicResource search}"
+                        Grid.Column="3"/>
+
+                    <Button
+                        Grid.Column="4"
+                        Foreground="White"
+                        Margin="0 0 5 0"
+                        Style="{DynamicResource btnClose}" Click="Button_Click"/>
+
+                </Grid>
+            </Border>
+            <Grid Grid.Row="1"
+                  Margin="0 0 0 10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="35"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0"
+                    Margin="5 0 15 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.8*"/>
+                        <ColumnDefinition Width="0.5*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock
+                         Grid.Column="0"
+                         Text="No"
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Center"
+                         FontSize="15"
+                         FontWeight="SemiBold"
+                         ></TextBlock>
+
+
+                    <TextBlock
+                         Grid.Column="1"
+                         Text="Mahsulot nomi"
+                         VerticalAlignment="Center"
+                         FontSize="15"
+                         FontWeight="SemiBold"
+                         ></TextBlock>
+
+                    <TextBlock
+                         Text="Narxi"
+                         Grid.Column="2"
+                         VerticalAlignment="Center"
+                         FontSize="15"
+                         FontWeight="SemiBold"
+                         ></TextBlock>
+
+                    <TextBlock
+                         Grid.Column="3"
+                         Text="Soni"
+                         VerticalAlignment="Center"
+                         FontSize="15"
+                         FontWeight="SemiBold"
+                         ></TextBlock>
+
+                    <TextBlock
+                         Grid.Column="4"
+                         Text="Jami summasi"
+                         VerticalAlignment="Center"
+                         FontSize="15"
+                         FontWeight="SemiBold"
+                         ></TextBlock>
+
+                </Grid>
+                <Border 
+                    Grid.Row="1" 
+                    Background="White">
+                    <ScrollViewer 
+                        VerticalScrollBarVisibility="Auto" 
+                        HorizontalScrollBarVisibility="Auto">
+                        <StackPanel
+                            Name="St_CargoReports">
+                                
+                        </StackPanel>
+                    </ScrollViewer>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

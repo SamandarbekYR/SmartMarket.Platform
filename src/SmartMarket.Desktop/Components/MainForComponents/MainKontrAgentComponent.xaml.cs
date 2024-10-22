@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Desktop.Windows.ContrAgents;
+using SmartMarket.Desktop.Windows.LoadReports;
 using SmartMarket.Desktop.Windows.PaymentWindow;
 using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgents;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.PartnerCompany;
@@ -63,6 +64,17 @@ public partial class MainKontrAgentComponent : UserControl
 
     private void History_Button_Click(object sender, RoutedEventArgs e)
     {
+        var contrAgent = this.Tag as ContrAgentViewModels;
 
+        if(contrAgent.Id != Guid.Empty)
+        {
+            LoadReportWindow loadReportWindow = new LoadReportWindow();
+            loadReportWindow.SetContrAgentId(contrAgent.Id);
+            loadReportWindow.ShowDialog();
+        }
+        else
+        {
+            MessageBox.Show("Contr agent topilmadi!");
+        }
     }
 }

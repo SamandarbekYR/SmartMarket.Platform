@@ -114,13 +114,17 @@
                 Grid.Row="1"
                 Margin="0 0 0 10"
                 >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="124*"/>
+                    <ColumnDefinition Width="375*"/>
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="35"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Grid 
-                    Margin="5 0 15 0"
-                    Grid.Row="0">
+                    Margin="5,0,15,0"
+                    Grid.Row="0" Grid.ColumnSpan="2">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="40"/>
@@ -183,7 +187,7 @@
 
                 </Grid>
                 <Border 
-                    Grid.Row="1">
+                    Grid.Row="1" Grid.ColumnSpan="2">
                     <ScrollViewer>
                         <StackPanel 
                             x:Name="St_ReturnProduct">

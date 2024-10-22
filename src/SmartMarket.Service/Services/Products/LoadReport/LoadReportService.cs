@@ -164,6 +164,40 @@ namespace SmartMarket.Service.Services.Products.LoadReport
             throw new NotImplementedException();
         }
 
+        public async Task<IEnumerable<LoadReportDto>> GetLoadReportsByContrAgentIdAsync(Guid contrAgentId)
+        {
+            try
+            {
+                var loadReports = await _unitOfWork.LoadReport.GetLoadReportsFullInformationAsync();
+
+                if(contrAgentId != Guid.Empty)
+                {
+                    loadReports = loadReports.Where(
+                        x => x.ContrAgentId == contrAgentId).ToList();
+                }
+
+                var loadReportDtos = loadReports.Select(l => new LoadReportDto
+                {
+                    Id = l.Id,
+                    WorkerId = l.WorkerId,
+                    Worker = l.Worker,
+                    ProductId = l.ProductId,
+                    ContrAgentId = l.ContrAgentId,
+                    TotalPrice = l.TotalPrice,
+                    ProductName = l.Product.Name,
+                    ProductCount = l.Product.Count,
+                    ProductPrice = l.Product.Price
+                }).ToList();
+
+                return loadReportDtos;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while getting all load reports by contr agent id.");
+                throw;
+            }
+        }
+
         public async Task<bool> UpdateAsync(AddLoadReportDto dto, Guid Id)
         {
             try
