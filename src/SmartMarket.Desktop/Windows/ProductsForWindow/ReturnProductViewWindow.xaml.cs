@@ -119,16 +119,8 @@ public partial class ReturnProductViewWindow : Window
             AddProductSaleDto productSaleDto = new AddProductSaleDto()
             {
                 ProductId = _productSale.ProductId,
-                WorkerId = _productSale.Product.WorkerId,
-                TransactionId = _productSale.TransactionId,
-                PayDeskId = _productSale.PayDeskId,
-                TransactionNumber = _productSale.TransactionNumber,
                 Count = _productSale.Count - replaceProductDto.Count,
                 TotalCost = _productSale.TotalCost - _productSale.Product.SellPrice * replaceProductDto.Count,
-                CashSum = _productSale.CashSum,
-                CardSum = _productSale.CardSum,
-                TransferMoney = _productSale.TransferMoney,
-                DebtSum = _productSale.DebtSum
             };
 
             var result =  await _productSaleService.UpdateAsync(productSaleDto, _productSale.Id);

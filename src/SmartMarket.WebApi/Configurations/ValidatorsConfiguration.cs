@@ -17,6 +17,7 @@ using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.DTOs.Products.ProductImage;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.DTOs.Products.ReplaceProduct;
+using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarket.Service.DTOs.Transaction;
 using SmartMarket.Service.DTOs.Workers.Position;
 using SmartMarket.Service.DTOs.Workers.Salary;
@@ -57,5 +58,6 @@ public static class ValidatorsConfiguration
         builder.Services.AddScoped<IValidator<AddContrAgentDto>, ContrAgentValidator>();
         builder.Services.AddScoped<IValidator<AddContrAgentPaymentDto>, ContrAgentPaymentValidator>();
         builder.Services.AddScoped<IValidator<AddPartnerCompanyDto>, PartnerCompanyValidator>();
+        builder.Services.AddScoped<IValidator<AddSalesRequestDto>, SalesRequestValidator>();
     }
 }

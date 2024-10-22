@@ -179,6 +179,11 @@ namespace SmartMarket.DataAccess.Data
                 .HasIndex(c => new { c.TransactionId })
                 .IsUnique();
 
+            modelBuilder.Entity<SalesRequest>()
+                .Property(e => e.TransactionId)
+                .HasColumnName("transaction_id") 
+                .ValueGeneratedOnAdd(); 
+
             modelBuilder.Entity<ReplaceProduct>(entity =>
             {
                 entity.HasOne(rp => rp.ProductSale)
