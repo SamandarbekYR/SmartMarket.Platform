@@ -31,6 +31,6 @@ namespace SmartMarket.Domain.Entities.Products
         [Column("debt_sum")]
         public double DebtSum { get; set; }
         public List<ProductSale> ProductSaleItems { get; set; }
-       
+        
     }
 }
