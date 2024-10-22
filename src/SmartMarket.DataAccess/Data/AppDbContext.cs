@@ -175,6 +175,10 @@ namespace SmartMarket.DataAccess.Data
 
             });
 
+            modelBuilder.Entity<SalesRequest>()
+                .HasIndex(c => new { c.TransactionId })
+                .IsUnique();
+
             modelBuilder.Entity<ReplaceProduct>(entity =>
             {
                 entity.HasOne(rp => rp.ProductSale)
@@ -249,6 +253,7 @@ namespace SmartMarket.DataAccess.Data
         DbSet<Product> Products { get; set; }
         DbSet<ProductImage> ProductImages { get; set; }
         DbSet<ProductSale> ProductSale { get; set; }
+        DbSet<SalesRequest> SalesRequests { get; set; }
         DbSet<ReplaceProduct> ReplaceProducts { get; set; }
         DbSet<Transaction> Transactions { get; set; }
         DbSet<Position> Positions { get; set; }
