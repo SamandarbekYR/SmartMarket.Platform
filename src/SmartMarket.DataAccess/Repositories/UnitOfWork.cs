@@ -45,6 +45,7 @@ namespace SmartMarket.DataAccess.Repositories
         public IReplaceProduct ReplaceProduct { get; set; } = new ReplaceProductRepository(appDb);
         public ITransaction Transaction { get; set; } = new TransactionRepository(appDb);
         public IPosition Position { get; set; } = new PositionRepository(appDb);
+        public ISalesRequest SalesRequest { get; set; } = new SalesRequestRepository(appDb);
         public ISalary Salary { get; set; } = new SalaryRepository(appDb);
         public ISalaryCheck SalaryCheck { get; set; } = new SalaryCheckRepository(appDb);
         public ISalaryWorker SalaryWorker { get; set; } = new SalaryWorkerRepository(appDb);
