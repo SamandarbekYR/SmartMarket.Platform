@@ -88,7 +88,7 @@ public partial class MainPage : Page
         }
     }
 
-    public void AddNewProductTvm(ProductDto product, int count)
+    public void AddNewProductTvm(FullProductDto product, int count)
     {
         string barcode = product.Barcode;
         if (!tvm.Transactions.Any(t => t.Barcode == barcode))
@@ -122,7 +122,7 @@ public partial class MainPage : Page
         ColculateTotalPrice();
     }
 
-    private void AddNewProduct(ProductDto product, int quantity)
+    private void AddNewProduct(FullProductDto product, int quantity)
     {
         ProductComponent productComponent = new ProductComponent();
 
@@ -209,7 +209,7 @@ public partial class MainPage : Page
         Product_Barcode.Content = "";
     }
 
-    private void GetPrice(ProductDto product, int quantity)
+    private void GetPrice(FullProductDto product, int quantity)
     {
         Product_Count.Text = quantity.ToString();
         Product_Price.Content = product.SellPrice.ToString();
@@ -223,15 +223,18 @@ public partial class MainPage : Page
         return Regex.IsMatch(text, @"^\d+$");
     }
 
-    private void SetProduct(ProductDto product)
+    private void SetProduct(IList<FullProductDto> products)
     {
         st_searchproduct.Children.Clear();
-        if (product != null)
+        if (products.Count > 0)
         {
-            SearchProductComponent searchProductComponent = new SearchProductComponent();
-            searchProductComponent.Tag = product;
-            searchProductComponent.SetData(product);
-            st_searchproduct.Children.Add(searchProductComponent);
+            foreach (var product in products)
+            {
+                SearchProductComponent searchProductComponent = new SearchProductComponent();
+                searchProductComponent.Tag = product;
+                searchProductComponent.SetData(product);
+                st_searchproduct.Children.Add(searchProductComponent);
+            }
         }
     }
 

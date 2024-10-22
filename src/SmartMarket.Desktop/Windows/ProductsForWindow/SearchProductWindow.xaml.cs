@@ -64,6 +64,7 @@ public partial class SearchProductWindow : Window
 
     private void SetProduct(List<FullProductDto> product)
     {
+        Loader.Visibility = Visibility.Collapsed;
         St_Products.Children.Clear();
         if (product.Count > 0)
         {
@@ -74,6 +75,10 @@ public partial class SearchProductWindow : Window
                 searchProductComponent.SetData(item);
                 St_Products.Children.Add(searchProductComponent);
             }
+        }
+        else
+        {
+            EmptyData.Visibility = Visibility.Visible;
         }
     }
     private async void tb_search_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)

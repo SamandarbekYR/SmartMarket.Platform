@@ -70,6 +70,9 @@ public partial class LoginWindow : Window
         {
             if(IsInternetAvailable())
             {
+                btnLogin.Visibility = Visibility.Collapsed;
+                Loader.Visibility = Visibility.Visible;
+
                 UserLoginDto dto = new UserLoginDto();
                 dto.PhoneNumber = tbPhoneNumber.Text;
                 dto.password = pbPassword.Password.ToString();
@@ -80,6 +83,8 @@ public partial class LoginWindow : Window
                     IdentitySingelton.GetInstance().Token = TokenHandler.ParseToken(result.Token).Token;
 
                     string role = IdentitySingelton.GetInstance().RoleName;
+                    Loader.Visibility = Visibility.Collapsed;
+                    btnLogin.Visibility = Visibility.Visible;
 
                     if (role == "superadmin")
                     {
@@ -107,6 +112,8 @@ public partial class LoginWindow : Window
                 else
                 {
                     notifier.ShowWarning("Bunday foydalanuvchi mavjud emas!");
+                    Loader.Visibility = Visibility.Collapsed;
+                    btnLogin.Visibility = Visibility.Visible;
                 }
             }
             else
@@ -115,7 +122,7 @@ public partial class LoginWindow : Window
             }
            // notifier.Dispose();
         }
-        catch (Exception ex) 
+        catch 
         {
             
         }

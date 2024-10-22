@@ -50,7 +50,7 @@ public partial class ProductComponent : UserControl
         }
     }
 
-    public void SetData(ProductDto product, int quantity)
+    public void SetData(FullProductDto product, int quantity)
     {
         Id = product.Id;
         AvailableCount = product.Count;

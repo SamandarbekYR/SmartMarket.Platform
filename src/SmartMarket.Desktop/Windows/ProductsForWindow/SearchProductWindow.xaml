@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SmartMarket.Desktop.Windows.ProductsForWindow"
+        xmlns:local="clr-namespace:SmartMarket.Desktop.Components.Loader"
         mc:Ignorable="d"
         WindowState="Maximized"
         WindowStyle="None"
@@ -56,17 +56,36 @@
                 TextChanged="tb_search_TextChanged"
                 Style="{DynamicResource search}"/>
 
-            <ScrollViewer
-                Margin="2 5 0 10"
-                Grid.Row="2"
-                x:Name="scrollViewer">
+            <Grid
+                Grid.Row="2">
 
-                <StackPanel
-                    x:Name="St_Products">
+                <local:Loader
+                    x:Name="Loader"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"/>
 
-                </StackPanel>
+                <ScrollViewer
+                    Margin="2 5 0 10"
+                    x:Name="scrollViewer">
 
-            </ScrollViewer>
+                    <StackPanel
+                        x:Name="St_Products">
+
+                    </StackPanel>
+
+                </ScrollViewer>
+
+                <Label
+                    Name="EmptyData"
+                    Visibility="Collapsed"
+                    FontSize="16"
+                    Foreground="#a6a6a6"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="Ma'lumot topilmadi."/>
+
+            </Grid>
+
 
         </Grid>
         

@@ -41,15 +41,16 @@ public partial class PartnersPage : Page
         }
         return mainWindow!;
     }
-    public async void GetAllDebtor()
+    public async Task GetAllDebtor()
     {
         St_partners.Children.Clear();
 
-        var partners = await _partnerService.GetAll();
+        var partners = await Task.Run(() => _partnerService.GetAll());
+        Loader.Visibility = Visibility.Collapsed;
 
         int count = 1;
 
-        if (partners != null)
+        if (partners.Count > 0)
         {
             foreach (var partner in partners)
             {
@@ -63,13 +64,13 @@ public partial class PartnersPage : Page
         }
         else
         {
-            // loader o'chirilib malumot topilmadi degan yozuv chiqarib qo'yiladi
+            EmptyData.Visibility = Visibility.Visible;
         }
     }
 
-    private void Page_Loaded(object sender, RoutedEventArgs e)
+    private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        GetAllDebtor();
+        await GetAllDebtor();
     }
 
     private void Partner_Create_Button_Click(object sender, RoutedEventArgs e)

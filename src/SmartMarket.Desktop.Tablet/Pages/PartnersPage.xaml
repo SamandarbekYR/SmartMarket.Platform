@@ -4,6 +4,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:local="clr-namespace:SmartMarket.Desktop.Tablet.Components.Loader"
       mc:Ignorable="d" 
       Loaded="Page_Loaded"
       Title="PartnersPage">
@@ -108,14 +109,33 @@
                     Background="White" 
                     CornerRadius="0 0 5 5">
 
-                    <ScrollViewer>
-                        <StackPanel
-                            Margin="10 5 15 10"
-                            x:Name="St_partners">
-                            
-                            
-                        </StackPanel>
-                    </ScrollViewer>
+                    <Grid>
+
+                    <local:Loader
+                        x:Name="Loader"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"/>
+
+                        <ScrollViewer>
+                            <StackPanel
+                                Margin="10 5 15 10"
+                                x:Name="St_partners">
+                                
+                                
+                            </StackPanel>
+                        </ScrollViewer>
+
+                    <Label
+                        Name="EmptyData"
+                        Visibility="Collapsed"
+                        FontSize="16"
+                        Foreground="#a6a6a6"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="Ma'lumot topilmadi."/>
+
+                </Grid>
+
                 </Border>
 
                 <Border
