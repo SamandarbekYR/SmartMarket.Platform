@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Images\loader.gif" />
     <None Remove="Assets\Images\login_background.png" />
     <None Remove="Assets\Images\login_close.png" />
   </ItemGroup>
@@ -24,11 +25,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Assets\Images\loader.gif" />
     <Resource Include="Assets\Images\login_background.png" />
     <Resource Include="Assets\Images\login_close.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Components\Loader\Loader.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\MessageBoxWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

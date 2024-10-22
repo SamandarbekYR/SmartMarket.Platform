@@ -63,15 +63,18 @@ public partial class SecondPage : Page
         return Regex.IsMatch(text, @"^\d+$");
     }
 
-    private void SetProduct(ProductDto product)
+    private void SetProduct(IList<FullProductDto> products)
     {
         st_searchproduct.Children.Clear();
-        if (product != null)
+        if (products.Count > 0)
         {
-            SearchProductComponent searchProductComponent = new SearchProductComponent();
-            searchProductComponent.Tag = product;
-            searchProductComponent.SetData(product);
-            st_searchproduct.Children.Add(searchProductComponent);
+            foreach (var product in products)
+            {
+                SearchProductComponent searchProductComponent = new SearchProductComponent();
+                searchProductComponent.Tag = product;
+                searchProductComponent.SetData(product);
+                st_searchproduct.Children.Add(searchProductComponent);
+            }
         }
     }
 
