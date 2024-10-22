@@ -17,12 +17,12 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
     public class SalesRequestService(IUnitOfWork unitOfWork,
                                 IMapper mapper,
                                 IValidator<AddSalesRequestDto> validator,
-                                Logger<SalesRequestService> logger) : ISalesRequestService
+                                ILogger<SalesRequestService> logger) : ISalesRequestService
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IMapper _mapper = mapper;
         private readonly IValidator<AddSalesRequestDto> _validator = validator;
-        private readonly Logger<SalesRequestService> _logger = logger;
+        private readonly ILogger<SalesRequestService> _logger = logger;
 
         public async Task<bool> AddAsync(AddSalesRequestDto dto)
         {
