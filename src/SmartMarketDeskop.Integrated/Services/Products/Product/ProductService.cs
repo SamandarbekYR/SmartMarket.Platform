@@ -1,10 +1,6 @@
 ﻿using SmartMarket.Service.DTOs.Products.Product;
-using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
-using SmartMarketDeskop.Integrated.Server.Interfaces.Workers;
-using SmartMarketDeskop.Integrated.Server.Repositories.Categories;
 using SmartMarketDeskop.Integrated.Server.Repositories.Products;
-using SmartMarketDeskop.Integrated.Server.Repositories.Workers;
 using System.Net;
 
 namespace SmartMarketDeskop.Integrated.Services.Products.Product;
@@ -12,15 +8,9 @@ namespace SmartMarketDeskop.Integrated.Services.Products.Product;
 public class ProductService : IProductService
 {
     private IProductServer productServer;
-
-    private IWorkerServer workerServer;
-    private ICategoryServer categoryServer;
     public ProductService()
     {
         this.productServer = new ProductServer();
-        this.workerServer=new WorkerServer();
-        this.categoryServer=new CategoryServer();
-
     }
 
     public async Task<bool> CreateProduct(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto dto)
@@ -76,7 +66,7 @@ public class ProductService : IProductService
     {
         try
         {
-            using (var client = new WebClient()!)
+            using (var client = new WebClient())
             using (client.OpenRead("http://google.com"))
                 return true;
         }
