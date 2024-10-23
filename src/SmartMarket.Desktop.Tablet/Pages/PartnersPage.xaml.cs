@@ -3,6 +3,7 @@ using SmartMarket.Desktop.Tablet.Windows;
 using SmartMarket.Desktop.Tablet.Windows.Partners;
 using SmartMarket.Domain.Entities.Partners;
 using SmartMarket.Service.DTOs.Partner;
+using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Partners;
 using System.Windows;
 using System.Windows.Controls;
@@ -79,29 +80,61 @@ public partial class PartnersPage : Page
         partnerCreateWindow.ShowDialog();
     }
 
+    private CancellationTokenSource _cancellationTokenSource;
+
     private async void tb_search_TextChanged(object sender, TextChangedEventArgs e)
     {
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource = new CancellationTokenSource();
+
         string search = tb_search.Text;
 
-        await Task.Run(async () =>
-        {
-            if (search.Length >= 3)
-            {
-                var partner = await _partnerService.GetByName(search);
+        St_partners.Children.Clear();
+        EmptyData.Visibility = Visibility.Collapsed;
 
-                Application.Current.Dispatcher.Invoke(() =>
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            Loader.Visibility = Visibility.Visible;
+
+            try
+            {
+                await Task.Run(async () =>
                 {
-                    SetPartner(partner);
-                });
+                    if (_cancellationTokenSource.Token.IsCancellationRequested) return;
+
+                    if (search.Length >= 1)
+                    {
+                        var partner = await _partnerService.GetByName(search);
+
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            SetPartner(partner);
+                        });
+                    }
+                },
+                _cancellationTokenSource.Token);
             }
-        });
+            catch (TaskCanceledException)
+            {
+            }
+            finally
+            {
+                Loader.Visibility = Visibility.Collapsed;
+            }
+        }
+        else
+        {
+            St_partners.Children.Clear();
+        }
     }
 
     private void SetPartner(PartnerDto dto)
     {
+        Loader.Visibility = Visibility.Collapsed;
         St_partners.Children.Clear();
         if (dto != null)
         {
+            EmptyData.Visibility = Visibility.Collapsed;
             Partner partner = new Partner()
             {
                 FirstName = dto.FirstName,
@@ -114,6 +147,10 @@ public partial class PartnersPage : Page
             partnersComponent.Tag = partner;
             partnersComponent.SetData(partner);
             St_partners.Children.Add(partnersComponent);
+        }
+        else
+        {
+            EmptyData.Visibility = Visibility.Visible;
         }
     }
 
