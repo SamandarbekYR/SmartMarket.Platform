@@ -49,13 +49,16 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
                 var salesRequest = _mapper.Map<SR.SalesRequest>(dto);
                 salesRequest.CreatedDate = DateTime.UtcNow.AddHours(5);
 
+                var result = await _unitOfWork.SalesRequest.Add(salesRequest);
+
+                foreach (var productSale in dto.ProductSaleItems)
+                {
+                    productSale.SalesRequestId = salesRequest.Id;
+                }
+
                 var productSaleItems = _mapper.Map<List<SR.ProductSale>>(dto.ProductSaleItems);
-                await _unitOfWork.ProductSale.AddRange(productSaleItems);
 
-                salesRequest.ProductSaleItems = productSaleItems;
-
-
-                return await _unitOfWork.SalesRequest.Add(salesRequest);
+                return await _unitOfWork.ProductSale.AddRange(productSaleItems);
             }
             catch (Exception ex)
             {

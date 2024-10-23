@@ -26,6 +26,7 @@ using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.DTOs.Products.ProductImage;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.DTOs.Products.ReplaceProduct;
+using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarket.Service.DTOs.Transaction;
 using SmartMarket.Service.DTOs.Workers.Position;
 using SmartMarket.Service.DTOs.Workers.Salary;
@@ -174,9 +175,6 @@ public class MapperProfile : Profile
 
         CreateMap<ProductSale, ProductSaleViewModel>()
             .ForMember(dest => dest.Product, opt => opt.MapFrom(src => src.Product))
-            //.ForMember(dest => dest.Worker, opt => opt.MapFrom(src => src.Worker))
-            //.ForMember(dest => dest.Transaction, opt => opt.MapFrom(src => src.Transaction))
-            //.ForMember(dest => dest.PayDesk, opt => opt.MapFrom(src => src.PayDesk))
             .ForMember(dest => dest.ReplaceProducts, opt => opt.MapFrom(src => src.ReplaceProducts))
             .ForMember(dest => dest.InvalidProducts, opt => opt.MapFrom(src => src.InvalidProducts));
 
@@ -185,6 +183,12 @@ public class MapperProfile : Profile
 
         CreateMap<ProductSale, ProductSaleDto>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));
+
+        /*---------SalesRequest-----------------*/
+        CreateMap<AddSalesRequestDto, SalesRequest>()
+            .ForMember(dest => dest.ProductSaleItems, opt => opt.MapFrom(src => src.ProductSaleItems));
+
+        CreateMap<AddProductSaleDto, ProductSale>();
 
         /*---------ReplaceProduct-----------------*/
         CreateMap<AddReplaceProductDto, ReplaceProduct>()
