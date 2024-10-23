@@ -84,6 +84,24 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
             }
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync(Guid id)
+        {
+            try
+            {
+                var product = await _productService.GetByIdAsync(id);
+                return Ok(product);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpGet("barcode/{barcode}")]
         public async Task<IActionResult> GetProductByBarcodeAsync(string barcode)
         {

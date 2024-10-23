@@ -10,7 +10,8 @@ using SmartMarket.Service.Common.Validators;
 using SmartMarket.Service.DTOs.Expence;
 using SmartMarket.Service.Interfaces.Expence;
 using System.Net;
-using Microsoft.Extensions.Logging; 
+using Microsoft.Extensions.Logging;
+using System.Collections.Immutable;
 
 namespace SmartMarket.Service.Services.Expence
 {
@@ -157,6 +158,35 @@ namespace SmartMarket.Service.Services.Expence
             }
         }
 
+        public async Task<FullExpenceDto> GetByIdAsync(Guid Id)
+        {
+            try
+            {
+                var expense = await _unitOfWork.Expense.GetExpensesFullInformationAsync().ToListAsync();
+
+                var expenseDto = expense.FirstOrDefault(x => x.Id == Id);
+
+                var expenseResult = new FullExpenceDto
+                {
+                    Id = expenseDto.Id,
+                    WorkerId = expenseDto.Worker.Id,
+                    PayDeskId = expenseDto.PayDesk.Id,
+                    Reason = expenseDto.Reason,
+                    Amount = expenseDto.Amount,
+                    TypeOfPayment = expenseDto.TypeOfPayment,
+                    PayDeskName = expenseDto.PayDesk.Name,
+                    WorkerFirstName= expenseDto.Worker.FirstName,
+                    WorkerLastName = expenseDto.Worker.LastName
+                };
+
+                return expenseResult;
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while getting expense by id.");
+                throw;
+            }
+        }
 
         public async Task<IEnumerable<FullExpenceDto>> GetExpensesByReasonAsync(string reason, PaginationParams paginationParams)
         {
