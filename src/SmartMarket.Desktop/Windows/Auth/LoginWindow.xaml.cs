@@ -144,4 +144,9 @@ public partial class LoginWindow : Window
             return false;
         }
     }
+
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        Loader.Visibility = Visibility.Collapsed;
+    }
 }

@@ -90,36 +90,39 @@ public partial class MainPage : Page
 
     public void AddNewProductTvm(FullProductDto product, int count)
     {
-        string barcode = product.Barcode;
-        if (!tvm.Transactions.Any(t => t.Barcode == barcode))
+        if (count > 0)
         {
-            tvm.Add(product, count);
-            AddNewProduct(product, count);
-        }
-        else
-        {
-            double totalPrice = 0;
-            double discountPrice = 0;
-            foreach (ProductComponent child in st_product.Children)
+            string barcode = product.Barcode;
+            if (!tvm.Transactions.Any(t => t.Barcode == barcode))
             {
-                if (child.Barcode == barcode)
+                tvm.Add(product, count);
+                AddNewProduct(product, count);
+            }
+            else
+            {
+                double totalPrice = 0;
+                double discountPrice = 0;
+                foreach (ProductComponent child in st_product.Children)
                 {
-                    int quantity = int.Parse(child.lb_Quantity.Content.ToString()!);
-                    if (quantity < child.AvailableCount)
+                    if (child.Barcode == barcode)
                     {
-                        quantity++;
-                        (totalPrice, discountPrice) = SetPrice(double.Parse(child.lb_Price.Content.ToString()!), float.Parse(child.lb_Discount.Content.ToString()!), quantity);
+                        int quantity = int.Parse(child.lb_Quantity.Content.ToString()!);
+                        if (quantity < child.AvailableCount)
+                        {
+                            quantity++;
+                            (totalPrice, discountPrice) = SetPrice(double.Parse(child.lb_Price.Content.ToString()!), float.Parse(child.lb_Discount.Content.ToString()!), quantity);
 
-                        child.lb_Total.Content = totalPrice.ToString();
-                        child.lb_Quantity.Content = quantity.ToString();
+                            child.lb_Total.Content = totalPrice.ToString();
+                            child.lb_Quantity.Content = quantity.ToString();
 
-                        GetPrice(product, quantity);
+                            GetPrice(product, quantity);
+                        }
                     }
                 }
+                tvm.Increment(barcode, totalPrice, discountPrice, count);
             }
-            tvm.Increment(barcode, totalPrice, discountPrice, count);
+            ColculateTotalPrice();
         }
-        ColculateTotalPrice();
     }
 
     private void AddNewProduct(FullProductDto product, int quantity)
