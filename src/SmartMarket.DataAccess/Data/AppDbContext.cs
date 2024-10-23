@@ -168,6 +168,11 @@ namespace SmartMarket.DataAccess.Data
                       .HasForeignKey(ps => ps.ProductId)
                       .OnDelete(DeleteBehavior.Restrict);
 
+                entity.HasOne(ps => ps.SalesRequest)
+                     .WithMany(p => p.ProductSaleItems)
+                     .HasForeignKey(ps => ps.SalesRequestId)
+                     .OnDelete(DeleteBehavior.Restrict);
+
             });
 
             modelBuilder.Entity<SalesRequest>()

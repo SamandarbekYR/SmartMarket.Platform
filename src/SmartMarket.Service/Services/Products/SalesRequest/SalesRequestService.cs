@@ -53,6 +53,11 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
 
                 var productSaleItems = _mapper.Map<List<SR.ProductSale>>(dto.ProductSaleItems);
 
+                foreach (var productSale in productSaleItems)
+                {
+                    productSale.SalesRequestId = salesRequest.Id;
+                }
+
                 return await _unitOfWork.ProductSale.AddRange(productSaleItems);
             }
             catch (Exception ex)

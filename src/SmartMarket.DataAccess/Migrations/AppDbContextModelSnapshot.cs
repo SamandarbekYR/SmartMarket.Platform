@@ -633,7 +633,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("product_id");
 
-                    b.Property<Guid>("SalesRequesId")
+                    b.Property<Guid>("SalesRequestId")
                         .HasColumnType("uuid")
                         .HasColumnName("sales_request_id");
 
@@ -649,7 +649,7 @@ namespace SmartMarket.DataAccess.Migrations
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("SalesRequesId");
+                    b.HasIndex("SalesRequestId");
 
                     b.HasIndex("TransactionId");
 
@@ -1206,7 +1206,7 @@ namespace SmartMarket.DataAccess.Migrations
 
                     b.HasOne("SmartMarket.Domain.Entities.Products.SalesRequest", "SalesRequest")
                         .WithMany("ProductSaleItems")
-                        .HasForeignKey("SalesRequesId")
+                        .HasForeignKey("SalesRequestId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
