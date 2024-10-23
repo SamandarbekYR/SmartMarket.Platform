@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.Common.Exceptions;
-using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarket.Service.Interfaces.Products.SalesRequest;
 
