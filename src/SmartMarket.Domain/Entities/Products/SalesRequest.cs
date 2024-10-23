@@ -25,7 +25,7 @@ namespace SmartMarket.Domain.Entities.Products
         [Column("cash_sum")]
         public double CashSum { get; set; }
         [Column("card_sum")]
-        public string CardSum { get; set; } = string.Empty;
+        public double CardSum { get; set; }
         [Column("transfer_money")]
         public double TransferMoney { get; set; }
         [Column("debt_sum")]
