@@ -1,7 +1,4 @@
-﻿using SmartMarket.Domain.Entities.Workers;
-using SmartMarket.Service.DTOs.Products.ProductSale;
-
-using PS = SmartMarket.Domain.Entities.Products;
+﻿using SmartMarket.Service.DTOs.Products.ProductSale;
 namespace SmartMarket.Service.DTOs.Products.SalesRequest
 {
     public class AddSalesRequestDto
