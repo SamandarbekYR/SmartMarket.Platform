@@ -225,6 +225,7 @@ public partial class MainPage : Page
 
     private void SetProduct(IList<FullProductDto> products)
     {
+        Loader.Visibility = Visibility.Collapsed;
         st_searchproduct.Children.Clear();
         if (products.Count > 0)
         {
@@ -235,6 +236,10 @@ public partial class MainPage : Page
                 searchProductComponent.SetData(product);
                 st_searchproduct.Children.Add(searchProductComponent);
             }
+        }
+        else
+        {
+            EmptyData.Visibility = Visibility.Visible;
         }
     }
 
@@ -367,30 +372,61 @@ public partial class MainPage : Page
         time.Start();
     }
 
+    private CancellationTokenSource _cancellationTokenSource;
+
     private async void tb_search_TextChanged(object sender, TextChangedEventArgs e)
     {
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource = new CancellationTokenSource();
+
         string search = tb_search.Text;
 
-        await Task.Run(async () =>
+        st_searchproduct.Children.Clear();
+        EmptyData.Visibility = Visibility.Collapsed;
+
+        if (!string.IsNullOrWhiteSpace(search))
         {
-            if (IsNumeric(search) && search.Length >= 5)
-            {
-                var products = await _productService.GetByPCode(search);
+            Loader.Visibility = Visibility.Visible;
 
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    SetProduct(products);
-                });
-            }
-            else if (!IsNumeric(search) && search.Length >= 2)
+            try
             {
-                var products = await _productService.GetByProductName(search);
-
-                Application.Current.Dispatcher.Invoke(() =>
+                await Task.Run(async () =>
                 {
-                    SetProduct(products);
-                });
+                    if (_cancellationTokenSource.Token.IsCancellationRequested) return;
+
+                    IList<FullProductDto> products = new List<FullProductDto>();
+
+                    if (IsNumeric(search) && search.Length >= 5)
+                    {
+                        products = await _productService.GetByPCode(search);
+                    }
+                    else if (!IsNumeric(search) && search.Length >= 1)
+                    {
+                        products = await _productService.GetByProductName(search);
+                    }
+
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        if (search == tb_search.Text)
+                        {
+                            SetProduct(products);
+                        }
+                    });
+                }, 
+                _cancellationTokenSource.Token);
             }
-        });
+            catch (TaskCanceledException)
+            {
+            }
+            finally
+            {
+                Loader.Visibility = Visibility.Collapsed;
+            }
+        }
+        else
+        {
+            st_searchproduct.Children.Clear();
+        }
     }
+
 }
