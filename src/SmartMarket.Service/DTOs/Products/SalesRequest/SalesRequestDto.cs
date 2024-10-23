@@ -12,7 +12,7 @@ namespace SmartMarket.Service.DTOs.Products.SalesRequest
         public PayDesk PayDesk { get; set; }
         public double TotalCost { get; set; }
         public double CashSum { get; set; }
-        public string CardSum { get; set; } = string.Empty;
+        public double CardSum { get; set; } 
         public double TransferMoney { get; set; }
         public double DebtSum { get; set; }
         public List<PS.ProductSale> ProductSaleItems { get; set; }
