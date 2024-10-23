@@ -11,9 +11,6 @@ namespace SmartMarket.Domain.Entities.Products
         [Column("product_id")]
         public Guid ProductId { get; set; }
         public Product Product { get; set; }
-        [Column("sales_request_id")]
-        public Guid SalesRequesId { get; set; }
-        public SalesRequest SalesRequest { get; set; }
         [Column("count")]
         public int Count { get; set; }
         [Column("discount")]
@@ -22,6 +19,7 @@ namespace SmartMarket.Domain.Entities.Products
         public double ItemTotalCost { get; set; }
         [Column("cash_sum")]
 
+        public SalesRequest SalesRequest { get; set; }
         public List<ReplaceProduct> ReplaceProducts { get; set; }
         public List<InvalidProduct> InvalidProducts { get; set; }
     }   

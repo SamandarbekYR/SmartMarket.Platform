@@ -12,8 +12,8 @@ using SmartMarket.DataAccess.Data;
 namespace SmartMarket.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241018055314_NewMigration")]
-    partial class NewMigration
+    [Migration("20241023092158_UpdateEntitiesMig")]
+    partial class UpdateEntitiesMig
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -705,9 +705,8 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<string>("CardSum")
-                        .IsRequired()
-                        .HasColumnType("text")
+                    b.Property<double>("CardSum")
+                        .HasColumnType("double precision")
                         .HasColumnName("card_sum");
 
                     b.Property<double>("CashSum")
@@ -731,8 +730,11 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnName("total_cost");
 
                     b.Property<long>("TransactionId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasColumnName("transaction_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("TransactionId"));
 
                     b.Property<double>("TransferMoney")
                         .HasColumnType("double precision")
@@ -746,9 +748,12 @@ namespace SmartMarket.DataAccess.Migrations
 
                     b.HasIndex("PayDeskId");
 
+                    b.HasIndex("TransactionId")
+                        .IsUnique();
+
                     b.HasIndex("WorkerId");
 
-                    b.ToTable("SalesRequest");
+                    b.ToTable("sales_request");
                 });
 
             modelBuilder.Entity("SmartMarket.Domain.Entities.Transactions.Transaction", b =>
