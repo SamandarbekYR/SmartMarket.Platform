@@ -66,12 +66,18 @@ public partial class QuantityWindow : Window
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         EnableBlur();
+        tb_quantity.Focus();
         lb_AvailableCount.Content = _searchProductComponent.AvailabeCount;
     }
 
     private void Save_Button_Click(object sender, RoutedEventArgs e)
     {
-        _searchProductComponent.Quantity = int.Parse(tb_quantity.Text);
+        if (!string.IsNullOrWhiteSpace(tb_quantity.Text))
+        {
+            int quantity = int.Parse(tb_quantity.Text);
+            if (quantity > 0)
+                _searchProductComponent.Quantity = quantity;
+        }
         this.Close();
     }
 

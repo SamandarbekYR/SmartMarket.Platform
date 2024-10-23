@@ -71,7 +71,6 @@
                         x:Name="tb_quantity"
                         Margin="5 0"
                         BorderThickness="0"
-                        Text="1"
                         FontSize="16"
                         PreviewTextInput="tb_quantity_PreviewTextInput"
                         TextChanged="TextBox_TextChanged"

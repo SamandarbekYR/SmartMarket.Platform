@@ -12,6 +12,7 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
+        Loaded="Window_Loaded"
         Title="LoginWindow" Height="600" Width="850">
     <Grid>
 
@@ -188,8 +189,8 @@
 
                     <local:Loader
                         x:Name="Loader"
-                        Visibility="Collapsed"
-                        Margin="0 20 0 0"
+                        Visibility="Hidden"
+                        Margin="0 10 0 0"
                         HorizontalAlignment="Center"/>
 
                     <Border x:Name="btnLogin" Height="35" Width="270"

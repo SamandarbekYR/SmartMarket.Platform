@@ -4,6 +4,7 @@ using SmartMarketDeskop.Integrated.Services.Products.Product;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Interop;
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 
@@ -62,7 +63,7 @@ public partial class SearchProductWindow : Window
         return Regex.IsMatch(text, @"^\d+$");
     }
 
-    private void SetProduct(List<FullProductDto> product)
+    private void SetProduct(IList<FullProductDto> product)
     {
         Loader.Visibility = Visibility.Collapsed;
         St_Products.Children.Clear();
@@ -81,32 +82,61 @@ public partial class SearchProductWindow : Window
             EmptyData.Visibility = Visibility.Visible;
         }
     }
-    private async void tb_search_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+
+    private CancellationTokenSource _cancellationTokenSource;
+
+    private async void tb_search_TextChanged(object sender, TextChangedEventArgs e)
     {
-        St_Products.Children.Clear();
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource = new CancellationTokenSource();
+
         string search = tb_search.Text;
 
-        await Task.Run(async () =>
+        St_Products.Children.Clear();
+        EmptyData.Visibility = Visibility.Collapsed;
+
+        if (!string.IsNullOrWhiteSpace(search))
         {
-            if (IsNumeric(search) && search.Length >= 5)
+            Loader.Visibility = Visibility.Visible;
+
+            try
             {
-                var products = await _productService.GetByPCode(search);
-
-                Application.Current.Dispatcher.Invoke(() =>
+                await Task.Run(async () =>
                 {
-                    SetProduct(products);
-                });
+                    if (_cancellationTokenSource.Token.IsCancellationRequested) return;
+
+                    IList<FullProductDto> products = new List<FullProductDto>();
+
+                    if (IsNumeric(search) && search.Length >= 5)
+                    {
+                        products = await _productService.GetByPCode(search);
+                    }
+                    else if (!IsNumeric(search) && search.Length >= 1)
+                    {
+                        products = await _productService.GetByProductName(search);
+                    }
+
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        if (search == tb_search.Text)
+                        {
+                            SetProduct(products);
+                        }
+                    });
+                },
+                _cancellationTokenSource.Token);
             }
-            else if (!IsNumeric(search) && search.Length >= 2)
+            catch (TaskCanceledException)
             {
-                var products = await _productService.GetByProductName(search);
-
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    SetProduct(products);
-                });
             }
-        });
-
+            finally
+            {
+                Loader.Visibility = Visibility.Collapsed;
+            }
+        }
+        else
+        {
+            St_Products.Children.Clear();
+        }
     }
 }

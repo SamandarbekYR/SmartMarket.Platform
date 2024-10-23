@@ -12,7 +12,7 @@ namespace SmartMarket.Desktop.Tablet.Components;
 public partial class SearchProductComponent : UserControl
 {
 
-    public int Quantity { get; set; } = 1;
+    public int Quantity { get; set; } = 0;
     public int AvailabeCount { get; set; }
 
     public SearchProductComponent()
@@ -37,6 +37,11 @@ public partial class SearchProductComponent : UserControl
                 mainPage.st_searchproduct.Children.Clear();
                 break;
             }
+            else if (frame != null && frame.Content is SecondPage secondPage)
+            {
+                secondPage.tb_search.Text = "";
+                secondPage.st_searchproduct.Children.Clear();
+            }
         }
     }
 
@@ -46,6 +51,6 @@ public partial class SearchProductComponent : UserControl
         lb_ProductName.Content = product.Name;
         lb_Price.Content = product.SellPrice;
         lb_CategoryName.Content = product.CategoryName;
-        lb_Quantity.Content = 1;
+        lb_Quantity.Content = product.Count;
     }
 }
