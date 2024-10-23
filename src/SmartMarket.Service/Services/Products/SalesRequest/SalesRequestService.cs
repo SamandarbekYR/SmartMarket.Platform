@@ -49,7 +49,7 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
                 var salesRequest = _mapper.Map<SR.SalesRequest>(dto);
                 salesRequest.CreatedDate = DateTime.UtcNow.AddHours(5);
 
-                var result = await _unitOfWork.SalesRequest.Add(salesRequest);
+                await _unitOfWork.SalesRequest.Add(salesRequest);
 
                 var productSaleItems = _mapper.Map<List<SR.ProductSale>>(dto.ProductSaleItems);
 

@@ -1,12 +1,13 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace SmartMarket.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class NewMigration : Migration
+    public partial class UpdateEntitiesMig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -346,31 +347,32 @@ namespace SmartMarket.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SalesRequest",
+                name: "sales_request",
                 columns: table => new
                 {
                     id = table.Column<Guid>(type: "uuid", nullable: false),
-                    transaction_id = table.Column<long>(type: "bigint", nullable: false),
+                    transaction_id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     worker_id = table.Column<Guid>(type: "uuid", nullable: false),
                     pay_desk_id = table.Column<Guid>(type: "uuid", nullable: false),
                     total_cost = table.Column<double>(type: "double precision", nullable: false),
                     cash_sum = table.Column<double>(type: "double precision", nullable: false),
-                    card_sum = table.Column<string>(type: "text", nullable: false),
+                    card_sum = table.Column<double>(type: "double precision", nullable: false),
                     transfer_money = table.Column<double>(type: "double precision", nullable: false),
                     debt_sum = table.Column<double>(type: "double precision", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SalesRequest", x => x.id);
+                    table.PrimaryKey("PK_sales_request", x => x.id);
                     table.ForeignKey(
-                        name: "FK_SalesRequest_pay_desk_pay_desk_id",
+                        name: "FK_sales_request_pay_desk_pay_desk_id",
                         column: x => x.pay_desk_id,
                         principalTable: "pay_desk",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SalesRequest_worker_worker_id",
+                        name: "FK_sales_request_worker_worker_id",
                         column: x => x.worker_id,
                         principalTable: "worker",
                         principalColumn: "id",
@@ -526,12 +528,6 @@ namespace SmartMarket.DataAccess.Migrations
                 {
                     table.PrimaryKey("PK_product_sale", x => x.id);
                     table.ForeignKey(
-                        name: "FK_product_sale_SalesRequest_sales_request_id",
-                        column: x => x.sales_request_id,
-                        principalTable: "SalesRequest",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_product_sale_pay_desk_PayDeskId",
                         column: x => x.PayDeskId,
                         principalTable: "pay_desk",
@@ -540,6 +536,12 @@ namespace SmartMarket.DataAccess.Migrations
                         name: "FK_product_sale_product_product_id",
                         column: x => x.product_id,
                         principalTable: "product",
+                        principalColumn: "id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_product_sale_sales_request_sales_request_id",
+                        column: x => x.sales_request_id,
+                        principalTable: "sales_request",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -791,13 +793,19 @@ namespace SmartMarket.DataAccess.Migrations
                 column: "worker_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SalesRequest_pay_desk_id",
-                table: "SalesRequest",
+                name: "IX_sales_request_pay_desk_id",
+                table: "sales_request",
                 column: "pay_desk_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SalesRequest_worker_id",
-                table: "SalesRequest",
+                name: "IX_sales_request_transaction_id",
+                table: "sales_request",
+                column: "transaction_id",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_sales_request_worker_id",
+                table: "sales_request",
                 column: "worker_id");
 
             migrationBuilder.CreateIndex(
@@ -868,22 +876,22 @@ namespace SmartMarket.DataAccess.Migrations
                 name: "partner");
 
             migrationBuilder.DropTable(
-                name: "SalesRequest");
-
-            migrationBuilder.DropTable(
                 name: "product");
 
             migrationBuilder.DropTable(
-                name: "transaction");
+                name: "sales_request");
 
             migrationBuilder.DropTable(
-                name: "pay_desk");
+                name: "transaction");
 
             migrationBuilder.DropTable(
                 name: "category");
 
             migrationBuilder.DropTable(
                 name: "contr_agent");
+
+            migrationBuilder.DropTable(
+                name: "pay_desk");
 
             migrationBuilder.DropTable(
                 name: "worker");

@@ -702,9 +702,8 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
-                    b.Property<string>("CardSum")
-                        .IsRequired()
-                        .HasColumnType("text")
+                    b.Property<double>("CardSum")
+                        .HasColumnType("double precision")
                         .HasColumnName("card_sum");
 
                     b.Property<double>("CashSum")
