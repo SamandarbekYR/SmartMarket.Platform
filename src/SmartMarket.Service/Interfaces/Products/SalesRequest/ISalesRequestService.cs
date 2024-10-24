@@ -11,5 +11,6 @@ namespace SmartMarket.Service.Interfaces.Products.SalesRequest
         Task<bool> DeleteAsync(Guid Id);
         Task<SalesRequestDto> GetByIdAsync(Guid Id);
         Task<List<SalesRequestDto>> GetAllAsync();
+        Task<List<SalesRequestDto>> FilterProductSaleAsync(FilterSalesRequestDto dto);
     }
 }

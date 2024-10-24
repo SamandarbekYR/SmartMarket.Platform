@@ -60,6 +60,19 @@ public class SalesRequestService : ISalesRequestsService
         }
     }
 
+    public async Task<IList<SalesRequestDto>> FilterSalesRequest(FilterSalesRequestDto dto)
+    {
+        if (IsInternetAvailable())
+        {
+            var sales = await _salesRequestsServer.FilterSalesRequestAsync(dto);
+            return sales;
+        }
+        else
+        {
+            return new List<SalesRequestDto>();
+        }
+    }
+
     public async Task<SalesRequestDto> GetById(Guid id)
     {
         if (IsInternetAvailable())

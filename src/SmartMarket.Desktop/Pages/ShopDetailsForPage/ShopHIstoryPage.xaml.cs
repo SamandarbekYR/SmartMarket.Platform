@@ -1,9 +1,12 @@
 ﻿using SmartMarket.Desktop.Components.ShopDetailsForComponent;
 using SmartMarket.Service.DTOs.Expence;
 using SmartMarket.Service.DTOs.Products.ProductSale;
+using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarket.Service.ViewModels.Products;
 using SmartMarketDeskop.Integrated.Services.Expenses;
 using SmartMarketDeskop.Integrated.Services.Products.ProductSale;
+using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
+
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,14 +16,16 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage;
 public partial class ShopHIstoryPage : Page
 {
     private IProductSaleService _productSaleService;
-    private IExpenseService expenseService;
+    private SalesRequestService _salesRequestService;
+    private IExpenseService _expenseService;
     private ShopDetailsPage _shopDetailsPage;
 
     public ShopHIstoryPage(ShopDetailsPage shopDetailsPage)
     {
         InitializeComponent();
         _productSaleService = new ProductSaleService();
-        expenseService = new ExpenseService();
+        _salesRequestService = new SalesRequestService();
+        _expenseService = new ExpenseService();
         _shopDetailsPage = shopDetailsPage;
     }
 
@@ -28,7 +33,7 @@ public partial class ShopHIstoryPage : Page
     {
         St_productList.Children.Clear();
 
-        var productSales = await Task.Run(async () => await _productSaleService.GetAllAsync());
+        var productSales = await _salesRequestService.GetAll();
 
         List<string> workerNames = productSales
             .Select(ps => ps.Worker.FirstName)
@@ -38,7 +43,7 @@ public partial class ShopHIstoryPage : Page
         workerComboBox.ItemsSource = workerNames;
 
         var today = DateTime.Today;
-        var filteredProductSales = productSales.Where(ps => ps.CreatedDate!.Value.Date == today).ToList();
+        var filteredProductSales = productSales.Where(ps => ps.CreatedDate.Date == today).ToList();
 
         await ShowProductSales(filteredProductSales);
     }
@@ -73,7 +78,7 @@ public partial class ShopHIstoryPage : Page
 
     }
 
-    private async Task ShowProductSales(IList<ProductSaleViewModel> productSales)
+    private async Task ShowProductSales(IList<SalesRequestDto> productSales)
     {
         productSales = productSales.Where(ps => ps.Count != 0)
             .OrderByDescending(ps => ps.CreatedDate).ToList();
@@ -85,7 +90,7 @@ public partial class ShopHIstoryPage : Page
             filterExpenseDto.ToDateTime = toDateTime.SelectedDate.Value;
         }
 
-        var expenses = await Task.Run(async () => await expenseService.FilterExpense(filterExpenseDto));
+        var expenses = await Task.Run(async () => await _expenseService.FilterExpense(filterExpenseDto));
 
         var totalCost = productSales.Sum(p => p.TotalCost);
         var profit = productSales.Sum(p => (p.Product.SellPrice - p.Product.Price) * p.Count);
