@@ -44,13 +44,13 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
             {
                 WorkerSoldProductComponent workerSoldProductComponent = new WorkerSoldProductComponent();
                 workerSoldProductComponent.Tag = workerSoldProduct;
-                //workerSoldProductComponent.SetValues(
-                //    rowNumber,
-                //    // workerSoldProduct.TransactionNumber,
-                //    workerSoldProduct.Product.Name,
-                //    workerSoldProduct.Product.SellPrice,
-                //    workerSoldProduct.Count);
-                //    //workerSoldProduct.TotalCost);
+                workerSoldProductComponent.SetValues(
+                    rowNumber,
+                    workerSoldProduct.SalesRequest.TransactionId,
+                    workerSoldProduct.Product.Name,
+                    workerSoldProduct.Product.SellPrice,
+                    workerSoldProduct.Count,
+                    workerSoldProduct.ItemTotalCost);
 
                 workerSoldProductComponent.BorderThickness = new Thickness(3, 2, 3, 2);
                 St_WorkerSoldProducts.Children.Add(workerSoldProductComponent);
