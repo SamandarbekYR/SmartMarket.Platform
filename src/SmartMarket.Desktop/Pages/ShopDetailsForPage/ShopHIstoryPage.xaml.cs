@@ -91,15 +91,13 @@ public partial class ShopHIstoryPage : Page
             filterExpenseDto.ToDateTime = toDateTime.SelectedDate.Value;
         }
 
-        var expenses = await Task.Run(async () => await _expenseService.FilterExpense(filterExpenseDto));
 
-        var totalSellPrice = productSales.Sum(p => p.TotalCost);
-        var totalPrice = productSales.Sum(p =>
-                            p.ProductSaleItems.Sum(item =>
-                                item.Product.Price * item.Count));
-        var profit = totalSellPrice - totalPrice;
+        var expenses = await _expenseService.FilterExpense(filterExpenseDto);
+
+        var totalCost = productSales.Sum(p => p.ItemTotalCost);
+        var profit = productSales.Sum(p => (p.Product.SellPrice - p.Product.Price) * p.Count);
         var totalExpense = expenses.Sum(e => e.Amount);
-        _shopDetailsPage.SetValuesShopHitory(totalSellPrice, profit, totalExpense);
+        _shopDetailsPage.SetValuesShopHitory(totalCost, profit, totalExpense);
 
         St_productList.Children.Clear();
         Loader.Visibility = Visibility.Collapsed;
@@ -109,22 +107,19 @@ public partial class ShopHIstoryPage : Page
         {
             foreach (var item in productSales)
             {
-                foreach (var productSaleItem in item.ProductSaleItems)
-                {
-                    ShopDetailsProductComponent shopDetailsProductComponent = new ShopDetailsProductComponent();
-                    shopDetailsProductComponent.Tag = item.ProductSaleItems.FirstOrDefault(p => p.Id == productSaleItem.Id);
-                    shopDetailsProductComponent.SetValues(
-                        rowNumber,
-                        item.TransactionId,
-                        productSaleItem.Product.Name,
-                        productSaleItem.Product.SellPrice,
-                        productSaleItem.Count,
-                        productSaleItem.ItemTotalCost);
+                ShopDetailsProductComponent shopDetailsProductComponent = new ShopDetailsProductComponent();
+                shopDetailsProductComponent.Tag = item;
+                shopDetailsProductComponent.SetValues(
+                    rowNumber,
+                    item.SalesRequest.TransactionId,
+                    item.Product.Name,
+                    item.Product.SellPrice,
+                    item.Count,
+                    item.ItemTotalCost);
 
-                    shopDetailsProductComponent.BorderThickness = new Thickness(2);
-                    St_productList.Children.Add(shopDetailsProductComponent);
-                    rowNumber++;
-                }
+                shopDetailsProductComponent.BorderThickness = new Thickness(2);
+                St_productList.Children.Add(shopDetailsProductComponent);
+                rowNumber++;
             }
         }
         else
