@@ -90,13 +90,13 @@ namespace SmartMarket.Service.Services.Products.ProductSale
             if (!string.IsNullOrWhiteSpace(dto.ProductName))
             {
                 productSales = productSales.Where(
-                    ps => ps.Product.Name.Contains(dto.ProductName)).ToList();
+                    ps => ps.Product.Name.ToLower().Contains(dto.ProductName.ToLower())).ToList();
             }
 
             if (!string.IsNullOrWhiteSpace(dto.WorkerName))
             {
-                //productSales = productSales.Where(
-                //    ps => ps.Worker.FirstName.Contains(dto.WorkerName)).ToList();
+                productSales = productSales.Where(
+                    ps => ps.SalesRequest.Worker.FirstName.Contains(dto.WorkerName)).ToList();
             }
 
             if (dto.Count.HasValue)
