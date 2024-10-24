@@ -16,7 +16,6 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage;
 public partial class ShopHIstoryPage : Page
 {
     private IProductSaleService _productSaleService;
-    private SalesRequestService _salesRequestService;
     private IExpenseService _expenseService;
     private ShopDetailsPage _shopDetailsPage;
 
@@ -24,7 +23,6 @@ public partial class ShopHIstoryPage : Page
     {
         InitializeComponent();
         _productSaleService = new ProductSaleService();
-        _salesRequestService = new SalesRequestService();
         _expenseService = new ExpenseService();
         _shopDetailsPage = shopDetailsPage;
     }
@@ -33,17 +31,17 @@ public partial class ShopHIstoryPage : Page
     {
         St_productList.Children.Clear();
 
-        var productSales = await _salesRequestService.GetAll();
+        var productSales = await _productSaleService.GetAllAsync();
 
         List<string> workerNames = productSales
-            .Select(ps => ps.Worker.FirstName)
+            .Select(ps => ps.SalesRequest.Worker.FirstName)
             .Distinct()
             .ToList();
         workerNames.Insert(0, "Barcha sotuvchi");
         workerComboBox.ItemsSource = workerNames;
 
         var today = DateTime.Today;
-        var filteredProductSales = productSales.Where(ps => ps.CreatedDate.Date == today).ToList();
+        var filteredProductSales = productSales.Where(ps => ps.CreatedDate?.Date == today).ToList();
 
         await ShowProductSales(filteredProductSales);
     }
@@ -52,7 +50,7 @@ public partial class ShopHIstoryPage : Page
     {
         St_productList.Children.Clear();
 
-        FilterSalesRequestDto filterProductSaleDto = new FilterSalesRequestDto();
+        FilterProductSaleDto filterProductSaleDto = new FilterProductSaleDto();
 
         if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
         {
@@ -72,16 +70,16 @@ public partial class ShopHIstoryPage : Page
             filterProductSaleDto.ProductName = searchTerm;
         }
 
-        var filteredProductSales = await _salesRequestService.FilterSalesRequest(filterProductSaleDto);
+        var filteredProductSales = await _productSaleService.FilterProductSaleAsync(filterProductSaleDto);
 
         await ShowProductSales(filteredProductSales);
 
     }
 
-    private async Task ShowProductSales(IList<SalesRequestDto> productSales)
+    private async Task ShowProductSales(IList<ProductSaleViewModel> productSales)
     {
         productSales = productSales
-             .Where(ps => ps.ProductSaleItems.Any(item => item.Count != 0))
+             .Where(ps => ps.Count > 0)
              .OrderByDescending(ps => ps.CreatedDate)
              .ToList();
 

@@ -52,7 +52,7 @@ public partial class SaleHistoryWindow : Window
         var productSales = await _productSaleService.GetAllAsync();
 
         List<string> workerNames = productSales
-            .Select(ps => ps.Worker.FirstName)
+            .Select(ps => ps.SalesRequest.Worker.FirstName)
             .Distinct()
             .ToList();
 
@@ -107,11 +107,11 @@ public partial class SaleHistoryWindow : Window
             shopDetailsProductComponent.Tag = item;
             shopDetailsProductComponent.SetValues(
                 rowNumber,
-                item.TransactionNumber,
+                item.SalesRequest.TransactionId,
                 item.Product.Name,
                 item.Product.SellPrice,
                 item.Count,
-                item.TotalCost);
+                item.ItemTotalCost);
 
             shopDetailsProductComponent.BorderThickness = new Thickness(2);
             St_productList.Children.Add(shopDetailsProductComponent);
