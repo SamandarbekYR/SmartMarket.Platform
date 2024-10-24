@@ -21,8 +21,12 @@ public class ProductSaleRepository : Repository<ProductSale>, IProductSale
         return await _productSales
             .Include(ps => ps.Product) 
                 .ThenInclude(p => p.Category)
-            .Include(ps => ps.Product)
+            .Include(ps => ps.Product) 
                 .ThenInclude(p => p.Worker)
+            .Include(ps => ps.SalesRequest)
+                .ThenInclude(sr => sr.Worker)
+            .Include(ps => ps.SalesRequest)
+                .ThenInclude(sr => sr.PayDesk)
             .Include(ps => ps.ReplaceProducts) 
             .Include(ps => ps.InvalidProducts) 
             .ToListAsync();

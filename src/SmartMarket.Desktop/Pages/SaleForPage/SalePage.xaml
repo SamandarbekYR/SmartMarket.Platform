@@ -19,7 +19,6 @@
             <ColumnDefinition Width="2.8*"/>
         </Grid.ColumnDefinitions>
 
-
         <Border 
              Background="{DynamicResource SecondColor}"
              CornerRadius="5"

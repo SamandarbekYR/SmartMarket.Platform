@@ -190,6 +190,12 @@ public class MapperProfile : Profile
 
         CreateMap<AddProductSaleDto, ProductSale>();
 
+        CreateMap<SalesRequest, SalesRequestDto>()
+            .ForMember(dest => dest.Worker, opt => opt.MapFrom(src => src.Worker))
+            .ForMember(dest => dest.PayDesk, opt => opt.MapFrom(src => src.PayDesk))
+            .ForMember(dest => dest.ProductSaleItems, opt => opt.MapFrom(src => src.ProductSaleItems))
+            .ReverseMap();
+
         /*---------ReplaceProduct-----------------*/
         CreateMap<AddReplaceProductDto, ReplaceProduct>()
             .ForMember(dest => dest.Id, opt => opt.Ignore());

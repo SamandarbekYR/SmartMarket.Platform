@@ -89,7 +89,7 @@ namespace SmartMarket.Service.Services.Products.InvalidProduct
                 if (!string.IsNullOrEmpty(filterInvalidProductDto.WorkerName))
                 {
                     invalidProducts = invalidProducts.Where(
-                        ps => ps.Worker.FirstName.ToLower().Contains(filterInvalidProductDto.WorkerName.ToLower()))
+                        ps => ps.Worker.FirstName.Contains(filterInvalidProductDto.WorkerName))
                         .ToList();
                 }
 

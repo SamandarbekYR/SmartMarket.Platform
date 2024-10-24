@@ -66,12 +66,12 @@ public partial class ReturnProductViewWindow : Window
             tb_Id.Text = _productSale.Id.ToString();
             tb_PCode.Text = _productSale.Product.PCode;
             tb_Description.Text = _productSale.Product.Category.Description;
-            tb_Transaction.Text = _productSale.TransactionNumber.ToString();
+            tb_Transaction.Text = _productSale.SalesRequest.TransactionId.ToString();
             tb_Price.Text = _productSale.Product.Price.ToString();
             tb_Discount.Text = _productSale.Discount.ToString();
             tb_Quantity.Text = _productSale.Count.ToString();
-            tb_Total.Text = _productSale.TotalCost.ToString();
-            tb_Seller.Text = _productSale.Worker.FirstName;
+            tb_Total.Text = _productSale.ItemTotalCost.ToString();
+            tb_Seller.Text = _productSale.SalesRequest.Worker.FirstName;
             tb_Returner.Text = _productSale.Product.Worker.FirstName;
         }
     }
@@ -120,7 +120,7 @@ public partial class ReturnProductViewWindow : Window
             {
                 ProductId = _productSale.ProductId,
                 Count = _productSale.Count - replaceProductDto.Count,
-                TotalCost = _productSale.TotalCost - _productSale.Product.SellPrice * replaceProductDto.Count,
+                ItemTotalCost = _productSale.ItemTotalCost - _productSale.Product.SellPrice * replaceProductDto.Count,
             };
 
             var result =  await _productSaleService.UpdateAsync(productSaleDto, _productSale.Id);

@@ -8,7 +8,11 @@ using SmartMarket.Desktop.Windows.ProductsForWindow;
 using SmartMarket.Desktop.Windows.Sales;
 using SmartMarket.Desktop.Windows.Settings;
 using SmartMarket.Service.DTOs.Products.Product;
+using SmartMarket.Service.DTOs.Products.ProductSale;
+using SmartMarket.Service.DTOs.Products.SalesRequest;
+using SmartMarketDeskop.Integrated.Services.Products.Print;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
+using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
 using System.Timers;
 using System.Windows;
@@ -29,25 +33,28 @@ namespace SmartMarket.Desktop.Pages.SaleForPage;
 public partial class SalePage : Page
 {
     private readonly IProductService _productService;
+    private readonly ISalesRequestsService _salesRequestsService;
 
     private System.Timers.Timer timer = new System.Timers.Timer();
-
     private DispatcherTimer time;
-
     TransactionViewModel tvm;
-    string message = "";
-
 
     int activeTextboxIndex = 2;
     int productCount = 1;
+    string message = "";
     string barcode = "";
     string barcodes = "";
+    public string PaymentType { get; set; } = string.Empty;
+    public double TotalPrice { get; set; } 
+    public double CashSum { get; set; } 
+    public double ClickSum { get; set; } 
 
     public SalePage()
     {
         InitializeComponent();
         this.tvm = new TransactionViewModel();
         this._productService = new ProductService();
+        this._salesRequestsService = new SalesRequestService();
 
         timer.Elapsed += vaqt_ketdi!;
         timer.Interval = 500;
@@ -113,12 +120,6 @@ public partial class SalePage : Page
     {
         ReturnProductWindow returnProductWindow = new ReturnProductWindow();
         returnProductWindow.ShowDialog();
-    }
-
-    private void btnPay_Click(object sender, RoutedEventArgs e)
-    {
-        PaymentTypeWindow paymentTypeWindow = new PaymentTypeWindow();
-        paymentTypeWindow.ShowDialog();
     }
 
     public void GetData()
@@ -259,12 +260,6 @@ public partial class SalePage : Page
         productCount++;
     }
 
-    private void Nasiya_Button_Click(object sender, RoutedEventArgs e)
-    {
-        PartnersNationWindow nationWindow = new PartnersNationWindow();
-        nationWindow.ShowDialog();
-    }
-
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
         GetData();
@@ -379,7 +374,7 @@ public partial class SalePage : Page
     {
         if (tvm != null)
         {
-            tvm.TransactionPrice = tvm.Transactions.Sum(x => x.TotalPrice);
+            TotalPrice = tvm.TransactionPrice = tvm.Transactions.Sum(x => x.TotalPrice);
             tvm.DiscountPrice = tvm.Transactions.Sum(x => x.DiscountSum);
             tbTotalAmount.Text = tvm.TransactionPrice.ToString();
             tbDiscountAmount.Text = tvm.DiscountPrice.ToString();
@@ -505,5 +500,75 @@ public partial class SalePage : Page
     private void Page_Unloaded(object sender, RoutedEventArgs e)
     {
         tvm = null!;
+    }
+
+    private void Nasiya_Button_Click(object sender, RoutedEventArgs e)
+    {
+        PartnersNationWindow nationWindow = new PartnersNationWindow();
+        nationWindow.ShowDialog();
+    }
+
+    private void btnPay_Click(object sender, RoutedEventArgs e)
+    {
+        PrintService printService = new PrintService();
+        printService.Test();
+        //PaymentTypeWindow paymentTypeWindow = new PaymentTypeWindow();
+        //paymentTypeWindow.ShowDialog();
+    }
+
+    public async void SaleProducts(bool isDebt)
+    {
+        AddSalesRequestDto dto = new AddSalesRequestDto();
+        dto.TotalCost = tvm.TransactionPrice;
+        dto.DiscountSum = tvm.DiscountPrice;
+        if (isDebt)
+        {
+            dto.DebtSum = tvm.TransactionPrice;
+            dto.CardSum = 0;
+            dto.CashSum = 0;
+        }
+        else if(PaymentType == "card")
+        {
+            dto.CardSum = tvm.TransactionPrice;
+            dto.DebtSum = 0;
+            dto.CashSum = 0;
+        }
+        else if (PaymentType == "cash")
+        {
+            dto.CashSum = tvm.TransactionPrice;
+            dto.CardSum = 0;
+            dto.DebtSum = 0;
+        }
+        else if (PaymentType == "click")
+        {
+            dto.CardSum = tvm.TransactionPrice;
+            dto.DebtSum = 0;
+            dto.CashSum = 0;
+        }
+        else if (PaymentType == "transfer")
+        {
+            dto.CardSum = tvm.TransactionPrice;
+            dto.DebtSum = 0;
+            dto.CashSum = 0;
+        }
+        else if (PaymentType == "clickandcash")
+        {
+            dto.CardSum = ClickSum;
+            dto.CashSum = CashSum;
+            dto.DebtSum = 0;
+        }
+
+        List<AddProductSaleDto> products = tvm.Transactions
+            .Select(t => new AddProductSaleDto { ProductId = t.Id, Count = t.Quantity, Discount = t.Discount, ItemTotalCost = t.TotalPrice }).ToList();
+
+        dto.ProductSaleItems = products;
+        bool result = await _salesRequestsService.CreateSalesRequest(dto);
+        if (result)
+        {
+            // Bu yerda PrintService bo'ladi
+        }
+        else
+            notifier.ShowError("Sotuvda qandaydir muammo bor!!!");
+
     }
 }

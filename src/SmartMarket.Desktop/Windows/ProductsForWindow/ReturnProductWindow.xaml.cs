@@ -56,7 +56,7 @@ public partial class ReturnProductWindow : Window
         var productSales = await _productSaleService.GetAllAsync();
 
         List<string> workerNames = productSales
-            .Select(ps => ps.Worker.FirstName)
+            .Select(ps => ps.SalesRequest.Worker.FirstName)
             .Distinct()
             .ToList();
 
@@ -111,13 +111,13 @@ public partial class ReturnProductWindow : Window
             product.Tag = item;
             product.SetValues(
                 rowNumber,
-                item.TransactionNumber,
+                item.SalesRequest.TransactionId,
                 item.Product.Name,
                 item.Product.SellPrice,
                 item.Count,
-                item.TotalCost,
+                item.ItemTotalCost,
                 item.Discount,
-                item.Worker.FirstName,
+                item.SalesRequest.Worker.FirstName,
                 item.CreatedDate);
 
             product.BorderThickness = new Thickness(2);

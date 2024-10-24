@@ -16,8 +16,8 @@
         Loaded="Window_Loaded">
     <Border
         Background="White"
-        Height="300" 
-        Width="350"
+        Height="330" 
+        Width="370"
         BorderThickness="1"
         BorderBrush="{DynamicResource BorderColor}"
         CornerRadius="5">
@@ -37,7 +37,7 @@
 
         <TextBlock 
             Grid.Row="0" 
-            Text="To'lov Click va Naqd"
+            Text="Click va naqd"
             Foreground="White"
             VerticalAlignment="Center"
             FontSize="20"
@@ -68,7 +68,7 @@
             Grid.Row="1"
             >
 
-            <TextBlock Text="Clik Miqdori"
+            <TextBlock Text="Click Miqdori"
                        FontSize="18"
                        Margin="35 10 0 0"
                        ></TextBlock>
@@ -78,7 +78,7 @@
                 Margin="35 5 35 10"
                 TextChanged="phone_number_TextChanged"
                 Style="{DynamicResource tbPaymentstyle}"
-                Text="2500000"
+                Text="0"
                
                 ></TextBox>
 
@@ -93,9 +93,16 @@
                 Margin="35 5 35 20"
                 TextChanged="phone_number_TextChanged"
                 Style="{DynamicResource tbPaymentstyle}"
-                Text="2500000"
+                Text="0"
                
                 ></TextBox>
+
+            <Label
+                Name="notEnaughMoney"
+                Foreground="White"
+                Content="Hisob yetarli emas!!!"
+                FontWeight="SemiBold"
+                HorizontalAlignment="Center"/>
 
 
             <Button
@@ -104,9 +111,9 @@
                 Foreground="White"
                 FontSize="20"
                 FontWeight="SemiBold"
-                Background="#04C217"
+                Background="{DynamicResource BSecondColor}"
                 Style="{DynamicResource BtnPayment}"
-                >
+                Click="BtnPay_Click">
 
             </Button>
 

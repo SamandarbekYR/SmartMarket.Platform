@@ -1,9 +1,12 @@
 ﻿using SmartMarket.Desktop.Components.ShopDetailsForComponent;
 using SmartMarket.Service.DTOs.Expence;
 using SmartMarket.Service.DTOs.Products.ProductSale;
+using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarket.Service.ViewModels.Products;
 using SmartMarketDeskop.Integrated.Services.Expenses;
 using SmartMarketDeskop.Integrated.Services.Products.ProductSale;
+using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
+
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,14 +16,14 @@ namespace SmartMarket.Desktop.Pages.ShopDetailsForPage;
 public partial class ShopHIstoryPage : Page
 {
     private IProductSaleService _productSaleService;
-    private IExpenseService expenseService;
+    private IExpenseService _expenseService;
     private ShopDetailsPage _shopDetailsPage;
 
     public ShopHIstoryPage(ShopDetailsPage shopDetailsPage)
     {
         InitializeComponent();
         _productSaleService = new ProductSaleService();
-        expenseService = new ExpenseService();
+        _expenseService = new ExpenseService();
         _shopDetailsPage = shopDetailsPage;
     }
 
@@ -28,17 +31,17 @@ public partial class ShopHIstoryPage : Page
     {
         St_productList.Children.Clear();
 
-        var productSales = await Task.Run(async () => await _productSaleService.GetAllAsync());
+        var productSales = await _productSaleService.GetAllAsync();
 
         List<string> workerNames = productSales
-            .Select(ps => ps.Worker.FirstName)
+            .Select(ps => ps.SalesRequest.Worker.FirstName)
             .Distinct()
             .ToList();
         workerNames.Insert(0, "Barcha sotuvchi");
         workerComboBox.ItemsSource = workerNames;
 
         var today = DateTime.Today;
-        var filteredProductSales = productSales.Where(ps => ps.CreatedDate!.Value.Date == today).ToList();
+        var filteredProductSales = productSales.Where(ps => ps.CreatedDate?.Date == today).ToList();
 
         await ShowProductSales(filteredProductSales);
     }
@@ -67,7 +70,7 @@ public partial class ShopHIstoryPage : Page
             filterProductSaleDto.ProductName = searchTerm;
         }
 
-        var filteredProductSales = await Task.Run(async () => await _productSaleService.FilterProductSaleAsync(filterProductSaleDto));
+        var filteredProductSales = await _productSaleService.FilterProductSaleAsync(filterProductSaleDto);
 
         await ShowProductSales(filteredProductSales);
 
@@ -75,8 +78,11 @@ public partial class ShopHIstoryPage : Page
 
     private async Task ShowProductSales(IList<ProductSaleViewModel> productSales)
     {
-        productSales = productSales.Where(ps => ps.Count != 0)
-            .OrderByDescending(ps => ps.CreatedDate).ToList();
+        productSales = productSales
+             .Where(ps => ps.Count > 0)
+             .OrderByDescending(ps => ps.CreatedDate)
+             .ToList();
+
 
         FilterExpenseDto filterExpenseDto = new FilterExpenseDto();
         if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
@@ -85,9 +91,10 @@ public partial class ShopHIstoryPage : Page
             filterExpenseDto.ToDateTime = toDateTime.SelectedDate.Value;
         }
 
-        var expenses = await Task.Run(async () => await expenseService.FilterExpense(filterExpenseDto));
 
-        var totalCost = productSales.Sum(p => p.TotalCost);
+        var expenses = await _expenseService.FilterExpense(filterExpenseDto);
+
+        var totalCost = productSales.Sum(p => p.ItemTotalCost);
         var profit = productSales.Sum(p => (p.Product.SellPrice - p.Product.Price) * p.Count);
         var totalExpense = expenses.Sum(e => e.Amount);
         _shopDetailsPage.SetValuesShopHitory(totalCost, profit, totalExpense);
@@ -104,11 +111,11 @@ public partial class ShopHIstoryPage : Page
                 shopDetailsProductComponent.Tag = item;
                 shopDetailsProductComponent.SetValues(
                     rowNumber,
-                    item.TransactionNumber,
+                    item.SalesRequest.TransactionId,
                     item.Product.Name,
                     item.Product.SellPrice,
                     item.Count,
-                    item.TotalCost);
+                    item.ItemTotalCost);
 
                 shopDetailsProductComponent.BorderThickness = new Thickness(2);
                 St_productList.Children.Add(shopDetailsProductComponent);

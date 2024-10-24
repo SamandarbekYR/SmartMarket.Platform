@@ -29,6 +29,24 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
             }
         }
 
+        [HttpPost("filter")]
+        public async Task<IActionResult> FilterSalesRequestAsync(FilterSalesRequestDto filterSalesRequestDto)
+        {
+            try
+            {
+                var productSales = await _salesRequestService.FilterProductSaleAsync(filterSalesRequestDto);
+                return Ok(productSales);
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(Guid id)
         {
