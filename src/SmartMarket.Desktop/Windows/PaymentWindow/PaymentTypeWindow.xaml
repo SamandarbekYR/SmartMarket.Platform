@@ -73,9 +73,9 @@
             <Button
                 x:Name="BntCash"
                 Content="Naqd"
-                Foreground="Black"
+                Foreground="White"
                 Style="{DynamicResource BtnPayment}"
-                Background="#CECECE"
+                Background="#898989"
                 FontWeight="SemiBold"
                 Click="BntCash_Click"
                 ></Button>
@@ -97,27 +97,28 @@
                 FontWeight="SemiBold"
                 Foreground="White"
                 Style="{DynamicResource BtnPayment}"
-                Background="#605C5C"
+                Background="{DynamicResource BTheerdColor}"
                 Click="BntTransferMoney_Click"
                 ></Button>
 
             <Button
                 x:Name="BtnClik"
-                Content="Clik"
+                Content="Click"
                 FontWeight="SemiBold"
                 Foreground="White"
                 Style="{DynamicResource BtnPayment}"
-                Background="#0C58B2"
+                Background="{DynamicResource BFirstColor}"
                 Click="BtnClik_Click"
                 ></Button>
 
 
             <Button
                 x:Name="BntClikAndCash"
-                Content="Clik va Naqd"
+                Content="Click va Naqd"
                 FontWeight="SemiBold"
+                Foreground="White"
                 Style="{DynamicResource BtnPayment}"
-                Background="#FBFBFB"
+                Background="{DynamicResource BSecondColor}"
                 Click="BntClikAndCash_Click"
                 ></Button>
 

@@ -605,8 +605,8 @@
                     <Border 
                        Background="{TemplateBinding Background}"
                         CornerRadius="5"
-                        BorderThickness="1"
-                        BorderBrush="Black"
+                        BorderThickness="0.5"
+                        BorderBrush="{DynamicResource BorderColor}"
                         >
                         <Label
                             Content="{TemplateBinding Content}"

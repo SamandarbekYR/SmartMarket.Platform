@@ -5,6 +5,9 @@ using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 using System.Windows.Interop;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
+using SmartMarket.Desktop.Pages.SaleForPage;
+using System.Reflection.Emit;
+using System.Windows.Media;
 
 namespace SmartMarket.Desktop.Windows.PaymentWindow;
 
@@ -13,6 +16,8 @@ namespace SmartMarket.Desktop.Windows.PaymentWindow;
 /// </summary>
 public partial class ClikAndCashWindow : Window
 {
+    double TotalCost = 0;
+
     public ClikAndCashWindow()
     {
         InitializeComponent();
@@ -50,6 +55,15 @@ public partial class ClikAndCashWindow : Window
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         EnableBlur();
+        foreach (Window window in Application.Current.Windows)
+        {
+            var frame = window.FindName("PageNavigator") as Frame;
+            if (frame != null && frame.Content is SalePage salePage)
+            {
+                TotalCost = salePage.TotalPrice;
+                break;
+            }
+        }
     }
 
     private void phone_number_TextChanged(object sender, TextChangedEventArgs e)
@@ -64,5 +78,41 @@ public partial class ClikAndCashWindow : Window
             textBox.Text = filteredText;
             textBox.CaretIndex = caretIndex > 0 ? caretIndex - 1 : 0;
         }
+    }
+
+    private async void BtnPay_Click(object sender, RoutedEventArgs e)
+    {
+        double cashsum = double.Parse(tbCash.Text);
+        double clicksum = double.Parse(tbClik.Text);
+
+        if (ColculatePrice(cashsum, clicksum))
+        {
+            foreach (Window window in Application.Current.Windows)
+            {
+                var frame = window.FindName("PageNavigator") as Frame;
+                if (frame != null && frame.Content is SalePage salePage)
+                {
+                    salePage.PaymentType = "clickandcash";
+                    salePage.ClickSum = clicksum;
+                    salePage.CashSum = cashsum;
+                    salePage.SaleProducts(false);
+                    break;
+                }
+            }
+            this.Close();
+        }
+        else
+        {
+            notEnaughMoney.Foreground = Brushes.Red;
+            await Task.Delay(3000);
+            notEnaughMoney.Foreground = Brushes.White;
+        }
+    }
+
+    private bool ColculatePrice(double cashsum, double clicksum)
+    {
+        if(TotalCost <= (cashsum + clicksum))
+            return true; 
+        return false;
     }
 }
