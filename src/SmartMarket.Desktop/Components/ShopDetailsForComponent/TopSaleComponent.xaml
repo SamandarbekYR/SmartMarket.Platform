@@ -53,7 +53,7 @@
                     FontSize="18"
                     FontWeight="Bold" />
                 <Label 
-                    x:Name="tbCount"
+                    x:Name="tbTotalPrice"
                     FontSize="18"
                     Foreground="White"/>
             </StackPanel>
@@ -69,7 +69,7 @@
                     FontSize="18"
                     FontWeight="Bold" />
                 <Label
-                    x:Name="tbTotalPrice" 
+                    x:Name="tbCount" 
                     FontSize="18"
                     Foreground="White"/>
             </StackPanel>
