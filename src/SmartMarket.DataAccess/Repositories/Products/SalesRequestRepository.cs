@@ -20,6 +20,7 @@ namespace SmartMarket.DataAccess.Repositories.Products
         {
             return await _salesRequests
                 .Include(sr => sr.PayDesk)
+                .Include(sr => sr.Worker)
                 .Include(sr => sr.ProductSaleItems)
                     .ThenInclude(ps => ps.Product)
                         .ThenInclude(p => p.Category)
