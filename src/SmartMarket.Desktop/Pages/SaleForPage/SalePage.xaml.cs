@@ -10,6 +10,7 @@ using SmartMarket.Desktop.Windows.Settings;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
+using SmartMarketDeskop.Integrated.Services.Products.Print;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
@@ -509,14 +510,17 @@ public partial class SalePage : Page
 
     private void btnPay_Click(object sender, RoutedEventArgs e)
     {
-        PaymentTypeWindow paymentTypeWindow = new PaymentTypeWindow();
-        paymentTypeWindow.ShowDialog();
+        PrintService printService = new PrintService();
+        printService.Test();
+        //PaymentTypeWindow paymentTypeWindow = new PaymentTypeWindow();
+        //paymentTypeWindow.ShowDialog();
     }
 
     public async void SaleProducts(bool isDebt)
     {
         AddSalesRequestDto dto = new AddSalesRequestDto();
         dto.TotalCost = tvm.TransactionPrice;
+        dto.DiscountSum = tvm.DiscountPrice;
         if (isDebt)
         {
             dto.DebtSum = tvm.TransactionPrice;
