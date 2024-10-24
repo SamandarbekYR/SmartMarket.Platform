@@ -115,7 +115,7 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
                 {
                     salesRequests = salesRequests
                         .Where(ps => ps.ProductSaleItems
-                            .Any(item => item.Product.Name.Contains(dto.ProductName)))
+                            .Any(item => item.Product.Name.ToLower().Contains(dto.ProductName.ToLower())))
                         .ToList();
                 }
 

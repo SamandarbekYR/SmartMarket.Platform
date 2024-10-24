@@ -120,7 +120,7 @@ public partial class ReturnProductViewWindow : Window
             {
                 ProductId = _productSale.ProductId,
                 Count = _productSale.Count - replaceProductDto.Count,
-                TotalCost = _productSale.TotalCost - _productSale.Product.SellPrice * replaceProductDto.Count,
+                ItemTotalCost = _productSale.TotalCost - _productSale.Product.SellPrice * replaceProductDto.Count,
             };
 
             var result =  await _productSaleService.UpdateAsync(productSaleDto, _productSale.Id);
