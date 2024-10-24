@@ -113,10 +113,10 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
 
                 if (!string.IsNullOrWhiteSpace(dto.ProductName))
                 {
-                    salesRequests = salesRequests
-                        .Where(ps => ps.ProductSaleItems
-                            .Any(item => item.Product.Name.ToLower().Contains(dto.ProductName.ToLower())))
-                        .ToList();
+                         salesRequests = salesRequests
+                             .Where(ps => ps.ProductSaleItems
+                                 .Any(item => item.Product.Name.ToLower().Contains(dto.ProductName.ToLower()))) 
+                             .ToList();
                 }
 
                 if (!string.IsNullOrWhiteSpace(dto.WorkerName))

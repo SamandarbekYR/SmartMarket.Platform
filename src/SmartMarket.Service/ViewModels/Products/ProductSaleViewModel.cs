@@ -13,22 +13,12 @@ namespace SmartMarket.Service.ViewModels.Products
         public Guid Id { get; set; }
         public Guid ProductId { get; set; }
         public Product Product { get; set; }
-        public Guid WorkerId { get; set; }
-        public Worker Worker { get; set; }
-        public Guid TransactionId { get; set; }
-        public Transaction Transaction { get; set; }
-        public Guid PayDeskId { get; set; }
-        public PayDesk PayDesk { get; set; }
-
-        public long TransactionNumber { get; set; }
         public int Count { get; set; }
         public double Discount { get; set; }
-        public double TotalCost { get; set; }
-        public double CashSum { get; set; }
-        public string CardSum { get; set; } 
-        public double TransferMoney { get; set; }
-        public double DebtSum { get; set; }
+        public double ItemTotalCost { get; set; }
         public DateTime? CreatedDate { get; set; }
+        public Guid SalesRequestId { get; set; }
+        public SalesRequest SalesRequest { get; set; }
 
         public List<ReplaceProduct> ReplaceProducts { get; set; }
         public List<InvalidProduct> InvalidProducts { get; set; }
