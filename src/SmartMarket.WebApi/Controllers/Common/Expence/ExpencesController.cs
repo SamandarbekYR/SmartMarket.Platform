@@ -65,6 +65,24 @@ public class ExpencesController(IExpenceService expenceService) : ControllerBase
             return StatusCode(500, ex.Message);
         }
     }
+
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetByIdAsync([FromRoute] Guid id)
+    {
+        try
+        {
+            var expense = await _expenceService.GetByIdAsync(id);
+            return Ok(expense);
+        }
+        catch(StatusCodeException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch(Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
     
 
     [HttpGet("reason/{reason}")]

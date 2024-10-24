@@ -159,6 +159,35 @@ namespace SmartMarket.Service.Services.Products.LoadReport
             }
         }
 
+        public async Task<LoadReportDto> GetByIdAsync(Guid Id)
+        {
+            try
+            {
+                var loadReport = await _unitOfWork.LoadReport.GetLoadReportsFullInformationAsync();
+
+                var loadReportDto = loadReport.FirstOrDefault(x => x.Id == Id);
+
+                var loadReportResult = new LoadReportDto
+                {
+                    Id = loadReportDto.Id,
+                    WorkerId = loadReportDto.WorkerId,
+                    ProductId = loadReportDto.ProductId,
+                    ContrAgentId = loadReportDto.ContrAgentId,
+                    TotalPrice = loadReportDto.TotalPrice,
+                    ProductName = loadReportDto.Product.Name,
+                    ProductCount =loadReportDto.Product.Count,
+                    ProductPrice = loadReportDto.Product.Price
+                };
+
+                return loadReportResult;
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while getting load report by id.");
+                throw;
+            }
+        }
+
         public Task<List<LoadReportDto>> GetLoadReportsByCompanyNameAsync(string companyName)
         {
             throw new NotImplementedException();

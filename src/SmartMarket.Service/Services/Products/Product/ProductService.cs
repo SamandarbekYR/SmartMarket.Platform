@@ -464,5 +464,37 @@ namespace SmartMarket.Service.Services.Products.Product
                 throw;
             }
         }
+
+        public async Task<FullProductDto> GetByIdAsync(Guid Id)
+        {
+            var product = await _unitOfWork.Product.GetProductsFullInformationAsync();
+
+            var productDto = product.FirstOrDefault(x => x.Id == Id);
+
+            var productResultDto = new FullProductDto
+            {
+                Id = productDto.Id,
+                PCode = productDto.PCode,
+                Name = productDto.Name,
+                Barcode = productDto.Barcode,
+                Price = productDto.Price,
+                SellPrice = productDto.SellPrice,
+                Count = productDto.Count,
+                UnitOfMeasure = productDto.UnitOfMeasure,
+                CategoryId = productDto.Category.Id,
+                CategoryName = productDto.Category.Name,
+                WorkerId = productDto.Worker.Id,
+                WorkerFirstName = productDto.Worker.FirstName,
+                WorkerLastName = productDto.Worker.LastName,
+                ProductImages = productDto.ProductImages.Select(img => new ProductImageDto
+                {
+                    Id = img.Id,
+                    ImagePath = img.ImagePath
+                }).ToList(),
+                NoteAmount = productDto.NoteAmount
+            };
+
+            return productResultDto;
+        }
     }
 }

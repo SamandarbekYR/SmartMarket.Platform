@@ -10,7 +10,9 @@
             Height="100"
             VerticalAlignment="Top"
             CornerRadius="12"
-            BorderThickness="1">                 
+            BorderThickness="1"
+            MouseDown="Border_MouseDown"
+            Tag="{Binding}">                 
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.5*"/>

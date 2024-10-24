@@ -1,4 +1,5 @@
-﻿using SmartMarket.Service.DTOs.Expence;
+﻿using SmartMarket.Desktop.Windows.Expenses;
+using SmartMarket.Service.DTOs.Expence;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Expenses;
 using SmartMarketDeskop.Integrated.Server.Repositories.Expenses;
 using SmartMarketDesktop.ViewModels.Entities.Expenses;
@@ -39,6 +40,18 @@ namespace SmartMarket.Desktop.Components.ExpenseForComponents
             tbTypeOfPayment.Text = expense.TypeOfPayment;
             tbWorker.Text = expense.WorkerFirstName;
             tbPayDesk.Text = expense.PayDeskName;
+
+            this.DataContext = expense;
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(sender is Border border && border.Tag is FullExpenceDto dto)
+            {
+                ExpenseDetailWindow expenseDetailWindow = new ExpenseDetailWindow();
+                expenseDetailWindow.SetData(dto);
+                expenseDetailWindow.ShowDialog();
+            }
         }
     }
 }
