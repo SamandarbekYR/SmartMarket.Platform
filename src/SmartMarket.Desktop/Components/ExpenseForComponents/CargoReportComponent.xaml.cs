@@ -1,4 +1,5 @@
-﻿using SmartMarket.Service.DTOs.Products.LoadReport;
+﻿using SmartMarket.Desktop.Windows.Expenses;
+using SmartMarket.Service.DTOs.Products.LoadReport;
 using SmartMarketDeskop.Integrated.Services.Expenses;
 using System;
 using System.Collections.Generic;
@@ -31,10 +32,22 @@ namespace SmartMarket.Desktop.Components.ExpenseForComponents
         public Guid LoadReportId { get; set; }
         public void SetData(LoadReportDto dto)
         {
-            tbProductName.Text = dto.ProductName; //dto ProductName
+            tbProductName.Text = dto.ProductName;
             tbTotalPrice.Text = dto.TotalPrice.ToString();
-            tbPrice.Text = dto.ProductPrice.ToString(); //dto Price
-            tbCount.Text = dto.ProductCount.ToString(); //dto Count
+            tbPrice.Text = dto.ProductPrice.ToString();
+            tbCount.Text = dto.ProductCount.ToString();
+
+            this.DataContext = dto;
+        }
+
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(sender is Border border && border.Tag is LoadReportDto dto)
+            {
+                CargoReportDetailWindow cargoReportDetailWindow = new CargoReportDetailWindow();
+                cargoReportDetailWindow.SetData(dto);
+                cargoReportDetailWindow.ShowDialog();
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Desktop.Components.ExpenseForComponents;
+using SmartMarket.Desktop.Components.Loader;
 using SmartMarket.Service.DTOs.Expence;
 using SmartMarketDeskop.Integrated.Services.Expenses;
 using System.Windows;
@@ -21,8 +22,10 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         public async void GetAllExpence()
         {
+            Loader.Visibility = Visibility.Visible;
             St_Expenses.Children.Clear();
             var expenses = await Task.Run(async () => await expenseService.GetAll());
+            Loader.Visibility = Visibility.Collapsed;
 
             List<string> workerNames = expenses
                 .Select(x => x.WorkerFirstName)
@@ -67,8 +70,6 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         private async void ShowExpenses(IEnumerable<FullExpenceDto> expenses)
         {
-            St_Expenses.Children.Clear();
-
             int count = 1;
 
             if (expenses != null)
@@ -84,7 +85,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             }
             else
             {
-
+                Loader.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -100,11 +101,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         private void FilterTextBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if(filterTextBox == null)
-            {
-                MessageBox.Show("Search filter null");
-            }
-            else if(e.Key == Key.Enter)
+            if(e.Key == Key.Enter)
             {
                 FilterExpenses();
             }
