@@ -94,7 +94,7 @@ namespace SmartMarket.Service.Services.Products.ReplaceProduct
                 if (!string.IsNullOrWhiteSpace(dto.ProductName))
                 {
                     replaceProducts = replaceProducts.Where(
-                        ps => ps.ProductSale.Product.Name.Contains(dto.ProductName)).ToList();
+                        ps => ps.ProductSale.Product.Name.ToLower().Contains(dto.ProductName.ToLower())).ToList();
                 }
 
                 if (!string.IsNullOrWhiteSpace(dto.WorkerName))
