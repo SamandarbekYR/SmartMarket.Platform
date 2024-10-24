@@ -52,7 +52,7 @@ public partial class ShopHIstoryPage : Page
     {
         St_productList.Children.Clear();
 
-        FilterProductSaleDto filterProductSaleDto = new FilterProductSaleDto();
+        FilterSalesRequestDto filterProductSaleDto = new FilterSalesRequestDto();
 
         if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
         {
@@ -72,7 +72,7 @@ public partial class ShopHIstoryPage : Page
             filterProductSaleDto.ProductName = searchTerm;
         }
 
-        var filteredProductSales = await Task.Run(async () => await _productSaleService.FilterProductSaleAsync(filterProductSaleDto));
+        var filteredProductSales = await _salesRequestService.FilterSalesRequest(filterProductSaleDto);
 
         await ShowProductSales(filteredProductSales);
 
@@ -80,8 +80,11 @@ public partial class ShopHIstoryPage : Page
 
     private async Task ShowProductSales(IList<SalesRequestDto> productSales)
     {
-        productSales = productSales.Where(ps => ps.Count != 0)
-            .OrderByDescending(ps => ps.CreatedDate).ToList();
+        productSales = productSales
+             .Where(ps => ps.ProductSaleItems.Any(item => item.Count != 0))
+             .OrderByDescending(ps => ps.CreatedDate)
+             .ToList();
+
 
         FilterExpenseDto filterExpenseDto = new FilterExpenseDto();
         if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
@@ -92,10 +95,13 @@ public partial class ShopHIstoryPage : Page
 
         var expenses = await Task.Run(async () => await _expenseService.FilterExpense(filterExpenseDto));
 
-        var totalCost = productSales.Sum(p => p.TotalCost);
-        var profit = productSales.Sum(p => (p.Product.SellPrice - p.Product.Price) * p.Count);
+        var totalSellPrice = productSales.Sum(p => p.TotalCost);
+        var totalPrice = productSales.Sum(p =>
+                            p.ProductSaleItems.Sum(item =>
+                                item.Product.Price * item.Count));
+        var profit = totalSellPrice - totalPrice;
         var totalExpense = expenses.Sum(e => e.Amount);
-        _shopDetailsPage.SetValuesShopHitory(totalCost, profit, totalExpense);
+        _shopDetailsPage.SetValuesShopHitory(totalSellPrice, profit, totalExpense);
 
         St_productList.Children.Clear();
         Loader.Visibility = Visibility.Collapsed;
@@ -105,19 +111,22 @@ public partial class ShopHIstoryPage : Page
         {
             foreach (var item in productSales)
             {
-                ShopDetailsProductComponent shopDetailsProductComponent = new ShopDetailsProductComponent();
-                shopDetailsProductComponent.Tag = item;
-                shopDetailsProductComponent.SetValues(
-                    rowNumber,
-                    item.TransactionNumber,
-                    item.Product.Name,
-                    item.Product.SellPrice,
-                    item.Count,
-                    item.TotalCost);
+                foreach (var productSaleItem in item.ProductSaleItems)
+                {
+                    ShopDetailsProductComponent shopDetailsProductComponent = new ShopDetailsProductComponent();
+                    shopDetailsProductComponent.Tag = item.ProductSaleItems.FirstOrDefault(p => p.Id == productSaleItem.Id);
+                    shopDetailsProductComponent.SetValues(
+                        rowNumber,
+                        item.TransactionId,
+                        productSaleItem.Product.Name,
+                        productSaleItem.Product.SellPrice,
+                        productSaleItem.Count,
+                        productSaleItem.ItemTotalCost);
 
-                shopDetailsProductComponent.BorderThickness = new Thickness(2);
-                St_productList.Children.Add(shopDetailsProductComponent);
-                rowNumber++;
+                    shopDetailsProductComponent.BorderThickness = new Thickness(2);
+                    St_productList.Children.Add(shopDetailsProductComponent);
+                    rowNumber++;
+                }
             }
         }
         else
