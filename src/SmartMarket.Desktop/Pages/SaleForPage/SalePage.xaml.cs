@@ -559,7 +559,7 @@ public partial class SalePage : Page
         }
 
         List<AddProductSaleDto> products = tvm.Transactions
-            .Select(t => new AddProductSaleDto { ProductId = t.Id, Count = t.Quantity, Discount = t.Discount, TotalCost = t.TotalPrice }).ToList();
+            .Select(t => new AddProductSaleDto { ProductId = t.Id, Count = t.Quantity, Discount = t.Discount, ItemTotalCost = t.TotalPrice }).ToList();
 
         dto.ProductSaleItems = products;
         bool result = await _salesRequestsService.CreateSalesRequest(dto);
