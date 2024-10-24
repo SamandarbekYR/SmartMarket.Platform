@@ -11,6 +11,7 @@ using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarket.Service.Interfaces.Products.SalesRequest;
 using SR = SmartMarket.Domain.Entities.Products;
 using System.Net;
+using SmartMarket.Service.ViewModels.Products;
 
 namespace SmartMarket.Service.Services.Products.SalesRequest
 {
@@ -97,6 +98,49 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error getting all SalesRequests");
+                return new List<SalesRequestDto>();
+            }
+        }
+
+        public async Task<List<SalesRequestDto>> FilterProductSaleAsync(FilterSalesRequestDto dto)
+        {
+            try
+            {
+                var salesRequests = await _unitOfWork.SalesRequest.GetSalesRequestsFullInformationAsync();
+
+                if (dto.FromDateTime.HasValue && dto.ToDateTime.HasValue)
+                {
+                    salesRequests = salesRequests.Where(
+                        ps => ps.CreatedDate >= dto.FromDateTime.Value
+                        && ps.CreatedDate <= dto.ToDateTime.Value).ToList();
+                }
+                else
+                {
+                    salesRequests = salesRequests.Where(
+                        ps => ps.CreatedDate.Value.Date == DateTime.Today).ToList();
+                }
+
+                if (!string.IsNullOrWhiteSpace(dto.ProductName))
+                {
+                    salesRequests = salesRequests
+                        .Where(ps => ps.ProductSaleItems
+                            .Any(item => item.Product.Name.Contains(dto.ProductName)))
+                        .ToList();
+                }
+
+                if (!string.IsNullOrWhiteSpace(dto.WorkerName))
+                {
+                    salesRequests = salesRequests.Where(
+                        ps => ps.Worker.FirstName.Contains(dto.WorkerName)).ToList();
+                }
+
+                var result = _mapper.Map<List<SalesRequestDto>>(salesRequests);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error filtering SalesRequests");
                 return new List<SalesRequestDto>();
             }
         }

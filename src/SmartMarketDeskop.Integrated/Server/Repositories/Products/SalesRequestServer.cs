@@ -1,4 +1,7 @@
 ﻿using Newtonsoft.Json;
+
+using NLog;
+
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
@@ -67,6 +70,33 @@ public class SalesRequestServer : ISalesRequestsServer
 
             return sales;
 
+        }
+        catch
+        {
+            return new List<SalesRequestDto>();
+        }
+    }
+
+    public async Task<IList<SalesRequestDto>> FilterSalesRequestAsync(FilterSalesRequestDto dto)
+    {
+        try
+        {
+            HttpClient client = new HttpClient();
+            var token = IdentitySingelton.GetInstance().Token;
+            client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/sales-request/filter");
+
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var json = JsonConvert.SerializeObject(dto);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage message = await client.PostAsync(client.BaseAddress, content);
+
+            string response = await message.Content.ReadAsStringAsync();
+
+            var sales = JsonConvert.DeserializeObject<List<SalesRequestDto>>(response)!;
+
+            return sales;
         }
         catch
         {
