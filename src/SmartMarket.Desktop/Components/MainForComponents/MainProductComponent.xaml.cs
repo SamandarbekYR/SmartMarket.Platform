@@ -1,4 +1,5 @@
-﻿using SmartMarket.Service.DTOs.Products.Product;
+﻿using SmartMarket.Desktop.Windows.Expenses;
+using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using System.Windows;
 using System.Windows.Controls;
@@ -11,7 +12,7 @@ namespace SmartMarket.Desktop.Components.MainForComponents;
 public partial class MainProductComponent : UserControl
 {
     private IProductService productService;
-    ProductDto productViewModels = null!;
+    FullProductDto products = null!;
     public MainProductComponent()
     {
         InitializeComponent();
@@ -36,17 +37,20 @@ public partial class MainProductComponent : UserControl
 
     private async void btndelete_Click(object sender, System.Windows.RoutedEventArgs e)
     {
-        productViewModels = (this.Tag as ProductDto)!;
+        products = (this.Tag as FullProductDto)!;
 
         var messageBoxResult = MessageBox.Show("O'chirishni hohlaysizmi!", "Ogohlantirish!", MessageBoxButton.YesNo);
         if(messageBoxResult == MessageBoxResult.Yes)
         {
-            await productService.DeleteProduct(productViewModels!.Id);
+            await productService.DeleteProduct(products!.Id);
         }
     }
 
     private void btnDocument_Click(object sender, RoutedEventArgs e)
     {
-
+        products = (this.Tag as FullProductDto)!;
+        var window = new RunningOutOfProductDetailWindow();
+        window.SetData(products);
+        window.ShowDialog();
     }
 }

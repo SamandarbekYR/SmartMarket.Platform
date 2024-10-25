@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="Assets\all_product.png" />
+    <None Remove="Assets\Basket.png" />
     <None Remove="Assets\Cargo.png" />
     <None Remove="Assets\Cargo_car.png" />
     <None Remove="Assets\checkout.png" />
@@ -53,6 +54,7 @@
 
   <ItemGroup>
     <Resource Include="Assets\all_product.png" />
+    <Resource Include="Assets\Basket.png" />
     <Resource Include="Assets\Cargo.png" />
     <Resource Include="Assets\Cargo_car.png" />
     <Resource Include="Assets\checkout.png" />
