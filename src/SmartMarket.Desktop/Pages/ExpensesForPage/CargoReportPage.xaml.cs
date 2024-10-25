@@ -30,8 +30,10 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
                 .Distinct()
                 .ToList();
 
-            workerNames.Insert(0, "Sotuvchi");
-            workerComboBox.ItemsSource = workerNames;
+            foreach(var worker in workerNames)
+            {
+                workerComboBox.Items.Add(new ComboBoxItem { Content = worker });
+            }
 
             showLoadReport(loadReports);
         }

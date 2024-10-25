@@ -63,6 +63,7 @@ namespace SmartMarket.Desktop.Windows.LoadReports
 
         private async void FilterLoadReport()
         {
+            Loader.Visibility = Visibility.Visible;
             St_CargoReports.Children.Clear();
             FilterLoadReportDto loadReportDto = new FilterLoadReportDto();
 
@@ -87,6 +88,7 @@ namespace SmartMarket.Desktop.Windows.LoadReports
 
         private void showLoadReport(IEnumerable<LoadReportDto> loadReports)
         {
+            Loader.Visibility = Visibility.Collapsed;
             St_CargoReports.Children.Clear();
 
             int count = 1;
