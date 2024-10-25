@@ -22,10 +22,8 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         public async void GetAllExpence()
         {
-            Loader.Visibility = Visibility.Visible;
             St_Expenses.Children.Clear();
             var expenses = await Task.Run(async () => await expenseService.GetAll());
-            Loader.Visibility = Visibility.Collapsed;
 
             List<string> workerNames = expenses
                 .Select(x => x.WorkerFirstName)
@@ -40,6 +38,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         private async void FilterExpenses()
         {
+            Loader.Visibility = Visibility.Visible;
             St_Expenses.Children.Clear();
             FilterExpenseDto filter = new FilterExpenseDto();
 
@@ -70,6 +69,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         private async void ShowExpenses(IEnumerable<FullExpenceDto> expenses)
         {
+            Loader.Visibility = Visibility.Collapsed;
             int count = 1;
 
             if (expenses != null)
@@ -85,7 +85,6 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             }
             else
             {
-                Loader.Visibility = Visibility.Collapsed;
             }
         }
 

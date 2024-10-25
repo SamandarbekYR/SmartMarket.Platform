@@ -160,9 +160,7 @@
                     x:Name="Loader"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"/>
-                <ScrollViewer 
-                    VerticalScrollBarVisibility="Auto" 
-                    HorizontalScrollBarVisibility="Auto">
+                <ScrollViewer >
                     <StackPanel
                         Name="St_CargoReports">
 
