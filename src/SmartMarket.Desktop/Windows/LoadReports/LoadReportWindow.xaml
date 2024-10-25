@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SmartMarket.Desktop.Windows.LoadReports"
         mc:Ignorable="d"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:SmartMarket.Desktop.Components.Loader"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -160,14 +160,22 @@
                 <Border 
                     Grid.Row="1" 
                     Background="White">
-                    <ScrollViewer 
-                        VerticalScrollBarVisibility="Auto" 
-                        HorizontalScrollBarVisibility="Auto">
-                        <StackPanel
-                            Name="St_CargoReports">
+                    <Grid>
+                        <local:Loader
+                            x:Name="Loader"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
+                            
+                        </local:Loader>
+                        <ScrollViewer 
+                            VerticalScrollBarVisibility="Auto" 
+                            HorizontalScrollBarVisibility="Auto">
+                            <StackPanel
+                                Name="St_CargoReports">
                                 
-                        </StackPanel>
-                    </ScrollViewer>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
                 </Border>
             </Grid>
         </Grid>

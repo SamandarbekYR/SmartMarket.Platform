@@ -76,7 +76,7 @@
                     Margin="5 10 10 10"
                     Grid.Column="3"
                     SelectionChanged="workerComboBox_SelectionChanged">
-                    
+                    <ComboBoxItem Content="Sotuvchi" IsEnabled="False"/>
                 </ComboBox>
 
 
