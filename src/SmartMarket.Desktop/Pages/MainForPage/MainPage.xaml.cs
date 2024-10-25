@@ -125,6 +125,7 @@ public partial class MainPage : Page
     public async Task GetProductsByCategoryId(Guid Id)
     {
         St_product.Children.Clear();
+        EmptyDataProduct.Visibility = Visibility.Collapsed;
 
         var products = await Task.Run(async () => await _productService.GetByCategoryId(Id));
         ProductLoader.Visibility = Visibility.Collapsed;
