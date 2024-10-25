@@ -19,12 +19,12 @@ public class ProductValidator : AbstractValidator<AddProductDto>
             .NotEmpty()
             .WithMessage("Worker ID is required.");
 
-        RuleFor(p => p.Barcode)
+        RuleFor(p => p.BarCode)
             .NotEmpty()
             .WithMessage("Barcode is required.");
 
 
-        RuleFor(p => p.Name)
+        RuleFor(p => p.ProductName)
             .NotEmpty()
             .WithMessage("Product name is required.");
 
@@ -40,7 +40,7 @@ public class ProductValidator : AbstractValidator<AddProductDto>
             .GreaterThanOrEqualTo(0)
             .WithMessage("Selling price must be greater than or equal to zero.");
 
-        RuleFor(p => p.SellPricePersentage)
+        RuleFor(p => p.SellPricePercantage)
             .GreaterThanOrEqualTo(0)
             .WithMessage("Sell price percentage must be greater than or equal to zero.");
 

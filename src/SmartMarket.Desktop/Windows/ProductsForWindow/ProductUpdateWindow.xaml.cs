@@ -1,8 +1,9 @@
 ﻿using Microsoft.Win32;
+
 using SmartMarket.Desktop.Windows.Category;
 using SmartMarket.Desktop.Windows.ContrAgents;
+using S = SmartMarket.Service.DTOs.Products.Product;
 
-using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Services.Categories.Category;
 using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgents;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
@@ -10,6 +11,7 @@ using SmartMarketDeskop.Integrated.Services.Products.ProductImages;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.PartnerCompany;
 using SmartMarketDesktop.DTOs.DTOs.Product;
 using SmartMarketDesktop.ViewModels.Entities.Categories;
+
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -18,65 +20,34 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 
 namespace SmartMarket.Desktop.Windows.ProductsForWindow
 {
     /// <summary>
-    /// Interaction logic for ProductCreateWindow.xaml
+    /// Interaction logic for ProductUpdateWindow.xaml
     /// </summary>
-    public partial class ProductCreateWindow : Window
+    public partial class ProductUpdateWindow : Window
     {
-        ICategoryService categoryService;
-        IContrAgentService contrAgentService;
-        IProductService productService;
-        IProductImageService productImageService;
+        private ICategoryService categoryService;
+        private IContrAgentService contrAgentService;
+        private IProductService productService;
+        private IProductImageService productImageService;
 
 
         List<CategoryView> categories = new List<CategoryView>();
         List<ContrAgentViewModels> contrAgents = new List<ContrAgentViewModels>();
-        string imagepath;
-        public ProductCreateWindow()
+        private string imagepath;
+        private Guid productId = Guid.Empty;
+
+        public ProductUpdateWindow()
         {
             InitializeComponent();
             categoryService = new CategoryService();
             contrAgentService = new ContrAgentService();
             productService = new ProductService();
             productImageService = new ProductImageService();
-        }
-
-        private async void btnCreate_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            AddProductDto addProductDto = new AddProductDto();
-
-            addProductDto.BarCode = txtBarCode.Text;
-            addProductDto.P_Code = txtPCode.Text;
-            addProductDto.ProductName = txtProductName.Text;
-
-            {
-                CategoryView categoryView = categories.Where(a => a.Name == comboCategory.SelectedValue).FirstOrDefault()!;
-                addProductDto.CategoryId = categoryView.Id;
-            }
-
-            addProductDto.Count = int.Parse(txtQuantity.Text);
-            addProductDto.Price = double.Parse(txtPrice.Text);
-            addProductDto.SellPrice = double.Parse(txtProductPriceSum.Text);
-            addProductDto.SellPricePercantage = int.Parse(txtProductPricePersentage.Text);
-
-            addProductDto.UnitOfMeasure = comboMeasurement.Text;
-            {
-                ContrAgentViewModels contrAgentViewModels = contrAgents.Where(a => a.FirstName == comboDelivery.SelectedValue).FirstOrDefault()!;
-                addProductDto.ContrAgentId = contrAgentViewModels.Id;
-            }
-
-            addProductDto.PaymentStatus = "Active";
-            addProductDto.NoteAmount = int.Parse(txtNoteAmount.Text);
-            await productService.CreateProduct(addProductDto);
-
-            ProductImageDto productImageDto = new ProductImageDto();
-            productImageDto.ImagePath = imagepath;
-
-            this.Close();
         }
 
         [DllImport("user32.dll")]
@@ -101,6 +72,61 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
             SetWindowCompositionAttribute(windowHelper.Handle, ref data);
 
             Marshal.FreeHGlobal(accentPtr);
+        }
+
+        public void SetData(S.FullProductDto product)
+        {
+            productId = product.Id;
+            txtBarCode.Text = product.Barcode.ToString();
+            txtPCode.Text = product.PCode;
+            txtProductName.Text = product.Name;
+            comboCategory.SelectedValue = product.CategoryName;
+            txtQuantity.Text = product.Count.ToString();
+            txtPrice.Text = product.Price.ToString();
+            txtProductPriceSum.Text = product.SellPrice.ToString();
+            txtProductPricePersentage.Text = ((product.SellPrice - product.Price) * 100 / product.Price).ToString();
+            comboMeasurement.Text = product.UnitOfMeasure;
+            comboDelivery.Text = product.WorkerFirstName;
+            txtNoteAmount.Text = product.NoteAmount.ToString();
+        }
+
+        private async void btnUpdate_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            AddProductDto addProductDto = new AddProductDto();
+
+            addProductDto.BarCode = txtBarCode.Text;
+            addProductDto.P_Code = txtPCode.Text;
+            addProductDto.ProductName = txtProductName.Text;
+
+            {
+                CategoryView categoryView = categories.Where(a => a.Name == comboCategory.SelectedValue.ToString()).FirstOrDefault()!;
+                addProductDto.CategoryId = categoryView.Id;
+            }
+
+            addProductDto.Count = int.Parse(txtQuantity.Text);
+            addProductDto.Price = double.Parse(txtPrice.Text);
+            addProductDto.SellPrice = double.Parse(txtProductPriceSum.Text);
+            addProductDto.SellPricePercantage = int.Parse(txtProductPricePersentage.Text);
+
+            addProductDto.UnitOfMeasure = comboMeasurement.Text;
+            {
+                ContrAgentViewModels contrAgentViewModels = contrAgents.Where(a => a.FirstName == comboDelivery.SelectedValue).FirstOrDefault()!;
+                addProductDto.ContrAgentId = contrAgentViewModels.Id;
+            }
+
+            addProductDto.PaymentStatus = "Active";
+            addProductDto.NoteAmount = int.Parse(txtNoteAmount.Text);
+            await productService.UpdateProduct(addProductDto, productId);
+
+            ProductImageDto productImageDto = new ProductImageDto();
+            productImageDto.ImagePath = imagepath;
+
+            this.Close();
+        }
+
+        private void btnClear_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Clear();
         }
 
         private void phone_number_TextChanged(object sender, TextChangedEventArgs e)
@@ -129,13 +155,6 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
             contrAgentCreate.ShowDialog();
         }
 
-
-        private void btnClear_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Clear();
-        }
-
-
         public async void GetAllCategory()
         {
             categories = await categoryService.GetAllAsync();
@@ -154,13 +173,6 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
                 comboDelivery.ItemsSource = contrAgents.Select(a => a.FirstName);
                 comboDelivery.Items.Refresh();
             }
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            EnableBlur();
-            GetAllCategory();
-            GetAllContrAgent();
         }
 
         public void Clear()
@@ -188,6 +200,13 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
                 bitmap.EndInit();
                 lbImage.Content = Path.GetFileName(imagepath);
             }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            EnableBlur();
+            GetAllCategory();
+            GetAllContrAgent();
         }
     }
 }

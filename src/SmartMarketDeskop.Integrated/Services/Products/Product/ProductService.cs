@@ -57,9 +57,18 @@ public class ProductService : IProductService
     
     }
 
-    public Task<bool> UpdateProduct(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto product, Guid Id)
+    public async Task<bool> UpdateProduct(SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto product, Guid Id)
     {
-        throw new NotImplementedException();
+        if (IsInternetAvailable())
+        {
+            await productServer.UpdateAsync(product, Id);
+            return true;
+        }
+        else
+        {
+            // local bazaga saqlanadi
+            return false;
+        }
     }
 
     public bool IsInternetAvailable()

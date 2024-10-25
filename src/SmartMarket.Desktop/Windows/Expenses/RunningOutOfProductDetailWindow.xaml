@@ -30,7 +30,7 @@
                          FontSize="22" 
                          VerticalAlignment="Center" 
                          Margin="10 0" 
-                        Text="Tugayotgan mahsulot" 
+                         Text="Mahsulot" 
                          Foreground="White"/>
 
                     <Button
