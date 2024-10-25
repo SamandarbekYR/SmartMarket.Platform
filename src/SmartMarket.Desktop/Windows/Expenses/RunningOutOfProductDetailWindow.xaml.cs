@@ -64,9 +64,6 @@ namespace SmartMarket.Desktop.Windows.Expenses
             categoryName_TextBlock.Text = dto.CategoryName;
             worker_TextBlock.Text = dto.WorkerFirstName + " " + dto.WorkerLastName;
             productNoteAmount_TextBlock.Text = dto.NoteAmount.ToString();
-
-            var imgPath = @"D:\SmartPartnersProjects\src\SmartMarket.Desktop\Assets\Basket.png"; //img localdan olinyapdi
-            productImg.Source = new BitmapImage(new Uri(imgPath, UriKind.Absolute));
         }
 
         private void close_button_Click(object sender, RoutedEventArgs e)

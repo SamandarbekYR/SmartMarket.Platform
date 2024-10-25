@@ -57,7 +57,7 @@
                             CornerRadius="5"
                             BorderBrush="{DynamicResource BorderColor}">
                         <Image x:Name="productImg"  
-                               Margin="10"
+                                Margin="10"
                                 Source="/Assets/Basket.png"
                                 Stretch="Uniform"/>
                     </Border>
