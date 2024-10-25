@@ -22,6 +22,8 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
         public async void GetAllCargoReport()
         {
             St_CargoReports.Children.Clear();
+         
+            Loader.Visibility = Visibility.Visible;
 
             var loadReports = await Task.Run(async () => await loadReportService.GetAll());
 
@@ -38,6 +40,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         private async void FilterLoadReport()
         {
+            Loader.Visibility = Visibility.Visible;
             St_CargoReports.Children.Clear();
             FilterLoadReportDto loadReportDto = new FilterLoadReportDto();
 
@@ -69,6 +72,8 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
         private void showLoadReport(IEnumerable<LoadReportDto> loadReports)
         {
             St_CargoReports.Children.Clear();
+
+            Loader.Visibility = Visibility.Collapsed;
 
             int count = 1;
 
@@ -105,7 +110,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             }
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
+        { 
             GetAllCargoReport();
         }
     }
