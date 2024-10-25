@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Desktop.Windows.Expenses;
+using SmartMarket.Desktop.Windows.ProductsForWindow;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using System.Windows;
@@ -32,7 +33,10 @@ public partial class MainProductComponent : UserControl
 
     private void btnedit_Click(object sender, System.Windows.RoutedEventArgs e)
     {
-
+        products = (this.Tag as FullProductDto)!;
+        var window = new ProductUpdateWindow();
+        window.SetData(products);
+        window.ShowDialog();
     }
 
     private async void btndelete_Click(object sender, System.Windows.RoutedEventArgs e)
