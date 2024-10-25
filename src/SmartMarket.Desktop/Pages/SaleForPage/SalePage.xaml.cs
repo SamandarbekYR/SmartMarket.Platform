@@ -510,10 +510,10 @@ public partial class SalePage : Page
 
     private void btnPay_Click(object sender, RoutedEventArgs e)
     {
-        PrintService printService = new PrintService();
-        printService.Test();
-        //PaymentTypeWindow paymentTypeWindow = new PaymentTypeWindow();
-        //paymentTypeWindow.ShowDialog();
+        //PrintService printService = new PrintService();
+        //printService.Test();
+        PaymentTypeWindow paymentTypeWindow = new PaymentTypeWindow();
+        paymentTypeWindow.ShowDialog();
     }
 
     public async void SaleProducts(bool isDebt)
@@ -565,7 +565,16 @@ public partial class SalePage : Page
         bool result = await _salesRequestsService.CreateSalesRequest(dto);
         if (result)
         {
-            // Bu yerda PrintService bo'ladi
+
+            PrintService printService = new PrintService();
+            printService.Print(dto, tvm.Transactions);
+
+            tvm = null!;
+            St_product.Children.Clear();
+            ColculateTotalPrice();
+            EmptyPrice();
+
+            notifier.ShowSuccess("Sotuv amalga oshirildi.");
         }
         else
             notifier.ShowError("Sotuvda qandaydir muammo bor!!!");
