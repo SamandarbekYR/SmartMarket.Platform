@@ -5,13 +5,13 @@ using FluentValidation;
 using Microsoft.Extensions.Logging;
 
 using SmartMarket.DataAccess.Interfaces;
-using SmartMarket.DataAccess.Repositories;
 using SmartMarket.Service.Common.Exceptions;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarket.Service.Interfaces.Products.SalesRequest;
-using SR = SmartMarket.Domain.Entities.Products;
+
 using System.Net;
-using SmartMarket.Service.ViewModels.Products;
+
+using SR = SmartMarket.Domain.Entities.Products;
 
 namespace SmartMarket.Service.Services.Products.SalesRequest
 {
@@ -49,7 +49,8 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
 
                 var salesRequest = _mapper.Map<SR.SalesRequest>(dto);
                 salesRequest.CreatedDate = DateTime.UtcNow;
-
+               
+                int count = 0;
                 foreach (var productItem in salesRequest.ProductSaleItems)
                 {
                     var product = await _unitOfWork.Product.GetById(productItem.ProductId);
@@ -65,7 +66,16 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
 
                     product.Count -= productItem.Count;
 
-                    await _unitOfWork.Product.Update(product);
+                    var result = await _unitOfWork.Product.Update(product);
+                    if (!result)
+                    {
+                        count++;
+                    }
+                }
+                
+                if (count > 0)
+                {
+                    throw new StatusCodeException(HttpStatusCode.BadRequest, "Error updating product count.");
                 }
 
                 return await _unitOfWork.SalesRequest.Add(salesRequest);
@@ -88,14 +98,14 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
                     return false;
                 }
 
-                return await _unitOfWork.SalesRequest.Remove(salesRequest); 
+                return await _unitOfWork.SalesRequest.Remove(salesRequest);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, $"Error deleting SalesRequest with Id: {Id}");
                 return false;
             }
-            }
+        }
 
         public async Task<List<SalesRequestDto>> GetAllAsync()
         {
@@ -131,10 +141,10 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
 
                 if (!string.IsNullOrWhiteSpace(dto.ProductName))
                 {
-                         salesRequests = salesRequests
-                             .Where(ps => ps.ProductSaleItems
-                                 .Any(item => item.Product.Name.ToLower().Contains(dto.ProductName.ToLower()))) 
-                             .ToList();
+                    salesRequests = salesRequests
+                        .Where(ps => ps.ProductSaleItems
+                            .Any(item => item.Product.Name.ToLower().Contains(dto.ProductName.ToLower())))
+                        .ToList();
                 }
 
                 if (!string.IsNullOrWhiteSpace(dto.WorkerName))
@@ -172,12 +182,12 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
                 _logger.LogError(ex, $"Error getting SalesRequest with Id: {Id}");
                 return null;
             }
-            }
+        }
 
         public async Task<bool> UpdateAsync(AddSalesRequestDto dto, Guid Id)
         {
-            try 
-            {                 
+            try
+            {
                 var salesRequest = await _unitOfWork.SalesRequest.GetById(Id);
                 if (salesRequest == null)
                 {
@@ -207,4 +217,4 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
             }
         }
     }
-    }
+}
