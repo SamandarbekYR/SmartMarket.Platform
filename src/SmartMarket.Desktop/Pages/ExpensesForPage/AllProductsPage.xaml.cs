@@ -20,7 +20,6 @@ public partial class AllProductsPage : Page
     public async Task GetAllProducts()
     {
         St_AllProducts.Children.Clear();
-        Loader.Visibility = Visibility.Visible;
 
         var products = await Task.Run(async () => await _productService.GetAll());
 

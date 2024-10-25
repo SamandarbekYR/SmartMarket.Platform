@@ -22,8 +22,6 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
         public async void GetAllCargoReport()
         {
             St_CargoReports.Children.Clear();
-         
-            Loader.Visibility = Visibility.Visible;
 
             var loadReports = await Task.Run(async () => await loadReportService.GetAll());
 

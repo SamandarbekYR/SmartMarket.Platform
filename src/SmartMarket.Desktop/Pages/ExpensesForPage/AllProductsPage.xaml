@@ -105,20 +105,23 @@
             BorderThickness="1 0 1 1"
             BorderBrush="Black"
             Grid.Row="2">
-            
-            <ScrollViewer
-                Margin="0 0 0 10">
+
+            <Grid>
+
+                <local:Loader
+                    x:Name="Loader"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"/>
                 
-                <StackPanel 
-                    x:Name="St_AllProducts">
-                    <local:Loader
-                        x:Name="Loader"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center">
-                        
-                    </local:Loader>
-                </StackPanel>
-            </ScrollViewer>
+                <ScrollViewer
+                    Margin="0 0 0 10">
+
+                    <StackPanel 
+                        x:Name="St_AllProducts">
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+            
         </Border>
 
     </Grid>
