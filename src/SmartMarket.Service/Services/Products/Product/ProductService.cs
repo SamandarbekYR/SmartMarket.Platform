@@ -138,22 +138,27 @@ namespace SmartMarket.Service.Services.Products.Product
                 }
 
                 var categoryExists = await _unitOfWork.Category.GetById(dto.CategoryId) != null;
-
                 if (!categoryExists)
                 {
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Category not found.");
                 }
 
                 var workerExists = await _unitOfWork.Worker.GetById(dto.WorkerId) != null;
-
                 if (!workerExists)
                 {
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
                 }
 
+                var contrAgentExists = await _unitOfWork.ContrAgent.GetById(dto.ContrAgentId) != null;
+                if (!contrAgentExists)
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Contr Agent not found.");
+                }
+
                 _mapper.Map(dto, product);
 
-                return await _unitOfWork.Product.Update(product);
+                var asda = await _unitOfWork.Product.Update(product);
+                return asda;
             }
             catch (Exception ex)
             {

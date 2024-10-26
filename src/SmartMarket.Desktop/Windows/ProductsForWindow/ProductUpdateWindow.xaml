@@ -232,11 +232,11 @@
                       Margin="10 0 0 0"
                       FontSize="18"/>
                         <Border Grid.Column="1"
-                       Margin="20 3 3 3"
-                       Width="355"
-                       BorderThickness="1"
-                       BorderBrush="{DynamicResource BorderColor}"
-                       CornerRadius="5">
+                           Margin="20 3 3 3"
+                           Width="355"
+                           BorderThickness="1"
+                           BorderBrush="{DynamicResource BorderColor}"
+                           CornerRadius="5">
                             <TextBox x:Name="txtProductPricePersentage"
                             Margin="3 0"
                             FontSize="20"
