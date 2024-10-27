@@ -36,7 +36,6 @@
                 Name="Button_Main"
                 Grid.Column="0"
                 Content="Asosiy"
-                IsChecked="True"
                 Click="Button_Main_Click"
                 Tag="{DynamicResource main}"
                 Style="{DynamicResource MenuButton2}"/>
@@ -44,6 +43,7 @@
             <RadioButton
                 x:Name="Button_Sale"
                 Grid.Column="1"
+                IsChecked="True"
                 Content="Sotuv oynasi"
                 Click="Button_Sale_Click"
                 Tag="{DynamicResource cart}"
