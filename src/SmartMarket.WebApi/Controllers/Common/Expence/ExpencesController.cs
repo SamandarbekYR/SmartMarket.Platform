@@ -103,6 +103,24 @@ public class ExpencesController(IExpenceService expenceService) : ControllerBase
         }
     }
 
+    [HttpGet("summary")]
+    public async Task<IActionResult> GetExpenseSummaryAsync()
+    {
+        try
+        {
+            var expenseSummary = await _expenceService.GetExpenseSummaryAsync();
+            return Ok(expenseSummary);
+        }
+        catch(StatusCodeException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch(Exception ex)
+        {
+            return StatusCode(500, ex.Message);
+        }
+    }
+
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteAsync(Guid id)
     {

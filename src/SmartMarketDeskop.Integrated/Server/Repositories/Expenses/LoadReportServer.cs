@@ -81,5 +81,27 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Expenses
                 return new List<LoadReportDto>();
             }
         }
+
+        public async Task<LoadReportStatisticsDto> GetLoadReportStatisticsAsync()
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+
+                var token = IdentitySingelton.GetInstance().Token;
+                client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/load-reports/statistics");
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                HttpResponseMessage responseMessage = await client.GetAsync(client.BaseAddress);
+
+                string response = await responseMessage.Content.ReadAsStringAsync();
+                LoadReportStatisticsDto loadReportStatistics = JsonConvert.DeserializeObject<LoadReportStatisticsDto>(response)!;
+
+                return loadReportStatistics;
+            }
+            catch(Exception ex)
+            {
+                return new LoadReportStatisticsDto();
+            }
+        }
     }
 }

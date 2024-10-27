@@ -120,7 +120,7 @@
                                 FontSize="15"
                                 FontWeight="SemiBold"
                                 ></TextBlock>
-                            <TextBlock
+                            <TextBlock x:Name="expenseTotalCash"
                                 Margin="10 0 0 0"
                                 Text="250,000"
                                 FontSize="15"
@@ -136,7 +136,7 @@
                                 Foreground="White"
                                 ></TextBlock>
 
-                            <TextBlock
+                            <TextBlock x:Name="expenseTotalCard"
                                 Text="100,0000"
                                 Margin="10 0 0 0"
                                 FontSize="15"
@@ -150,7 +150,7 @@
                                        FontWeight="SemiBold"
                                        Foreground="White"
                                        ></TextBlock>
-                            <TextBlock
+                            <TextBlock x:Name="expenseTotalAmount"
                                 Margin="10 0 0 0"
                                 Text="350,000"
                                 FontSize="15"
@@ -187,7 +187,7 @@
                                     FontSize="15"
                                     FontWeight="SemiBold"
                                     ></TextBlock>
-                                <TextBlock
+                                <TextBlock x:Name="saleProductCashAmount"
                                     Margin="10 0 0 0"
                                     Text="250,000"
                                     FontSize="15"
@@ -203,7 +203,7 @@
                                     Foreground="White"
                                     ></TextBlock>
 
-                                <TextBlock
+                                <TextBlock x:Name="saleProductCardAmount"
                                      Text="100,0000"
                                      Margin="10 0 0 0"
                                      FontSize="15"
@@ -217,7 +217,7 @@
                                          FontWeight="SemiBold"
                                          Foreground="White"
                                          ></TextBlock>
-                                <TextBlock
+                                <TextBlock x:Name="saleProductTotalAmount"
                                           Margin="10 0 0 0"
                                           Text="350,000"
                                           FontSize="15"
@@ -231,7 +231,7 @@
                                           FontWeight="SemiBold"
                                           Foreground="White"
                                           ></TextBlock>
-                                <TextBlock
+                                <TextBlock x:Name="saleProductBenefit"
                                           Margin="10 0 0 0"
                                           Text="350,000"
                                           FontSize="15"
@@ -244,16 +244,14 @@
 
 
                     <Border 
-                        Visibility="Collapsed" 
+                        Visibility="Visible" 
                         x:Name="BrCargoReport"
                            Grid.Row="0"
                            CornerRadius="5"
                            Margin="5"
                            Background="#666262"
                            >
-                        <StackPanel
-           
-                                  >
+                        <StackPanel>
                             <TextBlock
                                     Text="Yuk hisoboti"
                                     VerticalAlignment="Center"
@@ -262,7 +260,7 @@
                                     FontSize="20"
                                     FontWeight="Bold"
                                     ></TextBlock>
-                            <TextBlock
+                            <TextBlock x:Name="loadReportCount"
                                 Text="Olingan yukalar soni:"
                                Margin="10 0 0 0"
                                 FontSize="16"
@@ -276,7 +274,7 @@
                                     FontSize="15"
                                     FontWeight="SemiBold"
                                     ></TextBlock>
-                                <TextBlock
+                                <TextBlock x:Name="loadReportProductCountKG"
                                     Margin="10 0 0 0"
                                     Text="250"
                                     FontSize="15"
@@ -292,7 +290,7 @@
                                     Foreground="White"
                                     ></TextBlock>
 
-                                <TextBlock
+                                <TextBlock x:Name="loadReportProductCount"
                                     Text="100,0000"
                                     Margin="10 0 0 0"
                                     FontSize="15"
@@ -310,7 +308,7 @@
                                 ></TextBlock>
                             
                             
-                                <TextBlock
+                                <TextBlock x:Name="loadReportTotalAmount"
                                    Margin="10 0 0 0"
                                    Text="350,000"
                                    FontSize="17"
@@ -347,7 +345,7 @@
                                 Foreground="White"
                                 FontSize="15"
                                 ></TextBlock>
-                            <TextBlock
+                            <TextBlock x:Name="runningOutOfProductCount"
                                 Text="50"
                                 Foreground="White"
                                 FontSize="16"

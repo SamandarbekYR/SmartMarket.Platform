@@ -13,4 +13,5 @@ public interface ILoadReportService
     Task<IEnumerable<LoadReportDto>> GetLoadReportsByContrAgentIdAsync(Guid contrAgentId);
     Task<List<LoadReportDto>> GetLoadReportsByCompanyNameAsync(string companyName);
     Task<List<LoadReportDto>> FilterLoadReportAsync(FilterLoadReportDto dto);
+    Task<LoadReportStatisticsDto> GetStatisticsAsync();
 }
