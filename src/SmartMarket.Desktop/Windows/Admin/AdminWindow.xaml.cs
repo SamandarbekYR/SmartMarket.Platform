@@ -54,8 +54,8 @@ public partial class AdminWindow : Window
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        MainPage mainPage = new MainPage();
-        Page_Navigator.Content = mainPage;
+        SalePage salePage = new SalePage();
+        Page_Navigator.Content = salePage;
     }
 
     private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
