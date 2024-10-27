@@ -12,4 +12,5 @@ public interface IExpenceService
     Task<IEnumerable<FullExpenceDto>> GetExpensesByReasonAsync(string reason, PaginationParams paginationParams);
     Task<IEnumerable<FullExpenceDto>> FilterExpenceAsync(FilterExpenseDto filterExpenseDto);
     Task<FullExpenceDto> GetByIdAsync(Guid Id);
+    Task<ExpenseSummaryDto> GetExpenseSummaryAsync();
 }

@@ -85,6 +85,24 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
             }
         }
 
+        [HttpGet("statistics")]
+        public async Task<IActionResult> GetLoadReportStatisticsAsync()
+        {
+            try
+            {
+                var loadReportStatistics = await _loadReportService.GetStatisticsAsync();
+                return Ok(loadReportStatistics);
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            } 
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddAsync([FromBody] AddLoadReportDto dto)
         {

@@ -227,6 +227,32 @@ namespace SmartMarket.Service.Services.Products.LoadReport
             }
         }
 
+        public async Task<LoadReportStatisticsDto> GetStatisticsAsync()
+        {
+            try
+            {
+                var loadReports = await _unitOfWork.LoadReport.GetLoadReportsFullInformationAsync();
+
+                var productCount = loadReports.Sum(l => l.Product.Count);
+                var productCountKG = loadReports.Where(l => l.Product.UnitOfMeasure == "Kg").Sum(l => l.Product.Count);
+                var productTotalAmount = loadReports.Sum(l => l.TotalPrice);
+                var count = loadReports.Count();
+
+                return new LoadReportStatisticsDto
+                {
+                    ProductCount = productCount,
+                    ProductCountKG = productCountKG,
+                    TotalAmount = productTotalAmount,
+                    Count = count                    
+                };
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "Error occured while getting load report statistics.");
+                throw;
+            }
+        }
+
         public async Task<bool> UpdateAsync(AddLoadReportDto dto, Guid Id)
         {
             try

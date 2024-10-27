@@ -219,6 +219,30 @@ namespace SmartMarket.Service.Services.Expence
             }
         }
 
+        public async Task<ExpenseSummaryDto> GetExpenseSummaryAsync()
+        {
+            try
+            {
+                var expenses = await _unitOfWork.Expense.GetExpensesFullInformationAsync()
+                    .ToListAsync();
+
+                var totalCash = expenses.Where(x => x.TypeOfPayment == "Naqd").Sum(x => x.Amount);
+                var totalCard = expenses.Where(x => x.TypeOfPayment == "Karta").Sum(x => x.Amount);
+                var totalAmount = expenses.Sum(x => x.Amount);
+
+                return new ExpenseSummaryDto
+                {
+                    TotalCash = totalCash,
+                    TotalCard = totalCard,
+                    TotalAmount = totalAmount
+                };
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "Error occured while getting by expense total amount.");
+                throw;
+            }
+        }
 
         public async Task<bool> UpdateAsync(AddExpenceDto dto, Guid Id)
         {

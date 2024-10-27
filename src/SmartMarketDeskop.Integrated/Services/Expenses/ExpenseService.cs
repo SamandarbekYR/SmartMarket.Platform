@@ -53,6 +53,16 @@ namespace SmartMarketDeskop.Integrated.Services.Expenses
             {  return new List<FullExpenceDto>(); }
         }
 
+        public async Task<ExpenseSummaryDto> GetExpenseSummary()
+        {
+            if(IsInternetAvialable())
+            {
+                var expenseSummary = await _expensesServer.GetExpenseSummaryAsync();
+                return expenseSummary;
+            }
+            else {  return new ExpenseSummaryDto(); }
+        }
+
         public bool IsInternetAvialable()
         {
             try
