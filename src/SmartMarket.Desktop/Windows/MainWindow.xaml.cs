@@ -19,7 +19,6 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        btnMain.IsChecked = true;
     }
 
     private void Btnclose_Click(object sender, RoutedEventArgs e)
@@ -110,10 +109,7 @@ public partial class MainWindow : Window
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        MainPage mainPage = new MainPage();
-        PageNavigator.Content = mainPage;
-
-        //SettingsPage settingsPage = new SettingsPage();
-        //PageNavigator.Content = settingsPage;
+        SalePage salePage = new SalePage();
+        PageNavigator.Content = salePage;
     }
 }

@@ -17,8 +17,8 @@ public class SalesRequestServer : ISalesRequestsServer
         try
         {
             var token = IdentitySingelton.GetInstance().Token;
-            dto.WorkerId = TokenHandler.ParseToken(token).Id;
-            dto.PayDeskId = Guid.Parse("efdb3744-844e-4b86-b933-b77804358c79");
+            dto.WorkerId = IdentitySingelton.GetInstance().Id;
+            dto.PayDeskId = IdentitySingelton.GetInstance().PayDeskId;
 
             using (var client = new HttpClient())
             {

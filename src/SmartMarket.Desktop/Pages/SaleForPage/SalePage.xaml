@@ -112,7 +112,6 @@
                         <DockPanel>
                             <TextBlock
                              x:Name="tbFullName"
-                             Text="Sobirov Sherzod"
                              VerticalAlignment="Center"
                              FontSize="18"
                              FontWeight="Bold"
@@ -122,8 +121,7 @@
                              ></TextBlock>
 
                             <TextBlock
-                             x:Name="tbBarCode"
-                             Text="#12542140505"
+                             x:Name="tbKassaName"
                              HorizontalAlignment="Right"
                              VerticalAlignment="Center"
                              FontSize="16"
