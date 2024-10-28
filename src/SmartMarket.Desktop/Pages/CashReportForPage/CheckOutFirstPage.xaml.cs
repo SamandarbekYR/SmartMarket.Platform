@@ -64,8 +64,9 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
             //    runningProductComponent.SetData(product);
             //    spProducts.Children.Add(runningProductComponent);
             //}
-        }
 
+            SalesMoney();
+        }
 
     }
 }
