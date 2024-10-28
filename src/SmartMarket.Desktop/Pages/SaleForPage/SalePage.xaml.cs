@@ -15,6 +15,7 @@ using SmartMarketDeskop.Integrated.Services.Products.Print;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
+using System.Configuration;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;

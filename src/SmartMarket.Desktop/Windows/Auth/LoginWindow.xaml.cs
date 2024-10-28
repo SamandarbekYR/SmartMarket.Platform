@@ -65,6 +65,18 @@ public partial class LoginWindow : Window
         Application.Current.Shutdown();
     }
 
+    private void SetIdentitySingleton(string token)
+    {
+        var t = TokenHandler.ParseToken(token);
+        var identity = IdentitySingelton.GetInstance();
+        identity.Token = token;
+        identity.Id = t.Id;
+        identity.FirstName = t.FirstName;
+        identity.LastName = t.LastName;
+        identity.PhoneNumber = t.PhoneNumber;
+        identity.RoleName = t.RoleName;
+    }
+
     private async void btnLogin_MouseUp(object sender, MouseButtonEventArgs e)
     {
         try
@@ -81,8 +93,8 @@ public partial class LoginWindow : Window
                 
                 if (result.Result)
                 {
-                    IdentitySingelton.GetInstance().Token = TokenHandler.ParseToken(result.Token).Token;
-                    IdentitySingelton.GetInstance().RoleName = TokenHandler.ParseToken(result.Token).RoleName;
+                    SetIdentitySingleton(result.Token);
+
                     string role = IdentitySingelton.GetInstance().RoleName;
                     Loader.Visibility = Visibility.Collapsed;
                     btnLogin.Visibility = Visibility.Visible;
