@@ -7,7 +7,8 @@
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="640" d:DesignWidth="1024"
-      Title="CheckOutFirstPage">
+      Title="CheckOutFirstPage"
+      Loaded="Page_Loaded">
     
     <Border 
         CornerRadius="5"
@@ -55,6 +56,7 @@
 
 
                         <DatePicker
+                            x:Name="fromDateTime"
                             Style="{DynamicResource FormDatePicker}"/>
                         <Label
                             FontSize="14"
@@ -72,7 +74,9 @@
 
 
                         <DatePicker
-                            Style="{DynamicResource FormDatePicker}"/>
+                            x:Name="toDateTime"
+                            Style="{DynamicResource FormDatePicker}"
+                            SelectedDateChanged="DatePicker_SelectedDateChanged"/>
                         <Label
                             FontSize="14"
                             FontWeight="SemiBold"
