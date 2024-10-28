@@ -3,8 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ExpensesForPage"
-      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      xmlns:local="clr-namespace:SmartMarket.Desktop.Components.Loader"
       mc:Ignorable="d" 
       Title="AllProductsPage"
       Loaded="Page_Loaded">
@@ -105,15 +105,23 @@
             BorderThickness="1 0 1 1"
             BorderBrush="Black"
             Grid.Row="2">
-            
-            <ScrollViewer
-                Margin="0 0 0 10">
+
+            <Grid>
+
+                <local:Loader
+                    x:Name="Loader"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"/>
                 
-                <StackPanel 
-                    x:Name="St_AllProducts">
-                    
-                </StackPanel>
-            </ScrollViewer>
+                <ScrollViewer
+                    Margin="0 0 0 10">
+
+                    <StackPanel 
+                        x:Name="St_AllProducts">
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+            
         </Border>
 
     </Grid>

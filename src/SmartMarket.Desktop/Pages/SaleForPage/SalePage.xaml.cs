@@ -10,6 +10,7 @@ using SmartMarket.Desktop.Windows.Settings;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
+using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Services.Products.Print;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
@@ -262,6 +263,19 @@ public partial class SalePage : Page
 
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
+        var payDeskId = Properties.Settings.Default.PayDesk;
+        if (string.IsNullOrEmpty(payDeskId))
+        {
+            SelectPayDeskWindow selectPayDeskWindow = new SelectPayDeskWindow();
+            selectPayDeskWindow.ShowDialog();
+        }
+        else
+        {
+            IdentitySingelton.GetInstance().PayDeskId = Guid.Parse(payDeskId.ToString()!);
+            IdentitySingelton.GetInstance().PayDeskName = Properties.Settings.Default.PayDeskName;
+        }
+        tbFullName.Text = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
+        tbKassaName.Text = IdentitySingelton.GetInstance().PayDeskName;
         GetData();
         St_product.Focus();
     }
@@ -510,10 +524,10 @@ public partial class SalePage : Page
 
     private void btnPay_Click(object sender, RoutedEventArgs e)
     {
-        PrintService printService = new PrintService();
-        printService.Test();
-        //PaymentTypeWindow paymentTypeWindow = new PaymentTypeWindow();
-        //paymentTypeWindow.ShowDialog();
+        //PrintService printService = new PrintService();
+        //printService.Test();
+        PaymentTypeWindow paymentTypeWindow = new PaymentTypeWindow();
+        paymentTypeWindow.ShowDialog();
     }
 
     public async void SaleProducts(bool isDebt)
@@ -565,7 +579,16 @@ public partial class SalePage : Page
         bool result = await _salesRequestsService.CreateSalesRequest(dto);
         if (result)
         {
-            // Bu yerda PrintService bo'ladi
+
+            PrintService printService = new PrintService();
+            printService.Print(dto, tvm.Transactions);
+
+            tvm = null!;
+            St_product.Children.Clear();
+            ColculateTotalPrice();
+            EmptyPrice();
+
+            notifier.ShowSuccess("Sotuv amalga oshirildi.");
         }
         else
             notifier.ShowError("Sotuvda qandaydir muammo bor!!!");

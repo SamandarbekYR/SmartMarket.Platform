@@ -25,7 +25,7 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
         private readonly IValidator<AddSalesRequestDto> _validator = validator;
         private readonly ILogger<SalesRequestService> _logger = logger;
 
-        public async Task<bool> AddAsync(AddSalesRequestDto dto)
+        public async Task<long> AddAsync(AddSalesRequestDto dto)
         {
             try
             {
@@ -78,12 +78,14 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
                     throw new StatusCodeException(HttpStatusCode.BadRequest, "Error updating product count.");
                 }
 
-                return await _unitOfWork.SalesRequest.Add(salesRequest);
+                await _unitOfWork.SalesRequest.Add(salesRequest);
+
+                return salesRequest.TransactionId;
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error adding SalesRequest");
-                return false;
+                return 0;
             }
         }
 

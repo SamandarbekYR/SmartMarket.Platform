@@ -30,14 +30,17 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
                 .Distinct()
                 .ToList();
 
-            workerNames.Insert(0, "Sotuvchi");
-            workerComboBox.ItemsSource = workerNames;
+            foreach(var worker in workerNames)
+            {
+                workerComboBox.Items.Add(new ComboBoxItem { Content = worker });
+            }
 
             showLoadReport(loadReports);
         }
 
         private async void FilterLoadReport()
         {
+            Loader.Visibility = Visibility.Visible;
             St_CargoReports.Children.Clear();
             FilterLoadReportDto loadReportDto = new FilterLoadReportDto();
 
@@ -69,6 +72,8 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
         private void showLoadReport(IEnumerable<LoadReportDto> loadReports)
         {
             St_CargoReports.Children.Clear();
+
+            Loader.Visibility = Visibility.Collapsed;
 
             int count = 1;
 
@@ -105,7 +110,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             }
         }
         private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
+        { 
             GetAllCargoReport();
         }
     }

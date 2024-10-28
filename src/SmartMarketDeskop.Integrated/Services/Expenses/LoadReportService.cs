@@ -43,6 +43,16 @@ namespace SmartMarketDeskop.Integrated.Services.Expenses
             else { return new List<LoadReportDto>(); }
         }
 
+        public async Task<LoadReportStatisticsDto> GetStatisticsAsync()
+        {
+            if(IsInternetAvialable())
+            {
+                var loadReportStatistics = await _loadReportServer.GetLoadReportStatisticsAsync();
+                return loadReportStatistics;
+            }
+            else { return new LoadReportStatisticsDto(); }
+        }
+
         public bool IsInternetAvialable()
         {
             try

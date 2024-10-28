@@ -25,6 +25,8 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
             var products = await Task.Run(async () => await _productService.GetFinishedProducts());
 
+            Loader.Visibility = Visibility.Collapsed;
+
             if (products.Count > 0)
             {
                 foreach (var product in products)

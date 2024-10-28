@@ -23,6 +23,8 @@ public partial class AllProductsPage : Page
 
         var products = await Task.Run(async () => await _productService.GetAll());
 
+        Loader.Visibility = Visibility.Collapsed;
+
         int productCount = 1;
 
         if (products != null)

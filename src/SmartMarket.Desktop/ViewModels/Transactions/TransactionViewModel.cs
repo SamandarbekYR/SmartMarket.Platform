@@ -1,12 +1,11 @@
 ﻿using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
-using System.Collections.ObjectModel;
 
 namespace SmartMarket.Desktop.ViewModels.Transactions;
 
 public class TransactionViewModel
 {
-    public ObservableCollection<TransactionDto> Transactions = new ObservableCollection<TransactionDto>();
+    public List<TransactionDto> Transactions = new List<TransactionDto>();
 
     internal double TransactionPrice { get; set; } = 0;
     internal double DiscountPrice { get; set; } = 0;

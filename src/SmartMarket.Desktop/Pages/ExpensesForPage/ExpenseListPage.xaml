@@ -76,7 +76,7 @@
                     Margin="5 10 10 10"
                     Grid.Column="3"
                     SelectionChanged="workerComboBox_SelectionChanged">
-                    
+                    <ComboBoxItem Content="Sotuvchi" IsEnabled="False"/>
                 </ComboBox>
 
 
@@ -162,20 +162,21 @@
             Background="White"
             BorderBrush="{DynamicResource BorderColor}"
             BorderThickness="1 0 1 1"
-            CornerRadius="0 0 5 5"
-            >
-            <ScrollViewer 
-                VerticalScrollBarVisibility="Auto" 
-                HorizontalScrollBarVisibility="Auto">
-                <StackPanel 
-                    x:Name="St_Expenses">
-                    <local:Loader
-                        x:Name="Loader"
-                        Visibility="Collapsed"
-                        VerticalAlignment="Center"
-                        HorizontalAlignment="Center"/>
-                </StackPanel>
-            </ScrollViewer>
+            CornerRadius="0 0 5 5">
+
+            <Grid>
+                <local:Loader
+                    x:Name="Loader"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"/>
+                
+                <ScrollViewer >
+                    <StackPanel 
+                        x:Name="St_Expenses">
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+            
         </Border>
         
     </Grid>

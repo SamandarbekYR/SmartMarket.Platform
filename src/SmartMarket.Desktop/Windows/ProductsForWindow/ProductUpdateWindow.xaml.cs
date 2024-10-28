@@ -40,6 +40,7 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
         List<ContrAgentViewModels> contrAgents = new List<ContrAgentViewModels>();
         private string imagepath;
         private Guid productId = Guid.Empty;
+        private Guid workerId = Guid.Empty;
 
         public ProductUpdateWindow()
         {
@@ -77,6 +78,7 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
         public void SetData(S.FullProductDto product)
         {
             productId = product.Id;
+            workerId = product.WorkerId;
             txtBarCode.Text = product.Barcode.ToString();
             txtPCode.Text = product.PCode;
             txtProductName.Text = product.Name;
@@ -84,7 +86,8 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
             txtQuantity.Text = product.Count.ToString();
             txtPrice.Text = product.Price.ToString();
             txtProductPriceSum.Text = product.SellPrice.ToString();
-            txtProductPricePersentage.Text = ((product.SellPrice - product.Price) * 100 / product.Price).ToString();
+            int persentage = (int)((product.SellPrice - product.Price) * 100 / product.Price);
+            txtProductPricePersentage.Text = persentage.ToString();
             comboMeasurement.Text = product.UnitOfMeasure;
             comboDelivery.Text = product.WorkerFirstName;
             txtNoteAmount.Text = product.NoteAmount.ToString();
@@ -114,6 +117,7 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
                 addProductDto.ContrAgentId = contrAgentViewModels.Id;
             }
 
+            addProductDto.WorkerId = workerId;
             addProductDto.PaymentStatus = "Active";
             addProductDto.NoteAmount = int.Parse(txtNoteAmount.Text);
             await productService.UpdateProduct(addProductDto, productId);

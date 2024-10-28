@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ExpensesForPage"
+      xmlns:local="clr-namespace:SmartMarket.Desktop.Components.Loader"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       Title="CargoReportPage"
@@ -77,8 +77,8 @@
                      Grid.Column="3"
                      Text="Sotuvchi"
                      SelectionChanged="WorkerComboBox_SelectionChanged">
+                    <ComboBoxItem Content="Sotuvchi" IsEnabled="False"/>
                 </ComboBox>
-
 
                 <TextBox x:Name="filterTextBox"
                     Margin="0 0 10 0"
@@ -155,14 +155,18 @@
             CornerRadius="0 0 5 5" 
             BorderThickness="1 0 1 1" 
             BorderBrush="Black">
-            <ScrollViewer 
-                VerticalScrollBarVisibility="Auto" 
-                HorizontalScrollBarVisibility="Auto">
-                <StackPanel
-                    Name="St_CargoReports">
-                    
-                </StackPanel>
-            </ScrollViewer>
+            <Grid>
+                <local:Loader
+                    x:Name="Loader"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"/>
+                <ScrollViewer >
+                    <StackPanel
+                        Name="St_CargoReports">
+
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
         </Border>
     </Grid>
 </Page>

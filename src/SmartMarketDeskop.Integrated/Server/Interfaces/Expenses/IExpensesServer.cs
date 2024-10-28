@@ -7,4 +7,5 @@ public interface IExpensesServer
     Task<List<FullExpenceDto>> GetExpensesFullInformationAsync();
     Task<List<FullExpenceDto>>  FilterExpenceAsync(FilterExpenseDto filterExpenceDto);
     Task<bool> CreateAsync(AddExpenceDto expence);
+    Task<ExpenseSummaryDto> GetExpenseSummaryAsync();
 }

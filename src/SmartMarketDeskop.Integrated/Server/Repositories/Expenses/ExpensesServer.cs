@@ -105,4 +105,25 @@ public class ExpensesServer : IExpensesServer
         }
     }
 
+    public async Task<ExpenseSummaryDto> GetExpenseSummaryAsync()
+    {
+        try
+        {
+            HttpClient client = new HttpClient();
+
+            var token = IdentitySingelton.GetInstance().Token;
+            client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/expences/summary");
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+            HttpResponseMessage responseMessage = await client.GetAsync(client.BaseAddress);
+
+            string response = await responseMessage.Content.ReadAsStringAsync();
+            ExpenseSummaryDto expenseSummary = JsonConvert.DeserializeObject<ExpenseSummaryDto>(response)!;
+
+            return expenseSummary;
+        }
+        catch(Exception ex)
+        {
+            return new ExpenseSummaryDto();
+        }
+    }
 }

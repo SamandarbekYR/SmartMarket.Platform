@@ -52,6 +52,7 @@
                     x:Name="btnsale"
                     Click="btnsale_Click"
                     Grid.Column="1"
+                    IsChecked="True"
                     Content="Sotuv oynasi"
                     Style="{DynamicResource MenuButton2}"
                     Tag="{StaticResource cart}">
