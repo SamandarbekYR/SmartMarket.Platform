@@ -78,6 +78,8 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
                     throw new StatusCodeException(HttpStatusCode.BadRequest, "Error updating product count.");
                 }
 
+                await _unitOfWork.SalesRequest.Add(salesRequest);
+
                 return salesRequest.TransactionId;
             }
             catch (Exception ex)
