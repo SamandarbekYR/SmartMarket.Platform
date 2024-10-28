@@ -60,11 +60,6 @@ public partial class LoginWindow : Window
         btnDisVisible.Visibility = Visibility.Collapsed;
     }
 
-    private void btnClose_MouseUp(object sender, MouseButtonEventArgs e)
-    {
-        Application.Current.Shutdown();
-    }
-
     private void SetIdentitySingleton(string token)
     {
         var t = TokenHandler.ParseToken(token);
@@ -139,7 +134,6 @@ public partial class LoginWindow : Window
         {
             
         }
-
     }
 
     private bool IsInternetAvailable()
@@ -170,5 +164,10 @@ public partial class LoginWindow : Window
         {
             await updateManager.UpdateApp();
         }
+    }
+
+    private void CloseButton_Click(object sender, RoutedEventArgs e)
+    {
+        Application.Current.Shutdown();
     }
 }
