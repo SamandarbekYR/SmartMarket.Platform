@@ -81,7 +81,7 @@ public partial class LoginWindow : Window
                 if (result.Result)
                 {
                     IdentitySingelton.GetInstance().Token = TokenHandler.ParseToken(result.Token).Token;
-
+                    IdentitySingelton.GetInstance().RoleName = TokenHandler.ParseToken(result.Token).RoleName;
                     string role = IdentitySingelton.GetInstance().RoleName;
                     Loader.Visibility = Visibility.Collapsed;
                     btnLogin.Visibility = Visibility.Visible;
