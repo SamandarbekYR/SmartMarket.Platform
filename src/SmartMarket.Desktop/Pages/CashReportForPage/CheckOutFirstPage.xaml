@@ -157,20 +157,20 @@
                     <Label
                         Name="Label_Naqd_Savdo"
                         Margin="0 10 0 0"
-                        Content="200 000 000"
+                        Content="0"
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
                     <Label
                         Name="Label_Naqd_Qarz"
-                        Content="20 000 000"
+                        Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
                     <Label
                         Name="Label_Naqd_Umumiy"
-                        Content="220 000 000"
+                        Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
@@ -190,20 +190,20 @@
                     <Label
                         Name="Label_Karta_Savdo"
                         Margin="0 10 0 0"
-                        Content="200 000 000"
+                        Content="0"
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
                     <Label
                         Name="Label_Karta_Qarz"
-                        Content="20 000 000"
+                        Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
                     <Label
                         Name="Label_Karta_Umumiy"
-                        Content="220 000 000"
+                        Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
@@ -223,20 +223,20 @@
                     <Label
                         Name="Label_Pul_Savdo"
                         Margin="0 10 0 0"
-                        Content="200 000 000"
+                        Content="0"
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
                     <Label
                         Name="Label_Pul_Qarz"
-                        Content="20 000 000"
+                        Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
                     <Label
                         Name="Label_Pul_Umumiy"
-                        Content="220 000 000"
+                        Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
@@ -256,20 +256,20 @@
                     <Label
                         Name="Label_Nasiya_Savdo"
                         Margin="0 10 0 0"
-                        Content="200 000 000"
+                        Content="0"
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
                     <Label
                         Name="Label_Nasiya_Qarz"
-                        Content="20 000 000"
+                        Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
                     <Label
                         Name="Label_Nasiya_Umumiy"
-                        Content="220 000 000"
+                        Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
@@ -290,14 +290,14 @@
                     <Label
                         Name="Label_Jami_Savdo"
                         Margin="0 10 0 0"
-                        Content="200 000 000"
+                        Content="0"
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Foreground="#25D409"
                         Style="{DynamicResource Label}"/>
                     <Label
                         Name="Label_Jami_Qarz"
-                        Content="20 000 000"
+                        Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
@@ -305,7 +305,7 @@
                         Style="{DynamicResource Label}"/>
                     <Label
                         Name="Label_Jami_Umumiy"
-                        Content="220 000 000"
+                        Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
@@ -385,20 +385,20 @@
                     <Label
                         Name="Label_Naqd_Dokon"
                         Margin="0 10 0 0"
-                        Content="200 000 000"
+                        Content="0"
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
                     <Label
                         Name="Label_Naqd_Hisob"
-                        Content="20 000 000"
+                        Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
                     <Label
                         Name="Label_Naqd_Yuk"
-                        Content="220 000 000"
+                        Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
@@ -418,20 +418,20 @@
                     <Label
                         Name="Label_Karta_Dokon"
                         Margin="0 10 0 0"
-                        Content="200 000 000"
+                        Content="0"
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
                     <Label
                         Name="Label_Karta_Hisob"
-                        Content="20 000 000"
+                        Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
                     <Label
                         Name="Label_Karta_Yuk"
-                        Content="220 000 000"
+                        Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
@@ -451,20 +451,20 @@
                     <Label
                         Name="Label_Pul_Dokon"
                         Margin="0 10 0 0"
-                        Content="200 000 000"
+                        Content="0"
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
                     <Label
                         Name="Label_Pul_Hisob"
-                        Content="20 000 000"
+                        Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
                     <Label
                         Name="Label_Pul_Yuk"
-                        Content="220 000 000"
+                        Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
@@ -485,14 +485,14 @@
                     <Label
                         Name="Label_Jami_Dokon"
                         Margin="0 10 0 0"
-                        Content="200 000 000"
+                        Content="0"
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Foreground="#D41509"
                         Style="{DynamicResource Label}"/>
                     <Label
                         Name="Label_Jami_Hisob"
-                        Content="20 000 000"
+                        Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
@@ -500,7 +500,7 @@
                         Style="{DynamicResource Label}"/>
                     <Label
                         Name="Label_Jami_Yuk"
-                        Content="220 000 000"
+                        Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
@@ -567,7 +567,7 @@
                     <Label
                         Name="Label_Naqd_All"
                         Margin="0 10 0 0"
-                        Content="200 000 000"
+                        Content="0"
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
@@ -586,7 +586,7 @@
                     <Label
                         Name="Label_Karta_All"
                         Margin="0 10 0 0"
-                        Content="200 000 000"
+                        Content="0"
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
@@ -605,7 +605,7 @@
                     <Label
                         Name="Label_Pul_All"
                         Margin="0 10 0 0"
-                        Content="200 000 000"
+                        Content="0"
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
@@ -625,7 +625,7 @@
                     <Label
                         Name="Label_Nasiya_All"
                         Margin="0 10 0 0"
-                        Content="200 000 000"
+                        Content="0"
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Foreground="Blue"

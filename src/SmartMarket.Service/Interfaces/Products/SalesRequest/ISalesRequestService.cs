@@ -6,7 +6,7 @@ namespace SmartMarket.Service.Interfaces.Products.SalesRequest
 {
     public interface ISalesRequestService
     {
-        Task<bool> AddAsync(AddSalesRequestDto dto);
+        Task<long> AddAsync(AddSalesRequestDto dto);
         Task<bool> UpdateAsync(AddSalesRequestDto dto, Guid Id);
         Task<bool> DeleteAsync(Guid Id);
         Task<SalesRequestDto> GetByIdAsync(Guid Id);
