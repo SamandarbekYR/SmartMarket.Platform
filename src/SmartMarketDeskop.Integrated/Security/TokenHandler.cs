@@ -1,4 +1,5 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
+using System.Security.Principal;
 
 namespace SmartMarketDeskop.Integrated.Security
 {
@@ -16,26 +17,15 @@ namespace SmartMarketDeskop.Integrated.Security
 
             foreach (var claim in tokenInfo.Claims)
             {
-               // const string V = @"http://schemas.microsoft.com/ws/2008/06/identity/claims/role";
-                switch (claim.Type)
+                identity = claim.Type switch
                 {
-                    case "Id":
-                        identity.Id = Guid.Parse(claim.Value);
-                        break;
-                    case "FirstName":
-                        identity.FirstName = claim.Value;
-                        break;
-                    case "LastName":
-                        identity.LastName = claim.Value;
-                        break;
-                    case "PhoneNumber":
-                        identity.PhoneNumber = claim.Value;
-                        break;
-                    //case v:
-                    //    identity.RoleName = claim.Value;
-                    default:
-                        break;
-                }
+                    "Id" => new IdentitySingelton { Id = Guid.Parse(claim.Value) },
+                    "FirstName" => new IdentitySingelton { FirstName = claim.Value },
+                    "LastName" => new IdentitySingelton { LastName = claim.Value },
+                    "PhoneNumber" => new IdentitySingelton { PhoneNumber = claim.Value },
+                    "RoleName" => new IdentitySingelton { RoleName = claim.Value },
+                    _ => identity 
+                };
             }
             return identity;
         }

@@ -29,7 +29,7 @@ namespace SmartMarket.Service.Services.Auth
             new Claim ("FirstName", user.FirstName),
             new Claim ("LastName", user.LastName),
             new Claim ("PhoneNumber", user.PhoneNumber),
-            new Claim(ClaimTypes.Role, user.WorkerRole.RoleName)
+            new Claim("RoleName", user.WorkerRole.RoleName)
             };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["SecurityKey"]!));
