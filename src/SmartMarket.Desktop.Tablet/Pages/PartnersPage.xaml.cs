@@ -3,7 +3,6 @@ using SmartMarket.Desktop.Tablet.Windows;
 using SmartMarket.Desktop.Tablet.Windows.Partners;
 using SmartMarket.Domain.Entities.Partners;
 using SmartMarket.Service.DTOs.Partner;
-using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Partners;
 using System.Windows;
 using System.Windows.Controls;
@@ -82,12 +81,28 @@ public partial class PartnersPage : Page
 
     private CancellationTokenSource _cancellationTokenSource;
 
-    private async void tb_search_TextChanged(object sender, TextChangedEventArgs e)
+    private async void tb_search_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
     {
         _cancellationTokenSource?.Cancel();
         _cancellationTokenSource = new CancellationTokenSource();
+        var token = _cancellationTokenSource.Token;
 
         string search = tb_search.Text;
+
+        try
+        {
+            await Task.Delay(500, token);
+        }
+        catch (TaskCanceledException)
+        {
+            return;
+        }
+
+        if (token.IsCancellationRequested)
+        {
+            EmptyData.Visibility = Visibility.Collapsed;
+            return;
+        }
 
         St_partners.Children.Clear();
         EmptyData.Visibility = Visibility.Collapsed;
@@ -100,8 +115,6 @@ public partial class PartnersPage : Page
             {
                 await Task.Run(async () =>
                 {
-                    if (_cancellationTokenSource.Token.IsCancellationRequested) return;
-
                     if (search.Length >= 1)
                     {
                         var partner = await _partnerService.GetByName(search);
@@ -111,8 +124,7 @@ public partial class PartnersPage : Page
                             SetPartner(partner);
                         });
                     }
-                },
-                _cancellationTokenSource.Token);
+                }, token);
             }
             catch (TaskCanceledException)
             {
@@ -125,6 +137,8 @@ public partial class PartnersPage : Page
         else
         {
             St_partners.Children.Clear();
+            EmptyData.Visibility = Visibility.Collapsed;
+            await GetAllDebtor();
         }
     }
 

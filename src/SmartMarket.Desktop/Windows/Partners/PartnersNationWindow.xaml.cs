@@ -3,7 +3,9 @@ using SmartMarket.Domain.Entities.Partners;
 using SmartMarket.Service.DTOs.Partner;
 using SmartMarketDeskop.Integrated.Services.Partners;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Interop;
 using System.Windows.Media;
 using ToastNotifications;
@@ -91,35 +93,45 @@ public partial class PartnersNationWindow : Window
         partnerCreateWindow.ShowDialog();
     }
 
-    private void Window_Loaded(object sender, RoutedEventArgs e)
+    private async void Window_Loaded(object sender, RoutedEventArgs e)
     {
         EnableBlur();
 
-        GetPartners();
+        await GetPartners();
     }
 
-    private async void GetPartners()
+    private async Task GetPartners()
     {
-        var partners = await _partnerService.GetAll();
+        var partners = await Task.Run(() => _partnerService.GetAll());
+        Loader.Visibility = Visibility.Collapsed;
 
-        St_Nationer.Children.Clear();
-        int count = 1;
-
-        if(partners.Count > 0)
+        await Application.Current.Dispatcher.InvokeAsync(() =>
         {
-            foreach (var partner in partners)
+            St_Nationer.Children.Clear();
+            int count = 1;
+
+            if (partners.Count > 0)
             {
-                PartnerNationComponent partnerNationComponent = new PartnerNationComponent();
-                partnerNationComponent.Tag = partner;
-                partnerNationComponent.SetData(partner, count);
-                St_Nationer.Children.Add(partnerNationComponent);
-                count++;
+                foreach (var partner in partners)
+                {
+                    PartnerNationComponent partnerNationComponent = new PartnerNationComponent();
+                    partnerNationComponent.Tag = partner;
+                    partnerNationComponent.SetData(partner, count);
+                    St_Nationer.Children.Add(partnerNationComponent);
+                    count++;
+                }
             }
-        }
+            else
+            {
+                EmptyData.Visibility = Visibility.Visible;
+            }
+        });
     }
+
 
     private void SetPartner(PartnerDto dto)
     {
+        EmptyData.Visibility = Visibility.Collapsed;
         St_Nationer.Children.Clear();
         if (dto != null)
         {
@@ -136,6 +148,10 @@ public partial class PartnersNationWindow : Window
             partnerNationComponent.SetData(partner, 1);
             St_Nationer.Children.Add(partnerNationComponent);
         }
+        else 
+        { 
+            EmptyData.Visibility = Visibility.Visible;
+        }
     }
 
     private void Save_Button_Click(object sender, RoutedEventArgs e)
@@ -151,21 +167,65 @@ public partial class PartnersNationWindow : Window
 
     }
 
+    private CancellationTokenSource _cancellationTokenSource;
     private async void TextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
     {
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource = new CancellationTokenSource();
+        var token = _cancellationTokenSource.Token;
+
         string search = tb_search.Text;
 
-        await Task.Run(async () =>
+        try
         {
-            if (search.Length >= 3)
-            {
-                var partner = await _partnerService.GetByName(search);
+            await Task.Delay(500, token);
+        }
+        catch (TaskCanceledException)
+        {
+            return; 
+        }
 
-                Application.Current.Dispatcher.Invoke(() =>
+        if (token.IsCancellationRequested)
+        {
+            EmptyData.Visibility = Visibility.Collapsed;
+            return;
+        }
+
+        St_Nationer.Children.Clear();
+        EmptyData.Visibility = Visibility.Collapsed;
+
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            Loader.Visibility = Visibility.Visible;
+
+            try
+            {
+                await Task.Run(async () =>
                 {
-                    SetPartner(partner);
-                });
+                    if (search.Length >= 1)
+                    {
+                        var partner = await _partnerService.GetByName(search);
+
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            SetPartner(partner);
+                        });
+                    }
+                }, token);
             }
-        });
+            catch (TaskCanceledException)
+            {
+            }
+            finally
+            {
+                Loader.Visibility = Visibility.Collapsed;
+            }
+        }
+        else
+        {
+            St_Nationer.Children.Clear();
+            await GetPartners();
+        }
     }
+
 }
