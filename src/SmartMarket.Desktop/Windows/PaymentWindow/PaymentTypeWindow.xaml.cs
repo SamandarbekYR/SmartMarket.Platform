@@ -53,65 +53,42 @@ namespace SmartMarket.Desktop.Windows.PaymentWindow
             EnableBlur();
         }
 
-        private void BntCash_Click(object sender, RoutedEventArgs e)
+        private void HandlePayment(string paymentType)
         {
             foreach (Window window in Application.Current.Windows)
             {
                 var frame = window.FindName("PageNavigator") as Frame;
                 if (frame != null && frame.Content is SalePage salePage)
                 {
-                    salePage.PaymentType = "cash";
+                    salePage.PaymentType = paymentType;
                     salePage.SaleProducts(false);
                     break;
                 }
             }
+
             this.Close();
+        }
+
+        private void BntCash_Click(object sender, RoutedEventArgs e)
+        {
+            HandlePayment("cash");
         }
 
         private void BntCard_Click(object sender, RoutedEventArgs e)
         {
-            foreach (Window window in Application.Current.Windows)
-            {
-                var frame = window.FindName("PageNavigator") as Frame;
-                if (frame != null && frame.Content is SalePage salePage)
-                {
-                    salePage.PaymentType = "card";
-                    salePage.SaleProducts(false);
-                    break;
-                }
-            }
-            this.Close();
+            HandlePayment("card");
         }
 
         private void BntTransferMoney_Click(object sender, RoutedEventArgs e)
         {
-            foreach (Window window in Application.Current.Windows)
-            {
-                var frame = window.FindName("PageNavigator") as Frame;
-                if (frame != null && frame.Content is SalePage salePage)
-                {
-                    salePage.PaymentType = "transfer";
-                    salePage.SaleProducts(false);
-                    break;
-                }
-            }
-            this.Close();
+            HandlePayment("transfer");
         }
 
         private void BtnClik_Click(object sender, RoutedEventArgs e)
         {
-            foreach (Window window in Application.Current.Windows)
-            {
-                var frame = window.FindName("PageNavigator") as Frame;
-                if (frame != null && frame.Content is SalePage salePage)
-                {
-                    salePage.PaymentType = "click";
-                    salePage.SaleProducts(false);
-                    break;
-                }
-            }
-            this.Close();
+            HandlePayment("click");
         }
+
 
         private void BntClikAndCash_Click(object sender, RoutedEventArgs e)
         {
