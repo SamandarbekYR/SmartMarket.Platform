@@ -74,7 +74,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             Loader.Visibility = Visibility.Collapsed;
             int count = 1;
 
-            if (expenses != null)
+            if (expenses.Any())
             {
                 foreach (var expense in expenses)
                 {
@@ -87,6 +87,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             }
             else
             {
+                EmptyDataExpense.Visibility = Visibility.Visible;
             }
         }
 

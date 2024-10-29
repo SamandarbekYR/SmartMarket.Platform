@@ -27,7 +27,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
             Loader.Visibility = Visibility.Collapsed;
 
-            if (products.Count > 0)
+            if (products != null)
             {
                 foreach (var product in products)
                 {
@@ -38,7 +38,9 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
                 }
             }
             else
-            { }
+            {
+                EmptyDataRunningOutOfProduct.Visibility = Visibility.Visible;
+            }
         }
 
         public void Page_Loaded(object sender, RoutedEventArgs e)

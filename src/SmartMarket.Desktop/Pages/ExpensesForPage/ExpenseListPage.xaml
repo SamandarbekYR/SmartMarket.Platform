@@ -175,6 +175,15 @@
                         x:Name="St_Expenses">
                     </StackPanel>
                 </ScrollViewer>
+
+                <Label
+                    Name="EmptyDataExpense"
+                    Visibility="Collapsed"
+                    FontSize="16"
+                    Foreground="#a6a6a6"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="Ma'lumot topilmadi."/>
             </Grid>
             
         </Border>
