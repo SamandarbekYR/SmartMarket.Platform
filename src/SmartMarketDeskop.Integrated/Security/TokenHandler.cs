@@ -17,15 +17,26 @@ namespace SmartMarketDeskop.Integrated.Security
 
             foreach (var claim in tokenInfo.Claims)
             {
-                identity = claim.Type switch
+                switch (claim.Type)
                 {
-                    "Id" => new IdentitySingelton { Id = Guid.Parse(claim.Value) },
-                    "FirstName" => new IdentitySingelton { FirstName = claim.Value },
-                    "LastName" => new IdentitySingelton { LastName = claim.Value },
-                    "PhoneNumber" => new IdentitySingelton { PhoneNumber = claim.Value },
-                    "RoleName" => new IdentitySingelton { RoleName = claim.Value },
-                    _ => identity 
-                };
+                    case "Id":
+                        identity.Id = Guid.Parse(claim.Value);
+                        break;
+                    case "FirstName":
+                        identity.FirstName = claim.Value;
+                        break;
+                    case "LastName":
+                        identity.LastName = claim.Value;
+                        break;
+                    case "PhoneNumber":
+                        identity.PhoneNumber = claim.Value;
+                        break;
+                    case "RoleName":
+                        identity.RoleName = claim.Value;
+                        break;
+                    default:
+                        break;
+                }
             }
             return identity;
         }

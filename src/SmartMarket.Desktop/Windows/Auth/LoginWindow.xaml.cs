@@ -88,19 +88,19 @@ public partial class LoginWindow : Window
                 
                 if (result.Result)
                 {
-                    SetIdentitySingleton(result.Token);
+                    TokenHandler.ParseToken(result.Token);
 
                     string role = IdentitySingelton.GetInstance().RoleName;
                     Loader.Visibility = Visibility.Collapsed;
                     btnLogin.Visibility = Visibility.Visible;
 
-                    if (role == "superadmin")
+                    if (role == "SuperAdmin")
                     {
                         MainWindow window = new MainWindow();
                         this.Close();
                         window.ShowDialog();
                     }
-                    else if (role == "admin")
+                    else if (role == "Admin")
                     {
                         AdminWindow window = new AdminWindow();
                         this.Close();

@@ -581,8 +581,8 @@ public partial class SalePage : Page
         if (result)
         {
 
-            PrintService printService = new PrintService();
-            printService.Print(dto, tvm.Transactions);
+            //PrintService printService = new PrintService();
+            //printService.Print(dto, tvm.Transactions);
 
             tvm = null!;
             St_product.Children.Clear();
