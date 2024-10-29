@@ -40,7 +40,7 @@ public partial class AllProductsPage : Page
         }
         else
         {
-            // Agar mahsulotlar bo'lmasa, xabar yoki boshqa elementni ko'rsatish
+            EmptyDataAllProducts.Visibility = Visibility.Visible;
         }
     }
 
