@@ -14,20 +14,25 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
+using static SmartMarket.Desktop.Tablet.Windows.BlurWindow.BlurEffect;
 
-namespace SmartMarket.Desktop.Windows.Partners
+namespace SmartMarket.Desktop.Tablet.Windows.Partners
 {
     /// <summary>
-    /// Interaction logic for PartnersDetailWindow.xaml
+    /// Interaction logic for PartnerDetailWindow.xaml
     /// </summary>
-    public partial class PartnersDetailWindow : Window
+    public partial class PartnerDetailWindow : Window
     {
-        public PartnersDetailWindow()
+        public PartnerDetailWindow()
         {
             InitializeComponent();
         }
         public Guid partnerId { get; set; }
+        private void close_button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
         public void SetData(Partner partner)
         {
             partnerId = partner.Id;
@@ -61,11 +66,6 @@ namespace SmartMarket.Desktop.Windows.Partners
             SetWindowCompositionAttribute(windowHelper.Handle, ref data);
 
             Marshal.FreeHGlobal(accentPtr);
-        }
-
-        private void close_button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
