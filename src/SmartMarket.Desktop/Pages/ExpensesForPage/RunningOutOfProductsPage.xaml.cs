@@ -33,6 +33,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
                 {
                     RunningProductComponent runningProductComponent = new RunningProductComponent();
                     runningProductComponent.SetData(product);
+                    runningProductComponent.Tag = product;
                     St_Products.Children.Add(runningProductComponent);
                     count++;
                 }
