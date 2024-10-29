@@ -11,4 +11,5 @@ public class FullExpenceDto
     public string PayDeskName { get; set; } = string.Empty;
     public string WorkerFirstName { get; set; } = string.Empty;
     public string WorkerLastName { get; set; } = string.Empty;
+    public DateTime CreatedDate { get; set; }
 }
