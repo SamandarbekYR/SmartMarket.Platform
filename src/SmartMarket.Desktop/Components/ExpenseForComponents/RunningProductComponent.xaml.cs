@@ -18,10 +18,11 @@ public partial class RunningProductComponent : UserControl
     }
     public Guid ProductId { get; set; }
 
-    public void SetData(FullProductDto dto)
+    public void SetData(FullProductDto dto, int count)
     {
+        tbCount.Content = count;
         tbName.Content = dto.Name;
-        tbCount.Content = dto.Count;
+        tbQuantity.Content = dto.Count;
         tbPrice.Content = dto.Price;
     }
 
