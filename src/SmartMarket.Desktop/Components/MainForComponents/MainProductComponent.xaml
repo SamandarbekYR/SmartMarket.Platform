@@ -7,7 +7,7 @@
              mc:Ignorable="d" >
     <Border 
         Margin="5 3 15 3"
-        Height="40"
+        Height="45"
         Background="White"
         CornerRadius="5"
         BorderThickness="1"
@@ -16,9 +16,9 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="0.8*"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.8*"/>
+                <ColumnDefinition Width="0.8*"/>
                 <ColumnDefinition Width="0.7*"/>
                 <ColumnDefinition Width="100"/>
                 <ColumnDefinition Width="100"/>
@@ -31,13 +31,12 @@
                 VerticalAlignment="Center"
                 HorizontalAlignment="Center"
                 FontSize="14"
-                Margin="5 0 0 0"
                 FontWeight="SemiBold"
                 ></TextBlock>
 
             <TextBlock
                 x:Name="tbP_Code"
-                Grid.Column="1"
+                Grid.Column="3"
                 Text="P001"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
@@ -59,7 +58,7 @@
 
             <TextBlock
                 x:Name="tbProductName"
-                Grid.Column="3"
+                Grid.Column="1"
                 Text="XPrinter"
                 VerticalAlignment="Center"
                 HorizontalAlignment="Left"
