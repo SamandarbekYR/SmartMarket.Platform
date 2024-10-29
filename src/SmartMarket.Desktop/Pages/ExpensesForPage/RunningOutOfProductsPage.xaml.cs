@@ -32,7 +32,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
                 foreach (var product in products)
                 {
                     RunningProductComponent runningProductComponent = new RunningProductComponent();
-                    runningProductComponent.SetData(product);
+                    runningProductComponent.SetData(product, count);
                     runningProductComponent.Tag = product;
                     St_Products.Children.Add(runningProductComponent);
                     count++;

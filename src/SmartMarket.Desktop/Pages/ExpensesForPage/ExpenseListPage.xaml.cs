@@ -20,7 +20,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             this.expenseService = new ExpenseService();
         }
 
-        public async void GetAllExpence()
+        public async Task GetAllExpence()
         {
             St_Expenses.Children.Clear();
             var expenses = await Task.Run(async () => await expenseService.GetAll());
@@ -109,9 +109,9 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             }
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            GetAllExpence();
+            await GetAllExpence();
         }
     }
 }

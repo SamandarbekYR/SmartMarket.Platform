@@ -108,9 +108,19 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
         {
             await SalesMoney();
             await Expenses();
+            CurrentlyAvailable();
         }
 
-        private void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private async void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            await SalesMoney();
+            await Expenses();
+            CurrentlyAvailable();
+        }
+
+        // Hozirda mavjud nomi ostida method qilib ber
+
+        private void CurrentlyAvailable()
         {
             var salesMoney = SalesMoney();
             var expenses = Expenses();
@@ -123,8 +133,6 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
             Label_Karta_All.Content = totalCardSum;
             Label_Pul_All.Content = totalTransferMoney;
             Label_Nasiya_All.Content = salesMoney.Result.debtSum;
-
         }
-
     }
 }
