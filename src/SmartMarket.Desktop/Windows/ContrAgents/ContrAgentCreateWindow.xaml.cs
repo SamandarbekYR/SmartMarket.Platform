@@ -7,6 +7,10 @@ using System.Windows;
 using System.Windows.Input;
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 using System.Windows.Interop;
+using ToastNotifications;
+using ToastNotifications.Position;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
 
 namespace SmartMarket.Desktop.Windows.ContrAgents
 {
@@ -52,20 +56,20 @@ namespace SmartMarket.Desktop.Windows.ContrAgents
             Marshal.FreeHGlobal(accentPtr);
         }
 
-        //Notifier notifier = new Notifier(cfg =>
-        //{
-        //    cfg.PositionProvider = new WindowPositionProvider(
-        //        parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
-        //        corner: Corner.TopRight,
-        //        offsetX: 20,
-        //        offsetY: 20);
+        Notifier notifier = new Notifier(cfg =>
+        {
+            cfg.PositionProvider = new WindowPositionProvider(
+                parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
+                corner: Corner.TopRight,
+                offsetX: 20,
+                offsetY: 20);
 
-        //    cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-        //        notificationLifetime: TimeSpan.FromSeconds(3),
-        //        maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                notificationLifetime: TimeSpan.FromSeconds(3),
+                maximumNotificationCount: MaximumNotificationCount.FromCount(2));
 
-        //    cfg.Dispatcher = Application.Current.Dispatcher;
-        //});
+            cfg.Dispatcher = Application.Current.Dispatcher;
+        });
 
         private void Border_MouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -74,20 +78,35 @@ namespace SmartMarket.Desktop.Windows.ContrAgents
 
         private async void btnCreate_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            ContrAgentDto contrAgentDto = new ContrAgentDto();
-
+            if(!string.IsNullOrEmpty(txtFirstName.Text) &&
+                !string.IsNullOrEmpty(txtLastName.Text) &&
+                !string.IsNullOrEmpty(txtPhoneNumber.Text))
             {
-                PartnerCompanyView  partnerCompany= partnerCompanyViews.Where(x => x.Name==Combo_CompanyName.SelectedValue).FirstOrDefault();
-                contrAgentDto.CompanyId=partnerCompany.Id;    
+                ContrAgentDto contrAgentDto = new ContrAgentDto();
+
+                {
+                    PartnerCompanyView  partnerCompany= partnerCompanyViews.Where(x => x.Name==Combo_CompanyName.SelectedValue).FirstOrDefault();
+                    contrAgentDto.CompanyId=partnerCompany.Id;    
+                }
+                contrAgentDto.FirstName=txtFirstName.Text;  
+                contrAgentDto.LastName=txtLastName.Text;
+                contrAgentDto.PhoneNumber=txtPhoneNumber.Text;  
+
+                var res = await contrAgentService.AddAsync(contrAgentDto);
+                if (res)
+                {
+                    Clear();
+                    this.Close();
+                }
+                else
+                {
+                    notifier.ShowError("Agent qo'shishda xatolik yuz berdi");
+                }
             }
-            contrAgentDto.FirstName=txtFirstName.Text;  
-            contrAgentDto.LastName=txtLastName.Text;
-            contrAgentDto.PhoneNumber=txtPhoneNumber.Text;  
-
-            await contrAgentService.AddAsync(contrAgentDto);
-            Clear();
-            this.Close();
-
+            else
+            {
+                notifier.ShowWarning("Agent malumotlari to'liq emas!");
+            }
         }
 
 

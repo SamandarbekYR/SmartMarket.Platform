@@ -42,7 +42,6 @@ namespace SmartMarket.Desktop.Windows.Category
             this.categoryService = new SmartMarketDeskop.Integrated.Services.Categories.Category.CategoryService();
         }
 
-
         [DllImport("user32.dll")]
         internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
         internal void EnableBlur()
@@ -73,7 +72,7 @@ namespace SmartMarket.Desktop.Windows.Category
             cfg.PositionProvider = new WindowPositionProvider(
                 parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
                 corner: Corner.TopRight,
-                offsetX: 20,
+                offsetX: 50,
                 offsetY: 20);
 
             cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
@@ -86,20 +85,28 @@ namespace SmartMarket.Desktop.Windows.Category
 
         private async void btnCategoryCreate_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            CategoryDto categoryDto = new CategoryDto();
-            categoryDto.Name = txtCategoryName.Text;
-            categoryDto.Description = txtdescribtion.Text;
-            bool result = await categoryService.AddAsync(categoryDto);
+            if(!string.IsNullOrEmpty(txtCategoryName.Text) && !string.IsNullOrEmpty(txtdescribtion.Text))
+            {
+                CategoryDto categoryDto = new CategoryDto();
+                categoryDto.Name = txtCategoryName.Text;
+                categoryDto.Description = txtdescribtion.Text;
+                bool result = await categoryService.AddAsync(categoryDto);
 
-            //if (result)
-            //    notifier.ShowSuccess("Category muvafaqqiyatli qo'shildi");
-            //else
-            //    notifier.ShowError("Category qo'shishda xatolik yuz berdi");
+                if (result)
+                {
+                    //    notifier.ShowSuccess("Category muvafaqqiyatli qo'shildi");
+                    Clear();
+                    this.Close();
 
+                }
+                else
+                    notifier.ShowError("Category qo'shishda xatolik yuz berdi");
 
-
-            Clear();
-            this.Close();
+            }
+            else
+            {
+                notifier.ShowWarning("Category malumotlarini to'liq emas!");
+            }
         }
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {

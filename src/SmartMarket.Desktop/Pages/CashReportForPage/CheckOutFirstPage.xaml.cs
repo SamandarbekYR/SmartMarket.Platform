@@ -102,7 +102,7 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
             var totalCardSum = cardSum + cardSumForHimself + cardSumForCargo;
             var totalTransferMoney = transferMoney + transferMoneyForHimself + transferMoneyForCargo;
 
-            _cashReportPage.SetValuesExpenses(totalCashSum, totalCardSum, totalTransferMoney)
+            _cashReportPage.SetValuesExpenses(totalCashSum, totalCardSum, totalTransferMoney);
 
             return (totalCashSum, totalCardSum, totalTransferMoney);
         }

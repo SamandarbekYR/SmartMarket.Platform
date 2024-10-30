@@ -12,6 +12,9 @@ using System.Windows.Interop;
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 using SmartMarketDeskop.Integrated.Services.Workers.Position;
 using SmartMarketDeskop.Integrated.Services.Workers.WorkerRoles;
+using ToastNotifications;
+using ToastNotifications.Position;
+using ToastNotifications.Lifetime;
 
 namespace SmartMarket.Desktop.Windows.AccountSettings;
 
@@ -58,6 +61,20 @@ public partial class AccountUpdateWindow : Window
         Marshal.FreeHGlobal(accentPtr);
     }
 
+    Notifier notifier = new Notifier(cfg =>
+    {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
+            corner: Corner.TopRight,
+            offsetX: 20,
+            offsetY: 20);
+
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(3),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+    });
     private async void btnUpdateAccount_MouseUp(object sender, MouseButtonEventArgs e)
     {
         var positionId = Guid.Parse(cbPosition.SelectedValue?.ToString() ?? Guid.Empty.ToString());

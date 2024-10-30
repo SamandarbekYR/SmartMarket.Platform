@@ -6,6 +6,10 @@ using System.Windows;
 using System.Windows.Input;
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 using System.Windows.Interop;
+using ToastNotifications;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
+using ToastNotifications.Lifetime;
 
 namespace SmartMarket.Desktop.Windows.Category
 {
@@ -48,6 +52,21 @@ namespace SmartMarket.Desktop.Windows.Category
             Marshal.FreeHGlobal(accentPtr);
         }
 
+        Notifier notifier = new Notifier(cfg =>
+        {
+            cfg.PositionProvider = new WindowPositionProvider(
+                parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
+                corner: Corner.TopRight,
+                offsetX: 50,
+                offsetY: 20);
+
+            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                notificationLifetime: TimeSpan.FromSeconds(3),
+                maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+            cfg.Dispatcher = Application.Current.Dispatcher;
+        });
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -55,19 +74,33 @@ namespace SmartMarket.Desktop.Windows.Category
 
         private async void EditBtn_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            if(!string.IsNullOrEmpty(txtName.Text) && !string.IsNullOrEmpty(txtDescribtion.Text))
+            {
+                //txtName.Text = categoryView.Name;
+                //txtDescribtion.Text=categoryView.Description;
 
-            //txtName.Text = categoryView.Name;
-            //txtDescribtion.Text=categoryView.Description;
+                CategoryDto categoryDto = new CategoryDto();
+                categoryDto.Name=txtName.Text;
+                categoryDto.Description=txtDescribtion.Text;
 
-            CategoryDto categoryDto = new CategoryDto();
-            categoryDto.Name=txtName.Text;
-            categoryDto.Description=txtDescribtion.Text;
+                var res = await categoryServer.UpdateAsync(categoryDto, categoryView.Id);
 
-            await categoryServer.UpdateAsync(categoryDto, categoryView.Id);
+                if(res)
+                {
+                 //   if (_mainPage != null) _mainPage.GetAllCategory();
+                    Clear();
+                    this.Close();
+                }
+                else
+                {
+                    notifier.ShowError("Category o'zgartirishda xatolik yuz berdi!");
+                }
 
-         //   if (_mainPage != null) _mainPage.GetAllCategory();
-            Clear();
-            this.Close();
+            }
+            else
+            {
+                notifier.ShowWarning("Category malumotlarini to'liq emas!");
+            }
         }
 
 
