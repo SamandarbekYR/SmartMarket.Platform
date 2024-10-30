@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.CashReportForPage"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      xmlns:local1="clr-namespace:SmartMarket.Desktop.Components.Loader"
       mc:Ignorable="d" 
       Title="CashReportPage">
 
@@ -30,28 +32,12 @@
                 BorderBrush="Black"
                 Background="White"
                 >
-                <StackPanel
-                    Margin="0 5 0 0">
-                    <RadioButton
-                        x:Name="btnCheckoutFirst"
-                        Click="btnCheckoutFirst_Click"
-                        Grid.Row="0"
-                        Style="{DynamicResource CashReportMenuButton}"
-                        Content="Kassa 1"
-                        FontSize="18"
-                        IsChecked="True"
-                        Margin="10 5"
-                        ></RadioButton>
-                    <RadioButton
-                        x:Name="bntCheckoutSecond"
-                        Click="bntCheckoutSecond_Click"
-                        Grid.Row="1"
-                        Style="{DynamicResource CashReportMenuButton}"
-                        Content="Kassa 2"
-                        FontSize="18"
-                        Margin="10 5"
-                        ></RadioButton>
-                </StackPanel>
+                <ScrollViewer>
+                    <StackPanel 
+                         x:Name="St_productList">
+                    </StackPanel>
+                </ScrollViewer>
+
             </Border>
 
             <Border
