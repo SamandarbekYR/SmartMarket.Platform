@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d">
     
-        <Border 
+        <!--<Border 
              x:Name="btnCategoryCreate"
              Background="White"
              Margin="4 20"
@@ -24,5 +24,5 @@
                 FontSize="20"
                 Margin="30 2"/>
             
-        </Border>
+        </Border>-->
 </UserControl>

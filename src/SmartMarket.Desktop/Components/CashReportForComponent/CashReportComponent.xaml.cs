@@ -25,9 +25,9 @@ namespace SmartMarket.Desktop.Components.CashReportForComponent
             InitializeComponent();
         }
 
-        public void SetValues(string name)
-        {
-            lbName.Content = name;
-        }
+        //public void SetValues(string name)
+        //{
+        //    lbName.Content = name;
+        //}
     }
 }
