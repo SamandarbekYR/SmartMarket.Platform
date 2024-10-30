@@ -118,14 +118,14 @@
                             </DockPanel>
                             <DockPanel>
                                 <TextBlock
-                                    Text="O'z hisobiga:"
+                                    Text="Pul ko'chirish: "
                                     Foreground="White"
                                     FontSize="17"
                                     Margin="10 0 0 0"
                                     ></TextBlock>
                                 <TextBlock
-                                    x:Name="tbexpensePersonalAccountSum"
-                                    Text="50,000,000:"
+                                    x:Name="tbExpenseTransferMoney"
+                                    Text="50,000,000"
                                     Foreground="White"
                                     FontSize="16"
                                     VerticalAlignment="Center"
@@ -189,6 +189,38 @@
                                     ></TextBlock>
                                 <TextBlock
                                     x:Name="tbSaleCardSum"
+                                    Text="400,000,000"
+                                    Foreground="White"
+                                    FontSize="16"
+                                    VerticalAlignment="Center"
+                                    Margin="5 0 0 0"
+                                    ></TextBlock>
+                            </DockPanel>
+                            <DockPanel>
+                                <TextBlock
+                                    Text="Pul ko'chirish:"
+                                    Foreground="White"
+                                    FontSize="17"
+                                    Margin="10 0 0 0"
+                                    ></TextBlock>
+                                <TextBlock
+                                    x:Name="tbSaleTransferMoney"
+                                    Text="400,000,000"
+                                    Foreground="White"
+                                    FontSize="16"
+                                    VerticalAlignment="Center"
+                                    Margin="5 0 0 0"
+                                    ></TextBlock>
+                            </DockPanel>
+                            <DockPanel>
+                                <TextBlock
+                                    Text="Nasiya:"
+                                    Foreground="White"
+                                    FontSize="17"
+                                    Margin="10 0 0 0"
+                                    ></TextBlock>
+                                <TextBlock
+                                    x:Name="tbSaleDebtSum"
                                     Text="400,000,000"
                                     Foreground="White"
                                     FontSize="16"
