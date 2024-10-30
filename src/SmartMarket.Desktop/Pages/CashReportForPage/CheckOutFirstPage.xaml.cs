@@ -15,6 +15,7 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
     {
         private IExpenseService _expenseService;
         private ISalesRequestsService _salesRequestsService;
+        private CashReportPage _cashReportPage;
 
         public CheckOutFirstPage()
         {
@@ -101,6 +102,8 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
             var totalCardSum = cardSum + cardSumForHimself + cardSumForCargo;
             var totalTransferMoney = transferMoney + transferMoneyForHimself + transferMoneyForCargo;
 
+            _cashReportPage.SetValuesExpenses(totalCashSum, totalCardSum, totalTransferMoney)
+
             return (totalCashSum, totalCardSum, totalTransferMoney);
         }
 
@@ -117,8 +120,6 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
             await Expenses();
             CurrentlyAvailable();
         }
-
-        // Hozirda mavjud nomi ostida method qilib ber
 
         private void CurrentlyAvailable()
         {

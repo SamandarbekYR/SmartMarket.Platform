@@ -39,5 +39,24 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
             CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage();
             CheckOutPageNavigator.Content = checkOutFirstPage;
         }
+
+        public void SetValuesExpenses(double  cashSum, double cardSum, double transferMoney)
+        {
+            tbExpenseCashSum.Text = cashSum.ToString();
+            tbExpenseCardSum.Text = cardSum.ToString();
+            tbExpenseTransferMoney.Text = transferMoney.ToString();
+            var totalSum = cashSum + cardSum + transferMoney;
+            tbExpenseGeneralSum.Text = totalSum.ToString();
+        }
+
+        public void SetValuesSalesMoney(double cashSum, double CardSum, double transferMoney, double debtSum)
+        {
+            tbSaleCashSum.Text = cashSum.ToString();
+            tbSaleCardSum.Text = CardSum.ToString();
+            tbSaleTransferMoney.Text = transferMoney.ToString();
+            tbSaleDebtSum.Text = debtSum.ToString();
+            var totalSum = cashSum + CardSum + transferMoney + debtSum;
+            tbSaleGeneralSum.Text = totalSum.ToString();
+        }
     }
 }
