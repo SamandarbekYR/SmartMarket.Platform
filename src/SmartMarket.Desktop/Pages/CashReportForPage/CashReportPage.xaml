@@ -118,7 +118,7 @@
                             </DockPanel>
                             <DockPanel>
                                 <TextBlock
-                                    Text="Pul ko'chirish: "
+                                    Text="Pul K: "
                                     Foreground="White"
                                     FontSize="17"
                                     Margin="10 0 0 0"
@@ -198,7 +198,7 @@
                             </DockPanel>
                             <DockPanel>
                                 <TextBlock
-                                    Text="Pul ko'chirish:"
+                                    Text="Pul K:"
                                     Foreground="White"
                                     FontSize="17"
                                     Margin="10 0 0 0"
@@ -285,7 +285,7 @@
                                    Margin="10 0 0 0"
                                    ></TextBlock>
                                 <TextBlock
-                                    x:Name="tbCurrentlyCardSum"
+                                   x:Name="tbCurrentlyCardSum"
                                    Text="400,000,000"
                                    Foreground="White"
                                    FontSize="16"
@@ -301,7 +301,23 @@
                                    Margin="10 0 0 0"
                                    ></TextBlock>
                                 <TextBlock
-                                    
+                                   Name="tbCurrnetlyTransferMoney"
+                                   Text="400,000,000"
+                                   Foreground="White"
+                                   FontSize="16"
+                                   VerticalAlignment="Center"
+                                   Margin="5 0 0 0"
+                                   ></TextBlock>
+                            </DockPanel>
+                            <DockPanel>
+                                <TextBlock
+                                   Text="Nasiya:"
+                                   Foreground="White"
+                                   FontSize="17"
+                                   Margin="10 0 0 0"
+                                   ></TextBlock>
+                                <TextBlock
+                                   Name="tbCurrnetlyDebtSum"
                                    Text="400,000,000"
                                    Foreground="White"
                                    FontSize="16"
