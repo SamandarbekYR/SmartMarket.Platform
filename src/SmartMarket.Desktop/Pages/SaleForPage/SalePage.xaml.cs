@@ -15,6 +15,7 @@ using SmartMarketDeskop.Integrated.Services.Products.Print;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
+using System.Configuration;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
@@ -524,74 +525,76 @@ public partial class SalePage : Page
 
     private void btnPay_Click(object sender, RoutedEventArgs e)
     {
-        //PrintService printService = new PrintService();
-        //printService.Test();
         PaymentTypeWindow paymentTypeWindow = new PaymentTypeWindow();
         paymentTypeWindow.ShowDialog();
     }
 
     public async void SaleProducts(bool isDebt)
     {
-        AddSalesRequestDto dto = new AddSalesRequestDto();
-        dto.TotalCost = tvm.TransactionPrice;
-        dto.DiscountSum = tvm.DiscountPrice;
-        if (isDebt)
+        if (tvm.Transactions.Count > 0)
         {
-            dto.DebtSum = tvm.TransactionPrice;
-            dto.CardSum = 0;
-            dto.CashSum = 0;
-        }
-        else if(PaymentType == "card")
-        {
-            dto.CardSum = tvm.TransactionPrice;
-            dto.DebtSum = 0;
-            dto.CashSum = 0;
-        }
-        else if (PaymentType == "cash")
-        {
-            dto.CashSum = tvm.TransactionPrice;
-            dto.CardSum = 0;
-            dto.DebtSum = 0;
-        }
-        else if (PaymentType == "click")
-        {
-            dto.CardSum = tvm.TransactionPrice;
-            dto.DebtSum = 0;
-            dto.CashSum = 0;
-        }
-        else if (PaymentType == "transfer")
-        {
-            dto.CardSum = tvm.TransactionPrice;
-            dto.DebtSum = 0;
-            dto.CashSum = 0;
-        }
-        else if (PaymentType == "clickandcash")
-        {
-            dto.CardSum = ClickSum;
-            dto.CashSum = CashSum;
-            dto.DebtSum = 0;
-        }
+            AddSalesRequestDto dto = new AddSalesRequestDto();
+            dto.TotalCost = tvm.TransactionPrice;
+            dto.DiscountSum = tvm.DiscountPrice;
+            if (isDebt)
+            {
+                dto.DebtSum = tvm.TransactionPrice;
+                dto.CardSum = 0;
+                dto.CashSum = 0;
+            }
+            else if (PaymentType == "card")
+            {
+                dto.CardSum = tvm.TransactionPrice;
+                dto.DebtSum = 0;
+                dto.CashSum = 0;
+            }
+            else if (PaymentType == "cash")
+            {
+                dto.CashSum = tvm.TransactionPrice;
+                dto.CardSum = 0;
+                dto.DebtSum = 0;
+            }
+            else if (PaymentType == "click")
+            {
+                dto.CardSum = tvm.TransactionPrice;
+                dto.DebtSum = 0;
+                dto.CashSum = 0;
+            }
+            else if (PaymentType == "transfer")
+            {
+                dto.CardSum = tvm.TransactionPrice;
+                dto.DebtSum = 0;
+                dto.CashSum = 0;
+            }
+            else if (PaymentType == "clickandcash")
+            {
+                dto.CardSum = ClickSum;
+                dto.CashSum = CashSum;
+                dto.DebtSum = 0;
+            }
 
-        List<AddProductSaleDto> products = tvm.Transactions
-            .Select(t => new AddProductSaleDto { ProductId = t.Id, Count = t.Quantity, Discount = t.Discount, ItemTotalCost = t.TotalPrice }).ToList();
+            List<AddProductSaleDto> products = tvm.Transactions
+                .Select(t => new AddProductSaleDto { ProductId = t.Id, Count = t.Quantity, Discount = t.Discount, ItemTotalCost = t.TotalPrice }).ToList();
 
-        dto.ProductSaleItems = products;
-        bool result = await _salesRequestsService.CreateSalesRequest(dto);
-        if (result)
-        {
+            dto.ProductSaleItems = products;
+            bool result = await _salesRequestsService.CreateSalesRequest(dto);
+            if (result)
+            {
 
-            PrintService printService = new PrintService();
-            printService.Print(dto, tvm.Transactions);
+                //PrintService printService = new PrintService();
+                //printService.Print(dto, tvm.Transactions);
 
-            tvm = null!;
-            St_product.Children.Clear();
-            ColculateTotalPrice();
-            EmptyPrice();
+                tvm = null!;
+                St_product.Children.Clear();
+                ColculateTotalPrice();
+                EmptyPrice();
 
-            notifier.ShowSuccess("Sotuv amalga oshirildi.");
+                notifier.ShowSuccess("Sotuv amalga oshirildi.");
+            }
+            else
+                notifier.ShowError("Sotuvda qandaydir muammo bor!!!");
         }
         else
-            notifier.ShowError("Sotuvda qandaydir muammo bor!!!");
-
+            notifier.ShowInformation("Mahsulot xarid qilinmagan.");
     }
 }

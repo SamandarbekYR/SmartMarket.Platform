@@ -101,6 +101,8 @@
                         <TextBox
                             Grid.Column="1"
                             Margin="0 0 10 0"
+                            Name="tb_search"
+                            TextChanged="tb_search_TextChanged"
                             Style="{DynamicResource search}"/>
 
                         <Button

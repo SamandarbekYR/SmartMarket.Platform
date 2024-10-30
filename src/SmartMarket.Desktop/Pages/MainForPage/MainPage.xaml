@@ -157,9 +157,9 @@
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"/>
-                            <ColumnDefinition Width="0.5*"/>
-                            <ColumnDefinition Width="0.8*"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="0.8*"/>
+                            <ColumnDefinition Width="0.8*"/>
                             <ColumnDefinition Width="0.7*"/>
                             <ColumnDefinition Width="100"/>
                             <ColumnDefinition Width="100"/>
@@ -172,7 +172,7 @@
                             Style="{StaticResource Label}"/>
 
                         <Label
-                            Grid.Column="1"
+                            Grid.Column="3"
                             Content="PCode"
                             Style="{StaticResource Label}"/>
 
@@ -182,7 +182,7 @@
                             Style="{StaticResource Label}"/>
 
                         <Label
-                            Grid.Column="3"
+                            Grid.Column="1"
                             Content="Nomi"
                             Style="{StaticResource Label}"/>
 

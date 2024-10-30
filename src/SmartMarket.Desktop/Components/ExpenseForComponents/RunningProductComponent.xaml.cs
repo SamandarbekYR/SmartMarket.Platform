@@ -2,7 +2,6 @@
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using System.Windows.Controls;
-using System.Windows.Media.Imaging;
 
 namespace SmartMarket.Desktop.Components.ExpenseForComponents;
 
@@ -19,25 +18,19 @@ public partial class RunningProductComponent : UserControl
     }
     public Guid ProductId { get; set; }
 
-    public void SetData(FullProductDto dto)
+    public void SetData(FullProductDto dto, int count)
     {
-        var imgPath = @"D:\SmartPartnersProjects\src\SmartMarket.Desktop\Assets\Basket.png";
-
+        tbCount.Content = count;
         tbName.Content = dto.Name;
-        tbCount.Content = dto.Count;
+        tbQuantity.Content = dto.Count;
         tbPrice.Content = dto.Price;
-        productImg.Source = new BitmapImage(new Uri(imgPath, UriKind.Absolute)); //imgPath dto yoqligi uchun testga localdan
-
-        this.DataContext = dto;
     }
 
     private void Border_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
-        if(sender is Border border && border.Tag is FullProductDto dto)
-        {
-            RunningOutOfProductDetailWindow runningOutOfProductDetailWindow = new RunningOutOfProductDetailWindow();
-            runningOutOfProductDetailWindow.SetData(dto);
-            runningOutOfProductDetailWindow.ShowDialog();
-        }
+        var dto = this.Tag as FullProductDto;
+        RunningOutOfProductDetailWindow runningOutOfProductDetailWindow = new RunningOutOfProductDetailWindow();
+        runningOutOfProductDetailWindow.SetData(dto!);
+        runningOutOfProductDetailWindow.ShowDialog();
     }
 }

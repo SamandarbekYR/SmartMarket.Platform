@@ -88,7 +88,10 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
                     count++;
                 }
             }
-            else { }
+            else 
+            {
+                EmptyDataLoadReport.Visibility = Visibility.Visible;
+            }
         }
 
 

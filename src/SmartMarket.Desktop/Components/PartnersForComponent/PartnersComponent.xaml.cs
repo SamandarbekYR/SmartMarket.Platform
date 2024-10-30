@@ -51,6 +51,8 @@ public partial class PartnersComponent : UserControl
         lb_Lastname.Content = partner.LastName;
         lb_Phone_Number.Content = partner.PhoneNumber;
         partnerId = partner.Id;
+
+        this.Tag = partner;
     }
 
     private void Border_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
@@ -70,7 +72,12 @@ public partial class PartnersComponent : UserControl
 
     private void Action_Button_Click(object sender, System.Windows.RoutedEventArgs e)
     {
-
+        if (this.Tag is Partner partner)
+        {
+            PartnersDetailWindow partnersDetailWindow = new PartnersDetailWindow();
+            partnersDetailWindow.SetData(partner);
+            partnersDetailWindow.ShowDialog();
+        }
     }
 
     private async void Delete_Button_Click(object sender, System.Windows.RoutedEventArgs e)

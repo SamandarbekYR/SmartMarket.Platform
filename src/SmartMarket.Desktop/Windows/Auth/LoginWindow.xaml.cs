@@ -60,9 +60,16 @@ public partial class LoginWindow : Window
         btnDisVisible.Visibility = Visibility.Collapsed;
     }
 
-    private void btnClose_MouseUp(object sender, MouseButtonEventArgs e)
+    private void SetIdentitySingleton(string token)
     {
-        Application.Current.Shutdown();
+        var t = TokenHandler.ParseToken(token);
+        var identity = IdentitySingelton.GetInstance();
+        identity.Token = token;
+        identity.Id = t.Id;
+        identity.FirstName = t.FirstName;
+        identity.LastName = t.LastName;
+        identity.PhoneNumber = t.PhoneNumber;
+        identity.RoleName = t.RoleName;
     }
 
     private async void btnLogin_MouseUp(object sender, MouseButtonEventArgs e)
@@ -81,19 +88,19 @@ public partial class LoginWindow : Window
                 
                 if (result.Result)
                 {
-                    IdentitySingelton.GetInstance().Token = TokenHandler.ParseToken(result.Token).Token;
+                    TokenHandler.ParseToken(result.Token);
 
                     string role = IdentitySingelton.GetInstance().RoleName;
                     Loader.Visibility = Visibility.Collapsed;
                     btnLogin.Visibility = Visibility.Visible;
 
-                    if (role == "superadmin")
+                    if (role == "SuperAdmin")
                     {
                         MainWindow window = new MainWindow();
                         this.Close();
                         window.ShowDialog();
                     }
-                    else if (role == "admin")
+                    else if (role == "Admin")
                     {
                         AdminWindow window = new AdminWindow();
                         this.Close();
@@ -127,7 +134,6 @@ public partial class LoginWindow : Window
         {
             
         }
-
     }
 
     private bool IsInternetAvailable()
@@ -158,5 +164,10 @@ public partial class LoginWindow : Window
         {
             await updateManager.UpdateApp();
         }
+    }
+
+    private void CloseButton_Click(object sender, RoutedEventArgs e)
+    {
+        Application.Current.Shutdown();
     }
 }

@@ -81,6 +81,7 @@ public partial class SelectPayDeskWindow : Window
                 Properties.Settings.Default.PayDeskName = selectedItem.Content.ToString();
                 Properties.Settings.Default.Save();
                 IdentitySingelton.GetInstance().PayDeskId = Guid.Parse(id.ToString()!);
+                IdentitySingelton.GetInstance().PayDeskName = selectedItem.Content.ToString()!;
             }
             else
             {

@@ -29,8 +29,15 @@
         <Border 
             Grid.Row="0" 
             Grid.ColumnSpan="2" 
-            CornerRadius="55 55 0 0" 
+            CornerRadius="30 30 0 0" 
             Background="White">
+
+            <Button
+                x:Name="CloseButton"
+                Background="Black"
+                Margin="0 0 10 0"
+                Click="CloseButton_Click"
+                Style="{DynamicResource btnClose}"/>
 
         </Border>
 
@@ -38,14 +45,14 @@
             Grid.Column="0" 
             Grid.Row="1" 
             Margin="0 0 0 0"
-            CornerRadius="0 0 0 55"
+            CornerRadius="0 0 0 30"
             Background="White">
             
             <StackPanel Margin="0 20 0 0">
                 
                 <TextBlock 
                     Text="Smart Post"
-                    FontSize="25"
+                    FontSize="30"
                     FontWeight="Bold"
                     Margin="30 20 0 0"/>
                 <TextBlock 
@@ -65,30 +72,16 @@
 
                 </Image>
 
-                <Border 
-                    x:Name="btnClose" 
-                    Height="70" 
-                    Width="70" 
-                    Margin="40 0 0 0" 
-                    Background="Transparent" 
-                    BorderBrush="Transparent" 
-                    MouseUp="btnClose_MouseUp"
-                    HorizontalAlignment="Left">
-                    <Image Source="pack://application:,,,/Assets/login_close.png" >
-
-                    </Image>
-                </Border>
-
             </StackPanel>
         </Border>
         <Border Grid.Column="1" Grid.Row="1" Margin="0 0 0 0"
                 Background="White"
-                CornerRadius=" 0 0 55 0" >
+                CornerRadius=" 0 0 30 0" >
             <Border CornerRadius="55" 
                     Margin="20 50 20 80"
                     BorderThickness="2"
-                    BorderBrush="#8F8F8F" 
-                >
+                    BorderBrush="#8F8F8F">
+                
                 <StackPanel>
                     <TextBlock Text="Kirish"
                                FontSize="30"

@@ -52,6 +52,8 @@ public partial class PartnersComponent : UserControl
         lb_Lastname.Content = partner.LastName;
         lb_Phone_Number.Content = partner.PhoneNumber;
         partnerId = partner.Id;
+
+        this.Tag = partner;
     }
 
     public static MainWindow GetMainWindow()
@@ -94,7 +96,12 @@ public partial class PartnersComponent : UserControl
 
     private void Action_Button_Click(object sender, System.Windows.RoutedEventArgs e)
     {
-
+        if(this.Tag is Partner partner)
+        {
+            PartnerDetailWindow partnerDetailWindow = new PartnerDetailWindow();
+            partnerDetailWindow.SetData(partner);
+            partnerDetailWindow.ShowDialog();
+        }    
     }
 
     private async void Delete_Button_Click(object sender, System.Windows.RoutedEventArgs e)

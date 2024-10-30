@@ -20,7 +20,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             this.expenseService = new ExpenseService();
         }
 
-        public async void GetAllExpence()
+        public async Task GetAllExpence()
         {
             St_Expenses.Children.Clear();
             var expenses = await Task.Run(async () => await expenseService.GetAll());
@@ -74,7 +74,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             Loader.Visibility = Visibility.Collapsed;
             int count = 1;
 
-            if (expenses != null)
+            if (expenses.Any())
             {
                 foreach (var expense in expenses)
                 {
@@ -87,6 +87,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             }
             else
             {
+                EmptyDataExpense.Visibility = Visibility.Visible;
             }
         }
 
@@ -108,9 +109,9 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             }
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            GetAllExpence();
+            await GetAllExpence();
         }
     }
 }

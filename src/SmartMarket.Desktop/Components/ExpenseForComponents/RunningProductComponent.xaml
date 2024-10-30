@@ -5,57 +5,48 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartMarket.Desktop.Components.ExpenseForComponents"
              mc:Ignorable="d">
-    <Border BorderBrush="{DynamicResource BorderColor}"
-            Background="White"
-            Height="100"
-            VerticalAlignment="Top"
-            CornerRadius="12"
-            BorderThickness="1"
-            MouseDown="Border_MouseDown"
-            Tag="{Binding}">                 
+    
+    <Border 
+        Background="White"
+        Height="45"
+        Margin="5 3 15 3"
+        CornerRadius="5"
+        BorderThickness="1"
+        MouseDown="Border_MouseDown"
+        BorderBrush="{DynamicResource BorderColor}"
+        >
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="0.8*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="0.2*"/>
             </Grid.ColumnDefinitions>
-            <Border Grid.Column="0"
-                        Margin="5 5 0 5"
-                        Background="White">
-                <Image x:Name="productImg"  
-                    Source="/Assets/Basket.png"
-                    Stretch="Uniform"/>
-            </Border>
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition/>
-                    <RowDefinition/>
-                </Grid.RowDefinitions>
-                <Label x:Name="tbName"
-                           Grid.Row="0"
-                           Content="Nestle kasha 9"
-                           Style="{DynamicResource TitleLabel}"
-                           FontSize="40"
-                           Margin="5 0"
-                           HorizontalAlignment="Left"/>
 
-                <Label x:Name="tbCount"
-                           Grid.Row="1"
-                           Foreground="#d80f0f"
-                           Content="5 dona"
-                           FontSize="38"
-                           HorizontalAlignment="Left"
-                           Style="{DynamicResource Label}"/>
+            <Label
+                Name="tbCount"
+                Content="1"
+                Margin="10 0 0 0"
+                Style="{DynamicResource TitleLabel}"/>
 
-                <Label x:Name="tbPrice"
-                           Grid.Row="1"
-                           Content="25,000"
-                           Foreground="#000"
-                           Style="{DynamicResource Label}"
-                           FontSize="32"
-                           HorizontalAlignment="Right"
-                           Margin="0 0 40 0"/>
-            </Grid>
+            <Label 
+                x:Name="tbName"
+                Grid.Column="1"
+                Content="Nestle kasha 9"
+                Style="{DynamicResource TitleLabel}"/>
+
+            <Label 
+                x:Name="tbQuantity"
+                Grid.Column="2"
+                Content="5"
+                Style="{DynamicResource TitleLabel}"/>
+
+            <Label 
+                x:Name="tbPrice"
+                Grid.Column="3"
+                Content="25000"
+                Style="{DynamicResource TitleLabel}"/>
+
         </Grid>
     </Border>
 </UserControl>
