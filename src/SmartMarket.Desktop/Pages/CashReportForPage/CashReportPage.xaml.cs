@@ -58,5 +58,15 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
             var totalSum = cashSum + CardSum + transferMoney + debtSum;
             tbSaleGeneralSum.Text = totalSum.ToString();
         }
+
+        private void SetValuesCurrentlyAvailable(double cashSum, double cardSum, double transferMoney, double debtSum)
+        {
+            tbCurrnetlyCashSum.Text = cashSum.ToString();
+            tbCurrentlyCardSum.Text = cardSum.ToString();
+            tbCurrnetlyTransferMoney.Text = transferMoney.ToString();
+            tbCurrnetlyDebtSum.Text = debtSum.ToString();
+            var totalSum = cashSum + cardSum + transferMoney + debtSum;
+            tbCurrentlyGeneralSum.Text = totalSum.ToString();
+        }
     }
 }

@@ -121,19 +121,21 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
             CurrentlyAvailable();
         }
 
-        private void CurrentlyAvailable()
+        private async void CurrentlyAvailable()
         {
-            var salesMoney = SalesMoney();
-            var expenses = Expenses();
+            var salesMoney = await SalesMoney();
+            var expenses = await Expenses();
 
-            var totalCashSum = salesMoney.Result.cashSum - expenses.Result.totalCashSum;
-            var totalCardSum = salesMoney.Result.cardSum - expenses.Result.totalCardSum;
-            var totalTransferMoney = salesMoney.Result.transferMoney - expenses.Result.totalTransferMoney;
+            var totalCashSum = salesMoney.cashSum - expenses.totalCashSum;
+            var totalCardSum = salesMoney.cardSum - expenses.totalCardSum;
+            var totalTransferMoney = salesMoney.transferMoney - expenses.totalTransferMoney;
 
             Label_Naqd_All.Content = totalCashSum;
             Label_Karta_All.Content = totalCardSum;
             Label_Pul_All.Content = totalTransferMoney;
-            Label_Nasiya_All.Content = salesMoney.Result.debtSum;
+            Label_Nasiya_All.Content = salesMoney.debtSum;
+
+           
         }
     }
 }
