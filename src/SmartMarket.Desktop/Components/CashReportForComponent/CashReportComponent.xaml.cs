@@ -25,9 +25,14 @@ namespace SmartMarket.Desktop.Components.CashReportForComponent
             InitializeComponent();
         }
 
-        //public void SetValues(string name)
-        //{
-        //    lbName.Content = name;
-        //}
+        public void SetValues(string name)
+        {
+            lbName.Content = name;
+        }
+
+        private void btnCashReport_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("Cash Report");
+        }
     }
 }
