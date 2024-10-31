@@ -15,6 +15,8 @@ using SmartMarketDeskop.Integrated.Services.Workers.WorkerRoles;
 using ToastNotifications;
 using ToastNotifications.Position;
 using ToastNotifications.Lifetime;
+using static SmartMarket.Desktop.Windows.MessageBoxWindow;
+using ToastNotifications.Messages;
 
 namespace SmartMarket.Desktop.Windows.AccountSettings;
 
@@ -138,11 +140,13 @@ public partial class AccountUpdateWindow : Window
 
             if (result)
             {
-                this.Close(); 
+                this.Close();
+                notifier.ShowInformation("Account yangilandi.");
             }
             else
             {
-                MessageBox.Show("Yangilashda xatolik yuz berdi.", "Xatolik", MessageBoxButton.OK, MessageBoxImage.Error);
+                //MessageBox.Show("Yangilashda xatolik yuz berdi.", "Xatolik", MessageBoxButton.OK, MessageBoxImage.Error);
+                notifier.ShowError("Yangilashda xatolik yuz berdi.");
             }
         }
     }
@@ -150,6 +154,9 @@ public partial class AccountUpdateWindow : Window
     private async void btnDeleteAccount_MouseUp(object sender, MouseButtonEventArgs e)
     {
         var result = MessageBox.Show("Ishchi haqida ma'lumotlar o'chiriladi. Davom etasizmi?", "O'chirish", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        //var message = "Ishchi haqida ma'lumotlar o'chiriladi. Davom etasizmi?";
+        //var messageBox = new MessageBoxWindow(message, MessageType.Confirmation, MessageButtons.YesNo);
+        //messageBox.ShowDialog();
 
         if (result == MessageBoxResult.Yes)
         {
@@ -161,7 +168,8 @@ public partial class AccountUpdateWindow : Window
             }
             else
             {
-                MessageBox.Show("O'chirishda xatolik yuz berdi.", "Xatolik", MessageBoxButton.OK, MessageBoxImage.Error);
+                //MessageBox.Show("O'chirishda xatolik yuz berdi.", "Xatolik", MessageBoxButton.OK, MessageBoxImage.Error);
+                notifier.ShowError("O'chirishda xatolik yuz berdi.");
             }
         }
     }

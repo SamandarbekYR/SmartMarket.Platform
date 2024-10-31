@@ -90,6 +90,7 @@ namespace SmartMarket.Desktop.Windows.Category
                  //   if (_mainPage != null) _mainPage.GetAllCategory();
                     Clear();
                     this.Close();
+                    notifier.ShowInformation("Category yangilandi.");
                 }
                 else
                 {

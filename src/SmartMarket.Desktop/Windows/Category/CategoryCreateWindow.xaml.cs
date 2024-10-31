@@ -94,9 +94,9 @@ namespace SmartMarket.Desktop.Windows.Category
 
                 if (result)
                 {
-                    //    notifier.ShowSuccess("Category muvafaqqiyatli qo'shildi");
                     Clear();
                     this.Close();
+                    notifier.ShowSuccess("Category muvafaqqiyatli qo'shildi");
 
                 }
                 else

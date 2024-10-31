@@ -97,6 +97,7 @@ namespace SmartMarket.Desktop.Windows.ContrAgents
                 {
                     Clear();
                     this.Close();
+                    notifier.ShowInformation("Agent muvaffaqiyatli yaratildi.");
                 }
                 else
                 {

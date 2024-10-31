@@ -91,7 +91,7 @@
 
             </Grid>
 
-            <Border
+            <Grid
                 Grid.Row="2">
 
                 <ScrollViewer
@@ -104,8 +104,17 @@
                     </StackPanel>
                     
                 </ScrollViewer>
-                
-            </Border>
+
+                <Label
+                    Name="EmptyDataPartners"
+                    Visibility="Collapsed"
+                    FontSize="16"
+                    Foreground="#a6a6a6"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="Ma'lumot topilmadi."/>
+
+            </Grid>
 
         </Grid>
         

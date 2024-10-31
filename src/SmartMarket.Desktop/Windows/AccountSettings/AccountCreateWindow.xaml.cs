@@ -13,6 +13,7 @@ using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
 using ToastNotifications.Position;
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
+using static SmartMarket.Desktop.Windows.MessageBoxWindow;
 
 namespace SmartMarket.Desktop.Windows.AccountSettings
 {
@@ -105,8 +106,8 @@ namespace SmartMarket.Desktop.Windows.AccountSettings
 
                     if (result)
                     {
-                        notifier.ShowSuccess("Account muvaffaqiyatli yaratildi.");
                         this.Close();
+                        notifier.ShowInformation("Account muvaffaqiyatli yaratildi.");
                     }
                     else
                     {
@@ -120,7 +121,7 @@ namespace SmartMarket.Desktop.Windows.AccountSettings
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Account yaratishda xatolik: {ex.Message}");
+                notifier.ShowError("Account yaratishda xatolik");
             }
         }
 
@@ -140,7 +141,7 @@ namespace SmartMarket.Desktop.Windows.AccountSettings
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Xato yuz berdi: {ex.Message}");
+                notifier.ShowError("Xato yuz berdi.");
             }
         }
 
