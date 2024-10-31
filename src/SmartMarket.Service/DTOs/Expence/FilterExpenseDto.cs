@@ -8,6 +8,7 @@ namespace SmartMarket.Service.DTOs.Expence
 {
     public class FilterExpenseDto
     {
+        public Guid? PayDeskId { get; set; }
         public DateTime? FromDateTime { get; set; }
         public DateTime? ToDateTime { get; set; }
         public string? Reason { get; set; }

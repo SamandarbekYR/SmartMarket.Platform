@@ -4,7 +4,10 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.CashReportForPage"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      xmlns:local1="clr-namespace:SmartMarket.Desktop.Components.Loader"
       mc:Ignorable="d" 
+      Loaded="Page_Loaded"
       Title="CashReportPage">
 
     <Grid 
@@ -27,31 +30,16 @@
                 Grid.Row="0"
                 CornerRadius="5"
                 BorderThickness="1"
+                Padding="5"
                 BorderBrush="Black"
                 Background="White"
                 >
-                <StackPanel
-                    Margin="0 5 0 0">
-                    <RadioButton
-                        x:Name="btnCheckoutFirst"
-                        Click="btnCheckoutFirst_Click"
-                        Grid.Row="0"
-                        Style="{DynamicResource CashReportMenuButton}"
-                        Content="Kassa 1"
-                        FontSize="18"
-                        IsChecked="True"
-                        Margin="10 5"
-                        ></RadioButton>
-                    <RadioButton
-                        x:Name="bntCheckoutSecond"
-                        Click="bntCheckoutSecond_Click"
-                        Grid.Row="1"
-                        Style="{DynamicResource CashReportMenuButton}"
-                        Content="Kassa 2"
-                        FontSize="18"
-                        Margin="10 5"
-                        ></RadioButton>
-                </StackPanel>
+                <ScrollViewer>
+                    <StackPanel 
+                         x:Name="St_PayDeskList">
+                    </StackPanel>
+                </ScrollViewer>
+
             </Border>
 
             <Border
@@ -64,10 +52,9 @@
                 >
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="0.9*"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="0.8*"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="0.2*"/>
                     </Grid.RowDefinitions>
                     <Border
                         Grid.Row="0"
