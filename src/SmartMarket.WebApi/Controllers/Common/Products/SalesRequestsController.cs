@@ -34,7 +34,7 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
         {
             try
             {
-                var productSales = await _salesRequestService.FilterProductSaleAsync(filterSalesRequestDto);
+                var productSales = await _salesRequestService.FilterSalesRequestAsync(filterSalesRequestDto);
                 return Ok(productSales);
             }
             catch (StatusCodeException ex)

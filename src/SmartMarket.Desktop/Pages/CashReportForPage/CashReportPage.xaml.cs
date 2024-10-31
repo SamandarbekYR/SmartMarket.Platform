@@ -1,4 +1,8 @@
-﻿using System;
+﻿using SmartMarket.Desktop.Components.CashReportForComponent;
+
+using SmartMarketDeskop.Integrated.Services.PayDesks;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,24 +24,41 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
     /// </summary>
     public partial class CashReportPage : Page
     {
+        private IPayDeskService _payDeskService;
         public CashReportPage()
         {
             InitializeComponent();
 
+            this._payDeskService = new PayDeskService();
             CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage();
             CheckOutPageNavigator.Content = checkOutFirstPage;
         }
 
-        private void btnCheckoutFirst_Click(object sender, RoutedEventArgs e)
-        {
-            CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage();
-            CheckOutPageNavigator.Content = checkOutFirstPage;
-        }
+        //private void btnCheckoutFirst_Click(object sender, RoutedEventArgs e)
+        //{
+        //    CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage();
+        //    CheckOutPageNavigator.Content = checkOutFirstPage;
+        //}
 
-        private void bntCheckoutSecond_Click(object sender, RoutedEventArgs e)
+        //private void bntCheckoutSecond_Click(object sender, RoutedEventArgs e)
+        //{
+        //    CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage();
+        //    CheckOutPageNavigator.Content = checkOutFirstPage;
+        //}
+
+        public async void GetAllPayDesk()
         {
-            CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage();
-            CheckOutPageNavigator.Content = checkOutFirstPage;
+            var payDesks = await _payDeskService.GetAll();
+
+            St_PayDeskList.Children.Clear();
+
+            foreach (var payDesk in payDesks)
+            {
+                CashReportComponent cashReportComponent = new CashReportComponent();
+                cashReportComponent.Tag = payDesk;
+                cashReportComponent.SetValues(payDesk.Name);
+                St_PayDeskList.Children.Add(cashReportComponent);
+            }
         }
 
         public void SetValuesExpenses(double  cashSum, double cardSum, double transferMoney)
@@ -67,6 +88,11 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
             tbCurrnetlyDebtSum.Text = debtSum.ToString();
             var totalSum = cashSum + cardSum + transferMoney + debtSum;
             tbCurrentlyGeneralSum.Text = totalSum.ToString();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            GetAllPayDesk();
         }
     }
 }
