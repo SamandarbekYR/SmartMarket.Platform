@@ -1,4 +1,7 @@
-﻿using SmartMarket.Domain.Entities.PayDesks;
+﻿using Microsoft.AspNetCore.HttpsPolicy;
+
+using SmartMarket.Domain.Entities.PayDesks;
+using SmartMarket.Service.DTOs.Expence;
 using SmartMarket.Service.DTOs.PayDesks;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 
@@ -31,29 +34,19 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
         public async void SetPayDesk(PayDesksDto payDesk)
         {
             _payDesk = payDesk;
-            await SalesMoney();
-            await Expenses();
-            CurrentlyAvailable();
         }
 
-        private async Task<(double cashSum, double cardSum, double debtSum, double transferMoney)> SalesMoney()
+        public async void GetAllCashReports()
         {
-
             var salesMoney = await _salesRequestsService.GetAll();
-            var salesMoneyForPayDesk = salesMoney.Where(sr => sr.PayDeskId == _payDesk.Id).ToList();
+            var expenses = await _expenseService.GetAll();
 
-            if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
-            {
-                salesMoneyForPayDesk = salesMoneyForPayDesk.Where(
-                    sr => sr.CreatedDate >= fromDateTime.SelectedDate 
-                    && sr.CreatedDate <= toDateTime.SelectedDate).ToList();
-            }
-            else
-            {
-                salesMoneyForPayDesk = salesMoneyForPayDesk.Where(
-                     sr => sr.CreatedDate!.Value.Date == DateTime.Today).ToList();
-            }
+            await ShowSalesMoney(salesMoney);
+            await ShowExpenses(expenses);
+        }
 
+        private async Task<(double cashSum, double cardSum, double debtSum, double transferMoney)> ShowSalesMoney(IList<SalesRequestDto> salesMoneyForPayDesk)
+        {
             var cashSum = salesMoneyForPayDesk.Sum(sr => sr.CashSum);
             var cardSum = salesMoneyForPayDesk.Sum(sr => sr.CardSum);
             var debtSum = salesMoneyForPayDesk.Sum(sr => sr.DebtSum);
@@ -69,23 +62,8 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
             return (cashSum, cardSum, debtSum, transferMoney);
         }
 
-        private async Task<(double totalCashSum, double totalCardSum, double totalTransferMoney)> Expenses()
+        private async Task<(double totalCashSum, double totalCardSum, double totalTransferMoney)> ShowExpenses(List<FullExpenceDto> expensesForPayDesk)
         {
-            var expenses = await _expenseService.GetAll();
-            var expensesForPayDesk = expenses.Where(e => e.PayDeskId == _payDesk.Id).ToList();
-
-            if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
-            {
-                expensesForPayDesk = expensesForPayDesk.Where(
-                    e => e.CreatedDate >= fromDateTime.SelectedDate 
-                    && e.CreatedDate <= toDateTime.SelectedDate).ToList();
-            }
-            else
-            {
-                expensesForPayDesk = expensesForPayDesk.Where(
-                                       e => e.CreatedDate.Date == DateTime.Today).ToList();
-            }
-
             var cashSum = expensesForPayDesk.Where(e => e.TypeOfPayment == "Naqd" && e.Reason == "Do'kon uchun").Sum(e => e.Amount);
             var cardSum = expensesForPayDesk.Where(e => e.TypeOfPayment == "Karta" && e.Reason == "Do'kon uchun").Sum(e => e.Amount);
             var transferMoney = expensesForPayDesk.Where(e => e.TypeOfPayment == "Pul ko'chirish" && e.Reason == "Do'kon uchun").Sum(e => e.Amount);
@@ -120,25 +98,54 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
             return (totalCashSum, totalCardSum, totalTransferMoney);
         }
 
+        private async void FilterForCashReport()
+        {
+            FilterSalesRequestDto salesRequestDto = new FilterSalesRequestDto();
+            FilterExpenseDto expenseDto = new FilterExpenseDto();
+
+            if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
+            {
+                salesRequestDto.FromDateTime = fromDateTime.SelectedDate;
+                salesRequestDto.ToDateTime = toDateTime.SelectedDate;
+                expenseDto.FromDateTime = fromDateTime.SelectedDate;
+                expenseDto.ToDateTime = toDateTime.SelectedDate;
+            }
+
+            if (_payDesk?.Id != null)
+            {
+                salesRequestDto.PayDeskId = _payDesk.Id;
+                expenseDto.PayDeskId = _payDesk.Id;
+            }
+
+            var salesMoneyData = await _salesRequestsService.FilterSalesRequest(salesRequestDto);
+            var expensesData = await _expenseService.FilterExpense(expenseDto);
+
+            var salesMoney = await ShowSalesMoney(salesMoneyData);
+            var expenses = await ShowExpenses(expensesData);
+            CurrentlyAvailable(salesMoney, expenses);
+        }
+
         private async void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {   
-            await SalesMoney();
-            await Expenses();
-            CurrentlyAvailable();
+        {
+            FilterForCashReport();
         }
 
         private async void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            await SalesMoney();
-            await Expenses();
-            CurrentlyAvailable();
+            FilterSalesRequestDto salesRequestDto = new FilterSalesRequestDto();
+            FilterExpenseDto expenseDto = new FilterExpenseDto();
+
+            var salesMoneyData = await _salesRequestsService.FilterSalesRequest(salesRequestDto);
+            var expensesData = await _expenseService.FilterExpense(expenseDto);
+
+            var salesMoney = await ShowSalesMoney(salesMoneyData);
+            var expenses = await ShowExpenses(expensesData);
+            CurrentlyAvailable(salesMoney, expenses);
         }
 
-        private async void CurrentlyAvailable()
+        private void CurrentlyAvailable((double cashSum, double cardSum, double debtSum, double transferMoney) salesMoney,
+                                        (double totalCashSum, double totalCardSum, double totalTransferMoney) expenses)
         {
-            var salesMoney = await SalesMoney();
-            var expenses = await Expenses();
-
             var totalCashSum = salesMoney.cashSum - expenses.totalCashSum;
             var totalCardSum = salesMoney.cardSum - expenses.totalCardSum;
             var totalTransferMoney = salesMoney.transferMoney - expenses.totalTransferMoney;
