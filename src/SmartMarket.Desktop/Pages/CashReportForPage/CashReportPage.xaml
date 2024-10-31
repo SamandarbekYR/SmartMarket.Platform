@@ -7,6 +7,7 @@
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" 
       xmlns:local1="clr-namespace:SmartMarket.Desktop.Components.Loader"
       mc:Ignorable="d" 
+      Loaded="Page_Loaded"
       Title="CashReportPage">
 
     <Grid 
@@ -29,12 +30,13 @@
                 Grid.Row="0"
                 CornerRadius="5"
                 BorderThickness="1"
+                Padding="5"
                 BorderBrush="Black"
                 Background="White"
                 >
                 <ScrollViewer>
                     <StackPanel 
-                         x:Name="St_productList">
+                         x:Name="St_PayDeskList">
                     </StackPanel>
                 </ScrollViewer>
 
@@ -50,10 +52,9 @@
                 >
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="0.9*"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="0.8*"/>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="0.2*"/>
                     </Grid.RowDefinitions>
                     <Border
                         Grid.Row="0"

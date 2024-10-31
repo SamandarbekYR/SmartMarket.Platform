@@ -123,7 +123,7 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
             }
         }
 
-        public async Task<List<SalesRequestDto>> FilterProductSaleAsync(FilterSalesRequestDto dto)
+        public async Task<List<SalesRequestDto>> FilterSalesRequestAsync(FilterSalesRequestDto dto)
         {
             try
             {
@@ -153,6 +153,12 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
                 {
                     salesRequests = salesRequests.Where(
                         ps => ps.Worker.FirstName.Contains(dto.WorkerName)).ToList();
+                }
+
+                if (dto.PayDeskId.HasValue)
+                {
+                    salesRequests = salesRequests.Where(
+                        ps => ps.PayDeskId == dto.PayDeskId).ToList();
                 }
 
                 var result = _mapper.Map<List<SalesRequestDto>>(salesRequests);

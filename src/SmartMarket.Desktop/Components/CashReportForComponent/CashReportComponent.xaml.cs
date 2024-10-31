@@ -1,4 +1,9 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+
+using SmartMarket.Desktop.Pages.CashReportForPage;
+using SmartMarket.Service.DTOs.PayDesks;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,7 +37,20 @@ namespace SmartMarket.Desktop.Components.CashReportForComponent
 
         private void btnCashReport_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Cash Report");
+            var payDesk = this.Tag as PayDesksDto;
+            CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage();
+            checkOutFirstPage.SetPayDesk(payDesk);
         }
+
+        private void btnCashReport_MouseEnter(object sender, MouseEventArgs e)
+        {
+            btnCashReport.Background = new SolidColorBrush(Colors.LightGray); // Yengil kulrang
+        }
+
+        private void btnCashReport_MouseLeave(object sender, MouseEventArgs e)
+        {
+            btnCashReport.Background = new SolidColorBrush(Colors.White); // Asl rang
+        }
+
     }
 }

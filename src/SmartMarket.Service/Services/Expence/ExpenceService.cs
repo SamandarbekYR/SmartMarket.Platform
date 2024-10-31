@@ -106,6 +106,12 @@ namespace SmartMarket.Service.Services.Expence
                         ps => ps.Worker.FirstName.Contains(filterExpenseDto.WorkerName)).ToList();
                 }
 
+                if (filterExpenseDto.PayDeskId.HasValue)
+                {
+                    expences = expences.Where(
+                        ps => ps.PayDeskId == filterExpenseDto.PayDeskId).ToList();
+                }
+
                 var expenseDtos = expences.Select(e => new FullExpenceDto
                 {
                     Id = e.Id,
