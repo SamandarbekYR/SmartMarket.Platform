@@ -19,7 +19,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="45"/>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.6*"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="30"/>
@@ -120,7 +120,7 @@
 
                     <Label
                         Name="Kassa_Name"
-                        Content="Kassa 1"
+                        Content="Umumiy kassa"
                         FontSize="17"
                         Style="{DynamicResource TitleLabel}"/>
 
@@ -130,7 +130,7 @@
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
-                    <Label
+                    <!--<Label
                         Content="Oldingi qarzlar"
                         FontSize="15"
                         Margin="0"
@@ -141,7 +141,7 @@
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
-                        Style="{DynamicResource Label}"/>
+                        Style="{DynamicResource Label}"/>-->
 
                 </StackPanel>
 
@@ -161,7 +161,7 @@
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
-                    <Label
+                    <!--<Label
                         Name="Label_Naqd_Qarz"
                         Content="0"
                         FontSize="15"
@@ -174,7 +174,7 @@
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
-                        Style="{DynamicResource Label}"/>
+                        Style="{DynamicResource Label}"/>-->
 
                 </StackPanel>
 
@@ -194,7 +194,7 @@
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
-                    <Label
+                    <!--<Label
                         Name="Label_Karta_Qarz"
                         Content="0"
                         FontSize="15"
@@ -207,7 +207,7 @@
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
-                        Style="{DynamicResource Label}"/>
+                        Style="{DynamicResource Label}"/>-->
 
                 </StackPanel>
 
@@ -227,7 +227,7 @@
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
-                    <Label
+                    <!--<Label
                         Name="Label_Pul_Qarz"
                         Content="0"
                         FontSize="15"
@@ -240,7 +240,7 @@
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
-                        Style="{DynamicResource Label}"/>
+                        Style="{DynamicResource Label}"/>-->
 
                 </StackPanel>
 
@@ -260,7 +260,7 @@
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
-                    <Label
+                    <!--<Label
                         Name="Label_Nasiya_Qarz"
                         Content="0"
                         FontSize="15"
@@ -273,7 +273,7 @@
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
-                        Style="{DynamicResource Label}"/>
+                        Style="{DynamicResource Label}"/>-->
 
                 </StackPanel>
 
@@ -295,7 +295,7 @@
                         HorizontalAlignment="Left"
                         Foreground="#25D409"
                         Style="{DynamicResource Label}"/>
-                    <Label
+                    <!--<Label
                         Name="Label_Jami_Qarz"
                         Content="0"
                         FontSize="15"
@@ -310,7 +310,7 @@
                         Margin="0"
                         HorizontalAlignment="Left"
                         Foreground="#25D409"
-                        Style="{DynamicResource Label}"/>
+                        Style="{DynamicResource Label}"/>-->
 
                 </StackPanel>
 
@@ -348,7 +348,7 @@
 
                     <Label
                         Name="Kassa_Name_Harajat"
-                        Content="Kassa 1"
+                        Content="Umumiy kassa"
                         FontSize="17"
                         Style="{DynamicResource TitleLabel}"/>
 
@@ -548,7 +548,7 @@
                     <Label
                         Name="Kassa_Name1"
                         Margin="0 10 0 0"
-                        Content="Kassa 1"
+                        Content="Umumiy kassa"
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
