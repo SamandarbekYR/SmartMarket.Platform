@@ -32,6 +32,10 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
         public async void SetPayDesk(PayDesksDto payDesk)
         {
             _payDesk = payDesk;
+            Kassa_Name.Content = payDesk.Name;
+            Kassa_Name1.Content = payDesk.Name;
+            Kassa_Name_Harajat.Content = payDesk.Name;
+
             FilterForCashReport();
         }
 
