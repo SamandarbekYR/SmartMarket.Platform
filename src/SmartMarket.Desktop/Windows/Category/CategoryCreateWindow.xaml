@@ -20,9 +20,12 @@
             <RowDefinition Height="40"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Border Grid.Row="0"
-             Background="#1EB7E8"
-             CornerRadius="8 8 0 0">
+        <Border 
+            Grid.Row="0"
+            Background="#1EB7E8"
+            CornerRadius="8 8 0 0"
+            BorderBrush="{DynamicResource BorderColor}"
+            BorderThickness="1 1 1 0">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition  Width="2*"/>
@@ -40,6 +43,7 @@
                     Grid.Column="1"
                     x:Name="btnClose"
                     Click="btnClose_Click"
+                    Background="White"
                     Style="{DynamicResource btnClose}"
                     ></Button>
             </Grid>
