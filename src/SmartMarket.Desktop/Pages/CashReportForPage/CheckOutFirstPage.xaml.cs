@@ -20,13 +20,11 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
     {
         private IExpenseService _expenseService;
         private ISalesRequestsService _salesRequestsService;
-        private CashReportPage _cashReportPage;
         private PayDesksDto _payDesk;
 
         public CheckOutFirstPage()
         {
             InitializeComponent();
-            _cashReportPage = new CashReportPage();
             _expenseService = new ExpenseService();
             _salesRequestsService = new SalesRequestService();
         }
