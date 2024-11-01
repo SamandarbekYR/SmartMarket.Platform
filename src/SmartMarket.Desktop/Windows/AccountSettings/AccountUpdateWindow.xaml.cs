@@ -66,7 +66,7 @@ public partial class AccountUpdateWindow : Window
     Notifier notifier = new Notifier(cfg =>
     {
         cfg.PositionProvider = new WindowPositionProvider(
-            parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
+            parentWindow: Application.Current.MainWindow,
             corner: Corner.TopRight,
             offsetX: 20,
             offsetY: 20);

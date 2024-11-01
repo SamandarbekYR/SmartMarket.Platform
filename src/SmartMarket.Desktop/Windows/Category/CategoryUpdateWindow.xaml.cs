@@ -55,7 +55,7 @@ namespace SmartMarket.Desktop.Windows.Category
         Notifier notifier = new Notifier(cfg =>
         {
             cfg.PositionProvider = new WindowPositionProvider(
-                parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
+                parentWindow: Application.Current.MainWindow,
                 corner: Corner.TopRight,
                 offsetX: 50,
                 offsetY: 20);
@@ -67,6 +67,20 @@ namespace SmartMarket.Desktop.Windows.Category
             cfg.Dispatcher = Application.Current.Dispatcher;
         });
 
+        Notifier notifierThis = new Notifier(cfg =>
+        {
+            cfg.PositionProvider = new WindowPositionProvider(
+                parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
+                corner: Corner.TopRight,
+                offsetX: 50,
+                offsetY: 20);
+
+            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                notificationLifetime: TimeSpan.FromSeconds(3),
+                maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+            cfg.Dispatcher = Application.Current.Dispatcher;
+        });
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

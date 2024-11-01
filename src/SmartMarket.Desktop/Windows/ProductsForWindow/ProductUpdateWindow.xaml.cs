@@ -22,6 +22,10 @@ using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
+using ToastNotifications;
+using ToastNotifications.Position;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
 
 namespace SmartMarket.Desktop.Windows.ProductsForWindow
 {
@@ -75,6 +79,21 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
             Marshal.FreeHGlobal(accentPtr);
         }
 
+        Notifier notifier = new Notifier(cfg =>
+        {
+            cfg.PositionProvider = new WindowPositionProvider(
+                parentWindow: Application.Current.MainWindow,
+                corner: Corner.TopRight,
+                offsetX: 20,
+                offsetY: 20);
+
+            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                notificationLifetime: TimeSpan.FromSeconds(3),
+                maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+            cfg.Dispatcher = Application.Current.Dispatcher;
+        });
+
         public void SetData(S.FullProductDto product)
         {
             productId = product.Id;
@@ -120,12 +139,21 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
             addProductDto.WorkerId = workerId;
             addProductDto.PaymentStatus = "Active";
             addProductDto.NoteAmount = int.Parse(txtNoteAmount.Text);
-            await productService.UpdateProduct(addProductDto, productId);
+            var res = await productService.UpdateProduct(addProductDto, productId);
+
 
             ProductImageDto productImageDto = new ProductImageDto();
             productImageDto.ImagePath = imagepath;
 
-            this.Close();
+            if (res)
+            {
+                this.Close();
+                notifier.ShowInformation("Mahsulot muvaffaqiyatli o'zgartirildi.");
+            }
+            else
+            {
+                notifier.ShowError("Mahsulot yaratishda xato yuz berdi.");
+            }
         }
 
         private void btnClear_MouseDown(object sender, MouseButtonEventArgs e)
