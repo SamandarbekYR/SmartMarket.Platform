@@ -5,7 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.SettingsForPage"
       mc:Ignorable="d" 
-      Title="SettingsPrinterPage">
+      Title="SettingsPrinterPage"
+      Loaded="Page_Loaded">
 
     <Border 
         CornerRadius="5 5 0 0">
@@ -54,17 +55,15 @@
                             <TextBlock
                                 Text="Chek chiqaruvchi printer:"
                                 FontSize="22"
-                                FontWeight="DemiBold"
-                                   ></TextBlock>
-                            <TextBox
+                                FontWeight="SemiBold"/>
+
+                            <ComboBox
+                                Name="cb_Printers"
                                 Height="40" 
                                 Margin="0 3 60 5"
-                                VerticalContentAlignment="Center"
-                                FontSize="20"
-                                Padding="5 0 0 0"
-                                BorderBrush="Black"
-                                BorderThickness="1"
-                                   ></TextBox>
+                                SelectionChanged="cb_Printers_SelectionChanged">
+                                
+                            </ComboBox>
                         </StackPanel>
 
                         <StackPanel 
