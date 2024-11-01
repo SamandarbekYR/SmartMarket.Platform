@@ -80,7 +80,7 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
             tbSaleGeneralSum.Text = totalSum.ToString();
         }
 
-        private void SetValuesCurrentlyAvailable(double cashSum, double cardSum, double transferMoney, double debtSum)
+        public void SetValuesCurrentlyAvailable(double cashSum, double cardSum, double transferMoney, double debtSum)
         {
             tbCurrnetlyCashSum.Text = cashSum.ToString();
             tbCurrentlyCardSum.Text = cardSum.ToString();

@@ -20,13 +20,11 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
     {
         private IExpenseService _expenseService;
         private ISalesRequestsService _salesRequestsService;
-        private CashReportPage _cashReportPage;
         private PayDesksDto _payDesk;
 
         public CheckOutFirstPage()
         {
             InitializeComponent();
-            _cashReportPage = new CashReportPage();
             _expenseService = new ExpenseService();
             _salesRequestsService = new SalesRequestService();
         }
@@ -34,6 +32,11 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
         public async void SetPayDesk(PayDesksDto payDesk)
         {
             _payDesk = payDesk;
+            Kassa_Name.Content = payDesk.Name;
+            Kassa_Name1.Content = payDesk.Name;
+            Kassa_Name_Harajat.Content = payDesk.Name;
+
+            FilterForCashReport();
         }
 
         public async void GetAllCashReports()
