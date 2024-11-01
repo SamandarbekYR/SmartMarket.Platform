@@ -39,6 +39,7 @@ namespace SmartMarket.Desktop.Components.CashReportForComponent
         {
             var payDesk = this.Tag as PayDesksDto;
             CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage();
+            CheckOutPageNavigator.Content = checkOutFirstPage;
             checkOutFirstPage.SetPayDesk(payDesk);
         }
 
