@@ -72,9 +72,9 @@ public partial class MainCategoryComponent : UserControl
             var res = await _server.DeleteAsync(categoryView!.Id);
 
             if (res)
-                notifier.ShowInformation("Category muvaffaqiyatli o'chirildi.");
+                notifier.ShowSuccess($"{tbName.Text} muvaffaqiyatli o'chirildi.");
             else
-                notifier.ShowError("Category o'chirishda xato yuz berdo.");
+                notifier.ShowError("O'chirishda xato yuz berdi.");
         }
 
     }
