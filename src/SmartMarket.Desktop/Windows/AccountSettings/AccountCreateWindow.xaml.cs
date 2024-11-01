@@ -8,8 +8,12 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
-
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
+using static SmartMarket.Desktop.Windows.MessageBoxWindow;
 
 namespace SmartMarket.Desktop.Windows.AccountSettings
 {
@@ -53,6 +57,20 @@ namespace SmartMarket.Desktop.Windows.AccountSettings
             Marshal.FreeHGlobal(accentPtr);
         }
 
+        Notifier notifier = new Notifier(cfg =>
+        {
+            cfg.PositionProvider = new WindowPositionProvider(
+                parentWindow: Application.Current.MainWindow,
+                corner: Corner.TopRight,
+                offsetX: 20,
+                offsetY: 20);
+
+            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                notificationLifetime: TimeSpan.FromSeconds(3),
+                maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+            cfg.Dispatcher = Application.Current.Dispatcher;
+        });
         private void Border_MouseUp(object sender, MouseButtonEventArgs e)
         {
             this.Close();
@@ -62,36 +80,48 @@ namespace SmartMarket.Desktop.Windows.AccountSettings
         {
             try
             {
-                var positionId = Guid.Parse(cbPosition.SelectedValue?.ToString() ?? Guid.Empty.ToString());
-                var roleId = Guid.Parse(cbRole.SelectedValue?.ToString() ?? Guid.Empty.ToString());
-
-                var worker = new AddWorkerDto
+                if(!string.IsNullOrEmpty(txtFirstName.Text) &&
+                    !string.IsNullOrEmpty(txtLastName.Text) &&
+                    !string.IsNullOrEmpty(txtPhoneNumber.Text) &&
+                    !string.IsNullOrEmpty(txtPassword.Text) &&
+                    !string.IsNullOrEmpty(txtSalary.Text) &&
+                    !string.IsNullOrEmpty(txtAdvance.Text))
                 {
-                    FirstName = txtFirstName.Text,
-                    LastName = txtLastName.Text,
-                    PhoneNumber = txtPhoneNumber.Text,
-                    PositionId = positionId,
-                    WorkerRoleId = roleId,
-                    Password = txtPassword.Text,
-                    Salary = double.Parse(txtSalary.Text),
-                    Advance = double.Parse(txtAdvance.Text)
-                };
+                    var positionId = Guid.Parse(cbPosition.SelectedValue?.ToString() ?? Guid.Empty.ToString());
+                    var roleId = Guid.Parse(cbRole.SelectedValue?.ToString() ?? Guid.Empty.ToString());
 
-                var result = await _workerService.CreateAsync(worker);
+                    var worker = new AddWorkerDto
+                    {
+                        FirstName = txtFirstName.Text,
+                        LastName = txtLastName.Text,
+                        PhoneNumber = txtPhoneNumber.Text,
+                        PositionId = positionId,
+                        WorkerRoleId = roleId,
+                        Password = txtPassword.Text,
+                        Salary = double.Parse(txtSalary.Text),
+                        Advance = double.Parse(txtAdvance.Text)
+                    };
 
-                if (result)
-                {
-                    MessageBox.Show("Account muvaffaqiyatli yaratildi.");
-                    this.Close();
+                    var result = await _workerService.CreateAsync(worker);
+
+                    if (result)
+                    {
+                        this.Close();
+                        notifier.ShowInformation("Account muvaffaqiyatli yaratildi.");
+                    }
+                    else
+                    {
+                        notifier.ShowError("Account yaratishda xatolik yuz berdi.");
+                    }
                 }
                 else
                 {
-                    MessageBox.Show("Account yaratishda xatolik yuz berdi.");
+                    notifier.ShowWarning("Account malumotlari to'liq emas!");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Account yaratishda xatolik: {ex.Message}");
+                notifier.ShowError("Account yaratishda xatolik");
             }
         }
 
@@ -111,7 +141,7 @@ namespace SmartMarket.Desktop.Windows.AccountSettings
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Xato yuz berdi: {ex.Message}");
+                notifier.ShowError("Xato yuz berdi.");
             }
         }
 

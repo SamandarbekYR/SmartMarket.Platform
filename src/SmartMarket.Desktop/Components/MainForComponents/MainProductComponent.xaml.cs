@@ -4,6 +4,10 @@ using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using System.Windows;
 using System.Windows.Controls;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
 
 namespace SmartMarket.Desktop.Components.MainForComponents;
 
@@ -19,6 +23,20 @@ public partial class MainProductComponent : UserControl
         InitializeComponent();
         this.productService = new ProductService();
     }
+    Notifier notifier = new Notifier(cfg =>
+    {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
+            corner: Corner.TopRight,
+            offsetX: 50,
+            offsetY: 20);
+
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(3),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+    });
 
     public void GetData(FullProductDto product, int count)
     {
@@ -46,7 +64,12 @@ public partial class MainProductComponent : UserControl
         var messageBoxResult = MessageBox.Show("O'chirishni hohlaysizmi!", "Ogohlantirish!", MessageBoxButton.YesNo);
         if(messageBoxResult == MessageBoxResult.Yes)
         {
-            await productService.DeleteProduct(products!.Id);
+            var res = await productService.DeleteProduct(products!.Id);
+
+            if (res)
+                notifier.ShowInformation("Mahsulot muvaffaqiyatli o'chirildi.");
+            else
+                notifier.ShowError("Xato yuz berdi.");
         }
     }
 

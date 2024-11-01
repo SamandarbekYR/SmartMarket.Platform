@@ -12,6 +12,11 @@ using System.Windows.Interop;
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 using SmartMarketDeskop.Integrated.Services.Workers.Position;
 using SmartMarketDeskop.Integrated.Services.Workers.WorkerRoles;
+using ToastNotifications;
+using ToastNotifications.Position;
+using ToastNotifications.Lifetime;
+using static SmartMarket.Desktop.Windows.MessageBoxWindow;
+using ToastNotifications.Messages;
 
 namespace SmartMarket.Desktop.Windows.AccountSettings;
 
@@ -58,6 +63,20 @@ public partial class AccountUpdateWindow : Window
         Marshal.FreeHGlobal(accentPtr);
     }
 
+    Notifier notifier = new Notifier(cfg =>
+    {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.MainWindow,
+            corner: Corner.TopRight,
+            offsetX: 20,
+            offsetY: 20);
+
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(3),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+    });
     private async void btnUpdateAccount_MouseUp(object sender, MouseButtonEventArgs e)
     {
         var positionId = Guid.Parse(cbPosition.SelectedValue?.ToString() ?? Guid.Empty.ToString());
@@ -121,11 +140,13 @@ public partial class AccountUpdateWindow : Window
 
             if (result)
             {
-                this.Close(); 
+                this.Close();
+                notifier.ShowInformation("Account yangilandi.");
             }
             else
             {
-                MessageBox.Show("Yangilashda xatolik yuz berdi.", "Xatolik", MessageBoxButton.OK, MessageBoxImage.Error);
+                //MessageBox.Show("Yangilashda xatolik yuz berdi.", "Xatolik", MessageBoxButton.OK, MessageBoxImage.Error);
+                notifier.ShowError("Yangilashda xatolik yuz berdi.");
             }
         }
     }
@@ -133,6 +154,9 @@ public partial class AccountUpdateWindow : Window
     private async void btnDeleteAccount_MouseUp(object sender, MouseButtonEventArgs e)
     {
         var result = MessageBox.Show("Ishchi haqida ma'lumotlar o'chiriladi. Davom etasizmi?", "O'chirish", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        //var message = "Ishchi haqida ma'lumotlar o'chiriladi. Davom etasizmi?";
+        //var messageBox = new MessageBoxWindow(message, MessageType.Confirmation, MessageButtons.YesNo);
+        //messageBox.ShowDialog();
 
         if (result == MessageBoxResult.Yes)
         {
@@ -144,7 +168,8 @@ public partial class AccountUpdateWindow : Window
             }
             else
             {
-                MessageBox.Show("O'chirishda xatolik yuz berdi.", "Xatolik", MessageBoxButton.OK, MessageBoxImage.Error);
+                //MessageBox.Show("O'chirishda xatolik yuz berdi.", "Xatolik", MessageBoxButton.OK, MessageBoxImage.Error);
+                notifier.ShowError("O'chirishda xatolik yuz berdi.");
             }
         }
     }

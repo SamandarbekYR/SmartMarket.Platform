@@ -6,6 +6,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
 
 namespace SmartMarket.Desktop.Components.MainForComponents;
 
@@ -26,6 +30,21 @@ public partial class MainCategoryComponent : UserControl
         _server = new SmartMarketDeskop.Integrated.Server.Repositories.Categories.CategoryServer();
 
     }
+
+    Notifier notifier = new Notifier(cfg =>
+    {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
+            corner: Corner.TopRight,
+            offsetX: 50,
+            offsetY: 20);
+
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(3),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+    });
 
     public void SetValues(CategoryView category, int count)
     {
@@ -50,7 +69,12 @@ public partial class MainCategoryComponent : UserControl
 
         if (messageBoxResult == MessageBoxResult.Yes)
         {
-            await _server.DeleteAsync(categoryView!.Id);
+            var res = await _server.DeleteAsync(categoryView!.Id);
+
+            if (res)
+                notifier.ShowInformation("Category muvaffaqiyatli o'chirildi.");
+            else
+                notifier.ShowError("Category o'chirishda xato yuz berdo.");
         }
 
     }
