@@ -1,21 +1,7 @@
 ﻿using SmartMarket.Desktop.Components.CashReportForComponent;
-
 using SmartMarketDeskop.Integrated.Services.PayDesks;
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SmartMarket.Desktop.Pages.CashReportForPage
 {
@@ -30,8 +16,6 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
             InitializeComponent();
 
             this._payDeskService = new PayDeskService();
-            CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage();
-            CheckOutPageNavigator.Content = checkOutFirstPage;
         }
 
         public async void GetAllPayDesk()
@@ -82,6 +66,9 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             GetAllPayDesk();
+
+            CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage();
+            CheckOutPageNavigator.Content = checkOutFirstPage;
         }
     }
 }

@@ -8,16 +8,14 @@
     <Border 
          x:Name="btnCashReport"
          Background="White"
-         Margin="10 2"
+         Margin="5 2 12 2"
          Width="220"
-         CornerRadius="10"
+         CornerRadius="8"
          Cursor="Hand"
          BorderBrush="Black"
-         BorderThickness="2"
+         BorderThickness="1"
          HorizontalAlignment="Center"
-         MouseUp="btnCashReport_MouseUp"
-         MouseEnter="btnCashReport_MouseEnter"
-         MouseLeave="btnCashReport_MouseLeave">
+         MouseDown="btnCashReport_MouseUp">
         <Label 
             Content="Kassa"
             Name="lbName"
