@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using NLog;
+using CT = SmartMarket.Service.DTOs.PartnersCompany.ContrAgent;
 using SmartMarket.Domain.Entities.PartnersCompany;
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
@@ -116,6 +117,29 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.PartnerCompany
                 return new List<ContrAgent>();
             }
 
+        }
+
+        public async Task<List<CT.ContrAgentDto>> GetContrAgentByNameAsync(string name)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                var token = IdentitySingelton.GetInstance().Token;
+
+                client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/common/contr-agents/name/{name}");
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+                HttpResponseMessage message = await client.GetAsync(client.BaseAddress);
+                string response = await message.Content.ReadAsStringAsync();
+
+                List<CT.ContrAgentDto> contrAgent = JsonConvert.DeserializeObject<List<CT.ContrAgentDto>>(response)!;
+
+                return contrAgent;
+            }
+            catch(Exception ex)
+            {
+                return new List<CT.ContrAgentDto>();
+            }
         }
 
         public async Task<bool> UpdateAsync(ContrAgentDto dto, Guid Id)

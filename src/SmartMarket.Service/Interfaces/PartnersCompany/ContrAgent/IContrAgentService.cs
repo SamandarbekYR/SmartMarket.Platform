@@ -10,7 +10,7 @@ namespace SmartMarket.Service.Interfaces.PartnersCompany.ContrAgent
         Task<bool> DeleteAsync(Guid Id);
         Task<IEnumerable<ContrAgentDto>> GetAllAsync(PaginationParams @params);
         Task<bool> UpdateAsync(AddContrAgentDto dto, Guid Id);
-        Task<ContrAgentDto> GetContrAgentByNameAsync(string name);
+        Task<IEnumerable<ContrAgentDto>> GetContrAgentByNameAsync(string name);
         Task<ContrAgentDto> GetContrAgentByNumberAsync(string number);
         Task<ContrAgentDto> GetContrAgentByCompanyNameAsync(string companyName);
     }

@@ -133,6 +133,8 @@
 
 
                             <TextBox
+                                Name="tb_search_Product"
+                                TextChanged="tb_search_ProductTextChanged"
                                 Grid.Column="1"
                                 Style="{DynamicResource search}"/>
 
@@ -271,6 +273,8 @@
 
 
                             <TextBox
+                                Name="tb_search_ContrAgent"
+                                TextChanged="tb_search_ContrAgentTextChanged"
                                 Grid.Column="1"
                                 Style="{DynamicResource search}"/>
 
