@@ -34,21 +34,10 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
             CheckOutPageNavigator.Content = checkOutFirstPage;
         }
 
-        //private void btnCheckoutFirst_Click(object sender, RoutedEventArgs e)
-        //{
-        //    CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage();
-        //    CheckOutPageNavigator.Content = checkOutFirstPage;
-        //}
-
-        //private void bntCheckoutSecond_Click(object sender, RoutedEventArgs e)
-        //{
-        //    CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage();
-        //    CheckOutPageNavigator.Content = checkOutFirstPage;
-        //}
-
         public async void GetAllPayDesk()
         {
             var payDesks = await _payDeskService.GetAll();
+            PayDeskLoader.Visibility = Visibility.Collapsed;
 
             St_PayDeskList.Children.Clear();
 

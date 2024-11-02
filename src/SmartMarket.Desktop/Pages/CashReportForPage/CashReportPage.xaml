@@ -34,12 +34,19 @@
                 BorderBrush="Black"
                 Background="White"
                 >
-                <ScrollViewer>
-                    <StackPanel 
-                         x:Name="St_PayDeskList">
-                    </StackPanel>
-                </ScrollViewer>
+                <Grid>
+                    <local1:Loader
+                        x:Name="PayDeskLoader"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"/>
 
+                    <ScrollViewer>
+                        <StackPanel 
+                             x:Name="St_PayDeskList">
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+                
             </Border>
 
             <Border
