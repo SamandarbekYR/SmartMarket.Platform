@@ -122,19 +122,21 @@ namespace SmartMarket.Service.Services.PartnersCompany.ContrAgent
         }
 
 
-        public async Task<ContrAgentDto> GetContrAgentByNameAsync(string name)
+        public async Task<IEnumerable<ContrAgentDto>> GetContrAgentByNameAsync(string name)
         {
             try
             {
                 var contrAgent = await _unitOfWork.ContrAgent.GetAll()
-                    .FirstOrDefaultAsync(ca => ca.FirstName == name);
+                    .AsNoTracking()
+                    .Where(ca => ca.FirstName.ToLower().Contains(name.ToLower()))
+                    .ToListAsync();
 
-                if (contrAgent == null)
+                if (contrAgent == null || !contrAgent.Any())
                 {
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Counteragent not found.");
                 }
 
-                return _mapper.Map<ContrAgentDto>(contrAgent);
+                return _mapper.Map<IEnumerable<ContrAgentDto>>(contrAgent);
             }
             catch (Exception ex)
             {

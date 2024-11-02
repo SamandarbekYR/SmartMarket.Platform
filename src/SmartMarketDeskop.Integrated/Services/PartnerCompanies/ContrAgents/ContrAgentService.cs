@@ -100,4 +100,29 @@ public class ContrAgentService : IContrAgentService
         }
     }
 
+    public async Task<List<ContrAgentViewModels>> GetByName(string name)
+    {
+        if(IsInternetAvailable())
+        {
+            var contrAgent = await contrAgentServer.GetContrAgentByNameAsync(name);
+            var companies = await partnerComanyServer.GetAllCompany();
+
+            return contrAgent.Select(a => new ContrAgentViewModels()
+            {
+                Id = a.Id,
+                CompanyName = companies.Find(c => c.Id == a.CompanyId).Name,
+                FirstName = a.FirstName,
+                LastName = a.LastName,
+                PhoneNumber = a.PhoneNumber,
+                DebtSum = 500000,
+                PayedSum = 200000,
+                LastPayedSum = 50000,
+                LastPayedDate = "9/3/2024"
+            }).ToList();
+        }
+        else
+        {
+            return new List<ContrAgentViewModels>();
+        }
+    }
 }
