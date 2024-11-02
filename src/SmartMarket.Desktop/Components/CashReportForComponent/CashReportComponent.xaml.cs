@@ -1,5 +1,8 @@
 ﻿using SmartMarket.Desktop.Pages.CashReportForPage;
+using SmartMarket.Desktop.Pages.SaleForPage;
 using SmartMarket.Service.DTOs.PayDesks;
+using SmartMarketDesktop.ViewModels.Entities.Categories;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -24,8 +27,26 @@ public partial class CashReportComponent : UserControl
     private void btnCashReport_MouseUp(object sender, MouseButtonEventArgs e)
     {
         var payDesk = this.Tag as PayDesksDto;
-        btnCashReport.Background = new SolidColorBrush(Colors.Gray);
-        CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage();
-        checkOutFirstPage.SetPayDesk(payDesk!);
+
+        var page = FindParentPage(this);
+        if (page is CashReportPage reportPage)
+        {
+            reportPage.SelectCategory(this, payDesk!);
+        }
+    }
+
+    private Page FindParentPage(DependencyObject child)
+    {
+        DependencyObject parentObject = VisualTreeHelper.GetParent(child);
+
+        if (parentObject is Page page)
+        {
+            return page;
+        }
+        else if (parentObject != null)
+        {
+            return FindParentPage(parentObject);
+        }
+        return null!;
     }
 }
