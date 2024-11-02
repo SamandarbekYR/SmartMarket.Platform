@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Desktop.Windows.Admin;
+using SmartMarket.Desktop.Windows.SimpleAdmin;
 using SmartMarketDeskop.Integrated.Interfaces.Auth;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Services.Auth;
@@ -89,6 +90,7 @@ public partial class LoginWindow : Window
                 if (result.Result)
                 {
                     TokenHandler.ParseToken(result.Token);
+                    SetIdentitySingleton(result.Token);
 
                     string role = IdentitySingelton.GetInstance().RoleName;
                     Loader.Visibility = Visibility.Collapsed;
@@ -108,13 +110,13 @@ public partial class LoginWindow : Window
                     }
                     else
                     {
-                        //SimpleAdminWindow window = new SimpleAdminWindow();
-                        //this.Close();
-                        //window.ShowDialog();
-
-                        MainWindow window = new MainWindow();
+                        SimpleAdminWindow window = new SimpleAdminWindow();
                         this.Close();
                         window.ShowDialog();
+
+                        //MainWindow window = new MainWindow();
+                        //this.Close();
+                        //window.ShowDialog();
                     }
                 }
                 else

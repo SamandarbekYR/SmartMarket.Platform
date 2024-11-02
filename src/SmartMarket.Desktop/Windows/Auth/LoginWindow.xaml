@@ -61,7 +61,7 @@
                     Margin="30 0 0 0"
                     FontWeight="SemiBold"/>
                 <TextBlock 
-                    Text="version 1.0"
+                    Text="version 1.0.2"
                     FontSize="14"
                     Margin="30 0 0 0"
                     FontWeight="SemiBold"/>
