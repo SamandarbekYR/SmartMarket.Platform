@@ -277,6 +277,7 @@ public partial class SalePage : Page
         }
         tbFullName.Text = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
         tbKassaName.Text = IdentitySingelton.GetInstance().PayDeskName;
+        IdentitySingelton.GetInstance().PrinterName = Properties.Settings.Default.PrinterName;
         GetData();
         St_product.Focus();
     }

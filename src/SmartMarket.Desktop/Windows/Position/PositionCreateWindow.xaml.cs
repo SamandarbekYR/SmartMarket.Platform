@@ -5,6 +5,10 @@ using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 using System.Windows.Interop;
 using SmartMarket.Service.DTOs.Workers.Position;
 using SmartMarketDeskop.Integrated.Services.Workers.Position;
+using ToastNotifications;
+using ToastNotifications.Position;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
 
 namespace SmartMarket.Desktop.Windows.Position;
 
@@ -44,6 +48,21 @@ public partial class PositionCreateWindow : Window
         Marshal.FreeHGlobal(accentPtr);
     }
 
+    Notifier notifier = new Notifier(cfg =>
+    {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.MainWindow,
+            corner: Corner.TopRight,
+            offsetX: 20,
+            offsetY: 20);
+
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(3),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+    });
+
     private async void btnPositionCreate_MouseUp(object sender, MouseButtonEventArgs e)
     {
         var name = txtName.Text;
@@ -58,6 +77,11 @@ public partial class PositionCreateWindow : Window
             if (result)
             {
                 this.Close();
+                notifier.ShowInformation("Pozitsiya muvaddaqiyatli yaratildi.");
+            }
+            else
+            {
+                notifier.ShowError("Pozitsiya yaratishda xato yuz berdi.");
             }
         }
         else

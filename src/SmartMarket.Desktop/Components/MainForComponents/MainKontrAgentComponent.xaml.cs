@@ -5,6 +5,10 @@ using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgents;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.PartnerCompany;
 using System.Windows;
 using System.Windows.Controls;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
 
 namespace SmartMarket.Desktop.Components.MainForComponents;
 
@@ -20,7 +24,20 @@ public partial class MainKontrAgentComponent : UserControl
         this.contrAgentService = new ContrAgentService();
     }
 
+    Notifier notifier = new Notifier(cfg =>
+    {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
+            corner: Corner.TopRight,
+            offsetX: 50,
+            offsetY: 20);
 
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(3),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+    });
     public void GetData(ContrAgentViewModels contrAgent, int count)
     {
         tbNumber.Text = count.ToString();
@@ -52,7 +69,12 @@ public partial class MainKontrAgentComponent : UserControl
 
         if (messageBoxResult == MessageBoxResult.Yes)
         {
-            await contrAgentService.DeleteAsync(contragent.Id);
+            var res = await contrAgentService.DeleteAsync(contragent.Id);
+
+            if (res)
+                notifier.ShowInformation("Contr agent muvaffaqiyatli o'chirildi.");
+            else
+                notifier.ShowError("O'chirishda xatolik yuz berdi.");
         }
     }
 
@@ -74,7 +96,7 @@ public partial class MainKontrAgentComponent : UserControl
         }
         else
         {
-            MessageBox.Show("Contr agent topilmadi!");
+            notifier.ShowWarning("Contr agent topilmadi!");
         }
     }
 }

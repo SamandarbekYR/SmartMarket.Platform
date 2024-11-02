@@ -1,28 +1,52 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Management;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace SmartMarket.Desktop.Pages.SettingsForPage
+namespace SmartMarket.Desktop.Pages.SettingsForPage;
+
+/// <summary>
+/// Interaction logic for SettingsPrinterPage.xaml
+/// </summary>
+public partial class SettingsPrinterPage : Page
 {
-    /// <summary>
-    /// Interaction logic for SettingsPrinterPage.xaml
-    /// </summary>
-    public partial class SettingsPrinterPage : Page
+    public SettingsPrinterPage()
     {
-        public SettingsPrinterPage()
+        InitializeComponent();
+    }
+
+    private void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_Printer");
+
+        bool printerFound = false;
+
+        foreach (ManagementObject printer in searcher.Get())
         {
-            InitializeComponent();
+            string printerName = printer["Name"].ToString()!;
+
+            if (printer["PortName"] != null && printer["PortName"].ToString()!.ToLower().Contains("usb"))
+            {
+                cb_Printers.Items.Add(new ComboBoxItem { Content = printerName, FontSize = 18 });
+                printerFound = true;
+            }
+        }
+        if (!printerFound)
+        {
+            ComboBoxItem noPrinterItem = new ComboBoxItem
+            {
+                Content = "Printer topilmadi.",
+                IsEnabled = false,
+                FontSize = 18
+            };
+            cb_Printers.Items.Add(noPrinterItem);
+        }
+    }
+
+    private void cb_Printers_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if(cb_Printers.SelectedItem is  ComboBoxItem selectedItem)
+        {
+            Properties.Settings.Default.PrinterName = selectedItem.Content.ToString();
         }
     }
 }

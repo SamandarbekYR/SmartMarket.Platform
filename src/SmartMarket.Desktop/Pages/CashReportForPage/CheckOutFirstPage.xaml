@@ -6,7 +6,6 @@
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.CashReportForPage"
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="640" d:DesignWidth="1024"
       Title="CheckOutFirstPage"
       Loaded="Page_Loaded">
     
