@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Desktop.Pages.MainForPage;
+using SmartMarket.Desktop.Windows;
 using SmartMarket.Desktop.Windows.Category;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Categories;
 using SmartMarketDesktop.ViewModels.Entities.Categories;
@@ -10,6 +11,7 @@ using ToastNotifications;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
 using ToastNotifications.Position;
+using static SmartMarket.Desktop.Windows.MessageBoxWindow;
 
 namespace SmartMarket.Desktop.Components.MainForComponents;
 
@@ -64,10 +66,12 @@ public partial class MainCategoryComponent : UserControl
     private async void BntDeleteCategory_Click(object sender, RoutedEventArgs e)
     {
         var categoryView = this.Tag as CategoryView;
+        var message = tbName.Text;
 
-        var messageBoxResult = MessageBox.Show("O'chirishni hohlaysizmi!", "Ogohlantirish!", MessageBoxButton.YesNo);
+        var messageBox = new MessageBoxWindow(message + "ni o'chirilsinmi?", MessageType.Confirmation, MessageButtons.OkCancel);
+        var result = messageBox.ShowDialog();
 
-        if (messageBoxResult == MessageBoxResult.Yes)
+        if (result == true)
         {
             var res = await _server.DeleteAsync(categoryView!.Id);
 

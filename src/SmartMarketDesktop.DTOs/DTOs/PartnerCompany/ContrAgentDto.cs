@@ -16,3 +16,4 @@ namespace SmartMarketDesktop.DTOs.DTOs.PartnerCompany
 
     }
 }
+ 
