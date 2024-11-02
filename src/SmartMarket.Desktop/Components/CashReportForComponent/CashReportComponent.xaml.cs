@@ -44,12 +44,12 @@ namespace SmartMarket.Desktop.Components.CashReportForComponent
 
         private void btnCashReport_MouseEnter(object sender, MouseEventArgs e)
         {
-            btnCashReport.Background = new SolidColorBrush(Colors.LightGray); // Yengil kulrang
+            btnCashReport.Background = new SolidColorBrush(Colors.LightGray); 
         }
 
         private void btnCashReport_MouseLeave(object sender, MouseEventArgs e)
         {
-            btnCashReport.Background = new SolidColorBrush(Colors.White); // Asl rang
+            btnCashReport.Background = new SolidColorBrush(Colors.White); 
         }
 
     }

@@ -120,7 +120,6 @@
 
                     <Label
                         Name="Kassa_Name"
-                        Content="Umumiy kassa"
                         FontSize="17"
                         Style="{DynamicResource TitleLabel}"/>
 

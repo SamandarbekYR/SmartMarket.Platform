@@ -153,10 +153,10 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage
             var totalCardSum = salesMoney.cardSum - expenses.totalCardSum;
             var totalTransferMoney = salesMoney.transferMoney - expenses.totalTransferMoney;
 
-            CashReportPage cashReportPage = new CashReportPage();
-            cashReportPage.SetValuesSalesMoney(totalCashSum, totalCardSum, totalTransferMoney, salesMoney.debtSum);
-            cashReportPage.SetValuesExpenses(expenses.totalCashSum, expenses.totalCardSum, expenses.totalTransferMoney);
-            cashReportPage.SetValuesCurrentlyAvailable(totalCashSum, totalCardSum, totalTransferMoney, salesMoney.debtSum);
+            //CashReportPage cashReportPage = new CashReportPage();
+            //cashReportPage.SetValuesSalesMoney(totalCashSum, totalCardSum, totalTransferMoney, salesMoney.debtSum);
+            //cashReportPage.SetValuesExpenses(expenses.totalCashSum, expenses.totalCardSum, expenses.totalTransferMoney);
+            //cashReportPage.SetValuesCurrentlyAvailable(totalCashSum, totalCardSum, totalTransferMoney, salesMoney.debtSum);
 
             Label_Naqd_All.Content = totalCashSum;
             Label_Karta_All.Content = totalCardSum;
