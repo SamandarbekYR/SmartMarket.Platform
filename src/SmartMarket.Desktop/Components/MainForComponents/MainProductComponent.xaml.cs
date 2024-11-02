@@ -1,4 +1,5 @@
-﻿using SmartMarket.Desktop.Windows.Expenses;
+﻿using SmartMarket.Desktop.Windows;
+using SmartMarket.Desktop.Windows.Expenses;
 using SmartMarket.Desktop.Windows.ProductsForWindow;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
@@ -8,6 +9,7 @@ using ToastNotifications;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
 using ToastNotifications.Position;
+using static SmartMarket.Desktop.Windows.MessageBoxWindow;
 
 namespace SmartMarket.Desktop.Components.MainForComponents;
 
@@ -60,9 +62,11 @@ public partial class MainProductComponent : UserControl
     private async void btndelete_Click(object sender, System.Windows.RoutedEventArgs e)
     {
         products = (this.Tag as FullProductDto)!;
+        var message = tbProductName.Text;
 
-        var messageBoxResult = MessageBox.Show("O'chirishni hohlaysizmi!", "Ogohlantirish!", MessageBoxButton.YesNo);
-        if(messageBoxResult == MessageBoxResult.Yes)
+        var messageBox = new MessageBoxWindow(message + "ni o'chirilsinmi?", MessageType.Confirmation, MessageButtons.OkCancel);
+        var result = messageBox.ShowDialog();
+        if(result == true)
         {
             var res = await productService.DeleteProduct(products!.Id);
 
