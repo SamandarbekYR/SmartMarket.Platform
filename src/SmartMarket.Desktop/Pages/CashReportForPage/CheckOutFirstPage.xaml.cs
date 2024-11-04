@@ -14,13 +14,15 @@ public partial class CheckOutFirstPage : Page
 {
     private IExpenseService _expenseService;
     private ISalesRequestsService _salesRequestsService;
+    private CashReportPage _cashReportPage;
     private PayDesksDto _payDesk;
-
-    public CheckOutFirstPage()
+    private int count = 0;
+    public CheckOutFirstPage(CashReportPage cashReportPage)
     {
         InitializeComponent();
         _expenseService = new ExpenseService();
         _salesRequestsService = new SalesRequestService();
+        _cashReportPage = cashReportPage;
     }
 
     public void SetPayDesk(PayDesksDto payDesk)
@@ -31,15 +33,7 @@ public partial class CheckOutFirstPage : Page
         Kassa_Name_Harajat.Content = payDesk.Name;
 
         FilterForCashReport();
-    }
-
-    public async void GetAllCashReports()
-    {
-        var salesMoney = await _salesRequestsService.GetAll();
-        var expenses = await _expenseService.GetAll();
-
-        await ShowSalesMoney(salesMoney);
-        await ShowExpenses(expenses);
+        count++;
     }
 
     private async Task<(double cashSum, double cardSum, double debtSum, double transferMoney)> ShowSalesMoney(IList<SalesRequestDto> salesMoneyForPayDesk)
@@ -127,19 +121,6 @@ public partial class CheckOutFirstPage : Page
         FilterForCashReport();
     }
 
-    private async void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)
-    {
-        FilterSalesRequestDto salesRequestDto = new FilterSalesRequestDto();
-        FilterExpenseDto expenseDto = new FilterExpenseDto();
-
-        var salesMoneyData = await _salesRequestsService.FilterSalesRequest(salesRequestDto);
-        var expensesData = await _expenseService.FilterExpense(expenseDto);
-
-        var salesMoney = await ShowSalesMoney(salesMoneyData);
-        var expenses = await ShowExpenses(expensesData);
-        CurrentlyAvailable(salesMoney, expenses);
-    }
-
     private void CurrentlyAvailable((double cashSum, double cardSum, double debtSum, double transferMoney) salesMoney,
                                     (double totalCashSum, double totalCardSum, double totalTransferMoney) expenses)
     {
@@ -147,14 +128,26 @@ public partial class CheckOutFirstPage : Page
         var totalCardSum = salesMoney.cardSum - expenses.totalCardSum;
         var totalTransferMoney = salesMoney.transferMoney - expenses.totalTransferMoney;
 
-        CashReportPage cashReportPage = new CashReportPage();
-        cashReportPage.SetValuesSalesMoney(totalCashSum, totalCardSum, totalTransferMoney, salesMoney.debtSum);
-        cashReportPage.SetValuesExpenses(expenses.totalCashSum, expenses.totalCardSum, expenses.totalTransferMoney);
-        cashReportPage.SetValuesCurrentlyAvailable(totalCashSum, totalCardSum, totalTransferMoney, salesMoney.debtSum);
+        _cashReportPage.SetValuesSalesMoney(totalCashSum, totalCardSum, totalTransferMoney, salesMoney.debtSum);
+        _cashReportPage.SetValuesExpenses(expenses.totalCashSum, expenses.totalCardSum, expenses.totalTransferMoney);
+        _cashReportPage.SetValuesCurrentlyAvailable(totalCashSum, totalCardSum, totalTransferMoney, salesMoney.debtSum);
 
         Label_Naqd_All.Content = totalCashSum;
         Label_Karta_All.Content = totalCardSum;
         Label_Pul_All.Content = totalTransferMoney;
         Label_Nasiya_All.Content = salesMoney.debtSum;
+    }
+
+    private async void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)
+    {
+        if (count == 0)
+        {
+            var salesMoneyData = await _salesRequestsService.FilterSalesRequest(new FilterSalesRequestDto());
+            var expensesData = await _expenseService.FilterExpense(new FilterExpenseDto());
+
+            var salesMoney = await ShowSalesMoney(salesMoneyData);
+            var expenses = await ShowExpenses(expensesData);
+            CurrentlyAvailable(salesMoney, expenses);
+        }
     }
 }
