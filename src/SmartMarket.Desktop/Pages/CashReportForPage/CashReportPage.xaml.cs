@@ -75,7 +75,7 @@ public partial class CashReportPage : Page
     }
 
     private CashReportComponent selectedControl = null!;
-    public async void SelectCategory(CashReportComponent cashReportComponent, PayDesksDto dto)
+    public async void SelectCashReport(CashReportComponent cashReportComponent, PayDesksDto dto)
     {
         if (selectedControl != null)
         {

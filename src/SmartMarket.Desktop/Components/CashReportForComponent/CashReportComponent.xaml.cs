@@ -31,7 +31,7 @@ public partial class CashReportComponent : UserControl
         var page = FindParentPage(this);
         if (page is CashReportPage reportPage)
         {
-            reportPage.SelectCategory(this, payDesk!);
+            reportPage.SelectCashReport(this, payDesk!);
         }
     }
 
