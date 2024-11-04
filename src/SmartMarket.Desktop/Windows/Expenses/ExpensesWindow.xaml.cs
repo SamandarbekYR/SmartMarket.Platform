@@ -151,7 +151,7 @@ public partial class ExpensesWindow : Window
 
     private void ExpenseReason_combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        ComboBoxItem selectedItem = (PaymentType_combo.SelectedItem as ComboBoxItem)!;
+        ComboBoxItem selectedItem = (ExpenseReason_combo.SelectedItem as ComboBoxItem)!;
 
         if (selectedItem != null)
         {
