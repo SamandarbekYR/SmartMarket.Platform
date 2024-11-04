@@ -86,7 +86,7 @@
                                     ></TextBlock>
                                 <TextBlock
                                     x:Name="tbExpenseCashSum"
-                                    Text="100,000,000"
+                                    Text="0"
                                     Foreground="White"
                                     VerticalAlignment="Center"
                                     FontSize="16"
@@ -103,7 +103,7 @@
                                     ></TextBlock>
                                 <TextBlock
                                     x:Name="tbExpenseCardSum"
-                                    Text="100,000,000"
+                                    Text="0"
                                     Foreground="White"
                                     FontSize="16"
                                     Margin="5 0 0 0"
@@ -119,7 +119,7 @@
                                     ></TextBlock>
                                 <TextBlock
                                     x:Name="tbExpenseTransferMoney"
-                                    Text="50,000,000"
+                                    Text="0"
                                     Foreground="White"
                                     FontSize="16"
                                     VerticalAlignment="Center"
@@ -135,7 +135,7 @@
                                     ></TextBlock>
                                 <TextBlock
                                     x:Name="tbExpenseGeneralSum"
-                                    Text="200,000,000"
+                                    Text="0"
                                     Foreground="White"
                                     FontSize="16"
                                     Margin="5 0 0 0"
@@ -167,7 +167,7 @@
                                     ></TextBlock>
                                 <TextBlock
                                     x:Name="tbSaleCashSum"
-                                    Text="400,000,000"
+                                    Text="0"
                                     Foreground="White"
                                     FontSize="16"
                                     VerticalAlignment="Center"
@@ -183,7 +183,7 @@
                                     ></TextBlock>
                                 <TextBlock
                                     x:Name="tbSaleCardSum"
-                                    Text="400,000,000"
+                                    Text="0"
                                     Foreground="White"
                                     FontSize="16"
                                     VerticalAlignment="Center"
@@ -199,7 +199,7 @@
                                     ></TextBlock>
                                 <TextBlock
                                     x:Name="tbSaleTransferMoney"
-                                    Text="400,000,000"
+                                    Text="0"
                                     Foreground="White"
                                     FontSize="16"
                                     VerticalAlignment="Center"
@@ -215,7 +215,7 @@
                                     ></TextBlock>
                                 <TextBlock
                                     x:Name="tbSaleDebtSum"
-                                    Text="400,000,000"
+                                    Text="0"
                                     Foreground="White"
                                     FontSize="16"
                                     VerticalAlignment="Center"
@@ -231,7 +231,7 @@
                                     ></TextBlock>
                                 <TextBlock
                                     x:Name="tbSaleGeneralSum"
-                                    Text="400,000,000"
+                                    Text="0"
                                     Foreground="White"
                                     FontSize="16"
                                     VerticalAlignment="Center"
@@ -264,7 +264,7 @@
                                     ></TextBlock>
                                 <TextBlock
                                     x:Name="tbCurrnetlyCashSum"
-                                    Text="400,000,000"
+                                    Text="0"
                                     Foreground="White"
                                     FontSize="16"
                                     VerticalAlignment="Center"
@@ -280,7 +280,7 @@
                                    ></TextBlock>
                                 <TextBlock
                                    x:Name="tbCurrentlyCardSum"
-                                   Text="400,000,000"
+                                   Text="0"
                                    Foreground="White"
                                    FontSize="16"
                                    VerticalAlignment="Center"
@@ -296,7 +296,7 @@
                                    ></TextBlock>
                                 <TextBlock
                                    Name="tbCurrnetlyTransferMoney"
-                                   Text="400,000,000"
+                                   Text="0"
                                    Foreground="White"
                                    FontSize="16"
                                    VerticalAlignment="Center"
@@ -312,7 +312,7 @@
                                    ></TextBlock>
                                 <TextBlock
                                    Name="tbCurrnetlyDebtSum"
-                                   Text="400,000,000"
+                                   Text="0"
                                    Foreground="White"
                                    FontSize="16"
                                    VerticalAlignment="Center"
@@ -328,7 +328,7 @@
                                     ></TextBlock>
                                 <TextBlock
                                     x:Name="tbCurrentlyGeneralSum"
-                                    Text="400,000,000"
+                                    Text="0"
                                     Foreground="White"
                                     FontSize="16"
                                     VerticalAlignment="Center"
