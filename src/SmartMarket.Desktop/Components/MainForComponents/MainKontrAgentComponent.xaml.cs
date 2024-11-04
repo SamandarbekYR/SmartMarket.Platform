@@ -1,4 +1,5 @@
-﻿using SmartMarket.Desktop.Windows.ContrAgents;
+﻿using SmartMarket.Desktop.Windows;
+using SmartMarket.Desktop.Windows.ContrAgents;
 using SmartMarket.Desktop.Windows.LoadReports;
 using SmartMarket.Desktop.Windows.PaymentWindow;
 using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgents;
@@ -9,6 +10,7 @@ using ToastNotifications;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
 using ToastNotifications.Position;
+using static SmartMarket.Desktop.Windows.MessageBoxWindow;
 
 namespace SmartMarket.Desktop.Components.MainForComponents;
 
@@ -64,10 +66,12 @@ public partial class MainKontrAgentComponent : UserControl
     private async void Delete_Button_Click(object sender, RoutedEventArgs e)
     {
         var contragent = this.Tag as ContrAgentViewModels;
+        var message = tbFirstname.Text;
 
-        var messageBoxResult = MessageBox.Show("O'chirishni hohlaysizmi!", "Ogohlantirish!", MessageBoxButton.YesNo);
+        var messageBox = new MessageBoxWindow(message + "ni o'chirilsinmi?", MessageType.Confirmation, MessageButtons.OkCancel);
+        var result = messageBox.ShowDialog();
 
-        if (messageBoxResult == MessageBoxResult.Yes)
+        if (result == true)
         {
             var res = await contrAgentService.DeleteAsync(contragent.Id);
 

@@ -9,4 +9,5 @@ public interface IContrAgentService
     Task<bool> AddAsync(ContrAgentDto dto);
     Task<bool> DeleteAsync(Guid Id);
     Task<bool> UpdateAsync(ContrAgentDto dto, Guid Id);
+    Task<List<ContrAgentViewModels>> GetByName(string name);
 }

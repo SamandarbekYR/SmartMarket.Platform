@@ -8,6 +8,10 @@ using SmartMarketDeskop.Integrated.Services.Products.Product;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows;
+using SmartMarket.Service.DTOs.Products.Product;
+using SmartMarket.Desktop.Components.Loader;
+using SmartMarket.Service.DTOs.PartnersCompany.ContrAgent;
+using SmartMarketDeskop.Integrated.ViewModelsForUI.PartnerCompany;
 
 namespace SmartMarket.Desktop.Pages.MainForPage;
 
@@ -146,6 +150,180 @@ public partial class MainPage : Page
         else
         {
             EmptyDataProduct.Visibility = Visibility.Visible;
+        }
+    }
+    private CancellationTokenSource _cancellationTokenSource;
+    private async void tb_search_ProductTextChanged(object sender, TextChangedEventArgs e)
+    {
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource = new CancellationTokenSource();
+        var token = _cancellationTokenSource.Token;
+
+        string search = tb_search_Product.Text;
+
+        try
+        {
+            await Task.Delay(500, token);
+        }
+        catch (Exception ex)
+        {
+            return;
+        }
+
+        if (token.IsCancellationRequested)
+        {
+            EmptyDataProduct.Visibility = Visibility.Collapsed;
+            return;
+        }
+
+        St_product.Children.Clear();
+        EmptyDataProduct.Visibility = Visibility.Collapsed;
+
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            ProductLoader.Visibility = Visibility.Visible;
+            try
+            {
+                await Task.Run(async () =>
+                {
+                    if (search.Length >= 1)
+                    {
+                        var products = await _productService.GetByProductName(search);
+
+                        foreach (var product in products)
+                        {
+                            Application.Current.Dispatcher.Invoke(() =>
+                            {
+                                SetProduct(product);
+                            });
+                        }
+                    }
+                }, token);
+            }
+            catch (TaskCanceledException)
+            {
+
+            }
+            finally
+            {
+                ProductLoader.Visibility = Visibility.Collapsed;
+            }
+        }
+        else
+        {
+            EmptyDataProduct.Visibility = Visibility.Collapsed;
+            await GetAllProducts();
+        }
+    }
+
+    private void SetProduct(FullProductDto product)
+    {
+        ProductLoader.Visibility = Visibility.Collapsed;
+        St_product.Children.Clear();
+        int count = 1;
+
+        if (product != null)
+        {
+            EmptyDataProduct.Visibility = Visibility.Collapsed;
+
+            MainProductComponent mainProductComponent = new MainProductComponent();
+            mainProductComponent.Tag = product;
+            mainProductComponent.GetData(product, count);
+            St_product.Children.Add(mainProductComponent);
+            count++;
+        }
+        else
+        {
+            EmptyDataProduct.Visibility = Visibility.Visible;
+        }
+    }
+
+    private async void tb_search_ContrAgentTextChanged(object sender, TextChangedEventArgs e)
+    {
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource = new CancellationTokenSource();
+        var token = _cancellationTokenSource.Token;
+
+        string search = tb_search_ContrAgent.Text;
+
+        try
+        {
+            await Task.Delay(500, token);
+        }
+        catch(TaskCanceledException)
+        {
+            return;
+        }
+
+        if(token.IsCancellationRequested)
+        {
+            EmptyDataContragent.Visibility = Visibility.Collapsed;
+            return;
+        }
+
+        St_contragent.Children.Clear();
+        EmptyDataContragent.Visibility = Visibility.Collapsed;
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            ContragentLoader.Visibility = Visibility.Visible;
+
+            try
+            {
+                await Task.Run(async () =>
+                {
+                    if(search.Length >= 1)
+                    {
+                        var contrAgents = await _contrAgentService.GetByName(search);
+
+                        foreach(var contrAgent in contrAgents)
+                        {
+                            Application.Current.Dispatcher.Invoke(() =>
+                            {
+                                SetContrAgent(contrAgent);
+                            });
+                        }
+                    }
+                }, token);
+            }
+            catch (TaskCanceledException)
+            {
+
+            }
+            finally
+            {
+                ContragentLoader.Visibility = Visibility.Collapsed;
+            }
+        }
+        else
+        {
+            St_contragent.Children.Clear();
+            EmptyDataContragent.Visibility = Visibility.Collapsed;
+
+            await GetAllContrAgents();
+        }
+    }
+
+    private void SetContrAgent(ContrAgentViewModels contrAgent)
+    {
+        ContragentLoader.Visibility = Visibility.Collapsed;
+        St_contragent.Children.Clear();
+
+        int count = 1;
+
+        if(contrAgent != null)
+        {
+            EmptyDataContragent.Visibility = Visibility.Collapsed;
+
+            MainKontrAgentComponent mainKontrAgentComponent = new MainKontrAgentComponent();
+            mainKontrAgentComponent.Tag = contrAgent;
+            mainKontrAgentComponent.GetData(contrAgent, count);
+            St_contragent.Children.Add(mainKontrAgentComponent);
+            count++;
+        }
+        else
+        {
+            EmptyDataContragent.Visibility = Visibility.Visible;
         }
     }
 
