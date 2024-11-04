@@ -70,7 +70,7 @@ public partial class CashReportPage : Page
     {
         GetAllPayDesk();
 
-        CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage();
+        CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage(this);
         CheckOutPageNavigator.Content = checkOutFirstPage;
     }
 
@@ -84,7 +84,7 @@ public partial class CashReportPage : Page
 
         cashReportComponent.btnCashReport.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B6B6B6"));
 
-        CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage();
+        CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage(this);
         checkOutFirstPage.SetPayDesk(dto);
         CheckOutPageNavigator.Content = checkOutFirstPage;
 
