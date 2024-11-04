@@ -136,7 +136,7 @@ public partial class AccountUpdateWindow : Window
                 workerDto.Password = password;
             }
 
-            var result = await _workerService.UpdateAsync(workerDto, _worker.Id);
+            var result = await Task.Run(async () => await _workerService.UpdateAsync(workerDto, _worker.Id));
 
             if (result)
             {
@@ -160,7 +160,7 @@ public partial class AccountUpdateWindow : Window
 
         if (result == MessageBoxResult.Yes)
         {
-            var resultDelete = await _workerService.DeleteAsync(_worker.Id);
+            var resultDelete = await Task.Run(async () => await _workerService.DeleteAsync(_worker.Id));
 
             if (resultDelete)
             {
@@ -180,16 +180,16 @@ public partial class AccountUpdateWindow : Window
         txtLastName.Text = _worker.LastName;
         txtPhoneNumber.Text = _worker.PhoneNumber;
         txtSalary.Text = _worker.Salary.ToString();  
-        txtAdvance.Text = _worker.Advance.ToString();  
+        txtAdvance.Text = _worker.Advance.ToString();
 
-        var positions = await _positionService.GetAllAsync();
+        var positions = await Task.Run(async () => await _positionService.GetAllAsync());
         cbPosition.ItemsSource = positions.DistinctBy(p => p.Name).ToList();
         cbPosition.Tag = positions;
         cbPosition.DisplayMemberPath = "Name";
         cbPosition.SelectedValuePath = "Id";
         cbPosition.SelectedValue = _worker.Position.Id;
 
-        var roles = await _workerRoleService.GetAllAsync();
+        var roles = await Task.Run(async () => await _workerRoleService.GetAllAsync());
         cbRole.ItemsSource = roles.DistinctBy(r => r.RoleName).ToList();
         cbRole.Tag = roles;
         cbRole.DisplayMemberPath = "RoleName";
