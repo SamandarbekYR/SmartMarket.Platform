@@ -106,7 +106,7 @@
                     BorderThickness="1"
                     Width="250" 
                     SelectionChanged="PaymentType_combo_SelectionChanged">
-                    <ComboBoxItem Content="Naq"/>
+                    <ComboBoxItem Content="Naqd"/>
                     <ComboBoxItem Content="Karta"/>
                     <ComboBoxItem Content="Pul ko'chirish"/>
                     <ComboBoxItem Content="Clik"/>
