@@ -26,7 +26,7 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
 
         public async void GetWorkers()
         {
-            var workers = await _workerService.GetAllAsync();
+            var workers = await Task.Run(async () => await _workerService.GetAllAsync());
 
             St_Workers.Visibility = Visibility.Visible;
             St_Workers.Children.Clear();

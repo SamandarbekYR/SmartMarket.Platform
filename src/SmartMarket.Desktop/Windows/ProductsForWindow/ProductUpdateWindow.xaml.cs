@@ -139,7 +139,7 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
             addProductDto.WorkerId = workerId;
             addProductDto.PaymentStatus = "Active";
             addProductDto.NoteAmount = int.Parse(txtNoteAmount.Text);
-            var res = await productService.UpdateProduct(addProductDto, productId);
+            var res = await Task.Run(async () => await productService.UpdateProduct(addProductDto, productId));
 
 
             ProductImageDto productImageDto = new ProductImageDto();
@@ -189,7 +189,7 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
 
         public async void GetAllCategory()
         {
-            categories = await categoryService.GetAllAsync();
+            categories = await Task.Run(async () => await categoryService.GetAllAsync());
             if (categories != null && categories.Any())
             {
                 comboCategory.ItemsSource = categories.Select(a => a.Name);
@@ -199,7 +199,7 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
 
         public async void GetAllContrAgent()
         {
-            contrAgents = await contrAgentService.GetAll();
+            contrAgents = await Task.Run(async () => await contrAgentService.GetAll());
             if (contrAgents != null && contrAgents.Any())
             {
                 comboDelivery.ItemsSource = contrAgents.Select(a => a.FirstName);
