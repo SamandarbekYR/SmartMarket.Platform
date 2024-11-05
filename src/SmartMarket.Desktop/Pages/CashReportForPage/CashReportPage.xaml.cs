@@ -23,7 +23,7 @@ public partial class CashReportPage : Page
 
     public async void GetAllPayDesk()
     {
-        var payDesks = await _payDeskService.GetAll();
+        var payDesks = await Task.Run(async () => await _payDeskService.GetAll());
         PayDeskLoader.Visibility = Visibility.Collapsed;
 
         St_PayDeskList.Children.Clear();

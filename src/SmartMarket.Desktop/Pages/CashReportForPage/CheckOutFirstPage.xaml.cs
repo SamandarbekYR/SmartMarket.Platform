@@ -108,8 +108,8 @@ public partial class CheckOutFirstPage : Page
             expenseDto.PayDeskId = _payDesk.Id;
         }
 
-        var salesMoneyData = await _salesRequestsService.FilterSalesRequest(salesRequestDto);
-        var expensesData = await _expenseService.FilterExpense(expenseDto);
+        var salesMoneyData = await Task.Run(async () => await _salesRequestsService.FilterSalesRequest(salesRequestDto));
+        var expensesData = await Task.Run(async () => await _expenseService.FilterExpense(expenseDto));
 
         var salesMoney = await ShowSalesMoney(salesMoneyData);
         var expenses = await ShowExpenses(expensesData);
@@ -142,8 +142,8 @@ public partial class CheckOutFirstPage : Page
     {
         if (count == 0)
         {
-            var salesMoneyData = await _salesRequestsService.FilterSalesRequest(new FilterSalesRequestDto());
-            var expensesData = await _expenseService.FilterExpense(new FilterExpenseDto());
+            var salesMoneyData = await Task.Run(async () => await _salesRequestsService.FilterSalesRequest(new FilterSalesRequestDto()));
+            var expensesData = await Task.Run(async () => await _expenseService.FilterExpense(new FilterExpenseDto()));
 
             var salesMoney = await ShowSalesMoney(salesMoneyData);
             var expenses = await ShowExpenses(expensesData);
