@@ -159,6 +159,35 @@ namespace SmartMarket.Service.Services.Products.LoadReport
             }
         }
 
+        public async Task<IEnumerable<CollectedLoadReportDto>> GetAllCollectedAsync()
+        {
+            try
+            {
+                var loadReports = await _unitOfWork.LoadReport.GetLoadReportsFullInformationAsync();
+
+                var collectedLoadReportDto = loadReports.Select(l => new CollectedLoadReportDto
+                {
+                    Id = l.Id,
+                    WorkerId = l.WorkerId,
+                    Worker = l.Worker,
+                    ProductId = l.ProductId,
+                    Product = l.Product,
+                    TotalPrice = l.TotalPrice,
+                    ProductName = l.Product.Name,
+                    ProductCount = l.Product.Count,
+                    ContrAgentName = l.ContrAgent.FirstName + " " + l.ContrAgent.LastName,
+                    CreatedDate = l.CreatedDate
+                }).ToList();
+
+                return collectedLoadReportDto;
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "An error occured while getting all collected load reports.");
+                throw;
+            }
+        }
+
         public async Task<LoadReportDto> GetByIdAsync(Guid Id)
         {
             try

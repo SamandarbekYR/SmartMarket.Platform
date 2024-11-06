@@ -60,6 +60,28 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Expenses
             }
         }
 
+        public async Task<List<CollectedLoadReportDto>> GetAllCollectedAsync()
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+
+                var token = IdentitySingelton.GetInstance().Token;
+                client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/load-reports/collected");
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+                HttpResponseMessage message = await client.GetAsync(client.BaseAddress);
+
+                var response = await message.Content.ReadAsStringAsync();
+                List<CollectedLoadReportDto> loadReports = JsonConvert.DeserializeObject<List<CollectedLoadReportDto>>(response)!;
+
+                return loadReports;
+            }
+            catch(Exception ex)
+            {
+                return new List<CollectedLoadReportDto>();
+            }
+        }
+
         public async Task<List<LoadReportDto>> GetLoadReportsByContrAgentIdAsync(Guid contrAgentId)
         {
             try

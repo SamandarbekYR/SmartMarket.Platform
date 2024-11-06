@@ -13,5 +13,6 @@ namespace SmartMarketDeskop.Integrated.Services.Expenses
         Task<List<LoadReportDto>> FilterAsync(FilterLoadReportDto dto);
         Task<List<LoadReportDto>> GetByContrAgentIdAsync(Guid contrAgentId);
         Task<LoadReportStatisticsDto> GetStatisticsAsync();
+        Task<List<CollectedLoadReportDto>> GetAllCollected();
     }
 }
