@@ -1,8 +1,6 @@
 ﻿using Microsoft.Win32;
 using SmartMarket.Desktop.Windows.Category;
 using SmartMarket.Desktop.Windows.ContrAgents;
-
-using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Services.Categories.Category;
 using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgents;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
@@ -50,7 +48,6 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
             AddProductDto addProductDto = new AddProductDto();
 
             addProductDto.BarCode = txtBarCode.Text;
-            addProductDto.P_Code = txtPCode.Text;
             addProductDto.ProductName = txtProductName.Text;
 
             {
@@ -61,7 +58,6 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
             addProductDto.Count = int.Parse(txtQuantity.Text);
             addProductDto.Price = double.Parse(txtPrice.Text);
             addProductDto.SellPrice = double.Parse(txtProductPriceSum.Text);
-            addProductDto.SellPricePercantage = int.Parse(txtProductPricePersentage.Text);
 
             addProductDto.UnitOfMeasure = comboMeasurement.Text;
             {
@@ -165,14 +161,8 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
 
         public void Clear()
         {
-            txtBarCode.Text = txtPCode.Text = txtProductName.Text = comboCategory.Text = txtQuantity.Text = txtPrice.Text =
-            txtProductPriceSum.Text = txtProductPricePersentage.Text = comboDelivery.Text = txtNoteAmount.Text = string.Empty;
-        }
-
-        private void BrClose_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            this.Close();
-            Clear();
+            txtBarCode.Text = txtProductName.Text = comboCategory.Text = txtQuantity.Text = txtPrice.Text =
+            txtProductPriceSum.Text = comboDelivery.Text = txtNoteAmount.Text = string.Empty;
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)
@@ -188,6 +178,12 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
                 bitmap.EndInit();
                 lbImage.Content = Path.GetFileName(imagepath);
             }
+        }
+
+        private void btn_Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            Clear();
         }
     }
 }

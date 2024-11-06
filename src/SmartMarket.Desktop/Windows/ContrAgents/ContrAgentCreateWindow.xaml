@@ -24,29 +24,21 @@
              Background="#1EB7E8"
              CornerRadius="8 8 0 0">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition  Width="2*"/>
-                    <ColumnDefinition  Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0"
+
+                <Label
                     Content="Kontr Agent qo'shish"
                     VerticalAlignment="Center"
                     Margin="10 0 0 0"
                     FontSize="22"
                     Foreground="White"
-                    FontWeight="SemiBold">
-                </Label>
-                <Border Grid.Column="1">
-                    <Border HorizontalAlignment="Right"
-                         VerticalAlignment="Center"
-                         Margin="10"
-                         Cursor="Hand"
-                         MouseUp="Border_MouseUp">
-                        <Path Data="{DynamicResource x}"
-                           Fill="White"
-                           Stretch="Uniform"/>
-                    </Border>
-                </Border>
+                    FontWeight="SemiBold"/>
+
+                <Button
+                    Name="btn_Close"
+                    Background="White"
+                    Click="btn_Close_Click"
+                    Style="{DynamicResource btnClose}"/>
+
             </Grid>
         </Border>
         <Border Grid.Row="1"
