@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SmartMarket.Domain.Entities.PayDesks;
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -13,6 +15,10 @@ namespace SmartMarket.Domain.Entities.PartnersCompany
         [Column("contr_agent_id")]
         public Guid ContrAgentId { get; set; }
         public ContrAgent ContrAgent { get; set; }
+        public Guid PayDeskId { get; set; }
+        public PayDesk PayDesk { get; set; }
+        [Column("payment_type")]
+        public string PaymentType { get; set; }
 
         [Column("total_debt")]
         public double TotalDebt { get; set; }
