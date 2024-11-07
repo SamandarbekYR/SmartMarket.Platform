@@ -204,19 +204,6 @@ namespace SmartMarket.DataAccess.Data
                       .OnDelete(DeleteBehavior.Restrict);
             });
 
-            modelBuilder.Entity<SalaryWorker>(entity =>
-            {
-                entity.HasOne(sw => sw.Worker)
-                      .WithMany(w => w.SalaryWorkers)
-                      .HasForeignKey(sw => sw.WorkerId)
-                      .OnDelete(DeleteBehavior.Restrict);
-
-                entity.HasOne(sw => sw.Salary)
-                      .WithMany(s => s.SalaryWorkers)
-                      .HasForeignKey(sw => sw.SalaryId)
-                      .OnDelete(DeleteBehavior.Restrict);
-            });
-
             modelBuilder.Entity<Worker>(entity =>
             {
                 entity.HasOne(w => w.Position)
@@ -259,11 +246,11 @@ namespace SmartMarket.DataAccess.Data
         DbSet<ProductSale> ProductSale { get; set; }
         DbSet<SalesRequest> SalesRequests { get; set; }
         DbSet<ReplaceProduct> ReplaceProducts { get; set; }
-        DbSet<Transaction> Transactions { get; set; }
+       // DbSet<Transaction> Transactions { get; set; }
         DbSet<Position> Positions { get; set; }
-        DbSet<Salary> Salarys { get; set; }
+       // DbSet<Salary> Salarys { get; set; }
         DbSet<SalaryCheck> SalaryChecks { get; set; }
-        DbSet<SalaryWorker> SalaryWorkers { get; set; }
+       // DbSet<SalaryWorker> SalaryWorkers { get; set; }
         DbSet<Worker> Workers { get; set; }
         DbSet<WorkerDebt> WorkerDebt { get; set; }
         DbSet<WorkerRole> WorkerRoles { get; set; }
