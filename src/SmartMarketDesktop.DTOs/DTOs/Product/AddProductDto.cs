@@ -2,8 +2,6 @@
 
 public class AddProductDto
 {
-    public class AddProductDto
-    {
         public string BarCode { get; set; }=string.Empty;
         public string P_Code { get; set; }=string.Empty ;   
         public string Name { get; set; } = string.Empty;
@@ -17,5 +15,4 @@ public class AddProductDto
         public string UnitOfMeasure { get; set; }
         public int NoteAmount { get; set; }
         public string PaymentStatus { get; set; }=string.Empty;
-    }
 }

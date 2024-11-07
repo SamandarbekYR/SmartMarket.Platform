@@ -111,7 +111,6 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
             AddProductDto addProductDto = new AddProductDto();
 
             addProductDto.BarCode = txtBarCode.Text;
-            addProductDto.P_Code = txtPCode.Text;
             addProductDto.Name = txtProductName.Text;
 
             {

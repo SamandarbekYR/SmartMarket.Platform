@@ -8,10 +8,7 @@
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         WindowStyle="None"
         ResizeMode="NoResize"
-        WindowState="Maximized"
-        Loaded="Window_Loaded"
-        Background="Transparent"
-        AllowsTransparency="True">
+        WindowState="Maximized">
 
         <Border
             Background="White"
@@ -44,7 +41,6 @@
                 <Border 
                     Grid.Row="0" 
                     x:Name="btnclose"
-                    MouseUp="btnclose_MouseUp"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Margin="0 0 10 0"
@@ -71,7 +67,6 @@
                         Margin="35 5 35 10"
                         Style="{DynamicResource tbPaymentstyle}"
                         Text="2500000"
-                        TextChanged="phone_number_TextChanged"
                     ></TextBox>
 
                     <TextBlock 
@@ -95,7 +90,6 @@
                     FontSize="20"
                     FontWeight="SemiBold"
                     Background="#04C217"
-                    Click="BtnPay_Click"
                     Style="{DynamicResource BtnPayment}">
 
                 </Button>
