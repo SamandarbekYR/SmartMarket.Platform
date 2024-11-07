@@ -16,7 +16,5 @@ namespace SmartMarket.Domain.Entities.Transactions
         public string Description { get; set; } = string.Empty;
         [Column("type_of_payment")]
         public string TypeOfPayment { get; set; } = string.Empty;
-
-        public List<ProductSale> ProductSales { get; set; }
     }
 }
