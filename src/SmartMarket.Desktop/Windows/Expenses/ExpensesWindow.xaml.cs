@@ -25,6 +25,7 @@ public partial class ExpensesWindow : Window
 
     public Guid PayDeskId { get; set; }
     public string PaymentType { get; set; } = string.Empty;
+    public string Reason { get; set; } = string.Empty;
 
     public ExpensesWindow()
     {
@@ -112,11 +113,7 @@ public partial class ExpensesWindow : Window
     private async void Button_Click(object sender, RoutedEventArgs e)
     {
         AddExpenceDto dto = new AddExpenceDto();
-        if (reason_txt.Text.Length > 3)
-            dto.Reason = reason_txt.Text;
-        else
-            notifierthis.ShowWarning("Sabab matni yetarli emas!");
-
+        dto.Reason = Reason;
         dto.PayDeskId = PayDeskId;
         dto.Amount = double.Parse(expenceSumma_txt.Text);
         dto.TypeOfPayment = PaymentType;
@@ -149,6 +146,16 @@ public partial class ExpensesWindow : Window
         if (selectedItem != null)
         {
             PaymentType = selectedItem.Content.ToString()!;
+        }
+    }
+
+    private void ExpenseReason_combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        ComboBoxItem selectedItem = (ExpenseReason_combo.SelectedItem as ComboBoxItem)!;
+
+        if (selectedItem != null)
+        {
+            Reason = selectedItem.Content.ToString()!;
         }
     }
 }

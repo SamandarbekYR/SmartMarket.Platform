@@ -27,7 +27,7 @@ public class ProductServer : IProductServer
                     var content = new MultipartFormDataContent();
                     content.Add(new StringContent(dto.BarCode), "Barcode");
                     content.Add(new StringContent(dto.P_Code), "PCode");
-                    content.Add(new StringContent(dto.ProductName), "Name");
+                    content.Add(new StringContent(dto.Name), "Name");
                     content.Add(new StringContent(dto.CategoryId.ToString()), "CategoryId");
                     content.Add(new StringContent(dto.ContrAgentId.ToString()), "ContrAgentId");
                     content.Add(new StringContent(dto.WorkerId.ToString()), "WorkerId");

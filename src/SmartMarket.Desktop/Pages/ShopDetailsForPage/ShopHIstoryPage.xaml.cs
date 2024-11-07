@@ -31,7 +31,7 @@ public partial class ShopHIstoryPage : Page
     {
         St_productList.Children.Clear();
 
-        var productSales = await _productSaleService.GetAllAsync();
+        var productSales = await Task.Run(async () => await _productSaleService.GetAllAsync());
 
         List<string> workerNames = productSales
             .Select(ps => ps.SalesRequest.Worker.FirstName)
@@ -92,7 +92,7 @@ public partial class ShopHIstoryPage : Page
         }
 
 
-        var expenses = await _expenseService.FilterExpense(filterExpenseDto);
+        var expenses = await Task.Run(async () => await _expenseService.FilterExpense(filterExpenseDto));
 
         var totalCost = productSales.Sum(p => p.ItemTotalCost);
         var profit = productSales.Sum(p => (p.Product.SellPrice - p.Product.Price) * p.Count);

@@ -27,7 +27,7 @@ public partial class AccountSettingsPage : Page
         ShowWorkers(workers);
     }
 
-    private void ShowWorkers(IList<WorkerDto> workers)
+    private async void ShowWorkers(IList<WorkerDto> workers)
     {
         Wr_Account.Children.Clear();
         Loader.Visibility = Visibility.Collapsed;
@@ -36,6 +36,7 @@ public partial class AccountSettingsPage : Page
         {
             foreach (var item in workers)
             {
+                await Task.Yield();
                 AccountSettingsComponent accountSettingsComponent = new AccountSettingsComponent();
                 accountSettingsComponent.Tag = item;
                 accountSettingsComponent.SetData(item);

@@ -123,7 +123,7 @@ public partial class ReturnProductViewWindow : Window
                 ItemTotalCost = _productSale.ItemTotalCost - _productSale.Product.SellPrice * replaceProductDto.Count,
             };
 
-            var result =  await _productSaleService.UpdateAsync(productSaleDto, _productSale.Id);
+            var result =  await Task.Run(async () => await _productSaleService.UpdateAsync(productSaleDto, _productSale.Id));
             
             if(!result)
             {

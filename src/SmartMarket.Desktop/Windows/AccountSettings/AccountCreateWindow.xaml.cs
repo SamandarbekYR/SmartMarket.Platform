@@ -102,7 +102,7 @@ namespace SmartMarket.Desktop.Windows.AccountSettings
                         Advance = double.Parse(txtAdvance.Text)
                     };
 
-                    var result = await _workerService.CreateAsync(worker);
+                    var result = await Task.Run(async () => await _workerService.CreateAsync(worker));
 
                     if (result)
                     {
@@ -129,12 +129,12 @@ namespace SmartMarket.Desktop.Windows.AccountSettings
         {
             try
             {
-                var roles = await _workerRoleService.GetAllAsync();
+                var roles = await Task.Run(async () => await _workerRoleService.GetAllAsync());
                 cbRole.ItemsSource = roles.DistinctBy(r => r.RoleName).ToList();
                 cbRole.DisplayMemberPath = "RoleName";
                 cbRole.SelectedValuePath = "Id";
 
-                var positions = await _positionService.GetAllAsync();
+                var positions = await Task.Run(async () => await _positionService.GetAllAsync());
                 cbPosition.ItemsSource = positions.DistinctBy(p => p.Name).ToList();
                 cbPosition.DisplayMemberPath = "Name";
                 cbPosition.SelectedValuePath = "Id";

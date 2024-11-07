@@ -23,7 +23,7 @@ public partial class CashReportPage : Page
 
     public async void GetAllPayDesk()
     {
-        var payDesks = await _payDeskService.GetAll();
+        var payDesks = await Task.Run(async () => await _payDeskService.GetAll());
         PayDeskLoader.Visibility = Visibility.Collapsed;
 
         St_PayDeskList.Children.Clear();
@@ -70,12 +70,12 @@ public partial class CashReportPage : Page
     {
         GetAllPayDesk();
 
-        CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage();
+        CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage(this);
         CheckOutPageNavigator.Content = checkOutFirstPage;
     }
 
     private CashReportComponent selectedControl = null!;
-    public async void SelectCategory(CashReportComponent cashReportComponent, PayDesksDto dto)
+    public async void SelectCashReport(CashReportComponent cashReportComponent, PayDesksDto dto)
     {
         if (selectedControl != null)
         {
@@ -84,7 +84,7 @@ public partial class CashReportPage : Page
 
         cashReportComponent.btnCashReport.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B6B6B6"));
 
-        CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage();
+        CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage(this);
         checkOutFirstPage.SetPayDesk(dto);
         CheckOutPageNavigator.Content = checkOutFirstPage;
 

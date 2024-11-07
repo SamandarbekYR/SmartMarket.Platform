@@ -4,9 +4,11 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ShopWorkersForPage"
-      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" 
+      xmlns:local1="clr-namespace:SmartMarket.Desktop.Components.Loader"
       mc:Ignorable="d" 
-      Title="CollectedCargoDetailsPage">
+      Title="CollectedCargoDetailsPage"
+      Loaded="Page_Loaded">
 
 
     <Border 
@@ -20,7 +22,6 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
 
         <Border
             Background="#D6D6D6"
@@ -176,21 +177,31 @@
                  ></TextBlock>
         </Grid>
 
-        <Border 
+        <Grid 
             Grid.Row="2" 
             Background="White" 
-            CornerRadius="0 0 5 5" 
             Margin="5">
-            
-            <ScrollViewer>
-                <StackPanel  >
+
+                <local1:Loader
+                        x:Name="Loader"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"/>
+
+                <ScrollViewer>
+                    <StackPanel x:Name="St_loadReports">
                     
-                </StackPanel>
-            </ScrollViewer>
-            
-            
-            
-        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <Label
+                    Name="EmptyDataLoadReport"
+                    Visibility="Collapsed"
+                    FontSize="16"
+                    Foreground="#a6a6a6"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="Ma'lumot topilmadi."/>
+        </Grid>
 
     </Grid>
     </Border>

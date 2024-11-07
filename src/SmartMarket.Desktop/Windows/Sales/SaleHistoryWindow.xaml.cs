@@ -49,7 +49,7 @@ public partial class SaleHistoryWindow : Window
 
     public async void GetAllProduct()
     {
-        var productSales = await _productSaleService.GetAllAsync();
+        var productSales = await Task.Run(async () => await _productSaleService.GetAllAsync());
 
         List<string> workerNames = productSales
             .Select(ps => ps.SalesRequest.Worker.FirstName)
@@ -87,7 +87,7 @@ public partial class SaleHistoryWindow : Window
             filterProductSaleDto.ProductName = searchTerm;
         }
 
-        var filteredProductSales = await _productSaleService.FilterProductSaleAsync(filterProductSaleDto);
+        var filteredProductSales = await Task.Run(async () => await _productSaleService.FilterProductSaleAsync(filterProductSaleDto));
 
         ShowProductSales(filteredProductSales);
     }

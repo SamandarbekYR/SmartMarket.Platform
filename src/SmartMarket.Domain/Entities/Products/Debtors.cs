@@ -9,7 +9,7 @@ namespace SmartMarket.Domain.Entities.Products
         [Column("partner_id")]
         public Guid PartnerId { get; set; }
         public Partner Partner { get; set; }
-        [Column("product_id")]
+        [Column("product_id")] 
         public Guid ProductId { get; set; }
         public Product Product { get; set; }
 
