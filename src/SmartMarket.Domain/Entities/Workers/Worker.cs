@@ -31,7 +31,6 @@ namespace SmartMarket.Domain.Entities.Workers
         public double Salary { get; set; }
         [Column("advance")]
         public double Advance { get; set; }
-        public List<SalaryWorker> SalaryWorkers { get; set; }
         public List<SalaryCheck> SalaryChecks { get; set; }
         public List<WorkerDebt> WorkerDebts { get; set; }
         public List<Product> Products { get; set; }
