@@ -10,6 +10,6 @@ namespace SmartMarket.Domain.Entities.Products
         public Product Product { get; set; }
 
         [Column("image_path")]
-        public string ImagePath { get; set; } = string.Empty;
+        public string? ImagePath { get; set; } 
     }
 }
