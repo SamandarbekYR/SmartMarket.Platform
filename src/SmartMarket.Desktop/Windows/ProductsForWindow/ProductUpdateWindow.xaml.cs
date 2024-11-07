@@ -1,9 +1,6 @@
 ﻿using Microsoft.Win32;
-
 using SmartMarket.Desktop.Windows.Category;
 using SmartMarket.Desktop.Windows.ContrAgents;
-using S = SmartMarket.Service.DTOs.Products.Product;
-
 using SmartMarketDeskop.Integrated.Services.Categories.Category;
 using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgents;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
@@ -11,7 +8,6 @@ using SmartMarketDeskop.Integrated.Services.Products.ProductImages;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.PartnerCompany;
 using SmartMarketDesktop.DTOs.DTOs.Product;
 using SmartMarketDesktop.ViewModels.Entities.Categories;
-
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -20,12 +16,12 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
-
-using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 using ToastNotifications;
-using ToastNotifications.Position;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
+using ToastNotifications.Position;
+using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
+using S = SmartMarket.Service.DTOs.Products.Product;
 
 namespace SmartMarket.Desktop.Windows.ProductsForWindow
 {
@@ -99,14 +95,12 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
             productId = product.Id;
             workerId = product.WorkerId;
             txtBarCode.Text = product.Barcode.ToString();
-            txtPCode.Text = product.PCode;
             txtProductName.Text = product.Name;
             comboCategory.SelectedValue = product.CategoryName;
             txtQuantity.Text = product.Count.ToString();
             txtPrice.Text = product.Price.ToString();
             txtProductPriceSum.Text = product.SellPrice.ToString();
             int persentage = (int)((product.SellPrice - product.Price) * 100 / product.Price);
-            txtProductPricePersentage.Text = persentage.ToString();
             comboMeasurement.Text = product.UnitOfMeasure;
             comboDelivery.Text = product.WorkerFirstName;
             txtNoteAmount.Text = product.NoteAmount.ToString();
@@ -128,7 +122,6 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
             addProductDto.Count = int.Parse(txtQuantity.Text);
             addProductDto.Price = double.Parse(txtPrice.Text);
             addProductDto.SellPrice = double.Parse(txtProductPriceSum.Text);
-            addProductDto.SellPricePercantage = int.Parse(txtProductPricePersentage.Text);
 
             addProductDto.UnitOfMeasure = comboMeasurement.Text;
             {
@@ -187,7 +180,7 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
             contrAgentCreate.ShowDialog();
         }
 
-        public async void GetAllCategory()
+        public async Task GetAllCategory()
         {
             categories = await Task.Run(async () => await categoryService.GetAllAsync());
             if (categories != null && categories.Any())
@@ -197,7 +190,7 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
             }
         }
 
-        public async void GetAllContrAgent()
+        public async Task GetAllContrAgent()
         {
             contrAgents = await Task.Run(async () => await contrAgentService.GetAll());
             if (contrAgents != null && contrAgents.Any())
@@ -209,8 +202,8 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
 
         public void Clear()
         {
-            txtBarCode.Text = txtPCode.Text = txtProductName.Text = comboCategory.Text = txtQuantity.Text = txtPrice.Text =
-            txtProductPriceSum.Text = txtProductPricePersentage.Text = comboDelivery.Text = txtNoteAmount.Text = string.Empty;
+            txtBarCode.Text = txtProductName.Text = comboCategory.Text = txtQuantity.Text = txtPrice.Text =
+            txtProductPriceSum.Text = comboDelivery.Text = txtNoteAmount.Text = string.Empty;
         }
 
         private void BrClose_MouseUp(object sender, MouseButtonEventArgs e)
@@ -234,11 +227,11 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
             }
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
             EnableBlur();
-            GetAllCategory();
-            GetAllContrAgent();
+            await GetAllCategory();
+            await GetAllContrAgent();
         }
     }
 }

@@ -17,7 +17,7 @@
 
 
     <Border 
-        Height="640" 
+        Height="600" 
         Width="570"
         CornerRadius="8">
         <Grid >
@@ -30,12 +30,8 @@
                CornerRadius="8 8 0 0"
                BorderThickness="1 1 1 0"
                BorderBrush="{DynamicResource BorderColor}">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition  Width="2*"/>
-                    <ColumnDefinition  Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Column="0"
+                <Grid>
+                    <Label 
                       Content="Mahsulot qo'shish"
                       VerticalAlignment="Center"
                       Margin="10 0 0 0"
@@ -43,18 +39,14 @@
                       Foreground="White"
                       FontWeight="SemiBold">
                 </Label>
-                <Border Grid.Column="1">
-                    <Border HorizontalAlignment="Right" x:Name="BrClose"
-                           VerticalAlignment="Center"
-                           Margin="10"
-                           Cursor="Hand"
-                           MouseUp="BrClose_MouseUp">
-                        <Path Data="{DynamicResource x}"
-                             Fill="White"
-                             Stretch="Uniform"/>
-                    </Border>
-                </Border>
-            </Grid>
+
+                    <Button
+                        x:Name="btn_Close"
+                        Background="White"
+                        Click="btn_Close_Click"
+                        Style="{DynamicResource btnClose}"/>
+
+                </Grid>
         </Border>
         <Border Grid.Row="1"
                CornerRadius="0 0 8 8"
@@ -70,8 +62,8 @@
                       Margin="10 0 0 0"
                       FontSize="18"/>
                     <Border Grid.Column="1"
-                           Margin="3"
-                           Width="230"
+                           Margin="65 3 10 3"
+                           Width="390"
                            BorderThickness="1"
                            BorderBrush="{DynamicResource BorderColor}"
                            CornerRadius="5">
@@ -82,24 +74,7 @@
                                  BorderThickness="0"/>
                     </Border>
 
-                    <Label Grid.Column="0"
-                          Content="PCode:"
-                          VerticalAlignment="Center"
-                          Margin="10 0 0 0"
-                          FontSize="18"/>
-                    <Border Grid.Column="1"
-                           Margin="3"
-                           Width="130"
-                           BorderThickness="1"
-                           BorderBrush="{DynamicResource BorderColor}"
-                           CornerRadius="5">
-                        <TextBox x:Name="txtPCode"
-                                Margin="3 0"
-                                FontSize="20"
-                                Foreground="#656161"
-                                 BorderThickness="0"
-                                 />
-                    </Border>
+                    
                 </StackPanel>
                 <StackPanel Margin="0 5 0 0"
                            Orientation="Horizontal">
@@ -205,49 +180,28 @@
                                 />
                     </Border>
                 </StackPanel>
-                <StackPanel Margin="0 5 0 0"
+                    <StackPanel Margin="0 5 0 0"
                            Orientation="Horizontal">
-                    <Label Grid.Column="0"
+                        <Label Grid.Column="0"
                           Content="Sotuv narxi so'mda:"
                           VerticalAlignment="Center"
                           Margin="10 0 0 0"
                           FontSize="18"/>
-                    <Border Grid.Column="1"
+                        <Border Grid.Column="1"
                            Margin="11 3 3 3"
                            Width="355"
                            BorderThickness="1"
                            BorderBrush="{DynamicResource BorderColor}"
                            CornerRadius="5">
-                        <TextBox x:Name="txtProductPriceSum"
+                            <TextBox x:Name="txtProductPriceSum"
                                 Margin="3 0"
                                 FontSize="20"
                                 Foreground="#656161"
                                  BorderThickness="0"
                                  TextChanged="phone_number_TextChanged"/>
-                    </Border>
-                </StackPanel>
-                <StackPanel Margin="0 5 0 0"
-                           Orientation="Horizontal">
-                    <Label Grid.Column="0"
-                          Content="Sotuv narxi foizda:"
-                          VerticalAlignment="Center"
-                          Margin="10 0 0 0"
-                          FontSize="18"/>
-                    <Border Grid.Column="1"
-                           Margin="20 3 3 3"
-                           Width="355"
-                           BorderThickness="1"
-                           BorderBrush="{DynamicResource BorderColor}"
-                           CornerRadius="5">
-                        <TextBox x:Name="txtProductPricePersentage"
-                                Margin="3 0"
-                                FontSize="20"
-                                Foreground="#656161"
-                                 BorderThickness="0"
-                                 TextChanged="phone_number_TextChanged"/>
-                    </Border>
-                </StackPanel>
-                <StackPanel Margin="0 5 0 0"
+                        </Border>
+                    </StackPanel>
+                    <StackPanel Margin="0 5 0 0"
                            Orientation="Horizontal">
                     <Label Grid.Column="0"
                           Content="O'lchov  birligi:"

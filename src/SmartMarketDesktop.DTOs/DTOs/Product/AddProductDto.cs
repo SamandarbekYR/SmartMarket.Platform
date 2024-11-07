@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace SmartMarketDesktop.DTOs.DTOs.Product;
 
-namespace SmartMarketDesktop.DTOs.DTOs.Product
+public class AddProductDto
 {
     public class AddProductDto
     {

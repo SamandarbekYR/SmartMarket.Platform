@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  iproj-web:
+    image: iproj-web-image   
+    build:
+      context: .
+      dockerfile: ./src/SmartMarket.WebApi/Dockerfile
+    container_name: iproj-web
+    ports:
+      - "4040:8080"
+      - "8081:8081"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=my_postgres_container;Port=5432;Database=smart-market;User Id=postgres;Password=1234;
+    networks:
+      - iproj-network
+    restart: always
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16
+    container_name: my_postgres_container
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: smart-market
+    ports:
+      - "5434:5432"  # 5432 portini ochiq qoldiring
+    volumes:
+      - postgres_data:/var/lib/postgresql/data    
+    networks:
+      - iproj-network  # Postgres xizmatini iproj-network tarmog'iga ulaymiz
+
+networks:
+  iproj-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
