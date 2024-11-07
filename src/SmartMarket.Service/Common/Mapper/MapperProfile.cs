@@ -57,7 +57,6 @@ public class MapperProfile : Profile
         CreateMap<Worker, WorkerDto>()
             .ForMember(dest => dest.Position, opt => opt.MapFrom(src => src.Position))
             .ForMember(dest => dest.WorkerRole, opt => opt.MapFrom(src => src.WorkerRole))
-            .ForMember(dest => dest.SalaryWorkers, opt => opt.MapFrom(src => src.SalaryWorkers))
             .ForMember(dest => dest.SalaryChecks, opt => opt.MapFrom(src => src.SalaryChecks))
             .ForMember(dest => dest.WorkerDebts, opt => opt.MapFrom(src => src.WorkerDebts))
             .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products))
