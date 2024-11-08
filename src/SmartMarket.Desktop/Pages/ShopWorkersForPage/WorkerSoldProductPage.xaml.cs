@@ -1,4 +1,6 @@
 ﻿using SmartMarket.Desktop.Components.ShopWorkerForComponent;
+using SmartMarket.Domain.Entities.Products;
+using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarket.Service.DTOs.Workers.Worker;
 using System.Windows;
 using System.Windows.Controls;
@@ -29,6 +31,39 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
             ShowWorkerSoldProducts(worker);
 
             selectedControl = workerComponent;
+        }
+
+        public void SelectWorkerSaleProduct(SalesRequestDto dto)
+        {
+            Loader.Visibility = Visibility.Collapsed;
+            St_WorkerSoldProducts.Children.Clear();
+
+            if(dto != null)
+            {
+                var products = dto.ProductSaleItems;
+
+                int count = 1;
+                foreach (var item in products)
+                {
+                    WorkerSoldProductComponent workerSoldProductComponent = new WorkerSoldProductComponent();
+                    workerSoldProductComponent.Tag = item;
+                    workerSoldProductComponent.SetValues(
+                        count,
+                        item.SalesRequest.TransactionId,
+                        item.Product.Name,
+                        item.Product.SellPrice,
+                        item.Count,
+                        item.ItemTotalCost);
+
+                    workerSoldProductComponent.BorderThickness = new Thickness(3, 2, 3, 2);
+                    St_WorkerSoldProducts.Children.Add(workerSoldProductComponent);
+                    count++;
+                }
+            }
+            else
+            {
+                EmptyDataWorkerSoldProduct.Visibility = Visibility.Visible;
+            }
         }
 
         public void ShowWorkerSoldProducts(WorkerDto? worker)
@@ -68,6 +103,7 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            
         }
 
     }

@@ -103,7 +103,7 @@
 
                 <Label
                     Name="EmptyDataWorkerSoldProduct"
-                    Visibility="Visible"
+                    Visibility="Collapsed"
                     FontSize="16"
                     Foreground="#a6a6a6"
                     HorizontalAlignment="Center"

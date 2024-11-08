@@ -1,4 +1,5 @@
-﻿using SmartMarket.Service.DTOs.Products.LoadReport;
+﻿using SmartMarket.Desktop.Pages.ShopWorkersForPage;
+using SmartMarket.Service.DTOs.Products.LoadReport;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ namespace SmartMarket.Desktop.Components.ShopWorkerForComponent
         {
             InitializeComponent();
         }
+
         public void SetData(SalesRequestDto loadReport, int count)
         {
             tbNumber.Text = count.ToString();
@@ -36,6 +38,17 @@ namespace SmartMarket.Desktop.Components.ShopWorkerForComponent
                   ? loadReport.CreatedDate.Value.ToString("yyyy-MM-dd")
                   : "N/A";
             tbSellerName.Text = loadReport.Worker.FirstName.ToString();
+
+            this.Tag = loadReport;
+        }
+
+        private void border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if(sender is Border border && this.Tag is SalesRequestDto loadReport)
+            {
+                WorkerSoldProductPage workerSoldProductPage = new WorkerSoldProductPage();
+                workerSoldProductPage.SelectWorkerSaleProduct(loadReport);
+            }
         }
     }
 }
