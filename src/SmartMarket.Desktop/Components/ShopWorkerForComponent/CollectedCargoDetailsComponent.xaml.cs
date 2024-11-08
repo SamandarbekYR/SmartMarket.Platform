@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Service.DTOs.Products.LoadReport;
+using SmartMarket.Service.DTOs.Products.SalesRequest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,15 +26,15 @@ namespace SmartMarket.Desktop.Components.ShopWorkerForComponent
         {
             InitializeComponent();
         }
-        public Guid LoadReportId { get; set; }
-        public void SetData(CollectedLoadReportDto loadReport, int count)
+        public void SetData(SalesRequestDto loadReport, int count)
         {
-            LoadReportId = loadReport.Id;
             tbNumber.Text = count.ToString();
-            tbTransaction.Text = "123654478553"; //apidan chiqarish kerak
-            tbClientName.Text = "Sobir aka"; //apidan chiqarish kerak
-            tbCargoSum.Text = loadReport.TotalPrice.ToString();
-            tbDate.Text = loadReport.CreatedDate.ToString();
+            tbTransaction.Text = loadReport.TransactionId.ToString(); 
+            tbClientName.Text = "Sobir aka";
+            tbCargoSum.Text = loadReport.TotalCost.ToString();
+            tbDate.Text = loadReport.CreatedDate.HasValue
+                  ? loadReport.CreatedDate.Value.ToString("yyyy-MM-dd")
+                  : "N/A";
             tbSellerName.Text = loadReport.Worker.FirstName.ToString();
         }
     }

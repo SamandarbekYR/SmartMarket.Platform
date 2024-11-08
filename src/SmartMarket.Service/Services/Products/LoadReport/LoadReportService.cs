@@ -16,7 +16,7 @@ namespace SmartMarket.Service.Services.Products.LoadReport
     public class LoadReportService(IUnitOfWork unitOfWork,
                              IMapper mapper,
                              IValidator<AddLoadReportDto> validator,
-                             ILogger<LoadReportService> logger) : ILoadReportService 
+                             ILogger<LoadReportService> logger) : ILoadReportService
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IMapper _mapper = mapper;
@@ -76,6 +76,59 @@ namespace SmartMarket.Service.Services.Products.LoadReport
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error occurred while deleting a load report.");
+                throw;
+            }
+        }
+
+        public async Task<List<CollectedLoadReportDto>> FilterCollectedLoadReportAsync(FilterLoadReportDto dto)
+        {
+            try
+            {
+                var loadReports = await _unitOfWork.LoadReport.GetLoadReportsFullInformationAsync();
+
+                if (dto.FromDateTime.HasValue && dto.ToDateTime.HasValue)
+                {
+                    loadReports = loadReports.Where(
+                        l => l.CreatedDate >= dto.FromDateTime.Value
+                        && l.CreatedDate <= dto.ToDateTime.Value).ToList();
+                }
+                else
+                {
+                    loadReports = loadReports.Where(
+                        l => l.CreatedDate.Value.Date == DateTime.Today).ToList();
+                }
+
+                //if (!string.IsNullOrWhiteSpace(dto.WorkerName))
+                //{
+                //    loadReports = loadReports.Where(
+                //        l => l.Product.Name.Contains(dto.WorkerName)).ToList();
+                //}
+
+                if (!string.IsNullOrWhiteSpace(dto.WorkerName))
+                {
+                    loadReports = loadReports.Where(
+                        l => l.Worker.FirstName.Contains(dto.WorkerName)).ToList();
+                }
+
+                var loadReportDtos = loadReports.Select(l => new CollectedLoadReportDto
+                {
+                    Id = l.Id,
+                    WorkerId = l.WorkerId,
+                    Worker = l.Worker,
+                    ProductId = l.ProductId,
+                    Product = l.Product,
+                    ContrAgentName = l.ContrAgent.FirstName + " " + l.ContrAgent.LastName,
+                    TotalPrice = l.TotalPrice,
+                    ProductName = l.Product.Name,
+                    ProductCount = l.Product.Count,
+                    CreatedDate = l.CreatedDate
+                }).ToList();
+
+                return loadReportDtos;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Error occured while filter loadReport");
                 throw;
             }
         }

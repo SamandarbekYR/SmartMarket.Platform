@@ -10,6 +10,7 @@
         Background="White"
         CornerRadius="5"
         BorderThickness="1"
+        Margin="5 3 15 3"
         BorderBrush="{DynamicResource BorderColor}" >
 
         <Grid>
