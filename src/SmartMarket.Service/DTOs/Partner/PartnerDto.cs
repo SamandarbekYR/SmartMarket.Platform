@@ -1,4 +1,6 @@
-﻿namespace SmartMarket.Service.DTOs.Partner;
+﻿using SmartMarket.Domain.Entities.Products;
+
+namespace SmartMarket.Service.DTOs.Partner;
 
 public class PartnerDto
 {
@@ -8,4 +10,5 @@ public class PartnerDto
     public string PhoneNumber { get; set; } = string.Empty;
     public double TotalDebt { get; set; }
     public DateTime LastPayment { get; set; }
+    public List<Debtors> Debtors { get; set; }
 }
