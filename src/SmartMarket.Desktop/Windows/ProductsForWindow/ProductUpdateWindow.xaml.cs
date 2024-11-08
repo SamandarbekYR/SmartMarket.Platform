@@ -111,7 +111,7 @@ namespace SmartMarket.Desktop.Windows.ProductsForWindow
             AddProductDto addProductDto = new AddProductDto();
 
             addProductDto.BarCode = txtBarCode.Text;
-            addProductDto.ProductName = txtProductName.Text;
+            addProductDto.Name = txtProductName.Text;
 
             {
                 CategoryView categoryView = categories.Where(a => a.Name == comboCategory.SelectedValue.ToString()).FirstOrDefault()!;
