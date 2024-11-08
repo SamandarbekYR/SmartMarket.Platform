@@ -33,28 +33,36 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
 
         public void ShowWorkerSoldProducts(WorkerDto? worker)
         {
+            Loader.Visibility = Visibility.Collapsed;
             var productSales = worker?.ProductSales.Where(p => p.Count != 0)
                 .OrderByDescending(p => p.CreatedDate).ToList();
 
-            St_WorkerSoldProducts.Visibility = Visibility.Visible;
-            St_WorkerSoldProducts.Children.Clear();
-
-            int rowNumber = 1;
-            foreach (var workerSoldProduct in productSales)
+            if(productSales.Any())
             {
-                WorkerSoldProductComponent workerSoldProductComponent = new WorkerSoldProductComponent();
-                workerSoldProductComponent.Tag = workerSoldProduct;
-                workerSoldProductComponent.SetValues(
-                    rowNumber,
-                    workerSoldProduct.SalesRequest.TransactionId,
-                    workerSoldProduct.Product.Name,
-                    workerSoldProduct.Product.SellPrice,
-                    workerSoldProduct.Count,
-                    workerSoldProduct.ItemTotalCost);
+                St_WorkerSoldProducts.Visibility = Visibility.Visible;
+                St_WorkerSoldProducts.Children.Clear();
 
-                workerSoldProductComponent.BorderThickness = new Thickness(3, 2, 3, 2);
-                St_WorkerSoldProducts.Children.Add(workerSoldProductComponent);
-                rowNumber++;
+                int rowNumber = 1;
+                foreach (var workerSoldProduct in productSales)
+                {
+                    WorkerSoldProductComponent workerSoldProductComponent = new WorkerSoldProductComponent();
+                    workerSoldProductComponent.Tag = workerSoldProduct;
+                    workerSoldProductComponent.SetValues(
+                        rowNumber,
+                        workerSoldProduct.SalesRequest.TransactionId,
+                        workerSoldProduct.Product.Name,
+                        workerSoldProduct.Product.SellPrice,
+                        workerSoldProduct.Count,
+                        workerSoldProduct.ItemTotalCost);
+
+                    workerSoldProductComponent.BorderThickness = new Thickness(3, 2, 3, 2);
+                    St_WorkerSoldProducts.Children.Add(workerSoldProductComponent);
+                    rowNumber++;
+                }
+            }
+            else
+            {
+                EmptyDataWorkerSoldProduct.Visibility = Visibility.Visible;
             }
         }
 

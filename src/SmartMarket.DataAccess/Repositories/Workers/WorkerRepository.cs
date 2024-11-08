@@ -29,8 +29,6 @@ namespace SmartMarket.DataAccess.Repositories.Workers
             return await _workers
                 .Include(w => w.Position)
                 .Include(w => w.WorkerRole)
-                .Include(w => w.SalaryWorkers)
-                    .ThenInclude(sw => sw.Salary)
                 .Include(w => w.SalaryChecks)
                 .Include(w => w.WorkerDebts)
                 .Include(w => w.Products)

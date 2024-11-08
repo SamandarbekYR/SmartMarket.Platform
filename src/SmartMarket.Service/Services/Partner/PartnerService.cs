@@ -65,7 +65,7 @@ namespace SmartMarket.Service.Services.Partner
         {
             try
             {
-                var partners = await _unitOfWork.Partner.GetAll().ToListAsync();
+                var partners = await _unitOfWork.Partner.GetPartnersFullInformationAsync();
                 return _mapper.Map<List<PartnerDto>>(partners);
             }
             catch (Exception ex)

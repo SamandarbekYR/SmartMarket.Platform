@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Domain.Entities.Expenses;
+using SmartMarket.Domain.Entities.PartnersCompany;
 using SmartMarket.Domain.Entities.Products;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace SmartMarket.Domain.Entities.PayDesks
         [Column("outlay")]
         public double Outlay { get; set; }
 
+        public List<ContrAgentPayment> ContrAgentPayments { get; set; }
         public List<Expense> Expenses { get; set; }
         public List<ProductSale> ProductSales { get; set; }
     }

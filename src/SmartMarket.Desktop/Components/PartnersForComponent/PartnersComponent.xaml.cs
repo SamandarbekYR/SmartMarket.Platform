@@ -55,7 +55,7 @@ public partial class PartnersComponent : UserControl
         this.Tag = partner;
     }
 
-    private void Border_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+    private void Border_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e) 
     {
         Partner_Border.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#E8E8E8"));
     }

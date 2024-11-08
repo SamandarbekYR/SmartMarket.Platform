@@ -103,6 +103,42 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
             }
         }
 
+        [HttpGet("collected")]
+        public async Task<IActionResult> GetAllCollectedAsync()
+        {
+            try
+            {
+                var loadReports = await _loadReportService.GetAllCollectedAsync();
+                return Ok(loadReports);
+            }
+            catch(StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPost("filter-collected")]
+        public async Task<IActionResult> FilterCollectedLoadReportAsync([FromBody] FilterLoadReportDto dto)
+        {
+            try
+            {
+                var loadReports = await _loadReportService.FilterCollectedLoadReportAsync(dto);
+                return Ok(loadReports);
+            }
+            catch(StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddAsync([FromBody] AddLoadReportDto dto)
         {

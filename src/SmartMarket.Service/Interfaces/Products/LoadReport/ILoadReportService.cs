@@ -14,4 +14,6 @@ public interface ILoadReportService
     Task<List<LoadReportDto>> GetLoadReportsByCompanyNameAsync(string companyName);
     Task<List<LoadReportDto>> FilterLoadReportAsync(FilterLoadReportDto dto);
     Task<LoadReportStatisticsDto> GetStatisticsAsync();
+    Task<IEnumerable<CollectedLoadReportDto>> GetAllCollectedAsync();
+    Task<List<CollectedLoadReportDto>> FilterCollectedLoadReportAsync(FilterLoadReportDto dto);
 }

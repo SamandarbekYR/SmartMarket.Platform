@@ -110,8 +110,8 @@ public partial class ProductUpdateWindow : Window
     {
         AddProductDto addProductDto = new AddProductDto();
 
-        addProductDto.BarCode = txtBarCode.Text;
-        addProductDto.ProductName = txtProductName.Text;
+            addProductDto.BarCode = txtBarCode.Text;
+            addProductDto.Name = txtProductName.Text;
 
         {
             CategoryView categoryView = categories.Where(a => a.Name == comboCategory.SelectedValue.ToString()).FirstOrDefault()!;

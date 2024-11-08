@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SmartMarket.Service.DTOs.Products.LoadReport;
+using SmartMarket.Service.DTOs.Products.SalesRequest;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,17 @@ namespace SmartMarket.Desktop.Components.ShopWorkerForComponent
         public CollectedCargoDetailsComponent()
         {
             InitializeComponent();
+        }
+        public void SetData(SalesRequestDto loadReport, int count)
+        {
+            tbNumber.Text = count.ToString();
+            tbTransaction.Text = loadReport.TransactionId.ToString(); 
+            tbClientName.Text = "Sobir aka";
+            tbCargoSum.Text = loadReport.TotalCost.ToString();
+            tbDate.Text = loadReport.CreatedDate.HasValue
+                  ? loadReport.CreatedDate.Value.ToString("yyyy-MM-dd")
+                  : "N/A";
+            tbSellerName.Text = loadReport.Worker.FirstName.ToString();
         }
     }
 }
