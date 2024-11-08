@@ -1,4 +1,5 @@
-﻿using SmartMarket.Service.DTOs.Products.LoadReport;
+﻿using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
+using SmartMarket.Service.DTOs.Products.LoadReport;
 using SmartMarketDesktop.ViewModels.Entities.Products;
 using System;
 using System.Collections.Generic;
@@ -15,5 +16,6 @@ namespace SmartMarketDeskop.Integrated.Server.Interfaces.Expenses
         Task<List<LoadReportDto>> GetLoadReportsByContrAgentIdAsync(Guid contrAgentId);
         Task<LoadReportStatisticsDto> GetLoadReportStatisticsAsync();
         Task<List<CollectedLoadReportDto>> GetAllCollectedAsync();
+        Task<List<CollectedLoadReportDto>> FilterCollectedLoadReportAsync(FilterLoadReportDto dto);
     }
 }
