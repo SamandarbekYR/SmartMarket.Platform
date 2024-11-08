@@ -9,7 +9,7 @@ namespace SmartMarketDeskop.Integrated.Services.Products.Print;
 
 public class PrintService : IDisposable
 {
-    private readonly string PRINTER_NAME = IdentitySingelton.GetInstance().PrinterName;
+    private readonly string PRINTER_NAME = ""; //IdentitySingelton.GetInstance().PrinterName;
     public string printerName { get; set; } = string.Empty;
     Printer? printer;
 
@@ -35,7 +35,7 @@ public class PrintService : IDisposable
         printer.Append("\n");
 
         printer.AlignLeft();
-        printer.Append("t/r Nomi                Miqdori     Jami narxi");
+        printer.Append("t/r Nomi      Miqdori     Jami narxi");
         printer.Separator();
 
         int tr = 1;
@@ -43,14 +43,14 @@ public class PrintService : IDisposable
         foreach (var item in transactions)
         {
             string text = $"{tr}.  {item.Name}";
-            int strLength = 32 - text.Length;
+            int strLength = 25 - text.Length;
             for (int i = 1; i <= strLength; i++)
             {
                 text += " ";
             }
             string temp = $"{item.Quantity}*{item.Price}";
             text += temp;
-            strLength = 16 - temp.Length;
+            strLength = 10 - temp.Length;
             for (int i = 0; i < strLength; i++)
             {
                 text += " ";
