@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Desktop.Pages.ShopWorkersForPage;
+using SmartMarket.Desktop.Windows;
 using SmartMarket.Service.DTOs.Products.LoadReport;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using System;
@@ -48,6 +49,7 @@ namespace SmartMarket.Desktop.Components.ShopWorkerForComponent
             {
                 WorkerSoldProductPage workerSoldProductPage = new WorkerSoldProductPage();
                 workerSoldProductPage.SelectWorkerSaleProduct(loadReport);
+                workerSoldProductPage.Page_Navigator.Navigate(loadReport);
             }
         }
     }

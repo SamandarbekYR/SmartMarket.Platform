@@ -86,7 +86,9 @@
             <Grid 
                 Grid.Row="2"
                 Background="White">
-
+                <Frame
+                    x:Name="Page_Navigator"
+                    NavigationUIVisibility="Hidden"/>
                 <local1:Loader
                     x:Name="Loader"
                     VerticalAlignment="Center"
