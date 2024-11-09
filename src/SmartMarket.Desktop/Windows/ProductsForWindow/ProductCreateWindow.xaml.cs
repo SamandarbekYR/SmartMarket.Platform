@@ -16,174 +16,201 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 
-namespace SmartMarket.Desktop.Windows.ProductsForWindow
+namespace SmartMarket.Desktop.Windows.ProductsForWindow;
+
+/// <summary>
+/// Interaction logic for ProductCreateWindow.xaml
+/// </summary>
+public partial class ProductCreateWindow : Window
 {
-    /// <summary>
-    /// Interaction logic for ProductCreateWindow.xaml
-    /// </summary>
-    public partial class ProductCreateWindow : Window
+    ICategoryService categoryService;
+    IContrAgentService contrAgentService;
+    IProductService productService;
+    IProductImageService productImageService;
+
+
+    List<CategoryView> categories = new List<CategoryView>();
+    List<ContrAgentViewModels> contrAgents = new List<ContrAgentViewModels>();
+    string imagepath;
+    public ProductCreateWindow()
     {
-        ICategoryService categoryService;
-        IContrAgentService contrAgentService;
-        IProductService productService;
-        IProductImageService productImageService;
+        InitializeComponent();
+        categoryService = new CategoryService();
+        contrAgentService = new ContrAgentService();
+        productService = new ProductService();
+        productImageService = new ProductImageService();
+    }
 
+    Notifier notifier = new Notifier(cfg =>
+    {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.MainWindow,
+            corner: Corner.TopRight,
+            offsetX: 20,
+            offsetY: 20);
 
-        List<CategoryView> categories = new List<CategoryView>();
-        List<ContrAgentViewModels> contrAgents = new List<ContrAgentViewModels>();
-        string imagepath;
-        public ProductCreateWindow()
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(3),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+    });
+
+    private async void btnCreate_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+        AddProductDto addProductDto = new AddProductDto();
+
+        addProductDto.BarCode = txtBarCode.Text;
+        addProductDto.Name = txtProductName.Text;
+
         {
-            InitializeComponent();
-            categoryService = new CategoryService();
-            contrAgentService = new ContrAgentService();
-            productService = new ProductService();
-            productImageService = new ProductImageService();
+            CategoryView categoryView = categories.Where(a => a.Name == comboCategory.SelectedValue).FirstOrDefault()!;
+            addProductDto.CategoryId = categoryView.Id;
         }
 
-        private async void btnCreate_MouseDown(object sender, MouseButtonEventArgs e)
+        addProductDto.Count = int.Parse(txtQuantity.Text);
+        addProductDto.Price = double.Parse(txtPrice.Text);
+        addProductDto.SellPrice = double.Parse(txtProductPriceSum.Text);
+
+        addProductDto.UnitOfMeasure = comboMeasurement.Text;
         {
-            AddProductDto addProductDto = new AddProductDto();
+            ContrAgentViewModels contrAgentViewModels = contrAgents.Where(a => a.FirstName == comboDelivery.SelectedValue).FirstOrDefault()!;
+            addProductDto.ContrAgentId = contrAgentViewModels.Id;
+        }
 
-            addProductDto.BarCode = txtBarCode.Text;
-            addProductDto.Name = txtProductName.Text;
-
-            {
-                CategoryView categoryView = categories.Where(a => a.Name == comboCategory.SelectedValue).FirstOrDefault()!;
-                addProductDto.CategoryId = categoryView.Id;
-            }
-
-            addProductDto.Count = int.Parse(txtQuantity.Text);
-            addProductDto.Price = double.Parse(txtPrice.Text);
-            addProductDto.SellPrice = double.Parse(txtProductPriceSum.Text);
-
-            addProductDto.UnitOfMeasure = comboMeasurement.Text;
-            {
-                ContrAgentViewModels contrAgentViewModels = contrAgents.Where(a => a.FirstName == comboDelivery.SelectedValue).FirstOrDefault()!;
-                addProductDto.ContrAgentId = contrAgentViewModels.Id;
-            }
-
-            addProductDto.PaymentStatus = "Active";
-            addProductDto.NoteAmount = int.Parse(txtNoteAmount.Text);
-            await productService.CreateProduct(addProductDto);
-
-            ProductImageDto productImageDto = new ProductImageDto();
-            productImageDto.ImagePath = imagepath;
-
+        addProductDto.PaymentStatus = "Active";
+        addProductDto.NoteAmount = int.Parse(txtNoteAmount.Text);
+        bool result = await productService.CreateProduct(addProductDto);
+        if (result)
+        {
+            notifier.ShowSuccess("Maxsulot yaratildi.");
+            this.Close();
+        }
+        else
+        {
+            notifier.ShowError("Maxsulot yaratishda xatolik maxjud.");
             this.Close();
         }
 
-        [DllImport("user32.dll")]
-        internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
-        internal void EnableBlur()
+
+        ProductImageDto productImageDto = new ProductImageDto();
+        productImageDto.ImagePath = imagepath;
+    }
+
+    [DllImport("user32.dll")]
+    internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
+    internal void EnableBlur()
+    {
+        var windowHelper = new WindowInteropHelper(this);
+
+        var accent = new AccentPolicy();
+        accent.AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND;
+
+        var accentStructSize = Marshal.SizeOf(accent);
+
+        var accentPtr = Marshal.AllocHGlobal(accentStructSize);
+        Marshal.StructureToPtr(accent, accentPtr, false);
+
+        var data = new WindowCompositionAttributeData();
+        data.Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY;
+        data.SizeOfData = accentStructSize;
+        data.Data = accentPtr;
+
+        SetWindowCompositionAttribute(windowHelper.Handle, ref data);
+
+        Marshal.FreeHGlobal(accentPtr);
+    }
+
+    private void phone_number_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        TextBox textBox = (TextBox)sender;
+        string text = textBox.Text;
+        string filteredText = Regex.Replace(text, "[^0-9]+", "");
+
+        if (text != filteredText)
         {
-            var windowHelper = new WindowInteropHelper(this);
-
-            var accent = new AccentPolicy();
-            accent.AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND;
-
-            var accentStructSize = Marshal.SizeOf(accent);
-
-            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
-            Marshal.StructureToPtr(accent, accentPtr, false);
-
-            var data = new WindowCompositionAttributeData();
-            data.Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY;
-            data.SizeOfData = accentStructSize;
-            data.Data = accentPtr;
-
-            SetWindowCompositionAttribute(windowHelper.Handle, ref data);
-
-            Marshal.FreeHGlobal(accentPtr);
+            int caretIndex = textBox.CaretIndex;
+            textBox.Text = filteredText;
+            textBox.CaretIndex = caretIndex > 0 ? caretIndex - 1 : 0;
         }
+    }
 
-        private void phone_number_TextChanged(object sender, TextChangedEventArgs e)
+    private void btnCreateCategory_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+        CategoryCreateWindow categoryCreate = new CategoryCreateWindow();
+        categoryCreate.ShowDialog();
+    }
+
+    private void btnCreateContrAgent_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+        ContrAgentCreateWindow contrAgentCreate = new ContrAgentCreateWindow();
+        contrAgentCreate.ShowDialog();
+    }
+
+
+    private void btnClear_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+        Clear();
+    }
+
+
+    public async void GetAllCategory()
+    {
+        categories = await Task.Run(async () => await categoryService.GetAllAsync());
+        if (categories != null && categories.Any())
         {
-            TextBox textBox = (TextBox)sender;
-            string text = textBox.Text;
-            string filteredText = Regex.Replace(text, "[^0-9]+", "");
-
-            if (text != filteredText)
-            {
-                int caretIndex = textBox.CaretIndex;
-                textBox.Text = filteredText;
-                textBox.CaretIndex = caretIndex > 0 ? caretIndex - 1 : 0;
-            }
+            comboCategory.ItemsSource = categories.Select(a => a.Name);
+            comboCategory.Items.Refresh();
         }
+    }
 
-        private void btnCreateCategory_MouseDown(object sender, MouseButtonEventArgs e)
+    public async void GetAllContrAgent()
+    {
+        contrAgents = await Task.Run(async () => await contrAgentService.GetAll());
+        if (contrAgents != null && contrAgents.Any())
         {
-            CategoryCreateWindow categoryCreate = new CategoryCreateWindow();
-            categoryCreate.ShowDialog();
+            comboDelivery.ItemsSource = contrAgents.Select(a => a.FirstName);
+            comboDelivery.Items.Refresh();
         }
+    }
 
-        private void btnCreateContrAgent_MouseDown(object sender, MouseButtonEventArgs e)
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        EnableBlur();
+        GetAllCategory();
+        GetAllContrAgent();
+    }
+
+    public void Clear()
+    {
+        txtBarCode.Text = txtProductName.Text = comboCategory.Text = txtQuantity.Text = txtPrice.Text =
+        txtProductPriceSum.Text = comboDelivery.Text = txtNoteAmount.Text = string.Empty;
+    }
+
+    private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+        OpenFileDialog openFileDialog = new OpenFileDialog();
+        openFileDialog.Filter = "JPG Files (*.jpg)|*.jpg|JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png";
+        if (openFileDialog.ShowDialog() == true)
         {
-            ContrAgentCreateWindow contrAgentCreate = new ContrAgentCreateWindow();
-            contrAgentCreate.ShowDialog();
+            imagepath = openFileDialog.FileName;
+            BitmapImage bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri(imagepath, UriKind.Absolute);
+            bitmap.EndInit();
+            lbImage.Content = Path.GetFileName(imagepath);
         }
+    }
 
-
-        private void btnClear_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Clear();
-        }
-
-
-        public async void GetAllCategory()
-        {
-            categories = await Task.Run(async () => await categoryService.GetAllAsync());
-            if (categories != null && categories.Any())
-            {
-                comboCategory.ItemsSource = categories.Select(a => a.Name);
-                comboCategory.Items.Refresh();
-            }
-        }
-
-        public async void GetAllContrAgent()
-        {
-            contrAgents = await Task.Run(async () => await contrAgentService.GetAll());
-            if (contrAgents != null && contrAgents.Any())
-            {
-                comboDelivery.ItemsSource = contrAgents.Select(a => a.FirstName);
-                comboDelivery.Items.Refresh();
-            }
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            EnableBlur();
-            GetAllCategory();
-            GetAllContrAgent();
-        }
-
-        public void Clear()
-        {
-            txtBarCode.Text = txtProductName.Text = comboCategory.Text = txtQuantity.Text = txtPrice.Text =
-            txtProductPriceSum.Text = comboDelivery.Text = txtNoteAmount.Text = string.Empty;
-        }
-
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "JPG Files (*.jpg)|*.jpg|JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                imagepath = openFileDialog.FileName;
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.UriSource = new Uri(imagepath, UriKind.Absolute);
-                bitmap.EndInit();
-                lbImage.Content = Path.GetFileName(imagepath);
-            }
-        }
-
-        private void btn_Close_Click(object sender, RoutedEventArgs e)
-        {
-            this.Close();
-            Clear();
-        }
+    private void btn_Close_Click(object sender, RoutedEventArgs e)
+    {
+        this.Close();
+        Clear();
     }
 }
