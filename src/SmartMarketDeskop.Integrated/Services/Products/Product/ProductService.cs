@@ -17,8 +17,11 @@ public class ProductService : IProductService
     {
         if(IsInternetAvailable())
         {
-            await productServer.AddAsync(dto);
-            return true;    
+            bool result = await productServer.AddAsync(dto);
+            if(result) 
+                return true;
+            else 
+                return false;
         }
         else
         {

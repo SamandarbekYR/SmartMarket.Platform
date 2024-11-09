@@ -15,11 +15,7 @@ public class PrintService : IDisposable
 
     public PrintService()
     {
-        printerName = GetSavedPrinterName();
-        if (string.IsNullOrEmpty(printerName))
-        {
-            printerName = GetUsbPrinterName();
-        }
+        printerName = GetUsbPrinterName();
     }
 
     public void Print(AddSalesRequestDto dto, List<TransactionDto> transactions)
