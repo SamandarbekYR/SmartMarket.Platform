@@ -1,8 +1,5 @@
 ﻿using SmartMarket.Desktop.Components.ShopWorkerForComponent;
-using SmartMarket.Service.DTOs.Products.LoadReport;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
-using SmartMarket.Service.DTOs.Workers.Worker;
-using SmartMarketDeskop.Integrated.Services.Expenses;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using System.Windows;
 using System.Windows.Controls;
