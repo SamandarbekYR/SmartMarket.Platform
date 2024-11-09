@@ -86,7 +86,9 @@
             <Grid 
                 Grid.Row="2"
                 Background="White">
-
+                <Frame
+                    x:Name="Page_Navigator"
+                    NavigationUIVisibility="Hidden"/>
                 <local1:Loader
                     x:Name="Loader"
                     VerticalAlignment="Center"
@@ -103,7 +105,7 @@
 
                 <Label
                     Name="EmptyDataWorkerSoldProduct"
-                    Visibility="Visible"
+                    Visibility="Collapsed"
                     FontSize="16"
                     Foreground="#a6a6a6"
                     HorizontalAlignment="Center"
