@@ -14,7 +14,7 @@ namespace SmartMarket.Service.Interfaces.Products.Product
         Task<bool> SellProductAsync(string barcode);
         Task<IEnumerable<ProductDto>> GetProductsByCategoryIdAsync(Guid categoryId, PaginationParams @params);
 
-        Task<IList<FullProductDto>> GetProductByBarcodeAsync(string barcode);
+        Task<FullProductDto> GetProductByBarcodeAsync(string barcode);
         Task<IList<FullProductDto>> GetProductByPCodeAsync(string pCode);
         Task<IList<FullProductDto>> GetProductByWorkerIdAsync(Guid workerId);
         Task<IList<FullProductDto>> GetProductsByNameAsync(string name);
