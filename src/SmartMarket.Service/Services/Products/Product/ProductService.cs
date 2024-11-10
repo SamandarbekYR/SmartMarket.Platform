@@ -112,7 +112,7 @@ namespace SmartMarket.Service.Services.Products.Product
                     ProductImages = p.ProductImages.Select(img => new ProductImageDto
                     {
                         Id = img.Id,
-                        ImagePath = img.ImagePath
+                        ImagePath = img.ImagePath!
                     }).ToList(),
                     NoteAmount = p.NoteAmount
                 }).ToList(); 
@@ -187,23 +187,23 @@ namespace SmartMarket.Service.Services.Products.Product
             return await _unitOfWork.Product.GetAll()
                 .AnyAsync(p => p.PCode == pCode);
         }
-        public async Task<IList<FullProductDto>> GetProductByBarcodeAsync(string barcode)
+        public async Task<FullProductDto> GetProductByBarcodeAsync(string barcode)
         {
             try
             {
-                var products = await _unitOfWork.Product.GetAllProductsFullInformation()
+                var product = await _unitOfWork.Product.GetAllProductsFullInformation()
                     .AsNoTracking()
                     .Where(p => p.Barcode == barcode)
-                    .ToListAsync();
+                    .FirstOrDefaultAsync();
 
-                if (products == null || !products.Any())
+                if (product == null)
                 {
                     throw new StatusCodeException(HttpStatusCode.NotFound, "No products found with the specified barcode.");
                 }
 
-                var fullProductDtos = products.Select(product => new FullProductDto
+                var fullProductDtos = new FullProductDto
                 {
-                    Id = product.Id,
+                    Id = product.Id!,
                     PCode = product.PCode,
                     Name = product.Name,
                     Barcode = product.Barcode,
@@ -219,10 +219,10 @@ namespace SmartMarket.Service.Services.Products.Product
                     ProductImages = product.ProductImages.Select(img => new ProductImageDto
                     {
                         Id = img.Id,
-                        ImagePath = img.ImagePath
+                        ImagePath = img.ImagePath!
                     }).ToList(),
                     NoteAmount = product.NoteAmount
-                }).ToList();
+                };
 
                 return fullProductDtos;
             }
@@ -267,7 +267,7 @@ namespace SmartMarket.Service.Services.Products.Product
                     ProductImages = product.ProductImages.Select(img => new ProductImageDto
                     {
                         Id = img.Id,
-                        ImagePath = img.ImagePath
+                        ImagePath = img.ImagePath!
                     }).ToList(),
                     NoteAmount = product.NoteAmount
                 }).ToList();
@@ -315,7 +315,7 @@ namespace SmartMarket.Service.Services.Products.Product
                     ProductImages = product.ProductImages.Select(img => new ProductImageDto
                     {
                         Id = img.Id,
-                        ImagePath = img.ImagePath
+                        ImagePath = img.ImagePath!
                     }).ToList(),
                     NoteAmount = product.NoteAmount
                 }).ToList();
@@ -404,7 +404,7 @@ namespace SmartMarket.Service.Services.Products.Product
                     ProductImages = product.ProductImages.Select(img => new ProductImageDto
                     {
                         Id = img.Id,
-                        ImagePath = img.ImagePath
+                        ImagePath = img.ImagePath!
                     }).ToList(),
                     NoteAmount = product.NoteAmount
                 }).ToList();
@@ -478,7 +478,7 @@ namespace SmartMarket.Service.Services.Products.Product
 
             var productResultDto = new FullProductDto
             {
-                Id = productDto.Id,
+                Id = productDto!.Id,
                 PCode = productDto.PCode,
                 Name = productDto.Name,
                 Barcode = productDto.Barcode,
@@ -494,7 +494,7 @@ namespace SmartMarket.Service.Services.Products.Product
                 ProductImages = productDto.ProductImages.Select(img => new ProductImageDto
                 {
                     Id = img.Id,
-                    ImagePath = img.ImagePath
+                    ImagePath = img.ImagePath!
                 }).ToList(),
                 NoteAmount = productDto.NoteAmount
             };
