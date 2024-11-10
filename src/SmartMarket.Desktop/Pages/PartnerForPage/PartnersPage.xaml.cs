@@ -51,7 +51,26 @@ public partial class PartnersPage : Page
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
+        await GetAllPartnerDebt();
         await GetAllDebtor();
+    }
+
+    private async Task GetAllPartnerDebt()
+    {
+        var partners = await _partnerService.GetAll();
+
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            if(partners != null)
+            {
+                var totalDebt = partners.Sum(x => x.Debtors.Sum(x => x.DeptSum));
+                partnerTotalDebtTextBox.Text = totalDebt.ToString();
+            }
+            else
+            {
+                partnerTotalDebtTextBox.Text = "0";
+            }
+        });
     }
 
     private void Partner_Create_Button_Click(object sender, RoutedEventArgs e)
