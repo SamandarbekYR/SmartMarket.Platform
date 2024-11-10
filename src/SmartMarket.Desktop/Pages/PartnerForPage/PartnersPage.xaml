@@ -42,7 +42,8 @@
                         ></TextBlock>
 
                         <TextBlock
-                            Text="50,000,000"
+                            x:Name="partnerTotalDebtTextBox"
+                            Text="0"
                             Foreground="White"
                             FontSize="20"
                             HorizontalAlignment="Center"
