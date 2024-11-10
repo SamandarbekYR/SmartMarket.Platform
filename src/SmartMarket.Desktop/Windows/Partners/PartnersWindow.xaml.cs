@@ -55,7 +55,7 @@ public partial class PartnersWindow : Window
     private async void GetAllPartners()
     {
         St_Partners.Children.Clear();
-        var partners = await _partnerService.GetAll();
+        var partners = await Task.Run(async () => await _partnerService.GetAll());
 
         int count = 1;
 
