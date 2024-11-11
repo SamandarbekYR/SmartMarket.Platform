@@ -125,7 +125,7 @@ public partial class PartnerUpdateWindow : Window
         if (result)
         {
             this.Close();
-            notifier.ShowInformation("Hamkor yangilandi.");
+            notifier.ShowSuccess("Hamkor yangilandi.");
         }
         else
             notifierthis.ShowError("Hamkorni yangilashda qandaydir xatolik bor!");
