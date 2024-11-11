@@ -67,6 +67,7 @@ public partial class SaleHistoryWindow : Window
 
     private async void FilterProductSales()
     {
+        Loader.Visibility = Visibility.Visible;
         FilterProductSaleDto filterProductSaleDto = new FilterProductSaleDto();
 
         if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
@@ -94,28 +95,35 @@ public partial class SaleHistoryWindow : Window
 
     private async void ShowProductSales(IEnumerable<ProductSaleViewModel> productSales)
     {
+        Loader.Visibility = Visibility.Collapsed;
         productSales = productSales.Where(ps => ps.Count != 0)
             .OrderByDescending(ps => ps.CreatedDate).ToList();
 
         St_productList.Visibility = Visibility.Visible;
         St_productList.Children.Clear();
         int rowNumber = 1;
-
-        foreach (var item in productSales)
+        if (productSales.Any())
         {
-            ShopDetailsProductComponent shopDetailsProductComponent = new ShopDetailsProductComponent();
-            shopDetailsProductComponent.Tag = item;
-            shopDetailsProductComponent.SetValues(
-                rowNumber,
-                item.SalesRequest.TransactionId,
-                item.Product.Name,
-                item.Product.SellPrice,
-                item.Count,
-                item.ItemTotalCost);
+            foreach (var item in productSales)
+            {
+                ShopDetailsProductComponent shopDetailsProductComponent = new ShopDetailsProductComponent();
+                shopDetailsProductComponent.Tag = item;
+                shopDetailsProductComponent.SetValues(
+                    rowNumber,
+                    item.SalesRequest.TransactionId,
+                    item.Product.Name,
+                    item.Product.SellPrice,
+                    item.Count,
+                    item.ItemTotalCost);
 
-            shopDetailsProductComponent.BorderThickness = new Thickness(2);
-            St_productList.Children.Add(shopDetailsProductComponent);
-            rowNumber++;
+                shopDetailsProductComponent.BorderThickness = new Thickness(2);
+                St_productList.Children.Add(shopDetailsProductComponent);
+                rowNumber++;
+            }
+        }
+        else
+        {
+            EmptyDataSaleHistory.Visibility = Visibility.Visible;
         }
     }
 
