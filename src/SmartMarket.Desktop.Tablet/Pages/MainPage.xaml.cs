@@ -1,4 +1,6 @@
-﻿using SmartMarket.Desktop.Tablet.Components;
+﻿using Microsoft.AspNetCore.SignalR.Client;
+
+using SmartMarket.Desktop.Tablet.Components;
 using SmartMarket.Desktop.Tablet.ViewModels.Transactions;
 using SmartMarket.Desktop.Tablet.Windows;
 using SmartMarket.Domain.Entities.Partners;
@@ -23,9 +25,10 @@ namespace SmartMarket.Desktop.Tablet.Pages;
 public partial class MainPage : Page
 {
     private readonly IProductService _productService;
-
+    private HubConnection _connection;
     public Partner Partner { get; set; }
     TransactionViewModel tvm;
+    List<FullProductDto> orderProducts;
 
     private DispatcherTimer time;
 
@@ -38,6 +41,7 @@ public partial class MainPage : Page
         InitializeComponent();
         this._productService = new ProductService();
         this.tvm = new TransactionViewModel();
+        this.orderProducts = new List<FullProductDto>();
 
         time = new DispatcherTimer();
         time.Interval = TimeSpan.FromMilliseconds(50);
@@ -97,6 +101,8 @@ public partial class MainPage : Page
             {
                 tvm.Add(product, count);
                 AddNewProduct(product, count);
+                product.Count = count;
+                orderProducts.Add(product);
             }
             else
             {
@@ -251,10 +257,53 @@ public partial class MainPage : Page
 
 
 
-    private void Page_Loaded(object sender, RoutedEventArgs e)
+    private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
         st_product.Focus();
+
+        // SignalR ulanishini o'rnatish
+        _connection = new HubConnectionBuilder()
+                .WithUrl("https://localhost:7055/ShipmentsHub", options =>
+                {
+                    options.HttpMessageHandlerFactory = _ => new System.Net.Http.HttpClientHandler
+                    {
+                        ServerCertificateCustomValidationCallback = System.Net.Http.HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                    };
+                })
+                .Build();
+
+        try
+        {
+            await _connection.StartAsync();
+            notifier.ShowSuccess("SignalR ulanish o'rnatildi.");
+        }
+        catch 
+        {
+            notifier.ShowError("SignalR ulanishda xato: ");
+        }
+            
         //Client_Name.Content = lb_client_name.Content = Partner.FirstName + " " + Partner.LastName;
+    }
+
+    private async void Send_Button_Click(object sender, RoutedEventArgs e)
+    {
+        if (orderProducts != null && orderProducts.Count > 0)
+        {
+            try
+            {
+                await _connection.InvokeAsync("SendShipMents", orderProducts);
+
+                notifier.ShowSuccess("Mahsulotlar muvaffaqiyatli yuborildi.");
+            }
+            catch (Exception ex)
+            {
+                notifier.ShowError($"Mahsulotlarni yuborishda xato: {ex.Message}");
+            }
+        }
+        else
+        {
+            notifier.ShowWarning("Yuborish uchun mahsulot tanlanmagan.");
+        }
     }
 
     private void Sends_Button_Click(object sender, RoutedEventArgs e)
