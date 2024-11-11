@@ -6,9 +6,9 @@ namespace SmartMarket.Service.Hubs;
 
 public class ShipmentsHub : Hub
 {
-    public async Task SendShipMents(Order order)
+    public async Task SendShipMents(List<SalesRequest> orders)
     {
-        await Clients.All.SendAsync("ReceiveShipMents", order);
+        await Clients.All.SendAsync("ReceiveShipMents", orders);
     }
 
     public async Task SendNotification(string name, int count)
