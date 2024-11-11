@@ -1,4 +1,6 @@
-﻿using SmartMarket.Desktop.Components.SaleForComponent;
+﻿using Microsoft.AspNetCore.SignalR.Client;
+
+using SmartMarket.Desktop.Components.SaleForComponent;
 using SmartMarket.Desktop.ViewModels.Transactions;
 using SmartMarket.Desktop.Windows;
 using SmartMarket.Desktop.Windows.Expenses;
@@ -36,6 +38,7 @@ public partial class SalePage : Page
 {
     private readonly IProductService _productService;
     private readonly ISalesRequestsService _salesRequestsService;
+    private HubConnection _connection;
 
     private System.Timers.Timer timer = new System.Timers.Timer();
     private DispatcherTimer time;
@@ -264,6 +267,8 @@ public partial class SalePage : Page
 
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
+
+        InitializeSignalRConnection();
         var payDeskId = Properties.Settings.Default.PayDesk;
         if (string.IsNullOrEmpty(payDeskId))
         {
@@ -280,6 +285,30 @@ public partial class SalePage : Page
         IdentitySingelton.GetInstance().PrinterName = Properties.Settings.Default.PrinterName;
         GetData();
         St_product.Focus();
+    }
+
+    private void InitializeSignalRConnection()
+    {
+        _connection = new HubConnectionBuilder()
+            .WithUrl("https://localhost:7055/ShipMentsHub")  
+            .Build();
+
+        _connection.On<List<FullProductDto>>("ReceiveShipMents", (orders) =>
+        {
+            DisplayOrdersInStackPanel(orders);
+        });
+
+        _connection.StartAsync();
+    }
+
+    private void DisplayOrdersInStackPanel(List<FullProductDto> orders)
+    {
+        stackPanelOrders.Children.Clear();
+
+        foreach (var order in orders)
+        {
+           
+        }
     }
 
     private void Harajat_Click(object sender, RoutedEventArgs e)
