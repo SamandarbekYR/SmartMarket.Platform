@@ -1,9 +1,11 @@
-﻿using SmartMarket.Desktop.Components.ShopWorkerForComponent;
+﻿using SmartMarket.Desktop.Components.SaleForComponent;
+using SmartMarket.Desktop.Components.ShopWorkerForComponent;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
 {
@@ -81,6 +83,7 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
                 {
                     CollectedCargoDetailsComponent collectedCargoDetailsComponent = new CollectedCargoDetailsComponent();
                     collectedCargoDetailsComponent.SetData(loadReport, count);
+                    collectedCargoDetailsComponent.Tag = loadReport;
                     St_loadReports.Children.Add(collectedCargoDetailsComponent);
                     count++;
                 }
@@ -111,6 +114,19 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             await GetAllLoadReports();
+        }
+
+        private CollectedCargoDetailsComponent selectedControl = null!;
+        public void SelectCargo(CollectedCargoDetailsComponent cargo)
+        {
+            if (selectedControl != null)
+            {
+                selectedControl.Cargo_Border.Background = Brushes.White;
+            }
+
+            cargo.Cargo_Border.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B6B6B6"));
+
+            selectedControl = cargo;
         }
     }
 }

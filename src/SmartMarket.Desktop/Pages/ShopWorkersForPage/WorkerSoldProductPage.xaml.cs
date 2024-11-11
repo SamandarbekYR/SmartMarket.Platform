@@ -1,110 +1,107 @@
 ﻿using SmartMarket.Desktop.Components.ShopWorkerForComponent;
-using SmartMarket.Domain.Entities.Products;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarket.Service.DTOs.Workers.Worker;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
+namespace SmartMarket.Desktop.Pages.ShopWorkersForPage;
+
+/// <summary>
+/// Interaction logic for WorkerSoldProductPage.xaml
+/// </summary>
+public partial class WorkerSoldProductPage : Page
 {
-    /// <summary>
-    /// Interaction logic for WorkerSoldProductPage.xaml
-    /// </summary>
-    public partial class WorkerSoldProductPage : Page
+    public WorkerSoldProductPage()
     {
-        public WorkerSoldProductPage()
+        InitializeComponent();
+    }
+
+    private WorkerListComponent selectedControl = null!;
+    public void SelectWorkerProductSold(WorkerListComponent workerComponent, WorkerDto? worker)
+    {
+        if (selectedControl != null)
         {
-            InitializeComponent();
+            selectedControl.brWorker.Background = Brushes.White;
         }
 
-        private WorkerListComponent selectedControl = null!;
-        public void SelectWorkerProductSold(WorkerListComponent workerComponent, WorkerDto? worker)
+        workerComponent.brWorker.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B6B6B6"));
+
+        ShowWorkerSoldProducts(worker);
+
+        selectedControl = workerComponent;
+    }
+
+    public void SelectWorkerSaleProduct(SalesRequestDto dto)
+    {
+        Loader.Visibility = Visibility.Collapsed;
+        St_WorkerSoldProducts.Children.Clear();
+
+        if(dto != null)
         {
-            if (selectedControl != null)
+            var products = dto.ProductSaleItems;
+
+            int count = 1;
+            foreach (var item in products)
             {
-                selectedControl.brWorker.Background = Brushes.White;
+                WorkerSoldProductComponent workerSoldProductComponent = new WorkerSoldProductComponent();
+                workerSoldProductComponent.Tag = item;
+                workerSoldProductComponent.SetValues(
+                    count,
+                    item.SalesRequest.TransactionId,
+                    item.Product.Name,
+                    item.Product.SellPrice,
+                    item.Count,
+                    item.ItemTotalCost);
+
+                workerSoldProductComponent.BorderThickness = new Thickness(3, 2, 3, 2);
+                St_WorkerSoldProducts.Children.Add(workerSoldProductComponent);
+                count++;
             }
-
-            workerComponent.brWorker.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B6B6B6"));
-
-            ShowWorkerSoldProducts(worker);
-
-            selectedControl = workerComponent;
         }
-
-        public void SelectWorkerSaleProduct(SalesRequestDto dto)
+        else
         {
-            Loader.Visibility = Visibility.Collapsed;
+            EmptyDataWorkerSoldProduct.Visibility = Visibility.Visible;
+        }
+    }
+
+    public void ShowWorkerSoldProducts(WorkerDto? worker)
+    {
+        Loader.Visibility = Visibility.Collapsed;
+        var productSales = worker?.ProductSales.Where(p => p.Count != 0)
+            .OrderByDescending(p => p.CreatedDate).ToList();
+
+        if(productSales.Any())
+        {
+            St_WorkerSoldProducts.Visibility = Visibility.Visible;
             St_WorkerSoldProducts.Children.Clear();
 
-            if(dto != null)
+            int rowNumber = 1;
+            foreach (var workerSoldProduct in productSales)
             {
-                var products = dto.ProductSaleItems;
+                WorkerSoldProductComponent workerSoldProductComponent = new WorkerSoldProductComponent();
+                workerSoldProductComponent.Tag = workerSoldProduct;
+                workerSoldProductComponent.SetValues(
+                    rowNumber,
+                    workerSoldProduct.SalesRequest.TransactionId,
+                    workerSoldProduct.Product.Name,
+                    workerSoldProduct.Product.SellPrice,
+                    workerSoldProduct.Count,
+                    workerSoldProduct.ItemTotalCost);
 
-                int count = 1;
-                foreach (var item in products)
-                {
-                    WorkerSoldProductComponent workerSoldProductComponent = new WorkerSoldProductComponent();
-                    workerSoldProductComponent.Tag = item;
-                    workerSoldProductComponent.SetValues(
-                        count,
-                        item.SalesRequest.TransactionId,
-                        item.Product.Name,
-                        item.Product.SellPrice,
-                        item.Count,
-                        item.ItemTotalCost);
-
-                    workerSoldProductComponent.BorderThickness = new Thickness(3, 2, 3, 2);
-                    St_WorkerSoldProducts.Children.Add(workerSoldProductComponent);
-                    count++;
-                }
-            }
-            else
-            {
-                EmptyDataWorkerSoldProduct.Visibility = Visibility.Visible;
+                workerSoldProductComponent.BorderThickness = new Thickness(3, 2, 3, 2);
+                St_WorkerSoldProducts.Children.Add(workerSoldProductComponent);
+                rowNumber++;
             }
         }
-
-        public void ShowWorkerSoldProducts(WorkerDto? worker)
+        else
         {
-            Loader.Visibility = Visibility.Collapsed;
-            var productSales = worker?.ProductSales.Where(p => p.Count != 0)
-                .OrderByDescending(p => p.CreatedDate).ToList();
-
-            if(productSales.Any())
-            {
-                St_WorkerSoldProducts.Visibility = Visibility.Visible;
-                St_WorkerSoldProducts.Children.Clear();
-
-                int rowNumber = 1;
-                foreach (var workerSoldProduct in productSales)
-                {
-                    WorkerSoldProductComponent workerSoldProductComponent = new WorkerSoldProductComponent();
-                    workerSoldProductComponent.Tag = workerSoldProduct;
-                    workerSoldProductComponent.SetValues(
-                        rowNumber,
-                        workerSoldProduct.SalesRequest.TransactionId,
-                        workerSoldProduct.Product.Name,
-                        workerSoldProduct.Product.SellPrice,
-                        workerSoldProduct.Count,
-                        workerSoldProduct.ItemTotalCost);
-
-                    workerSoldProductComponent.BorderThickness = new Thickness(3, 2, 3, 2);
-                    St_WorkerSoldProducts.Children.Add(workerSoldProductComponent);
-                    rowNumber++;
-                }
-            }
-            else
-            {
-                EmptyDataWorkerSoldProduct.Visibility = Visibility.Visible;
-            }
+            EmptyDataWorkerSoldProduct.Visibility = Visibility.Visible;
         }
+    }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            
-        }
+    private void Page_Loaded(object sender, RoutedEventArgs e)
+    {
 
     }
 }

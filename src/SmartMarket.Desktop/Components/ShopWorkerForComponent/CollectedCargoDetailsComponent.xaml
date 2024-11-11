@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:SmartMarket.Desktop.Components.ShopWorkerForComponent"
              mc:Ignorable="d" >
     <Border
+        x:Name="Cargo_Border"
         Height="45"
         Background="White"
         CornerRadius="5"
