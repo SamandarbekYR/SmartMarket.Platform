@@ -1,56 +1,68 @@
 ﻿using SmartMarket.Desktop.Pages.ShopWorkersForPage;
-using SmartMarket.Desktop.Windows;
-using SmartMarket.Service.DTOs.Products.LoadReport;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace SmartMarket.Desktop.Components.ShopWorkerForComponent
+namespace SmartMarket.Desktop.Components.ShopWorkerForComponent;
+
+/// <summary>
+/// Interaction logic for CollectedCargoDetailsComponent.xaml
+/// </summary>
+public partial class CollectedCargoDetailsComponent : UserControl
 {
-    /// <summary>
-    /// Interaction logic for CollectedCargoDetailsComponent.xaml
-    /// </summary>
-    public partial class CollectedCargoDetailsComponent : UserControl
+    public CollectedCargoDetailsComponent()
     {
-        public CollectedCargoDetailsComponent()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
+    }
 
-        public void SetData(SalesRequestDto loadReport, int count)
-        {
-            tbNumber.Text = count.ToString();
-            tbTransaction.Text = loadReport.TransactionId.ToString(); 
-            tbClientName.Text = "Sobir aka";
-            tbCargoSum.Text = loadReport.TotalCost.ToString();
-            tbDate.Text = loadReport.CreatedDate.HasValue
-                  ? loadReport.CreatedDate.Value.ToString("yyyy-MM-dd")
-                  : "N/A";
-            tbSellerName.Text = loadReport.Worker.FirstName.ToString();
+    public void SetData(SalesRequestDto loadReport, int count)
+    {
+        tbNumber.Text = count.ToString();
+        tbTransaction.Text = loadReport.TransactionId.ToString(); 
+        tbClientName.Text = "Sobir aka";
+        tbCargoSum.Text = loadReport.TotalCost.ToString();
+        tbDate.Text = loadReport.CreatedDate.HasValue
+              ? loadReport.CreatedDate.Value.ToString("yyyy-MM-dd")
+              : "N/A";
+        tbSellerName.Text = loadReport.Worker.FirstName.ToString();
+    }
 
-            this.Tag = loadReport;
-        }
-
-        private void border_MouseDown(object sender, MouseButtonEventArgs e)
+    private void border_MouseDown(object sender, MouseButtonEventArgs e)
+    {
+        var dto = this.Tag as SalesRequestDto;
+        var page = FindParentPage(this);
+        if (page is CollectedCargoDetailsPage reportPage)
         {
-            if(sender is Border border && this.Tag is SalesRequestDto loadReport)
+            reportPage.SelectCargo(this);
+            WorkerSoldProductPage worker = new WorkerSoldProductPage();
+            worker.SelectWorkerSaleProduct(dto!);
+
+            foreach (Window window in Application.Current.Windows)
             {
-                WorkerSoldProductPage workerSoldProductPage = new WorkerSoldProductPage();
-                workerSoldProductPage.SelectWorkerSaleProduct(loadReport);
-                workerSoldProductPage.Page_Navigator.Navigate(loadReport);
+                var frame = window.FindName("PageNavigator") as Frame;
+                if (frame != null && frame.Content is ShopWorkersPage workerPage)
+                {
+                    workerPage.WorkerSoldProductPageNavigator.Content = worker;
+                    break;
+                }
             }
         }
+    }
+
+    private Page FindParentPage(DependencyObject child)
+    {
+        DependencyObject parentObject = VisualTreeHelper.GetParent(child);
+
+        if (parentObject is Page page)
+        {
+            return page;
+        }
+        else if (parentObject != null)
+        {
+            return FindParentPage(parentObject);
+        }
+        return null!;
     }
 }
