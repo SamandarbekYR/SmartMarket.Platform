@@ -1,7 +1,5 @@
 ﻿using SmartMarket.Desktop.Pages.CashReportForPage;
-using SmartMarket.Desktop.Pages.SaleForPage;
 using SmartMarket.Service.DTOs.PayDesks;
-using SmartMarketDesktop.ViewModels.Entities.Categories;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
