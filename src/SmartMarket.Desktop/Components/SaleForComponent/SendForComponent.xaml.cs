@@ -27,5 +27,11 @@ namespace SmartMarket.Desktop.Components.SaleForComponent
         {
             InitializeComponent();
         }
+
+        public void SetValues(string firstName, string lastName, double totalSum)
+        {
+            tbFullName.Text = firstName + " " + lastName;
+            tbTotalSum.Text = totalSum.ToString();
+        }
     }
 }

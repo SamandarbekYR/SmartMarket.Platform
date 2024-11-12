@@ -321,10 +321,12 @@ public partial class SalePage : Page
     {
         stackPanelOrders.Children.Clear();
 
-        foreach (var order in orders)
-        {
-           
-        }
+        var totalSum = orders.Sum(x => x.SellPrice * x.Count);
+        var firstName = orders.FirstOrDefault()?.WorkerFirstName;
+        var lastName = orders.FirstOrDefault()?.WorkerLastName;
+
+        SendForComponent sendForComponent = new SendForComponent();
+        sendForComponent.SetValues(firstName, lastName, totalSum);
     }
 
     private void Harajat_Click(object sender, RoutedEventArgs e)
