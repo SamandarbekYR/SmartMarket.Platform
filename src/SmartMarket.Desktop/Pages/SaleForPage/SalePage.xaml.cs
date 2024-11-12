@@ -298,28 +298,19 @@ public partial class SalePage : Page
 
         _connection.On<List<FullProductDto>>("ReceiveShipMents", (orders) =>
         {
-            // Kelgan buyurtmalar sonini konsolga chiqarish
-            Console.WriteLine("Received orders count: " + orders.Count);
-
-            // Har bir buyurtmaning nomini konsolga chiqarish (boshqa xususiyatlarni ham tekshirishingiz mumkin)
-            Console.WriteLine("Received orders details: " + string.Join(", ", orders.Select(o => o.Name)));
-
-            // UI ipida (Dispatcher orqali) DisplayOrdersInStackPanel metodini chaqirish
             Application.Current.Dispatcher.Invoke(() =>
             {
-                DisplayOrdersInStackPanel(orders);  // Buyurtmalarni ko'rsatish
+                DisplayOrdersInStackPanel(orders); 
             });
         });
-
 
         try
         {
             await _connection.StartAsync();
-            Console.WriteLine("SignalR ulanishi muvaffaqiyatli o‘rnatildi.");
         }
-        catch (Exception ex)
+        catch 
         {
-            Console.WriteLine("SignalR ulanishida xatolik: " + ex.Message);
+            notifier.ShowWarning("Ulanishda xotolik mavjud!");
         }
     }
 
@@ -455,7 +446,6 @@ public partial class SalePage : Page
         }
     }
 
-    // Har bir maxsulotni narxini hisoblash uchun
     private (double totalPrice, double discountprice) SetPrice(double price, float discount, int quantity)
     {
         double totalPrice = 0;
