@@ -5,6 +5,7 @@ using System.Windows;
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 using System.Windows.Interop;
 using SmartMarket.Desktop.Components.Loader;
+using SmartMarket.Domain.Entities.Partners;
 
 namespace SmartMarket.Desktop.Windows.Partners;
 
@@ -55,8 +56,14 @@ public partial class PartnersWindow : Window
     private async void GetAllPartners()
     {
         St_Partners.Children.Clear();
-        var partners = await _partnerService.GetAll();
+        var partners = await Task.Run(async () => await _partnerService.GetAll());
 
+        ShowPartners(partners);
+    }
+
+    private async void ShowPartners(List<Partner> partners)
+    {
+        Loader.Visibility = Visibility.Collapsed;
         int count = 1;
 
         if (partners.Count > 0)

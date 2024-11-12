@@ -1,5 +1,4 @@
-﻿using NuGet;
-using SmartMarket.Desktop.Components.PartnersForComponent;
+﻿using SmartMarket.Desktop.Components.PartnersForComponent;
 using SmartMarket.Desktop.Windows.Partners;
 using SmartMarket.Domain.Entities.Partners;
 using SmartMarket.Service.DTOs.Partner;
@@ -38,6 +37,7 @@ public partial class PartnersPage : Page
                 PartnersComponent partnersComponent = new PartnersComponent();
                 partnersComponent.lb_Count.Content = count;
                 partnersComponent.SetData(partner);
+                partnersComponent.GetPartners = GetAllDebtor;
                 St_partners.Children.Add(partnersComponent);
                 count++;
             }
@@ -51,13 +51,33 @@ public partial class PartnersPage : Page
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
+        await GetAllPartnerDebt();
         await GetAllDebtor();
     }
 
-    private void Partner_Create_Button_Click(object sender, RoutedEventArgs e)
+    private async Task GetAllPartnerDebt()
+    {
+        var partners = await _partnerService.GetAll();
+
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            if(partners != null)
+            {
+                var totalDebt = partners.Sum(x => x.Debtors.Sum(x => x.DeptSum));
+                partnerTotalDebtTextBox.Text = totalDebt.ToString();
+            }
+            else
+            {
+                partnerTotalDebtTextBox.Text = "0";
+            }
+        });
+    }
+
+    private async void Partner_Create_Button_Click(object sender, RoutedEventArgs e)
     {
         PartnerCreateWindow partnerCreateWindow = new PartnerCreateWindow();
         partnerCreateWindow.ShowDialog();
+        await GetAllDebtor();
     }
 
     private CancellationTokenSource _cancellationTokenSource;

@@ -117,7 +117,7 @@ public partial class PartnerCreateWindow : Window
         if (result)
         {
             this.Close();
-            notifier.ShowInformation("Hamkor yaratildi.");
+            notifier.ShowSuccess("Hamkor yaratildi.");
         }
         else
             notifierthis.ShowError("Hamkor yaratishda qandaydir xatolik bor !");

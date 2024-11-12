@@ -13,6 +13,7 @@ public class PostgresListenerService : BackgroundService
         _connectionString = connectionString;
         _hubContext = hubContext;
     }
+
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
         await using var connection = new NpgsqlConnection(_connectionString);

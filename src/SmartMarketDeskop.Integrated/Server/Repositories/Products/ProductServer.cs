@@ -26,7 +26,6 @@ public class ProductServer : IProductServer
                 {
                     var content = new MultipartFormDataContent();
                     content.Add(new StringContent(dto.BarCode), "Barcode");
-                    content.Add(new StringContent(dto.P_Code), "PCode");
                     content.Add(new StringContent(dto.Name), "Name");
                     content.Add(new StringContent(dto.CategoryId.ToString()), "CategoryId");
                     content.Add(new StringContent(dto.ContrAgentId.ToString()), "ContrAgentId");
@@ -34,7 +33,6 @@ public class ProductServer : IProductServer
                     content.Add(new StringContent(dto.Count.ToString()), "Count");
                     content.Add(new StringContent(dto.Price.ToString()), "Price");
                     content.Add(new StringContent(dto.SellPrice.ToString()), "SellPrice");
-                    content.Add(new StringContent(dto.SellPricePercantage.ToString()), "SellPricePercantage");
                     content.Add(new StringContent(dto.UnitOfMeasure), "UnitOfMeasure");
                     content.Add(new StringContent(dto.PaymentStatus), "PaymentStatus");
                     content.Add(new StringContent(dto.NoteAmount.ToString()), "NoteAmount");

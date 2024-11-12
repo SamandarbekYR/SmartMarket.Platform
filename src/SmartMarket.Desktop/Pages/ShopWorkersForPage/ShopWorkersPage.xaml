@@ -190,8 +190,7 @@
             <Border 
                 Grid.Row="0">
                  <Frame 
-                     x:Name="CollectedCargoPageNavigator" 
-                     Navigated="CollectedCargoPageNavigator_Navigated"/>
+                     x:Name="CollectedCargoPageNavigator"/>
 
             </Border>
              
@@ -199,8 +198,8 @@
                 Margin="0 7 0 0"
                 Grid.Row="1">
                 <Frame 
-                    x:Name="WorkerSoldProductPageNavigator" Content=""/>
-                </Border>
+                    x:Name="WorkerSoldProductPageNavigator"/>
+            </Border>
         </Grid>
         </Border>
     </Grid>

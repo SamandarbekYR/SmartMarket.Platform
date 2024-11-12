@@ -81,7 +81,7 @@ public partial class ExpensesWindow : Window
 
     private async Task GetPayDesk()
     {
-        var paydesks = await _paydeskService.GetAll();
+        var paydesks = await Task.Run(async () => await _paydeskService.GetAll());
         foreach (var paydesk in paydesks)
         {
             ComboBoxItem item = new ComboBoxItem();

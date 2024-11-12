@@ -9,7 +9,9 @@ namespace SmartMarketDeskop.Integrated.Services.Products.Print;
 
 public class PrintService : IDisposable
 {
-    private readonly string PRINTER_NAME = ""; //IdentitySingelton.GetInstance().PrinterName;
+    //private readonly string PRINTER_NAME = ""; //IdentitySingelton.GetInstance().PrinterName;
+
+    private readonly string PRINTER_NAME = Path.Combine(Path.GetTempPath(), "40c765b3-3e9c-4dd7-b592-f53c83c0bd4a.txt");
     public string printerName { get; set; } = string.Empty;
     Printer? printer;
 

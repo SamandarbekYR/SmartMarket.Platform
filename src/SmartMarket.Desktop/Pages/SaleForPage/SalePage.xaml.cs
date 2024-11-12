@@ -1,4 +1,6 @@
-﻿using SmartMarket.Desktop.Components.SaleForComponent;
+﻿using Microsoft.AspNetCore.SignalR.Client;
+using SmartMarket.Desktop.Components.SaleForComponent;
+using SmartMarket.Desktop.Components.ShopDetailsForComponent;
 using SmartMarket.Desktop.ViewModels.Transactions;
 using SmartMarket.Desktop.Windows;
 using SmartMarket.Desktop.Windows.Expenses;
@@ -15,7 +17,6 @@ using SmartMarketDeskop.Integrated.Services.Products.Print;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
-using System.Configuration;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,6 +37,7 @@ public partial class SalePage : Page
 {
     private readonly IProductService _productService;
     private readonly ISalesRequestsService _salesRequestsService;
+    private HubConnection _connection;
 
     private System.Timers.Timer timer = new System.Timers.Timer();
     private DispatcherTimer time;
@@ -264,6 +266,8 @@ public partial class SalePage : Page
 
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
+
+        InitializeSignalRConnection();
         var payDeskId = Properties.Settings.Default.PayDesk;
         if (string.IsNullOrEmpty(payDeskId))
         {
@@ -280,6 +284,53 @@ public partial class SalePage : Page
         IdentitySingelton.GetInstance().PrinterName = Properties.Settings.Default.PrinterName;
         GetData();
         St_product.Focus();
+    }
+
+    private async void InitializeSignalRConnection()
+    {
+        _connection = new HubConnectionBuilder()
+               .WithUrl("https://localhost:7055/ShipmentsHub", options =>
+               {
+                   options.HttpMessageHandlerFactory = _ => new System.Net.Http.HttpClientHandler
+                   {
+                       ServerCertificateCustomValidationCallback = System.Net.Http.HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                   };
+               })
+               .Build();
+
+        _connection.On<List<List<FullProductDto>>>("ReceiveShipMents", (orders) =>
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                DisplayOrdersInStackPanel(orders); 
+            });
+        });
+
+        try
+        {
+            await _connection.StartAsync();
+        }
+        catch 
+        {
+            notifier.ShowWarning("Ulanishda xotolik mavjud!");
+        }
+    }
+
+    private void DisplayOrdersInStackPanel(List<List<FullProductDto>> orderList)
+    {
+        stackPanelOrders.Children.Clear();
+
+        foreach (var order in orderList)
+        {
+            var totalSum = order.Sum(x => x.SellPrice * x.Count);
+            var firstName = order.FirstOrDefault()?.WorkerFirstName;
+            var lastName = order.FirstOrDefault()?.WorkerLastName;
+
+            SendForComponent sendForComponent = new SendForComponent();
+            sendForComponent.SetValues(firstName, lastName, totalSum);
+            sendForComponent.BorderThickness = new Thickness(2);
+            stackPanelOrders.Children.Add(sendForComponent);
+        }
     }
 
     private void Harajat_Click(object sender, RoutedEventArgs e)
@@ -404,7 +455,6 @@ public partial class SalePage : Page
         }
     }
 
-    // Har bir maxsulotni narxini hisoblash uchun
     private (double totalPrice, double discountprice) SetPrice(double price, float discount, int quantity)
     {
         double totalPrice = 0;
@@ -581,9 +631,8 @@ public partial class SalePage : Page
             bool result = await _salesRequestsService.CreateSalesRequest(dto);
             if (result)
             {
-
-                //PrintService printService = new PrintService();
-                //printService.Print(dto, tvm.Transactions);
+                PrintService printService = new PrintService();
+                printService.Print(dto, tvm.Transactions);
 
                 tvm = null!;
                 St_product.Children.Clear();

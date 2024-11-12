@@ -39,7 +39,7 @@
                     <TextBlock
                         
                         Grid.Column="1"
-                            Text="Sherzod Sobirov"
+                            Name="tbFullName"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Right"
                             Foreground="Red"
@@ -60,7 +60,7 @@
                             HorizontalAlignment="Left"
                             FontSize="12"/>
                     <TextBlock Grid.Column="1"
-                            Text="6 000 000"
+                            Name="tbTotalSum"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"
                             Foreground="Red"

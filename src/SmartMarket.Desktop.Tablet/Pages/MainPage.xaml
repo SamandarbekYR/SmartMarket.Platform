@@ -183,6 +183,7 @@
                             Content="Jo'natish"
                             FontSize="20"
                             VerticalAlignment="Top"
+                            Click="Send_Button_Click"
                             Background="{DynamicResource BFirstColor}"
                             Style="{DynamicResource MainButton}"/>
 
