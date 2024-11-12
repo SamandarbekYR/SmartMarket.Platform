@@ -40,26 +40,30 @@ public partial class MainPage : Page
         await GetAllContrAgents();
     }
 
-    private void btnAddCategory_Click(object sender, System.Windows.RoutedEventArgs e)
+    private async void btnAddCategory_Click(object sender, System.Windows.RoutedEventArgs e)
     {
         CategoryCreateWindow categoryCreateWindow = new CategoryCreateWindow();
         categoryCreateWindow.ShowDialog();
+        await GetAllCategory();
     }
 
-    private void btnProductCreate_Click(object sender, System.Windows.RoutedEventArgs e)
+    private async void btnProductCreate_Click(object sender, System.Windows.RoutedEventArgs e)
     {
         ProductCreateWindow productCreateWindow = new ProductCreateWindow();
         productCreateWindow.ShowDialog();
+        await GetAllProducts();
     }
 
-    private void btnContrAgentCreate_Click(object sender, System.Windows.RoutedEventArgs e)
+    private async void btnContrAgentCreate_Click(object sender, System.Windows.RoutedEventArgs e)
     {
         ContrAgentCreateWindow contrAgentCreateWindow = new ContrAgentCreateWindow();
         contrAgentCreateWindow.ShowDialog();
+        await GetAllContrAgents();
     }
 
     public async Task GetAllCategory()
     {
+        CategoryLoader.Visibility = Visibility.Visible;
         St_categoryList.Children.Clear();
 
         var categoryViews = await Task.Run(async () => await _categoryService.GetAllAsync());
@@ -74,6 +78,7 @@ public partial class MainPage : Page
                 MainCategoryComponent categoryComponent = new MainCategoryComponent();
                 categoryComponent.Tag = category;
                 categoryComponent.SetValues(category, categoryCount);
+                categoryComponent.GetCategorys = GetAllCategory;
                 St_categoryList.Children.Add(categoryComponent);
                 categoryCount++;
             }
@@ -102,6 +107,7 @@ public partial class MainPage : Page
 
     public async Task GetAllContrAgents()
     {
+        ContragentLoader.Visibility = Visibility.Visible;
         St_contragent.Children.Clear();
 
         var contrAgents = await Task.Run(async () => await _contrAgentService.GetAll());
@@ -116,6 +122,7 @@ public partial class MainPage : Page
                 MainKontrAgentComponent mainKontrAgentComponent = new MainKontrAgentComponent();
                 mainKontrAgentComponent.Tag = contrAgent;
                 mainKontrAgentComponent.GetData(contrAgent, contragenCount);
+                mainKontrAgentComponent.GetContrAgents = GetAllContrAgents;
                 St_contragent.Children.Add(mainKontrAgentComponent);
                 contragenCount++;
             }
@@ -329,6 +336,7 @@ public partial class MainPage : Page
 
     public async Task GetAllProducts()
     {
+        ProductLoader.Visibility = Visibility.Visible;
         St_product.Children.Clear();
 
         var products = await Task.Run(async () => await _productService.GetAll());
@@ -343,6 +351,7 @@ public partial class MainPage : Page
                 MainProductComponent productComponent = new MainProductComponent();
                 productComponent.Tag = product;
                 productComponent.GetData(product, productCount);
+                productComponent.GetProducts = GetAllProducts;
                 St_product.Children.Add(productComponent);
                 productCount++;
             }

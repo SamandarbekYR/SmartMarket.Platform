@@ -23,13 +23,14 @@ public partial class AccountSettingsPage : Page
 
     public async Task GetAllWorkers()
     {
+        Wr_Account.Children.Clear();
+        Loader.Visibility = Visibility.Visible;
         var workers = await Task.Run(() => _workerService.GetAllAsync());
         ShowWorkers(workers);
     }
 
     private async void ShowWorkers(IList<WorkerDto> workers)
     {
-        Wr_Account.Children.Clear();
         Loader.Visibility = Visibility.Collapsed;
 
         if (workers.Count > 0)
@@ -40,6 +41,7 @@ public partial class AccountSettingsPage : Page
                 AccountSettingsComponent accountSettingsComponent = new AccountSettingsComponent();
                 accountSettingsComponent.Tag = item;
                 accountSettingsComponent.SetData(item);
+                accountSettingsComponent.GetAccounts = GetAllWorkers;
                 Wr_Account.Children.Add(accountSettingsComponent);
             }
         }
@@ -66,10 +68,11 @@ public partial class AccountSettingsPage : Page
         }
     }
 
-    private void btnAddAccount_Click(object sender, RoutedEventArgs e)
+    private async void btnAddAccount_Click(object sender, RoutedEventArgs e)
     {
         AccountCreateWindow accountCreateWindow = new AccountCreateWindow();
         accountCreateWindow.ShowDialog();
+        await GetAllWorkers();
     }
 
     private void btnAddPosition_Click(object sender, RoutedEventArgs e)

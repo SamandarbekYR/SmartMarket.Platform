@@ -10,6 +10,7 @@ namespace SmartMarket.Desktop.Components.AccountSettingsForComponent
     /// </summary>
     public partial class AccountSettingsComponent : UserControl
     {
+        public Func<Task> GetAccounts { get; set; }
         public AccountSettingsComponent()
         {
             InitializeComponent();
@@ -22,12 +23,13 @@ namespace SmartMarket.Desktop.Components.AccountSettingsForComponent
             lbPositon.Text = dto.Position.Name;
         }
 
-        private void Border_MouseUp(object sender, MouseButtonEventArgs e)
+        private async void Border_MouseUp(object sender, MouseButtonEventArgs e)
         {
             var worker = this.Tag as WorkerDto;
 
             AccountUpdateWindow accountUpdateWindow = new AccountUpdateWindow(worker!);
-            accountUpdateWindow.ShowDialog();   
+            accountUpdateWindow.ShowDialog();
+            await GetAccounts();
         }
     }
 }
