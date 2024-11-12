@@ -17,7 +17,7 @@
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.6*"/>
+                <ColumnDefinition Width="45"/>
                 <ColumnDefinition Width="2.5*"/>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="2*"/>
@@ -41,7 +41,6 @@
                 Grid.Column="1"
                 Text="123654478553"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
                 FontSize="15"
                 FontWeight="SemiBold"
                 ></TextBlock>
@@ -51,7 +50,6 @@
                 Grid.Column="2"
                 Text="Sobir aka"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
                 FontSize="15"
                 FontWeight="SemiBold"
                 ></TextBlock>
@@ -61,7 +59,6 @@
                 Grid.Column="3"
                 Text="6,000,000"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
                 FontSize="15"
                 FontWeight="SemiBold"
                 ></TextBlock>
@@ -71,7 +68,6 @@
                 Grid.Column="4"
                 Text="13:46:56"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
                 FontSize="15"
                 FontWeight="SemiBold"
                 ></TextBlock>
@@ -80,7 +76,6 @@
                 Grid.Column="5"
                 Text="Sherzod"
                 VerticalAlignment="Center"
-                HorizontalAlignment="Center"
                 FontSize="15"
                 FontWeight="SemiBold"
                 ></TextBlock>
