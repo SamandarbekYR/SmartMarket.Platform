@@ -12,6 +12,7 @@ using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarketDeskop.Integrated.Security;
+using SmartMarketDeskop.Integrated.Services.Products.Print;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
@@ -607,9 +608,8 @@ public partial class SalePage : Page
             bool result = await _salesRequestsService.CreateSalesRequest(dto);
             if (result)
             {
-
-                //PrintService printService = new PrintService();
-                //printService.Print(dto, tvm.Transactions);
+                PrintService printService = new PrintService();
+                printService.Print(dto, tvm.Transactions);
 
                 tvm = null!;
                 St_product.Children.Clear();
