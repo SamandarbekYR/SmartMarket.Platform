@@ -97,7 +97,7 @@
 
         <Grid Grid.Row="1" Background="White" Margin="0 0 5 0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.6*"/>
+                <ColumnDefinition Width="45"/>
                 <ColumnDefinition Width="2.5*"/>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="2*"/>
@@ -107,13 +107,12 @@
 
 
             <TextBlock
-                  
                    Grid.Column="0"
                    Text="N%"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    FontSize="13"
-                Foreground="{DynamicResource BorderColor}"
+                   Foreground="{DynamicResource BorderColor}"
                    FontWeight="SemiBold"
                    ></TextBlock>
 
@@ -122,7 +121,6 @@
                   Grid.Column="1"
                   Text="Barcode"
                   VerticalAlignment="Center"
-                  HorizontalAlignment="Center"
                   FontSize="13"
                   Foreground="{DynamicResource BorderColor}"
                   FontWeight="SemiBold"
@@ -133,7 +131,6 @@
                   Grid.Column="2"
                   Text="Mijoz"
                   VerticalAlignment="Center"
-                  HorizontalAlignment="Center"
                   FontSize="13"
                   Foreground="{DynamicResource BorderColor}"
                   FontWeight="SemiBold"
@@ -144,7 +141,6 @@
                   Grid.Column="3"
                   Text="Yuk summasi"
                   VerticalAlignment="Center"
-                  HorizontalAlignment="Center"
                   FontSize="13"
                   Foreground="{DynamicResource BorderColor}"
                   FontWeight="SemiBold"
@@ -154,7 +150,6 @@
                  Grid.Column="4"
                  Text="Sana"
                  VerticalAlignment="Center"
-                 HorizontalAlignment="Center"
                  FontSize="13"
                  Foreground="{DynamicResource BorderColor}"
                  FontWeight="SemiBold"
@@ -164,7 +159,6 @@
                  Grid.Column="5"
                  Text="Sotuvchi"
                  VerticalAlignment="Center"
-                 HorizontalAlignment="Center"
                  FontSize="13"
                  Foreground="{DynamicResource BorderColor}"
                  FontWeight="SemiBold"
@@ -173,8 +167,7 @@
 
         <Grid 
             Grid.Row="2" 
-            Background="White" 
-            Margin="5">
+            Background="White">
 
                 <local1:Loader
                         x:Name="Loader"
