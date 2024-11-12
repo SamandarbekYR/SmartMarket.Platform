@@ -311,7 +311,7 @@ public partial class SalePage : Page
         {
             await _connection.StartAsync();
         }
-        catch (Exception ex)
+        catch 
         {
             notifier.ShowWarning("Ulanishda xotolik mavjud!");
         }
