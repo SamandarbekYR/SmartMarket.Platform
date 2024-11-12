@@ -22,7 +22,7 @@ public partial class MainCategoryComponent : UserControl
 {
 
     private ICategoryServer _server;
-
+    public Func<Task> GetCategorys { get; set; }
     public bool selected { get; set; } = true;
 
 
@@ -54,13 +54,14 @@ public partial class MainCategoryComponent : UserControl
         tbName.Text = category.Name;
     }
 
-    private void BtnEditCategory_Click(object sender, RoutedEventArgs e)
+    private async void BtnEditCategory_Click(object sender, RoutedEventArgs e)
     {
         var categoryView = this.Tag as CategoryView;
 
         CategoryUpdateWindow categoryUpdateWindow = new CategoryUpdateWindow();
         categoryUpdateWindow.GetData(categoryView!);
         categoryUpdateWindow.ShowDialog();
+        await GetCategorys();
     }
 
     private async void BntDeleteCategory_Click(object sender, RoutedEventArgs e)
@@ -76,7 +77,10 @@ public partial class MainCategoryComponent : UserControl
             var res = await _server.DeleteAsync(categoryView!.Id);
 
             if (res)
+            {
                 notifier.ShowSuccess($"{tbName.Text} muvaffaqiyatli o'chirildi.");
+                await GetCategorys();
+            }
             else
                 notifier.ShowError("O'chirishda xato yuz berdi.");
         }

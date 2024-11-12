@@ -20,6 +20,7 @@ public partial class MainProductComponent : UserControl
 {
     private IProductService productService;
     FullProductDto products = null!;
+    public Func<Task> GetProducts { get; set; }
     public MainProductComponent()
     {
         InitializeComponent();
@@ -51,12 +52,13 @@ public partial class MainProductComponent : UserControl
 
     }
 
-    private void btnedit_Click(object sender, System.Windows.RoutedEventArgs e)
+    private async void btnedit_Click(object sender, System.Windows.RoutedEventArgs e)
     {
         products = (this.Tag as FullProductDto)!;
         var window = new ProductUpdateWindow();
         window.SetData(products);
         window.ShowDialog();
+        await GetProducts();
     }
 
     private async void btndelete_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -71,7 +73,10 @@ public partial class MainProductComponent : UserControl
             var res = await productService.DeleteProduct(products!.Id);
 
             if (res)
+            {
                 notifier.ShowInformation("Mahsulot muvaffaqiyatli o'chirildi.");
+                await GetProducts();
+            }
             else
                 notifier.ShowError("Xato yuz berdi.");
         }

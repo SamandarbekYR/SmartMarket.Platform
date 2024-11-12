@@ -20,6 +20,7 @@ namespace SmartMarket.Desktop.Components.MainForComponents;
 public partial class MainKontrAgentComponent : UserControl
 {
     private IContrAgentService contrAgentService;
+    public Func<Task> GetContrAgents { get; set; }
     public MainKontrAgentComponent()
     {
         InitializeComponent();
@@ -61,6 +62,7 @@ public partial class MainKontrAgentComponent : UserControl
         ContrAgentUpdateWindow updateWindow = new ContrAgentUpdateWindow();
         updateWindow.GetCompany(contragent);
         updateWindow.ShowDialog();
+        await GetContrAgents();
     }
 
     private async void Delete_Button_Click(object sender, RoutedEventArgs e)
@@ -76,7 +78,10 @@ public partial class MainKontrAgentComponent : UserControl
             var res = await contrAgentService.DeleteAsync(contragent.Id);
 
             if (res)
+            {
                 notifier.ShowInformation("Contr agent muvaffaqiyatli o'chirildi.");
+                await GetContrAgents();
+            }
             else
                 notifier.ShowError("O'chirishda xatolik yuz berdi.");
         }

@@ -19,6 +19,7 @@ public partial class AllProductsPage : Page
 
     public async Task GetAllProducts()
     {
+        Loader.Visibility = Visibility.Visible;
         St_AllProducts.Children.Clear();
 
         var products = await Task.Run(async () => await _productService.GetAll());
@@ -34,6 +35,7 @@ public partial class AllProductsPage : Page
                 MainProductComponent productComponent = new MainProductComponent();
                 productComponent.Tag = product;
                 productComponent.GetData(product, productCount);
+                productComponent.GetProducts = GetAllProducts;
                 St_AllProducts.Children.Add(productComponent);
                 productCount++;
             }
