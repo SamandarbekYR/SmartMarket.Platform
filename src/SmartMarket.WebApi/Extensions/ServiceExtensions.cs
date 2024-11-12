@@ -23,6 +23,7 @@ namespace SmartMarket.WebApi.Extensions
                 options.UseNpgsql(connection);
                 options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
             });
+            services.BuildServiceProvider().GetRequiredService<AppDbContext>().Database.Migrate();
         }
     }
 }

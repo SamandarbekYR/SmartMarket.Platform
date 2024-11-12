@@ -17,8 +17,8 @@ namespace SmartMarket.DataAccess.Data
         public AppDbContext(DbContextOptions<AppDbContext> contextOptions)
             : base(contextOptions)
         {
-            /*Database.EnsureCreated();
-            Database.Migrate();*/
+            //Database.EnsureCreated();
+            Database.Migrate();
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

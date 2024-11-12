@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using SmartMarket.Desktop.Components.SaleForComponent;
+using SmartMarket.Desktop.Components.ShopDetailsForComponent;
 using SmartMarket.Desktop.ViewModels.Transactions;
 using SmartMarket.Desktop.Windows;
 using SmartMarket.Desktop.Windows.Expenses;
@@ -12,6 +13,7 @@ using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarketDeskop.Integrated.Security;
+using SmartMarketDeskop.Integrated.Services.Products.Print;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
@@ -296,7 +298,7 @@ public partial class SalePage : Page
                })
                .Build();
 
-        _connection.On<List<FullProductDto>>("ReceiveShipMents", (orders) =>
+        _connection.On<List<List<FullProductDto>>>("ReceiveShipMents", (orders) =>
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -314,16 +316,21 @@ public partial class SalePage : Page
         }
     }
 
-    private void DisplayOrdersInStackPanel(List<FullProductDto> orders)
+    private void DisplayOrdersInStackPanel(List<List<FullProductDto>> orderList)
     {
         stackPanelOrders.Children.Clear();
 
-        var totalSum = orders.Sum(x => x.SellPrice * x.Count);
-        var firstName = orders.FirstOrDefault()?.WorkerFirstName;
-        var lastName = orders.FirstOrDefault()?.WorkerLastName;
+        foreach (var order in orderList)
+        {
+            var totalSum = order.Sum(x => x.SellPrice * x.Count);
+            var firstName = order.FirstOrDefault()?.WorkerFirstName;
+            var lastName = order.FirstOrDefault()?.WorkerLastName;
 
-        SendForComponent sendForComponent = new SendForComponent();
-        sendForComponent.SetValues(firstName, lastName, totalSum);
+            SendForComponent sendForComponent = new SendForComponent();
+            sendForComponent.SetValues(firstName, lastName, totalSum);
+            sendForComponent.BorderThickness = new Thickness(2);
+            stackPanelOrders.Children.Add(sendForComponent);
+        }
     }
 
     private void Harajat_Click(object sender, RoutedEventArgs e)
@@ -624,9 +631,8 @@ public partial class SalePage : Page
             bool result = await _salesRequestsService.CreateSalesRequest(dto);
             if (result)
             {
-
-                //PrintService printService = new PrintService();
-                //printService.Print(dto, tvm.Transactions);
+                PrintService printService = new PrintService();
+                printService.Print(dto, tvm.Transactions);
 
                 tvm = null!;
                 St_product.Children.Clear();
