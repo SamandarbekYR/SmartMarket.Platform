@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
-
 using SmartMarket.Desktop.Components.SaleForComponent;
 using SmartMarket.Desktop.ViewModels.Transactions;
 using SmartMarket.Desktop.Windows;
@@ -13,11 +12,9 @@ using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarketDeskop.Integrated.Security;
-using SmartMarketDeskop.Integrated.Services.Products.Print;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
-using System.Configuration;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
@@ -287,18 +284,34 @@ public partial class SalePage : Page
         St_product.Focus();
     }
 
-    private void InitializeSignalRConnection()
+    private async void InitializeSignalRConnection()
     {
         _connection = new HubConnectionBuilder()
-            .WithUrl("https://localhost:7055/ShipMentsHub")  
-            .Build();
+               .WithUrl("https://localhost:7055/ShipmentsHub", options =>
+               {
+                   options.HttpMessageHandlerFactory = _ => new System.Net.Http.HttpClientHandler
+                   {
+                       ServerCertificateCustomValidationCallback = System.Net.Http.HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                   };
+               })
+               .Build();
 
         _connection.On<List<FullProductDto>>("ReceiveShipMents", (orders) =>
         {
-            DisplayOrdersInStackPanel(orders);
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                DisplayOrdersInStackPanel(orders); 
+            });
         });
 
-        _connection.StartAsync();
+        try
+        {
+            await _connection.StartAsync();
+        }
+        catch 
+        {
+            notifier.ShowWarning("Ulanishda xotolik mavjud!");
+        }
     }
 
     private void DisplayOrdersInStackPanel(List<FullProductDto> orders)
@@ -433,7 +446,6 @@ public partial class SalePage : Page
         }
     }
 
-    // Har bir maxsulotni narxini hisoblash uchun
     private (double totalPrice, double discountprice) SetPrice(double price, float discount, int quantity)
     {
         double totalPrice = 0;
