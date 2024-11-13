@@ -79,14 +79,6 @@
 
                     </StackPanel>
 
-                    <ComboBox x:Name="workerComboBox"
-                              SelectionChanged="workerComboBox_SelectionChanged"
-                              Margin="5 10 10 10"
-                              Grid.Column="3">
-                        <ComboBoxItem Content="Sotuvchi" IsEnabled="False"/>
-                    </ComboBox>
-                        
-
                     <TextBox x:Name="filterTextBox"
                         Margin="0 0 10 0"
                         Style="{DynamicResource search}"
@@ -171,6 +163,7 @@
 
                 <local1:Loader
                         x:Name="Loader"
+                        Visibility="Collapsed"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"/>
 
@@ -182,12 +175,12 @@
 
                 <Label
                     Name="EmptyDataLoadReport"
-                    Visibility="Collapsed"
+                    Visibility="Visible"
                     FontSize="16"
                     Foreground="#a6a6a6"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Content="Ma'lumot topilmadi."/>
+                    Content="Sotuvchi tanlanmagan."/>
         </Grid>
 
     </Grid>

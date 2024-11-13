@@ -118,7 +118,8 @@ public partial class AccountUpdateWindow : Window
 
         if (!isValid)
         {
-            MessageBox.Show(errorMessage.ToString(), "Xatolik", MessageBoxButton.OK, MessageBoxImage.Error);
+            var messageBox = new MessageBoxWindow($"Xatolik: {errorMessage.ToString()}", MessageType.Error, MessageButtons.Ok);
+            messageBox.Show();
         }
         else
         {
@@ -153,12 +154,12 @@ public partial class AccountUpdateWindow : Window
 
     private async void btnDeleteAccount_MouseUp(object sender, MouseButtonEventArgs e)
     {
-        var result = MessageBox.Show("Ishchi haqida ma'lumotlar o'chiriladi. Davom etasizmi?", "O'chirish", MessageBoxButton.YesNo, MessageBoxImage.Question);
-        //var message = "Ishchi haqida ma'lumotlar o'chiriladi. Davom etasizmi?";
-        //var messageBox = new MessageBoxWindow(message, MessageType.Confirmation, MessageButtons.YesNo);
-        //messageBox.ShowDialog();
+        //var result = MessageBox.Show("Ishchi haqida ma'lumotlar o'chiriladi. Davom etasizmi?", "O'chirish", MessageBoxButton.YesNo, MessageBoxImage.Question);
+        var message = "Ishchi haqida ma'lumotlar o'chiriladi. Davom etasizmi?";
+        var messageBox = new MessageBoxWindow(message, MessageType.Confirmation, MessageButtons.YesNo);
+        var result = messageBox.ShowDialog();
 
-        if (result == MessageBoxResult.Yes)
+        if (result == true)
         {
             var resultDelete = await Task.Run(async () => await _workerService.DeleteAsync(_worker.Id));
 
@@ -168,7 +169,6 @@ public partial class AccountUpdateWindow : Window
             }
             else
             {
-                //MessageBox.Show("O'chirishda xatolik yuz berdi.", "Xatolik", MessageBoxButton.OK, MessageBoxImage.Error);
                 notifier.ShowError("O'chirishda xatolik yuz berdi.");
             }
         }
