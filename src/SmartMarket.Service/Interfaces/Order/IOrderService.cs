@@ -10,5 +10,5 @@ public interface IOrderService
     Task<List<OrderDto>> GetAllAsync();
     Task<bool> UpdateAsync(AddOrderDto dto, Guid Id);
 
-    Task<IEnumerable<OrderDto>> GetOrdersByTransactionNumberAsync(string transactionNumber, PaginationParams @params);
+    Task<IEnumerable<OrderDto>> GetOrdersByTransactionNumberAsync(long transactionNumber, PaginationParams @params);
 }

@@ -89,12 +89,12 @@ namespace SmartMarket.Service.Services.Order
             }
         }
 
-        public async Task<IEnumerable<OrderDto>> GetOrdersByTransactionNumberAsync(string transactionNumber, PaginationParams @params)
+        public async Task<IEnumerable<OrderDto>> GetOrdersByTransactionNumberAsync(long transactionNumber, PaginationParams @params)
         {
             try
             {
                 var orders = await _unitOfWork.Order.GetAll()
-                    .Where(o => o.TransactionNumber == transactionNumber)
+                    .Where(o => o.TransactionId == transactionNumber)
                     .AsNoTracking()
                     .ToPagedListAsync(@params);
 

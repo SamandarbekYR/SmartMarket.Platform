@@ -19,8 +19,11 @@ public class OrderRepository : Repository<Order>, IOrder
     public async Task<List<Order>> GetOrdersFullInformationAsync()
     {
         return await _orders
-            .Include(o => o.Worker)
-            .Include(o => o.Product)
-            .ToListAsync();
+                .Include(sr => sr.PayDesk) 
+                .Include(sr => sr.Worker)
+                .Include(sr => sr.ProductSaleItems)
+                    .ThenInclude(ps => ps.Product)
+                        .ThenInclude(p => p.Category)
+                .ToListAsync();
     }
 }

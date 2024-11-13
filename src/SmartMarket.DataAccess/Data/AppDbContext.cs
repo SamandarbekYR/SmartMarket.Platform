@@ -54,15 +54,12 @@ namespace SmartMarket.DataAccess.Data
 
             modelBuilder.Entity<Order>(entity =>
             {
-                entity.HasOne(o => o.Product)
-                      .WithMany(p => p.Order)
-                      .HasForeignKey(o => o.ProductId)
-                      .OnDelete(DeleteBehavior.Restrict);
+                entity.HasIndex(c => new { c.TransactionId })
+                      .IsUnique();
 
-                entity.HasOne(o => o.Worker)
-                      .WithMany(w => w.Orders)
-                      .HasForeignKey(o => o.WorkerId)
-                      .OnDelete(DeleteBehavior.Restrict);
+                entity.Property(e => e.TransactionId)
+                      .HasColumnName("transaction_id")
+                      .ValueGeneratedOnAdd();
             });
 
             modelBuilder.Entity<Debtors>(entity =>
@@ -173,16 +170,7 @@ namespace SmartMarket.DataAccess.Data
                      .HasForeignKey(ps => ps.SalesRequestId)
                      .OnDelete(DeleteBehavior.Cascade);
             });
-
-            modelBuilder.Entity<SalesRequest>()
-                .HasIndex(c => new { c.TransactionId })
-                .IsUnique();
-
-            modelBuilder.Entity<SalesRequest>()
-                .Property(e => e.TransactionId)
-                .HasColumnName("transaction_id") 
-                .ValueGeneratedOnAdd(); 
-
+            
             modelBuilder.Entity<ReplaceProduct>(entity =>
             {
                 entity.HasOne(rp => rp.ProductSale)
@@ -223,6 +211,12 @@ namespace SmartMarket.DataAccess.Data
                       .WithMany(w => w.WorkerDebts)
                       .HasForeignKey(wd => wd.WorkerId)
                       .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<WorkerRole>(entity =>
+            {
+                entity.HasIndex(wr => new { wr.RoleName })
+                      .IsUnique();
             });
 
             base.OnModelCreating(modelBuilder);
