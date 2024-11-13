@@ -106,7 +106,7 @@
                     Foreground="#a6a6a6"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Content="Sotuvchi tanlanmagan."/>
+                    Content="Yuk tanlanmagan."/>
             </Grid>
         </Grid>
     </Border>

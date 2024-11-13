@@ -1,6 +1,7 @@
 ﻿using SmartMarket.Desktop.Components.SaleForComponent;
 using SmartMarket.Desktop.Components.ShopWorkerForComponent;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
+using SmartMarket.Service.DTOs.Workers.Worker;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,23 +22,38 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
             this._loadReportService = new SalesRequestService();
         }
 
-        private async Task GetAllLoadReports()
+        //private async Task GetAllLoadReports()
+        //{
+        //    St_loadReports.Children.Clear();
+
+        //    //var loadReports = await Task.Run(async () => await _loadReportService.GetAll());
+
+        //    //List<string> workerNames = loadReports
+        //    //    .Select(x => x.Worker.FirstName)
+        //    //    .Distinct()
+        //    //    .ToList();
+
+        //    //foreach(var workerName in workerNames)
+        //    //{
+        //    //    workerComboBox.Items.Add(new ComboBoxItem { Content = workerName });
+        //    //}
+
+        //    //ShowLoadReports(loadReports.ToList());
+        //}
+
+        public async void SelectLoadReportsByWorker(WorkerListComponent component, WorkerDto worker)
         {
+            EmptyDataLoadReport.Visibility = Visibility.Collapsed;
+            Loader.Visibility = Visibility.Visible;
             St_loadReports.Children.Clear();
 
             var loadReports = await Task.Run(async () => await _loadReportService.GetAll());
 
-            List<string> workerNames = loadReports
-                .Select(x => x.Worker.FirstName)
-                .Distinct()
+            List<SalesRequestDto> results = loadReports
+                .Where(x => x.Worker.FirstName == worker.FirstName)
                 .ToList();
 
-            foreach(var workerName in workerNames)
-            {
-                workerComboBox.Items.Add(new ComboBoxItem { Content = workerName });
-            }
-
-            ShowLoadReports(loadReports.ToList());
+            ShowLoadReports(results);
         }
 
         private async void FilterLoadReports()
@@ -53,15 +69,15 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
                 filter.ToDateTime = toDateTime.SelectedDate.Value;
             }
 
-            if (workerComboBox.SelectedItem != null)
-            {
-                var selectionWorkerName = workerComboBox.SelectedItem?.ToString();
+            //if (workerComboBox.SelectedItem != null)
+            //{
+            //    var selectionWorkerName = workerComboBox.SelectedItem?.ToString();
 
-                if (!string.IsNullOrEmpty(selectionWorkerName) && !selectionWorkerName.Equals("Sotuvchi"))
-                {
-                    filter.WorkerName = selectionWorkerName;
-                }
-            }
+            //    if (!string.IsNullOrEmpty(selectionWorkerName) && !selectionWorkerName.Equals("Sotuvchi"))
+            //    {
+            //        filter.WorkerName = selectionWorkerName;
+            //    }
+            //}
 
             if (filterTextBox != null)
             {
@@ -91,14 +107,10 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
             else
             {
                 EmptyDataLoadReport.Visibility = Visibility.Visible;
+                EmptyDataLoadReport.Content = "Ma'lumot topilmadi.";
             }
         }
         private void toDateTime_SelectedDataChanged(object sender, SelectionChangedEventArgs e)
-        {
-            FilterLoadReports();
-        }
-
-        private void workerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             FilterLoadReports();
         }
@@ -113,7 +125,7 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            await GetAllLoadReports();
+            //await GetAllLoadReports();
         }
 
         private CollectedCargoDetailsComponent selectedControl = null!;
