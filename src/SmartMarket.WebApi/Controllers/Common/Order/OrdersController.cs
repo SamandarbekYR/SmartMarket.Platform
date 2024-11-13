@@ -87,7 +87,7 @@ namespace SmartMarket.WebApi.Controllers.Common.Order
             }
         }
         [HttpGet("transaction/{transactionNumber}")]
-        public async Task<IActionResult> GetOrdersByTransactionNumberAsync(string transactionNumber, [FromQuery] PaginationParams @params)
+        public async Task<IActionResult> GetOrdersByTransactionNumberAsync(long transactionNumber, [FromQuery] PaginationParams @params)
         {
             try
             {
