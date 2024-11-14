@@ -1,5 +1,4 @@
 ﻿using SmartMarket.Desktop.Windows.Admin;
-using SmartMarket.Desktop.Windows.SimpleAdmin;
 using SmartMarketDeskop.Integrated.Interfaces.Auth;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Services.Auth;
