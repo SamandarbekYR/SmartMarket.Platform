@@ -1,9 +1,10 @@
-﻿namespace SmartMarket.Service.DTOs.Order;
+﻿using SmartMarket.Service.DTOs.Products.ProductSale;
+
+namespace SmartMarket.Service.DTOs.Order;
 
 public class AddOrderDto
 {
     public Guid WorkerId { get; set; }
-    public Guid ProductId { get; set; }
-    public string TransactionNumber { get; set; } = string.Empty;
-    public int Count { get; set; }
+    public Guid PartnerId { get; set; }
+    public List<AddOrderProductDto> ProductOrderItems { get; set; }
 }
