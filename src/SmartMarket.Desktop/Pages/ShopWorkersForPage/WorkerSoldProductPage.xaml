@@ -81,6 +81,7 @@
             </Border>
 
             <Grid 
+                Margin="0 0 0 7"
                 Grid.Row="2"
                 Background="White">
                 <Frame

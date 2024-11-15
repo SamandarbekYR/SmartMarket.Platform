@@ -29,6 +29,9 @@ public partial class PartnersPage : Page
         var partners = await Task.Run(async () => await _partnerService.GetAll());
         Loader.Visibility = Visibility.Collapsed;
 
+        var totalDebt = partners.Sum(x => x.Debtors.Sum(x => x.DeptSum));
+        partnerTotalDebtTextBox.Text = totalDebt.ToString();
+
         int count = 1;
 
         if (partners.Count > 0)
@@ -52,33 +55,14 @@ public partial class PartnersPage : Page
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        await GetAllPartnerDebt();
         await GetAllDebtor();
     }
 
-    private async Task GetAllPartnerDebt()
-    {
-        var partners = await _partnerService.GetAll();
-
-        Application.Current.Dispatcher.Invoke(() =>
-        {
-            if(partners != null)
-            {
-                var totalDebt = partners.Sum(x => x.Debtors.Sum(x => x.DeptSum));
-                partnerTotalDebtTextBox.Text = totalDebt.ToString();
-            }
-            else
-            {
-                partnerTotalDebtTextBox.Text = "0";
-            }
-        });
-    }
-
-    private async void Partner_Create_Button_Click(object sender, RoutedEventArgs e)
+    private void Partner_Create_Button_Click(object sender, RoutedEventArgs e)
     {
         PartnerCreateWindow partnerCreateWindow = new PartnerCreateWindow();
+        partnerCreateWindow.CreatePartner = GetAllDebtor;
         partnerCreateWindow.ShowDialog();
-        await GetAllDebtor();
     }
 
     private CancellationTokenSource _cancellationTokenSource;

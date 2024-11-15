@@ -22,6 +22,8 @@ public partial class PartnerUpdateWindow : Window
     private readonly IPartnerService _partnerService;
 
     public Guid partnerId { get; set; }
+
+    public Func<Task> UpdatePartner {  get; set; }
     public string firstname { get; set; } = "";
     public string lastname { get; set; } = "";
     public string phonenumber { get; set; } = "";
@@ -126,6 +128,7 @@ public partial class PartnerUpdateWindow : Window
         {
             this.Close();
             notifier.ShowSuccess("Hamkor yangilandi.");
+            await UpdatePartner();
         }
         else
             notifierthis.ShowError("Hamkorni yangilashda qandaydir xatolik bor!");
