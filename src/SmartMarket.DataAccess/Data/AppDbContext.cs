@@ -226,6 +226,7 @@ namespace SmartMarket.DataAccess.Data
         DbSet<Customer> Customers { get; set; }
         DbSet<Expense> Expenses { get; set; }
         DbSet<Order> Orders { get; set; }
+        DbSet<OrderProduct> OrderOrders { get; set; }
         DbSet<Partner> Partners { get; set; }
         DbSet<PartnerCompany> PartnersCompany { get; set; }
         DbSet<ContrAgent> ContrAgent { get; set; }

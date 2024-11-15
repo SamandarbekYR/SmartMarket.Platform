@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace SmartMarket.Domain.Entities.Orders
 {
     [Table("order_product")]
-    public class OrderProduct
+    public class OrderProduct : BaseEntity
     {
         [Column("product_id")]
         public Guid ProductId { get; set; }
