@@ -1,5 +1,4 @@
-﻿using SmartMarket.Desktop.Components.SaleForComponent;
-using SmartMarket.Desktop.Components.ShopWorkerForComponent;
+﻿using SmartMarket.Desktop.Components.ShopWorkerForComponent;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarket.Service.DTOs.Workers.Worker;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;

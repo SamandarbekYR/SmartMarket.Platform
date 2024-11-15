@@ -21,6 +21,8 @@ public partial class PartnerCreateWindow : Window
 
     private readonly IPartnerService _partnerService;
 
+    public Func<Task> CreatePartner { get; set; }
+
     public PartnerCreateWindow()
     {
         InitializeComponent();
@@ -118,6 +120,7 @@ public partial class PartnerCreateWindow : Window
         {
             this.Close();
             notifier.ShowSuccess("Hamkor yaratildi.");
+            await CreatePartner();
         }
         else
             notifierthis.ShowError("Hamkor yaratishda qandaydir xatolik bor !");

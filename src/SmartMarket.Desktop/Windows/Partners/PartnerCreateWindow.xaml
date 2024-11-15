@@ -35,6 +35,7 @@
                 Content="Hamkor yaratish"
                 HorizontalAlignment="Center"
                 FontSize="22"
+                Foreground="White"
                 Style="{DynamicResource TitleLabel}"/>
 
             <Button
@@ -43,7 +44,7 @@
                 Margin="0 0 10 0"
                 HorizontalAlignment="Right"
                 Click="Close_Button_Click"
-                Background="Black"
+                Background="White"
                 Style="{DynamicResource btnClose}"/>
 
             <Grid
