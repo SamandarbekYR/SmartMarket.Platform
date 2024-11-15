@@ -4,7 +4,10 @@ using SmartMarket.Desktop.Tablet.Components;
 using SmartMarket.Desktop.Tablet.ViewModels.Transactions;
 using SmartMarket.Desktop.Tablet.Windows;
 using SmartMarket.Domain.Entities.Partners;
+using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Products.Product;
+using SmartMarket.Service.DTOs.Products.ProductSale;
+
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -28,7 +31,7 @@ public partial class MainPage : Page
     private HubConnection _connection;
     public Partner Partner { get; set; }
     TransactionViewModel tvm;
-    List<FullProductDto> orderProducts;
+    List<AddOrderDto> orderProducts;
 
     private DispatcherTimer time;
 
@@ -41,7 +44,7 @@ public partial class MainPage : Page
         InitializeComponent();
         this._productService = new ProductService();
         this.tvm = new TransactionViewModel();
-        this.orderProducts = new List<FullProductDto>();
+        this.orderProducts = new List<AddOrderDto>();
 
         time = new DispatcherTimer();
         time.Interval = TimeSpan.FromMilliseconds(50);
@@ -102,7 +105,13 @@ public partial class MainPage : Page
                 tvm.Add(product, count);
                 AddNewProduct(product, count);
                 product.Count = count;
-                orderProducts.Add(product);
+
+                AddOrderDto addOrderDto = new AddOrderDto()
+                {
+                    PartnerId = Partner.Id,
+                    WorkerId = Guid.Parse("b543c16e-7bc6-4310-8f7b-54bf7fab1fe5"),
+                     
+                };
             }
             else
             {
@@ -261,7 +270,6 @@ public partial class MainPage : Page
     {
         st_product.Focus();
 
-        // SignalR ulanishini o'rnatish
         _connection = new HubConnectionBuilder()
                 .WithUrl("https://localhost:7055/ShipmentsHub", options =>
                 {
@@ -282,7 +290,6 @@ public partial class MainPage : Page
             notifier.ShowError("SignalR ulanishda xato: ");
         }
             
-        //Client_Name.Content = lb_client_name.Content = Partner.FirstName + " " + Partner.LastName;
     }
 
     private async void Send_Button_Click(object sender, RoutedEventArgs e)

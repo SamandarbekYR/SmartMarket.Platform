@@ -19,7 +19,6 @@ public class OrderRepository : Repository<Order>, IOrder
     public async Task<List<Order>> GetOrdersFullInformationAsync()
     {
         return await _orders
-                .Include(sr => sr.PayDesk) 
                 .Include(sr => sr.Worker)
                 .Include(sr => sr.ProductSaleItems)
                     .ThenInclude(ps => ps.Product)

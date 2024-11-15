@@ -40,10 +40,10 @@ namespace SmartMarket.Service.Services.Order
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
                 }
 
-                var productExists = await _unitOfWork.Product.GetById(dto.ProductId) != null;
-                if (!productExists)
+                var partnerExists = await _unitOfWork.Partner.GetById(dto.PartnerId) != null;
+                if (!partnerExists)
                 {
-                    throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Partner not found.");
                 }
 
                 var order = _mapper.Map<Et.Order>(dto);
@@ -123,10 +123,10 @@ namespace SmartMarket.Service.Services.Order
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
                 }
 
-                var productExists = await _unitOfWork.Product.GetById(dto.ProductId) != null;
-                if (!productExists)
+                var partnerExists = await _unitOfWork.Partner.GetById(dto.PartnerId) != null;
+                if (!partnerExists)
                 {
-                    throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Partner not found.");
                 }
 
                 _mapper.Map(dto, order);
