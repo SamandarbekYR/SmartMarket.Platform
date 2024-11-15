@@ -31,7 +31,7 @@ public partial class MainPage : Page
     private HubConnection _connection;
     public Partner Partner { get; set; }
     TransactionViewModel tvm;
-    List<AddOrderDto> orderProducts;
+    List<AddOrderProductDto> orderProducts;
 
     private DispatcherTimer time;
 
@@ -44,7 +44,7 @@ public partial class MainPage : Page
         InitializeComponent();
         this._productService = new ProductService();
         this.tvm = new TransactionViewModel();
-        this.orderProducts = new List<AddOrderDto>();
+        this.orderProducts = new List<AddOrderProductDto>();
 
         time = new DispatcherTimer();
         time.Interval = TimeSpan.FromMilliseconds(50);
@@ -106,12 +106,14 @@ public partial class MainPage : Page
                 AddNewProduct(product, count);
                 product.Count = count;
 
-                AddOrderDto addOrderDto = new AddOrderDto()
+                AddOrderProductDto addOrderProductDto = new AddOrderProductDto()
                 {
-                    PartnerId = Partner.Id,
-                    WorkerId = Guid.Parse("b543c16e-7bc6-4310-8f7b-54bf7fab1fe5"),
-                     
+                    ProductId = product.Id,
+                    Count = count,
+                    ItemTotalCost = product.SellPrice * count
                 };
+
+                orderProducts.Add(addOrderProductDto);
             }
             else
             {
@@ -294,17 +296,24 @@ public partial class MainPage : Page
 
     private async void Send_Button_Click(object sender, RoutedEventArgs e)
     {
-        if (orderProducts != null && orderProducts.Count > 0)
+        AddOrderDto addOrderDto = new AddOrderDto()
+        {
+            PartnerId = Partner.Id,
+            WorkerId = Guid.Parse("b543c16e-7bc6-4310-8f7b-54bf7fab1fe5"),
+            ProductOrderItems = orderProducts,
+        };
+
+        if (addOrderDto != null)
         {
             try
             {
-                await _connection.InvokeAsync("SendShipMents", orderProducts);
+                await _connection.InvokeAsync("SendShipMents", addOrderDto);
 
                 notifier.ShowSuccess("Mahsulotlar muvaffaqiyatli yuborildi.");
             }
-            catch (Exception ex)
+            catch 
             {
-                notifier.ShowError($"Mahsulotlarni yuborishda xato: {ex.Message}");
+                notifier.ShowError($"Mahsulotlarni yuborishda xato");
             }
         }
         else
