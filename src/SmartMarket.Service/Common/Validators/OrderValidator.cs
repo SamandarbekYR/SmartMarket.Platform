@@ -11,16 +11,8 @@ public class OrderValidator : AbstractValidator<AddOrderDto>
             .NotEmpty()
             .WithMessage("Worker ID is required.");
 
-        RuleFor(o => o.ProductId)
+        RuleFor(o => o.PartnerId)
             .NotEmpty()
-            .WithMessage("Product ID is required.");
-
-        RuleFor(o => o.TransactionNumber)
-            .NotEmpty()
-            .WithMessage("Transaction number is required.");
-
-        RuleFor(o => o.Count)
-            .GreaterThan(0)
-            .WithMessage("Order count must be greater than zero.");
+            .WithMessage("Partner ID is required.");
     }
 }
