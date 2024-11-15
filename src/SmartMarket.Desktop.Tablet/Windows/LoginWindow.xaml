@@ -3,14 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SmartMarket.Desktop.Tablet.Windows"
+        xmlns:local="clr-namespace:SmartMarket.Desktop.Tablet.Components.Loader"
         mc:Ignorable="d"
         Title="LoginWindow" 
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         Height="700" 
-        Width="1000">
+        Width="1000"
+        Loaded="Window_Loaded">
     <Grid
         Background="{DynamicResource FirstColor}">
         <Grid.ColumnDefinitions>
@@ -58,8 +59,8 @@
                             Stretch="Uniform"/>
 
                         <TextBox
-                            Name="txt_Username"
-                            Text="Shodiyor"
+                            Name="tbPhoneNumber"
+                            Text="+998917727005"
                             FontSize="16"
                             FontWeight="SemiBold"
                             Grid.Column="1"
@@ -81,6 +82,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="50"/>
                             <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="50"/>
                         </Grid.ColumnDefinitions>
 
                         <Path 
@@ -91,17 +93,52 @@
                             Stretch="Uniform"/>
 
                         <PasswordBox
-                            Name="txt_Password"
-                            Password="Shodiyor0809"
+                            Name="pbPassword"
+                            Password="11221122"
                             FontSize="16"
                             FontWeight="SemiBold"
                             Grid.Column="1"
                             VerticalAlignment="Center"
-                            BorderThickness="0"/>
+                            BorderThickness="0" HorizontalAlignment="Left" Width="239"/>
+
+                        <TextBox 
+                            x:Name="tbPassword" 
+                            Grid.Column="1"
+                            Visibility="Collapsed"
+                            Margin="4"
+                            VerticalAlignment="Center"
+                            Foreground="Black"
+                            FontSize="18"
+                            Text="11221122"
+                            FontWeight="SemiBold"
+                            BorderThickness="0"
+                            />
+
+                        <Button
+                            Grid.Column="2"
+                            x:Name="btnVisible"
+                            Click="btnVisible_Click"
+                            Visibility="Visible"
+                            Style="{DynamicResource btnLoginEyeVisible}"
+                            />
+
+                        <Button
+                            Grid.Column="2"
+                            x:Name="btnDisVisible"
+                            Click="btnDisVisible_Click"
+                            Visibility="Collapsed"
+                            Style="{DynamicResource btnLoginEyeDisVisible}"
+                            />
 
                     </Grid>
 
                 </Border>
+
+                <local:Loader
+                    x:Name="Loader"
+                    Visibility="Hidden"
+                    Margin="0 10 0 0"
+                    HorizontalAlignment="Center"/>
 
                 <Button
                     Name="Login_Button"
