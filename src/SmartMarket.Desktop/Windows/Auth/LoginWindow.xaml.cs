@@ -129,7 +129,6 @@ public partial class LoginWindow : Window
             {
                 notifier.ShowWarning("Internetingizni tekshiring.");
             }
-           // notifier.Dispose();
         }
         catch 
         {
