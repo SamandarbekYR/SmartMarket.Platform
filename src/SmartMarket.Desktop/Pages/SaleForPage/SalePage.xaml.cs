@@ -631,10 +631,10 @@ public partial class SalePage : Page
             bool result = await _salesRequestsService.CreateSalesRequest(dto);
             if (result)
             {
-                PrintService printService = new PrintService();
-                printService.Print(dto, tvm.Transactions);
+                //PrintService printService = new PrintService();
+                //printService.Print(dto, tvm.Transactions);
 
-                tvm = null!;
+                tvm.ClearTransaction();
                 St_product.Children.Clear();
                 ColculateTotalPrice();
                 EmptyPrice();
