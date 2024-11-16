@@ -41,4 +41,11 @@ public class TransactionViewModel
             }
         }
     }
+
+    public void ClearTransaction()
+    {
+        Transactions.Clear();
+        TransactionPrice = 0;
+        DiscountPrice = 0;
+    }
 }
