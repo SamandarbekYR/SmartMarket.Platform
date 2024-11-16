@@ -83,6 +83,7 @@ public partial class ReturnedCargoPage : Page
 
         if (replaceProducts.Count > 0)
         {
+            EmptyData.Visibility = Visibility.Collapsed;
             foreach (var item in replaceProducts)
             {
                 double totalPrice = item.ProductSale!.Product.SellPrice * item.Count;
