@@ -9,6 +9,7 @@ using SmartMarket.Desktop.Windows.PaymentWindow;
 using SmartMarket.Desktop.Windows.ProductsForWindow;
 using SmartMarket.Desktop.Windows.Sales;
 using SmartMarket.Desktop.Windows.Settings;
+using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
@@ -298,7 +299,7 @@ public partial class SalePage : Page
                })
                .Build();
 
-        _connection.On<List<List<FullProductDto>>>("ReceiveShipMents", (orders) =>
+        _connection.On<List<AddOrderDto>>("ReceiveShipMents", (orders) =>
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
@@ -316,18 +317,18 @@ public partial class SalePage : Page
         }
     }
 
-    private void DisplayOrdersInStackPanel(List<List<FullProductDto>> orderList)
+    private void DisplayOrdersInStackPanel(List<AddOrderDto> orderList)
     {
         stackPanelOrders.Children.Clear();
 
         foreach (var order in orderList)
         {
-            var totalSum = order.Sum(x => x.SellPrice * x.Count);
-            var firstName = order.FirstOrDefault()?.WorkerFirstName;
-            var lastName = order.FirstOrDefault()?.WorkerLastName;
+            //var totalSum = order.Sum(x => x.SellPrice * x.Count);
+            //var firstName = order.FirstOrDefault()?.WorkerFirstName;
+            //var lastName = order.FirstOrDefault()?.WorkerLastName;
 
             SendForComponent sendForComponent = new SendForComponent();
-            sendForComponent.SetValues(firstName, lastName, totalSum);
+           // sendForComponent.SetValues(firstName, lastName, totalSum);
             sendForComponent.BorderThickness = new Thickness(2);
             stackPanelOrders.Children.Add(sendForComponent);
         }
