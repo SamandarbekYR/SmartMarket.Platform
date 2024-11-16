@@ -83,6 +83,7 @@ public partial class InValidProductPage : Page
 
         if (invalidProducts.Count > 0)
         {
+            EmptyData.Visibility = Visibility.Collapsed;
             foreach (var item in invalidProducts)
             {
                 double totalPrice = item.ProductSale.Product.SellPrice * item.Count;

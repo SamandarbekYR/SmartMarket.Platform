@@ -105,6 +105,7 @@ public partial class ShopHIstoryPage : Page
 
         if (productSales.Count > 0)
         {
+            EmptyData.Visibility = Visibility.Collapsed;
             foreach (var item in productSales)
             {
                 ShopDetailsProductComponent shopDetailsProductComponent = new ShopDetailsProductComponent();

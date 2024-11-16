@@ -85,6 +85,7 @@ public partial class TopSalePage : Page
 
         if (groupedProducts.Count > 0)
         {
+            EmptyData.Visibility = Visibility.Collapsed;
             foreach (var item in groupedProducts)
             {
                 TopSaleComponent topSaleComponent = new TopSaleComponent();
