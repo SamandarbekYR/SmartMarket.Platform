@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
-
 using SmartMarket.Desktop.Tablet.Components;
 using SmartMarket.Desktop.Tablet.ViewModels.Transactions;
 using SmartMarket.Desktop.Tablet.Windows;
 using SmartMarket.Domain.Entities.Partners;
 using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Products.Product;
-using SmartMarket.Service.DTOs.Products.ProductSale;
-
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using System.Text.RegularExpressions;
 using System.Windows;

@@ -156,7 +156,7 @@ public partial class LoginWindow : Window
     private async void Window_Loaded(object sender, RoutedEventArgs e)
     {
         Loader.Visibility = Visibility.Collapsed;
-        await CheckForUpdates();
+        //await CheckForUpdates();
     }
 
     private async Task CheckForUpdates()
