@@ -191,7 +191,7 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Workers
             }
             catch
             {
-                return new WorkerDto();
+                return new WorkerDto(); 
             }
         }
     }
