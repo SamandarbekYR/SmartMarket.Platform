@@ -1,17 +1,16 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using SmartMarket.Domain.Entities.Orders;
 using SmartMarket.Domain.Entities.Products;
+using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Products.Product;
 
 namespace SmartMarket.Service.Hubs;
 
 public class ShipmentsHub : Hub
 {
-    private List<List<FullProductDto>> _orderList = new List<List<FullProductDto>>();
-    public async Task SendShipMents(List<FullProductDto> orders)
+    public async Task SendShipMents(AddOrderDto orders)
     {
-        _orderList.Add(orders);
-        await Clients.All.SendAsync("ReceiveShipMents", _orderList);
+        await Clients.All.SendAsync("ReceiveShipMents", orders);
     }
 
     public async Task SendNotification(string name, int count)
