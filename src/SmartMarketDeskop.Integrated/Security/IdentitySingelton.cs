@@ -21,4 +21,17 @@ public class IdentitySingelton
 
         return _identitySingelton;
     }
+
+    public void Reset()
+    {
+        Token = string.Empty;
+        Id = Guid.Empty;
+        PayDeskId = Guid.Empty;
+        PayDeskName = string.Empty;
+        PrinterName = string.Empty;
+        RoleName = string.Empty;
+        FirstName = string.Empty;
+        LastName = string.Empty;
+        PhoneNumber = string.Empty;
+    }
 }
