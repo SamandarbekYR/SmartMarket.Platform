@@ -62,45 +62,102 @@ public partial class ProductCreateWindow : Window
         cfg.Dispatcher = Application.Current.Dispatcher;
     });
 
+    Notifier notifierThis = new Notifier(cfg =>
+    {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
+            corner: Corner.TopRight,
+            offsetX: 200,
+            offsetY: 20);
+
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(3),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+    });
+
     private async void btnCreate_MouseDown(object sender, MouseButtonEventArgs e)
     {
         AddProductDto addProductDto = new AddProductDto();
 
-        addProductDto.BarCode = txtBarCode.Text;
-        addProductDto.Name = txtProductName.Text;
-
+        if (!string.IsNullOrWhiteSpace(txtBarCode.Text) &&
+            !string.IsNullOrEmpty(txtProductName.Text) &&
+            !string.IsNullOrWhiteSpace(txtQuantity.Text) &&
+            !string.IsNullOrWhiteSpace(txtPrice.Text) &&
+            !string.IsNullOrWhiteSpace(txtProductPriceSum.Text) &&
+            !string.IsNullOrWhiteSpace(comboMeasurement.Text) &&
+            !string.IsNullOrWhiteSpace(txtNoteAmount.Text))
         {
-            CategoryView categoryView = categories.Where(a => a.Name == comboCategory.SelectedValue).FirstOrDefault()!;
-            addProductDto.CategoryId = categoryView.Id;
-        }
+            addProductDto.BarCode = txtBarCode.Text;
+            addProductDto.Name = txtProductName.Text;
 
-        addProductDto.Count = int.Parse(txtQuantity.Text);
-        addProductDto.Price = double.Parse(txtPrice.Text);
-        addProductDto.SellPrice = double.Parse(txtProductPriceSum.Text);
+            if(comboCategory.SelectedValue != null)
+            {
+                CategoryView categoryView = categories.Where(a => a.Name == comboCategory.SelectedValue.ToString()).FirstOrDefault()!;
+                addProductDto.CategoryId = categoryView.Id;
+            }
+            else
+            {
+                notifierThis.ShowWarning("Kategoriya tanlanmagan.");
+                return;
+            }
 
-        addProductDto.UnitOfMeasure = comboMeasurement.Text;
-        {
-            ContrAgentViewModels contrAgentViewModels = contrAgents.Where(a => a.FirstName == comboDelivery.SelectedValue).FirstOrDefault()!;
-            addProductDto.ContrAgentId = contrAgentViewModels.Id;
-        }
+            if (!int.TryParse(txtQuantity.Text, out int quantity) || quantity <= 0 ||
+                !double.TryParse(txtPrice.Text, out double price) || price <= 0 ||
+                !double.TryParse(txtProductPriceSum.Text, out double sellPrice) || sellPrice <= 0)
+            {
+                notifierThis.ShowError("Mahsulot soni yoki narxi 0 bo'lmasligi kerak.");
+                return;
+            }
 
-        addProductDto.PaymentStatus = "Active";
-        addProductDto.NoteAmount = int.Parse(txtNoteAmount.Text);
-        bool result = await productService.CreateProduct(addProductDto);
-        if (result)
-        {
-            notifier.ShowSuccess("Maxsulot yaratildi.");
-            this.Close();
+            addProductDto.Count = quantity;
+            addProductDto.Price = price;
+            addProductDto.SellPrice = sellPrice;
+
+            if (comboCategory.SelectedValue != null)
+            {
+                CategoryView categoryView = categories.Where(a => a.Name == comboCategory.SelectedValue).FirstOrDefault()!;
+                addProductDto.CategoryId = categoryView.Id;
+            }
+            else
+            {
+                notifierThis.ShowWarning("Kategoriya tanlanmagan.");
+                return;
+            }
+
+            addProductDto.UnitOfMeasure = comboMeasurement.Text;
+            if (comboDelivery.SelectedValue != null)
+            {
+                ContrAgentViewModels contrAgentViewModels = contrAgents.Where(a => a.FirstName == comboDelivery.SelectedValue).FirstOrDefault()!;
+                addProductDto.ContrAgentId = contrAgentViewModels.Id;
+            }
+            else
+            {
+                notifierThis.ShowWarning("Yetkazib beruvchi tanlanmagan.");
+                return;
+            }
+
+            addProductDto.PaymentStatus = "Active";
+            addProductDto.NoteAmount = int.Parse(txtNoteAmount.Text);
+        
+            bool result = await productService.CreateProduct(addProductDto);
+            if (result)
+            {
+                this.Close();
+                notifier.ShowSuccess("Maxsulot yaratildi.");
+            }
+            else
+            {
+                notifier.ShowError("Maxsulot yaratishda xatolik maxjud.");
+            }
+
+            ProductImageDto productImageDto = new ProductImageDto();
+            productImageDto.ImagePath = imagepath;
         }
         else
-        {
-            notifier.ShowError("Maxsulot yaratishda xatolik maxjud.");
-            this.Close();
-        }
+            notifierThis.ShowWarning("Mahsulot malumotlari to'liq emas.");
 
-
-        ProductImageDto productImageDto = new ProductImageDto();
-        productImageDto.ImagePath = imagepath;
     }
 
     [DllImport("user32.dll")]

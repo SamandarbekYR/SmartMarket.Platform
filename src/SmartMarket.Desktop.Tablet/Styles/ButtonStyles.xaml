@@ -306,4 +306,55 @@
         </Setter>
     </Style>
 
+    <Style x:Key="btnLoginEyeVisible" TargetType="Button">
+        <Setter Property="Width" Value="25"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        Background="Transparent"
+                        BorderThickness="0"
+                        >
+                        <Path 
+                            x:Name="Icon" 
+                            Data="{DynamicResource showPasswordCros}"
+                            Fill="{DynamicResource BorderColor}"
+                            Height="16"
+                            Stretch="Uniform"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="btnLoginEyeDisVisible" TargetType="Button">
+        <Setter Property="Width" Value="25"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                        Background="Transparent"
+                        BorderThickness="0"
+                        >
+                        <Path 
+                            x:Name="Icon" 
+                            Data="{DynamicResource showPassword}"
+                            Fill="{DynamicResource BorderColor}"
+                            Height="16"
+                            Stretch="Uniform"/>
+                        
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

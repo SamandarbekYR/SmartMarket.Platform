@@ -1,6 +1,4 @@
-﻿using SmartMarket.Service.DTOs.Products.ProductSale;
-
-namespace SmartMarket.Service.DTOs.Order;
+﻿namespace SmartMarket.Service.DTOs.Order;
 
 public class AddOrderDto
 {

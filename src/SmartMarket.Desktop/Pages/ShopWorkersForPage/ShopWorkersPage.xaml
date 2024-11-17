@@ -130,36 +130,30 @@
 
                             <Label
                                 Style="{DynamicResource TitleLabel}"
-                                Name="lb_WorkerName"
-                                Content="Shodiyor"/>
+                                Name="lb_WorkerName"/>
                             <Label
                                 Style="{DynamicResource TitleLabel}"
-                                Name="lb_WorkerLastName"
-                                Content="Erqo'ziyev"/>
+                                Name="lb_WorkerLastName"/>
                             <Label
                                 Style="{DynamicResource TitleLabel}"
-                                Name="lb_Salary"
-                                Content="4 000 000"/>
+                                Name="lb_Salary"/>
                             <Label
                                 Style="{DynamicResource TitleLabel}"
-                                Name="lb_PhoneNumber"
-                                Content="917727005"/>
+                                Name="lb_PhoneNumber"/>
                             <Label
                                 FontSize="13"
                                 Style="{DynamicResource TitleLabel}"
-                                Name="lb_PaidPart"
-                                Content="400 000"/>
+                                Name="lb_PaidPart"/>
                             <Label
                                 FontSize="13"
                                 Style="{DynamicResource TitleLabel}"
-                                Name="lb_UnpaidPart"
-                                Content="3 600 000"/>
+                                Name="lb_UnpaidPart"/>
                         </StackPanel>
 
                     </Grid>
 
                     <Button
-                        Content="Saqlash"
+                        Content="Yangilash"
                         Click="UpdateWorker_Button_Click"
                         FontSize="16"
                         Style="{DynamicResource BtnSaveAccount}"

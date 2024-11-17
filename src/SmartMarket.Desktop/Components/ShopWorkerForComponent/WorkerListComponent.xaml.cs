@@ -1,4 +1,5 @@
-﻿using SmartMarket.Desktop.Pages.ShopWorkersForPage;
+﻿using MaterialDesignThemes.Wpf;
+using SmartMarket.Desktop.Pages.ShopWorkersForPage;
 using SmartMarket.Desktop.Windows.AccountSettings;
 using SmartMarket.Service.DTOs.Workers.Worker;
 using System.Windows;
@@ -26,6 +27,10 @@ public partial class WorkerListComponent : UserControl
         if (page is ShopWorkersPage shopWorkerPage)
         {
             shopWorkerPage.SelectWorker(this, worker);
+            CollectedCargoDetailsPage cargoDetailsPage = new CollectedCargoDetailsPage();
+            cargoDetailsPage.SelectLoadReportsByWorker(this, worker);
+            shopWorkerPage.CollectedCargoPageNavigator.Content = cargoDetailsPage;
+
             WorkerSoldProductPage workerSoldProductPage = new WorkerSoldProductPage();
             workerSoldProductPage.SelectWorkerProductSold(this, worker); 
             shopWorkerPage.WorkerSoldProductPageNavigator.Content = workerSoldProductPage;

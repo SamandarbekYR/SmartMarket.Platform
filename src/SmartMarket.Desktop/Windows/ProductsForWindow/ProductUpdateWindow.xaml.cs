@@ -90,6 +90,21 @@ public partial class ProductUpdateWindow : Window
         cfg.Dispatcher = Application.Current.Dispatcher;
     });
 
+    Notifier notifierThis = new Notifier(cfg =>
+    {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
+            corner: Corner.TopRight,
+            offsetX: 200,
+            offsetY: 20);
+
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(3),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+    });
+
     public void SetData(S.FullProductDto product)
     {
         productId = product.Id;
@@ -110,42 +125,72 @@ public partial class ProductUpdateWindow : Window
     {
         AddProductDto addProductDto = new AddProductDto();
 
+        if (!string.IsNullOrWhiteSpace(txtBarCode.Text) &&
+            !string.IsNullOrEmpty(txtProductName.Text) &&
+            !string.IsNullOrWhiteSpace(txtQuantity.Text) &&
+            !string.IsNullOrWhiteSpace(txtPrice.Text) &&
+            !string.IsNullOrWhiteSpace(txtProductPriceSum.Text) &&
+            !string.IsNullOrWhiteSpace(comboMeasurement.Text) &&
+            !string.IsNullOrWhiteSpace(txtNoteAmount.Text))
+        {
             addProductDto.BarCode = txtBarCode.Text;
             addProductDto.Name = txtProductName.Text;
 
-        {
-            CategoryView categoryView = categories.Where(a => a.Name == comboCategory.SelectedValue.ToString()).FirstOrDefault()!;
-            addProductDto.CategoryId = categoryView.Id;
-        }
+            if (comboCategory.SelectedValue != null)
+            {
+                CategoryView categoryView = categories.Where(a => a.Name == comboCategory.SelectedValue.ToString()).FirstOrDefault()!;
+                addProductDto.CategoryId = categoryView.Id;
+            }
+            else
+            {
+                notifierThis.ShowWarning("Kategoriya tanlanmagan.");
+                return;
+            }
 
-        addProductDto.Count = int.Parse(txtQuantity.Text);
-        addProductDto.Price = double.Parse(txtPrice.Text);
-        addProductDto.SellPrice = double.Parse(txtProductPriceSum.Text);
+            if (!int.TryParse(txtQuantity.Text, out int quantity) || quantity <= 0 ||
+                !double.TryParse(txtPrice.Text, out double price) || price <= 0 ||
+                !double.TryParse(txtProductPriceSum.Text, out double sellPrice) || sellPrice <= 0)
+            {
+                notifierThis.ShowError("Mahsulot soni yoki narxi 0 bo'lmasligi kerak.");
+                return;
+            }
 
-        addProductDto.UnitOfMeasure = comboMeasurement.Text;
-        {
-            ContrAgentViewModels contrAgentViewModels = contrAgents.Where(a => a.FirstName == comboDelivery.SelectedValue).FirstOrDefault()!;
-            addProductDto.ContrAgentId = contrAgentViewModels.Id;
-        }
+            addProductDto.Count = quantity;
+            addProductDto.Price = price;
+            addProductDto.SellPrice = sellPrice;
 
-        addProductDto.WorkerId = workerId;
-        addProductDto.PaymentStatus = "Active";
-        addProductDto.NoteAmount = int.Parse(txtNoteAmount.Text);
-        var res = await Task.Run(async () => await productService.UpdateProduct(addProductDto, productId));
+            addProductDto.UnitOfMeasure = comboMeasurement.Text;
+            if (comboDelivery.SelectedValue != null)
+            {
+                ContrAgentViewModels contrAgentViewModels = contrAgents.Where(a => a.FirstName == comboDelivery.SelectedValue).FirstOrDefault()!;
+                addProductDto.ContrAgentId = contrAgentViewModels.Id;
+            }
+            else
+            {
+                notifierThis.ShowWarning("Yetkazib beruvchi tanlanmagan");
+                return;
+            }
 
+            addProductDto.WorkerId = workerId;
+            addProductDto.PaymentStatus = "Active";
+            addProductDto.NoteAmount = int.Parse(txtNoteAmount.Text);
+            var res = await Task.Run(async () => await productService.UpdateProduct(addProductDto, productId));
 
-        ProductImageDto productImageDto = new ProductImageDto();
-        productImageDto.ImagePath = imagepath;
+            ProductImageDto productImageDto = new ProductImageDto();
+            productImageDto.ImagePath = imagepath;
 
-        if (res)
-        {
-            this.Close();
-            notifier.ShowInformation("Mahsulot muvaffaqiyatli o'zgartirildi.");
+            if (res)
+            {
+                this.Close();
+                notifier.ShowInformation("Mahsulot muvaffaqiyatli o'zgartirildi.");
+            }
+            else
+            {
+                notifier.ShowError("Mahsulot yaratishda xato yuz berdi.");
+            }
         }
         else
-        {
-            notifier.ShowError("Mahsulot yaratishda xato yuz berdi.");
-        }
+            notifierThis.ShowError("Mahsulot malumotlari to'liq emas.");
     }
 
     private void btnClear_MouseDown(object sender, MouseButtonEventArgs e)

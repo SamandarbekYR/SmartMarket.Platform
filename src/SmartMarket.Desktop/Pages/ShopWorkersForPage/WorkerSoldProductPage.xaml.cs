@@ -62,6 +62,7 @@ public partial class WorkerSoldProductPage : Page
         else
         {
             EmptyDataWorkerSoldProduct.Visibility = Visibility.Visible;
+            EmptyDataWorkerSoldProduct.Content = "Ma'lumot topilmadi.";
         }
     }
 
@@ -97,6 +98,7 @@ public partial class WorkerSoldProductPage : Page
         else
         {
             EmptyDataWorkerSoldProduct.Visibility = Visibility.Visible;
+            EmptyDataWorkerSoldProduct.Content = "Ma'lumot topilmadi";
         }
     }
 

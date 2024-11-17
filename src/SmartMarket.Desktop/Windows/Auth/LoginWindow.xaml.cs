@@ -110,13 +110,13 @@ public partial class LoginWindow : Window
                     }
                     else
                     {
-                        //SimpleAdminWindow window = new SimpleAdminWindow();
-                        //this.Close();
-                        //window.ShowDialog();
-
-                        MainWindow window = new MainWindow();
+                        SimpleAdminWindow window = new SimpleAdminWindow();
                         this.Close();
                         window.ShowDialog();
+
+                        //MainWindow window = new MainWindow();
+                        //this.Close();
+                        //window.ShowDialog();
                     }
                 }
                 else
@@ -130,7 +130,6 @@ public partial class LoginWindow : Window
             {
                 notifier.ShowWarning("Internetingizni tekshiring.");
             }
-           // notifier.Dispose();
         }
         catch 
         {
