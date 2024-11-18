@@ -20,7 +20,8 @@ public class OrderRepository : Repository<Order>, IOrder
     {
         return await _orders
                 .Include(sr => sr.Worker)
-                .Include(sr => sr.ProductSaleItems)
+                .Include(sr => sr.Partner)
+                .Include(sr => sr.ProductOrderItems)
                     .ThenInclude(ps => ps.Product)
                         .ThenInclude(p => p.Category)
                 .ToListAsync();
