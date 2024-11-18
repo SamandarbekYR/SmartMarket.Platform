@@ -3,6 +3,7 @@ using SmartMarket.Desktop.Components.SaleForComponent;
 using SmartMarket.Desktop.Components.ShopDetailsForComponent;
 using SmartMarket.Desktop.ViewModels.Transactions;
 using SmartMarket.Desktop.Windows;
+using SmartMarket.Desktop.Windows.Auth;
 using SmartMarket.Desktop.Windows.Expenses;
 using SmartMarket.Desktop.Windows.Partners;
 using SmartMarket.Desktop.Windows.PaymentWindow;
@@ -379,7 +380,14 @@ public partial class SalePage : Page
 
     private void Log_Out_Click(object sender, RoutedEventArgs e)
     {
+        IdentitySingelton.GetInstance().Reset();
 
+        LoginWindow login = new LoginWindow();
+        login.Show();
+
+        Window currentWindow = Window.GetWindow(this);
+        if(currentWindow != null) 
+            currentWindow.Close();
     }
 
     private SaleProductForComponent selectedControl = null!;

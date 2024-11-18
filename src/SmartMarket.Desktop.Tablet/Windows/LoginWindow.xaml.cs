@@ -2,6 +2,7 @@
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Services.Auth;
 using SmartMarketDesktop.DTOs.DTOs.Auth;
+using Squirrel;
 using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Input;
@@ -112,7 +113,6 @@ public partial class LoginWindow : Window
             {
                 notifier.ShowWarning("Internetingizni tekshiring.");
             }
-            // notifier.Dispose();
         }
         catch
         {
@@ -120,9 +120,23 @@ public partial class LoginWindow : Window
         }
     }
 
-    private void Window_Loaded(object sender, RoutedEventArgs e)
+    private async void Window_Loaded(object sender, RoutedEventArgs e)
     {
         Loader.Visibility = Visibility.Collapsed;
+        //await CheckForUpdates();
+    }
+
+    private async Task CheckForUpdates()
+    {
+        using (var updateManager = await UpdateManager.GitHubUpdateManager("https://github.com/SamandarbekYR/SmartMarket.Platform"))
+        {
+            var updateResult = await updateManager.UpdateApp();
+
+            if (updateResult != null)
+            {
+                UpdateManager.RestartApp();
+            }
+        }
     }
 
     private void btnVisible_Click(object sender, RoutedEventArgs e)

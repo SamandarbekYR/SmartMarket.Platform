@@ -111,7 +111,7 @@
             <TextBlock
                   
                   Grid.Column="1"
-                  Text="Barcode"
+                  Text="Transaction №"
                   VerticalAlignment="Center"
                   FontSize="13"
                   Foreground="{DynamicResource BorderColor}"
