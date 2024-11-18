@@ -9,17 +9,9 @@ namespace SmartMarket.Service.Hubs;
 
 public class ShipmentsHub : Hub
 {
-    private readonly IOrderService _orderService;
-
-    public ShipmentsHub(IOrderService orderService)
+    public async Task SendShipMents(string message)
     {
-        _orderService = orderService;
-    }
-
-    public async Task SendShipMents(AddOrderDto dto)
-    {
-        var orders = await _orderService.GetAllAsync();
-        await Clients.All.SendAsync("ReceiveShipMents", orders);
+        await Clients.All.SendAsync("ReceiveShipMents", message);
     }
 
     public async Task SendNotification(string name, int count)

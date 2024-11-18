@@ -33,7 +33,7 @@ public partial class MainPage : Page
 {
     private readonly IProductService _productService;
     private readonly IOrderService _orderService;
-   /// private HubConnection _connection;
+    private HubConnection _connection;
     public Partner Partner { get; set; }
     TransactionViewModel tvm;
     List<AddOrderProductDto> orderProducts;
@@ -278,26 +278,26 @@ public partial class MainPage : Page
     {
         st_product.Focus();
 
-        //_connection = new HubConnectionBuilder()
-        //        .WithUrl("https://localhost:7055/ShipmentsHub", options =>
-        //        {
-        //            options.HttpMessageHandlerFactory = _ => new System.Net.Http.HttpClientHandler
-        //            {
-        //                ServerCertificateCustomValidationCallback = System.Net.Http.HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-        //            };
-        //        })
-        //        .Build();
+        _connection = new HubConnectionBuilder()
+                .WithUrl("https://localhost:7055/ShipmentsHub", options =>
+                {
+                    options.HttpMessageHandlerFactory = _ => new System.Net.Http.HttpClientHandler
+                    {
+                        ServerCertificateCustomValidationCallback = System.Net.Http.HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                    };
+                })
+                .Build();
 
-        //try
-        //{
-        //    await _connection.StartAsync();
-        //    notifier.ShowSuccess("SignalR ulanish o'rnatildi.");
-        //}
-        //catch 
-        //{
-        //    notifier.ShowError("SignalR ulanishda xato: ");
-        //}
-            
+        try
+        {
+            await _connection.StartAsync();
+            notifier.ShowSuccess("SignalR ulanish o'rnatildi.");
+        }
+        catch
+        {
+            notifier.ShowError("SignalR ulanishda xato: ");
+        }
+
     }
 
     private async void Send_Button_Click(object sender, RoutedEventArgs e)
@@ -306,7 +306,6 @@ public partial class MainPage : Page
         AddOrderDto addOrderDto = new AddOrderDto()
         {
             PartnerId = Partner.Id,
-            //WorkerId = Guid.Parse("2b9fdca0-30ff-4f8e-9644-aee79943cf26"),
             WorkerId = identity.Id,
             ProductOrderItems = orderProducts,
         };
@@ -316,7 +315,7 @@ public partial class MainPage : Page
             try
             {
                 await _orderService.CreateAsync(addOrderDto);
-                //await _connection.InvokeAsync("SendShipMents", addOrderDto);
+                await _connection.InvokeAsync("SendShipMents", "SignalR");
 
                 notifier.ShowSuccess("Mahsulotlar muvaffaqiyatli yuborildi.");
                 st_product.Children.Clear();
