@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using SmartMarket.Desktop.Components.SaleForComponent;
-using SmartMarket.Desktop.Components.ShopDetailsForComponent;
 using SmartMarket.Desktop.ViewModels.Transactions;
 using SmartMarket.Desktop.Windows;
 using SmartMarket.Desktop.Windows.Auth;
