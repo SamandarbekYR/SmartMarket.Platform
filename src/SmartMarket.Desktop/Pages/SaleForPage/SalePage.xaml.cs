@@ -45,6 +45,7 @@ public partial class SalePage : Page
     private System.Timers.Timer timer = new System.Timers.Timer();
     private DispatcherTimer time;
     TransactionViewModel tvm;
+    private DispatcherTimer _refreshTimer;
 
     int activeTextboxIndex = 2;
     int productCount = 1;
@@ -59,6 +60,7 @@ public partial class SalePage : Page
     public SalePage()
     {
         InitializeComponent();
+        InitializeOrderRefreshTimer();
         this.tvm = new TransactionViewModel();
         this._orderService = new OrderService();
         this._productService = new ProductService();
@@ -291,34 +293,45 @@ public partial class SalePage : Page
         St_product.Focus();
     }
 
-    private async void InitializeSignalRConnection()
+   /* private async void InitializeSignalRConnection()
     {
-        //_connection = new HubConnectionBuilder()
-        //       .WithUrl("https://localhost:7055/ShipmentsHub", options =>
-        //       {
-        //           options.HttpMessageHandlerFactory = _ => new System.Net.Http.HttpClientHandler
-        //           {
-        //               ServerCertificateCustomValidationCallback = System.Net.Http.HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-        //           };
-        //       })
-        //       .Build();
+        _connection = new HubConnectionBuilder()
+               .WithUrl("https://localhost:7055/ShipmentsHub", options =>
+               {
+                   options.HttpMessageHandlerFactory = _ => new System.Net.Http.HttpClientHandler
+                   {
+                       ServerCertificateCustomValidationCallback = System.Net.Http.HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                   };
+               })
+               .Build();
 
-        //_connection.On<List<OrderDto>>("ReceiveShipMents", (orders) =>
-        //{
-        //    Application.Current.Dispatcher.Invoke(() =>
-        //    {
-        //        DisplayOrdersInStackPanel(orders); 
-        //    });
-        //});
+        _connection.On<List<OrderDto>>("ReceiveShipMents", (orders) =>
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                DisplayOrdersInStackPanel(orders);
+            });
+        });
 
-        //try
-        //{
-        //    await _connection.StartAsync();
-        //}
-        //catch (Exception ex) 
-        //{
-        //    notifier.ShowWarning("Ulanishda xotolik mavjud!");
-        //}
+        try
+        {
+            await _connection.StartAsync();
+        }
+        catch (Exception ex)
+        {
+            notifier.ShowWarning("Ulanishda xotolik mavjud!");
+        }
+    }
+   */
+
+    private void InitializeOrderRefreshTimer()
+    {
+        _refreshTimer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromMinutes(3) 
+        };
+        _refreshTimer.Tick += (s, e) => DisplayOrdersInStackPanel();
+        _refreshTimer.Start();
     }
 
     private async void DisplayOrdersInStackPanel()

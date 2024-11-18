@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 
+using Newtonsoft.Json.Linq;
+
 using SmartMarket.Desktop.Tablet.Components;
 using SmartMarket.Desktop.Tablet.ViewModels.Transactions;
 using SmartMarket.Desktop.Tablet.Windows;
@@ -8,6 +10,7 @@ using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 
+using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Services.Orders;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using System.Text.RegularExpressions;
@@ -299,10 +302,12 @@ public partial class MainPage : Page
 
     private async void Send_Button_Click(object sender, RoutedEventArgs e)
     {
+        var identity = IdentitySingelton.GetInstance();;
         AddOrderDto addOrderDto = new AddOrderDto()
         {
             PartnerId = Partner.Id,
-            WorkerId = Guid.Parse("2b9fdca0-30ff-4f8e-9644-aee79943cf26"),
+            //WorkerId = Guid.Parse("2b9fdca0-30ff-4f8e-9644-aee79943cf26"),
+            WorkerId = identity.Id,
             ProductOrderItems = orderProducts,
         };
 
@@ -314,6 +319,7 @@ public partial class MainPage : Page
                 //await _connection.InvokeAsync("SendShipMents", addOrderDto);
 
                 notifier.ShowSuccess("Mahsulotlar muvaffaqiyatli yuborildi.");
+                st_product.Children.Clear();
             }
             catch (Exception ex)
             {
