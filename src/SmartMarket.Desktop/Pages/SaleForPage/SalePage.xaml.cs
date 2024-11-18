@@ -15,6 +15,7 @@ using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarketDeskop.Integrated.Security;
+using SmartMarketDeskop.Integrated.Services.Orders;
 using SmartMarketDeskop.Integrated.Services.Products.Print;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
@@ -38,8 +39,9 @@ namespace SmartMarket.Desktop.Pages.SaleForPage;
 public partial class SalePage : Page
 {
     private readonly IProductService _productService;
+    private readonly IOrderService _orderService;
     private readonly ISalesRequestsService _salesRequestsService;
-    private HubConnection _connection;
+   // private HubConnection _connection;
 
     private System.Timers.Timer timer = new System.Timers.Timer();
     private DispatcherTimer time;
@@ -59,6 +61,7 @@ public partial class SalePage : Page
     {
         InitializeComponent();
         this.tvm = new TransactionViewModel();
+        this._orderService = new OrderService();
         this._productService = new ProductService();
         this._salesRequestsService = new SalesRequestService();
 
@@ -269,7 +272,8 @@ public partial class SalePage : Page
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
 
-        InitializeSignalRConnection();
+        // InitializeSignalRConnection();
+        DisplayOrdersInStackPanel();
         var payDeskId = Properties.Settings.Default.PayDesk;
         if (string.IsNullOrEmpty(payDeskId))
         {
@@ -290,46 +294,48 @@ public partial class SalePage : Page
 
     private async void InitializeSignalRConnection()
     {
-        _connection = new HubConnectionBuilder()
-               .WithUrl("https://localhost:7055/ShipmentsHub", options =>
-               {
-                   options.HttpMessageHandlerFactory = _ => new System.Net.Http.HttpClientHandler
-                   {
-                       ServerCertificateCustomValidationCallback = System.Net.Http.HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-                   };
-               })
-               .Build();
+        //_connection = new HubConnectionBuilder()
+        //       .WithUrl("https://localhost:7055/ShipmentsHub", options =>
+        //       {
+        //           options.HttpMessageHandlerFactory = _ => new System.Net.Http.HttpClientHandler
+        //           {
+        //               ServerCertificateCustomValidationCallback = System.Net.Http.HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+        //           };
+        //       })
+        //       .Build();
 
-        _connection.On<List<AddOrderDto>>("ReceiveShipMents", (orders) =>
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                DisplayOrdersInStackPanel(orders); 
-            });
-        });
+        //_connection.On<List<OrderDto>>("ReceiveShipMents", (orders) =>
+        //{
+        //    Application.Current.Dispatcher.Invoke(() =>
+        //    {
+        //        DisplayOrdersInStackPanel(orders); 
+        //    });
+        //});
 
-        try
-        {
-            await _connection.StartAsync();
-        }
-        catch 
-        {
-            notifier.ShowWarning("Ulanishda xotolik mavjud!");
-        }
+        //try
+        //{
+        //    await _connection.StartAsync();
+        //}
+        //catch (Exception ex) 
+        //{
+        //    notifier.ShowWarning("Ulanishda xotolik mavjud!");
+        //}
     }
 
-    private void DisplayOrdersInStackPanel(List<AddOrderDto> orderList)
+    private async void DisplayOrdersInStackPanel()
     {
+        var orders = await _orderService.GetAllAsync();
+
         stackPanelOrders.Children.Clear();
 
-        foreach (var order in orderList)
+        foreach (var order in orders)
         {
-            //var totalSum = order.Sum(x => x.SellPrice * x.Count);
-            //var firstName = order.FirstOrDefault()?.WorkerFirstName;
-            //var lastName = order.FirstOrDefault()?.WorkerLastName;
+            var totalSum = order.ProductOrderItems.Sum(x => x.Product.SellPrice * x.Count);
+            var firstName = order.Partner.FirstName;
+            var lastName = order.Partner.LastName;
 
             SendForComponent sendForComponent = new SendForComponent();
-           // sendForComponent.SetValues(firstName, lastName, totalSum);
+            sendForComponent.SetValues(firstName, lastName, totalSum);
             sendForComponent.BorderThickness = new Thickness(2);
             stackPanelOrders.Children.Add(sendForComponent);
         }
