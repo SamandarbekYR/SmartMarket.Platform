@@ -1,10 +1,18 @@
-﻿namespace SmartMarket.Service.DTOs.Order;
+﻿using SmartMarket.Domain.Entities.Orders;
+using SmartMarket.Domain.Entities.Workers;
+using Et = SmartMarket.Domain.Entities.Partners;
+
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SmartMarket.Service.DTOs.Order;
 
 public class OrderDto
 {
     public Guid Id { get; set; }
+    public long TransactionId { get; set; }
     public Guid WorkerId { get; set; }
-    public Guid ProductId { get; set; }
-    public string TransactionNumber { get; set; } = string.Empty;
-    public int Count { get; set; }
+    public Worker Worker { get; set; }
+    public Guid PartnerId { get; set; }
+    public Et.Partner Partner { get; set; }
+    public List<OrderProduct> ProductOrderItems { get; set; }
 }

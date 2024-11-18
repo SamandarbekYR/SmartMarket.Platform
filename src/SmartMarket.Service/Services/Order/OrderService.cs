@@ -11,6 +11,7 @@ using System.Net;
 using SmartMarket.Service.Common.Utils;
 using SmartMarket.Service.Common.Extentions;
 using Microsoft.Extensions.Logging;
+using SmartMarket.Domain.Entities.Products;
 
 namespace SmartMarket.Service.Services.Order
 {
@@ -47,6 +48,35 @@ namespace SmartMarket.Service.Services.Order
                 }
 
                 var order = _mapper.Map<Et.Order>(dto);
+
+                int count = 0;
+                foreach (var productItem in order.ProductOrderItems)
+                {
+                    var product = await _unitOfWork.Product.GetById(productItem.ProductId);
+                    if (product == null)
+                    {
+                        throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
+                    }
+
+                    if (product.Count < productItem.Count)
+                    {
+                        throw new StatusCodeException(HttpStatusCode.BadRequest, "Insufficient product count.");
+                    }
+
+                    product.Count -= productItem.Count;
+
+                    var result = await _unitOfWork.Product.Update(product);
+                    if (!result)
+                    {
+                        count++;
+                    }
+                }
+
+                if (count > 0)
+                {
+                    throw new StatusCodeException(HttpStatusCode.BadRequest, "Error updating product count.");
+                }
+
                 return await _unitOfWork.Order.Add(order);
             }
             catch (Exception ex)

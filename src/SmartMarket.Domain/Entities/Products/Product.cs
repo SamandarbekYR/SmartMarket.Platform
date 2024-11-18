@@ -44,6 +44,5 @@ namespace SmartMarket.Domain.Entities.Products
         public List<ProductSale> ProductSale { get; set; }
         public List<Debtors> Debtors { get; set; }
         public List<LoadReport> LoadReport { get; set; }
-        public List<Order> Order { get; set; }
     }
 }

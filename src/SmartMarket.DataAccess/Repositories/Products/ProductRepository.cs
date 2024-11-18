@@ -28,7 +28,6 @@ public class ProductRepository : Repository<Product>, IProduct
             .Include(p => p.ProductSale) 
             .Include(p => p.Debtors) 
             .Include(p => p.LoadReport) 
-            .Include(p => p.Order) 
             .ToListAsync();
     }
     public IQueryable<Product> GetAllProductsFullInformation()
@@ -40,8 +39,7 @@ public class ProductRepository : Repository<Product>, IProduct
             .Include(p => p.ProductImages)
             .Include(p => p.ProductSale)
             .Include(p => p.Debtors)
-            .Include(p => p.LoadReport)
-            .Include(p => p.Order);
+            .Include(p => p.LoadReport);
     }
     public IQueryable<Product> GetProductsWithRequiredInformationAsync()
     {

@@ -49,34 +49,6 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
 
                 var salesRequest = _mapper.Map<SR.SalesRequest>(dto);
                 salesRequest.CreatedDate = DateTime.UtcNow;
-               
-                int count = 0;
-                foreach (var productItem in salesRequest.ProductSaleItems)
-                {
-                    var product = await _unitOfWork.Product.GetById(productItem.ProductId);
-                    if (product == null)
-                    {
-                        throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
-                    }
-
-                    if (product.Count < productItem.Count)
-                    {
-                        throw new StatusCodeException(HttpStatusCode.BadRequest, "Insufficient product count.");
-                    }
-
-                    product.Count -= productItem.Count;
-
-                    var result = await _unitOfWork.Product.Update(product);
-                    if (!result)
-                    {
-                        count++;
-                    }
-                }
-                
-                if (count > 0)
-                {
-                    throw new StatusCodeException(HttpStatusCode.BadRequest, "Error updating product count.");
-                }
 
                 await _unitOfWork.SalesRequest.Add(salesRequest);
 

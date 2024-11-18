@@ -14,6 +14,8 @@ using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarketDeskop.Integrated.Security;
+using SmartMarketDeskop.Integrated.Services.Orders;
+using SmartMarketDeskop.Integrated.Services.Products.Print;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
@@ -36,6 +38,7 @@ namespace SmartMarket.Desktop.Pages.SaleForPage;
 public partial class SalePage : Page
 {
     private readonly IProductService _productService;
+    private readonly IOrderService _orderService;
     private readonly ISalesRequestsService _salesRequestsService;
     private HubConnection _connection;
 
@@ -57,6 +60,7 @@ public partial class SalePage : Page
     {
         InitializeComponent();
         this.tvm = new TransactionViewModel();
+        this._orderService = new OrderService();
         this._productService = new ProductService();
         this._salesRequestsService = new SalesRequestService();
 
@@ -268,6 +272,7 @@ public partial class SalePage : Page
     {
 
         InitializeSignalRConnection();
+        DisplayOrdersInStackPanel();
         var payDeskId = Properties.Settings.Default.PayDesk;
         if (string.IsNullOrEmpty(payDeskId))
         {
@@ -298,11 +303,11 @@ public partial class SalePage : Page
                })
                .Build();
 
-        _connection.On<List<AddOrderDto>>("ReceiveShipMents", (orders) =>
+        _connection.On<string>("ReceiveShipMents", (message) =>
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                DisplayOrdersInStackPanel(orders); 
+                DisplayOrdersInStackPanel();
             });
         });
 
@@ -315,19 +320,21 @@ public partial class SalePage : Page
             notifier.ShowWarning("Ulanishda xotolik mavjud!");
         }
     }
-
-    private void DisplayOrdersInStackPanel(List<AddOrderDto> orderList)
+   
+    private async void DisplayOrdersInStackPanel()
     {
+        var orders = await _orderService.GetAllAsync();
+
         stackPanelOrders.Children.Clear();
 
-        foreach (var order in orderList)
+        foreach (var order in orders)
         {
-            //var totalSum = order.Sum(x => x.SellPrice * x.Count);
-            //var firstName = order.FirstOrDefault()?.WorkerFirstName;
-            //var lastName = order.FirstOrDefault()?.WorkerLastName;
+            var totalSum = order.ProductOrderItems.Sum(x => x.Product.SellPrice * x.Count);
+            var firstName = order.Partner.FirstName;
+            var lastName = order.Partner.LastName;
 
             SendForComponent sendForComponent = new SendForComponent();
-           // sendForComponent.SetValues(firstName, lastName, totalSum);
+            sendForComponent.SetValues(firstName, lastName, totalSum);
             sendForComponent.BorderThickness = new Thickness(2);
             stackPanelOrders.Children.Add(sendForComponent);
         }

@@ -1,10 +1,17 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
+
+using Newtonsoft.Json.Linq;
+
 using SmartMarket.Desktop.Tablet.Components;
 using SmartMarket.Desktop.Tablet.ViewModels.Transactions;
 using SmartMarket.Desktop.Tablet.Windows;
 using SmartMarket.Domain.Entities.Partners;
 using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Products.Product;
+using SmartMarket.Service.DTOs.Products.ProductSale;
+
+using SmartMarketDeskop.Integrated.Security;
+using SmartMarketDeskop.Integrated.Services.Orders;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -25,6 +32,7 @@ namespace SmartMarket.Desktop.Tablet.Pages;
 public partial class MainPage : Page
 {
     private readonly IProductService _productService;
+    private readonly IOrderService _orderService;
     private HubConnection _connection;
     public Partner Partner { get; set; }
     TransactionViewModel tvm;
@@ -40,6 +48,7 @@ public partial class MainPage : Page
     {
         InitializeComponent();
         this._productService = new ProductService();
+        this._orderService = new OrderService();
         this.tvm = new TransactionViewModel();
         this.orderProducts = new List<AddOrderProductDto>();
 
@@ -284,19 +293,20 @@ public partial class MainPage : Page
             await _connection.StartAsync();
             notifier.ShowSuccess("SignalR ulanish o'rnatildi.");
         }
-        catch 
+        catch
         {
             notifier.ShowError("SignalR ulanishda xato: ");
         }
-            
+
     }
 
     private async void Send_Button_Click(object sender, RoutedEventArgs e)
     {
+        var identity = IdentitySingelton.GetInstance();;
         AddOrderDto addOrderDto = new AddOrderDto()
         {
             PartnerId = Partner.Id,
-            WorkerId = Guid.Parse("b543c16e-7bc6-4310-8f7b-54bf7fab1fe5"),
+            WorkerId = identity.Id,
             ProductOrderItems = orderProducts,
         };
 
@@ -304,11 +314,13 @@ public partial class MainPage : Page
         {
             try
             {
-                await _connection.InvokeAsync("SendShipMents", addOrderDto);
+                await _orderService.CreateAsync(addOrderDto);
+                await _connection.InvokeAsync("SendShipMents", "SignalR");
 
                 notifier.ShowSuccess("Mahsulotlar muvaffaqiyatli yuborildi.");
+                st_product.Children.Clear();
             }
-            catch 
+            catch (Exception ex)
             {
                 notifier.ShowError($"Mahsulotlarni yuborishda xato");
             }
