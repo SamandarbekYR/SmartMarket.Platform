@@ -41,12 +41,11 @@ public partial class SalePage : Page
     private readonly IProductService _productService;
     private readonly IOrderService _orderService;
     private readonly ISalesRequestsService _salesRequestsService;
-   // private HubConnection _connection;
+    private HubConnection _connection;
 
     private System.Timers.Timer timer = new System.Timers.Timer();
     private DispatcherTimer time;
     TransactionViewModel tvm;
-    private DispatcherTimer _refreshTimer;
 
     int activeTextboxIndex = 2;
     int productCount = 1;
@@ -61,7 +60,6 @@ public partial class SalePage : Page
     public SalePage()
     {
         InitializeComponent();
-        InitializeOrderRefreshTimer();
         this.tvm = new TransactionViewModel();
         this._orderService = new OrderService();
         this._productService = new ProductService();
@@ -274,7 +272,7 @@ public partial class SalePage : Page
     private void Page_Loaded(object sender, RoutedEventArgs e)
     {
 
-        // InitializeSignalRConnection();
+        InitializeSignalRConnection();
         DisplayOrdersInStackPanel();
         var payDeskId = Properties.Settings.Default.PayDesk;
         if (string.IsNullOrEmpty(payDeskId))
@@ -294,7 +292,7 @@ public partial class SalePage : Page
         St_product.Focus();
     }
 
-   /* private async void InitializeSignalRConnection()
+    private async void InitializeSignalRConnection()
     {
         _connection = new HubConnectionBuilder()
                .WithUrl("https://localhost:7055/ShipmentsHub", options =>
@@ -306,11 +304,11 @@ public partial class SalePage : Page
                })
                .Build();
 
-        _connection.On<List<OrderDto>>("ReceiveShipMents", (orders) =>
+        _connection.On<string>("ReceiveShipMents", (message) =>
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                DisplayOrdersInStackPanel(orders);
+                DisplayOrdersInStackPanel();
             });
         });
 
@@ -318,23 +316,12 @@ public partial class SalePage : Page
         {
             await _connection.StartAsync();
         }
-        catch (Exception ex)
+        catch 
         {
             notifier.ShowWarning("Ulanishda xotolik mavjud!");
         }
     }
-   */
-
-    private void InitializeOrderRefreshTimer()
-    {
-        _refreshTimer = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromMinutes(3) 
-        };
-        _refreshTimer.Tick += (s, e) => DisplayOrdersInStackPanel();
-        _refreshTimer.Start();
-    }
-
+   
     private async void DisplayOrdersInStackPanel()
     {
         var orders = await _orderService.GetAllAsync();
