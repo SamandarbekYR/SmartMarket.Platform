@@ -333,10 +333,9 @@ public partial class SalePage : Page
             var firstName = order.Partner.FirstName;
             var lastName = order.Partner.LastName;
 
-            SendForComponent sendForComponent = new SendForComponent();
-            sendForComponent.SetValues(firstName, lastName, totalSum);
-            sendForComponent.BorderThickness = new Thickness(2);
-            stackPanelOrders.Children.Add(sendForComponent);
+            ShipmentComponent shipmentComponent = new ShipmentComponent();
+            shipmentComponent.SetData(firstName, lastName, totalSum);
+            stackPanelOrders.Children.Add(shipmentComponent);
         }
     }
 

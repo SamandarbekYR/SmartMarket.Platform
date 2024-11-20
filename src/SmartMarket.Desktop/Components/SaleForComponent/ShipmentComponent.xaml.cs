@@ -11,4 +11,10 @@ public partial class ShipmentComponent : UserControl
     {
         InitializeComponent();
     }
+
+    public void SetData(string firstName, string lastName, double totalSum)
+    {
+        lbFullName.Content = firstName + " " + lastName;
+        lbTotalSum.Content = totalSum.ToString();
+    }
 }

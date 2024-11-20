@@ -16,11 +16,12 @@
                 <ColumnDefinition Width="60"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Path Grid.Column="0"
-               Data="{DynamicResource user}"
-               Stretch="Uniform"
-               Fill="Black"
-               Margin="15"/>
+            <Path 
+                Grid.Column="0"
+                Data="{DynamicResource user}"
+                Stretch="Uniform"
+                Fill="Black"
+                Margin="15"/>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>

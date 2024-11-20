@@ -50,9 +50,9 @@
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border 
-                    x:Name="B"
-                    CornerRadius="5"
-                    Background="#1710ED">
+                        x:Name="B"
+                        CornerRadius="5"
+                        Background="#1710ED">
 
                         <Label
                         FontFamily="Jetbrains Mono"
