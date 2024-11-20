@@ -1,5 +1,4 @@
 ﻿using SmartMarket.Domain.Entities.Partners;
-using SmartMarket.Domain.Entities.Products;
 using SmartMarket.Domain.Entities.Workers;
 using System.ComponentModel.DataAnnotations.Schema;
 
