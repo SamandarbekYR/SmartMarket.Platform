@@ -1,4 +1,5 @@
-﻿using SmartMarket.Service.DTOs.Expence;
+﻿using SmartMarket.Desktop.Windows.PaymentWindow;
+using SmartMarket.Service.DTOs.Expence;
 using SmartMarket.Service.DTOs.PayDesks;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarketDeskop.Integrated.Services.Expenses;
@@ -149,5 +150,11 @@ public partial class CheckOutFirstPage : Page
             var expenses = await ShowExpenses(expensesData);
             CurrentlyAvailable(salesMoney, expenses);
         }
+    }
+
+    private void BtnCreatePayDesk_Click(object sender, System.Windows.RoutedEventArgs e)
+    {
+        PayDeskCreateWindow window = new PayDeskCreateWindow();
+        window.ShowDialog();
     }
 }
