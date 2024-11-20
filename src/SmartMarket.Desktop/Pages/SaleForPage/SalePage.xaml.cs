@@ -586,62 +586,62 @@ public partial class SalePage : Page
 
     private void btnPay_Click(object sender, RoutedEventArgs e)
     {
-        PaymentTypeWindow paymentTypeWindow = new PaymentTypeWindow();
-        paymentTypeWindow.ShowDialog();
+        if (tvm.Transactions.Count > 0)
+        {
+            PaymentTypeWindow paymentTypeWindow = new PaymentTypeWindow();
+            paymentTypeWindow.ShowDialog();
+        }
+        else
+            notifier.ShowInformation("Mahsulot xarid qilinmagan.");
     }
 
     public async void ConvertTransaction(bool isDebt)
     {
-        if (tvm.Transactions.Count > 0)
+        AddSalesRequestDto dto = new AddSalesRequestDto();
+        dto.TotalCost = tvm.TransactionPrice;
+        dto.DiscountSum = tvm.DiscountPrice;
+        if (isDebt)
         {
-            AddSalesRequestDto dto = new AddSalesRequestDto();
-            dto.TotalCost = tvm.TransactionPrice;
-            dto.DiscountSum = tvm.DiscountPrice;
-            if (isDebt)
-            {
-                dto.DebtSum = tvm.TransactionPrice;
-                dto.CardSum = 0;
-                dto.CashSum = 0;
-            }
-            else if (PaymentType == "card")
-            {
-                dto.CardSum = tvm.TransactionPrice;
-                dto.DebtSum = 0;
-                dto.CashSum = 0;
-            }
-            else if (PaymentType == "cash")
-            {
-                dto.CashSum = tvm.TransactionPrice;
-                dto.CardSum = 0;
-                dto.DebtSum = 0;
-            }
-            else if (PaymentType == "click")
-            {
-                dto.CardSum = tvm.TransactionPrice;
-                dto.DebtSum = 0;
-                dto.CashSum = 0;
-            }
-            else if (PaymentType == "transfer")
-            {
-                dto.CardSum = tvm.TransactionPrice;
-                dto.DebtSum = 0;
-                dto.CashSum = 0;
-            }
-            else if (PaymentType == "clickandcash")
-            {
-                dto.CardSum = ClickSum;
-                dto.CashSum = CashSum;
-                dto.DebtSum = 0;
-            }
-
-            List<AddProductSaleDto> products = tvm.Transactions
-                .Select(t => new AddProductSaleDto { ProductId = t.Id, Count = t.Quantity, Discount = t.Discount, ItemTotalCost = t.TotalPrice }).ToList();
-
-            dto.ProductSaleItems = products;
-            await ProductSale(dto);
+            dto.DebtSum = tvm.TransactionPrice;
+            dto.CardSum = 0;
+            dto.CashSum = 0;
         }
-        else
-            notifier.ShowInformation("Mahsulot xarid qilinmagan.");
+        else if (PaymentType == "card")
+        {
+            dto.CardSum = tvm.TransactionPrice;
+            dto.DebtSum = 0;
+            dto.CashSum = 0;
+        }
+        else if (PaymentType == "cash")
+        {
+            dto.CashSum = tvm.TransactionPrice;
+            dto.CardSum = 0;
+            dto.DebtSum = 0;
+        }
+        else if (PaymentType == "click")
+        {
+            dto.CardSum = tvm.TransactionPrice;
+            dto.DebtSum = 0;
+            dto.CashSum = 0;
+        }
+        else if (PaymentType == "transfer")
+        {
+            dto.CardSum = tvm.TransactionPrice;
+            dto.DebtSum = 0;
+            dto.CashSum = 0;
+        }
+        else if (PaymentType == "clickandcash")
+        {
+            dto.CardSum = ClickSum;
+            dto.CashSum = CashSum;
+            dto.DebtSum = 0;
+        }
+
+        List<AddProductSaleDto> products = tvm.Transactions
+            .Select(t => new AddProductSaleDto { ProductId = t.Id, Count = t.Quantity, Discount = t.Discount, ItemTotalCost = t.TotalPrice }).ToList();
+
+        dto.ProductSaleItems = products;
+        await ProductSale(dto);
     }
 
     public void ConvertShipment(OrderDto dto)
