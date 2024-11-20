@@ -32,7 +32,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
             foreach(var worker in workerNames)
             {
-                workerComboBox.Items.Add(new ComboBoxItem { Content = worker });
+                workerComboBox.Items.Add(worker);
             }
 
             ShowExpenses(expenses);
