@@ -329,12 +329,9 @@ public partial class SalePage : Page
 
         foreach (var order in orders)
         {
-            var totalSum = order.ProductOrderItems.Sum(x => x.Product.SellPrice * x.Count);
-            var firstName = order.Partner.FirstName;
-            var lastName = order.Partner.LastName;
-
             ShipmentComponent shipmentComponent = new ShipmentComponent();
-            shipmentComponent.SetData(firstName, lastName, totalSum);
+            shipmentComponent.SetData(order);
+            shipmentComponent.Tag = order;
             stackPanelOrders.Children.Add(shipmentComponent);
         }
     }
@@ -593,7 +590,7 @@ public partial class SalePage : Page
         paymentTypeWindow.ShowDialog();
     }
 
-    public async void SaleProducts(bool isDebt)
+    public async void ConvertTransaction(bool isDebt)
     {
         if (tvm.Transactions.Count > 0)
         {
@@ -641,23 +638,33 @@ public partial class SalePage : Page
                 .Select(t => new AddProductSaleDto { ProductId = t.Id, Count = t.Quantity, Discount = t.Discount, ItemTotalCost = t.TotalPrice }).ToList();
 
             dto.ProductSaleItems = products;
-            bool result = await _salesRequestsService.CreateSalesRequest(dto);
-            if (result)
-            {
-                //PrintService printService = new PrintService();
-                //printService.Print(dto, tvm.Transactions);
-
-                tvm.ClearTransaction();
-                St_product.Children.Clear();
-                ColculateTotalPrice();
-                EmptyPrice();
-
-                notifier.ShowSuccess("Sotuv amalga oshirildi.");
-            }
-            else
-                notifier.ShowError("Sotuvda qandaydir muammo bor!!!");
+            await ProductSale(dto);
         }
         else
             notifier.ShowInformation("Mahsulot xarid qilinmagan.");
+    }
+
+    public void ConvertShipment(OrderDto dto)
+    {
+
+    }
+
+    private async Task ProductSale(AddSalesRequestDto dto)
+    {
+        bool result = await _salesRequestsService.CreateSalesRequest(dto);
+        if (result)
+        {
+            //PrintService printService = new PrintService();
+            //printService.Print(dto, tvm.Transactions);
+
+            tvm.ClearTransaction();
+            St_product.Children.Clear();
+            ColculateTotalPrice();
+            EmptyPrice();
+
+            notifier.ShowSuccess("Sotuv amalga oshirildi.");
+        }
+        else
+            notifier.ShowError("Sotuvda qandaydir muammo bor!!!");
     }
 }
