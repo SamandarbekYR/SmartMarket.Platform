@@ -22,6 +22,7 @@ public class LoadReportRepository : Repository<LoadReport>, ILoadReport
             .Include(lr => lr.Worker)      
             .Include(lr => lr.Product)     
             .Include(lr => lr.ContrAgent)  
+                .ThenInclude(ca => ca.PartnerCompany)
             .ToListAsync();
     }
 }
