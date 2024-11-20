@@ -110,13 +110,13 @@ public partial class LoginWindow : Window
                     }
                     else
                     {
-                        SimpleAdminWindow window = new SimpleAdminWindow();
-                        window.Show();
-                        this.Close();
-
-                        //MainWindow window = new MainWindow();
+                        //SimpleAdminWindow window = new SimpleAdminWindow();
+                        //window.Show();
                         //this.Close();
-                        //window.ShowDialog();
+
+                        MainWindow window = new MainWindow();
+                        this.Close();
+                        window.ShowDialog();
                     }
                 }
                 else

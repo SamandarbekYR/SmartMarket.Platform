@@ -26,13 +26,13 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
             var loadReports = await Task.Run(async () => await loadReportService.GetAll());
 
             List<string> workerNames = loadReports
-                .Select(x => x.Worker.FirstName)
+                .Select(x => x.ContrAgent.PartnerCompany.Name)
                 .Distinct()
                 .ToList();
 
             foreach(var worker in workerNames)
             {
-                workerComboBox.Items.Add(new ComboBoxItem { Content = worker });
+                companyComboBox.Items.Add(worker);
             }
 
             showLoadReport(loadReports);
@@ -50,17 +50,17 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
                 loadReportDto.ToDateTime = toDateTime.SelectedDate.Value;
             }
 
-            if(workerComboBox.SelectedItem != null)
+            if(companyComboBox.SelectedItem != null)
             {
-                var selectedWorkerName = workerComboBox.SelectedItem?.ToString();
+                var selectedCompanyName = companyComboBox.SelectedItem?.ToString();
 
-                if(!string.IsNullOrEmpty(selectedWorkerName) && !selectedWorkerName.Equals("Sotuvchi"))
+                if(!string.IsNullOrEmpty(selectedCompanyName) && !selectedCompanyName.Equals("Sotuvchi"))
                 {
-                    loadReportDto.WorkerName = selectedWorkerName;
+                    loadReportDto.CompanyName = selectedCompanyName;
                 }
             }
 
-            if(filterTextBox != null)
+            if(!string.IsNullOrEmpty(filterTextBox.Text))
             {
                 loadReportDto.ProductName = filterTextBox.Text;
             }
@@ -95,7 +95,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
         }
 
 
-        private void WorkerComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void companyComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             FilterLoadReport();
         }

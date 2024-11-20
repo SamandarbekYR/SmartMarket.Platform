@@ -80,59 +80,6 @@ namespace SmartMarket.Service.Services.Products.LoadReport
             }
         }
 
-        public async Task<List<CollectedLoadReportDto>> FilterCollectedLoadReportAsync(FilterLoadReportDto dto)
-        {
-            try
-            {
-                var loadReports = await _unitOfWork.LoadReport.GetLoadReportsFullInformationAsync();
-
-                if (dto.FromDateTime.HasValue && dto.ToDateTime.HasValue)
-                {
-                    loadReports = loadReports.Where(
-                        l => l.CreatedDate >= dto.FromDateTime.Value
-                        && l.CreatedDate <= dto.ToDateTime.Value).ToList();
-                }
-                else
-                {
-                    loadReports = loadReports.Where(
-                        l => l.CreatedDate.Value.Date == DateTime.Today).ToList();
-                }
-
-                //if (!string.IsNullOrWhiteSpace(dto.WorkerName))
-                //{
-                //    loadReports = loadReports.Where(
-                //        l => l.Product.Name.Contains(dto.WorkerName)).ToList();
-                //}
-
-                if (!string.IsNullOrWhiteSpace(dto.WorkerName))
-                {
-                    loadReports = loadReports.Where(
-                        l => l.Worker.FirstName.Contains(dto.WorkerName)).ToList();
-                }
-
-                var loadReportDtos = loadReports.Select(l => new CollectedLoadReportDto
-                {
-                    Id = l.Id,
-                    WorkerId = l.WorkerId,
-                    Worker = l.Worker,
-                    ProductId = l.ProductId,
-                    Product = l.Product,
-                    ContrAgentName = l.ContrAgent.FirstName + " " + l.ContrAgent.LastName,
-                    TotalPrice = l.TotalPrice,
-                    ProductName = l.Product.Name,
-                    ProductCount = l.Product.Count,
-                    CreatedDate = l.CreatedDate
-                }).ToList();
-
-                return loadReportDtos;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError("Error occured while filter loadReport");
-                throw;
-            }
-        }
-
         public async Task<List<LoadReportDto>> FilterLoadReportAsync(FilterLoadReportDto dto)
         {
             try
@@ -151,16 +98,16 @@ namespace SmartMarket.Service.Services.Products.LoadReport
                         l => l.CreatedDate.Value.Date == DateTime.Today).ToList();
                 }
 
-                if(!string.IsNullOrWhiteSpace(dto.ProductName))
+                if(!string.IsNullOrEmpty(dto.ProductName))
                 {
                     loadReports = loadReports.Where(
                         l => l.Product.Name.Contains(dto.ProductName)).ToList();
                 }
 
-                if(!string.IsNullOrWhiteSpace(dto.WorkerName))
+                if(!string.IsNullOrWhiteSpace(dto.CompanyName))
                 {
                     loadReports = loadReports.Where(
-                        l => l.Worker.FirstName.Contains(dto.WorkerName)).ToList();
+                        l => l.ContrAgent.PartnerCompany.Name.Contains(dto.CompanyName)).ToList();
                 }
 
                 var loadReportDtos = loadReports.Select(l => new LoadReportDto
@@ -197,6 +144,7 @@ namespace SmartMarket.Service.Services.Products.LoadReport
                     Worker = l.Worker,
                     ProductId = l.ProductId,
                     ContrAgentId = l.ContrAgentId,
+                    ContrAgent = l.ContrAgent,
                     TotalPrice = l.TotalPrice,
                     ProductName = l.Product.Name,
                     ProductCount= l.Product.Count,
