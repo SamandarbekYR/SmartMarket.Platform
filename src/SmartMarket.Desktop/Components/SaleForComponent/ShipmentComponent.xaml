@@ -65,6 +65,7 @@
                         Margin="0 0 8 0"
                         Content="Sotish"
                         HorizontalAlignment="Right"
+                        Click="Button_Click"
                         Style="{DynamicResource MainButton}"/>
 
                 </Grid>

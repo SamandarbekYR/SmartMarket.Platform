@@ -329,12 +329,9 @@ public partial class SalePage : Page
 
         foreach (var order in orders)
         {
-            var totalSum = order.ProductOrderItems.Sum(x => x.Product.SellPrice * x.Count);
-            var firstName = order.Partner.FirstName;
-            var lastName = order.Partner.LastName;
-
             ShipmentComponent shipmentComponent = new ShipmentComponent();
-            shipmentComponent.SetData(firstName, lastName, totalSum);
+            shipmentComponent.SetData(order);
+            shipmentComponent.Tag = order;
             stackPanelOrders.Children.Add(shipmentComponent);
         }
     }
@@ -589,75 +586,85 @@ public partial class SalePage : Page
 
     private void btnPay_Click(object sender, RoutedEventArgs e)
     {
-        PaymentTypeWindow paymentTypeWindow = new PaymentTypeWindow();
-        paymentTypeWindow.ShowDialog();
-    }
-
-    public async void SaleProducts(bool isDebt)
-    {
         if (tvm.Transactions.Count > 0)
         {
-            AddSalesRequestDto dto = new AddSalesRequestDto();
-            dto.TotalCost = tvm.TransactionPrice;
-            dto.DiscountSum = tvm.DiscountPrice;
-            if (isDebt)
-            {
-                dto.DebtSum = tvm.TransactionPrice;
-                dto.CardSum = 0;
-                dto.CashSum = 0;
-            }
-            else if (PaymentType == "card")
-            {
-                dto.CardSum = tvm.TransactionPrice;
-                dto.DebtSum = 0;
-                dto.CashSum = 0;
-            }
-            else if (PaymentType == "cash")
-            {
-                dto.CashSum = tvm.TransactionPrice;
-                dto.CardSum = 0;
-                dto.DebtSum = 0;
-            }
-            else if (PaymentType == "click")
-            {
-                dto.CardSum = tvm.TransactionPrice;
-                dto.DebtSum = 0;
-                dto.CashSum = 0;
-            }
-            else if (PaymentType == "transfer")
-            {
-                dto.CardSum = tvm.TransactionPrice;
-                dto.DebtSum = 0;
-                dto.CashSum = 0;
-            }
-            else if (PaymentType == "clickandcash")
-            {
-                dto.CardSum = ClickSum;
-                dto.CashSum = CashSum;
-                dto.DebtSum = 0;
-            }
-
-            List<AddProductSaleDto> products = tvm.Transactions
-                .Select(t => new AddProductSaleDto { ProductId = t.Id, Count = t.Quantity, Discount = t.Discount, ItemTotalCost = t.TotalPrice }).ToList();
-
-            dto.ProductSaleItems = products;
-            bool result = await _salesRequestsService.CreateSalesRequest(dto);
-            if (result)
-            {
-                //PrintService printService = new PrintService();
-                //printService.Print(dto, tvm.Transactions);
-
-                tvm.ClearTransaction();
-                St_product.Children.Clear();
-                ColculateTotalPrice();
-                EmptyPrice();
-
-                notifier.ShowSuccess("Sotuv amalga oshirildi.");
-            }
-            else
-                notifier.ShowError("Sotuvda qandaydir muammo bor!!!");
+            PaymentTypeWindow paymentTypeWindow = new PaymentTypeWindow();
+            paymentTypeWindow.ShowDialog();
         }
         else
             notifier.ShowInformation("Mahsulot xarid qilinmagan.");
+    }
+
+    public async void ConvertTransaction(bool isDebt)
+    {
+        AddSalesRequestDto dto = new AddSalesRequestDto();
+        dto.TotalCost = tvm.TransactionPrice;
+        dto.DiscountSum = tvm.DiscountPrice;
+        if (isDebt)
+        {
+            dto.DebtSum = tvm.TransactionPrice;
+            dto.CardSum = 0;
+            dto.CashSum = 0;
+        }
+        else if (PaymentType == "card")
+        {
+            dto.CardSum = tvm.TransactionPrice;
+            dto.DebtSum = 0;
+            dto.CashSum = 0;
+        }
+        else if (PaymentType == "cash")
+        {
+            dto.CashSum = tvm.TransactionPrice;
+            dto.CardSum = 0;
+            dto.DebtSum = 0;
+        }
+        else if (PaymentType == "click")
+        {
+            dto.CardSum = tvm.TransactionPrice;
+            dto.DebtSum = 0;
+            dto.CashSum = 0;
+        }
+        else if (PaymentType == "transfer")
+        {
+            dto.CardSum = tvm.TransactionPrice;
+            dto.DebtSum = 0;
+            dto.CashSum = 0;
+        }
+        else if (PaymentType == "clickandcash")
+        {
+            dto.CardSum = ClickSum;
+            dto.CashSum = CashSum;
+            dto.DebtSum = 0;
+        }
+
+        List<AddProductSaleDto> products = tvm.Transactions
+            .Select(t => new AddProductSaleDto { ProductId = t.Id, Count = t.Quantity, Discount = t.Discount, ItemTotalCost = t.TotalPrice }).ToList();
+
+        dto.ProductSaleItems = products;
+        await ProductSale(dto);
+    }
+
+    public void ConvertShipment(OrderDto dto)
+    {
+
+    }
+
+    private async Task ProductSale(AddSalesRequestDto dto)
+    {
+        bool result = await _salesRequestsService.CreateSalesRequest(dto);
+        if (result)
+        {
+            //PrintService printService = new PrintService();
+            //printService.Print(dto, tvm.Transactions);
+
+            tvm.ClearTransaction();
+            St_product.Children.Clear();
+            ColculateTotalPrice();
+            EmptyPrice();
+
+            notifier.ShowSuccess("Sotuv amalga oshirildi.");
+        }
+        else
+            notifier.ShowError("Sotuvda qandaydir muammo bor!!!");
     }
 }
