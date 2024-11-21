@@ -1,6 +1,7 @@
 ﻿using SmartMarket.Desktop.Components.ExpenseForComponents;
 using SmartMarket.Service.DTOs.Products.LoadReport;
 using SmartMarketDeskop.Integrated.Services.Expenses;
+using SmartMarketDeskop.Integrated.Services.PartnerCompanies.PartnerCompany;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,10 +14,12 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
     public partial class CargoReportPage : Page
     {
         private readonly ILoadReportService loadReportService;
+        private readonly IPartnerCompanyService partnerCompanyService;
         public CargoReportPage()
         {
             InitializeComponent();
             this.loadReportService = new LoadReportService();
+            this.partnerCompanyService = new PartnerCompanyService();
         }
 
         public async void GetAllCargoReport()
@@ -25,17 +28,18 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
             var loadReports = await Task.Run(async () => await loadReportService.GetAll());
 
-            List<string> workerNames = loadReports
-                .Select(x => x.ContrAgent.PartnerCompany.Name)
+            var companies = await Task.Run(async () => await partnerCompanyService.GetAllCompany());
+            var companyNames = companies.Select(x => x.Name)
                 .Distinct()
                 .ToList();
 
-            foreach(var worker in workerNames)
+            foreach(var worker in companyNames)
             {
                 companyComboBox.Items.Add(worker);
             }
 
-            showLoadReport(loadReports);
+            var filterLoadReports = loadReports.Where(x => x.CreatedDate?.Date == DateTime.Today).ToList();
+            showLoadReport(filterLoadReports);
         }
 
         private async void FilterLoadReport()
@@ -77,8 +81,9 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
             int count = 1;
 
-            if (loadReports != null)
+            if (loadReports.Any())
             {
+                EmptyDataLoadReport.Visibility = Visibility.Collapsed;
                 foreach (var report in loadReports)
                 {
                     CargoReportComponent cargoReportComponent = new CargoReportComponent();

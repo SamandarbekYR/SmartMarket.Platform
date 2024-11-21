@@ -15,4 +15,5 @@ public class LoadReportDto
     public string ProductName { get; set; }
     public double ProductPrice { get; set; }
     public int ProductCount { get; set; }
+    public DateTime? CreatedDate { get; set; }
 }
