@@ -119,24 +119,6 @@ namespace SmartMarket.Service.Services.Order
             }
         }
 
-        public async Task<IEnumerable<OrderDto>> GetOrdersByTransactionNumberAsync(long transactionNumber, PaginationParams @params)
-        {
-            try
-            {
-                var orders = await _unitOfWork.Order.GetAll()
-                    .Where(o => o.TransactionId == transactionNumber)
-                    .AsNoTracking()
-                    .ToPagedListAsync(@params);
-
-                return orders.Select(o => _mapper.Map<OrderDto>(o)).ToList();
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error occurred while searching for orders by transaction number.");
-                throw;
-            }
-        }
-
         public async Task<bool> UpdateAsync(AddOrderDto dto, Guid Id)
         {
             try

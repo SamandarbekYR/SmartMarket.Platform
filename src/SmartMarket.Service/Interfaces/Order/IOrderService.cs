@@ -9,6 +9,4 @@ public interface IOrderService
     Task<bool> DeleteAsync(Guid Id);
     Task<List<OrderDto>> GetAllAsync();
     Task<bool> UpdateAsync(AddOrderDto dto, Guid Id);
-
-    Task<IEnumerable<OrderDto>> GetOrdersByTransactionNumberAsync(long transactionNumber, PaginationParams @params);
 }

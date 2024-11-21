@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
-using Newtonsoft.Json.Linq;
 using SmartMarket.Desktop.Tablet.Components;
 using SmartMarket.Desktop.Tablet.ViewModels.Transactions;
 using SmartMarket.Desktop.Tablet.Windows;
 using SmartMarket.Domain.Entities.Partners;
 using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Products.Product;
-using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Services.Orders;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
@@ -107,12 +105,12 @@ public partial class MainPage : Page
             {
                 tvm.Add(product, count);
                 AddNewProduct(product, count);
-                product.Count = count;
 
                 AddOrderProductDto addOrderProductDto = new AddOrderProductDto()
                 {
                     ProductId = product.Id,
                     Count = count,
+                    AvailableCount = product.Count,
                     ItemTotalCost = product.SellPrice * count
                 };
 

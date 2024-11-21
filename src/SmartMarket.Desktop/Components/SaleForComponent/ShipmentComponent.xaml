@@ -60,12 +60,24 @@
                         Style="{DynamicResource TitleLabel}"/>
 
                     <Button
+                        Name="SaleButton"
                         Height="25"
                         Width="100"
                         Margin="0 0 8 0"
                         Content="Sotish"
                         HorizontalAlignment="Right"
                         Click="Button_Click"
+                        Style="{DynamicResource Save_Button}"/>
+
+                    <Button
+                        Name="CancelButton"
+                        Height="25"
+                        Width="100"
+                        Margin="0 0 8 0"
+                        Content="Orqaga"
+                        HorizontalAlignment="Right"
+                        Click="Cancel_Click"
+                        Visibility="Collapsed"
                         Style="{DynamicResource MainButton}"/>
 
                 </Grid>

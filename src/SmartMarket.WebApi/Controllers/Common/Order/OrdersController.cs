@@ -86,22 +86,5 @@ namespace SmartMarket.WebApi.Controllers.Common.Order
                 return StatusCode(500, ex.Message);
             }
         }
-        [HttpGet("transaction/{transactionNumber}")]
-        public async Task<IActionResult> GetOrdersByTransactionNumberAsync(long transactionNumber, [FromQuery] PaginationParams @params)
-        {
-            try
-            {
-                var orders = await _orderService.GetOrdersByTransactionNumberAsync(transactionNumber, @params);
-                return Ok(orders);
-            }
-            catch (StatusCodeException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
     }
 }

@@ -44,7 +44,7 @@ public partial class SalePage : Page
 
     private System.Timers.Timer timer = new System.Timers.Timer();
     private DispatcherTimer time;
-    TransactionViewModel tvm;
+    public TransactionViewModel tvm;
 
     int activeTextboxIndex = 2;
     int productCount = 1;
@@ -132,6 +132,21 @@ public partial class SalePage : Page
 
     public void GetData()
     {
+        var payDeskId = Properties.Settings.Default.PayDesk;
+        if (string.IsNullOrEmpty(payDeskId))
+        {
+            SelectPayDeskWindow selectPayDeskWindow = new SelectPayDeskWindow();
+            selectPayDeskWindow.ShowDialog();
+        }
+        else
+        {
+            IdentitySingelton.GetInstance().PayDeskId = Guid.Parse(payDeskId.ToString()!);
+            IdentitySingelton.GetInstance().PayDeskName = Properties.Settings.Default.PayDeskName;
+        }
+        tbFullName.Text = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
+        tbKassaName.Text = IdentitySingelton.GetInstance().PayDeskName;
+        IdentitySingelton.GetInstance().PrinterName = Properties.Settings.Default.PrinterName;
+
         tbDate.Text = DateTime.UtcNow.Month + "." + DateTime.UtcNow.Day + "." + DateTime.UtcNow.Year;
         tbhour.Text = DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
     }
@@ -197,7 +212,7 @@ public partial class SalePage : Page
 
             if (product != null)
             {
-                AddNewProductTvm(product);
+                AddNewProductTvm(product, 0);
             }
             else
             {
@@ -206,13 +221,16 @@ public partial class SalePage : Page
         }
     }
 
-    public void AddNewProductTvm(FullProductDto product)
+    public void AddNewProductTvm(FullProductDto product, int count)
     {
         string barcode = product.Barcode;
         if (!tvm.Transactions.Any(t => t.Barcode == barcode))
         {
-            tvm.Add(product);
-            AddNewProduct(product);
+            if (count == 0)
+                tvm.Add(product, 1);
+            else
+                tvm.Add(product, count);
+            AddNewProduct(product, count);
         }
         else
         {
@@ -240,21 +258,23 @@ public partial class SalePage : Page
         ColculateTotalPrice();
     }
 
-    private void AddNewProduct(FullProductDto product)
+    private void AddNewProduct(FullProductDto product, int quantity)
     {
         SaleProductForComponent saleProductForComponent = new SaleProductForComponent();
-        int quantity;
-        if (string.IsNullOrEmpty(tbCalculator.Text))
-            quantity = 1;
-        else
-            quantity = int.Parse(tbCalculator.Text!);
+        if (quantity == 0)
+        {
+            if (string.IsNullOrEmpty(tbCalculator.Text))
+                quantity = 1;
+            else
+                quantity = int.Parse(tbCalculator.Text!);
+        }
         
         saleProductForComponent.DataContext = new TransactionDto
         {
             Name = product.Name,
             Barcode = product.Barcode,
             Price = product.SellPrice,
-            TotalPrice = product.SellPrice,
+            TotalPrice = product.SellPrice * quantity,
             AvailableCount = product.Count,
             Discount = 0,
             Quantity = quantity,
@@ -268,30 +288,17 @@ public partial class SalePage : Page
         productCount++;
     }
 
-    private void Page_Loaded(object sender, RoutedEventArgs e)
+    private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
-
-        InitializeSignalRConnection();
-        DisplayOrdersInStackPanel();
-        var payDeskId = Properties.Settings.Default.PayDesk;
-        if (string.IsNullOrEmpty(payDeskId))
-        {
-            SelectPayDeskWindow selectPayDeskWindow = new SelectPayDeskWindow();
-            selectPayDeskWindow.ShowDialog();
-        }
-        else
-        {
-            IdentitySingelton.GetInstance().PayDeskId = Guid.Parse(payDeskId.ToString()!);
-            IdentitySingelton.GetInstance().PayDeskName = Properties.Settings.Default.PayDeskName;
-        }
-        tbFullName.Text = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
-        tbKassaName.Text = IdentitySingelton.GetInstance().PayDeskName;
-        IdentitySingelton.GetInstance().PrinterName = Properties.Settings.Default.PrinterName;
         GetData();
+
+        await InitializeSignalRConnection();
+        await DisplayOrdersInStackPanel();
+        
         St_product.Focus();
     }
 
-    private async void InitializeSignalRConnection()
+    private async Task InitializeSignalRConnection()
     {
         _connection = new HubConnectionBuilder()
                .WithUrl("https://localhost:7055/ShipmentsHub", options =>
@@ -305,9 +312,9 @@ public partial class SalePage : Page
 
         _connection.On<string>("ReceiveShipMents", (message) =>
         {
-            Application.Current.Dispatcher.Invoke(() =>
+            Application.Current.Dispatcher.Invoke(async () =>
             {
-                DisplayOrdersInStackPanel();
+                await DisplayOrdersInStackPanel();
             });
         });
 
@@ -321,11 +328,12 @@ public partial class SalePage : Page
         }
     }
    
-    private async void DisplayOrdersInStackPanel()
+    private async Task DisplayOrdersInStackPanel()
     {
         var orders = await _orderService.GetAllAsync();
 
         stackPanelOrders.Children.Clear();
+        Loader.Visibility = Visibility.Collapsed;
 
         foreach (var order in orders)
         {
@@ -404,6 +412,7 @@ public partial class SalePage : Page
                         ColculateTotalPrice();
                         selectedControl.product_Border.Background = Brushes.White;
                         selectedControl = null!;
+                        break;
                     }
                 }
             }
@@ -492,7 +501,7 @@ public partial class SalePage : Page
         Product_Barcode.Text = product.Barcode.ToString();
     }
 
-    private void EmptyPrice()
+    public void EmptyPrice()
     {
         Product_Count.Text = "0";
         Product_Price.Text = "0";
@@ -646,7 +655,20 @@ public partial class SalePage : Page
 
     public void ConvertShipment(OrderDto dto)
     {
+        foreach (var product in dto.ProductOrderItems)
+        {
+            FullProductDto fpd = new FullProductDto
+            {
+                Id = product.Product.Id,
+                Barcode = product.Product.Barcode,
+                Name = product.Product.Name,
+                Price = product.Product.Price,
+                SellPrice = product.Product.SellPrice,
+                Count = product.AvailableCount
+            };
 
+            AddNewProductTvm(fpd, product.Count);
+        }
     }
 
     private async Task ProductSale(AddSalesRequestDto dto)
