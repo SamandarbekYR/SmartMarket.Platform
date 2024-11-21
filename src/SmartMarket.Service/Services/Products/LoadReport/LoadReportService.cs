@@ -147,8 +147,9 @@ namespace SmartMarket.Service.Services.Products.LoadReport
                     ContrAgent = l.ContrAgent,
                     TotalPrice = l.TotalPrice,
                     ProductName = l.Product.Name,
-                    ProductCount= l.Product.Count,
-                    ProductPrice= l.Product.Price
+                    ProductCount = l.Product.Count,
+                    ProductPrice = l.Product.Price,
+                    CreatedDate = l.CreatedDate
                 }).ToList();
 
                 return loadReportDto;

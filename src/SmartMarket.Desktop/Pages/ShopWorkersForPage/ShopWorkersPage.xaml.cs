@@ -27,6 +27,7 @@ public partial class ShopWorkersPage : Page
 
         St_Workers.Visibility = Visibility.Visible;
         St_Workers.Children.Clear();
+        Loader.Visibility = Visibility.Collapsed;
 
         int rowNumber = 1;
         foreach (var worker in workers)
