@@ -212,7 +212,7 @@ public partial class SalePage : Page
 
             if (product != null)
             {
-                AddNewProductTvm(product, 1);
+                AddNewProductTvm(product, 0);
             }
             else
             {
@@ -226,8 +226,11 @@ public partial class SalePage : Page
         string barcode = product.Barcode;
         if (!tvm.Transactions.Any(t => t.Barcode == barcode))
         {
-            tvm.Add(product, count);
-            AddNewProduct(product, 0);
+            if (count == 0)
+                tvm.Add(product, 1);
+            else
+                tvm.Add(product, count);
+            AddNewProduct(product, count);
         }
         else
         {
@@ -409,6 +412,7 @@ public partial class SalePage : Page
                         ColculateTotalPrice();
                         selectedControl.product_Border.Background = Brushes.White;
                         selectedControl = null!;
+                        break;
                     }
                 }
             }
@@ -658,7 +662,8 @@ public partial class SalePage : Page
                 Id = product.Product.Id,
                 Barcode = product.Product.Barcode,
                 Name = product.Product.Name,
-                Price = product.Product.SellPrice,
+                Price = product.Product.Price,
+                SellPrice = product.Product.SellPrice,
             };
 
             AddNewProductTvm(fpd, product.Count);

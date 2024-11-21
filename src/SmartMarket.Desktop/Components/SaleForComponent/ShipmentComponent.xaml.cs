@@ -1,5 +1,4 @@
 ﻿using SmartMarket.Desktop.Pages.SaleForPage;
-using SmartMarket.Desktop.ViewModels.Transactions;
 using SmartMarket.Service.DTOs.Order;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,12 +11,9 @@ namespace SmartMarket.Desktop.Components.SaleForComponent;
 /// </summary>
 public partial class ShipmentComponent : UserControl
 {
-    TransactionViewModel tvm;
-
     public ShipmentComponent()
     {
         InitializeComponent();
-        this.tvm = new TransactionViewModel();
     }
 
     public void SetData(OrderDto dto)
