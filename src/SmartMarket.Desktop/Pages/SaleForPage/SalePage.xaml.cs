@@ -501,7 +501,7 @@ public partial class SalePage : Page
         Product_Barcode.Text = product.Barcode.ToString();
     }
 
-    private void EmptyPrice()
+    public void EmptyPrice()
     {
         Product_Count.Text = "0";
         Product_Price.Text = "0";
@@ -664,6 +664,7 @@ public partial class SalePage : Page
                 Name = product.Product.Name,
                 Price = product.Product.Price,
                 SellPrice = product.Product.SellPrice,
+                Count = product.AvailableCount
             };
 
             AddNewProductTvm(fpd, product.Count);
