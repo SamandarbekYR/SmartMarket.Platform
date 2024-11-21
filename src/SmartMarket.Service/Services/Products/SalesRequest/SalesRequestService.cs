@@ -24,8 +24,10 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
         private readonly IMapper _mapper = mapper;
         private readonly IValidator<AddSalesRequestDto> _validator = validator;
         private readonly ILogger<SalesRequestService> _logger = logger;
+        private static long _transactionCounter = 0;
+        private static readonly object _lock = new object();
 
-        public async Task<long> AddAsync(AddSalesRequestDto dto)
+        public async Task<(long, bool)> AddAsync(AddSalesRequestDto dto)
         {
             try
             {
@@ -48,16 +50,19 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
                 }
 
                 var salesRequest = _mapper.Map<SR.SalesRequest>(dto);
+
                 salesRequest.CreatedDate = DateTime.UtcNow;
+                var transactionNumber = TransactionNumberGenerate();
+                salesRequest.TransactionId = transactionNumber;
 
-                await _unitOfWork.SalesRequest.Add(salesRequest);
+                var result = await _unitOfWork.SalesRequest.Add(salesRequest);
 
-                return salesRequest.TransactionId;
+                return (transactionNumber, result);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error adding SalesRequest");
-                return 0;
+                return (0, false);
             }
         }
 
@@ -195,6 +200,23 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
                 _logger.LogError(ex, $"Error updating SalesRequest with Id: {Id}");
                 return false;
             }
+        }
+
+        private long TransactionNumberGenerate()
+        {
+            string datePart = DateTime.UtcNow.ToString("yyyyMMdd");
+            var random = new Random();
+            string randomPart = random.Next(1000, 9999).ToString(); 
+
+            long counter;
+            lock (_lock)
+            {
+                counter = ++_transactionCounter;
+            }
+
+            string transactionString = $"{datePart}{randomPart}{counter % 1000:D3}";
+
+            return long.Parse(transactionString);
         }
     }
 }

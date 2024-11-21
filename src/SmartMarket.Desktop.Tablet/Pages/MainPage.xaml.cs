@@ -116,6 +116,7 @@ public partial class MainPage : Page
                 {
                     ProductId = product.Id,
                     Count = count,
+                    AvailableCount = product.Count - count,
                     ItemTotalCost = product.SellPrice * count
                 };
 

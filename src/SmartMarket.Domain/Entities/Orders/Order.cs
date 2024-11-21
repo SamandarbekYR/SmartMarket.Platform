@@ -8,8 +8,8 @@ namespace SmartMarket.Domain.Entities.Orders
     [Table("order")]
     public class Order : BaseEntity
     {
-        [Column("transaction_id")]
-        public long TransactionId { get; set; }
+        [Column("is_sold")]
+        public bool IsSold { get; set; }
         [Column("worker_id")]
         public Guid WorkerId { get; set; }
         public Worker Worker { get; set; }

@@ -52,16 +52,6 @@ namespace SmartMarket.DataAccess.Data
                       .OnDelete(DeleteBehavior.Restrict);
             });
 
-            modelBuilder.Entity<Order>(entity =>
-            {
-                entity.HasIndex(c => new { c.TransactionId })
-                      .IsUnique();
-
-                entity.Property(e => e.TransactionId)
-                      .HasColumnName("transaction_id")
-                      .ValueGeneratedOnAdd();
-            });
-
             modelBuilder.Entity<Debtors>(entity =>
             {
                 entity.HasOne(d => d.Partner)
@@ -156,6 +146,15 @@ namespace SmartMarket.DataAccess.Data
                       .WithMany(p => p.ProductImages)
                       .HasForeignKey(p => p.ProductId)
                       .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<SalesRequest>(entity =>
+            {
+                entity.HasIndex(c => new { c.TransactionId })
+                     .IsUnique();
+
+                entity.Property(e => e.TransactionId)
+                      .HasColumnName("transaction_id");
             });
 
             modelBuilder.Entity<ProductSale>(entity =>

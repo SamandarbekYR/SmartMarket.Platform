@@ -20,6 +20,8 @@ namespace SmartMarket.Domain.Entities.Orders
         public Order Order { get; set; }
         [Column("count")]
         public int Count { get; set; }
+        [Column("available_count")]
+        public int AvailableCount { get; set; }
         [Column("item_total_cost")]
         public double ItemTotalCost { get; set; }
     }
