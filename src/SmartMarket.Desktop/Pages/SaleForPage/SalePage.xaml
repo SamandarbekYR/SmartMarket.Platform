@@ -51,7 +51,6 @@
 
                     <local:Loader
                         x:Name="Loader"
-                        Visibility="Collapsed"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"/>
 

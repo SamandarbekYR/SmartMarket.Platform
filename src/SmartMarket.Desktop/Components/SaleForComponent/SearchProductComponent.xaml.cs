@@ -44,7 +44,7 @@ public partial class SearchProductComponent : UserControl
             var frame = window.FindName("PageNavigator") as Frame; 
             if (frame != null && frame.Content is SalePage salePage)
             {
-                salePage.AddNewProductTvm(product!);
+                salePage.AddNewProductTvm(product!, 1);
                 break;
             }
         }

@@ -14,7 +14,7 @@ public class TransactionViewModel
     {
     }
 
-    public void Add(FullProductDto product)
+    public void Add(FullProductDto product, int quantity)
     {
         Transactions.Add(new TransactionDto()
         {
@@ -22,8 +22,8 @@ public class TransactionViewModel
             Barcode = product.Barcode,
             Name = product.Name,
             Price = product.SellPrice,
-            Quantity = 1,
-            TotalPrice = product.SellPrice,
+            Quantity = quantity,
+            TotalPrice = product.SellPrice * quantity,
             AvailableCount = product.Count,
             Discount = 0
         });
