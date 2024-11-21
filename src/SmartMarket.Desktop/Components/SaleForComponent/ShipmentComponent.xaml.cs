@@ -32,7 +32,16 @@ public partial class ShipmentComponent : UserControl
         var page = FindParentPage(this);
         if (page is SalePage salePage)
         {
-            salePage.ConvertShipment(shipment!);
+            if(salePage.tvm.Transactions.Count == 0)
+            {
+                salePage.ConvertShipment(shipment!);
+                SaleButton.Visibility = Visibility.Collapsed;
+                CancelButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                // Yangi window yaratish kerak.
+            }
         }
     }
 
@@ -49,5 +58,17 @@ public partial class ShipmentComponent : UserControl
             return FindParentPage(parentObject);
         }
         return null!;
+    }
+
+    private void Cancel_Click(object sender, RoutedEventArgs e)
+    {
+        var page = FindParentPage(this);
+        if (page is SalePage salePage)
+        {
+            salePage.tvm.ClearTransaction();
+            salePage.St_product.Children.Clear();
+            CancelButton.Visibility = Visibility.Collapsed;
+            SaleButton.Visibility = Visibility.Visible;
+        }
     }
 }
