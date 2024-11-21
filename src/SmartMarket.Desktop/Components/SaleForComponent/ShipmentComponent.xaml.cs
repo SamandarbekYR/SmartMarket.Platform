@@ -36,7 +36,7 @@ public partial class ShipmentComponent : UserControl
             }
             else
             {
-                // Yangi window yaratish kerak.
+                
             }
         }
     }
@@ -63,6 +63,7 @@ public partial class ShipmentComponent : UserControl
         {
             salePage.tvm.ClearTransaction();
             salePage.St_product.Children.Clear();
+            salePage.EmptyPrice();
             CancelButton.Visibility = Visibility.Collapsed;
             SaleButton.Visibility = Visibility.Visible;
         }
