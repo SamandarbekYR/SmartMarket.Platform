@@ -381,7 +381,7 @@ public partial class SalePage : Page
     }
 
     // Jami summani hisoblash uchun
-    private void ColculateTotalPrice()
+    public void ColculateTotalPrice()
     {
         if (tvm != null)
         {

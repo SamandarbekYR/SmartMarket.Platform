@@ -15,6 +15,7 @@ using static SmartMarket.Desktop.Windows.MessageBoxWindow;
 using System.Windows.Threading;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
+using SmartMarket.Service.DTOs.Order;
 
 namespace SmartMarket.Desktop.Windows.Sales;
 
@@ -278,11 +279,6 @@ public partial class ShipmentsSaleWindow : Window
         Product_Barcode.Text = "";
     }
 
-    private void SaveButton_Click(object sender, RoutedEventArgs e)
-    {
-
-    }
-
     private void NationButton_Click(object sender, RoutedEventArgs e)
     {
 
@@ -385,6 +381,24 @@ public partial class ShipmentsSaleWindow : Window
 
         saleProductForComponent.SetData(product);
         St_product.Children.Add(saleProductForComponent);
+    }
+
+    public void ConvertShipment(OrderDto dto)
+    {
+        foreach (var product in dto.ProductOrderItems)
+        {
+            FullProductDto fpd = new FullProductDto
+            {
+                Id = product.Product.Id,
+                Barcode = product.Product.Barcode,
+                Name = product.Product.Name,
+                Price = product.Product.Price,
+                SellPrice = product.Product.SellPrice,
+                Count = product.AvailableCount
+            };
+
+            AddNewProductTvm(fpd, product.Count);
+        }
     }
 
 }

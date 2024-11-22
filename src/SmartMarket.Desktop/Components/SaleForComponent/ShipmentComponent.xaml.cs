@@ -38,6 +38,8 @@ public partial class ShipmentComponent : UserControl
             else
             {
                 ShipmentsSaleWindow saleWindow = new ShipmentsSaleWindow();
+                saleWindow.ConvertShipment(shipment!);
+                saleWindow.ShowDialog();
             }
         }
     }
@@ -65,6 +67,7 @@ public partial class ShipmentComponent : UserControl
             salePage.tvm.ClearTransaction();
             salePage.St_product.Children.Clear();
             salePage.EmptyPrice();
+            salePage.ColculateTotalPrice();
             CancelButton.Visibility = Visibility.Collapsed;
             SaleButton.Visibility = Visibility.Visible;
         }
