@@ -8,7 +8,7 @@ namespace SmartMarket.Domain.Entities.Orders
     public class Order : BaseEntity
     {
         [Column("is_sold")]
-        public bool IsSold { get; set; }
+        public bool IsSold { get; set; } = false;
         [Column("worker_id")]
         public Guid WorkerId { get; set; }
         public Worker Worker { get; set; }
