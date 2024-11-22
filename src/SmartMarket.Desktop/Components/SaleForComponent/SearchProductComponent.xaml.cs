@@ -1,8 +1,13 @@
 ﻿using SmartMarket.Desktop.Pages.SaleForPage;
 using SmartMarket.Desktop.Windows.ProductsForWindow;
 using SmartMarket.Service.DTOs.Products.Product;
+using System.Drawing;
+using System.Reflection.Emit;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using Brushes = System.Windows.Media.Brushes;
 
 namespace SmartMarket.Desktop.Components.SaleForComponent;
 
@@ -39,17 +44,38 @@ public partial class SearchProductComponent : UserControl
     {
         var product = this.Tag as FullProductDto;
 
-        foreach (Window window in Application.Current.Windows)
+        if (product!.Count > 0)
         {
-            var frame = window.FindName("PageNavigator") as Frame; 
-            if (frame != null && frame.Content is SalePage salePage)
+            foreach (Window window in Application.Current.Windows)
             {
-                salePage.AddNewProductTvm(product!, 1);
-                break;
+                var frame = window.FindName("PageNavigator") as Frame;
+                if (frame != null && frame.Content is SalePage salePage)
+                {
+                    salePage.AddNewProductTvm(product!, 1);
+                    break;
+                }
             }
+            SearchProductWindow searchProductWindow = GetSearchProductWindow();
+            searchProductWindow.Close();
         }
-        SearchProductWindow searchProductWindow = GetSearchProductWindow();
-        searchProductWindow.Close();
+        else
+        {
+            lb_Quantity.Foreground = Brushes.Red;
+
+            var animation = new DoubleAnimation
+            {
+                From = 0,
+                To = 5,
+                Duration = TimeSpan.FromMilliseconds(100),
+                AutoReverse = true,
+                RepeatBehavior = new RepeatBehavior(2)
+            };
+
+            var transform = new TranslateTransform();
+            lb_Quantity.RenderTransform = transform;
+
+            transform.BeginAnimation(TranslateTransform.XProperty, animation);
+        }
     }
 
     public void SetData(FullProductDto product)
