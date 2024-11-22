@@ -33,7 +33,7 @@
 
                 <TextBlock 
                     Grid.Column="0"
-                    Text="Yig'ilgan yuklar"
+                    Text="Harajatlar"
                     VerticalAlignment="Center"
                     Margin="15 0 0 0"
                     FontSize="20"

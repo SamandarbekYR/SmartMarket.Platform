@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Desktop.Pages.SaleForPage;
+using SmartMarket.Desktop.Windows.Sales;
 using SmartMarket.Service.DTOs.Order;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,7 +37,7 @@ public partial class ShipmentComponent : UserControl
             }
             else
             {
-                
+                ShipmentsSaleWindow saleWindow = new ShipmentsSaleWindow();
             }
         }
     }

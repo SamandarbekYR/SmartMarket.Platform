@@ -380,6 +380,61 @@ public partial class SalePage : Page
             currentWindow.Close();
     }
 
+    // Jami summani hisoblash uchun
+    private void ColculateTotalPrice()
+    {
+        if (tvm != null)
+        {
+            TotalPrice = tvm.TransactionPrice = tvm.Transactions.Sum(x => x.TotalPrice);
+            tvm.DiscountPrice = tvm.Transactions.Sum(x => x.DiscountSum);
+            tbTotalAmount.Text = tvm.TransactionPrice.ToString();
+            tbDiscountAmount.Text = tvm.DiscountPrice.ToString();
+            tbAmount.Text = (tvm.TransactionPrice + tvm.DiscountPrice).ToString();
+        }
+        else
+        {
+            tbAmount.Text = "0";
+            tbDiscountAmount.Text = "0";
+            tbTotalAmount.Text = "0";
+        }
+    }
+
+    private (double totalPrice, double discountprice) SetPrice(double price, float discount, int quantity)
+    {
+        double totalPrice = 0;
+        double discountPrice = 0;
+
+        if (discount > 0)
+        {
+            discountPrice = ((price / 100) * discount) * quantity;
+            totalPrice = (quantity * price) - discountPrice;
+        }
+        else
+        {
+            totalPrice = quantity * price;
+        }
+
+        return (totalPrice, discountPrice);
+    }
+
+    private void GetPrice(FullProductDto product, int quantity)
+    {
+        Product_Count.Text = quantity.ToString();
+        Product_Price.Text = product.SellPrice.ToString();
+        Total_Price.Text = (quantity * product.SellPrice).ToString();
+        Product_Name.Text = product.Name;
+        Product_Barcode.Text = product.Barcode.ToString();
+    }
+
+    public void EmptyPrice()
+    {
+        Product_Count.Text = "0";
+        Product_Price.Text = "0";
+        Total_Price.Text = "0";
+        Product_Name.Text = "";
+        Product_Barcode.Text = "";
+    }
+
     private SaleProductForComponent selectedControl = null!;
     public void SelectProduct(SaleProductForComponent product)
     {
@@ -455,61 +510,6 @@ public partial class SalePage : Page
 
     }
 
-    // Jami summani hisoblash uchun
-    private void ColculateTotalPrice()
-    {
-        if (tvm != null)
-        {
-            TotalPrice = tvm.TransactionPrice = tvm.Transactions.Sum(x => x.TotalPrice);
-            tvm.DiscountPrice = tvm.Transactions.Sum(x => x.DiscountSum);
-            tbTotalAmount.Text = tvm.TransactionPrice.ToString();
-            tbDiscountAmount.Text = tvm.DiscountPrice.ToString();
-            tbAmount.Text = (tvm.TransactionPrice + tvm.DiscountPrice).ToString();
-        }
-        else
-        {
-            tbAmount.Text = "0";
-            tbDiscountAmount.Text = "0";
-            tbTotalAmount.Text = "0";
-        }
-    }
-
-    private (double totalPrice, double discountprice) SetPrice(double price, float discount, int quantity)
-    {
-        double totalPrice = 0;
-        double discountPrice = 0;
-
-        if (discount > 0)
-        {
-            discountPrice = ((price / 100) * discount) * quantity;
-            totalPrice = (quantity * price) - discountPrice;
-        }
-        else
-        {
-            totalPrice = quantity * price;
-        }
-
-        return (totalPrice, discountPrice);
-    }
-
-    private void GetPrice(FullProductDto product, int quantity)
-    {
-        Product_Count.Text = quantity.ToString();
-        Product_Price.Text = product.SellPrice.ToString();
-        Total_Price.Text = (quantity * product.SellPrice).ToString();
-        Product_Name.Text = product.Name;
-        Product_Barcode.Text = product.Barcode.ToString();
-    }
-
-    public void EmptyPrice()
-    {
-        Product_Count.Text = "0";
-        Product_Price.Text = "0";
-        Total_Price.Text = "0";
-        Product_Name.Text = "";
-        Product_Barcode.Text = "";
-    }
-
     private void minus_button_Click(object sender, RoutedEventArgs e)
     {
         if (selectedControl != null)
@@ -580,6 +580,11 @@ public partial class SalePage : Page
         }
         SearchProductWindow searchProductWindow = new SearchProductWindow();
         searchProductWindow.ShowDialog();
+    }
+
+    private void save_button_Click(object sender, RoutedEventArgs e)
+    {
+
     }
 
     private void Page_Unloaded(object sender, RoutedEventArgs e)
