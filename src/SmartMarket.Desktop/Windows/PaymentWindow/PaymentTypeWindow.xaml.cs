@@ -61,7 +61,7 @@ namespace SmartMarket.Desktop.Windows.PaymentWindow
                 if (frame != null && frame.Content is SalePage salePage)
                 {
                     salePage.PaymentType = paymentType;
-                    salePage.SaleProducts(false);
+                    salePage.ConvertTransaction(false);
                     break;
                 }
             }

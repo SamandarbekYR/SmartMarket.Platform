@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.ShopWorkersForPage"
+      xmlns:local1="clr-namespace:SmartMarket.Desktop.Components.Loader"
       mc:Ignorable="d"
       Title="ShopWorkersPage"
       Loaded="Page_Loaded">
@@ -50,15 +51,21 @@
                     BorderThickness="1 0 1 1"
                     CornerRadius="0 0 5 5"
                     >
+                    <Grid>
+                        <local1:Loader
+                             x:Name="Loader"
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center"/>
+                        
+                        <ScrollViewer 
+                            VerticalScrollBarVisibility="Auto" 
+                            HorizontalScrollBarVisibility="Auto">
+                            <StackPanel 
+                                x:Name="St_Workers">
 
-                    <ScrollViewer 
-                        VerticalScrollBarVisibility="Auto" 
-                        HorizontalScrollBarVisibility="Auto">
-                        <StackPanel 
-                            x:Name="St_Workers">
-                            
-                        </StackPanel>
-                    </ScrollViewer>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </Grid>
                 </Border>
             </Grid>
 

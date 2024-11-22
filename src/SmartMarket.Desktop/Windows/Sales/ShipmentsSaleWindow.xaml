@@ -1,0 +1,376 @@
+﻿<Window x:Class="SmartMarket.Desktop.Windows.Sales.ShipmentsSaleWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmartMarket.Desktop.Windows.Sales"
+        mc:Ignorable="d"
+        WindowState="Maximized"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Loaded="Window_Loaded">
+    <Border
+        Width="700"
+        Height="700"
+        CornerRadius="10"
+        Background="White">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="150"/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+
+            <Label
+                Content="Shodiyor Erqo'ziyev"
+                FontSize="20"
+                Foreground="Red"
+                HorizontalAlignment="Center"
+                Style="{DynamicResource TitleLabel}"/>
+
+            <Button
+                Name="CloseButton"
+                Grid.Row="0"
+                Background="Black"
+                Margin="0 0 5 0"
+                Click="CloseButton_Click"
+                Style="{DynamicResource btnClose}"/>
+
+            <Border 
+                Grid.Row="1"
+                CornerRadius="5"
+                BorderThickness="1"
+                BorderBrush="{DynamicResource BorderColor}"
+                Margin="2 0 2 5"
+                Background="White"
+                >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="1.5*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid 
+                        Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="1.3*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock
+                            x:Name="Product_Name"
+                            Grid.Row="0"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            FontSize="25"
+                            Margin="5 0 0 0"
+                            FontWeight="SemiBold"
+                            ></TextBlock>
+
+                        <DockPanel
+                            Grid.Row="1"
+                            Margin="0 0 0 10"
+                            >
+                            <TextBlock
+                                Text="Shtrix-kod:"
+                                VerticalAlignment="Bottom"
+                                FontSize="17"
+                                FontWeight="SemiBold"
+                                Margin="5 0 0 0"
+                                ></TextBlock>
+                            <TextBlock
+                                Name="Product_Barcode"
+                                VerticalAlignment="Bottom"
+                                FontSize="16"
+                                FontWeight="SemiBold"
+                                Margin="5 0 0 0"
+                                ></TextBlock>
+                        </DockPanel>
+
+                    </Grid>
+
+                    <StackPanel
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal"
+                        Grid.Column="1"
+                        Margin="0 0 10 0"
+                        >
+
+                        <TextBox
+                            x:Name="Product_Count"
+                            BorderThickness="0"
+                            VerticalAlignment="Center"
+                            Text="0"
+                            Uid="1"
+                            IsReadOnly="True"
+                            VerticalContentAlignment="Center"
+                            TextAlignment="Right"
+                            FontSize="22"
+                            FontWeight="SemiBold"
+                            Height="100" >
+
+                        </TextBox>
+                        <Label
+                            Content="x"
+                            FontSize="22"
+                            Margin="0 0 0 3"
+                            VerticalAlignment="Center"/>
+
+                        <TextBox
+                            x:Name="Product_Price"
+                            BorderThickness="0"
+                            VerticalAlignment="Center"
+                            Text="0"
+                            IsReadOnly="True"
+                            VerticalContentAlignment="Center"
+                            TextAlignment="Right"
+                            FontSize="22"
+                            FontWeight="SemiBold"
+                            Height="100" >
+
+                        </TextBox>
+                        <Label
+                            Content="="
+                            FontSize="25"
+                            Margin="0 0 0 3"
+                            VerticalAlignment="Center"/>
+                        <TextBox
+                            Name="Total_Price"
+                            BorderThickness="0"
+                            VerticalAlignment="Center"
+                            Text="0"
+                            IsReadOnly="True"
+                            VerticalContentAlignment="Center"
+                            TextAlignment="Right"
+                            FontSize="22"
+                            FontWeight="SemiBold"
+                            Height="100" 
+                            >
+
+                        </TextBox>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Border
+                Grid.Row="2"
+                Margin="2"
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="1"
+                CornerRadius="5"
+                Background="White"
+                >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="50"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Border 
+                        Grid.Column="0">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+
+                            <Grid 
+                                Margin="5 0 15 0"
+                                Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="20"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock
+                                    Grid.Column="1"
+                                    Text="Mahsulot nomi"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    FontSize="13"
+                                    FontWeight="SemiBold"
+                                    Foreground="{DynamicResource BorderColor}"
+                                    ></TextBlock>
+
+                                <TextBlock
+                                    Grid.Column="2"
+                                    Text="Soni"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    FontSize="13"
+                                    FontWeight="SemiBold"
+                                    Foreground="{DynamicResource BorderColor}"
+                                    ></TextBlock>
+
+                                <TextBlock
+                                    Grid.Column="3"
+                                    Text="Narxi"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    FontSize="13"
+                                    FontWeight="SemiBold"
+                                    Foreground="{DynamicResource BorderColor}"
+                                    ></TextBlock>
+
+                                <TextBlock 
+                                    Grid.Column="4"
+                                    Text="Chegirma"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    FontSize="13"
+                                    FontWeight="SemiBold"
+                                    Foreground="{DynamicResource BorderColor}"
+                                    ></TextBlock>
+
+                                <TextBlock
+                                    Grid.Column="5"
+                                    Text="Jami"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Left"
+                                    FontSize="13"
+                                    FontWeight="SemiBold"
+                                    Foreground="{DynamicResource BorderColor}"
+                                    ></TextBlock>
+
+                            </Grid>
+
+                            <ScrollViewer
+                                Grid.Row="2"
+                                Margin="0 5"
+                                x:Name="scrollViewer">
+                                <StackPanel 
+                                    Focusable="True"
+                                    x:Name="St_product">
+
+                                </StackPanel>
+                            </ScrollViewer>
+
+                        </Grid>
+
+                    </Border>
+
+                    <Border 
+                        Grid.Column="1"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="0.5 0 0 0"
+                        CornerRadius="5"
+                        Background="White"
+                        >
+                        <StackPanel>
+
+                            <Button
+                                Name="delete_button"
+                                Click="delete_button_Click"
+                                Style="{DynamicResource BtnSalePageDelete}"
+                                />
+
+                            <Button
+                                Name="plus_button"
+                                Click="plus_button_Click"
+                                Style="{DynamicResource BtnSalePagePlus}"
+                                />
+
+                            <Button
+                                Name="minus_button"
+                                Click="minus_button_Click"
+                                Style="{DynamicResource BtnSalePageMinus}"
+                                />
+
+                            <Button
+                                Name="percent_button"
+                                Click="percent_button_Click"
+                                Style="{DynamicResource BtnSalePagePercent}"
+                                />
+                            <Button
+                                Name="search_button"
+                                Click="search_button_Click"
+                                Style="{DynamicResource BtnSalePageSearch}"
+                                />
+
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <Border
+                Grid.Row="3"
+                BorderBrush="{DynamicResource BorderColor}"
+                BorderThickness="1"
+                Margin="2 5"
+                CornerRadius="5"
+                Background="White"
+                >
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="1.3*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel 
+                        Grid.Column="0"
+                        Margin="20 5 0 0">
+
+                        <TextBlock
+                            Text="Summa"
+                            FontSize="22"
+                            FontWeight="Bold"
+                            ></TextBlock>
+                        <TextBlock
+                            x:Name="tbAmount"
+                            Text="0"
+                            FontSize="20"
+                            FontWeight="SemiBold"
+                            ></TextBlock>
+
+                        <TextBlock
+                            Text="Chegirma"
+                            FontSize="22"
+                            FontWeight="Bold"
+                            Margin="0 10 0 0"
+                            ></TextBlock>
+                        <TextBlock
+                            x:Name="tbDiscountAmount"
+                            Text="0"
+                            FontSize="20"
+                            FontWeight="SemiBold"
+                            ></TextBlock>
+
+                    </StackPanel>
+
+                    <StackPanel 
+                        Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        Margin="0 60 30 0">
+
+                        <TextBlock
+                            Text="Jami Summa:"
+                            FontSize="22"
+                            HorizontalAlignment="Center"
+                            FontWeight="Bold"
+                            ></TextBlock>
+                        <TextBlock
+                            Margin="0 5 0 0"
+                            x:Name="tbTotalAmount"
+                            Text="0"
+                            HorizontalAlignment="Center"
+                            FontSize="25"
+                            FontWeight="Bold"
+                            ></TextBlock>
+
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+        </Grid>
+        
+    </Border>
+</Window>

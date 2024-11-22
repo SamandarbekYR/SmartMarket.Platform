@@ -1,9 +1,6 @@
 ﻿using SmartMarket.Domain.Entities.Orders;
 using SmartMarket.Domain.Entities.Workers;
 using Et = SmartMarket.Domain.Entities.Partners;
-
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace SmartMarket.Service.DTOs.Order;
 
 public class OrderDto

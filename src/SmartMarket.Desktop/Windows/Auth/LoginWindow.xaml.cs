@@ -99,24 +99,24 @@ public partial class LoginWindow : Window
                     if (role == "SuperAdmin")
                     {
                         MainWindow window = new MainWindow();
+                        window.Show();
                         this.Close();
-                        window.ShowDialog();
                     }
                     else if (role == "Admin")
                     {
                         AdminWindow window = new AdminWindow();
+                        window.Show();
                         this.Close();
-                        window.ShowDialog();
                     }
                     else
                     {
-                        SimpleAdminWindow window = new SimpleAdminWindow();
+                        //SimpleAdminWindow window = new SimpleAdminWindow();
+                        //window.Show();
+                        //this.Close();
+
+                        MainWindow window = new MainWindow();
                         this.Close();
                         window.ShowDialog();
-
-                        //MainWindow window = new MainWindow();
-                        //this.Close();
-                        //window.ShowDialog();
                     }
                 }
                 else

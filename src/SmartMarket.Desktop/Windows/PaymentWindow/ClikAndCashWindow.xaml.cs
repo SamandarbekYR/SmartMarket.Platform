@@ -95,7 +95,7 @@ public partial class ClikAndCashWindow : Window
                     salePage.PaymentType = "clickandcash";
                     salePage.ClickSum = clicksum;
                     salePage.CashSum = cashsum;
-                    salePage.SaleProducts(false);
+                    salePage.ConvertTransaction(false);
                     break;
                 }
             }
