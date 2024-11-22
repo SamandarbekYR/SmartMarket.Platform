@@ -1,21 +1,20 @@
-﻿using System.Runtime.InteropServices;
-using System.Windows;
-using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
-using System.Windows.Interop;
-using SmartMarket.Desktop.Windows.ProductsForWindow;
-using ToastNotifications;
-using SmartMarket.Desktop.Components.SaleForComponent;
-using System.Windows.Media;
-using ToastNotifications.Lifetime;
-using ToastNotifications.Position;
-using ToastNotifications.Messages;
+﻿using SmartMarket.Desktop.Components.SaleForComponent;
 using SmartMarket.Desktop.ViewModels.Transactions;
-using SmartMarket.Service.DTOs.Products.Product;
-using static SmartMarket.Desktop.Windows.MessageBoxWindow;
-using System.Windows.Threading;
-using SmartMarketDesktop.DTOs.DTOs.Transactions;
-using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarket.Service.DTOs.Order;
+using SmartMarket.Service.DTOs.Products.Product;
+using SmartMarketDeskop.Integrated.Services.Products.Product;
+using SmartMarketDesktop.DTOs.DTOs.Transactions;
+using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Threading;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
+using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
+using static SmartMarket.Desktop.Windows.MessageBoxWindow;
 
 namespace SmartMarket.Desktop.Windows.Sales;
 
@@ -58,8 +57,8 @@ public partial class ShipmentsSaleWindow : Window
         cfg.PositionProvider = new WindowPositionProvider(
             parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
             corner: Corner.BottomCenter,
-            offsetX: 40,
-            offsetY: 40);
+            offsetX: 0,
+            offsetY: 0);
 
         cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
             notificationLifetime: TimeSpan.FromSeconds(3),
@@ -221,7 +220,7 @@ public partial class ShipmentsSaleWindow : Window
             selectedControl.product_Border.Background = Brushes.White;
             selectedControl = null!;
         }
-        SearchProductWindow searchProductWindow = new SearchProductWindow();
+        ShipmentSearchProductWindow searchProductWindow = new ShipmentSearchProductWindow();
         searchProductWindow.ShowDialog();
     }
 
@@ -401,4 +400,8 @@ public partial class ShipmentsSaleWindow : Window
         }
     }
 
+    private void SaveButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
 }

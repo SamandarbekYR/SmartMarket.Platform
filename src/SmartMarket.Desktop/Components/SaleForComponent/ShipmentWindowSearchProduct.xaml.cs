@@ -1,9 +1,10 @@
-﻿using SmartMarket.Desktop.Pages.SaleForPage;
-using SmartMarket.Desktop.Windows.ProductsForWindow;
+﻿using SmartMarket.Desktop.Windows.ProductsForWindow;
 using SmartMarket.Desktop.Windows.Sales;
 using SmartMarket.Service.DTOs.Products.Product;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
+using System.Windows.Media;
 
 namespace SmartMarket.Desktop.Components.SaleForComponent;
 
@@ -17,16 +18,16 @@ public partial class ShipmentWindowSearchProduct : UserControl
         InitializeComponent();
     }
 
-    public static SearchProductWindow GetSearchProductWindow()
+    public static ShipmentSearchProductWindow GetSearchProductWindow()
     {
-        SearchProductWindow searchWindow = null!;
+        ShipmentSearchProductWindow searchWindow = null!;
 
         foreach (Window window in Application.Current.Windows)
         {
-            Type type = typeof(SearchProductWindow);
+            Type type = typeof(ShipmentSearchProductWindow);
             if (window != null && window.DependencyObjectType.Name == type.Name)
             {
-                searchWindow = (SearchProductWindow)window;
+                searchWindow = (ShipmentSearchProductWindow)window;
                 if (searchWindow != null)
                 {
                     break;
@@ -59,11 +60,32 @@ public partial class ShipmentWindowSearchProduct : UserControl
     {
         var product = this.Tag as FullProductDto;
 
-        ShipmentsSaleWindow shipmentsSaleWindow = GetShipmentSaleWindow();
-        shipmentsSaleWindow.AddNewProductTvm(product!, 1);
+        if (product!.Count > 0)
+        {
+            ShipmentsSaleWindow shipmentsSaleWindow = GetShipmentSaleWindow();
+            shipmentsSaleWindow.AddNewProductTvm(product!, 1);
 
-        SearchProductWindow searchProductWindow = GetSearchProductWindow();
-        searchProductWindow.Close();
+            ShipmentSearchProductWindow searchProductWindow = GetSearchProductWindow();
+            searchProductWindow.Close();
+        }
+        else
+        {
+            lb_Quantity.Foreground = Brushes.Red;
+
+            var animation = new DoubleAnimation
+            {
+                From = 0,
+                To = 5,
+                Duration = TimeSpan.FromMilliseconds(100),
+                AutoReverse = true,
+                RepeatBehavior = new RepeatBehavior(2)
+            };
+
+            var transform = new TranslateTransform();
+            lb_Quantity.RenderTransform = transform;
+
+            transform.BeginAnimation(TranslateTransform.XProperty, animation);
+        }
     }
 
     public void SetData(FullProductDto product)
