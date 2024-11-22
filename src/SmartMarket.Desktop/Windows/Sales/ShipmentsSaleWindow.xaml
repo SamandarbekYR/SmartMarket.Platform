@@ -12,9 +12,11 @@
         PreviewTextInput="Window_PreviewTextInput"
         Loaded="Window_Loaded">
     <Border
-        Width="700"
+        Width="900"
         Height="700"
         CornerRadius="10"
+        BorderBrush="Black"
+        BorderThickness="1"
         Background="White">
 
         <Grid
@@ -366,20 +368,6 @@
                     </StackPanel>
                 </Grid>
             </Border>
-
-            <Button
-                x:Name="SaveButton"
-                Content="Saqlash"
-                Grid.Row="4"
-                Height="45"
-                Width="150"
-                Margin="7 0 0 0"
-                FontSize="20"
-                HorizontalAlignment="Left"
-                Click="SaveButton_Click"
-                Background="{StaticResource BSecondColor}"
-                Style="{DynamicResource MainButton2}"
-                />
 
             <Button
                 x:Name="NationButton"
