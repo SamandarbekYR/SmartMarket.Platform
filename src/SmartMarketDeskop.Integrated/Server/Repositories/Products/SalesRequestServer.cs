@@ -1,7 +1,4 @@
 ﻿using Newtonsoft.Json;
-
-using NLog;
-
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
@@ -12,7 +9,7 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Products;
 
 public class SalesRequestServer : ISalesRequestsServer
 {
-    public async Task<bool> AddAsync(AddSalesRequestDto dto)
+    public async Task<(long, bool)> AddAsync(AddSalesRequestDto dto)
     {
         try
         {
@@ -38,18 +35,23 @@ public class SalesRequestServer : ISalesRequestsServer
 
                     if (response.IsSuccessStatusCode)
                     {
-                        return true;
+                        var resultData = JsonConvert.DeserializeObject<Dictionary<string, object>>(resultContent);
+
+                        long transaction = Convert.ToInt64(resultData!["item1"]);
+                        bool result = Convert.ToBoolean(resultData["item2"]);
+
+                        return (transaction, result);
                     }
                     else
                     {
-                        return false;
+                        return (0, false);
                     }
                 }
             }
         }
         catch
         {
-            return false;
+            return (0, false);
         }
     }
 

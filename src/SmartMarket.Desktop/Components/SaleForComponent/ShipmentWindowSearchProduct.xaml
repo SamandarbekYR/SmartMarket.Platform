@@ -18,8 +18,8 @@
                 <ColumnDefinition Width="80"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="0.8*"/>
-                <ColumnDefinition Width="50"/>
-                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="80"/>
+                <ColumnDefinition Width="90"/>
                 <ColumnDefinition Width="50"/>
             </Grid.ColumnDefinitions>
 
@@ -27,7 +27,7 @@
                 Name="lb_PCode"
                 Grid.Column="0"
                 Content="15140"
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 Style="{DynamicResource TitleLabel}"/>
 
             <Label
