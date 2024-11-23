@@ -6,6 +6,11 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using SmartMarket.Service.DTOs.PartnersCompany.ContrAgent;
+using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgentPayments;
+using SmartMarketDeskop.Integrated.Services.PayDesks;
+using SmartMarket.Service.DTOs.PartnersCompany.ContrAgentPayment;
+using SmartMarket.Service.DTOs.PayDesks;
+using SmartMarketDeskop.Integrated.ViewModelsForUI.PartnerCompany;
 
 namespace SmartMarket.Desktop.Windows.PaymentWindow;
 
@@ -14,11 +19,17 @@ namespace SmartMarket.Desktop.Windows.PaymentWindow;
 /// </summary>
 public partial class PaymentKontrAgentWindow : Window
 {
+    private readonly IContrAgentPaymentService contrAgentPaymentService;
+    private readonly IPayDeskService payDeskService;
+    ContrAgentViewModels _contrAgentViewModel;
     public PaymentKontrAgentWindow()
     {
         InitializeComponent();
+        this.contrAgentPaymentService = new ContrAgentPaymentService();
+        this.payDeskService = new PayDeskService();
     }
 
+    List<PayDesksDto> payDesks = new List<PayDesksDto>();
     [DllImport("user32.dll")]
     internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
     internal void EnableBlur()
@@ -48,9 +59,29 @@ public partial class PaymentKontrAgentWindow : Window
         this.Close();
     }
 
-    private void Window_Loaded(object sender, RoutedEventArgs e)
+    public async Task GetAllPaydesks()
+    {
+        payDesks = await Task.Run(async () => await payDeskService.GetAll());
+        if (payDesks.Any())
+        {
+            var payDeskNames = payDesks.Select(x => x.Name)
+                .Distinct()
+                .ToList();
+
+            foreach (var paydesk in payDesks)
+                payDeskComboBox.Items.Add(paydesk.Name);
+        }
+    }
+
+    public void GetContrAgent(ContrAgentViewModels contrAgent)
+    {
+        _contrAgentViewModel = contrAgent;
+    }
+
+    private async void Window_Loaded(object sender, RoutedEventArgs e)
     {
         EnableBlur();
+        await GetAllPaydesks();
     }
 
     private void phone_number_TextChanged(object sender, TextChangedEventArgs e)
@@ -67,9 +98,27 @@ public partial class PaymentKontrAgentWindow : Window
         }
     }
 
-    private void BtnPay_Click(object sender, RoutedEventArgs e)
+    private async void BtnPay_Click(object sender, RoutedEventArgs e)
     {
+        if(!string.IsNullOrEmpty(tnPayAmount.Text))
+        {
+            AddContrAgentPaymentDto dto = new AddContrAgentPaymentDto();
 
+            {
+                PayDesksDto payDesk = payDesks.Where(x => x.Name == payDeskComboBox.SelectedValue).FirstOrDefault();
+                dto.PayDeskId = payDesk.Id;
+            }
+            dto.ContrAgentId = _contrAgentViewModel.Id;
+            dto.PaymentType = payDeskComboBox.SelectedItem?.ToString();
+            dto.LastPayment = Convert.ToDouble(tnPayAmount.Text);
+            dto.TotalDebt = Convert.ToDouble(_contrAgentViewModel.DebtSum);
+
+            var res = await contrAgentPaymentService.AddAsync(dto);
+            if(res == true)
+            {
+                this.Close();
+            }
+        }
     }
 
     private void BtnPayHistory_Click(object sender, RoutedEventArgs e)

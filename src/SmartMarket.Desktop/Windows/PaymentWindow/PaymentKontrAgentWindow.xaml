@@ -81,7 +81,7 @@
                     Margin="35 10 0 0"
                     ></TextBlock>
 
-                <ComboBox
+                <ComboBox x:Name="paymentTypeComboBox"
                     Height="40"
                     Margin="35 5 35 10">
                     <ComboBoxItem Content="Naqd"/>
@@ -96,12 +96,10 @@
                     Margin="35 10 0 0"
                     ></TextBlock>
 
-                <ComboBox
+                <ComboBox x:Name="payDeskComboBox"
                     Height="40"
                     Margin="35 5 35 10">
-                    <ComboBoxItem Content="Uydan"/>
-                    <ComboBoxItem Content="Ko'chadan"/>
-                    <ComboBoxItem Content="Ishxonadan"/>
+                    
                 </ComboBox>
 
                 <Button
