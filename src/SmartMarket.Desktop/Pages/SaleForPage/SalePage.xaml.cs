@@ -291,11 +291,10 @@ public partial class SalePage : Page
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
         GetData();
+        St_product.Focus();
 
         await InitializeSignalRConnection();
         await DisplayOrdersInStackPanel();
-        
-        St_product.Focus();
     }
 
     private async Task InitializeSignalRConnection()
@@ -678,11 +677,11 @@ public partial class SalePage : Page
 
     private async Task ProductSale(AddSalesRequestDto dto)
     {
-        bool result = await _salesRequestsService.CreateSalesRequest(dto);
-        if (result)
+        var result = await _salesRequestsService.CreateSalesRequest(dto);
+        if (result.Item2)
         {
-            //PrintService printService = new PrintService();
-            //printService.Print(dto, tvm.Transactions);
+            PrintService printService = new PrintService();
+            printService.Print(dto, tvm.Transactions, result.Item1);
 
             tvm.ClearTransaction();
             St_product.Children.Clear();

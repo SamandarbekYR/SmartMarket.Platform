@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.Common.Exceptions;
-using SmartMarket.Service.Common.Utils;
 using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.Interfaces.Order;
-using SmartMarket.WebApi.Controllers.Common;
 
 namespace SmartMarket.WebApi.Controllers.Common.Order
 {

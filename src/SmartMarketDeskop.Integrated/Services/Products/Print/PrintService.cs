@@ -9,25 +9,18 @@ namespace SmartMarketDeskop.Integrated.Services.Products.Print;
 
 public class PrintService : IDisposable
 {
-    //private readonly string PRINTER_NAME = ""; //IdentitySingelton.GetInstance().PrinterName;
-
-    private readonly string PRINTER_NAME = Path.Combine(Path.GetTempPath(), "40c765b3-3e9c-4dd7-b592-f53c83c0bd4a.txt");
+    private readonly string PRINTER_NAME = IdentitySingelton.GetInstance().PrinterName;
     public string printerName { get; set; } = string.Empty;
     Printer? printer;
 
     public PrintService()
     {
-        printerName = GetSavedPrinterName();
-        if (string.IsNullOrEmpty(printerName))
-        {
-            printerName = GetUsbPrinterName();
-        }
     }
 
-    public void Print(AddSalesRequestDto dto, List<TransactionDto> transactions)
+    public void Print(AddSalesRequestDto dto, List<TransactionDto> transactions, long transactionNo)
     {
         var worker = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
-        printer = new Printer(printerName, "UTF-8");
+        printer = new Printer(PRINTER_NAME, "UTF-8");
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         printer.Separator();
         printer.AlignCenter();
