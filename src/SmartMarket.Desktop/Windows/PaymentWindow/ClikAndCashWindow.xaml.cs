@@ -1,13 +1,13 @@
-﻿using System.Runtime.InteropServices;
-using System.Windows;
-using System.Windows.Input;
-using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
-using System.Windows.Interop;
+﻿using SmartMarket.Desktop.Pages.SaleForPage;
+using SmartMarket.Desktop.Windows.Sales;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Controls;
-using SmartMarket.Desktop.Pages.SaleForPage;
-using System.Reflection.Emit;
+using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
+using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 
 namespace SmartMarket.Desktop.Windows.PaymentWindow;
 
@@ -16,7 +16,8 @@ namespace SmartMarket.Desktop.Windows.PaymentWindow;
 /// </summary>
 public partial class ClikAndCashWindow : Window
 {
-    double TotalCost = 0;
+    public double TotalCost { get; set; }
+    public int SendWhere { get; set; }
 
     public ClikAndCashWindow()
     {
@@ -55,15 +56,6 @@ public partial class ClikAndCashWindow : Window
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         EnableBlur();
-        foreach (Window window in Application.Current.Windows)
-        {
-            var frame = window.FindName("PageNavigator") as Frame;
-            if (frame != null && frame.Content is SalePage salePage)
-            {
-                TotalCost = salePage.TotalPrice;
-                break;
-            }
-        }
     }
 
     private void phone_number_TextChanged(object sender, TextChangedEventArgs e)
@@ -87,17 +79,28 @@ public partial class ClikAndCashWindow : Window
 
         if (ColculatePrice(cashsum, clicksum))
         {
-            foreach (Window window in Application.Current.Windows)
+            if (SendWhere == 1)
             {
-                var frame = window.FindName("PageNavigator") as Frame;
-                if (frame != null && frame.Content is SalePage salePage)
+                foreach (Window window in Application.Current.Windows)
                 {
-                    salePage.PaymentType = "clickandcash";
-                    salePage.ClickSum = clicksum;
-                    salePage.CashSum = cashsum;
-                    salePage.ConvertTransaction(false);
-                    break;
+                    var frame = window.FindName("PageNavigator") as Frame;
+                    if (frame != null && frame.Content is SalePage salePage)
+                    {
+                        salePage.PaymentType = "clickandcash";
+                        salePage.ClickSum = clicksum;
+                        salePage.CashSum = cashsum;
+                        salePage.ConvertTransaction(false);
+                        break;
+                    }
                 }
+            }
+            else if(SendWhere == 2)
+            {
+                ShipmentsSaleWindow shipmentsSaleWindow = GetShipmentSaleWindow();
+                shipmentsSaleWindow.PaymentType = "clickandcash";
+                shipmentsSaleWindow.ClickSum = clicksum;
+                shipmentsSaleWindow.CashSum = cashsum;
+                shipmentsSaleWindow.ConvertTransaction(false);
             }
             this.Close();
         }
@@ -107,6 +110,25 @@ public partial class ClikAndCashWindow : Window
             await Task.Delay(3000);
             notEnaughMoney.Foreground = Brushes.White;
         }
+    }
+
+    public static ShipmentsSaleWindow GetShipmentSaleWindow()
+    {
+        ShipmentsSaleWindow shipmentWindow = null!;
+
+        foreach (Window window in Application.Current.Windows)
+        {
+            Type type = typeof(ShipmentsSaleWindow);
+            if (window != null && window.DependencyObjectType.Name == type.Name)
+            {
+                shipmentWindow = (ShipmentsSaleWindow)window;
+                if (shipmentWindow != null)
+                {
+                    break;
+                }
+            }
+        }
+        return shipmentWindow!;
     }
 
     private bool ColculatePrice(double cashsum, double clicksum)

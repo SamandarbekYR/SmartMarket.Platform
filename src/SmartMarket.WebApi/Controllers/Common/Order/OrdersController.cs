@@ -82,5 +82,23 @@ namespace SmartMarket.WebApi.Controllers.Common.Order
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpPut("status/{id}")]
+        public async Task<IActionResult> UpdateStatusAsync(Guid id)
+        {
+            try
+            {
+                await _orderService.UpdateStatusAsync(id);
+                return Ok();
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }

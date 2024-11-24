@@ -602,6 +602,8 @@ public partial class SalePage : Page
         if (tvm.Transactions.Count > 0)
         {
             PaymentTypeWindow paymentTypeWindow = new PaymentTypeWindow();
+            paymentTypeWindow.SendWhere = 1;
+            paymentTypeWindow.TotalCost = TotalPrice;
             paymentTypeWindow.ShowDialog();
         }
         else
@@ -680,8 +682,8 @@ public partial class SalePage : Page
         var result = await _salesRequestsService.CreateSalesRequest(dto);
         if (result.Item2)
         {
-            PrintService printService = new PrintService();
-            printService.Print(dto, tvm.Transactions, result.Item1);
+            //PrintService printService = new PrintService();
+            //printService.Print(dto, tvm.Transactions, result.Item1);
 
             tvm.ClearTransaction();
             St_product.Children.Clear();
