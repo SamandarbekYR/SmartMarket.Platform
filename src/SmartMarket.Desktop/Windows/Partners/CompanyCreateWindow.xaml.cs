@@ -1,4 +1,5 @@
-﻿using SmartMarketDeskop.Integrated.Services.PartnerCompanies.PartnerCompany;
+﻿using SmartMarket.Service.DTOs.PartnersCompany.PartnerCompany;
+using SmartMarketDeskop.Integrated.Services.PartnerCompanies.PartnerCompany;
 using SmartMarketDesktop.DTOs.DTOs.PartnerCompany;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -71,10 +72,10 @@ namespace SmartMarket.Desktop.Windows.Partners
 
         private async void CreateButton_Click(object sender, RoutedEventArgs e)
         {
-            PartnerCompanyDto partnerCompanyDto = new PartnerCompanyDto();
+            AddPartnerCompanyDto partnerCompanyDto = new AddPartnerCompanyDto();
             partnerCompanyDto.Name = txtCompanyName.Text;
             partnerCompanyDto.PhoneNumber = txtPhoneNumber.Text;
-            partnerCompanyDto.Describtion = txtDescribtion.Text;
+            partnerCompanyDto.Description = txtDescribtion.Text;
 
             var result = await _partnerCompanyService.CreateCompany(partnerCompanyDto);
             this.Close();
