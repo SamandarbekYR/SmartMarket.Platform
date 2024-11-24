@@ -1,12 +1,11 @@
 ﻿using SmartMarketDeskop.Integrated.Services.PartnerCompanies.PartnerCompany;
 using SmartMarketDesktop.DTOs.DTOs.PartnerCompany;
 using System.Runtime.InteropServices;
-using System.Windows;
-using System.Windows.Input;
-using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
-using System.Windows.Interop;
 using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Interop;
+using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 
 namespace SmartMarket.Desktop.Windows.Partners
 {
@@ -15,11 +14,11 @@ namespace SmartMarket.Desktop.Windows.Partners
     /// </summary>
     public partial class CompanyCreateWindow : Window
     {
-        private IPartnerCompanyService partnerCompanyService;
+        private IPartnerCompanyService _partnerCompanyService;
         public CompanyCreateWindow()
         {
             InitializeComponent();
-            this.partnerCompanyService = new PartnerCompanyService();
+            this._partnerCompanyService = new PartnerCompanyService();
         }
 
         [DllImport("user32.dll")]
@@ -46,29 +45,6 @@ namespace SmartMarket.Desktop.Windows.Partners
             Marshal.FreeHGlobal(accentPtr);
         }
 
-        private async void btnCreate_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            PartnerCompanyDto partnerCompanyDto = new PartnerCompanyDto();
-            partnerCompanyDto.Name=txtCompanyName.Text;
-            partnerCompanyDto.PhoneNumber=txtPhoneNumber.Text;
-            partnerCompanyDto.Describtion=txtDescribtion.Text;
-
-            await partnerCompanyService.CreateCompany(partnerCompanyDto);
-            Clear();
-            this.Close();   
-        }
-
-        private void Border_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            Clear();
-            this.Close();
-        }
-
-        public void Clear()
-        {
-            txtPhoneNumber.Text=txtDescribtion.Text=txtCompanyName.Text=string.Empty;   
-        }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             EnableBlur();
@@ -86,6 +62,22 @@ namespace SmartMarket.Desktop.Windows.Partners
                 textBox.Text = filteredText;
                 textBox.CaretIndex = caretIndex > 0 ? caretIndex - 1 : 0;
             }
+        }
+
+        private void closeButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private async void CreateButton_Click(object sender, RoutedEventArgs e)
+        {
+            PartnerCompanyDto partnerCompanyDto = new PartnerCompanyDto();
+            partnerCompanyDto.Name = txtCompanyName.Text;
+            partnerCompanyDto.PhoneNumber = txtPhoneNumber.Text;
+            partnerCompanyDto.Describtion = txtDescribtion.Text;
+
+            var result = await _partnerCompanyService.CreateCompany(partnerCompanyDto);
+            this.Close();
         }
     }
 }
