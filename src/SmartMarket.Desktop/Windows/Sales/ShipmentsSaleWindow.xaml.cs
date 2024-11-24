@@ -5,6 +5,7 @@ using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
+using SmartMarketDeskop.Integrated.Services.Orders;
 using SmartMarketDeskop.Integrated.Services.Products.Print;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
@@ -30,6 +31,7 @@ public partial class ShipmentsSaleWindow : Window
 {
     private readonly ISalesRequestsService _salesRequestsService;
     private readonly IProductService _productService;
+    private readonly IOrderService _orderService;
 
     private DispatcherTimer time;
     public TransactionViewModel tvm;
@@ -39,6 +41,7 @@ public partial class ShipmentsSaleWindow : Window
     string message = string.Empty;
     string barcode = string.Empty;
     string barcodes = string.Empty;
+    public Guid OrderId { get; set; }
     public string PaymentType { get; set; } = string.Empty;
     public double TotalPrice { get; set; }
     public double CashSum { get; set; }
@@ -51,6 +54,7 @@ public partial class ShipmentsSaleWindow : Window
 
         this._productService = new ProductService();
         this._salesRequestsService = new SalesRequestService();
+        this._orderService = new OrderService();
         this.tvm = new TransactionViewModel();
 
         time = new DispatcherTimer();
@@ -295,6 +299,8 @@ public partial class ShipmentsSaleWindow : Window
         if (tvm.Transactions.Count > 0)
         {
             PaymentTypeWindow paymentTypeWindow = new PaymentTypeWindow();
+            paymentTypeWindow.SendWhere = 2;
+            paymentTypeWindow.TotalCost = TotalPrice;
             paymentTypeWindow.ShowDialog();
         }
         else
@@ -402,6 +408,7 @@ public partial class ShipmentsSaleWindow : Window
 
     public void ConvertShipment(OrderDto dto)
     {
+        OrderId = dto.Id;
         foreach (var product in dto.ProductOrderItems)
         {
             FullProductDto fpd = new FullProductDto
@@ -472,8 +479,10 @@ public partial class ShipmentsSaleWindow : Window
         var result = await _salesRequestsService.CreateSalesRequest(dto);
         if (result.Item2)
         {
-            PrintService printService = new PrintService();
-            printService.Print(dto, tvm.Transactions, result.Item1);
+            //PrintService printService = new PrintService();
+            //printService.Print(dto, tvm.Transactions, result.Item1);
+
+            await UpdateSaleShipment(OrderId);
 
             tvm.ClearTransaction();
             St_product.Children.Clear();
@@ -486,8 +495,8 @@ public partial class ShipmentsSaleWindow : Window
             notifier.ShowError("Sotuvda qandaydir muammo bor!!!");
     }
 
-    public async Task UpdateSaleShipment()
+    public async Task UpdateSaleShipment(Guid Id)
     {
-
+        bool result = await _orderService.UpdateStatusAsync(Id);
     }
 }
