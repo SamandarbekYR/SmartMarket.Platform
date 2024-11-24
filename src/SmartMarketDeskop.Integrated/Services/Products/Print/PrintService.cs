@@ -22,22 +22,17 @@ public class PrintService : IDisposable
         var worker = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
         printer = new Printer(PRINTER_NAME, "UTF-8");
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-        printer.Separator();
-        printer.AlignCenter();
         printer.DoubleWidth2();
         printer.Append("\"Smart market\"");
         printer.Separator();
         printer.Append("\n");
-
-        printer.AlignLeft();
-        printer.Append("t/r Nomi      Miqdori     Jami narxi");
-        printer.Separator();
+        printer.Append("Nomi      Miqdori     Jami narxi");
 
         int tr = 1;
         printer.Append("\n");
         foreach (var item in transactions)
         {
-            string text = $"{tr}.  {item.Name}";
+            string text = $"{item.Name}";
             int strLength = 25 - text.Length;
             for (int i = 1; i <= strLength; i++)
             {
@@ -58,25 +53,16 @@ public class PrintService : IDisposable
 
         printer.Separator();
         printer.AlignLeft();
+        printer.Append($"Naqd:         {dto.CashSum} so'm");
+        printer.Append($"Plastik:      {dto.CardSum} so'm");
+        printer.Append($"Chegirma:     {dto.DiscountSum} so'm");
+        printer.Append($"Jami summa:   {dto.TotalCost} so'm");
         printer.Append("\n");
-        printer.Append($"Naqd:                         {dto.CashSum} so'm");
-        printer.Append($"Plastik:                      {dto.CardSum} so'm");
-        printer.Append($"Chegirma:                     {dto.DiscountSum} so'm");
-        printer.Append($"Jami summa:                   {dto.TotalCost} so'm");
-        printer.Append("\n");
-
-        printer.Separator();
-        printer.AlignLeft();
-        printer.Append("\n");
-        printer.Append($"Sotuvchi:               {worker}");
+        printer.Append($"Sotuvchi: {worker}");
         printer.AlignRight();
         printer.Append("\n");
         printer.AlignLeft();
-        printer.Append("Sana:                      " + DateTime.Now.ToString());
-
-        printer.Append("\n");
-        printer.AlignCenter();
-        printer.Append("\n");
+        printer.Append("Sana:  " + DateTime.Now.ToString());
 
         printer.AlignCenter();
         printer.BoldMode("Xaridingiz uchun tashakkur!");

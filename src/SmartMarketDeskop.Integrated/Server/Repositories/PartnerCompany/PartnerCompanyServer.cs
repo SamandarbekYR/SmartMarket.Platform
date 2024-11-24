@@ -4,7 +4,6 @@ using SmartMarket.Service.DTOs.PartnersCompany.PartnerCompany;
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Server.Interfaces.PartnerCompany;
-using SmartMarketDesktop.DTOs.DTOs.PartnerCompany;
 using SmartMarketDesktop.ViewModels.Entities.PartnersCompany;
 using System.Text;
 
