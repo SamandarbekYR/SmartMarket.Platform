@@ -9,14 +9,18 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
+        PreviewTextInput="Window_PreviewTextInput"
         Loaded="Window_Loaded">
     <Border
-        Width="700"
+        Width="900"
         Height="700"
         CornerRadius="10"
+        BorderBrush="Black"
+        BorderThickness="1"
         Background="White">
 
-        <Grid>
+        <Grid
+            Margin="5 0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="90"/>
@@ -285,11 +289,6 @@
                                 />
 
                             <Button
-                                Name="percent_button"
-                                Click="percent_button_Click"
-                                Style="{DynamicResource BtnSalePagePercent}"
-                                />
-                            <Button
                                 Name="search_button"
                                 Click="search_button_Click"
                                 Style="{DynamicResource BtnSalePageSearch}"
@@ -304,7 +303,7 @@
                 Grid.Row="3"
                 BorderBrush="{DynamicResource BorderColor}"
                 BorderThickness="1"
-                Margin="2 5"
+                Margin="2 5 2 0"
                 CornerRadius="5"
                 Background="White"
                 >
@@ -369,6 +368,45 @@
                     </StackPanel>
                 </Grid>
             </Border>
+
+            <Button
+                x:Name="SaveButton"
+                Content="Saqlash"
+                Grid.Row="4"
+                Height="45"
+                Width="150"
+                Margin="7 0 0 0"
+                FontSize="20"
+                HorizontalAlignment="Left"
+                Click="SaveButton_Click"
+                Background="{StaticResource BSecondColor}"
+                Style="{DynamicResource MainButton2}"/>
+
+            <Button
+                x:Name="NationButton"
+                Content="Nasiya"
+                Grid.Row="4"
+                Height="45"
+                Width="150"
+                Margin="0 0 170 0"
+                FontSize="20"
+                HorizontalAlignment="Right"
+                Click="NationButton_Click"
+                Background="{StaticResource BTheerdColor}"
+                Style="{DynamicResource MainButton2}"/>
+
+            <Button
+                x:Name="SaleButton"
+                Content="Sotish"
+                Grid.Row="4"
+                Height="45"
+                Width="150"
+                Margin="0 0 7 0"
+                FontSize="20"
+                HorizontalAlignment="Right"
+                Click="SaleButton_Click"
+                Background="{StaticResource BFirstColor}"
+                Style="{DynamicResource MainButton2}"/>
 
         </Grid>
         

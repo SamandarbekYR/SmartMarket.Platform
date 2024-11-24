@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
 using NLog;
+using SmartMarket.Service.DTOs.PartnersCompany.PartnerCompany;
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Server.Interfaces.PartnerCompany;
-using SmartMarketDesktop.DTOs.DTOs.PartnerCompany;
 using SmartMarketDesktop.ViewModels.Entities.PartnersCompany;
 using System.Text;
 
@@ -12,7 +12,7 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.PartnerCompany
     public class PartnerCompanyServer : IPartnerComanyServer
     {
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
-        public async Task<bool> AddCompany(PartnerCompanyDto companyDto)
+        public async Task<bool> AddCompany(AddPartnerCompanyDto companyDto)
         {
             try
             {
@@ -58,32 +58,24 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.PartnerCompany
         {
             try
             {
-                // HttpClient yaratish
                 HttpClient client = new HttpClient();
 
-                // Tokenni qo'shish
                 var token = IdentitySingelton.GetInstance().Token;
 
-                // API so'rovining bazaviy manzilini sozlash
                 client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/common/partner-companies");
 
-                // Authorization headerni qo'shish
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
-                // Get so'rovini amalga oshirish
                 HttpResponseMessage message = await client.GetAsync(client.BaseAddress);
 
-                // So'rov natijasini o'qish
                 string response = await message.Content.ReadAsStringAsync();
 
-                // JSON ni CategoryView listiga deserialize qilish
                 List<PartnerCompanyView> posts = JsonConvert.DeserializeObject<List<PartnerCompanyView>>(response)!;
 
                 return posts;
             }
             catch
             {
-                // Xatolik yuz bergan taqdirda bo'sh ro'yxat qaytarish
                 return new List<PartnerCompanyView>();
             }
         }

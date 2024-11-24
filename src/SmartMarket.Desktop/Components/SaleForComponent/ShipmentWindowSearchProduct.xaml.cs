@@ -1,36 +1,33 @@
-﻿using SmartMarket.Desktop.Pages.SaleForPage;
-using SmartMarket.Desktop.Windows.ProductsForWindow;
+﻿using SmartMarket.Desktop.Windows.ProductsForWindow;
+using SmartMarket.Desktop.Windows.Sales;
 using SmartMarket.Service.DTOs.Products.Product;
-using System.Drawing;
-using System.Reflection.Emit;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows.Media.Animation;
-using Brushes = System.Windows.Media.Brushes;
+using System.Windows.Media;
 
 namespace SmartMarket.Desktop.Components.SaleForComponent;
 
 /// <summary>
 /// Interaction logic for SearchProductComponent.xaml
 /// </summary>
-public partial class SearchProductComponent : UserControl
+public partial class ShipmentWindowSearchProduct : UserControl
 {
-    public SearchProductComponent()
+    public ShipmentWindowSearchProduct()
     {
         InitializeComponent();
     }
 
-    public static SearchProductWindow GetSearchProductWindow()
+    public static ShipmentSearchProductWindow GetSearchProductWindow()
     {
-        SearchProductWindow searchWindow = null!;
+        ShipmentSearchProductWindow searchWindow = null!;
 
         foreach (Window window in Application.Current.Windows)
         {
-            Type type = typeof(SearchProductWindow);
+            Type type = typeof(ShipmentSearchProductWindow);
             if (window != null && window.DependencyObjectType.Name == type.Name)
             {
-                searchWindow = (SearchProductWindow)window;
+                searchWindow = (ShipmentSearchProductWindow)window;
                 if (searchWindow != null)
                 {
                     break;
@@ -40,22 +37,35 @@ public partial class SearchProductComponent : UserControl
         return searchWindow!;
     }
 
+    public static ShipmentsSaleWindow GetShipmentSaleWindow()
+    {
+        ShipmentsSaleWindow shipmentWindow = null!;
+
+        foreach (Window window in Application.Current.Windows)
+        {
+            Type type = typeof(ShipmentsSaleWindow);
+            if (window != null && window.DependencyObjectType.Name == type.Name)
+            {
+                shipmentWindow = (ShipmentsSaleWindow)window;
+                if (shipmentWindow != null)
+                {
+                    break;
+                }
+            }
+        }
+        return shipmentWindow!;
+    }
+
     private void Add_Button_Click(object sender, RoutedEventArgs e)
     {
         var product = this.Tag as FullProductDto;
 
         if (product!.Count > 0)
         {
-            foreach (Window window in Application.Current.Windows)
-            {
-                var frame = window.FindName("PageNavigator") as Frame;
-                if (frame != null && frame.Content is SalePage salePage)
-                {
-                    salePage.AddNewProductTvm(product!, 1);
-                    break;
-                }
-            }
-            SearchProductWindow searchProductWindow = GetSearchProductWindow();
+            ShipmentsSaleWindow shipmentsSaleWindow = GetShipmentSaleWindow();
+            shipmentsSaleWindow.AddNewProductTvm(product!, 1);
+
+            ShipmentSearchProductWindow searchProductWindow = GetSearchProductWindow();
             searchProductWindow.Close();
         }
         else

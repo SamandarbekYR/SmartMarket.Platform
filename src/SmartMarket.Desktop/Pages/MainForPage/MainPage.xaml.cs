@@ -12,6 +12,7 @@ using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Desktop.Components.Loader;
 using SmartMarket.Service.DTOs.PartnersCompany.ContrAgent;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.PartnerCompany;
+using SmartMarket.Desktop.Windows.Partners;
 
 namespace SmartMarket.Desktop.Pages.MainForPage;
 
@@ -159,6 +160,7 @@ public partial class MainPage : Page
             EmptyDataProduct.Visibility = Visibility.Visible;
         }
     }
+
     private CancellationTokenSource _cancellationTokenSource;
     private async void tb_search_ProductTextChanged(object sender, TextChangedEventArgs e)
     {
@@ -362,4 +364,9 @@ public partial class MainPage : Page
         }
     }
 
+    private void btnAddCompany_Click(object sender, RoutedEventArgs e)
+    {
+        CompanyCreateWindow companyCreateWindow = new CompanyCreateWindow();
+        companyCreateWindow.ShowDialog();
+    }
 }

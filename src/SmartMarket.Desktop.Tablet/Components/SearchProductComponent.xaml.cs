@@ -3,6 +3,8 @@ using SmartMarket.Desktop.Tablet.Windows;
 using SmartMarket.Service.DTOs.Products.Product;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media.Animation;
+using System.Windows.Media;
 
 namespace SmartMarket.Desktop.Tablet.Components;
 
@@ -22,26 +24,47 @@ public partial class SearchProductComponent : UserControl
 
     private void Add_Button_Click(object sender, RoutedEventArgs e)
     {
-        QuantityWindow quantityWindow = new QuantityWindow(this);
-        quantityWindow.ShowDialog();
-
         var product = this.Tag as FullProductDto;
 
-        foreach (Window window in Application.Current.Windows)
+        if (product!.Count > 0) 
         {
-            var frame = window.FindName("PageNavigator") as Frame;
-            if (frame != null && frame.Content is MainPage mainPage)
+            QuantityWindow quantityWindow = new QuantityWindow(this);
+            quantityWindow.ShowDialog();
+
+            foreach (Window window in Application.Current.Windows)
             {
-                mainPage.AddNewProductTvm(product!, Quantity);
-                mainPage.tb_search.Text = "";
-                mainPage.st_searchproduct.Children.Clear();
-                break;
+                var frame = window.FindName("PageNavigator") as Frame;
+                if (frame != null && frame.Content is MainPage mainPage)
+                {
+                    mainPage.AddNewProductTvm(product!, Quantity);
+                    mainPage.tb_search.Text = "";
+                    mainPage.st_searchproduct.Children.Clear();
+                    break;
+                }
+                else if (frame != null && frame.Content is SecondPage secondPage)
+                {
+                    secondPage.tb_search.Text = "";
+                    secondPage.st_searchproduct.Children.Clear();
+                }
             }
-            else if (frame != null && frame.Content is SecondPage secondPage)
+        }
+        else
+        {
+            lb_Quantity.Foreground = Brushes.Red;
+
+            var animation = new DoubleAnimation
             {
-                secondPage.tb_search.Text = "";
-                secondPage.st_searchproduct.Children.Clear();
-            }
+                From = 0,
+                To = 5,
+                Duration = TimeSpan.FromMilliseconds(100),
+                AutoReverse = true,
+                RepeatBehavior = new RepeatBehavior(2)
+            };
+
+            var transform = new TranslateTransform();
+            lb_Quantity.RenderTransform = transform;
+
+            transform.BeginAnimation(TranslateTransform.XProperty, animation);
         }
     }
 

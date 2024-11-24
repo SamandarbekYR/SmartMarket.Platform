@@ -389,10 +389,18 @@
                                         Click="percent_button_Click"
                                         Style="{DynamicResource BtnSalePagePercent}"
                                         />
+                                    
                                     <Button
                                         Name="search_button"
                                         Click="search_button_Click"
                                         Style="{DynamicResource BtnSalePageSearch}"
+                                        />
+
+                                    <Button
+                                        Visibility="Collapsed"
+                                        Name="save_button"
+                                        Click="save_button_Click"
+                                        Style="{DynamicResource BtnSalePageSave}"
                                         />
 
                                 </StackPanel>

@@ -5,6 +5,7 @@ using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 using System.Windows.Interop;
 using SmartMarket.Desktop.Pages.SaleForPage;
 using System.Windows.Controls;
+using SmartMarket.Desktop.Windows.Sales;
 
 namespace SmartMarket.Desktop.Windows.PaymentWindow
 {
@@ -13,6 +14,8 @@ namespace SmartMarket.Desktop.Windows.PaymentWindow
     /// </summary>
     public partial class PaymentTypeWindow : Window
     {
+        public int SendWhere { get; set; }
+        public double TotalCost { get; set; } = 0;
         public PaymentTypeWindow()
         {
             InitializeComponent();
@@ -43,6 +46,25 @@ namespace SmartMarket.Desktop.Windows.PaymentWindow
             Marshal.FreeHGlobal(accentPtr);
         }
 
+        public static ShipmentsSaleWindow GetShipmentSaleWindow()
+        {
+            ShipmentsSaleWindow shipmentWindow = null!;
+
+            foreach (Window window in Application.Current.Windows)
+            {
+                Type type = typeof(ShipmentsSaleWindow);
+                if (window != null && window.DependencyObjectType.Name == type.Name)
+                {
+                    shipmentWindow = (ShipmentsSaleWindow)window;
+                    if (shipmentWindow != null)
+                    {
+                        break;
+                    }
+                }
+            }
+            return shipmentWindow!;
+        }
+
         private void btnclose_MouseUp(object sender, MouseButtonEventArgs e)
         {
             this.Close();
@@ -55,17 +77,25 @@ namespace SmartMarket.Desktop.Windows.PaymentWindow
 
         private void HandlePayment(string paymentType)
         {
-            foreach (Window window in Application.Current.Windows)
+            if (SendWhere == 1)
             {
-                var frame = window.FindName("PageNavigator") as Frame;
-                if (frame != null && frame.Content is SalePage salePage)
+                foreach (Window window in Application.Current.Windows)
                 {
-                    salePage.PaymentType = paymentType;
-                    salePage.ConvertTransaction(false);
-                    break;
+                    var frame = window.FindName("PageNavigator") as Frame;
+                    if (frame != null && frame.Content is SalePage salePage)
+                    {
+                        salePage.PaymentType = paymentType;
+                        salePage.ConvertTransaction(false);
+                        break;
+                    }
                 }
             }
-
+            else if(SendWhere == 2)
+            {
+                ShipmentsSaleWindow shipmentsSaleWindow = GetShipmentSaleWindow();
+                shipmentsSaleWindow.PaymentType = paymentType;
+                shipmentsSaleWindow.ConvertTransaction(false);
+            }
             this.Close();
         }
 
@@ -94,6 +124,8 @@ namespace SmartMarket.Desktop.Windows.PaymentWindow
         {
             ClikAndCashWindow clikAndCashWindow = new ClikAndCashWindow();
             this.Close();
+            clikAndCashWindow.TotalCost = TotalCost; 
+            clikAndCashWindow.SendWhere = SendWhere;
             clikAndCashWindow.ShowDialog();
         }
     }

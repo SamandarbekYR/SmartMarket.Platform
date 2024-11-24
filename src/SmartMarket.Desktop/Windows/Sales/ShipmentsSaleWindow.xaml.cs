@@ -1,16 +1,25 @@
-﻿using System.Runtime.InteropServices;
-using System.Windows;
-using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
-using System.Windows.Interop;
-using SmartMarket.Desktop.Windows.ProductsForWindow;
-using ToastNotifications;
-using SmartMarket.Desktop.Components.SaleForComponent;
-using System.Windows.Media;
-using ToastNotifications.Lifetime;
-using ToastNotifications.Position;
-using ToastNotifications.Messages;
+﻿using SmartMarket.Desktop.Components.SaleForComponent;
 using SmartMarket.Desktop.ViewModels.Transactions;
+using SmartMarket.Desktop.Windows.PaymentWindow;
+using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Products.Product;
+using SmartMarket.Service.DTOs.Products.ProductSale;
+using SmartMarket.Service.DTOs.Products.SalesRequest;
+using SmartMarketDeskop.Integrated.Services.Orders;
+using SmartMarketDeskop.Integrated.Services.Products.Print;
+using SmartMarketDeskop.Integrated.Services.Products.Product;
+using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
+using SmartMarketDesktop.DTOs.DTOs.Transactions;
+using System.Runtime.InteropServices;
+using System.Windows;
+using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Threading;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
+using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 using static SmartMarket.Desktop.Windows.MessageBoxWindow;
 
 namespace SmartMarket.Desktop.Windows.Sales;
@@ -20,32 +29,47 @@ namespace SmartMarket.Desktop.Windows.Sales;
 /// </summary>
 public partial class ShipmentsSaleWindow : Window
 {
+    private readonly ISalesRequestsService _salesRequestsService;
+    private readonly IProductService _productService;
+    private readonly IOrderService _orderService;
 
+    private DispatcherTimer time;
     public TransactionViewModel tvm;
 
-    int activeTextboxIndex = 2;
     int productCount = 1;
 
     string message = string.Empty;
     string barcode = string.Empty;
     string barcodes = string.Empty;
+    public Guid OrderId { get; set; }
     public string PaymentType { get; set; } = string.Empty;
     public double TotalPrice { get; set; }
     public double CashSum { get; set; }
     public double ClickSum { get; set; }
+
+
     public ShipmentsSaleWindow()
     {
         InitializeComponent();
+
+        this._productService = new ProductService();
+        this._salesRequestsService = new SalesRequestService();
+        this._orderService = new OrderService();
         this.tvm = new TransactionViewModel();
+
+        time = new DispatcherTimer();
+        time.Interval = TimeSpan.FromMilliseconds(50);
+        time.Tick += Timer_Tick!;
     }
+
 
     Notifier notifier = new Notifier(cfg =>
     {
         cfg.PositionProvider = new WindowPositionProvider(
             parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
             corner: Corner.BottomCenter,
-            offsetX: 40,
-            offsetY: 40);
+            offsetX: 0,
+            offsetY: 0);
 
         cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
             notificationLifetime: TimeSpan.FromSeconds(3),
@@ -53,6 +77,14 @@ public partial class ShipmentsSaleWindow : Window
 
         cfg.Dispatcher = Application.Current.Dispatcher;
     });
+
+    private void Timer_Tick(object sender, EventArgs e)
+    {
+        time.Stop();
+        ProcessBarcode(barcode);
+        barcode = "";
+        barcodes = "";
+    }
 
     [DllImport("user32.dll")]
     internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
@@ -80,6 +112,7 @@ public partial class ShipmentsSaleWindow : Window
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         EnableBlur();
+        St_product.Focus();
     }
 
     private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -87,8 +120,8 @@ public partial class ShipmentsSaleWindow : Window
         this.Close();
     }
 
-    private SaleProductForComponent selectedControl = null!;
-    public void SelectProduct(SaleProductForComponent product)
+    private ShipmentSaleComponent selectedControl = null!;
+    public void SelectProduct(ShipmentSaleComponent product)
     {
         if (selectedControl != null)
         {
@@ -161,6 +194,7 @@ public partial class ShipmentsSaleWindow : Window
         }
 
     }
+
     private void minus_button_Click(object sender, RoutedEventArgs e)
     {
         if (selectedControl != null)
@@ -190,38 +224,6 @@ public partial class ShipmentsSaleWindow : Window
         }
     }
 
-    private void percent_button_Click(object sender, RoutedEventArgs e)
-    {
-        if (selectedControl != null)
-        {
-            activeTextboxIndex = 3;
-            float discount = int.Parse(selectedControl.tbDiscount.Text);
-
-            if (discount >= 0)
-            {
-                foreach (var item in tvm.Transactions)
-                {
-                    if (item.Barcode == selectedControl.Barcode)
-                    {
-                        item.Discount = discount;
-                        var (totalPrice, discountPrice) = SetPrice(item.Price, item.Discount, item.Quantity);
-                        item.TotalPrice = totalPrice;
-                        item.DiscountSum = discountPrice;
-
-                        selectedControl.tbDiscount.Text = item.Discount.ToString();
-                        selectedControl.tbTotalPrice.Text = item.TotalPrice.ToString();
-
-                        ColculateTotalPrice();
-                    }
-                }
-            }
-        }
-        else
-        {
-            notifier.ShowInformation("Maxsulot tanlanmagan.");
-        }
-    }
-
     private void search_button_Click(object sender, RoutedEventArgs e)
     {
         if (selectedControl != null)
@@ -229,7 +231,7 @@ public partial class ShipmentsSaleWindow : Window
             selectedControl.product_Border.Background = Brushes.White;
             selectedControl = null!;
         }
-        SearchProductWindow searchProductWindow = new SearchProductWindow();
+        ShipmentSearchProductWindow searchProductWindow = new ShipmentSearchProductWindow();
         searchProductWindow.ShowDialog();
     }
 
@@ -287,4 +289,214 @@ public partial class ShipmentsSaleWindow : Window
         Product_Barcode.Text = "";
     }
 
+    private void NationButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void SaleButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (tvm.Transactions.Count > 0)
+        {
+            PaymentTypeWindow paymentTypeWindow = new PaymentTypeWindow();
+            paymentTypeWindow.SendWhere = 2;
+            paymentTypeWindow.TotalCost = TotalPrice;
+            paymentTypeWindow.ShowDialog();
+        }
+        else
+            notifier.ShowInformation("Mahsulot xarid qilinmagan.");
+    }
+
+    private void SaveButton_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void Window_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+    {
+        barcodes += e.Text;
+
+        if (e.Text == "\r")
+        {
+            if (barcodes.Length >= 2)
+            {
+                barcode = barcodes.Substring(0, barcodes.Length - 1);
+            }
+        }
+
+        time.Stop();
+        time.Start();
+    }
+
+    private async void ProcessBarcode(string barcode)
+    {
+        if (!string.IsNullOrEmpty(barcode))
+        {
+            var product = await _productService.GetByBarCode(barcode);
+
+            if (product != null)
+            {
+                AddNewProductTvm(product, 0);
+            }
+            else
+            {
+                notifier.ShowWarning("Bunday maxsulot topilmadi.");
+            }
+        }
+    }
+
+    public void AddNewProductTvm(FullProductDto product, int count)
+    {
+        string barcode = product.Barcode;
+        if (!tvm.Transactions.Any(t => t.Barcode == barcode))
+        {
+            if (count == 0)
+                tvm.Add(product, 1);
+            else
+                tvm.Add(product, count);
+            AddNewProduct(product, count);
+        }
+        else
+        {
+            double totalPrice = 0;
+            double discountPrice = 0;
+            foreach (ShipmentSaleComponent child in St_product.Children)
+            {
+                if (child.Barcode == barcode)
+                {
+                    int quantity = int.Parse(child.tbQuantity.Text);
+                    if (quantity < child.AvailableCount)
+                    {
+                        quantity++;
+                        (totalPrice, discountPrice) = SetPrice(double.Parse(child.tbPrice.Text), float.Parse(child.tbDiscount.Text), quantity);
+
+                        child.tbTotalPrice.Text = totalPrice.ToString();
+                        child.tbQuantity.Text = quantity.ToString();
+
+                        GetPrice(product, quantity);
+                    }
+                }
+            }
+            tvm.Increment(barcode, totalPrice, discountPrice);
+        }
+        ColculateTotalPrice();
+    }
+
+    private void AddNewProduct(FullProductDto product, int quantity)
+    {
+        if (quantity == 0)
+            quantity = 1;
+
+        ShipmentSaleComponent saleProductForComponent = new ShipmentSaleComponent();
+        saleProductForComponent.DataContext = new TransactionDto
+        {
+            Name = product.Name,
+            Barcode = product.Barcode,
+            Price = product.SellPrice,
+            TotalPrice = product.SellPrice * quantity,
+            AvailableCount = product.Count,
+            Discount = 0,
+            Quantity = quantity,
+        };
+
+        GetPrice(product, quantity);
+        ColculateTotalPrice();
+
+        saleProductForComponent.SetData(product);
+        St_product.Children.Add(saleProductForComponent);
+    }
+
+    public void ConvertShipment(OrderDto dto)
+    {
+        OrderId = dto.Id;
+        foreach (var product in dto.ProductOrderItems)
+        {
+            FullProductDto fpd = new FullProductDto
+            {
+                Id = product.Product.Id,
+                Barcode = product.Product.Barcode,
+                Name = product.Product.Name,
+                Price = product.Product.Price,
+                SellPrice = product.Product.SellPrice,
+                Count = product.AvailableCount
+            };
+
+            AddNewProductTvm(fpd, product.Count);
+        }
+    }
+
+    public async void ConvertTransaction(bool isDebt)
+    {
+        AddSalesRequestDto dto = new AddSalesRequestDto();
+        dto.TotalCost = tvm.TransactionPrice;
+        dto.DiscountSum = tvm.DiscountPrice;
+        if (isDebt)
+        {
+            dto.DebtSum = tvm.TransactionPrice;
+            dto.CardSum = 0;
+            dto.CashSum = 0;
+        }
+        else if (PaymentType == "card")
+        {
+            dto.CardSum = tvm.TransactionPrice;
+            dto.DebtSum = 0;
+            dto.CashSum = 0;
+        }
+        else if (PaymentType == "cash")
+        {
+            dto.CashSum = tvm.TransactionPrice;
+            dto.CardSum = 0;
+            dto.DebtSum = 0;
+        }
+        else if (PaymentType == "click")
+        {
+            dto.CardSum = tvm.TransactionPrice;
+            dto.DebtSum = 0;
+            dto.CashSum = 0;
+        }
+        else if (PaymentType == "transfer")
+        {
+            dto.CardSum = tvm.TransactionPrice;
+            dto.DebtSum = 0;
+            dto.CashSum = 0;
+        }
+        else if (PaymentType == "clickandcash")
+        {
+            dto.CardSum = ClickSum;
+            dto.CashSum = CashSum;
+            dto.DebtSum = 0;
+        }
+
+        List<AddProductSaleDto> products = tvm.Transactions
+            .Select(t => new AddProductSaleDto { ProductId = t.Id, Count = t.Quantity, Discount = t.Discount, ItemTotalCost = t.TotalPrice }).ToList();
+
+        dto.ProductSaleItems = products;
+        await ProductSale(dto);
+    }
+
+    private async Task ProductSale(AddSalesRequestDto dto)
+    {
+        var result = await _salesRequestsService.CreateSalesRequest(dto);
+        if (result.Item2)
+        {
+            //PrintService printService = new PrintService();
+            //printService.Print(dto, tvm.Transactions, result.Item1);
+
+            await UpdateSaleShipment(OrderId);
+
+            tvm.ClearTransaction();
+            St_product.Children.Clear();
+            ColculateTotalPrice();
+            EmptyPrice();
+
+            notifier.ShowSuccess("Sotuv amalga oshirildi.");
+        }
+        else
+            notifier.ShowError("Sotuvda qandaydir muammo bor!!!");
+    }
+
+    public async Task UpdateSaleShipment(Guid Id)
+    {
+        bool result = await _orderService.UpdateStatusAsync(Id);
+    }
 }

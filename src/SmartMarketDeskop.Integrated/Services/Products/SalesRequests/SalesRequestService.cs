@@ -28,21 +28,21 @@ public class SalesRequestService : ISalesRequestsService
             return false;
         }
     }
-    public async Task<bool> CreateSalesRequest(AddSalesRequestDto dto)
+    public async Task<(long, bool)> CreateSalesRequest(AddSalesRequestDto dto)
     {
         if (IsInternetAvailable())
         {
             var result = await _salesRequestsServer.AddAsync(dto);
-            if (result)
-                return true;
+            if (result.Item2)
+                return (result);
             else
-                return false;
+                return (0, false);
             
         }
         else
         {
             // local baza uchun malumot saqlanadi
-            return false;
+            return (0, false);
         }
     }
 

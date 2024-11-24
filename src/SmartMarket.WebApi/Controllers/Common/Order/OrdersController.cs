@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.Common.Exceptions;
-using SmartMarket.Service.Common.Utils;
 using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.Interfaces.Order;
-using SmartMarket.WebApi.Controllers.Common;
 
 namespace SmartMarket.WebApi.Controllers.Common.Order
 {
@@ -75,6 +71,24 @@ namespace SmartMarket.WebApi.Controllers.Common.Order
             try
             {
                 await _orderService.UpdateAsync(dto, id);
+                return Ok();
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPut("status/{id}")]
+        public async Task<IActionResult> UpdateStatusAsync(Guid id)
+        {
+            try
+            {
+                await _orderService.UpdateStatusAsync(id);
                 return Ok();
             }
             catch (StatusCodeException ex)
