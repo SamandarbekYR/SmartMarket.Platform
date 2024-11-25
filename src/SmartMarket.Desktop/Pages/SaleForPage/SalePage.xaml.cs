@@ -298,12 +298,10 @@ public partial class SalePage : Page
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        GetData();
-        St_product.Focus();
-
-        await InitializeSignalRConnection();
         await GetAllOrders();
+        await InitializeSignalRConnection();
 
+        GetData();
         St_product.Focus();
     }
 
@@ -340,7 +338,7 @@ public partial class SalePage : Page
     private async Task GetAllOrders()
     {
         Loader.Visibility = Visibility.Visible;
-        var orders = await _orderService.GetAllAsync();
+        var orders = await Task.Run(async () => await _orderService.GetAllAsync());
         DisplayOrdersInStackPanel(orders);
     }
 
