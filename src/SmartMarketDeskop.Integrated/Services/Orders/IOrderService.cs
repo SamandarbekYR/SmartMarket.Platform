@@ -7,5 +7,6 @@ namespace SmartMarketDeskop.Integrated.Services.Orders
     {
         Task<bool> CreateAsync(AddOrderDto order);
         Task<List<OrderDto>> GetAllAsync();
+        Task<List<OrderDto>> GetByPartnerNameAsync(string searchName);
     }
 }

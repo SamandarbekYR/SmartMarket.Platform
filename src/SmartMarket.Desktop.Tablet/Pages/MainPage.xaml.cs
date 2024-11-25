@@ -315,7 +315,7 @@ public partial class MainPage : Page
                 notifier.ShowSuccess("Mahsulotlar muvaffaqiyatli yuborildi.");
                 st_product.Children.Clear();
             }
-            catch (Exception ex)
+            catch 
             {
                 notifier.ShowError($"Mahsulotlarni yuborishda xato");
             }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+﻿using MaterialDesignColors;
+
+using Microsoft.AspNetCore.SignalR.Client;
 using SmartMarket.Desktop.Components.SaleForComponent;
 using SmartMarket.Desktop.ViewModels.Transactions;
 using SmartMarket.Desktop.Windows;
@@ -19,6 +21,9 @@ using SmartMarketDeskop.Integrated.Services.Products.Print;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
+
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
@@ -293,7 +298,7 @@ public partial class SalePage : Page
         GetData();
 
         await InitializeSignalRConnection();
-        await DisplayOrdersInStackPanel();
+        await GetAllOrders();
         
         St_product.Focus();
     }
@@ -314,7 +319,7 @@ public partial class SalePage : Page
         {
             Application.Current.Dispatcher.Invoke(async () =>
             {
-                await DisplayOrdersInStackPanel();
+                await GetAllOrders();
             });
         });
 
@@ -327,11 +332,61 @@ public partial class SalePage : Page
             notifier.ShowWarning("Ulanishda xotolik mavjud!");
         }
     }
-   
-    private async Task DisplayOrdersInStackPanel()
+
+    private async Task GetAllOrders()
     {
         var orders = await _orderService.GetAllAsync();
+        DisplayOrdersInStackPanel(orders);
+    }
 
+    private CancellationTokenSource _cancellationTokenSource;
+    private async void Search_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource = new CancellationTokenSource();
+
+        string search = Search.Text;
+
+        EmptyData.Visibility = Visibility.Collapsed;
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            //Loader.Visibility = Visibility.Visible;
+
+            try
+            {
+                await Task.Run(async () =>
+                {
+                    if (_cancellationTokenSource.Token.IsCancellationRequested) return;
+
+                    List<OrderDto> orders = new List<OrderDto>();
+
+                    if (!IsNumeric(search) && search.Length >= 1)
+                    {
+                        orders = await _orderService.GetByPartnerNameAsync(search);
+                    }
+
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        if (search == Search.Text)
+                        {
+                            DisplayOrdersInStackPanel(orders);
+                        }
+                    });
+                },
+                _cancellationTokenSource.Token);
+            }
+            catch (TaskCanceledException)
+            {
+            }
+            finally
+            {
+                Loader.Visibility = Visibility.Collapsed;
+            }
+        }
+    }
+
+    private void DisplayOrdersInStackPanel(List<OrderDto> orders)
+    {
         stackPanelOrders.Children.Clear();
         Loader.Visibility = Visibility.Collapsed;
 
@@ -342,6 +397,11 @@ public partial class SalePage : Page
             shipmentComponent.Tag = order;
             stackPanelOrders.Children.Add(shipmentComponent);
         }
+    }
+
+    private bool IsNumeric(string text)
+    {
+        return Regex.IsMatch(text, @"^\d+$");
     }
 
     private void Harajat_Click(object sender, RoutedEventArgs e)
