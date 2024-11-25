@@ -7,4 +7,6 @@ public interface IPartnerComanyServer
 {
     Task<bool> AddCompany(AddPartnerCompanyDto companyDto);
     Task<List<PartnerCompanyView>> GetAllCompany();
+    Task<bool> UpdateCompany(Guid id, AddPartnerCompanyDto dto);
+    Task<bool> DeleteCompany(Guid id);
 }
