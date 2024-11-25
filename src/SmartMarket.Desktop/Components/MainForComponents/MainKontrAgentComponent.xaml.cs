@@ -89,7 +89,10 @@ public partial class MainKontrAgentComponent : UserControl
 
     private void Payment_Button_Click(object sender, RoutedEventArgs e)
     {
+        var contrAgent = this.Tag as ContrAgentViewModels;
+
         PaymentKontrAgentWindow paymentKontrAgentWindow = new PaymentKontrAgentWindow();
+        paymentKontrAgentWindow.GetContrAgent(contrAgent);
         paymentKontrAgentWindow.ShowDialog();
     }
 
