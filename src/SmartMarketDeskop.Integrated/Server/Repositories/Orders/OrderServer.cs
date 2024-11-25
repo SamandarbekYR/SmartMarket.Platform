@@ -68,7 +68,7 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Orders
             {
                 HttpClient client = new HttpClient();
                 var token = IdentitySingelton.GetInstance().Token;
-                client.BaseAddress = new Uri(AuthApi.BASE_URL + $"/api/ordera/name/{searchName}");
+                client.BaseAddress = new Uri(AuthApi.BASE_URL + $"/api/orders/name/{searchName}");
 
                 client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 
