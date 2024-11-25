@@ -351,7 +351,7 @@ public partial class SalePage : Page
         EmptyData.Visibility = Visibility.Collapsed;
         if (!string.IsNullOrWhiteSpace(search))
         {
-            //Loader.Visibility = Visibility.Visible;
+            Loader.Visibility = Visibility.Visible;
 
             try
             {
