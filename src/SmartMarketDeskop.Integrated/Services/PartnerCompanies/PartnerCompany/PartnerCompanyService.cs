@@ -37,6 +37,22 @@ namespace SmartMarketDeskop.Integrated.Services.PartnerCompanies.PartnerCompany
             }
         }
 
+        public async Task<bool> DeleteCompany(Guid id)
+        {
+            if(IsInternetAvailable())
+            {
+                var res = await _partnerComanyServer.DeleteCompany(id);
+
+                if(res)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         public async Task<List<PartnerCompanyView>> GetAllCompany()
         {
@@ -62,6 +78,23 @@ namespace SmartMarketDeskop.Integrated.Services.PartnerCompanies.PartnerCompany
                     return true;
             }
             catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateCompany(Guid id, AddPartnerCompanyDto dto)
+        {
+            if (IsInternetAvailable())
+            {
+                var res = await _partnerComanyServer.UpdateCompany(id, dto);
+
+                if (res)
+                    return true;
+                else
+                    return false;
+            }
+            else
             {
                 return false;
             }

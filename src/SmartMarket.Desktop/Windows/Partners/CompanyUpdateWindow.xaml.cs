@@ -1,12 +1,22 @@
 ﻿using SmartMarket.Service.DTOs.PartnersCompany.PartnerCompany;
 using SmartMarketDeskop.Integrated.Services.PartnerCompanies.PartnerCompany;
-using SmartMarketDesktop.DTOs.DTOs.PartnerCompany;
 using SmartMarketDesktop.ViewModels.Entities.PartnersCompany;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using ToastNotifications;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
@@ -16,12 +26,13 @@ using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 namespace SmartMarket.Desktop.Windows.Partners
 {
     /// <summary>
-    /// Interaction logic for CompanyCreateWindow.xaml
+    /// Interaction logic for CompanyUpdateWindow.xaml
     /// </summary>
-    public partial class CompanyCreateWindow : Window
+    public partial class CompanyUpdateWindow : Window
     {
-        private IPartnerCompanyService _partnerCompanyService;
-        public CompanyCreateWindow()
+        private readonly IPartnerCompanyService _partnerCompanyService;
+        PartnerCompanyView companyView;
+        public CompanyUpdateWindow()
         {
             InitializeComponent();
             this._partnerCompanyService = new PartnerCompanyService();
@@ -54,7 +65,7 @@ namespace SmartMarket.Desktop.Windows.Partners
         Notifier notifier = new Notifier(cfg =>
         {
             cfg.PositionProvider = new WindowPositionProvider(
-                parentWindow: Application.Current.MainWindow,
+                parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
                 corner: Corner.TopRight,
                 offsetX: 50,
                 offsetY: 20);
@@ -84,9 +95,11 @@ namespace SmartMarket.Desktop.Windows.Partners
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             EnableBlur();
+            txtCompanyName.Text = companyView.Name;
+            txtPhoneNumber.Text = companyView.PhoneNumber.ToString();
         }
 
-        private void phone_number_TextChanged(object sender, TextChangedEventArgs e)
+        private void txtPhoneNumber_TextChanged(object sender, TextChangedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
             string text = textBox.Text;
@@ -100,6 +113,11 @@ namespace SmartMarket.Desktop.Windows.Partners
             }
         }
 
+        public void GetData(PartnerCompanyView company)
+        {
+            companyView = company;
+        }
+
         private void closeButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -107,31 +125,36 @@ namespace SmartMarket.Desktop.Windows.Partners
 
         private void Clear()
         {
-            txtCompanyName.Text = string.Empty;
             txtPhoneNumber.Text = string.Empty;
+            txtCompanyName.Text = string.Empty;
             txtDescribtion.Text = string.Empty;
         }
 
-        private async void CreateButton_Click(object sender, RoutedEventArgs e)
+        private async void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtCompanyName.Text) && !string.IsNullOrEmpty(txtPhoneNumber.Text) && !string.IsNullOrEmpty(txtDescribtion.Text))
+            if(!string.IsNullOrEmpty(txtPhoneNumber.Text) && !string.IsNullOrEmpty(txtCompanyName.Text) && !string.IsNullOrEmpty(txtDescribtion.Text))
             {
-                AddPartnerCompanyDto partnerCompanyDto = new AddPartnerCompanyDto();
-                partnerCompanyDto.Name = txtCompanyName.Text;
-                partnerCompanyDto.PhoneNumber = txtPhoneNumber.Text;
-                partnerCompanyDto.Description = txtDescribtion.Text;
+                AddPartnerCompanyDto companyDto = new AddPartnerCompanyDto();
+                companyDto.PhoneNumber = txtPhoneNumber.Text;
+                companyDto.Name = txtCompanyName.Text;
+                companyDto.Description = txtDescribtion.Text;
 
-                var result = await _partnerCompanyService.CreateCompany(partnerCompanyDto);
+                var result = await _partnerCompanyService.UpdateCompany(companyView.Id, companyDto);
+
                 if(result)
                 {
                     Clear();
                     this.Close();
-                    notifier.ShowSuccess($"{txtCompanyName.Text} muvaffaqiyatli yaratildi.");
+                    notifier.ShowSuccess("Firma yangilandi.");
+                }
+                else
+                {
+                    notifier.ShowError("Firmani yangilashda xatolik yuz berdi.");
                 }
             }
             else
             {
-                notifierThis.ShowWarning("Firma malumotlari to'liq emas!"); 
+                notifierThis.ShowWarning("Firma malumotlari to'liq emas!");
             }
         }
     }
