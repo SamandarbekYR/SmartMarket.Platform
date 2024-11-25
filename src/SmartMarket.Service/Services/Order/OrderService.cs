@@ -104,7 +104,7 @@ namespace SmartMarket.Service.Services.Order
         {
             try
             {
-                var orders = await _unitOfWork.Order.GetOrdersFullInformationAsync();
+                var orders = (await _unitOfWork.Order.GetOrdersFullInformationAsync()).Where(o => o.IsSold == false);
                 return _mapper.Map<List<OrderDto>>(orders);
             }
             catch (Exception ex)

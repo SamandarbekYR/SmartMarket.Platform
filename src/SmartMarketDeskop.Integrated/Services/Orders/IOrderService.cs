@@ -1,10 +1,13 @@
-﻿using SmartMarket.Service.DTOs.Order;
+﻿using SmartMarket.Service.DTOs.Expence;
+using SmartMarket.Service.DTOs.Order;
 
-namespace SmartMarketDeskop.Integrated.Services.Orders;
-
-public interface IOrderService
+namespace SmartMarketDeskop.Integrated.Services.Orders
 {
-    Task<bool> CreateAsync(AddOrderDto order);
-    Task<bool> UpdateStatusAsync(Guid id);
-    Task<List<OrderDto>> GetAllAsync();
+    public interface IOrderService
+    {
+        Task<bool> CreateAsync(AddOrderDto order);
+        Task<List<OrderDto>> GetAllAsync();
+        Task<List<OrderDto>> GetByPartnerNameAsync(string searchName);
+        Task<bool> UpdateStatusAsync(Guid id);
+    }
 }
