@@ -11,6 +11,7 @@ using SmartMarket.Desktop.Windows.PaymentWindow;
 using SmartMarket.Desktop.Windows.ProductsForWindow;
 using SmartMarket.Desktop.Windows.Sales;
 using SmartMarket.Desktop.Windows.Settings;
+using SmartMarket.Domain.Entities.Orders;
 using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.DTOs.Products.ProductSale;
@@ -56,10 +57,12 @@ public partial class SalePage : Page
     string message = "";
     string barcode = "";
     string barcodes = "";
+
+    public Guid OrderId { get; set; } = Guid.Empty;
     public string PaymentType { get; set; } = string.Empty;
-    public double TotalPrice { get; set; } 
-    public double CashSum { get; set; } 
-    public double ClickSum { get; set; } 
+    public double TotalPrice { get; set; }
+    public double CashSum { get; set; }
+    public double ClickSum { get; set; }
 
     public SalePage()
     {
@@ -116,11 +119,11 @@ public partial class SalePage : Page
 
     private void btnBackKlav_Click(object sender, RoutedEventArgs e)
     {
-        if(activeTextboxIndex == 2 && tbCalculator.Text.Length > 0)
+        if (activeTextboxIndex == 2 && tbCalculator.Text.Length > 0)
         {
             tbCalculator.Text = tbCalculator.Text.Substring(0, tbCalculator.Text.Length - 1);
         }
-        else if(activeTextboxIndex == 3)
+        else if (activeTextboxIndex == 3)
         {
             if (selectedControl.tbDiscount.Text.Length == 1)
                 selectedControl.tbDiscount.Text = "0";
@@ -181,9 +184,9 @@ public partial class SalePage : Page
         {
             tbCalculator.Text = tbCalculator.Text.ToString() + number;
         }
-        else if(activeTextboxIndex == 3)
+        else if (activeTextboxIndex == 3)
         {
-            if(selectedControl.tbDiscount.Text == "0")
+            if (selectedControl.tbDiscount.Text == "0")
             {
                 selectedControl.tbDiscount.Text = "";
                 selectedControl.tbDiscount.Text = selectedControl.tbDiscount.Text + number;
@@ -273,7 +276,7 @@ public partial class SalePage : Page
             else
                 quantity = int.Parse(tbCalculator.Text!);
         }
-        
+
         saleProductForComponent.DataContext = new TransactionDto
         {
             Name = product.Name,
@@ -300,7 +303,7 @@ public partial class SalePage : Page
 
         await InitializeSignalRConnection();
         await GetAllOrders();
-        
+
         St_product.Focus();
     }
 
@@ -328,7 +331,7 @@ public partial class SalePage : Page
         {
             await _connection.StartAsync();
         }
-        catch 
+        catch
         {
             notifier.ShowWarning("Ulanishda xotolik mavjud!");
         }
@@ -336,6 +339,7 @@ public partial class SalePage : Page
 
     private async Task GetAllOrders()
     {
+        Loader.Visibility = Visibility.Visible;
         var orders = await _orderService.GetAllAsync();
         DisplayOrdersInStackPanel(orders);
     }
@@ -437,7 +441,7 @@ public partial class SalePage : Page
         login.Show();
 
         Window currentWindow = Window.GetWindow(this);
-        if(currentWindow != null) 
+        if (currentWindow != null)
             currentWindow.Close();
     }
 
@@ -494,6 +498,15 @@ public partial class SalePage : Page
         Total_Price.Text = "0";
         Product_Name.Text = "";
         Product_Barcode.Text = "";
+    }
+
+    public void StopSale()
+    {
+        tvm.ClearTransaction();
+        selectedControl = null!;
+        St_product.Children.Clear();
+        EmptyPrice();
+        ColculateTotalPrice();
     }
 
     private SaleProductForComponent selectedControl = null!;
@@ -723,6 +736,7 @@ public partial class SalePage : Page
 
     public void ConvertShipment(OrderDto dto)
     {
+        OrderId = dto.Id;
         foreach (var product in dto.ProductOrderItems)
         {
             FullProductDto fpd = new FullProductDto
@@ -747,6 +761,9 @@ public partial class SalePage : Page
             //PrintService printService = new PrintService();
             //printService.Print(dto, tvm.Transactions, result.Item1);
 
+            if(OrderId != Guid.Empty)
+                await UpdateSaleShipment(OrderId);
+
             tvm.ClearTransaction();
             St_product.Children.Clear();
             ColculateTotalPrice();
@@ -756,5 +773,22 @@ public partial class SalePage : Page
         }
         else
             notifier.ShowError("Sotuvda qandaydir muammo bor!!!");
+    }
+
+    public async Task UpdateSaleShipment(Guid Id)
+    {
+        while (true)
+        {
+            bool result = await _orderService.UpdateStatusAsync(Id);
+
+            if (result)
+            {
+                await GetAllOrders();
+                OrderId = Guid.Empty;
+                break;
+            }
+
+            await Task.Delay(1000);
+        }
     }
 }
