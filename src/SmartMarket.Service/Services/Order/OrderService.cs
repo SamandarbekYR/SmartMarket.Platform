@@ -122,7 +122,7 @@ namespace SmartMarket.Service.Services.Order
                     order.Partner != null &&
                     (order.Partner.FirstName.Contains(searchName, StringComparison.OrdinalIgnoreCase) ||
                     order.Partner.LastName.Contains(searchName, StringComparison.OrdinalIgnoreCase)))
-                    .ToList(); 
+                    .ToList();
 
                 return _mapper.Map<List<OrderDto>>(orders);
             }

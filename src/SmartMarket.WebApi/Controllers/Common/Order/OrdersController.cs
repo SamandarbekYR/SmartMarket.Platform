@@ -29,12 +29,12 @@ namespace SmartMarket.WebApi.Controllers.Common.Order
             }
         }
 
-        [HttpPost("name/{searchName}")]
-        public async Task<IActionResult> GetByPartnerNameAsync(string searchName)
+        [HttpGet("name/{name}")]
+        public async Task<IActionResult> GetByPartnerNameAsync(string name)
         {
             try
             {
-                var orders = await _orderService.GetByPartnerNameAsync(searchName);
+                var orders = await _orderService.GetByPartnerNameAsync(name);
                 return Ok(orders);
             }
             catch (StatusCodeException ex)
