@@ -13,6 +13,7 @@ using SmartMarket.Desktop.Components.Loader;
 using SmartMarket.Service.DTOs.PartnersCompany.ContrAgent;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.PartnerCompany;
 using SmartMarket.Desktop.Windows.Partners;
+using SmartMarketDeskop.Integrated.Services.PartnerCompanies.PartnerCompany;
 
 namespace SmartMarket.Desktop.Pages.MainForPage;
 
@@ -25,6 +26,7 @@ public partial class MainPage : Page
     private ICategoryService _categoryService;
     private IContrAgentService _contrAgentService;
     private IProductService _productService;
+    private IPartnerCompanyService _partnerCompanyService;
 
     public MainPage()
     {
@@ -32,6 +34,7 @@ public partial class MainPage : Page
         this._categoryService = new CategoryService();
         this._contrAgentService = new ContrAgentService();
         this._productService = new ProductService();
+        this._partnerCompanyService = new PartnerCompanyService();
     }
 
     private async void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)
@@ -39,6 +42,7 @@ public partial class MainPage : Page
         await GetAllProducts();
         await GetAllCategory();
         await GetAllContrAgents();
+        await GetAllCompany();
     }
 
     private async void btnAddCategory_Click(object sender, System.Windows.RoutedEventArgs e)
@@ -61,6 +65,12 @@ public partial class MainPage : Page
         contrAgentCreateWindow.ShowDialog();
         await GetAllContrAgents();
     }
+    private async void btnAddCompany_Click(object sender, RoutedEventArgs e)
+    {
+        CompanyCreateWindow companyCreateWindow = new CompanyCreateWindow();
+        companyCreateWindow.ShowDialog();
+        await GetAllCompany();
+    }
 
     public async Task GetAllCategory()
     {
@@ -74,6 +84,8 @@ public partial class MainPage : Page
 
         if (categoryViews.Count > 0)
         {
+            EmptyDataCategory.Visibility = Visibility.Collapsed;
+
             foreach (var category in categoryViews)
             {
                 MainCategoryComponent categoryComponent = new MainCategoryComponent();
@@ -106,6 +118,36 @@ public partial class MainPage : Page
         selectedControl = category;
     }
 
+    public async Task GetAllCompany()
+    {
+        CompanyLoader.Visibility = Visibility.Visible;
+        St_Company.Children.Clear();
+
+        var companies = await Task.Run(async () => await _partnerCompanyService.GetAllCompany());
+        CompanyLoader.Visibility = Visibility.Collapsed;
+
+        int companyCount = 1;
+
+        if(companies.Count > 0)
+        {
+            EmptyDataCompany.Visibility = Visibility.Collapsed;
+
+            foreach(var company in companies)
+            {
+                MainCompanyComponent mainCompanyComponent = new MainCompanyComponent();
+                mainCompanyComponent.Tag = company;
+                mainCompanyComponent.SetValues(company, companyCount);
+                mainCompanyComponent.GetAllCompanies = GetAllCompany;
+                St_Company.Children.Add(mainCompanyComponent);
+                companyCount++;
+            }
+        }
+        else
+        {
+            EmptyDataCompany.Visibility = Visibility.Visible;
+        }
+    }
+
     public async Task GetAllContrAgents()
     {
         ContragentLoader.Visibility = Visibility.Visible;
@@ -118,6 +160,8 @@ public partial class MainPage : Page
 
         if (contrAgents.Count > 0)
         {
+            EmptyDataContragent.Visibility = Visibility.Collapsed;
+
             foreach (var contrAgent in contrAgents)
             {
                 MainKontrAgentComponent mainKontrAgentComponent = new MainKontrAgentComponent();
@@ -348,6 +392,8 @@ public partial class MainPage : Page
 
         if (products.Count > 0)
         {
+            EmptyDataProduct.Visibility = Visibility.Collapsed;
+
             foreach (var product in products)
             {
                 MainProductComponent productComponent = new MainProductComponent();
@@ -362,11 +408,5 @@ public partial class MainPage : Page
         {
             EmptyDataProduct.Visibility = Visibility.Visible;
         }
-    }
-
-    private void btnAddCompany_Click(object sender, RoutedEventArgs e)
-    {
-        CompanyCreateWindow companyCreateWindow = new CompanyCreateWindow();
-        companyCreateWindow.ShowDialog();
     }
 }

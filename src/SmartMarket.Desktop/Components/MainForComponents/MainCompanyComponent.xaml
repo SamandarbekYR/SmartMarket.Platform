@@ -1,0 +1,54 @@
+﻿<UserControl x:Class="SmartMarket.Desktop.Components.MainForComponents.MainCompanyComponent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartMarket.Desktop.Components.MainForComponents"
+             mc:Ignorable="d">
+    
+    <Border x:Name="brCompany"
+            Background="White" 
+            CornerRadius="5" 
+            BorderThickness="1" 
+            BorderBrush="Black" 
+            Height="40"
+            Margin="5 3 15 3">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="30"/>
+                <ColumnDefinition Width="30"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0"
+                       x:Name="tbNumber"
+                       Text="1"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       FontSize="15"
+                       FontWeight="SemiBold"
+                       ></TextBlock>
+            <TextBlock Grid.Column="1"
+                       x:Name="tbName"
+                       Text="Daily"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Left"
+                       FontSize="15"
+                       FontWeight="SemiBold"
+                       ></TextBlock>
+            <Button
+                    x:Name="BtnEditCompany"
+                    Grid.Column="2"
+                    Click="BtnEditCompany_Click"
+                    Style="{DynamicResource BtnEditCategory}"
+                    ></Button>
+
+            <Button
+                    x:Name="BntDeleteCompany"
+                    Grid.Column="3"
+                    Style="{DynamicResource BtnDeleteCategory}"
+                    Click="BntDeleteCompany_Click"
+                    ></Button>
+        </Grid> 
+    </Border>
+</UserControl>
