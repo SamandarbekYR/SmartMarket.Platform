@@ -296,6 +296,7 @@ public partial class SalePage : Page
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
         GetData();
+        St_product.Focus();
 
         await InitializeSignalRConnection();
         await GetAllOrders();
@@ -440,6 +441,61 @@ public partial class SalePage : Page
             currentWindow.Close();
     }
 
+    // Jami summani hisoblash uchun
+    public void ColculateTotalPrice()
+    {
+        if (tvm != null)
+        {
+            TotalPrice = tvm.TransactionPrice = tvm.Transactions.Sum(x => x.TotalPrice);
+            tvm.DiscountPrice = tvm.Transactions.Sum(x => x.DiscountSum);
+            tbTotalAmount.Text = tvm.TransactionPrice.ToString();
+            tbDiscountAmount.Text = tvm.DiscountPrice.ToString();
+            tbAmount.Text = (tvm.TransactionPrice + tvm.DiscountPrice).ToString();
+        }
+        else
+        {
+            tbAmount.Text = "0";
+            tbDiscountAmount.Text = "0";
+            tbTotalAmount.Text = "0";
+        }
+    }
+
+    private (double totalPrice, double discountprice) SetPrice(double price, float discount, int quantity)
+    {
+        double totalPrice = 0;
+        double discountPrice = 0;
+
+        if (discount > 0)
+        {
+            discountPrice = ((price / 100) * discount) * quantity;
+            totalPrice = (quantity * price) - discountPrice;
+        }
+        else
+        {
+            totalPrice = quantity * price;
+        }
+
+        return (totalPrice, discountPrice);
+    }
+
+    private void GetPrice(FullProductDto product, int quantity)
+    {
+        Product_Count.Text = quantity.ToString();
+        Product_Price.Text = product.SellPrice.ToString();
+        Total_Price.Text = (quantity * product.SellPrice).ToString();
+        Product_Name.Text = product.Name;
+        Product_Barcode.Text = product.Barcode.ToString();
+    }
+
+    public void EmptyPrice()
+    {
+        Product_Count.Text = "0";
+        Product_Price.Text = "0";
+        Total_Price.Text = "0";
+        Product_Name.Text = "";
+        Product_Barcode.Text = "";
+    }
+
     private SaleProductForComponent selectedControl = null!;
     public void SelectProduct(SaleProductForComponent product)
     {
@@ -515,61 +571,6 @@ public partial class SalePage : Page
 
     }
 
-    // Jami summani hisoblash uchun
-    private void ColculateTotalPrice()
-    {
-        if (tvm != null)
-        {
-            TotalPrice = tvm.TransactionPrice = tvm.Transactions.Sum(x => x.TotalPrice);
-            tvm.DiscountPrice = tvm.Transactions.Sum(x => x.DiscountSum);
-            tbTotalAmount.Text = tvm.TransactionPrice.ToString();
-            tbDiscountAmount.Text = tvm.DiscountPrice.ToString();
-            tbAmount.Text = (tvm.TransactionPrice + tvm.DiscountPrice).ToString();
-        }
-        else
-        {
-            tbAmount.Text = "0";
-            tbDiscountAmount.Text = "0";
-            tbTotalAmount.Text = "0";
-        }
-    }
-
-    private (double totalPrice, double discountprice) SetPrice(double price, float discount, int quantity)
-    {
-        double totalPrice = 0;
-        double discountPrice = 0;
-
-        if (discount > 0)
-        {
-            discountPrice = ((price / 100) * discount) * quantity;
-            totalPrice = (quantity * price) - discountPrice;
-        }
-        else
-        {
-            totalPrice = quantity * price;
-        }
-
-        return (totalPrice, discountPrice);
-    }
-
-    private void GetPrice(FullProductDto product, int quantity)
-    {
-        Product_Count.Text = quantity.ToString();
-        Product_Price.Text = product.SellPrice.ToString();
-        Total_Price.Text = (quantity * product.SellPrice).ToString();
-        Product_Name.Text = product.Name;
-        Product_Barcode.Text = product.Barcode.ToString();
-    }
-
-    public void EmptyPrice()
-    {
-        Product_Count.Text = "0";
-        Product_Price.Text = "0";
-        Total_Price.Text = "0";
-        Product_Name.Text = "";
-        Product_Barcode.Text = "";
-    }
-
     private void minus_button_Click(object sender, RoutedEventArgs e)
     {
         if (selectedControl != null)
@@ -642,6 +643,11 @@ public partial class SalePage : Page
         searchProductWindow.ShowDialog();
     }
 
+    private void save_button_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
     private void Page_Unloaded(object sender, RoutedEventArgs e)
     {
         tvm = null!;
@@ -658,6 +664,8 @@ public partial class SalePage : Page
         if (tvm.Transactions.Count > 0)
         {
             PaymentTypeWindow paymentTypeWindow = new PaymentTypeWindow();
+            paymentTypeWindow.SendWhere = 1;
+            paymentTypeWindow.TotalCost = TotalPrice;
             paymentTypeWindow.ShowDialog();
         }
         else
@@ -733,11 +741,11 @@ public partial class SalePage : Page
 
     private async Task ProductSale(AddSalesRequestDto dto)
     {
-        bool result = await _salesRequestsService.CreateSalesRequest(dto);
-        if (result)
+        var result = await _salesRequestsService.CreateSalesRequest(dto);
+        if (result.Item2)
         {
             //PrintService printService = new PrintService();
-            //printService.Print(dto, tvm.Transactions);
+            //printService.Print(dto, tvm.Transactions, result.Item1);
 
             tvm.ClearTransaction();
             St_product.Children.Clear();

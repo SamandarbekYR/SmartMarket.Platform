@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-
 using NLog;
 
 using SmartMarket.Domain.Entities.Products;
@@ -10,7 +9,6 @@ using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Orders;
-
 using System.Text;
 
 namespace SmartMarketDeskop.Integrated.Server.Repositories.Orders
@@ -108,6 +106,40 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Orders
             catch (Exception ex)
             {
                 return new List<OrderDto>();
+            }
+        }
+
+        public async Task<bool> UpdateStatusAsync(Guid Id)
+        {
+            try
+            {
+                var token = IdentitySingelton.GetInstance().Token;
+
+                using (var client = new HttpClient())
+                {
+                    client.Timeout = TimeSpan.FromSeconds(30);
+                    using (var request = new HttpRequestMessage(HttpMethod.Put, AuthApi.BASE_URL + $"/api/orders/status/{Id}"))
+                    {
+                        request.Headers.Add("Authorization", $"Bearer {token}");
+
+                        var response = await client.SendAsync(request);
+
+                        var resultContent = await response.Content.ReadAsStringAsync();
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
     }

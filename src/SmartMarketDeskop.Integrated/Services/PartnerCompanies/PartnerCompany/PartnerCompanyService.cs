@@ -1,4 +1,5 @@
-﻿using SmartMarketDeskop.Integrated.Server.Interfaces.PartnerCompany;
+﻿using SmartMarket.Service.DTOs.PartnersCompany.PartnerCompany;
+using SmartMarketDeskop.Integrated.Server.Interfaces.PartnerCompany;
 using SmartMarketDesktop.DTOs.DTOs.PartnerCompany;
 using SmartMarketDesktop.ViewModels.Entities.PartnersCompany;
 using System;
@@ -21,11 +22,10 @@ namespace SmartMarketDeskop.Integrated.Services.PartnerCompanies.PartnerCompany
         }
 
 
-        public async Task<bool> CreateCompany(PartnerCompanyDto partnerCompanyDto)
+        public async Task<bool> CreateCompany(AddPartnerCompanyDto partnerCompanyDto)
         {
             if(IsInternetAvailable())
-            {
-                partnerCompanyDto.IsSynced = true;  
+            { 
                 await _partnerComanyServer.AddCompany(partnerCompanyDto);
                 return true;    
             }

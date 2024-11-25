@@ -81,10 +81,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Components\SaleForComponent\ShipmentWindowSearchProduct.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Update="Windows\Sales\ShipmentSearchProductWindow.xaml.cs">
+      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
 

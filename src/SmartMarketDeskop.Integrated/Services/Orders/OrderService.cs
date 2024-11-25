@@ -1,8 +1,6 @@
 ﻿using SmartMarket.Service.DTOs.Order;
-
 using SmartMarketDeskop.Integrated.Server.Interfaces.Orders;
 using SmartMarketDeskop.Integrated.Server.Repositories.Orders;
-
 using System.Net;
 
 namespace SmartMarketDeskop.Integrated.Services.Orders
@@ -67,6 +65,22 @@ namespace SmartMarketDeskop.Integrated.Services.Orders
                     return true;
             }
             catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateStatusAsync(Guid id)
+        {
+            if (IsInternetAvialable())
+            {
+                bool result = await _orderServer.UpdateStatusAsync(id);
+                if (result)
+                    return true;
+                else
+                    return false;
+            }
+            else
             {
                 return false;
             }

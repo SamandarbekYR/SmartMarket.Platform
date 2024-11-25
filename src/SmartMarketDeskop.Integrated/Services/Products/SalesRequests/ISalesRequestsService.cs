@@ -4,7 +4,7 @@ namespace SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 
 public interface ISalesRequestsService
 {
-    Task<bool> CreateSalesRequest(AddSalesRequestDto dto);
+    Task<(long, bool)> CreateSalesRequest(AddSalesRequestDto dto);
     Task<bool> UpdateSalesRequest(AddSalesRequestDto dto, Guid id);
     Task<SalesRequestDto> GetById(Guid id);
     Task<IList<SalesRequestDto>> GetAll();

@@ -1,17 +1,12 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SmartMarket.DataAccess.Interfaces;
-using Et = SmartMarket.Domain.Entities.Orders;
 using SmartMarket.Service.Common.Exceptions;
-using SmartMarket.Service.Common.Validators;
 using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.Interfaces.Order;
 using System.Net;
-using SmartMarket.Service.Common.Utils;
-using SmartMarket.Service.Common.Extentions;
-using Microsoft.Extensions.Logging;
-using SmartMarket.Domain.Entities.Products;
+using Et = SmartMarket.Domain.Entities.Orders;
 
 namespace SmartMarket.Service.Services.Order
 {
@@ -142,6 +137,27 @@ namespace SmartMarket.Service.Services.Order
                 }
 
                 _mapper.Map(dto, order);
+
+                return await _unitOfWork.Order.Update(order);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while updating an order.");
+                throw;
+            }
+        }
+
+        public async Task<bool> UpdateStatusAsync(Guid Id)
+        {
+            try
+            {
+                var order = await _unitOfWork.Order.GetById(Id);
+                if (order == null)
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Order not found.");
+                }
+
+                order.IsSold = true;
 
                 return await _unitOfWork.Order.Update(order);
             }
