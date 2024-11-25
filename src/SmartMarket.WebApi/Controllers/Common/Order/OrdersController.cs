@@ -29,6 +29,24 @@ namespace SmartMarket.WebApi.Controllers.Common.Order
             }
         }
 
+        [HttpGet("name/{name}")]
+        public async Task<IActionResult> GetByPartnerNameAsync(string name)
+        {
+            try
+            {
+                var orders = await _orderService.GetByPartnerNameAsync(name);
+                return Ok(orders);
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddAsync([FromBody] AddOrderDto dto)
         {

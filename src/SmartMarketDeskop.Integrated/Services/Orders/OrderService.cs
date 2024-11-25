@@ -43,6 +43,19 @@ namespace SmartMarketDeskop.Integrated.Services.Orders
             }
         }
 
+        public async Task<List<OrderDto>> GetByPartnerNameAsync(string searchName)
+        {
+            if (IsInternetAvialable())
+            {
+                var orders = await _orderServer.GetByPartnerNameAsync(searchName);
+                return orders;
+            }
+            else
+            {
+                return new List<OrderDto>();
+            }
+        }
+
         public bool IsInternetAvialable()
         {
             try

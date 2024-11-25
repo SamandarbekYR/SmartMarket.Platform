@@ -1,6 +1,11 @@
 ﻿using Newtonsoft.Json;
 using NLog;
+
+using SmartMarket.Domain.Entities.Products;
+using SmartMarket.Service.DTOs.Expence;
 using SmartMarket.Service.DTOs.Order;
+using SmartMarket.Service.DTOs.Products.Product;
+
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Orders;
@@ -53,6 +58,32 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.Orders
             {
                 logger.Error("OrderServer: CreateAsync method exception: ", ex);
                 return false;
+            }
+        }
+
+
+        public async Task<List<OrderDto>> GetByPartnerNameAsync(string searchName)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                var token = IdentitySingelton.GetInstance().Token;
+                client.BaseAddress = new Uri(AuthApi.BASE_URL + $"/api/orders/name/{searchName}");
+
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+                HttpResponseMessage message = await client.GetAsync(client.BaseAddress);
+
+                string response = await message.Content.ReadAsStringAsync();
+
+                var orders = JsonConvert.DeserializeObject<List<OrderDto>>(response)!;
+
+                return orders;
+
+            }
+            catch
+            {
+                return new List<OrderDto>();
             }
         }
 
