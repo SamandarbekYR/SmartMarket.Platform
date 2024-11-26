@@ -661,10 +661,11 @@ public partial class SalePage : Page
         AddOrderDto dto = new AddOrderDto();
         dto.PartnerId = PartnerId;
         dto.WorkerId = WorkerId;
+        dto.ProductOrderItems = new List<AddOrderProductDto>();
 
-        AddOrderProductDto products = new AddOrderProductDto();
         foreach (var item in tvm.Transactions)
         {
+            AddOrderProductDto products = new AddOrderProductDto();
             products.ProductId = item.Id;
             products.Count = item.Quantity;
             products.AvailableCount = item.AvailableCount;

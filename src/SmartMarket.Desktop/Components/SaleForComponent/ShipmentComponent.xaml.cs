@@ -1,4 +1,4 @@
-﻿using SmartMarket.Desktop.Pages.SaleForPage;
+﻿ using SmartMarket.Desktop.Pages.SaleForPage;
 using SmartMarket.Desktop.Windows.Sales;
 using SmartMarket.Service.DTOs.Order;
 using System.Windows;
