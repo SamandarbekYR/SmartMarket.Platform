@@ -1,4 +1,4 @@
-﻿using SmartMarket.Desktop.Pages.SaleForPage;
+﻿ using SmartMarket.Desktop.Pages.SaleForPage;
 using SmartMarket.Desktop.Windows.Sales;
 using SmartMarket.Service.DTOs.Order;
 using System.Windows;
@@ -32,6 +32,7 @@ public partial class ShipmentComponent : UserControl
             if(salePage.tvm.Transactions.Count == 0)
             {
                 salePage.ConvertShipment(shipment!);
+                salePage.save_button.Visibility = Visibility.Visible;
                 SaleButton.Visibility = Visibility.Collapsed;
                 CancelButton.Visibility = Visibility.Visible;
             }
@@ -64,10 +65,8 @@ public partial class ShipmentComponent : UserControl
         var page = FindParentPage(this);
         if (page is SalePage salePage)
         {
-            salePage.tvm.ClearTransaction();
-            salePage.St_product.Children.Clear();
-            salePage.EmptyPrice();
-            salePage.ColculateTotalPrice();
+            salePage.StopSale();
+            salePage.save_button.Visibility = Visibility.Collapsed;
             CancelButton.Visibility = Visibility.Collapsed;
             SaleButton.Visibility = Visibility.Visible;
         }

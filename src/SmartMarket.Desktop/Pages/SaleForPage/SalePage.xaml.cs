@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.SignalR.Client;
+﻿using MaterialDesignColors;
+
+using Microsoft.AspNetCore.SignalR.Client;
 using SmartMarket.Desktop.Components.SaleForComponent;
 using SmartMarket.Desktop.ViewModels.Transactions;
 using SmartMarket.Desktop.Windows;
@@ -9,6 +11,7 @@ using SmartMarket.Desktop.Windows.PaymentWindow;
 using SmartMarket.Desktop.Windows.ProductsForWindow;
 using SmartMarket.Desktop.Windows.Sales;
 using SmartMarket.Desktop.Windows.Settings;
+using SmartMarket.Domain.Entities.Orders;
 using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.DTOs.Products.ProductSale;
@@ -19,6 +22,9 @@ using SmartMarketDeskop.Integrated.Services.Products.Print;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
+
+using System.Text.RegularExpressions;
+using System.Threading;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
@@ -51,10 +57,14 @@ public partial class SalePage : Page
     string message = "";
     string barcode = "";
     string barcodes = "";
+
+    public Guid OrderId { get; set; } = Guid.Empty;
+    public Guid PartnerId { get; set; } = Guid.Empty;
+    public Guid WorkerId { get; set; } = Guid.Empty;
     public string PaymentType { get; set; } = string.Empty;
-    public double TotalPrice { get; set; } 
-    public double CashSum { get; set; } 
-    public double ClickSum { get; set; } 
+    public double TotalPrice { get; set; }
+    public double CashSum { get; set; }
+    public double ClickSum { get; set; }
 
     public SalePage()
     {
@@ -111,11 +121,11 @@ public partial class SalePage : Page
 
     private void btnBackKlav_Click(object sender, RoutedEventArgs e)
     {
-        if(activeTextboxIndex == 2 && tbCalculator.Text.Length > 0)
+        if (activeTextboxIndex == 2 && tbCalculator.Text.Length > 0)
         {
             tbCalculator.Text = tbCalculator.Text.Substring(0, tbCalculator.Text.Length - 1);
         }
-        else if(activeTextboxIndex == 3)
+        else if (activeTextboxIndex == 3)
         {
             if (selectedControl.tbDiscount.Text.Length == 1)
                 selectedControl.tbDiscount.Text = "0";
@@ -176,9 +186,9 @@ public partial class SalePage : Page
         {
             tbCalculator.Text = tbCalculator.Text.ToString() + number;
         }
-        else if(activeTextboxIndex == 3)
+        else if (activeTextboxIndex == 3)
         {
-            if(selectedControl.tbDiscount.Text == "0")
+            if (selectedControl.tbDiscount.Text == "0")
             {
                 selectedControl.tbDiscount.Text = "";
                 selectedControl.tbDiscount.Text = selectedControl.tbDiscount.Text + number;
@@ -268,7 +278,7 @@ public partial class SalePage : Page
             else
                 quantity = int.Parse(tbCalculator.Text!);
         }
-        
+
         saleProductForComponent.DataContext = new TransactionDto
         {
             Name = product.Name,
@@ -290,11 +300,11 @@ public partial class SalePage : Page
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
+        await GetAllOrders();
+        await InitializeSignalRConnection();
+
         GetData();
         St_product.Focus();
-
-        await InitializeSignalRConnection();
-        await DisplayOrdersInStackPanel();
     }
 
     private async Task InitializeSignalRConnection()
@@ -313,7 +323,7 @@ public partial class SalePage : Page
         {
             Application.Current.Dispatcher.Invoke(async () =>
             {
-                await DisplayOrdersInStackPanel();
+                await GetAllOrders();
             });
         });
 
@@ -321,16 +331,67 @@ public partial class SalePage : Page
         {
             await _connection.StartAsync();
         }
-        catch 
+        catch
         {
             notifier.ShowWarning("Ulanishda xotolik mavjud!");
         }
     }
-   
-    private async Task DisplayOrdersInStackPanel()
-    {
-        var orders = await _orderService.GetAllAsync();
 
+    private async Task GetAllOrders()
+    {
+        Loader.Visibility = Visibility.Visible;
+        var orders = await Task.Run(async () => await _orderService.GetAllAsync());
+        DisplayOrdersInStackPanel(orders);
+    }
+
+    private CancellationTokenSource _cancellationTokenSource;
+    private async void Search_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource = new CancellationTokenSource();
+
+        string search = Search.Text;
+
+        EmptyData.Visibility = Visibility.Collapsed;
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            Loader.Visibility = Visibility.Visible;
+
+            try
+            {
+                await Task.Run(async () =>
+                {
+                    if (_cancellationTokenSource.Token.IsCancellationRequested) return;
+
+                    List<OrderDto> orders = new List<OrderDto>();
+
+                    if (!IsNumeric(search) && search.Length >= 1)
+                    {
+                        orders = await _orderService.GetByPartnerNameAsync(search);
+                    }
+
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        if (search == Search.Text)
+                        {
+                            DisplayOrdersInStackPanel(orders);
+                        }
+                    });
+                },
+                _cancellationTokenSource.Token);
+            }
+            catch (TaskCanceledException)
+            {
+            }
+            finally
+            {
+                Loader.Visibility = Visibility.Collapsed;
+            }
+        }
+    }
+
+    private void DisplayOrdersInStackPanel(List<OrderDto> orders)
+    {
         stackPanelOrders.Children.Clear();
         Loader.Visibility = Visibility.Collapsed;
 
@@ -341,6 +402,11 @@ public partial class SalePage : Page
             shipmentComponent.Tag = order;
             stackPanelOrders.Children.Add(shipmentComponent);
         }
+    }
+
+    private bool IsNumeric(string text)
+    {
+        return Regex.IsMatch(text, @"^\d+$");
     }
 
     private void Harajat_Click(object sender, RoutedEventArgs e)
@@ -375,7 +441,7 @@ public partial class SalePage : Page
         login.Show();
 
         Window currentWindow = Window.GetWindow(this);
-        if(currentWindow != null) 
+        if (currentWindow != null)
             currentWindow.Close();
     }
 
@@ -432,6 +498,15 @@ public partial class SalePage : Page
         Total_Price.Text = "0";
         Product_Name.Text = "";
         Product_Barcode.Text = "";
+    }
+
+    public void StopSale()
+    {
+        tvm.ClearTransaction();
+        selectedControl = null!;
+        St_product.Children.Clear();
+        EmptyPrice();
+        ColculateTotalPrice();
     }
 
     private SaleProductForComponent selectedControl = null!;
@@ -581,8 +656,28 @@ public partial class SalePage : Page
         searchProductWindow.ShowDialog();
     }
 
-    private void save_button_Click(object sender, RoutedEventArgs e)
+    private async void save_button_Click(object sender, RoutedEventArgs e)
     {
+        AddOrderDto dto = new AddOrderDto();
+        dto.PartnerId = PartnerId;
+        dto.WorkerId = WorkerId;
+        dto.ProductOrderItems = new List<AddOrderProductDto>();
+
+        foreach (var item in tvm.Transactions)
+        {
+            AddOrderProductDto products = new AddOrderProductDto();
+            products.ProductId = item.Id;
+            products.Count = item.Quantity;
+            products.AvailableCount = item.AvailableCount;
+            products.ItemTotalCost = item.TotalPrice;
+            dto.ProductOrderItems.Add(products);
+        }
+
+        bool result = await _orderService.UpdateAsync(OrderId, dto);
+        if (result)
+            notifier.ShowSuccess("Jo'natma yangilandi.");
+        else
+            notifier.ShowError("Jo'natmani yangilashda xatolik mavjud.");
 
     }
 
@@ -661,6 +756,10 @@ public partial class SalePage : Page
 
     public void ConvertShipment(OrderDto dto)
     {
+        OrderId = dto.Id;
+        PartnerId = dto.PartnerId;
+        WorkerId = dto.WorkerId;
+
         foreach (var product in dto.ProductOrderItems)
         {
             FullProductDto fpd = new FullProductDto
@@ -685,6 +784,9 @@ public partial class SalePage : Page
             //PrintService printService = new PrintService();
             //printService.Print(dto, tvm.Transactions, result.Item1);
 
+            if(OrderId != Guid.Empty)
+                await UpdateSaleShipment(OrderId);
+
             tvm.ClearTransaction();
             St_product.Children.Clear();
             ColculateTotalPrice();
@@ -694,5 +796,22 @@ public partial class SalePage : Page
         }
         else
             notifier.ShowError("Sotuvda qandaydir muammo bor!!!");
+    }
+
+    public async Task UpdateSaleShipment(Guid Id)
+    {
+        while (true)
+        {
+            bool result = await _orderService.UpdateStatusAsync(Id);
+
+            if (result)
+            {
+                await GetAllOrders();
+                OrderId = Guid.Empty;
+                break;
+            }
+
+            await Task.Delay(1000);
+        }
     }
 }

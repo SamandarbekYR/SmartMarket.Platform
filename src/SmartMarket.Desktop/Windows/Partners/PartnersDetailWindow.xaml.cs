@@ -1,4 +1,5 @@
-﻿using SmartMarket.Domain.Entities.Partners;
+﻿using SmartMarket.Desktop.Windows.PaymentWindow;
+using SmartMarket.Domain.Entities.Partners;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ToastNotifications;
+
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 
 namespace SmartMarket.Desktop.Windows.Partners
@@ -62,6 +65,12 @@ namespace SmartMarket.Desktop.Windows.Partners
             SetWindowCompositionAttribute(windowHelper.Handle, ref data);
 
             Marshal.FreeHGlobal(accentPtr);
+        }
+
+        private async void btnPartnerPayment_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            PaymentPartnersWindow paymentPartnersWindow = new PaymentPartnersWindow();
+            paymentPartnersWindow.Show();
         }
 
         private void close_button_Click(object sender, RoutedEventArgs e)

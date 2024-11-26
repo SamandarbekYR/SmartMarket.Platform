@@ -44,13 +44,15 @@
                     Name="Search"
                     Margin="20 10"
                     Style="{DynamicResource search}"
-                    Grid.Row="1"/>
+                    Grid.Row="1"
+                    TextChanged="Search_TextChanged"/>
 
                 <Grid
                     Grid.Row="2">
 
                     <local:Loader
                         x:Name="Loader"
+                        Visibility="Hidden"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"/>
 

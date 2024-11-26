@@ -104,10 +104,29 @@ namespace SmartMarket.Service.Services.Order
         {
             try
             {
-                var orders = await _unitOfWork.Order.GetOrdersFullInformationAsync();
+                var orders = (await _unitOfWork.Order.GetOrdersFullInformationAsync()).Where(o => o.IsSold == false).ToList();
                 return _mapper.Map<List<OrderDto>>(orders);
             }
             catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while getting all orders.");
+                throw;
+            }
+        }
+
+        public async Task<List<OrderDto>> GetByPartnerNameAsync(string searchName)
+        {
+            try
+            {
+                var orders = (await _unitOfWork.Order.GetOrdersFullInformationAsync()).Where(order =>
+                    order.Partner != null && order.IsSold == false &&
+                    (order.Partner.FirstName.Contains(searchName, StringComparison.OrdinalIgnoreCase) ||
+                    order.Partner.LastName.Contains(searchName, StringComparison.OrdinalIgnoreCase)))
+                    .ToList();
+
+                return _mapper.Map<List<OrderDto>>(orders);
+            }
+            catch (Exception ex) 
             {
                 _logger.LogError(ex, "Error occurred while getting all orders.");
                 throw;

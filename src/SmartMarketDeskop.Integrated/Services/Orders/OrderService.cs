@@ -43,6 +43,19 @@ namespace SmartMarketDeskop.Integrated.Services.Orders
             }
         }
 
+        public async Task<List<OrderDto>> GetByPartnerNameAsync(string searchName)
+        {
+            if (IsInternetAvialable())
+            {
+                var orders = await _orderServer.GetByPartnerNameAsync(searchName);
+                return orders;
+            }
+            else
+            {
+                return new List<OrderDto>();
+            }
+        }
+
         public bool IsInternetAvialable()
         {
             try
@@ -52,6 +65,22 @@ namespace SmartMarketDeskop.Integrated.Services.Orders
                     return true;
             }
             catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> UpdateAsync(Guid id, AddOrderDto order)
+        {
+            if (IsInternetAvialable())
+            {
+                bool result = await _orderServer.UpdateAsync(id, order);
+                if (result)
+                    return true;
+                else
+                    return false;
+            }
+            else
             {
                 return false;
             }

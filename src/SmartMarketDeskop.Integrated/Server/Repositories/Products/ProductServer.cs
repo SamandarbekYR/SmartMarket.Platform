@@ -200,7 +200,7 @@ public class ProductServer : IProductServer
             client.BaseAddress = new Uri(AuthApi.BASE_URL + $"/api/products/name/{productName}");
 
             client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
-
+                
             HttpResponseMessage message = await client.GetAsync(client.BaseAddress);
 
             string response = await message.Content.ReadAsStringAsync();
