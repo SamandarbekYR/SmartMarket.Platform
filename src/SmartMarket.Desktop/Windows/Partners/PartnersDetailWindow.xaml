@@ -155,7 +155,8 @@
                      Width="310"
                      CornerRadius="5"
                      Cursor="Hand"
-                     HorizontalAlignment="Center">
+                     HorizontalAlignment="Center"
+                     MouseUp="btnPartnerPayment_MouseUp">
                 <Label Content="To'lash"
                         FontWeight="SemiBold"
                         VerticalAlignment="Center"
