@@ -38,23 +38,13 @@
                     FontWeight="SemiBold"
                     Margin="15 0 0 0"
                 ></TextBlock>
-                <Border 
-                    Grid.Row="0" 
-                    x:Name="btnclose"
-                    HorizontalAlignment="Right"
-                    VerticalAlignment="Center"
-                    Margin="0 0 10 0"
-                    Background="Transparent"
-                    BorderThickness="0">
-                    <md:PackIcon 
-                        Kind="Close"
-                        Width="30"
-                        Height="30"
-                        Foreground="White"
-                    ></md:PackIcon>
-                </Border>
-
-                <StackPanel Grid.Row="1">
+            <Button
+                Grid.Row="0"
+                Name="close_button"
+                HorizontalAlignment="Right"
+                Click="close_button_Click"
+                Style="{DynamicResource btnClose}"/>
+            <StackPanel Grid.Row="1">
 
                     <TextBlock 
                         Text="To'lov miqdori"
@@ -66,7 +56,6 @@
                         Height="40"
                         Margin="35 5 35 10"
                         Style="{DynamicResource tbPaymentstyle}"
-                        Text="2500000"
                     ></TextBox>
 
                     <TextBlock 
