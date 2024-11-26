@@ -119,7 +119,7 @@ namespace SmartMarket.Service.Services.Order
             try
             {
                 var orders = (await _unitOfWork.Order.GetOrdersFullInformationAsync()).Where(order =>
-                    order.Partner != null &&
+                    order.Partner != null && order.IsSold == false &&
                     (order.Partner.FirstName.Contains(searchName, StringComparison.OrdinalIgnoreCase) ||
                     order.Partner.LastName.Contains(searchName, StringComparison.OrdinalIgnoreCase)))
                     .ToList();
