@@ -59,6 +59,8 @@ public partial class SalePage : Page
     string barcodes = "";
 
     public Guid OrderId { get; set; } = Guid.Empty;
+    public Guid PartnerId { get; set; } = Guid.Empty;
+    public Guid WorkerId { get; set; } = Guid.Empty;
     public string PaymentType { get; set; } = string.Empty;
     public double TotalPrice { get; set; }
     public double CashSum { get; set; }
@@ -654,8 +656,27 @@ public partial class SalePage : Page
         searchProductWindow.ShowDialog();
     }
 
-    private void save_button_Click(object sender, RoutedEventArgs e)
+    private async void save_button_Click(object sender, RoutedEventArgs e)
     {
+        AddOrderDto dto = new AddOrderDto();
+        dto.PartnerId = PartnerId;
+        dto.WorkerId = WorkerId;
+
+        AddOrderProductDto products = new AddOrderProductDto();
+        foreach (var item in tvm.Transactions)
+        {
+            products.ProductId = item.Id;
+            products.Count = item.Quantity;
+            products.AvailableCount = item.AvailableCount;
+            products.ItemTotalCost = item.TotalPrice;
+            dto.ProductOrderItems.Add(products);
+        }
+
+        bool result = await _orderService.UpdateAsync(OrderId, dto);
+        if (result)
+            notifier.ShowSuccess("Jo'natma yangilandi.");
+        else
+            notifier.ShowError("Jo'natmani yangilashda xatolik mavjud.");
 
     }
 
@@ -735,6 +756,9 @@ public partial class SalePage : Page
     public void ConvertShipment(OrderDto dto)
     {
         OrderId = dto.Id;
+        PartnerId = dto.PartnerId;
+        WorkerId = dto.WorkerId;
+
         foreach (var product in dto.ProductOrderItems)
         {
             FullProductDto fpd = new FullProductDto

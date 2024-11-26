@@ -22,6 +22,7 @@
     <None Remove="Assets\Expenses.png" />
     <None Remove="Assets\LittlePro.png" />
     <None Remove="Assets\loader.gif" />
+    <None Remove="Assets\loader1.gif" />
     <None Remove="Assets\login_background.png" />
     <None Remove="Assets\login_close.png" />
     <None Remove="Assets\logout_left.png" />
@@ -71,6 +72,7 @@
     <Resource Include="Assets\Expenses.png" />
     <Resource Include="Assets\LittlePro.png" />
     <Resource Include="Assets\loader.gif" />
+    <Resource Include="Assets\loader1.gif" />
     <Resource Include="Assets\login_background.png" />
     <Resource Include="Assets\login_close.png" />
     <Resource Include="Assets\logout_left.png" />

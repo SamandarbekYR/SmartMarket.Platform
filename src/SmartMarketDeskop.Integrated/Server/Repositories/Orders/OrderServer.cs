@@ -143,8 +143,6 @@ public class OrderServer : IOrderServer
         try
         {
             var token = IdentitySingelton.GetInstance().Token;
-            var workerId = TokenHandler.ParseToken(token).Id;
-            dto.WorkerId = workerId;
 
             using (var client = new HttpClient())
             {
