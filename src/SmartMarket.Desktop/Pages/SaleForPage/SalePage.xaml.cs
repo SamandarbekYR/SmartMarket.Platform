@@ -88,8 +88,8 @@ public partial class SalePage : Page
         cfg.PositionProvider = new WindowPositionProvider(
             parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
             corner: Corner.BottomCenter,
-            offsetX: 20,
-            offsetY: 20);
+            offsetX: 40,
+            offsetY: 40);
 
         cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
             notificationLifetime: TimeSpan.FromSeconds(3),
@@ -233,39 +233,46 @@ public partial class SalePage : Page
 
     public void AddNewProductTvm(FullProductDto product, int count)
     {
-        string barcode = product.Barcode;
-        if (!tvm.Transactions.Any(t => t.Barcode == barcode))
+        if (product.Count > 0)
         {
-            if (count == 0)
-                tvm.Add(product, 1);
+            string barcode = product.Barcode;
+            if (!tvm.Transactions.Any(t => t.Barcode == barcode))
+            {
+                if (count == 0)
+                    tvm.Add(product, 1);
+                else
+                    tvm.Add(product, count);
+                AddNewProduct(product, count);
+            }
             else
-                tvm.Add(product, count);
-            AddNewProduct(product, count);
+            {
+                double totalPrice = 0;
+                double discountPrice = 0;
+                foreach (SaleProductForComponent child in St_product.Children)
+                {
+                    if (child.Barcode == barcode)
+                    {
+                        int quantity = int.Parse(child.tbQuantity.Text);
+                        if (quantity < child.AvailableCount)
+                        {
+                            quantity++;
+                            (totalPrice, discountPrice) = SetPrice(double.Parse(child.tbPrice.Text), float.Parse(child.tbDiscount.Text), quantity);
+
+                            child.tbTotalPrice.Text = totalPrice.ToString();
+                            child.tbQuantity.Text = quantity.ToString();
+
+                            GetPrice(product, quantity);
+                        }
+                    }
+                }
+                tvm.Increment(barcode, totalPrice, discountPrice);
+            }
+            ColculateTotalPrice();
         }
         else
         {
-            double totalPrice = 0;
-            double discountPrice = 0;
-            foreach (SaleProductForComponent child in St_product.Children)
-            {
-                if (child.Barcode == barcode)
-                {
-                    int quantity = int.Parse(child.tbQuantity.Text);
-                    if (quantity < child.AvailableCount)
-                    {
-                        quantity++;
-                        (totalPrice, discountPrice) = SetPrice(double.Parse(child.tbPrice.Text), float.Parse(child.tbDiscount.Text), quantity);
-
-                        child.tbTotalPrice.Text = totalPrice.ToString();
-                        child.tbQuantity.Text = quantity.ToString();
-
-                        GetPrice(product, quantity);
-                    }
-                }
-            }
-            tvm.Increment(barcode, totalPrice, discountPrice);
+            notifier.ShowInformation("Bu maxsulot tugagan.");
         }
-        ColculateTotalPrice();
     }
 
     private void AddNewProduct(FullProductDto product, int quantity)
@@ -783,8 +790,8 @@ public partial class SalePage : Page
         var result = await _salesRequestsService.CreateSalesRequest(dto);
         if (result.Item2)
         {
-            PrintService printService = new PrintService();
-            printService.Print(dto, tvm.Transactions, result.Item1);
+            //PrintService printService = new PrintService();
+            //printService.Print(dto, tvm.Transactions, result.Item1);
 
             if(OrderId != Guid.Empty)
                 await UpdateSaleShipment(OrderId);
