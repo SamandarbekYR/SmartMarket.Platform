@@ -1,8 +1,6 @@
 ﻿using SmartMarket.Desktop.Pages.SaleForPage;
 using SmartMarket.Desktop.Windows.ProductsForWindow;
 using SmartMarket.Service.DTOs.Products.Product;
-using System.Drawing;
-using System.Reflection.Emit;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;

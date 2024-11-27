@@ -21,7 +21,7 @@ public partial class CashReportPage : Page
         this._payDeskService = new PayDeskService();
     }
 
-    public async void GetAllPayDesk()
+    public async Task GetAllPayDesk()
     {
         var payDesks = await Task.Run(async () => await _payDeskService.GetAll());
         PayDeskLoader.Visibility = Visibility.Collapsed;
@@ -66,9 +66,9 @@ public partial class CashReportPage : Page
         tbCurrentlyGeneralSum.Text = totalSum.ToString();
     }
 
-    private void Page_Loaded(object sender, RoutedEventArgs e)
+    private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        GetAllPayDesk();
+        await GetAllPayDesk();
 
         CheckOutFirstPage checkOutFirstPage = new CheckOutFirstPage(this);
         CheckOutPageNavigator.Content = checkOutFirstPage;
