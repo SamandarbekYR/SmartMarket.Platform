@@ -781,8 +781,8 @@ public partial class SalePage : Page
         var result = await _salesRequestsService.CreateSalesRequest(dto);
         if (result.Item2)
         {
-            //PrintService printService = new PrintService();
-            //printService.Print(dto, tvm.Transactions, result.Item1);
+            PrintService printService = new PrintService();
+            printService.Print(dto, tvm.Transactions, result.Item1);
 
             if(OrderId != Guid.Empty)
                 await UpdateSaleShipment(OrderId);
