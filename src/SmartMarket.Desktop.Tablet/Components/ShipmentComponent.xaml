@@ -39,7 +39,7 @@
                 <Grid
                     Grid.Row="0">
 
-                    <Label
+                    <Label x:Name="lbPartnerName"
                         Content="Sobirov Sherzod"
                         Foreground="{DynamicResource BTheerdColor}"
                         Style="{DynamicResource TitleLabel}"/>
@@ -53,19 +53,20 @@
                         Content="Yuk summasi:"
                         Style="{DynamicResource TitleLabel}"/>
 
-                    <Label
+                    <Label x:Name="lbShipmentAmount"
                         Margin="100 2 0 0"
                         Content="6000000"
                         Style="{DynamicResource TitleLabel}"/>
 
-                    <Button
+                    <Button x:Name="btnEditShipment"
                         Height="25"
                         Width="100"
                         Margin="0 0 8 0"
                         Content="Tahrirlash"
                         HorizontalAlignment="Right"
                         Background="{DynamicResource BFirstColor}"
-                        Style="{DynamicResource MainButton}"/>
+                        Style="{DynamicResource MainButton}"
+                        Click="btnEditShipment_Click"/>
 
                 </Grid>
 

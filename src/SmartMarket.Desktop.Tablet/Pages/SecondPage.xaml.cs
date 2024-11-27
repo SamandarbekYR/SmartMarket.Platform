@@ -1,5 +1,7 @@
 ﻿using SmartMarket.Desktop.Tablet.Components;
+using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Products.Product;
+using SmartMarketDeskop.Integrated.Services.Orders;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -15,11 +17,13 @@ public partial class SecondPage : Page
 {
 
     private readonly IProductService _productService; 
+    private readonly IOrderService _orderService;
 
     public SecondPage()
     {
         InitializeComponent();
         this._productService = new ProductService();
+        this._orderService = new OrderService();
     }
 
 
@@ -93,15 +97,43 @@ public partial class SecondPage : Page
         mainWindow.PageNavigator.Content = mainPage;
     }
 
-    private void Page_Loaded(object sender, RoutedEventArgs e)
+    public async Task GetAllShipments()
     {
+        var orders = await Task.Run(async () => await _orderService.GetAllAsync());
+
+        await ShowShipments(orders);
+    }
+
+    private async Task ShowShipments(List<OrderDto> orders)
+    {
+        st_shipments.Children.Clear();
+
+        if(orders.Count > 0)
+        {
+            foreach (var order in orders)
+            {
+                ShipmentComponent shipmentComponent = new ShipmentComponent();
+                shipmentComponent.Tag = order;
+                shipmentComponent.SetValues(order);
+                st_shipments.Children.Add(shipmentComponent);
+            }
+        }
+        else
+        {
+            //empty data visible
+        }
+    }
+
+    private async void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        await GetAllShipments();
         for (int i = 0; i < 20; i++)
         {
-            ShipmentComponent shipmentComponent = new ShipmentComponent();
+            //ShipmentComponent shipmentComponent = new ShipmentComponent();
             ProductComponent productComponent = new ProductComponent();
 
             st_product.Children.Add(productComponent);
-            st_shipments.Children.Add(shipmentComponent);
+            //st_shipments.Children.Add(shipmentComponent);
         }
     }
 
