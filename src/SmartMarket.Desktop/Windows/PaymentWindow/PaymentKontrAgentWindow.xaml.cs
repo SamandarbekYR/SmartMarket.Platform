@@ -11,6 +11,10 @@ using SmartMarketDeskop.Integrated.Services.PayDesks;
 using SmartMarket.Service.DTOs.PartnersCompany.ContrAgentPayment;
 using SmartMarket.Service.DTOs.PayDesks;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.PartnerCompany;
+using ToastNotifications;
+using ToastNotifications.Position;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
 
 namespace SmartMarket.Desktop.Windows.PaymentWindow;
 
@@ -53,6 +57,36 @@ public partial class PaymentKontrAgentWindow : Window
 
         Marshal.FreeHGlobal(accentPtr);
     }
+
+    Notifier notifierThis = new Notifier(cfg =>
+    {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
+            corner: Corner.TopRight,
+            offsetX: 50,
+            offsetY: 20);
+
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(3),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+    });
+
+    Notifier notifier = new Notifier(cfg =>
+    {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.MainWindow,
+            corner: Corner.TopRight,
+            offsetX: 50,
+            offsetY: 20);
+
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(3),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+    });
 
     private void btnclose_MouseUp(object sender, MouseButtonEventArgs e)
     {
@@ -100,7 +134,9 @@ public partial class PaymentKontrAgentWindow : Window
 
     private async void BtnPay_Click(object sender, RoutedEventArgs e)
     {
-        if(!string.IsNullOrEmpty(tnPayAmount.Text))
+        if (!string.IsNullOrEmpty(tnPayAmount.Text) &&
+            payDeskComboBox.SelectedItem != null &&
+            paymentTypeComboBox.SelectedItem != null)
         {
             AddContrAgentPaymentDto dto = new AddContrAgentPaymentDto();
 
@@ -117,7 +153,16 @@ public partial class PaymentKontrAgentWindow : Window
             if(res == true)
             {
                 this.Close();
+                notifier.ShowSuccess("Kontr agent to'lovi muvaffaqiyatli amalga oshirildi.");
             }
+            else
+            {
+                notifier.ShowError("Xatolik yuz berdi.");
+            }
+        }
+        else
+        {
+            notifierThis.ShowWarning("Malumotlar to'liq emas!");
         }
     }
 
