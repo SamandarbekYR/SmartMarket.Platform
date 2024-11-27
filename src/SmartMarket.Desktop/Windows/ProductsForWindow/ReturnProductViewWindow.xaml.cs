@@ -72,7 +72,7 @@ public partial class ReturnProductViewWindow : Window
             tb_Quantity.Text = _productSale.Count.ToString();
             tb_Total.Text = _productSale.ItemTotalCost.ToString();
             tb_Seller.Text = _productSale.SalesRequest.Worker.FirstName;
-            tb_Returner.Text = _productSale.Product.Worker.FirstName;
+            tb_Returner.Text = _productSale.Product.Worker?.FirstName;
         }
     }
 
