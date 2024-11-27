@@ -28,5 +28,10 @@ namespace SmartMarket.Desktop.Windows.PaymentWindow
         {
             this.Close();
         }
+
+        private void PartnerPayment_Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
