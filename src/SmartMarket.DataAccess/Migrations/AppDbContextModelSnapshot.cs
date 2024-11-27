@@ -1040,7 +1040,7 @@ namespace SmartMarket.DataAccess.Migrations
                     b.HasOne("SmartMarket.Domain.Entities.PayDesks.PayDesk", "PayDesk")
                         .WithMany("ContrAgentPayments")
                         .HasForeignKey("PayDeskId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ContrAgent");

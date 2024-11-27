@@ -23,32 +23,29 @@ public class PrintService : IDisposable
         printer = new Printer(PRINTER_NAME, "UTF-8");
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         printer.DoubleWidth2();
-        printer.Append("\"Smart market\"");
+        printer.Append("Smart market");
         printer.Separator();
         printer.Append("\n");
         printer.Append("Nomi      Miqdori     Jami narxi");
 
-        int tr = 1;
-        printer.Append("\n");
         foreach (var item in transactions)
         {
             string text = $"{item.Name}";
-            int strLength = 25 - text.Length;
+            int strLength = 15 - text.Length;
             for (int i = 1; i <= strLength; i++)
             {
                 text += " ";
             }
             string temp = $"{item.Quantity}*{item.Price}";
             text += temp;
-            strLength = 10 - temp.Length;
+            strLength = 15 - temp.Length;
             for (int i = 0; i < strLength; i++)
             {
                 text += " ";
             }
             text += item.TotalPrice.ToString();
-            printer.CondensedMode(text);
-            printer.Append("\n");
-            tr++;
+            printer.AlignLeft();
+            printer.Append(text);
         }
 
         printer.Separator();
@@ -58,17 +55,17 @@ public class PrintService : IDisposable
         printer.Append($"Chegirma:     {dto.DiscountSum} so'm");
         printer.Append($"Jami summa:   {dto.TotalCost} so'm");
         printer.Append("\n");
-        printer.Append($"Sotuvchi: {worker}");
-        printer.AlignRight();
-        printer.Append("\n");
         printer.AlignLeft();
-        printer.Append("Sana:  " + DateTime.Now.ToString());
+        printer.Append($"Sotuvchi:  {worker}");
+        printer.Append( "Sana:      " + DateTime.Now.ToString());
+        printer.Append("\n");
+        printer.AlignCenter();
+        printer.Code128(transactionNo.ToString());
 
         printer.AlignCenter();
         printer.BoldMode("Xaridingiz uchun tashakkur!");
 
         printer.Append("\n");
-        printer.Separator();
 
         printer.FullPaperCut();
         printer.PrintDocument();

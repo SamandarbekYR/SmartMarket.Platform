@@ -116,10 +116,12 @@
                     <TextBox
                         FontSize="18"   
                         Name="tb_Id"
+                        IsReadOnly="True"
                         Margin="10 40 0 0"
                         Style="{DynamicResource Create_TextBox_Style}"/>
                     <TextBox
                         FontSize="18"   
+                        IsReadOnly="True"
                         Name="tb_PCode"
                         Margin="10 20 0 0"
                         Style="{DynamicResource Create_TextBox_Style}"/>
@@ -217,6 +219,7 @@
 
                     <TextBox
                         Name="tb_Transaction"
+                        IsReadOnly="True"
                         Margin="10 35 0 0"
                         FontSize="18"
                         Style="{DynamicResource Create_TextBox_Style}"/>

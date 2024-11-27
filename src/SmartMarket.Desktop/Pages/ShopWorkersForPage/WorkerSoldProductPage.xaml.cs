@@ -1,9 +1,11 @@
 ﻿using SmartMarket.Desktop.Components.ShopWorkerForComponent;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarket.Service.DTOs.Workers.Worker;
+using SmartMarket.Service.ViewModels.Products;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using static MaterialDesignThemes.Wpf.Theme.ToolBar;
 
 namespace SmartMarket.Desktop.Pages.ShopWorkersForPage;
 
@@ -44,8 +46,23 @@ public partial class WorkerSoldProductPage : Page
             int count = 1;
             foreach (var item in products)
             {
+                var productSaleViewModel = new ProductSaleViewModel
+                {
+                    Id = item.Id,
+                    ProductId = item.ProductId,
+                    Product = item.Product,
+                    Count = item.Count,
+                    Discount = item.Discount ?? 0,
+                    ItemTotalCost = item.ItemTotalCost,
+                    CreatedDate = item.CreatedDate,
+                    SalesRequestId = item.SalesRequestId,
+                    SalesRequest = item.SalesRequest,
+                    ReplaceProducts = item.ReplaceProducts,
+                    InvalidProducts = item.InvalidProducts
+                };
+
                 WorkerSoldProductComponent workerSoldProductComponent = new WorkerSoldProductComponent();
-                workerSoldProductComponent.Tag = item;
+                workerSoldProductComponent.Tag = productSaleViewModel;
                 workerSoldProductComponent.SetValues(
                     count,
                     item.SalesRequest.TransactionId,
@@ -70,7 +87,8 @@ public partial class WorkerSoldProductPage : Page
     {
         Loader.Visibility = Visibility.Collapsed;
         var productSales = worker?.ProductSales.Where(p => p.Count != 0)
-            .OrderByDescending(p => p.CreatedDate).ToList();
+            .OrderByDescending(p => p.CreatedDate)
+            .ToList();
 
         if(productSales.Any())
         {

@@ -12,8 +12,8 @@ using SmartMarket.DataAccess.Data;
 namespace SmartMarket.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241023103135_UpdateEntitiesMig")]
-    partial class UpdateEntitiesMig
+    [Migration("20241126172844_fx")]
+    partial class fx
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -141,6 +141,42 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at");
+
+                    b.Property<bool>("IsSold")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_sold");
+
+                    b.Property<Guid>("PartnerId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("partner_id");
+
+                    b.Property<Guid>("WorkerId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("worker_id");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PartnerId");
+
+                    b.HasIndex("WorkerId");
+
+                    b.ToTable("order");
+                });
+
+            modelBuilder.Entity("SmartMarket.Domain.Entities.Orders.OrderProduct", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<int>("AvailableCount")
+                        .HasColumnType("integer")
+                        .HasColumnName("available_count");
+
                     b.Property<int>("Count")
                         .HasColumnType("integer")
                         .HasColumnName("count");
@@ -149,26 +185,25 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
+                    b.Property<double>("ItemTotalCost")
+                        .HasColumnType("double precision")
+                        .HasColumnName("item_total_cost");
+
+                    b.Property<Guid>("OrderId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("sales_request_id");
+
                     b.Property<Guid>("ProductId")
                         .HasColumnType("uuid")
                         .HasColumnName("product_id");
 
-                    b.Property<string>("TransactionNumber")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("transaction_number");
-
-                    b.Property<Guid>("WorkerId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("worker_id");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("WorkerId");
-
-                    b.ToTable("order");
+                    b.ToTable("order_product");
                 });
 
             modelBuilder.Entity("SmartMarket.Domain.Entities.Partners.Partner", b =>
@@ -275,6 +310,15 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("last_payment_date");
 
+                    b.Property<Guid>("PayDeskId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("pay_desk_id");
+
+                    b.Property<string>("PaymentType")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("payment_type");
+
                     b.Property<double>("TotalDebt")
                         .HasColumnType("double precision")
                         .HasColumnName("total_debt");
@@ -282,6 +326,8 @@ namespace SmartMarket.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ContrAgentId");
+
+                    b.HasIndex("PayDeskId");
 
                     b.ToTable("contr_agent_payment");
                 });
@@ -591,7 +637,6 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnName("created_at");
 
                     b.Property<string>("ImagePath")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("image_path");
 
@@ -621,7 +666,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
-                    b.Property<double>("Discount")
+                    b.Property<double?>("Discount")
                         .HasColumnType("double precision")
                         .HasColumnName("discount");
 
@@ -640,9 +685,6 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("sales_request_id");
 
-                    b.Property<Guid?>("TransactionId")
-                        .HasColumnType("uuid");
-
                     b.Property<Guid?>("WorkerId")
                         .HasColumnType("uuid");
 
@@ -653,8 +695,6 @@ namespace SmartMarket.DataAccess.Migrations
                     b.HasIndex("ProductId");
 
                     b.HasIndex("SalesRequestId");
-
-                    b.HasIndex("TransactionId");
 
                     b.HasIndex("WorkerId");
 
@@ -730,11 +770,8 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnName("total_cost");
 
                     b.Property<long>("TransactionId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasColumnName("transaction_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("TransactionId"));
 
                     b.Property<double>("TransferMoney")
                         .HasColumnType("double precision")
@@ -756,46 +793,6 @@ namespace SmartMarket.DataAccess.Migrations
                     b.ToTable("sales_request");
                 });
 
-            modelBuilder.Entity("SmartMarket.Domain.Entities.Transactions.Transaction", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<double>("Amount")
-                        .HasColumnType("double precision")
-                        .HasColumnName("amount");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("description");
-
-                    b.Property<string>("From")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("from");
-
-                    b.Property<string>("To")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("to");
-
-                    b.Property<string>("TypeOfPayment")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("type_of_payment");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("transaction");
-                });
-
             modelBuilder.Entity("SmartMarket.Domain.Entities.Workers.Position", b =>
                 {
                     b.Property<Guid>("Id")
@@ -815,35 +812,6 @@ namespace SmartMarket.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("position");
-                });
-
-            modelBuilder.Entity("SmartMarket.Domain.Entities.Workers.Salary", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<double>("Advance")
-                        .HasColumnType("double precision")
-                        .HasColumnName("advance");
-
-                    b.Property<double>("Amount")
-                        .HasColumnType("double precision")
-                        .HasColumnName("amount");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("description");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("salary");
                 });
 
             modelBuilder.Entity("SmartMarket.Domain.Entities.Workers.SalaryCheck", b =>
@@ -878,34 +846,6 @@ namespace SmartMarket.DataAccess.Migrations
                     b.HasIndex("WorkerId");
 
                     b.ToTable("salary_check");
-                });
-
-            modelBuilder.Entity("SmartMarket.Domain.Entities.Workers.SalaryWorker", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid")
-                        .HasColumnName("id");
-
-                    b.Property<DateTime?>("CreatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at");
-
-                    b.Property<Guid>("SalaryId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("salary_id");
-
-                    b.Property<Guid>("WorkerId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("worker_id");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("SalaryId");
-
-                    b.HasIndex("WorkerId");
-
-                    b.ToTable("salary_worker");
                 });
 
             modelBuilder.Entity("SmartMarket.Domain.Entities.Workers.Worker", b =>
@@ -1018,6 +958,9 @@ namespace SmartMarket.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RoleName")
+                        .IsUnique();
+
                     b.ToTable("worker_role");
                 });
 
@@ -1042,21 +985,40 @@ namespace SmartMarket.DataAccess.Migrations
 
             modelBuilder.Entity("SmartMarket.Domain.Entities.Orders.Order", b =>
                 {
-                    b.HasOne("SmartMarket.Domain.Entities.Products.Product", "Product")
-                        .WithMany("Order")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("SmartMarket.Domain.Entities.Partners.Partner", "Partner")
+                        .WithMany()
+                        .HasForeignKey("PartnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("SmartMarket.Domain.Entities.Workers.Worker", "Worker")
                         .WithMany("Orders")
                         .HasForeignKey("WorkerId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Product");
+                    b.Navigation("Partner");
 
                     b.Navigation("Worker");
+                });
+
+            modelBuilder.Entity("SmartMarket.Domain.Entities.Orders.OrderProduct", b =>
+                {
+                    b.HasOne("SmartMarket.Domain.Entities.Orders.Order", "Order")
+                        .WithMany("ProductOrderItems")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("SmartMarket.Domain.Entities.Products.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("SmartMarket.Domain.Entities.PartnersCompany.ContrAgent", b =>
@@ -1078,7 +1040,15 @@ namespace SmartMarket.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("SmartMarket.Domain.Entities.PayDesks.PayDesk", "PayDesk")
+                        .WithMany("ContrAgentPayments")
+                        .HasForeignKey("PayDeskId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("ContrAgent");
+
+                    b.Navigation("PayDesk");
                 });
 
             modelBuilder.Entity("SmartMarket.Domain.Entities.Products.DebtPayment", b =>
@@ -1210,12 +1180,8 @@ namespace SmartMarket.DataAccess.Migrations
                     b.HasOne("SmartMarket.Domain.Entities.Products.SalesRequest", "SalesRequest")
                         .WithMany("ProductSaleItems")
                         .HasForeignKey("SalesRequestId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("SmartMarket.Domain.Entities.Transactions.Transaction", null)
-                        .WithMany("ProductSales")
-                        .HasForeignKey("TransactionId");
 
                     b.HasOne("SmartMarket.Domain.Entities.Workers.Worker", null)
                         .WithMany("ProductSales")
@@ -1275,25 +1241,6 @@ namespace SmartMarket.DataAccess.Migrations
                     b.Navigation("Worker");
                 });
 
-            modelBuilder.Entity("SmartMarket.Domain.Entities.Workers.SalaryWorker", b =>
-                {
-                    b.HasOne("SmartMarket.Domain.Entities.Workers.Salary", "Salary")
-                        .WithMany("SalaryWorkers")
-                        .HasForeignKey("SalaryId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("SmartMarket.Domain.Entities.Workers.Worker", "Worker")
-                        .WithMany("SalaryWorkers")
-                        .HasForeignKey("WorkerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Salary");
-
-                    b.Navigation("Worker");
-                });
-
             modelBuilder.Entity("SmartMarket.Domain.Entities.Workers.Worker", b =>
                 {
                     b.HasOne("SmartMarket.Domain.Entities.Workers.Position", "Position")
@@ -1329,6 +1276,11 @@ namespace SmartMarket.DataAccess.Migrations
                     b.Navigation("Products");
                 });
 
+            modelBuilder.Entity("SmartMarket.Domain.Entities.Orders.Order", b =>
+                {
+                    b.Navigation("ProductOrderItems");
+                });
+
             modelBuilder.Entity("SmartMarket.Domain.Entities.Partners.Partner", b =>
                 {
                     b.Navigation("Debtors");
@@ -1350,6 +1302,8 @@ namespace SmartMarket.DataAccess.Migrations
 
             modelBuilder.Entity("SmartMarket.Domain.Entities.PayDesks.PayDesk", b =>
                 {
+                    b.Navigation("ContrAgentPayments");
+
                     b.Navigation("Expenses");
 
                     b.Navigation("ProductSales");
@@ -1365,8 +1319,6 @@ namespace SmartMarket.DataAccess.Migrations
                     b.Navigation("Debtors");
 
                     b.Navigation("LoadReport");
-
-                    b.Navigation("Order");
 
                     b.Navigation("ProductImages");
 
@@ -1385,19 +1337,9 @@ namespace SmartMarket.DataAccess.Migrations
                     b.Navigation("ProductSaleItems");
                 });
 
-            modelBuilder.Entity("SmartMarket.Domain.Entities.Transactions.Transaction", b =>
-                {
-                    b.Navigation("ProductSales");
-                });
-
             modelBuilder.Entity("SmartMarket.Domain.Entities.Workers.Position", b =>
                 {
                     b.Navigation("Workers");
-                });
-
-            modelBuilder.Entity("SmartMarket.Domain.Entities.Workers.Salary", b =>
-                {
-                    b.Navigation("SalaryWorkers");
                 });
 
             modelBuilder.Entity("SmartMarket.Domain.Entities.Workers.Worker", b =>
@@ -1417,8 +1359,6 @@ namespace SmartMarket.DataAccess.Migrations
                     b.Navigation("ReplaceProducts");
 
                     b.Navigation("SalaryChecks");
-
-                    b.Navigation("SalaryWorkers");
 
                     b.Navigation("WorkerDebts");
                 });

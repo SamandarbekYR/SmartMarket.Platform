@@ -12,8 +12,8 @@ using SmartMarket.DataAccess.Data;
 namespace SmartMarket.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241117200034_ProductEntityUpdate")]
-    partial class ProductEntityUpdate
+    [Migration("20241127075305_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -145,16 +145,13 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
+                    b.Property<bool>("IsSold")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_sold");
+
                     b.Property<Guid>("PartnerId")
                         .HasColumnType("uuid")
                         .HasColumnName("partner_id");
-
-                    b.Property<long>("TransactionId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("transaction_id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("TransactionId"));
 
                     b.Property<Guid>("WorkerId")
                         .HasColumnType("uuid")
@@ -163,9 +160,6 @@ namespace SmartMarket.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("PartnerId");
-
-                    b.HasIndex("TransactionId")
-                        .IsUnique();
 
                     b.HasIndex("WorkerId");
 
@@ -178,6 +172,10 @@ namespace SmartMarket.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasColumnName("id");
+
+                    b.Property<int>("AvailableCount")
+                        .HasColumnType("integer")
+                        .HasColumnName("available_count");
 
                     b.Property<int>("Count")
                         .HasColumnType("integer")
@@ -787,6 +785,9 @@ namespace SmartMarket.DataAccess.Migrations
 
                     b.HasIndex("PayDeskId");
 
+                    b.HasIndex("TransactionId")
+                        .IsUnique();
+
                     b.HasIndex("WorkerId");
 
                     b.ToTable("sales_request");
@@ -1042,7 +1043,7 @@ namespace SmartMarket.DataAccess.Migrations
                     b.HasOne("SmartMarket.Domain.Entities.PayDesks.PayDesk", "PayDesk")
                         .WithMany("ContrAgentPayments")
                         .HasForeignKey("PayDeskId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("ContrAgent");
