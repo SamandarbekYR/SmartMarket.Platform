@@ -69,50 +69,15 @@
                         <StackPanel 
                             Margin="0 20 0 0">
                             <TextBlock
-                                Text="Chek O'lchami:"
+                                Text="Kassa tanlash:"
                                 FontSize="22"
-                                FontWeight="SemiBold"
-                                   ></TextBlock>
+                                FontWeight="SemiBold"/>
                             <ComboBox
+                                Name="cb_Paydesk"
                                 Height="40" 
                                 Margin="0 3 60 5"
-                                VerticalContentAlignment="Center"
-                                Text="mfefke"
-                                FontSize="20"
-                                Padding="5 0 0 0"
-                                BorderBrush="Black"
-                                BorderThickness="1">
-                                
-                                <ComboBoxItem Content="100:200"/>
-                                <ComboBoxItem Content="150:300"/>
-                                <ComboBoxItem Content="200:400"/>
+                                SelectionChanged="cb_Paydesk_SelectionChanged">
                             </ComboBox>
-                        </StackPanel>
-
-                        <StackPanel Margin="0 20 0 0">
-                            <TextBlock
-                                Text="Avtomatik chop etish:"
-                                FontSize="22"
-                                FontWeight="SemiBold"
-                                   ></TextBlock>
-                            <DockPanel
-                                Margin="0 10 0 0">
-                                <RadioButton  
-                                    Content="Ha"
-                                    VerticalAlignment="Center"
-                                    FontSize="18"
-                                    FontWeight="SemiBold"
-                                    VerticalContentAlignment="Center"/>
-                                
-                                <RadioButton  
-                                    Margin="25 0 0 0"
-                                    Content="Yo'q"
-                                    VerticalAlignment="Center"
-                                    FontSize="18"
-                                    FontWeight="SemiBold"
-                                    VerticalContentAlignment="Center" />
-                            </DockPanel>
-                          
                         </StackPanel>
 
                         <StackPanel Margin="0 20 0 0">
@@ -131,31 +96,6 @@
                                 BorderBrush="Black"
                                 BorderThickness="1">
                                 
-                                <ComboBoxItem Content="100:200"/>
-                                <ComboBoxItem Content="150:300"/>
-                                <ComboBoxItem Content="200:400"/>
-                            </ComboBox>
-                        </StackPanel>
-
-                        <StackPanel 
-                            Margin="0 20 0 0">
-                            <TextBlock
-                                FontWeight="SemiBold"
-                                Text="Shtrix code o'lchami:"
-                                FontSize="22"
-                                ></TextBlock>
-                            <ComboBox
-                                Height="40" Margin="0 3 60 5"
-                                VerticalContentAlignment="Center"
-                                Text="mfefke"
-                                FontSize="20"
-                                Padding="5 0 0 0"
-                                BorderBrush="Black"
-                                BorderThickness="1">
-                                
-                                <ComboBoxItem Content="100:200"/>
-                                <ComboBoxItem Content="150:300"/>
-                                <ComboBoxItem Content="200:400"/>
                             </ComboBox>
                         </StackPanel>
 
