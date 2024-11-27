@@ -74,6 +74,7 @@
 
                 <Button
                     x:Name="BtnPay"
+                    Click="PartnerPayment_Button_Click"
                     Content="To'lov"
                     Foreground="White"
                     FontSize="20"

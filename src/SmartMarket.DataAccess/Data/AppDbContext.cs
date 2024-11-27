@@ -37,6 +37,15 @@ namespace SmartMarket.DataAccess.Data
                       .WithMany(ca => ca.ContrAgentPayment)
                       .HasForeignKey(cap => cap.ContrAgentId)
                       .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(cap => cap.PayDesk)
+                      .WithMany(ca => ca.ContrAgentPayments)
+                      .HasForeignKey(cap => cap.PayDeskId)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                entity.Property(e => e.PayDeskId)
+                      .HasColumnName("pay_desk_id")
+                      .IsRequired();
             });
 
             modelBuilder.Entity<Expense>(entity =>
