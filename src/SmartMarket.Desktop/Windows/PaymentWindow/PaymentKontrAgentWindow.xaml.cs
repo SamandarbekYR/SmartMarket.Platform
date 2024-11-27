@@ -6,6 +6,15 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using SmartMarket.Service.DTOs.PartnersCompany.ContrAgent;
+using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgentPayments;
+using SmartMarketDeskop.Integrated.Services.PayDesks;
+using SmartMarket.Service.DTOs.PartnersCompany.ContrAgentPayment;
+using SmartMarket.Service.DTOs.PayDesks;
+using SmartMarketDeskop.Integrated.ViewModelsForUI.PartnerCompany;
+using ToastNotifications;
+using ToastNotifications.Position;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
 
 namespace SmartMarket.Desktop.Windows.PaymentWindow;
 
@@ -14,11 +23,17 @@ namespace SmartMarket.Desktop.Windows.PaymentWindow;
 /// </summary>
 public partial class PaymentKontrAgentWindow : Window
 {
+    private readonly IContrAgentPaymentService contrAgentPaymentService;
+    private readonly IPayDeskService payDeskService;
+    ContrAgentViewModels _contrAgentViewModel;
     public PaymentKontrAgentWindow()
     {
         InitializeComponent();
+        this.contrAgentPaymentService = new ContrAgentPaymentService();
+        this.payDeskService = new PayDeskService();
     }
 
+    List<PayDesksDto> payDesks = new List<PayDesksDto>();
     [DllImport("user32.dll")]
     internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
     internal void EnableBlur()
@@ -43,14 +58,64 @@ public partial class PaymentKontrAgentWindow : Window
         Marshal.FreeHGlobal(accentPtr);
     }
 
+    Notifier notifierThis = new Notifier(cfg =>
+    {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
+            corner: Corner.TopRight,
+            offsetX: 50,
+            offsetY: 20);
+
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(3),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+    });
+
+    Notifier notifier = new Notifier(cfg =>
+    {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.MainWindow,
+            corner: Corner.TopRight,
+            offsetX: 50,
+            offsetY: 20);
+
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(3),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+    });
+
     private void btnclose_MouseUp(object sender, MouseButtonEventArgs e)
     {
         this.Close();
     }
 
-    private void Window_Loaded(object sender, RoutedEventArgs e)
+    public async Task GetAllPaydesks()
+    {
+        payDesks = await Task.Run(async () => await payDeskService.GetAll());
+        if (payDesks.Any())
+        {
+            var payDeskNames = payDesks.Select(x => x.Name)
+                .Distinct()
+                .ToList();
+
+            foreach (var paydesk in payDesks)
+                payDeskComboBox.Items.Add(paydesk.Name);
+        }
+    }
+
+    public void GetContrAgent(ContrAgentViewModels contrAgent)
+    {
+        _contrAgentViewModel = contrAgent;
+    }
+
+    private async void Window_Loaded(object sender, RoutedEventArgs e)
     {
         EnableBlur();
+        await GetAllPaydesks();
     }
 
     private void phone_number_TextChanged(object sender, TextChangedEventArgs e)
@@ -67,9 +132,38 @@ public partial class PaymentKontrAgentWindow : Window
         }
     }
 
-    private void BtnPay_Click(object sender, RoutedEventArgs e)
+    private async void BtnPay_Click(object sender, RoutedEventArgs e)
     {
+        if (!string.IsNullOrEmpty(tnPayAmount.Text) &&
+            payDeskComboBox.SelectedItem != null &&
+            paymentTypeComboBox.SelectedItem != null)
+        {
+            AddContrAgentPaymentDto dto = new AddContrAgentPaymentDto();
 
+            {
+                PayDesksDto payDesk = payDesks.Where(x => x.Name == payDeskComboBox.SelectedValue).FirstOrDefault();
+                dto.PayDeskId = payDesk.Id;
+            }
+            dto.ContrAgentId = _contrAgentViewModel.Id;
+            dto.PaymentType = payDeskComboBox.SelectedItem?.ToString();
+            dto.LastPayment = Convert.ToDouble(tnPayAmount.Text);
+            dto.TotalDebt = Convert.ToDouble(_contrAgentViewModel.DebtSum);
+
+            var res = await contrAgentPaymentService.AddAsync(dto);
+            if(res == true)
+            {
+                this.Close();
+                notifier.ShowSuccess("Kontr agent to'lovi muvaffaqiyatli amalga oshirildi.");
+            }
+            else
+            {
+                notifier.ShowError("Xatolik yuz berdi.");
+            }
+        }
+        else
+        {
+            notifierThis.ShowWarning("Malumotlar to'liq emas!");
+        }
     }
 
     private void BtnPayHistory_Click(object sender, RoutedEventArgs e)
