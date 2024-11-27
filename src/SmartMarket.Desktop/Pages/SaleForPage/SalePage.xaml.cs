@@ -661,17 +661,19 @@ public partial class SalePage : Page
         AddOrderDto dto = new AddOrderDto();
         dto.PartnerId = PartnerId;
         dto.WorkerId = WorkerId;
-        dto.ProductOrderItems = new List<AddOrderProductDto>();
-
+        
+        AddOrderProductDto product = new AddOrderProductDto();
+        List<AddOrderProductDto> products = new List<AddOrderProductDto>();
         foreach (var item in tvm.Transactions)
         {
-            AddOrderProductDto products = new AddOrderProductDto();
-            products.ProductId = item.Id;
-            products.Count = item.Quantity;
-            products.AvailableCount = item.AvailableCount;
-            products.ItemTotalCost = item.TotalPrice;
-            dto.ProductOrderItems.Add(products);
+            product.ProductId = item.Id;
+            product.Count = item.Quantity;
+            product.AvailableCount = item.AvailableCount;
+            product.ItemTotalCost = item.TotalPrice;
+            products.Add(product);
         }
+
+        dto.ProductOrderItems = products;
 
         bool result = await _orderService.UpdateAsync(OrderId, dto);
         if (result)
