@@ -5,6 +5,7 @@ using FluentValidation;
 using Microsoft.Extensions.Logging;
 
 using SmartMarket.DataAccess.Interfaces;
+using SmartMarket.Domain.Entities.Orders;
 using SmartMarket.Service.Common.Exceptions;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarket.Service.Interfaces.Products.SalesRequest;
@@ -50,6 +51,37 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
                 }
 
                 var salesRequest = _mapper.Map<SR.SalesRequest>(dto);
+
+                if (!dto.IsShipment)
+                {
+                    int count = 0;
+                    foreach (var productItem in salesRequest.ProductSaleItems)
+                    {
+                        var product = await _unitOfWork.Product.GetById(productItem.ProductId);
+                        if (product == null)
+                        {
+                            throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
+                        }
+
+                        if (product.Count < productItem.Count)
+                        {
+                            throw new StatusCodeException(HttpStatusCode.BadRequest, "Insufficient product count.");
+                        }
+
+                        product.Count -= productItem.Count;
+
+                        var productUpdated = await _unitOfWork.Product.Update(product);
+                        if (!productUpdated)
+                        {
+                            count++;
+                        }
+                    }
+
+                    if (count > 0)
+                    {
+                        throw new StatusCodeException(HttpStatusCode.BadRequest, "Error updating product count.");
+                    }
+                }
 
                 salesRequest.CreatedDate = DateTime.UtcNow;
                 var transactionNumber = TransactionNumberGenerate();
