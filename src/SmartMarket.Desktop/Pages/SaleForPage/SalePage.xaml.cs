@@ -1,6 +1,4 @@
-﻿using MaterialDesignColors;
-
-using Microsoft.AspNetCore.SignalR.Client;
+﻿using Microsoft.AspNetCore.SignalR.Client;
 using SmartMarket.Desktop.Components.SaleForComponent;
 using SmartMarket.Desktop.ViewModels.Transactions;
 using SmartMarket.Desktop.Windows;
@@ -22,9 +20,7 @@ using SmartMarketDeskop.Integrated.Services.Products.Print;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
-
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
