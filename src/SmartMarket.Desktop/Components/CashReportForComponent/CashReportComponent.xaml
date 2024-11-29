@@ -8,9 +8,9 @@
     <Border 
          x:Name="btnCashReport"
          Background="White"
-         Margin="5 2 12 2"
-         Width="220"
-         CornerRadius="8"
+         Margin="5 5 12 3"
+         Width="225"
+         CornerRadius="5"
          Cursor="Hand"
          BorderBrush="Black"
          BorderThickness="1"

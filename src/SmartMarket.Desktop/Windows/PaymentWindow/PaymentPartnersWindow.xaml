@@ -52,7 +52,7 @@
                         Margin="35 10 0 0"
                     ></TextBlock>
                     <TextBox
-                        x:Name="tnPayAmount"
+                        x:Name="tbPayAmount"
                         Height="40"
                         Margin="35 5 35 10"
                         Style="{DynamicResource tbPaymentstyle}"
