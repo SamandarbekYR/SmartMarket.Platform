@@ -344,7 +344,12 @@ public partial class SalePage : Page
     {
         Loader.Visibility = Visibility.Visible;
         var orders = await Task.Run(async () => await _orderService.GetAllAsync());
-        DisplayOrdersInStackPanel(orders);
+        if (orders.Count > 0)
+        {
+            DisplayOrdersInStackPanel(orders);
+        }
+        else
+            EmptyData.Visibility = Visibility.Visible;
     }
 
     private CancellationTokenSource _cancellationTokenSource;
@@ -352,36 +357,50 @@ public partial class SalePage : Page
     {
         _cancellationTokenSource?.Cancel();
         _cancellationTokenSource = new CancellationTokenSource();
+        var token = _cancellationTokenSource.Token;
 
         string search = Search.Text;
 
+        try
+        {
+            await Task.Delay(500, token);
+        }
+        catch (TaskCanceledException)
+        {
+            return;
+        }
+
+        if (token.IsCancellationRequested)
+        {
+            return;
+        }
+
+        stackPanelOrders.Children.Clear();
         EmptyData.Visibility = Visibility.Collapsed;
+
         if (!string.IsNullOrWhiteSpace(search))
         {
             Loader.Visibility = Visibility.Visible;
-
             try
             {
                 await Task.Run(async () =>
                 {
-                    if (_cancellationTokenSource.Token.IsCancellationRequested) return;
-
-                    List<OrderDto> orders = new List<OrderDto>();
-
-                    if (!IsNumeric(search) && search.Length >= 1)
+                    if (search.Length >= 1)
                     {
-                        orders = await _orderService.GetByPartnerNameAsync(search);
-                    }
-
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        if (search == Search.Text)
+                        var orders = await _orderService.GetByPartnerNameAsync(search);
+                        Application.Current.Dispatcher.Invoke(() =>
                         {
-                            DisplayOrdersInStackPanel(orders);
-                        }
-                    });
-                },
-                _cancellationTokenSource.Token);
+                            if (orders.Count > 0)
+                            {
+                                DisplayOrdersInStackPanel(orders);
+                            }
+                            else
+                            {
+                                EmptyData.Visibility = Visibility.Visible;
+                            }
+                        });
+                    }
+                }, token);
             }
             catch (TaskCanceledException)
             {
@@ -391,6 +410,13 @@ public partial class SalePage : Page
                 Loader.Visibility = Visibility.Collapsed;
             }
         }
+        else
+        {
+            stackPanelOrders.Children.Clear();
+            EmptyData.Visibility = Visibility.Collapsed;
+            await GetAllOrders();
+        }
+
     }
 
     private void DisplayOrdersInStackPanel(List<OrderDto> orders)
