@@ -62,4 +62,17 @@ public partial class ProductComponent : UserControl
         lb_Quantity.Content = quantity;
         lb_Total.Content = (quantity * product.SellPrice);
     }
+
+    public void SetValues(Guid id, int availableCount, string barcode, string productName, double sellPrice, int quantity)
+    {
+        Id = id;
+        AvailableCount = availableCount;
+        Barcode = barcode;
+
+        lb_Discount.Content = 0;
+        lb_ProductName.Content = productName;
+        lb_Price.Content = sellPrice;
+        lb_Quantity.Content = quantity;
+        lb_Total.Content = (quantity * sellPrice);
+    }
 }
