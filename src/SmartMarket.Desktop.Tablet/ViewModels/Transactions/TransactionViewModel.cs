@@ -24,7 +24,7 @@ public class TransactionViewModel
             Name = product.Name,
             Price = product.SellPrice,
             Quantity = quantity,
-            TotalPrice = product.SellPrice,
+            TotalPrice = product.SellPrice * quantity,
             AvailableCount = product.Count,
             Discount = 0
         });
