@@ -16,6 +16,7 @@ namespace SmartMarket.Domain.Entities.Partners
         public double TotalDebt { get; set; }
         [Column("last_payment")]
         public DateTime LastPayment {  get; set; }
+        public string PaymentType { get; set; }
 
         public List<Debtors> Debtors { get; set; }
     }

@@ -1,4 +1,8 @@
-﻿using System;
+﻿using SmartMarketDeskop.Integrated.Services.Partners;
+
+using SmartMarketDesktop.DTOs.DTOs.Partners;
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,8 +23,13 @@ namespace SmartMarket.Desktop.Windows.PaymentWindow
     /// </summary>
     public partial class PaymentPartnersWindow : Window
     {
-        public PaymentPartnersWindow()
+        private IPartnerService _partnerService;
+        private Guid _partnerId;
+
+        public PaymentPartnersWindow(Guid partnerId)
         {
+            _partnerId = partnerId;
+            _partnerService = new PartnerService();
             InitializeComponent();
         }
 
@@ -29,8 +38,16 @@ namespace SmartMarket.Desktop.Windows.PaymentWindow
             this.Close();
         }
 
-        private void PartnerPayment_Button_Click(object sender, RoutedEventArgs e)
+        private async void PartnerPayment_Button_Click(object sender, RoutedEventArgs e)
         {
+            PartnerCreateDto partnerCreateDto = new PartnerCreateDto()
+            {
+                LastPayment = double.Parse(tbPayAmount.Text),
+                LastPaymentDate = DateTime.Now,
+            };
+
+            await _partnerService.UpdatePartner(partnerCreateDto, _partnerId);
+
             this.Close();
         }
     }
