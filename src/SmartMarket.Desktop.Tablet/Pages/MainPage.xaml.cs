@@ -57,8 +57,8 @@ public partial class MainPage : Page
         cfg.PositionProvider = new WindowPositionProvider(
             parentWindow: Application.Current.MainWindow,
             corner: Corner.TopRight,
-            offsetX: 20,
-            offsetY: 20);
+            offsetX: 40,
+            offsetY: 40);
 
         cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
             notificationLifetime: TimeSpan.FromSeconds(2),
@@ -66,7 +66,6 @@ public partial class MainPage : Page
 
         cfg.Dispatcher = Application.Current.Dispatcher;
     });
-
 
 
     #region  Method
@@ -98,49 +97,44 @@ public partial class MainPage : Page
 
     public void AddNewProductTvm(FullProductDto product, int count)
     {
-        if (count > 0)
+        if (product.Count > 0)
         {
-            string barcode = product.Barcode;
-            if (!tvm.Transactions.Any(t => t.Barcode == barcode))
+            if (count > 0)
             {
-                tvm.Add(product, count);
-                AddNewProduct(product, count);
-
-                AddOrderProductDto addOrderProductDto = new AddOrderProductDto()
+                string barcode = product.Barcode;
+                if (!tvm.Transactions.Any(t => t.Barcode == barcode))
                 {
-                    ProductId = product.Id,
-                    Count = count,
-                    AvailableCount = product.Count,
-                    ItemTotalCost = product.SellPrice * count
-                };
-
-                orderProducts.Add(addOrderProductDto);
-            }
-            else
-            {
-                double totalPrice = 0;
-                double discountPrice = 0;
-                foreach (ProductComponent child in st_product.Children)
+                    tvm.Add(product, count);
+                    AddNewProduct(product, count);
+                }
+                else
                 {
-                    if (child.Barcode == barcode)
+                    double totalPrice = 0;
+                    double discountPrice = 0;
+                    foreach (ProductComponent child in st_product.Children)
                     {
-                        int quantity = int.Parse(child.lb_Quantity.Content.ToString()!);
-                        if (quantity < child.AvailableCount)
+                        if (child.Barcode == barcode)
                         {
-                            quantity++;
-                            (totalPrice, discountPrice) = SetPrice(double.Parse(child.lb_Price.Content.ToString()!), float.Parse(child.lb_Discount.Content.ToString()!), quantity);
+                            int quantity = int.Parse(child.lb_Quantity.Content.ToString()!);
+                            if (quantity < child.AvailableCount)
+                            {
+                                quantity++;
+                                (totalPrice, discountPrice) = SetPrice(double.Parse(child.lb_Price.Content.ToString()!), float.Parse(child.lb_Discount.Content.ToString()!), quantity);
 
-                            child.lb_Total.Content = totalPrice.ToString();
-                            child.lb_Quantity.Content = quantity.ToString();
+                                child.lb_Total.Content = totalPrice.ToString();
+                                child.lb_Quantity.Content = quantity.ToString();
 
-                            GetPrice(product, quantity);
+                                GetPrice(product, quantity);
+                            }
                         }
                     }
+                    tvm.Increment(barcode, totalPrice, discountPrice, count);
                 }
-                tvm.Increment(barcode, totalPrice, discountPrice, count);
+                ColculateTotalPrice();
             }
-            ColculateTotalPrice();
         }
+        else
+            notifier.ShowInformation("Bu mahsulot tugagan.");
     }
 
     private void AddNewProduct(FullProductDto product, int quantity)
@@ -153,7 +147,6 @@ public partial class MainPage : Page
         productComponent.SetData(product, quantity);
         st_product.Children.Add(productComponent);
     }
-
 
     public static MainWindow GetMainWindow()
     {
@@ -211,9 +204,8 @@ public partial class MainPage : Page
     {
         if (tvm != null)
         {
-            tvm.TransactionPrice = tvm.Transactions.Sum(x => x.TotalPrice);
+            lb_TotalSum.Content = tvm.TransactionPrice = tvm.Transactions.Sum(x => x.TotalPrice);
             tvm.DiscountPrice = tvm.Transactions.Sum(x => x.DiscountSum);
-            lb_TotalSum.Content = (tvm.TransactionPrice + tvm.DiscountPrice).ToString();
         }
         else
         {
@@ -228,6 +220,7 @@ public partial class MainPage : Page
         Total_Price.Content = "0";
         Product_Name.Content = "";
         Product_Barcode.Content = "";
+        lb_TotalSum.Content = "0";
     }
 
     private void GetPrice(FullProductDto product, int quantity)
@@ -297,13 +290,25 @@ public partial class MainPage : Page
 
     private async void Send_Button_Click(object sender, RoutedEventArgs e)
     {
-        var identity = IdentitySingelton.GetInstance();;
-        AddOrderDto addOrderDto = new AddOrderDto()
+        var id = IdentitySingelton.GetInstance().Id;
+        AddOrderDto addOrderDto = new AddOrderDto();
+        addOrderDto.PartnerId = Partner.Id;
+        addOrderDto.WorkerId = id;
+
+        foreach (var product in tvm.Transactions)
         {
-            PartnerId = Partner.Id,
-            WorkerId = identity.Id,
-            ProductOrderItems = orderProducts,
-        };
+            AddOrderProductDto addOrderProductDto = new AddOrderProductDto()
+            {
+                ProductId = product.Id,
+                Count = product.Quantity,
+                AvailableCount = product.AvailableCount,
+                ItemTotalCost = product.TotalPrice
+            };
+
+            orderProducts.Add(addOrderProductDto);
+        }
+
+        addOrderDto.ProductOrderItems = orderProducts;
 
         if (addOrderDto != null)
         {
@@ -314,6 +319,7 @@ public partial class MainPage : Page
 
                 notifier.ShowSuccess("Mahsulotlar muvaffaqiyatli yuborildi.");
                 st_product.Children.Clear();
+                EmptyPrice();
             }
             catch 
             {
