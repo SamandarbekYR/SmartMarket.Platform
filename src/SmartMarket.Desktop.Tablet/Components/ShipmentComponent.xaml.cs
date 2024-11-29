@@ -1,5 +1,8 @@
-﻿using SmartMarket.Service.DTOs.Order;
+﻿using SmartMarket.Desktop.Tablet.Pages;
+using SmartMarket.Service.DTOs.Order;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace SmartMarket.Desktop.Tablet.Components;
 
@@ -8,7 +11,6 @@ namespace SmartMarket.Desktop.Tablet.Components;
 /// </summary>
 public partial class ShipmentComponent : UserControl
 {
-    public Func<Task> EditShipment { get; set; }
     public ShipmentComponent()
     {
         InitializeComponent();
@@ -22,10 +24,31 @@ public partial class ShipmentComponent : UserControl
     }
 
     private async void btnEditShipment_Click(object sender, System.Windows.RoutedEventArgs e)
-    {if(EditShipment != null && this.Tag is OrderDto order)
+    {
+        var orderDto = this.Tag as OrderDto;
+        var page = FindParentPage(this);
+
+        if (page is SecondPage secondPage)
         {
-            await EditShipment();
+            secondPage.SelectOrder(this, orderDto!.Id);
         }
 
+
+    }
+
+    private Page FindParentPage(DependencyObject child)
+    {
+        DependencyObject parentObject = VisualTreeHelper.GetParent(child);
+
+        if(parentObject is Page page)
+        {
+            return page;
+        }
+        else if(parentObject != null)
+        {
+            return FindParentPage(parentObject);
+        }
+
+        return null!;
     }
 }

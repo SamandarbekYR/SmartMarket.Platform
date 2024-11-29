@@ -223,7 +223,7 @@
                             HorizontalAlignment="Center"
                             Style="{DynamicResource InfoLabel}"/>
 
-                        <Label
+                        <Label x:Name="lbProductTotalPrice"
                             Content="0"
                             FontSize="20"
                             HorizontalAlignment="Center"
@@ -295,16 +295,24 @@
 
                         </Grid>
 
-                        <ScrollViewer
-                            Margin="1 5 1 10"
+                        <Grid
                             Grid.Row="1">
+                            <local:Loader
+                                Visibility="Hidden"
+                                x:Name="productLoader"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Center"/>
+                            
+                            <ScrollViewer
+                                Margin="1 5 1 10">
 
-                            <StackPanel
-                                x:Name="st_product">
+                                <StackPanel
+                                    x:Name="st_product">
 
-                            </StackPanel>
+                                </StackPanel>
 
-                        </ScrollViewer>
+                            </ScrollViewer>
+                        </Grid>
 
                     </Grid>
 

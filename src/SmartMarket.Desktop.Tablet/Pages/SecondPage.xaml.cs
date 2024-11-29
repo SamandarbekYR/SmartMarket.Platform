@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Desktop.Tablet.Components;
+using SmartMarket.Domain.Entities.Orders;
 using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Orders;
@@ -18,6 +19,7 @@ public partial class SecondPage : Page
 
     private readonly IProductService _productService; 
     private readonly IOrderService _orderService;
+    private OrderDto currentOrder { get; set; }
 
     public SecondPage()
     {
@@ -97,6 +99,38 @@ public partial class SecondPage : Page
         mainWindow.PageNavigator.Content = mainPage;
     }
 
+    private void SetOrderProduct(List<OrderProduct> products)
+    {
+        double totalPrice = 0;
+        productLoader.Visibility = Visibility.Collapsed;
+        st_product.Children.Clear();
+        if (products.Count > 0)
+        {
+            foreach (var orderItem in products)
+            {
+                ProductComponent component = new ProductComponent();
+                component.Tag = orderItem;
+                component.SetValues(
+                    orderItem.Id,
+                    orderItem.Count,
+                    orderItem.Product.Barcode,
+                    orderItem.Product.Name,
+                    orderItem.Product.SellPrice,
+                    orderItem.Count);
+
+                st_product.Children.Add(component);
+                totalPrice += (orderItem.Product.SellPrice * orderItem.Count);
+            }
+
+            lbProductTotalPrice.Content = totalPrice;
+        }
+        else
+        {
+            lbProductTotalPrice.Content = 0;
+            //empty data
+        }
+    }
+
     public async Task GetAllShipments()
     {
         var orders = await Task.Run(async () => await _orderService.GetAllAsync());
@@ -127,34 +161,98 @@ public partial class SecondPage : Page
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
         await GetAllShipments();
-        for (int i = 0; i < 20; i++)
-        {
-            //ShipmentComponent shipmentComponent = new ShipmentComponent();
-            ProductComponent productComponent = new ProductComponent();
+        //for (int i = 0; i < 20; i++)
+        //{
+        //    //ShipmentComponent shipmentComponent = new ShipmentComponent();
+        //    ProductComponent productComponent = new ProductComponent();
 
-            st_product.Children.Add(productComponent);
-            //st_shipments.Children.Add(shipmentComponent);
+        //    st_product.Children.Add(productComponent);
+        //    //st_shipments.Children.Add(shipmentComponent);
+        //}
+    }
+
+    private ShipmentComponent selectedControl = null!;
+    public async void SelectOrder(ShipmentComponent shipmentComponent, Guid orderId)
+    {
+        if(selectedControl != null)
+        {
+            selectedControl.brOrder.Background = Brushes.White;
         }
+
+        if(shipmentComponent.Tag is OrderDto selectedOrder)
+        {
+            currentOrder = new OrderDto
+            {
+                Id = selectedOrder.Id,
+                WorkerId = selectedOrder.WorkerId,
+                PartnerId = selectedOrder.PartnerId,
+                ProductOrderItems = selectedOrder.ProductOrderItems
+            };
+
+            SetOrderProduct(currentOrder.ProductOrderItems);
+        }
+    }
+
+    private void UpdateOrder()
+    {
+        SetOrderProduct(currentOrder.ProductOrderItems);
     }
 
     private void Minus_Button_Click(object sender, RoutedEventArgs e)
     {
-
+        if(selectedProduct?.Tag is OrderProduct orderProduct && orderProduct.Count > 1)
+        {
+            orderProduct.Count -= 1;
+            UpdateOrder();
+        }
     }
 
     private void Plus_Button_Click(object sender, RoutedEventArgs e)
     {
-
+        if(selectedProduct?.Tag is OrderProduct orderProduct)
+        {
+            orderProduct.Count += 1;
+            UpdateOrder();
+        }
     }
 
     private void Delete_Button_Click(object sender, RoutedEventArgs e)
     {
-
+        if(selectedProduct?.Tag is OrderProduct orderProduct)
+        {
+            currentOrder.ProductOrderItems.Remove(orderProduct);
+            UpdateOrder();
+        }
     }
 
-    private void Save_Button_Click(object sender, RoutedEventArgs e)
+    private async void Save_Button_Click(object sender, RoutedEventArgs e)
     {
+        try
+        {
+            var order = new AddOrderDto
+            {
+                WorkerId = currentOrder.WorkerId,
+                PartnerId = currentOrder.PartnerId,
+                ProductOrderItems = currentOrder.ProductOrderItems.Select(orderProduct => new AddOrderProductDto
+                {
+                    ProductId = orderProduct.Product.Id,
+                    Count = orderProduct.Count,
+                    AvailableCount = orderProduct.AvailableCount,
+                    ItemTotalCost = orderProduct.ItemTotalCost
+                }).ToList()
+            };
 
+            var res = await _orderService.UpdateAsync(currentOrder.Id, order);
+
+            if (res is true)
+                MessageBox.Show("Muvaffaqiyatli o'zgartirildi.");
+            else
+                MessageBox.Show("Xatolik yuz berdi.");
+        }
+        catch(Exception ex)
+        {
+            MessageBox.Show("Xatolik yuz berdi ...");
+        }
     }
 
     private CancellationTokenSource _cancellationTokenSource = null!;
