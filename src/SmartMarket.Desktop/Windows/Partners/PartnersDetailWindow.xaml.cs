@@ -69,7 +69,7 @@ namespace SmartMarket.Desktop.Windows.Partners
 
         private async void btnPartnerPayment_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            PaymentPartnersWindow paymentPartnersWindow = new PaymentPartnersWindow();
+            PaymentPartnersWindow paymentPartnersWindow = new PaymentPartnersWindow(partnerId);
             paymentPartnersWindow.Show();
         }
 
