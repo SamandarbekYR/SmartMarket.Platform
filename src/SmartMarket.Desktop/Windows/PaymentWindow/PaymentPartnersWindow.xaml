@@ -65,6 +65,7 @@
                     ></TextBlock>
 
                     <ComboBox
+                        x:Name="cbPayment"
                         Height="40"
                         Margin="35 5 35 10">
                         <ComboBoxItem Content="Naqd"/>
