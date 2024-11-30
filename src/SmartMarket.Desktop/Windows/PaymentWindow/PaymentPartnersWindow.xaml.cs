@@ -40,10 +40,14 @@ namespace SmartMarket.Desktop.Windows.PaymentWindow
 
         private async void PartnerPayment_Button_Click(object sender, RoutedEventArgs e)
         {
+            ComboBoxItem selectedItem = (ComboBoxItem)cbPayment.SelectedItem;
+            string selectedValue = selectedItem?.Content.ToString(); 
+
             PartnerCreateDto partnerCreateDto = new PartnerCreateDto()
             {
                 LastPayment = double.Parse(tbPayAmount.Text),
                 LastPaymentDate = DateTime.Now,
+                PaymentType = selectedValue 
             };
 
             await _partnerService.UpdatePartner(partnerCreateDto, _partnerId);

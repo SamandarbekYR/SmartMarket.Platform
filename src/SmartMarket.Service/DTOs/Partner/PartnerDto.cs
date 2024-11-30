@@ -10,5 +10,6 @@ public class PartnerDto
     public string PhoneNumber { get; set; } = string.Empty;
     public double TotalDebt { get; set; }
     public DateTime LastPayment { get; set; }
+    public string PaymentType { get; set; } = string.Empty;
     public List<Debtors> Debtors { get; set; }
 }
