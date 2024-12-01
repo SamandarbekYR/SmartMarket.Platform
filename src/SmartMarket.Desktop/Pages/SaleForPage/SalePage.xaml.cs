@@ -24,6 +24,7 @@ using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using ToastNotifications;
@@ -719,8 +720,13 @@ public partial class SalePage : Page
 
     private void Nasiya_Button_Click(object sender, RoutedEventArgs e)
     {
-        PartnersNationWindow nationWindow = new PartnersNationWindow();
-        nationWindow.ShowDialog();
+        if (tvm.Transactions.Count > 0)
+        {
+            PartnersNationWindow nationWindow = new PartnersNationWindow();
+            nationWindow.ShowDialog();
+        }
+        else
+            notifier.ShowInformation("Mahsulot xarid qilinmagan.");
     }
 
     private void btnPay_Click(object sender, RoutedEventArgs e)
@@ -844,5 +850,25 @@ public partial class SalePage : Page
 
             await Task.Delay(1000);
         }
+    }
+
+    private void Page_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+    {
+        if (Keyboard.FocusedElement is TextBox textBox && textBox == Search)
+            return;
+        Keyboard.Focus(St_product);
+    }
+
+    private void Page_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        if (e.Source is TextBox textBox && textBox == Search)
+            return;
+        Keyboard.Focus(St_product);
+    }
+
+    private void Search_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+    {
+        Search.Focus();
+        e.Handled = true;
     }
 }
