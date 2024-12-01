@@ -49,6 +49,7 @@
                     Style="{DynamicResource search}"/>
 
                 <ScrollViewer
+                    PanningMode="Both"
                     Margin="1"
                     Grid.Row="2">
 
@@ -147,6 +148,7 @@
                             HorizontalAlignment="Center"/>
 
                         <ScrollViewer
+                            PanningMode="Both"
                             Margin="1 5 1 10">
 
                             <StackPanel
@@ -296,6 +298,7 @@
                         </Grid>
 
                         <ScrollViewer
+                            PanningMode="Both"
                             Margin="1 5 1 10"
                             Grid.Row="1">
 

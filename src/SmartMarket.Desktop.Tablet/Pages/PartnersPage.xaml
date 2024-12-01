@@ -116,7 +116,8 @@
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"/>
 
-                        <ScrollViewer>
+                        <ScrollViewer
+                            PanningMode="Both">
                             <StackPanel
                                 Margin="10 5 15 10"
                                 x:Name="St_partners">
