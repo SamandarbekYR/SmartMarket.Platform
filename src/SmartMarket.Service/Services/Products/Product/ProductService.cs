@@ -501,5 +501,24 @@ namespace SmartMarket.Service.Services.Products.Product
 
             return productResultDto;
         }
+
+        public async Task<bool> UpdateProductCountAsync(Guid productId, int count, bool isIncrement)
+        {
+            try
+            {
+                var product = await _unitOfWork.Product.GetById(productId)
+                              ?? throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
+
+                product.Count += isIncrement ? count : -count;
+
+                return await _unitOfWork.Product.Update(product);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while updating product count for ProductId: {ProductId}", productId);
+                throw;
+            }
+        }
+
     }
 }
