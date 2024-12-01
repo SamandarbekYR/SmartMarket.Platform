@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartMarket.Desktop.Windows.ProductsForWindow"
-        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:local1="clr-namespace:SmartMarket.Desktop.Components.Loader"
         mc:Ignorable="d"
         WindowStyle="None"
         ResizeMode="NoResize"
@@ -90,6 +91,7 @@
                         Margin="5 10 10 10"
                         Grid.Column="3"
                         SelectionChanged="WorkerComboBox_SelectionChanged">
+                        <ComboBoxItem Content="Barcha Sotuvchilar" IsEnabled="False"/>
                     </ComboBox>
 
 
@@ -188,13 +190,30 @@
                 </Grid>
                 <Border 
                     Grid.Row="1" Grid.ColumnSpan="2">
-                    <ScrollViewer>
-                        <StackPanel 
-                            x:Name="St_ReturnProduct">
+                    <Grid>
+                        <local1:Loader
+                            x:Name="Loader"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center">
 
-                        </StackPanel>
-                    </ScrollViewer>
+                        </local1:Loader>
+                        
+                        <ScrollViewer>
+                            <StackPanel 
+                                x:Name="St_ReturnProduct">
 
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <Label
+                            Name="EmptyData"
+                            Visibility="Collapsed"
+                            FontSize="16"
+                            Foreground="#a6a6a6"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Content="Ma'lumot topilmadi."/>
+                    </Grid>
                 </Border>
             </Grid>
         </Grid>
