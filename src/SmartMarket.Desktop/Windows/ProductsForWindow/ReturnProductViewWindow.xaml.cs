@@ -11,6 +11,10 @@ using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.ViewModels.Products;
 using System.Reflection.Emit;
 using System.Windows.Controls;
+using ToastNotifications;
+using ToastNotifications.Position;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
 
 namespace SmartMarket.Desktop.Windows.ProductsForWindow;
 
@@ -59,6 +63,36 @@ public partial class ReturnProductViewWindow : Window
         Marshal.FreeHGlobal(accentPtr);
     }
 
+    Notifier notifier = new Notifier(cfg =>
+    {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.MainWindow,
+            corner: Corner.TopRight,
+            offsetX: 20,
+            offsetY: 20);
+
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(3),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+    });
+
+    Notifier notifierThis = new Notifier(cfg =>
+    {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
+            corner: Corner.TopRight,
+            offsetX: 20,
+            offsetY: 20);
+
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(3),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+    });
+
     private async void GetProductSale()
     {
         if (_productSale != null)
@@ -78,65 +112,78 @@ public partial class ReturnProductViewWindow : Window
 
     private async void SaveReturnProduct_Button_Click(object sender, RoutedEventArgs e)
     {
-        var replaceProductDto = new AddReplaceProductDto
+        if (!string.IsNullOrEmpty(tb_Id.Text) &&
+            !string.IsNullOrEmpty(tb_Seller.Text) &&
+            !string.IsNullOrEmpty(tb_Cancel_Quantity.Text) &&
+            !string.IsNullOrEmpty(tb_Reason.Text))
         {
-            ProductSaleId = Guid.TryParse(tb_Id.Text, out var productSaleId) ? productSaleId : Guid.Empty,
-            WorkerId = _productSale.Product.WorkerId,
-            Count = int.TryParse(tb_Cancel_Quantity.Text, out var count) ? count : 0,
-            Reason = tb_Reason.Text
-        };
-
-        if (replaceProductDto.ProductSaleId == Guid.Empty)
-        {
-            MessageBox.Show("Product Sale Id noto'g'ri yoki kiritilmagan!", "Xatolik", MessageBoxButton.OK, MessageBoxImage.Warning);
-        }
-        if (replaceProductDto.WorkerId == Guid.Empty)
-        {
-            MessageBox.Show("Qaytarib oluvchi tanlanmagan!", "Xatolik", MessageBoxButton.OK, MessageBoxImage.Warning);
-        }
-        if (replaceProductDto.Count <= 0 || replaceProductDto.Count > _productSale.Count)
-        {
-            MessageBox.Show("Qaytarilgan miqdori noto'g'ri yoki nolga teng!", "Xatolik", MessageBoxButton.OK, MessageBoxImage.Warning);
-        }
-        if (string.IsNullOrWhiteSpace(replaceProductDto.Reason))
-        {
-            MessageBox.Show("Sabab ko'rsatilmagan!", "Xatolik", MessageBoxButton.OK, MessageBoxImage.Warning);
-        }
-
-        bool resultInvalidProduct = false, resultReplaceProduct;
-        if (cb_Valid.Text.Equals("Ha"))
-        {
-            resultReplaceProduct = await _replaceProductServer.AddAsync(replaceProductDto);
-        }
-        else
-        {
-            resultInvalidProduct = await _invalidProductServer.AddAsync(replaceProductDto);
-            resultReplaceProduct = await _replaceProductServer.AddAsync(replaceProductDto);
-        }
-
-        if(resultReplaceProduct || resultInvalidProduct)
-        {
-            AddProductSaleDto productSaleDto = new AddProductSaleDto()
+            var replaceProductDto = new AddReplaceProductDto
             {
-                ProductId = _productSale.ProductId,
-                Count = _productSale.Count - replaceProductDto.Count,
-                ItemTotalCost = _productSale.ItemTotalCost - _productSale.Product.SellPrice * replaceProductDto.Count,
+                ProductSaleId = Guid.TryParse(tb_Id.Text, out var productSaleId) ? productSaleId : Guid.Empty,
+                WorkerId = _productSale.Product.WorkerId,
+                Count = int.TryParse(tb_Cancel_Quantity.Text, out var count) ? count : 0,
+                Reason = tb_Reason.Text
             };
 
-            var result =  await Task.Run(async () => await _productSaleService.UpdateAsync(productSaleDto, _productSale.Id));
-            
-            if(!result)
+            if (replaceProductDto.ProductSaleId == Guid.Empty)
             {
-                MessageBox.Show("Product Sale ma'lumotlari yangilashda xatolik yuz berdi!", "Xatolik", MessageBoxButton.OK, MessageBoxImage.Warning);
+                notifierThis.ShowWarning("Product Sale Id noto'g'ri yoki kiritilmagan!");
+            }
+            if (replaceProductDto.WorkerId == Guid.Empty)
+            {
+                notifierThis.ShowWarning("Qaytarib oluvchi tanlanmagan!");
+            }
+            if (replaceProductDto.Count <= 0 || replaceProductDto.Count > _productSale.Count)
+            {
+                notifierThis.ShowWarning("Qaytarilgan mahsulot soni noto'g'ri yoki nolga teng!");
+            }
+            if (string.IsNullOrWhiteSpace(replaceProductDto.Reason))
+            {
+                notifierThis.ShowWarning("Sabab ko'rsatilmagan!");
+            }
+
+            bool resultInvalidProduct = false, resultReplaceProduct;
+            if (cb_Valid.Text.Equals("Ha"))
+            {
+                resultReplaceProduct = await _replaceProductServer.AddAsync(replaceProductDto);
             }
             else
             {
-                this.Close();
+                resultInvalidProduct = await _invalidProductServer.AddAsync(replaceProductDto);
+                resultReplaceProduct = await _replaceProductServer.AddAsync(replaceProductDto);
+            }
+
+            if (resultReplaceProduct || resultInvalidProduct)
+            {
+                AddProductSaleDto productSaleDto = new AddProductSaleDto()
+                {
+                    ProductId = _productSale.ProductId,
+                    Count = _productSale.Count - replaceProductDto.Count,
+                    Discount = _productSale.Discount,
+                    SalesRequestId = _productSale.SalesRequestId,
+                    ItemTotalCost = _productSale.ItemTotalCost - _productSale.Product.SellPrice * replaceProductDto.Count,
+                };
+
+                var result = await Task.Run(async () => await _productSaleService.UpdateAsync(productSaleDto, _productSale.Id));
+
+                if (!result)
+                {
+                    notifierThis.ShowWarning("Product sale ma'lumotlarini yangilashda xatolik yuz berdi.");
+                }
+                else
+                {
+                    this.Close();
+                    notifier.ShowSuccess("Product sale ma'lumotlari yangilandi.");
+                }
+            }
+            else
+            {
+                notifierThis.ShowError("Saqlashda xatolik yuz berdi.");
             }
         }
         else
         {
-            MessageBox.Show("Saqlashda xatolik yuz berdi!", "Xatolik", MessageBoxButton.OK, MessageBoxImage.Warning);
+            notifierThis.ShowWarning("Product sale ma'lumotlari to'liq emas!");
         }
     }
 
