@@ -13,5 +13,6 @@ public interface IProductServer
     Task<List<FullProductDto>> GetByPCodeAsync(string PCode);    
     Task<List<FullProductDto>> GetByProductNameAsync(string productName);
     Task<List<FullProductDto>> GetFinishedProductsAsync();
+    Task<bool> UpdateProductCount(List<UpdateProductDto> dto);
 }
 

@@ -77,51 +77,47 @@ public partial class LoginWindow : Window
 
     private async void Login_Button_Click(object sender, RoutedEventArgs e)
     {
-        //try
-        //{
-        //    if (IsInternetAvailable())
-        //    {
-        //        Login_Button.Visibility = Visibility.Collapsed;
-        //        Loader.Visibility = Visibility.Visible;
+        try
+        {
+            if (IsInternetAvailable())
+            {
+                Login_Button.Visibility = Visibility.Collapsed;
+                Loader.Visibility = Visibility.Visible;
 
-        //        UserLoginDto dto = new UserLoginDto();
-        //        dto.PhoneNumber = tbPhoneNumber.Text;
-        //        dto.password = pbPassword.Password.ToString();
-        //        (bool Result, string Token) result = await _authService.LoginAsync(dto);
+                UserLoginDto dto = new UserLoginDto();
+                dto.PhoneNumber = tbPhoneNumber.Text;
+                dto.password = pbPassword.Password.ToString();
+                (bool Result, string Token) result = await _authService.LoginAsync(dto);
 
-        //        if (result.Result)
-        //        {
-        //            TokenHandler.ParseToken(result.Token);
-        //            SetIdentitySingleton(result.Token);
+                if (result.Result)
+                {
+                    TokenHandler.ParseToken(result.Token);
+                    SetIdentitySingleton(result.Token);
 
-        //            Loader.Visibility = Visibility.Collapsed;
-        //            Login_Button.Visibility = Visibility.Visible;
+                    Loader.Visibility = Visibility.Collapsed;
+                    Login_Button.Visibility = Visibility.Visible;
 
-        //            MainWindow window = new MainWindow();
-        //            window.Show();
-        //            this.Close();
-                    
-        //        }
-        //        else
-        //        {
-        //            notifier.ShowWarning("Bunday foydalanuvchi mavjud emas!");
-        //            Loader.Visibility = Visibility.Collapsed;
-        //            Login_Button.Visibility = Visibility.Visible;
-        //        }
-        //    }
-        //    else
-        //    {
-        //        notifier.ShowWarning("Internetingizni tekshiring.");
-        //    }
-        //}
-        //catch
-        //{
+                    MainWindow window = new MainWindow();
+                    window.Show();
+                    this.Close();
 
-        //}
+                }
+                else
+                {
+                    notifier.ShowWarning("Bunday foydalanuvchi mavjud emas!");
+                    Loader.Visibility = Visibility.Collapsed;
+                    Login_Button.Visibility = Visibility.Visible;
+                }
+            }
+            else
+            {
+                notifier.ShowWarning("Internetingizni tekshiring.");
+            }
+        }
+        catch
+        {
 
-        MainWindow window = new MainWindow();
-        window.Show();
-        this.Close();
+        }
     }
 
     private async void Window_Loaded(object sender, RoutedEventArgs e)
