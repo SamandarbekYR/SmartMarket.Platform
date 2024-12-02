@@ -6,6 +6,7 @@ using SmartMarket.Service.DTOs.Partner;
 using SmartMarketDeskop.Integrated.Services.Partners;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace SmartMarket.Desktop.Tablet.Pages;
 
@@ -70,79 +71,99 @@ public partial class PartnersPage : Page
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        //await GetAllDebtor();
+        await GetAllDebtor();
+        foreach (var scrollViewer in FindVisualChildren<ScrollViewer>(this))
+        {
+            scrollViewer.ManipulationBoundaryFeedback += (s, args) =>
+            {
+                args.Handled = true;
+            };
+        }
+    }
+
+    private static IEnumerable<T> FindVisualChildren<T>(DependencyObject parent) where T : DependencyObject
+    {
+        for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+        {
+            var child = VisualTreeHelper.GetChild(parent, i);
+            if (child is T t)
+            {
+                yield return t;
+            }
+            foreach (var childOfChild in FindVisualChildren<T>(child))
+            {
+                yield return childOfChild;
+            }
+        }
     }
 
     private void Partner_Create_Button_Click(object sender, RoutedEventArgs e)
     {
-        //PartnerCreateWindow partnerCreateWindow = new PartnerCreateWindow();
-        //partnerCreateWindow.ShowDialog();
-        MainPage mainPage = new MainPage();
-        MainWindow mainWindow = GetMainWindow();
-        mainWindow.PageNavigator.Content = mainPage;
+        PartnerCreateWindow partnerCreateWindow = new PartnerCreateWindow();
+        partnerCreateWindow.ShowDialog();
     }
 
     private CancellationTokenSource _cancellationTokenSource;
 
     private async void tb_search_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
     {
-        //_cancellationTokenSource?.Cancel();
-        //_cancellationTokenSource = new CancellationTokenSource();
-        //var token = _cancellationTokenSource.Token;
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource = new CancellationTokenSource();
+        var token = _cancellationTokenSource.Token;
 
-        //string search = tb_search.Text;
+        string search = tb_search.Text;
 
-        //try
-        //{
-        //    await Task.Delay(500, token);
-        //}
-        //catch (TaskCanceledException)
-        //{
-        //    return;
-        //}
+        try
+        {
+            await Task.Delay(500, token);
+        }
+        catch (TaskCanceledException)
+        {
+            return;
+        }
 
-        //if (token.IsCancellationRequested)
-        //{
-        //    EmptyData.Visibility = Visibility.Collapsed;
-        //    return;
-        //}
+        if (token.IsCancellationRequested)
+        {
+            EmptyData.Visibility = Visibility.Collapsed;
+            return;
+        }
 
-        //St_partners.Children.Clear();
-        //EmptyData.Visibility = Visibility.Collapsed;
+        St_partners.Children.Clear();
+        EmptyData.Visibility = Visibility.Collapsed;
 
-        //if (!string.IsNullOrWhiteSpace(search))
-        //{
-        //    Loader.Visibility = Visibility.Visible;
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            Loader.Visibility = Visibility.Visible;
 
-        //    try
-        //    {
-        //        await Task.Run(async () =>
-        //        {
-        //            if (search.Length >= 1)
-        //            {
-        //                var partner = await _partnerService.GetByName(search);
+            try
+            {
+                await Task.Run(async () =>
+                {
+                    if (search.Length >= 1)
+                    {
+                        var partner = await _partnerService.GetByName(search);
 
-        //                Application.Current.Dispatcher.Invoke(() =>
-        //                {
-        //                    SetPartner(partner);
-        //                });
-        //            }
-        //        }, token);
-        //    }
-        //    catch (TaskCanceledException)
-        //    {
-        //    }
-        //    finally
-        //    {
-        //        Loader.Visibility = Visibility.Collapsed;
-        //    }
-        //}
-        //else
-        //{
-        //    St_partners.Children.Clear();
-        //    EmptyData.Visibility = Visibility.Collapsed;
-        //    await GetAllDebtor();
-        //}
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            SetPartner(partner);
+                        });
+                    }
+                }, token);
+            }
+            catch (TaskCanceledException)
+            {
+            }
+            finally
+            {
+                Loader.Visibility = Visibility.Collapsed;
+            }
+        }
+        else
+        {
+            St_partners.Children.Clear();
+            EmptyData.Visibility = Visibility.Collapsed;
+            await GetAllDebtor();
+        }
     }
 
     private void SetPartner(PartnerDto dto)

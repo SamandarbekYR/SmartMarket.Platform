@@ -103,6 +103,30 @@ public partial class SecondPage : Page
             st_product.Children.Add(productComponent);
             st_shipments.Children.Add(shipmentComponent);
         }
+
+        foreach (var scrollViewer in FindVisualChildren<ScrollViewer>(this))
+        {
+            scrollViewer.ManipulationBoundaryFeedback += (s, args) =>
+            {
+                args.Handled = true;
+            };
+        }
+    }
+
+    private static IEnumerable<T> FindVisualChildren<T>(DependencyObject parent) where T : DependencyObject
+    {
+        for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+        {
+            var child = VisualTreeHelper.GetChild(parent, i);
+            if (child is T t)
+            {
+                yield return t;
+            }
+            foreach (var childOfChild in FindVisualChildren<T>(child))
+            {
+                yield return childOfChild;
+            }
+        }
     }
 
     private void Minus_Button_Click(object sender, RoutedEventArgs e)
@@ -129,56 +153,56 @@ public partial class SecondPage : Page
 
     private async void tb_search_TextChanged(object sender, TextChangedEventArgs e)
     {
-        //_cancellationTokenSource?.Cancel();
-        //_cancellationTokenSource = new CancellationTokenSource();
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource = new CancellationTokenSource();
 
-        //string search = tb_search.Text;
+        string search = tb_search.Text;
 
-        //st_searchproduct.Children.Clear();
-        //EmptyData.Visibility = Visibility.Collapsed;
+        st_searchproduct.Children.Clear();
+        EmptyData.Visibility = Visibility.Collapsed;
 
-        //if (!string.IsNullOrWhiteSpace(search))
-        //{
-        //    Loader.Visibility = Visibility.Visible;
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            Loader.Visibility = Visibility.Visible;
 
-        //    try
-        //    {
-        //        await Task.Run(async () =>
-        //        {
-        //            if (_cancellationTokenSource.Token.IsCancellationRequested) return;
+            try
+            {
+                await Task.Run(async () =>
+                {
+                    if (_cancellationTokenSource.Token.IsCancellationRequested) return;
 
-        //            IList<FullProductDto> products = new List<FullProductDto>();
+                    IList<FullProductDto> products = new List<FullProductDto>();
 
-        //            if (IsNumeric(search) && search.Length >= 5)
-        //            {
-        //                products = await _productService.GetByPCode(search);
-        //            }
-        //            else if (!IsNumeric(search) && search.Length >= 1)
-        //            {
-        //                products = await _productService.GetByProductName(search);
-        //            }
+                    if (IsNumeric(search) && search.Length >= 5)
+                    {
+                        products = await _productService.GetByPCode(search);
+                    }
+                    else if (!IsNumeric(search) && search.Length >= 1)
+                    {
+                        products = await _productService.GetByProductName(search);
+                    }
 
-        //            Application.Current.Dispatcher.Invoke(() =>
-        //            {
-        //                if (search == tb_search.Text)
-        //                {
-        //                    SetProduct(products);
-        //                }
-        //            });
-        //        },
-        //        _cancellationTokenSource.Token);
-        //    }
-        //    catch (TaskCanceledException)
-        //    {
-        //    }
-        //    finally
-        //    {
-        //        Loader.Visibility = Visibility.Collapsed;
-        //    }
-        //}
-        //else
-        //{
-        //    st_searchproduct.Children.Clear();
-        //}
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        if (search == tb_search.Text)
+                        {
+                            SetProduct(products);
+                        }
+                    });
+                },
+                _cancellationTokenSource.Token);
+            }
+            catch (TaskCanceledException)
+            {
+            }
+            finally
+            {
+                Loader.Visibility = Visibility.Collapsed;
+            }
+        }
+        else
+        {
+            st_searchproduct.Children.Clear();
+        }
     }
 }
