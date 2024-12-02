@@ -44,6 +44,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         private async void FilterLoadReport()
         {
+            EmptyDataLoadReport.Visibility = Visibility.Collapsed;
             Loader.Visibility = Visibility.Visible;
             St_CargoReports.Children.Clear();
             FilterLoadReportDto loadReportDto = new FilterLoadReportDto();
@@ -83,7 +84,6 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
             if (loadReports.Any())
             {
-                EmptyDataLoadReport.Visibility = Visibility.Collapsed;
                 foreach (var report in loadReports)
                 {
                     CargoReportComponent cargoReportComponent = new CargoReportComponent();
