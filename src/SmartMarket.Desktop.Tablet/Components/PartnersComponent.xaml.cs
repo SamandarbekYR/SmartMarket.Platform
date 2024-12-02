@@ -2,6 +2,7 @@
 using SmartMarket.Desktop.Tablet.Windows;
 using SmartMarket.Desktop.Tablet.Windows.Partners;
 using SmartMarket.Domain.Entities.Partners;
+using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Services.Partners;
 using System.Windows;
 using System.Windows.Controls;
@@ -52,8 +53,6 @@ public partial class PartnersComponent : UserControl
         lb_Lastname.Content = partner.LastName;
         lb_Phone_Number.Content = partner.PhoneNumber;
         partnerId = partner.Id;
-
-        this.Tag = partner;
     }
 
     public static MainWindow GetMainWindow()
@@ -90,7 +89,8 @@ public partial class PartnersComponent : UserControl
         MainWindow mainWindow = GetMainWindow();
         MainPage mainPage = new MainPage();
         var partner = this.Tag as Partner;
-        mainPage.Partner = partner!;
+        IdentitySingelton.GetInstance().PartnerId = partner!.Id;
+        IdentitySingelton.GetInstance().PartnerFullName = partner!.FirstName + " " + partner!.LastName;
         mainWindow.PageNavigator.Content = mainPage;
     }
 

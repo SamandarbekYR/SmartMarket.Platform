@@ -257,6 +257,13 @@ public partial class MainPage : Page
         }
     }
 
+    private void SetName()
+    {
+        lb_client_name.Content = IdentitySingelton.GetInstance().PartnerFullName;
+        Client_Name.Content = IdentitySingelton.GetInstance().PartnerFullName;
+        worker_name.Content = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
+    }
+
 
     #endregion
 
@@ -265,6 +272,7 @@ public partial class MainPage : Page
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
         st_product.Focus();
+        SetName();
 
         _connection = new HubConnectionBuilder()
                 .WithUrl("https://localhost:7055/ShipmentsHub", options =>
@@ -314,10 +322,9 @@ public partial class MainPage : Page
 
     private async void Send_Button_Click(object sender, RoutedEventArgs e)
     {
-        var id = IdentitySingelton.GetInstance().Id;
         AddOrderDto addOrderDto = new AddOrderDto();
-        addOrderDto.PartnerId = Partner.Id;
-        addOrderDto.WorkerId = id;
+        addOrderDto.PartnerId = IdentitySingelton.GetInstance().PartnerId;
+        addOrderDto.WorkerId = IdentitySingelton.GetInstance().Id;
 
         foreach (var product in tvm.Transactions)
         {
@@ -343,6 +350,7 @@ public partial class MainPage : Page
 
                 notifier.ShowSuccess("Mahsulotlar muvaffaqiyatli yuborildi.");
                 st_product.Children.Clear();
+                tvm.ClearTransaction();
                 EmptyPrice();
             }
             catch
