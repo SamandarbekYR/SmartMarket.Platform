@@ -1,11 +1,7 @@
-﻿using Newtonsoft.Json;
-using SmartMarket.Service.DTOs.Products.Product;
-using SmartMarketDeskop.Integrated.Api.Auth;
-using SmartMarketDeskop.Integrated.Security;
+﻿using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Products;
 using SmartMarketDeskop.Integrated.Server.Repositories.Products;
 using System.Net;
-using System.Text;
 
 namespace SmartMarketDeskop.Integrated.Services.Products.Product;
 
@@ -164,33 +160,12 @@ public class ProductService : IProductService
 
     public async Task<bool> UpdateProductCountAsync(List<UpdateProductDto> dto)
     {
-        try
+        if (IsInternetAvailable())
         {
-            var token = IdentitySingelton.GetInstance().Token;
-            var client = new HttpClient();
-            var url = $"{AuthApi.BASE_URL}/api/products-count";
-            var request = new HttpRequestMessage(HttpMethod.Put, url);
-            request.Headers.Add("Authorization", $"Bearer {token}");
-
-            var jsonContent = new StringContent(JsonConvert.SerializeObject(dto), Encoding.UTF8, "application/json");
-
-            request.Content = jsonContent;
-
-            var response = await client.SendAsync(request);
-
-            var res1 = await response.Content.ReadAsStringAsync();
-
-            if (response.IsSuccessStatusCode)
-            {
-                var res = await response.Content.ReadAsStringAsync();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            await productServer.UpdateProductCount(dto);
+            return true;
         }
-        catch
+        else
         {
             return false;
         }

@@ -45,13 +45,13 @@
                     FontSize="18"
                     Style="{DynamicResource TitleLabel}"/>
 
-                <Label
+                <!--<Label
                     Grid.Row="0"
                     HorizontalAlignment="Right"
                     Content="#202405083001"
                     Margin="0 0 10 0"
                     FontSize="13"
-                    Style="{DynamicResource TitleLabel}"/>
+                    Style="{DynamicResource TitleLabel}"/>-->
 
                 <Border
                     Grid.Row="1"
@@ -297,6 +297,7 @@
                             Style="{DynamicResource InfoLabel}"/>
 
                         <Label
+                            Name="worker_name"
                             FontSize="16"
                             Content="Sobir aka"
                             Style="{DynamicResource MainLabel}"/>

@@ -6,6 +6,8 @@ public class IdentitySingelton
     public string Token { get; set; } = string.Empty;
     public Guid Id { get; set; }
     public Guid PayDeskId { get; set; }
+    public Guid PartnerId { get; set; }
+    public string PartnerFullName { get; set; } = string.Empty;
     public string PayDeskName { get; set; } = string.Empty;
     public string PrinterName { get; set; } = string.Empty;
     public string RoleName { get; set; } = string.Empty;
@@ -33,5 +35,7 @@ public class IdentitySingelton
         FirstName = string.Empty;
         LastName = string.Empty;
         PhoneNumber = string.Empty;
+        PartnerId = Guid.Empty;
+        PartnerFullName = string.Empty;
     }
 }

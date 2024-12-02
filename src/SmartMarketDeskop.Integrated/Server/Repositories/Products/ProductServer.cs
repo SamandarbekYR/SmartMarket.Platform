@@ -290,11 +290,10 @@ public class ProductServer : IProductServer
 
             var response = await client.SendAsync(request);
 
-            var res1 = await response.Content.ReadAsStringAsync();
+            var res = await response.Content.ReadAsStringAsync();
 
             if (response.IsSuccessStatusCode)
             {
-                var res = await response.Content.ReadAsStringAsync();
                 return true;
             }
             else
