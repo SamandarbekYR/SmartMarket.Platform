@@ -58,6 +58,7 @@ public partial class SalePage : Page
     public Guid OrderId { get; set; } = Guid.Empty;
     public Guid PartnerId { get; set; } = Guid.Empty;
     public Guid WorkerId { get; set; } = Guid.Empty;
+    public bool IsShipment { get; set; } = false;
     public string PaymentType { get; set; } = string.Empty;
     public double TotalPrice { get; set; }
     public double CashSum { get; set; }
@@ -811,15 +812,17 @@ public partial class SalePage : Page
         List<AddProductSaleDto> products = tvm.Transactions
             .Select(t => new AddProductSaleDto { ProductId = t.Id, Count = t.Quantity, Discount = t.Discount, ItemTotalCost = t.TotalPrice }).ToList();
 
+        dto.IsShipment = IsShipment;
         dto.ProductSaleItems = products;
         await ProductSale(dto);
     }
 
-    public void ConvertShipment(OrderDto dto)
+    public void ConvertShipment(OrderDto dto) 
     {
         OrderId = dto.Id;
         PartnerId = dto.PartnerId;
         WorkerId = dto.WorkerId;
+        IsShipment = true;
 
         foreach (var product in dto.ProductOrderItems)
         {
