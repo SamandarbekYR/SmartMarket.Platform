@@ -55,9 +55,7 @@ public partial class SalePage : Page
     string barcode = "";
     string barcodes = "";
 
-    public Guid OrderId { get; set; } = Guid.Empty;
-    public Guid PartnerId { get; set; } = Guid.Empty;
-    public Guid WorkerId { get; set; } = Guid.Empty;
+    public OrderDto Order { get; set; } = null!;
     public bool IsShipment { get; set; } = false;
     public string PaymentType { get; set; } = string.Empty;
     public double TotalPrice { get; set; }
@@ -714,8 +712,8 @@ public partial class SalePage : Page
     private async void save_button_Click(object sender, RoutedEventArgs e)
     {
         AddOrderDto dto = new AddOrderDto();
-        dto.PartnerId = PartnerId;
-        dto.WorkerId = WorkerId;
+        dto.PartnerId = Order.PartnerId;
+        dto.WorkerId = Order.WorkerId;
         
         AddOrderProductDto product = new AddOrderProductDto();
         List<AddOrderProductDto> products = new List<AddOrderProductDto>();
@@ -730,7 +728,7 @@ public partial class SalePage : Page
 
         dto.ProductOrderItems = products;
 
-        bool result = await _orderService.UpdateAsync(OrderId, dto);
+        bool result = await _orderService.UpdateAsync(Order.Id, dto);
         if (result)
             notifier.ShowSuccess("Jo'natma yangilandi.");
         else
@@ -814,14 +812,17 @@ public partial class SalePage : Page
 
         dto.IsShipment = IsShipment;
         dto.ProductSaleItems = products;
+        if(IsShipment)
+        {
+            await UpdateProductCount(Order, products);
+            IsShipment = false;
+        }
         await ProductSale(dto);
     }
 
     public void ConvertShipment(OrderDto dto) 
     {
-        OrderId = dto.Id;
-        PartnerId = dto.PartnerId;
-        WorkerId = dto.WorkerId;
+        Order = dto;
         IsShipment = true;
 
         foreach (var product in dto.ProductOrderItems)
@@ -848,8 +849,8 @@ public partial class SalePage : Page
             //PrintService printService = new PrintService();
             //printService.Print(dto, tvm.Transactions, result.Item1);
 
-            if(OrderId != Guid.Empty)
-                await UpdateSaleShipment(OrderId);
+            if(Order.Id != Guid.Empty)
+                await UpdateSaleShipment(Order.Id);
 
             tvm.ClearTransaction();
             St_product.Children.Clear();
@@ -871,12 +872,57 @@ public partial class SalePage : Page
             if (result)
             {
                 await GetAllOrders();
-                OrderId = Guid.Empty;
+                Order = null!;
                 break;
             }
 
             await Task.Delay(1000);
         }
+    }
+
+    public async Task UpdateProductCount(OrderDto dto, List<AddProductSaleDto> tvm)
+    {
+        List<UpdateProductDto> products = new List<UpdateProductDto>();
+        foreach (var item in tvm)
+        {
+            int i = 0;
+            foreach (var product in dto.ProductOrderItems)
+            {
+                if (item.ProductId == product.ProductId)
+                {
+                    if (product.Count != item.Count)
+                    {
+                        UpdateProductDto upd = new UpdateProductDto();
+                        upd.ProductId = product.ProductId;
+
+                        if (item.Count > product.Count)
+                        {
+                            upd.Count = item.Count - product.Count;
+                            upd.IsIncrement = true;
+                        }
+                        else if (item.Count < product.Count)
+                        {
+                            upd.Count = product.Count - item.Count;
+                            upd.IsIncrement = false;
+                        }
+                        products.Add(upd);
+                    }
+                    i++;
+                }
+            }
+
+            if(i == 0)
+            {
+                UpdateProductDto upd = new UpdateProductDto();
+
+                upd.ProductId   = item.ProductId;
+                upd.Count       = item.Count;
+                upd.IsIncrement = true;
+                products.Add(upd);
+            }
+        }
+
+        var result = await _productService.UpdateProductCountAsync(products);
     }
 
     private void Page_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
