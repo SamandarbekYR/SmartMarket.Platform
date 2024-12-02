@@ -84,12 +84,12 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
             }
         }
 
-        [HttpPut("update-count/{id}")]
-        public async Task<IActionResult> UpdateProductCountAsync(Guid id, [FromQuery] int count, [FromQuery] bool isIncrement)
+        [HttpPut("update-count")]
+        public async Task<IActionResult> UpdateProductCountAsync([FromQuery] List<UpdateProductDto> items)
         {
             try
             {
-                var result = await _productService.UpdateProductCountAsync(id, count, isIncrement);
+                var result = await _productService.UpdateProductCountAsync(items);
 
                 if (!result)
                     return BadRequest("Failed to update product count.");

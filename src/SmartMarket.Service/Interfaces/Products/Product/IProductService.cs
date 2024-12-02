@@ -11,7 +11,7 @@ namespace SmartMarket.Service.Interfaces.Products.Product
         Task<IList<FullProductDto>> GetAllAsync(PaginationParams @params);
         Task<FullProductDto> GetByIdAsync(Guid Id);
         Task<bool> UpdateAsync(AddProductDto dto, Guid Id);
-        Task<bool> UpdateProductCountAsync(Guid productId, int count, bool isIncrement);
+        Task<bool> UpdateProductCountAsync(List<UpdateProductDto> items);
         Task<bool> SellProductAsync(string barcode);
         Task<IEnumerable<ProductDto>> GetProductsByCategoryIdAsync(Guid categoryId, PaginationParams @params);
 

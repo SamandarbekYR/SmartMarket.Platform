@@ -12,6 +12,7 @@ using SmartMarket.Service.Common.Utils;
 using SmartMarket.Service.Common.Extentions;
 using Microsoft.Extensions.Logging;
 using SmartMarket.Service.DTOs.Products.ProductImage;
+using SmartMarket.Domain.Entities.Products;
 
 namespace SmartMarket.Service.Services.Products.Product
 {
@@ -502,22 +503,40 @@ namespace SmartMarket.Service.Services.Products.Product
             return productResultDto;
         }
 
-        public async Task<bool> UpdateProductCountAsync(Guid productId, int count, bool isIncrement)
+        public async Task<bool> UpdateProductCountAsync(List<UpdateProductDto> items)
         {
             try
             {
-                var product = await _unitOfWork.Product.GetById(productId)
+                var updatedProducts = new List<Et.Product>();
+
+                foreach (var item in items)
+                {
+                    var product = await _unitOfWork.Product.GetById(item.ProductId)
                               ?? throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
 
-                product.Count += isIncrement ? count : -count;
+                    product.Count += item.IsIncrement ? item.Count : -item.Count;
 
-                return await _unitOfWork.Product.Update(product);
+                    updatedProducts.Add(product);
+                }
+
+                var result = await _unitOfWork.Product.UpdateRange(updatedProducts);
+
+                if (result)
+                {
+                    await _unitOfWork.SaveAsync();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while updating product count for ProductId: {ProductId}", productId);
+                _logger.LogError(ex, "Error occurred while updating product counts.");
                 throw;
             }
+
         }
 
     }
