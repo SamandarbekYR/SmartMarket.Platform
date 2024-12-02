@@ -117,7 +117,9 @@
                         HorizontalAlignment="Center"/>
 
                         <ScrollViewer
-                            PanningMode="Both">
+                            PanningMode="Both"
+                            Stylus.IsFlicksEnabled="False"
+                            Stylus.IsPressAndHoldEnabled="False">
                             <StackPanel
                                 Margin="10 5 15 10"
                                 x:Name="St_partners">
