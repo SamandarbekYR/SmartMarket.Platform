@@ -59,7 +59,10 @@
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"/>
 
-                    <ScrollViewer>
+                    <ScrollViewer
+                        PanningMode="Both" 
+                        Stylus.IsPressAndHoldEnabled="False" 
+                        Stylus.IsFlicksEnabled="False">
                         <Grid>
                             <StackPanel 
                                 x:Name="stackPanelOrders">
@@ -350,7 +353,11 @@
                                     <ScrollViewer
                                         Grid.Row="2"
                                         Margin="0 5"
-                                        x:Name="scrollViewer">
+                                        x:Name="scrollViewer"
+                                        PanningMode="Both" 
+                                        Stylus.IsPressAndHoldEnabled="False" 
+                                        Stylus.IsFlicksEnabled="False">
+                                        
                                         <StackPanel 
                                             Focusable="True"
                                             x:Name="St_product">
