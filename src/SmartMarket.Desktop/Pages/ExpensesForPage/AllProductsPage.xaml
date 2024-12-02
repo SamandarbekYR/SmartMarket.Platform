@@ -41,10 +41,11 @@
                     ></TextBlock>
                 
                 
-                <TextBox
+                <TextBox x:Name="filterTextBox"
                     Grid.Column="3"
                     Margin="10 5"
-                    Style="{DynamicResource search}"/>
+                    Style="{DynamicResource search}"
+                    KeyDown="filterTextBox_KeyDown"/>
             </Grid>
         </Border>
 
