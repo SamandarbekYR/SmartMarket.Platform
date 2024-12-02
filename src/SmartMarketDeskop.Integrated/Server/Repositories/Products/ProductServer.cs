@@ -250,7 +250,6 @@ public class ProductServer : IProductServer
             var request = new HttpRequestMessage(HttpMethod.Put, url);
             request.Headers.Add("Authorization", $"Bearer {token}");
 
-            // Create JSON content
             var jsonContent = new StringContent(JsonConvert.SerializeObject(dto), Encoding.UTF8, "application/json");
 
             request.Content = jsonContent;
@@ -275,4 +274,37 @@ public class ProductServer : IProductServer
         }
     }
 
+    public async Task<bool> UpdateProductCount(List<UpdateProductDto> dto)
+    {
+        try
+        {
+            var token = IdentitySingelton.GetInstance().Token;
+            var client = new HttpClient();
+            var url = $"{AuthApi.BASE_URL}/api/products-count";
+            var request = new HttpRequestMessage(HttpMethod.Put, url);
+            request.Headers.Add("Authorization", $"Bearer {token}");
+
+            var jsonContent = new StringContent(JsonConvert.SerializeObject(dto), Encoding.UTF8, "application/json");
+
+            request.Content = jsonContent;
+
+            var response = await client.SendAsync(request);
+
+            var res1 = await response.Content.ReadAsStringAsync();
+
+            if (response.IsSuccessStatusCode)
+            {
+                var res = await response.Content.ReadAsStringAsync();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        catch
+        {
+            return false;
+        }
+    }
 }
