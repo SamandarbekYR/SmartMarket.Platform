@@ -94,7 +94,7 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
                 if (!result)
                     return BadRequest("Failed to update product count.");
 
-                return Ok("Product count updated successfully.");
+                return Ok(result);
             }
             catch (StatusCodeException ex)
             {
