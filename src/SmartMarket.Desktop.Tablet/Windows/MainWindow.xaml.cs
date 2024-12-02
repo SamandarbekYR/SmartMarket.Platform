@@ -22,4 +22,9 @@ public partial class MainWindow : Window
         PartnersPage partnersPage = new PartnersPage();
         PageNavigator.Content = partnersPage;
     }
+
+    private void Window_ManipulationBoundaryFeedback(object sender, System.Windows.Input.ManipulationBoundaryFeedbackEventArgs e)
+    {
+        e.Handled = true; 
+    }
 }

@@ -39,6 +39,12 @@ namespace SmartMarket.Service.Services.Products.ProductSale
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
                 }
 
+                var salesRequestExists = await _unitOfWork.SalesRequest.GetById(dto.SalesRequestId) != null;
+                if(!salesRequestExists)
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Sales request not found.");
+                }
+
                 DateTime now = DateTime.UtcNow.AddHours(5);
 
                 var productSale = _mapper.Map<Et.ProductSale>(dto);

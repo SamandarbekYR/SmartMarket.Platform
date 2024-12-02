@@ -160,7 +160,9 @@
                 <ScrollViewer
                     PanningMode="Both"
                     Margin="1"
-                    Grid.Row="3">
+                    Grid.Row="3"
+                    Stylus.IsFlicksEnabled="False"
+                    Stylus.IsPressAndHoldEnabled="False">
 
                     <StackPanel
                         x:Name="st_product">
@@ -390,7 +392,9 @@
 
                         <ScrollViewer
                             PanningMode="Both"
-                            Margin="1 5 1 10">
+                            Margin="1 5 1 10"
+                            Stylus.IsFlicksEnabled="False"
+                            Stylus.IsPressAndHoldEnabled="False">
                         
                             <StackPanel
                                 x:Name="st_searchproduct">

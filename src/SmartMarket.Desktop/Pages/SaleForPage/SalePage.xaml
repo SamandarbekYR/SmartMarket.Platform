@@ -9,6 +9,8 @@
       Title="SalePage"
       Loaded="Page_Loaded"
       Unloaded="Page_Unloaded"
+      PreviewKeyDown="Page_PreviewKeyDown"
+      PreviewMouseDown="Page_PreviewMouseDown"
       PreviewTextInput="Page_PreviewTextInput">
 
     <Grid 
@@ -45,6 +47,7 @@
                     Margin="20 10"
                     Style="{DynamicResource search}"
                     Grid.Row="1"
+                    PreviewMouseDown="Search_PreviewMouseDown"
                     TextChanged="Search_TextChanged"/>
 
                 <Grid
@@ -56,7 +59,10 @@
                         VerticalAlignment="Center"
                         HorizontalAlignment="Center"/>
 
-                    <ScrollViewer>
+                    <ScrollViewer
+                        PanningMode="Both" 
+                        Stylus.IsPressAndHoldEnabled="False" 
+                        Stylus.IsFlicksEnabled="False">
                         <Grid>
                             <StackPanel 
                                 x:Name="stackPanelOrders">
@@ -347,7 +353,11 @@
                                     <ScrollViewer
                                         Grid.Row="2"
                                         Margin="0 5"
-                                        x:Name="scrollViewer">
+                                        x:Name="scrollViewer"
+                                        PanningMode="Both" 
+                                        Stylus.IsPressAndHoldEnabled="False" 
+                                        Stylus.IsFlicksEnabled="False">
+                                        
                                         <StackPanel 
                                             Focusable="True"
                                             x:Name="St_product">

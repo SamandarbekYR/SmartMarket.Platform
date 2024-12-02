@@ -24,6 +24,7 @@ using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using ToastNotifications;
@@ -57,6 +58,7 @@ public partial class SalePage : Page
     public Guid OrderId { get; set; } = Guid.Empty;
     public Guid PartnerId { get; set; } = Guid.Empty;
     public Guid WorkerId { get; set; } = Guid.Empty;
+    public bool IsShipment { get; set; } = false;
     public string PaymentType { get; set; } = string.Empty;
     public double TotalPrice { get; set; }
     public double CashSum { get; set; }
@@ -308,6 +310,30 @@ public partial class SalePage : Page
 
         GetData();
         St_product.Focus();
+
+        foreach (var scrollViewer in FindVisualChildren<ScrollViewer>(this))
+        {
+            scrollViewer.ManipulationBoundaryFeedback += (s, args) =>
+            {
+                args.Handled = true;
+            };
+        }
+    }
+
+    private static IEnumerable<T> FindVisualChildren<T>(DependencyObject parent) where T : DependencyObject
+    {
+        for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+        {
+            var child = VisualTreeHelper.GetChild(parent, i);
+            if (child is T t)
+            {
+                yield return t;
+            }
+            foreach (var childOfChild in FindVisualChildren<T>(child))
+            {
+                yield return childOfChild;
+            }
+        }
     }
 
     private async Task InitializeSignalRConnection()
@@ -719,8 +745,13 @@ public partial class SalePage : Page
 
     private void Nasiya_Button_Click(object sender, RoutedEventArgs e)
     {
-        PartnersNationWindow nationWindow = new PartnersNationWindow();
-        nationWindow.ShowDialog();
+        if (tvm.Transactions.Count > 0)
+        {
+            PartnersNationWindow nationWindow = new PartnersNationWindow();
+            nationWindow.ShowDialog();
+        }
+        else
+            notifier.ShowInformation("Mahsulot xarid qilinmagan.");
     }
 
     private void btnPay_Click(object sender, RoutedEventArgs e)
@@ -781,15 +812,17 @@ public partial class SalePage : Page
         List<AddProductSaleDto> products = tvm.Transactions
             .Select(t => new AddProductSaleDto { ProductId = t.Id, Count = t.Quantity, Discount = t.Discount, ItemTotalCost = t.TotalPrice }).ToList();
 
+        dto.IsShipment = IsShipment;
         dto.ProductSaleItems = products;
         await ProductSale(dto);
     }
 
-    public void ConvertShipment(OrderDto dto)
+    public void ConvertShipment(OrderDto dto) 
     {
         OrderId = dto.Id;
         PartnerId = dto.PartnerId;
         WorkerId = dto.WorkerId;
+        IsShipment = true;
 
         foreach (var product in dto.ProductOrderItems)
         {
@@ -844,5 +877,25 @@ public partial class SalePage : Page
 
             await Task.Delay(1000);
         }
+    }
+
+    private void Page_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+    {
+        if (Keyboard.FocusedElement is TextBox textBox && textBox == Search)
+            return;
+        Keyboard.Focus(St_product);
+    }
+
+    private void Page_PreviewMouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+    {
+        if (e.Source is TextBox textBox && textBox == Search)
+            return;
+        Keyboard.Focus(St_product);
+    }
+
+    private void Search_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+    {
+        Search.Focus();
+        e.Handled = true;
     }
 }

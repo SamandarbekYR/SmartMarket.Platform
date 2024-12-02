@@ -60,8 +60,10 @@ public partial class ReturnProductWindow : Window
             .Distinct()
             .ToList();
 
-        workerNames.Insert(0, "Barcha sotuvchi");
-        workerComboBox.ItemsSource = workerNames;
+        foreach (var workerName in workerNames)
+        {
+            workerComboBox.Items.Add(workerName);
+        }
 
         var today = DateTime.Today;
         productSales = productSales.Where(ps => ps.CreatedDate.Value.Date == today).ToList();
@@ -71,6 +73,8 @@ public partial class ReturnProductWindow : Window
 
     private async void FilterProductSales()
     {
+        Loader.Visibility = Visibility.Visible;
+        St_ReturnProduct.Children.Clear();
         FilterProductSaleDto filterProductSaleDto = new FilterProductSaleDto();
 
         if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
@@ -98,31 +102,40 @@ public partial class ReturnProductWindow : Window
 
     private void ShowProductSales(IEnumerable<ProductSaleViewModel> productSales)
     {
+        Loader.Visibility = Visibility.Collapsed;
         productSales = productSales.Where(ps => ps.Count != 0)
             .OrderByDescending(ps => ps.CreatedDate).ToList();
 
         St_ReturnProduct.Visibility = Visibility.Visible;
         St_ReturnProduct.Children.Clear();
         int rowNumber = 1;
-
-        foreach (var item in productSales)
+        if(productSales.Any())
         {
-            ReturnProductComponent product = new ReturnProductComponent();
-            product.Tag = item;
-            product.SetValues(
-                rowNumber,
-                item.SalesRequest.TransactionId,
-                item.Product.Name,
-                item.Product.SellPrice,
-                item.Count,
-                item.ItemTotalCost,
-                item.Discount,
-                item.SalesRequest.Worker.FirstName,
-                item.CreatedDate);
+            EmptyData.Visibility = Visibility.Collapsed;
 
-            product.BorderThickness = new Thickness(2);
-            St_ReturnProduct.Children.Add(product);
-            rowNumber++;
+            foreach (var item in productSales)
+            {
+                ReturnProductComponent product = new ReturnProductComponent();
+                product.Tag = item;
+                product.SetValues(
+                    rowNumber,
+                    item.SalesRequest.TransactionId,
+                    item.Product.Name,
+                    item.Product.SellPrice,
+                    item.Count,
+                    item.ItemTotalCost,
+                    item.Discount,
+                    item.SalesRequest.Worker.FirstName,
+                    item.CreatedDate);
+
+                product.BorderThickness = new Thickness(2);
+                St_ReturnProduct.Children.Add(product);
+                rowNumber++;
+            }
+        }
+        else
+        {
+            EmptyData.Visibility = Visibility.Visible;
         }
     }
 
