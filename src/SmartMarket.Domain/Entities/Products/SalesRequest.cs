@@ -19,8 +19,8 @@ namespace SmartMarket.Domain.Entities.Products
         public Guid WorkerId { get; set; }
         public Worker Worker { get; set; }
         [Column("partner_id")]
-        public Guid PartnerId { get; set; }
-        public Partner Partner { get; set; }
+        public Guid? PartnerId { get; set; }
+        public Partner? Partner { get; set; }
         [Column("pay_desk_id")]
         public Guid PayDeskId { get; set; }
         public PayDesk PayDesk { get; set; }
