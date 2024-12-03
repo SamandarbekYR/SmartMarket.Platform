@@ -4,6 +4,7 @@ namespace SmartMarket.Service.DTOs.Products.SalesRequest
     public class AddSalesRequestDto
     {
         public Guid WorkerId { get; set; }
+        public Guid PartnerId { get; set; }
         public Guid PayDeskId { get; set; }
         public bool IsShipment { get; set; }
         public double? TotalCost { get; set; }
