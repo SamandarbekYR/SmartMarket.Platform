@@ -87,7 +87,7 @@
                              BorderThickness="0"
                              PreviewTextInput="txtBarCode_PreviewTextInput"
                              TextChanged="txtBarCode_TextChanged"
-                             MaxLength="5" />
+                             MaxLength="15" />
                     </Border>
 
                     </StackPanel>
