@@ -762,7 +762,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("double precision")
                         .HasColumnName("debt_sum");
 
-                    b.Property<Guid>("PartnerId")
+                    b.Property<Guid?>("PartnerId")
                         .HasColumnType("uuid")
                         .HasColumnName("partner_id");
 
@@ -1222,9 +1222,7 @@ namespace SmartMarket.DataAccess.Migrations
                 {
                     b.HasOne("SmartMarket.Domain.Entities.Partners.Partner", "Partner")
                         .WithMany()
-                        .HasForeignKey("PartnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PartnerId");
 
                     b.HasOne("SmartMarket.Domain.Entities.PayDesks.PayDesk", "PayDesk")
                         .WithMany()
