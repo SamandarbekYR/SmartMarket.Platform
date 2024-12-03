@@ -1,6 +1,8 @@
 ﻿using Microsoft.Win32;
 using SmartMarket.Desktop.Windows.Category;
 using SmartMarket.Desktop.Windows.ContrAgents;
+using SmartMarket.Service.DTOs.Products.Product;
+
 using SmartMarketDeskop.Integrated.Services.Categories.Category;
 using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgents;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
@@ -21,6 +23,8 @@ using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
 using ToastNotifications.Position;
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
+
+using AddProductDto = SmartMarketDesktop.DTOs.DTOs.Product.AddProductDto;
 
 namespace SmartMarket.Desktop.Windows.ProductsForWindow;
 
@@ -157,8 +161,50 @@ public partial class ProductCreateWindow : Window
         }
         else
             notifierThis.ShowWarning("Mahsulot malumotlari to'liq emas.");
-
     }
+
+    private void txtBarCode_PreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        e.Handled = !Regex.IsMatch(e.Text, "^[0-9]+$");
+    }
+
+    private void txtBarCode_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (txtBarCode.Text.Length == 5)
+        {
+            ProcessBarCode(txtBarCode.Text);
+        }
+        Clear();
+    }
+
+    private void ProcessBarCode(string barCode)
+    {
+        Task.Run(async () =>
+        {
+            var existingProduct = await productService.GetByBarCode(barCode);
+            if (existingProduct != null)
+            {
+                Dispatcher.Invoke(() => FillInputsFromProduct(existingProduct));
+            }
+            else
+            {
+                Dispatcher.Invoke(() => notifierThis.ShowWarning("Mahsulot mavjud emas. Yangi mahsulot qo'shing."));
+            }
+        });
+    }
+
+    private void FillInputsFromProduct(FullProductDto product)
+    {
+        txtBarCode.Text = product.Barcode;
+        txtProductName.Text = product.Name;
+        comboCategory.SelectedValue = product.CategoryId;
+        txtQuantity.Text = product.Count.ToString();
+        txtPrice.Text = product.Price.ToString();
+        txtProductPriceSum.Text = product.SellPrice.ToString();
+        comboMeasurement.Text = product.UnitOfMeasure;
+        txtNoteAmount.Text = product.NoteAmount.ToString();
+    }
+
 
     [DllImport("user32.dll")]
     internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
@@ -216,13 +262,12 @@ public partial class ProductCreateWindow : Window
         Clear();
     }
 
-
     public async void GetAllCategory()
     {
         categories = await Task.Run(async () => await categoryService.GetAllAsync());
         if (categories != null && categories.Any())
         {
-            comboCategory.ItemsSource = categories.Select(a => a.Name);
+            comboCategory.ItemsSource = categories;
             comboCategory.Items.Refresh();
         }
     }
@@ -246,7 +291,7 @@ public partial class ProductCreateWindow : Window
 
     public void Clear()
     {
-        txtBarCode.Text = txtProductName.Text = comboCategory.Text = txtQuantity.Text = txtPrice.Text =
+        txtProductName.Text = comboCategory.Text = txtQuantity.Text = txtPrice.Text =
         txtProductPriceSum.Text = comboDelivery.Text = txtNoteAmount.Text = string.Empty;
     }
 
