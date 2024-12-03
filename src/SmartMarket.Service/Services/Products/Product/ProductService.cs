@@ -58,8 +58,9 @@ namespace SmartMarket.Service.Services.Products.Product
 
                 if (productExists != null)
                 {
+                    int count = productExists.Count;
                     var updatedProduct = _mapper.Map(dto, productExists);
-                    updatedProduct.Count = productExists.Count + dto.Count;
+                    updatedProduct.Count = count + dto.Count;
 
                     await _unitOfWork.Product.Update(updatedProduct);
                     return updatedProduct.Id;
