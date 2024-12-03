@@ -8,6 +8,7 @@ namespace SmartMarket.DataAccess.Interfaces
         Task<bool> Add(TEntity entity);
         Task<bool> AddRange(IEnumerable<TEntity> entities);
         Task<bool> Update(TEntity entity);
+        Task<bool> UpdateRange(IEnumerable<TEntity> entities);
         Task<bool> Remove(TEntity entity);
         Task<TEntity?> GetById(Guid id);
         IQueryable<TEntity> GetAll();

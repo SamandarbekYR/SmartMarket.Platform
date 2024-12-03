@@ -36,11 +36,12 @@
                     FontWeight="DemiBold"
                     ></TextBlock>
 
-                <TextBox
+                <TextBox x:Name="filterTextBox"
                     Grid.Column="1"
                     Margin="10 0"
                     Width="350"
-                    Style="{DynamicResource search}"/>
+                    Style="{DynamicResource search}"
+                    KeyDown="filterTextBox_KeyDown"/>
             </Grid>
         </Border>
 

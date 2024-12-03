@@ -98,9 +98,9 @@ public partial class LoginWindow : Window
                     Login_Button.Visibility = Visibility.Visible;
 
                     MainWindow window = new MainWindow();
+                    window.Show();
                     this.Close();
-                    window.ShowDialog();
-                    
+
                 }
                 else
                 {

@@ -6,6 +6,7 @@ using SmartMarket.Service.DTOs.Partner;
 using SmartMarketDeskop.Integrated.Services.Partners;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace SmartMarket.Desktop.Tablet.Pages;
 
@@ -71,6 +72,29 @@ public partial class PartnersPage : Page
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
         await GetAllDebtor();
+        foreach (var scrollViewer in FindVisualChildren<ScrollViewer>(this))
+        {
+            scrollViewer.ManipulationBoundaryFeedback += (s, args) =>
+            {
+                args.Handled = true;
+            };
+        }
+    }
+
+    private static IEnumerable<T> FindVisualChildren<T>(DependencyObject parent) where T : DependencyObject
+    {
+        for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+        {
+            var child = VisualTreeHelper.GetChild(parent, i);
+            if (child is T t)
+            {
+                yield return t;
+            }
+            foreach (var childOfChild in FindVisualChildren<T>(child))
+            {
+                yield return childOfChild;
+            }
+        }
     }
 
     private void Partner_Create_Button_Click(object sender, RoutedEventArgs e)

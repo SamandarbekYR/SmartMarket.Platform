@@ -12,6 +12,7 @@ using SmartMarket.Service.Common.Utils;
 using SmartMarket.Service.Common.Extentions;
 using Microsoft.Extensions.Logging;
 using SmartMarket.Service.DTOs.Products.ProductImage;
+using SmartMarket.Domain.Entities.Products;
 
 namespace SmartMarket.Service.Services.Products.Product
 {
@@ -48,6 +49,21 @@ namespace SmartMarket.Service.Services.Products.Product
                 if (!workerExists)
                 {
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+                }
+
+                var productExists = await _unitOfWork.Product.GetAllProductsFullInformation()
+                    .AsNoTracking()
+                    .Where(p => p.Barcode == dto.BarCode)
+                    .FirstOrDefaultAsync();
+
+                if (productExists != null)
+                {
+                    int count = productExists.Count;
+                    var updatedProduct = _mapper.Map(dto, productExists);
+                    updatedProduct.Count = count + dto.Count;
+
+                    await _unitOfWork.Product.Update(updatedProduct);
+                    return updatedProduct.Id;
                 }
 
                 string pCode = await GenerateUniquePCodeAsync();
@@ -501,5 +517,42 @@ namespace SmartMarket.Service.Services.Products.Product
 
             return productResultDto;
         }
+
+        public async Task<bool> UpdateProductCountAsync(List<UpdateProductDto> items)
+        {
+            try
+            {
+                var updatedProducts = new List<Et.Product>();
+
+                foreach (var item in items)
+                {
+                    var product = await _unitOfWork.Product.GetById(item.ProductId)
+                              ?? throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
+
+                    product.Count += item.IsIncrement ? item.Count : -item.Count;
+
+                    updatedProducts.Add(product);
+                }
+
+                var result = await _unitOfWork.Product.UpdateRange(updatedProducts);
+
+                if (result)
+                {
+                    await _unitOfWork.SaveAsync();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while updating product counts.");
+                throw;
+            }
+
+        }
+
     }
 }

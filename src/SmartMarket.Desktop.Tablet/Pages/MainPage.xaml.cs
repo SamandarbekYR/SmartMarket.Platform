@@ -257,6 +257,13 @@ public partial class MainPage : Page
         }
     }
 
+    private void SetName()
+    {
+        lb_client_name.Content = IdentitySingelton.GetInstance().PartnerFullName;
+        Client_Name.Content = IdentitySingelton.GetInstance().PartnerFullName;
+        worker_name.Content = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
+    }
+
 
     #endregion
 
@@ -265,6 +272,7 @@ public partial class MainPage : Page
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
         st_product.Focus();
+        SetName();
 
         _connection = new HubConnectionBuilder()
                 .WithUrl("https://localhost:7055/ShipmentsHub", options =>
@@ -286,14 +294,37 @@ public partial class MainPage : Page
             notifier.ShowError("SignalR ulanishda xato: ");
         }
 
+        foreach (var scrollViewer in FindVisualChildren<ScrollViewer>(this))
+        {
+            scrollViewer.ManipulationBoundaryFeedback += (s, args) =>
+            {
+                args.Handled = true;
+            };
+        }
+
+    }
+
+    private static IEnumerable<T> FindVisualChildren<T>(DependencyObject parent) where T : DependencyObject
+    {
+        for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+        {
+            var child = VisualTreeHelper.GetChild(parent, i);
+            if (child is T t)
+            {
+                yield return t;
+            }
+            foreach (var childOfChild in FindVisualChildren<T>(child))
+            {
+                yield return childOfChild;
+            }
+        }
     }
 
     private async void Send_Button_Click(object sender, RoutedEventArgs e)
     {
-        var id = IdentitySingelton.GetInstance().Id;
         AddOrderDto addOrderDto = new AddOrderDto();
-        addOrderDto.PartnerId = Partner.Id;
-        addOrderDto.WorkerId = id;
+        addOrderDto.PartnerId = IdentitySingelton.GetInstance().PartnerId;
+        addOrderDto.WorkerId = IdentitySingelton.GetInstance().Id;
 
         foreach (var product in tvm.Transactions)
         {
@@ -319,9 +350,10 @@ public partial class MainPage : Page
 
                 notifier.ShowSuccess("Mahsulotlar muvaffaqiyatli yuborildi.");
                 st_product.Children.Clear();
+                tvm.ClearTransaction();
                 EmptyPrice();
             }
-            catch 
+            catch
             {
                 notifier.ShowError($"Mahsulotlarni yuborishda xato");
             }
@@ -490,7 +522,7 @@ public partial class MainPage : Page
                             SetProduct(products);
                         }
                     });
-                }, 
+                },
                 _cancellationTokenSource.Token);
             }
             catch (TaskCanceledException)

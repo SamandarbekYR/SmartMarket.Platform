@@ -84,6 +84,32 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
             }
         }
 
+        [HttpPut("update-count")]
+        public async Task<IActionResult> UpdateProductCountAsync([FromBody] List<UpdateProductDto> items)
+        {
+            if (items == null || !items.Any())
+                return BadRequest("The items list cannot be null or empty.");
+
+            try
+            {
+                var result = await _productService.UpdateProductCountAsync(items);
+
+                if (!result)
+                    return BadRequest("Failed to update product count.");
+
+                return Ok(result);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while updating the product count.");
+            }
+        }
+
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(Guid id)
         {

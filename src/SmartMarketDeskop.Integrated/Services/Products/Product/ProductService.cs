@@ -157,4 +157,17 @@ public class ProductService : IProductService
             return null!;
         }
     }
+
+    public async Task<bool> UpdateProductCountAsync(List<UpdateProductDto> dto)
+    {
+        if (IsInternetAvailable())
+        {
+            await productServer.UpdateProductCount(dto);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }

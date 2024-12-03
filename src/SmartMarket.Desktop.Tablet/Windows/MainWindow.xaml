@@ -10,8 +10,8 @@
         Title="MainWindow"
         ResizeMode="NoResize"
         Loaded="Window_Loaded"
-        Height="700"
-        Width="1000">
+        WindowState="Maximized"
+        ManipulationBoundaryFeedback="Window_ManipulationBoundaryFeedback">
     <Grid
         Background="{DynamicResource SecondColor}">
         <Grid.RowDefinitions>

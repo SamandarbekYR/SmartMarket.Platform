@@ -61,7 +61,7 @@
                       VerticalAlignment="Center"
                       Margin="10 0 0 0"
                       FontSize="18"/>
-                    <Border Grid.Column="1"
+                    <!--<Border Grid.Column="1"
                            Margin="65 3 10 3"
                            Width="390"
                            BorderThickness="1"
@@ -72,10 +72,25 @@
                                 FontSize="20"
                                 Foreground="#656161"
                                  BorderThickness="0"/>
+                    </Border>-->
+
+                    <Border Grid.Column="1"
+                        Margin="65 3 10 3"
+                        Width="390"
+                        BorderThickness="1"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        CornerRadius="5">
+                        <TextBox x:Name="txtBarCode"
+                             Margin="3 0"
+                             FontSize="20"
+                             Foreground="#656161"
+                             BorderThickness="0"
+                             PreviewTextInput="txtBarCode_PreviewTextInput"
+                             TextChanged="txtBarCode_TextChanged"
+                             MaxLength="15" />
                     </Border>
 
-                    
-                </StackPanel>
+                    </StackPanel>
                 <StackPanel Margin="0 5 0 0"
                            Orientation="Horizontal">
                     <Label Grid.Column="0"
@@ -109,14 +124,20 @@
                            BorderThickness="1"
                            BorderBrush="{DynamicResource BorderColor}"
                            CornerRadius="5">
-                        <ComboBox x:Name="comboCategory"
-                                
-                                 
+                        <!--<ComboBox x:Name="comboCategory"
+                                DisplayMemberPath="Name"
                                 Margin="3 0"
                                 FontSize="18"
-                                 BorderThickness="0"
-                                Foreground="#656161"/>
-                    </Border>
+                                BorderThickness="0"
+                                Foreground="#656161"/>-->
+                            <ComboBox x:Name="comboCategory"
+                                  DisplayMemberPath="Name"
+                                  SelectedValuePath="Id"
+                                  Margin="3 0"
+                                  FontSize="18"
+                                  BorderThickness="0"
+                                  Foreground="#656161" />           
+                        </Border>
 
                     <Border x:Name="btnCreateCategory"
                            Grid.Column="1"

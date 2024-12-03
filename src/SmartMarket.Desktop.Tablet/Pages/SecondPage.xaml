@@ -49,8 +49,11 @@
                     Style="{DynamicResource search}"/>
 
                 <ScrollViewer
+                    PanningMode="Both"
                     Margin="1"
-                    Grid.Row="2">
+                    Grid.Row="2"
+                    Stylus.IsFlicksEnabled="False"
+                    Stylus.IsPressAndHoldEnabled="False">
 
                     <StackPanel
                         x:Name="st_shipments">
@@ -147,7 +150,10 @@
                             HorizontalAlignment="Center"/>
 
                         <ScrollViewer
-                            Margin="1 5 1 10">
+                            PanningMode="Both"
+                            Margin="1 5 1 10"
+                            Stylus.IsFlicksEnabled="False"
+                            Stylus.IsPressAndHoldEnabled="False">
 
                             <StackPanel
                                 x:Name="st_searchproduct">

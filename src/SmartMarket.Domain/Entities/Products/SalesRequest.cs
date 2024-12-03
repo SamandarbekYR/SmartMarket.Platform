@@ -1,4 +1,5 @@
-﻿using SmartMarket.Domain.Entities.PayDesks;
+﻿using SmartMarket.Domain.Entities.Partners;
+using SmartMarket.Domain.Entities.PayDesks;
 using SmartMarket.Domain.Entities.Workers;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,9 @@ namespace SmartMarket.Domain.Entities.Products
         [Column("worker_id")]
         public Guid WorkerId { get; set; }
         public Worker Worker { get; set; }
+        [Column("partner_id")]
+        public Guid? PartnerId { get; set; }
+        public Partner? Partner { get; set; }
         [Column("pay_desk_id")]
         public Guid PayDeskId { get; set; }
         public PayDesk PayDesk { get; set; }

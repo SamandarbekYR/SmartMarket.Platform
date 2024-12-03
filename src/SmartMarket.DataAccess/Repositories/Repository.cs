@@ -57,4 +57,12 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity
 
         return result > 0;
     }
+
+    public async Task<bool> UpdateRange(IEnumerable<TEntity> entities)
+    {
+        _dbSet.UpdateRange(entities);
+        int result = await _appDb.SaveChangesAsync();
+
+        return result > 0;
+    }
 }

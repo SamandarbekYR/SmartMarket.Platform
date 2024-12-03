@@ -45,13 +45,13 @@
                     FontSize="18"
                     Style="{DynamicResource TitleLabel}"/>
 
-                <Label
+                <!--<Label
                     Grid.Row="0"
                     HorizontalAlignment="Right"
                     Content="#202405083001"
                     Margin="0 0 10 0"
                     FontSize="13"
-                    Style="{DynamicResource TitleLabel}"/>
+                    Style="{DynamicResource TitleLabel}"/>-->
 
                 <Border
                     Grid.Row="1"
@@ -158,8 +158,11 @@
                 </Grid>
 
                 <ScrollViewer
+                    PanningMode="Both"
                     Margin="1"
-                    Grid.Row="3">
+                    Grid.Row="3"
+                    Stylus.IsFlicksEnabled="False"
+                    Stylus.IsPressAndHoldEnabled="False">
 
                     <StackPanel
                         x:Name="st_product">
@@ -294,6 +297,7 @@
                             Style="{DynamicResource InfoLabel}"/>
 
                         <Label
+                            Name="worker_name"
                             FontSize="16"
                             Content="Sobir aka"
                             Style="{DynamicResource MainLabel}"/>
@@ -388,7 +392,10 @@
                             HorizontalAlignment="Center"/>
 
                         <ScrollViewer
-                            Margin="1 5 1 10">
+                            PanningMode="Both"
+                            Margin="1 5 1 10"
+                            Stylus.IsFlicksEnabled="False"
+                            Stylus.IsPressAndHoldEnabled="False">
                         
                             <StackPanel
                                 x:Name="st_searchproduct">

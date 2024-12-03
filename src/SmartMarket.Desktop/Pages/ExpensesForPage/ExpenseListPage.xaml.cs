@@ -40,6 +40,7 @@ namespace SmartMarket.Desktop.Pages.ExpensesForPage
 
         private async void FilterExpenses()
         {
+            EmptyDataExpense.Visibility = Visibility.Collapsed;
             Loader.Visibility = Visibility.Visible;
             St_Expenses.Children.Clear();
             FilterExpenseDto filter = new FilterExpenseDto();
