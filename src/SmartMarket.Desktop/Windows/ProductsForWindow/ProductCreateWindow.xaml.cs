@@ -96,10 +96,9 @@ public partial class ProductCreateWindow : Window
             addProductDto.BarCode = txtBarCode.Text;
             addProductDto.Name = txtProductName.Text;
 
-            if(comboCategory.SelectedValue != null)
+            if (comboCategory.SelectedValue is Guid categoryId)
             {
-                CategoryView categoryView = categories.Where(a => a.Name == comboCategory.SelectedValue.ToString()).FirstOrDefault()!;
-                addProductDto.CategoryId = categoryView.Id;
+                addProductDto.CategoryId = categoryId;
             }
             else
             {
@@ -119,16 +118,15 @@ public partial class ProductCreateWindow : Window
             addProductDto.Price = price;
             addProductDto.SellPrice = sellPrice;
 
-            if (comboCategory.SelectedValue != null)
-            {
-                CategoryView categoryView = categories.Where(a => a.Name == comboCategory.SelectedValue).FirstOrDefault()!;
-                addProductDto.CategoryId = categoryView.Id;
-            }
-            else
-            {
-                notifierThis.ShowWarning("Kategoriya tanlanmagan.");
-                return;
-            }
+            //if (comboCategory.SelectedValue is Guid categoryId2)
+            //{
+            //    addProductDto.CategoryId = categoryId2;
+            //}
+            //else
+            //{
+            //    notifierThis.ShowWarning("Kategoriya tanlanmagan.");
+            //    return;
+            //}
 
             addProductDto.UnitOfMeasure = comboMeasurement.Text;
             if (comboDelivery.SelectedValue != null)
