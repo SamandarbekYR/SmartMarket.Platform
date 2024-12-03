@@ -20,8 +20,10 @@ public partial class CollectedCargoDetailsComponent : UserControl
     public void SetData(SalesRequestDto loadReport, int count)
     {
         tbNumber.Text = count.ToString();
-        tbTransaction.Text = loadReport.TransactionId.ToString(); 
-        tbClientName.Text = "Sobir aka";
+        tbTransaction.Text = loadReport.TransactionId.ToString();
+        tbClientName.Text = !string.IsNullOrEmpty(loadReport.Partner?.FirstName)
+            ? loadReport.Partner.FirstName
+            : "Nomalum";
         tbCargoSum.Text = loadReport.TotalCost.ToString();
         tbDate.Text = loadReport.CreatedDate.HasValue
               ? loadReport.CreatedDate.Value.ToString("yyyy-MM-dd")
