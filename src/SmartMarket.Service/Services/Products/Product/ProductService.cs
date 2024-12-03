@@ -51,6 +51,20 @@ namespace SmartMarket.Service.Services.Products.Product
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
                 }
 
+                var productExists = await _unitOfWork.Product.GetAllProductsFullInformation()
+                    .AsNoTracking()
+                    .Where(p => p.Barcode == dto.BarCode)
+                    .FirstOrDefaultAsync();
+
+                if (productExists != null)
+                {
+                    var updatedProduct = _mapper.Map(dto, productExists);
+                    updatedProduct.Count = productExists.Count + dto.Count;
+
+                    await _unitOfWork.Product.Update(updatedProduct);
+                    return updatedProduct.Id;
+                }
+
                 string pCode = await GenerateUniquePCodeAsync();
 
                 var product = _mapper.Map<Et.Product>(dto);
