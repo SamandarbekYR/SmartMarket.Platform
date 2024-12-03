@@ -168,7 +168,7 @@ public partial class ProductCreateWindow : Window
 
     private void txtBarCode_TextChanged(object sender, TextChangedEventArgs e)
     {
-        if (txtBarCode.Text.Length == 5)
+        if (txtBarCode.Text.Length == 13)
         {
             ProcessBarCode(txtBarCode.Text);
         }
