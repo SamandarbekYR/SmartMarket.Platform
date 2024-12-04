@@ -373,7 +373,10 @@ public partial class SalePage : Page
             DisplayOrdersInStackPanel(orders);
         }
         else
+        {
+            Loader.Visibility = Visibility.Collapsed;
             EmptyData.Visibility = Visibility.Visible;
+        }
     }
 
     private CancellationTokenSource _cancellationTokenSource;
@@ -849,7 +852,7 @@ public partial class SalePage : Page
             //PrintService printService = new PrintService();
             //printService.Print(dto, tvm.Transactions, result.Item1);
 
-            if(Order.Id != Guid.Empty)
+            if(Order != null && Order.Id != Guid.Empty)
                 await UpdateSaleShipment(Order.Id);
 
             tvm.ClearTransaction();
@@ -882,48 +885,62 @@ public partial class SalePage : Page
 
     public async Task UpdateProductCount(OrderDto dto, List<AddProductSaleDto> tvm)
     {
-        List<UpdateProductDto> products = new List<UpdateProductDto>();
+        var products = new List<UpdateProductDto>();
+
         foreach (var item in tvm)
         {
-            int i = 0;
-            foreach (var product in dto.ProductOrderItems)
-            {
-                if (item.ProductId == product.ProductId)
-                {
-                    if (product.Count != item.Count)
-                    {
-                        UpdateProductDto upd = new UpdateProductDto();
-                        upd.ProductId = product.ProductId;
+            var product = dto.ProductOrderItems.FirstOrDefault(p => p.ProductId == item.ProductId);
 
-                        if (item.Count > product.Count)
-                        {
-                            upd.Count = item.Count - product.Count;
-                            upd.IsIncrement = true;
-                        }
-                        else if (item.Count < product.Count)
-                        {
-                            upd.Count = product.Count - item.Count;
-                            upd.IsIncrement = false;
-                        }
-                        products.Add(upd);
-                    }
-                    i++;
+            if (product != null) 
+            {
+                if (product.Count != item.Count) 
+                {
+                    products.Add(new UpdateProductDto
+                    {
+                        ProductId = item.ProductId,
+                        Count = Math.Abs(product.Count - item.Count),
+                        IsIncrement = item.Count < product.Count 
+                    });
                 }
             }
-
-            if(i == 0)
+            else 
             {
-                UpdateProductDto upd = new UpdateProductDto();
-
-                upd.ProductId   = item.ProductId;
-                upd.Count       = item.Count;
-                upd.IsIncrement = true;
-                products.Add(upd);
+                products.Add(new UpdateProductDto
+                {
+                    ProductId = item.ProductId,
+                    Count = item.Count,
+                    IsIncrement = false
+                });
             }
         }
 
-        var result = await _productService.UpdateProductCountAsync(products);
+        foreach (var product in dto.ProductOrderItems)
+        {
+            var item = tvm.FirstOrDefault(p => p.ProductId == product.ProductId);
+
+            if (item == null) 
+            {
+                products.Add(new UpdateProductDto
+                {
+                    ProductId = product.ProductId,
+                    Count = product.Count,
+                    IsIncrement = true 
+                });
+            }
+        }
+
+        if (products.Any())
+        {
+            bool success = false;
+            while (!success)
+            {
+                success = await _productService.UpdateProductCountAsync(products);
+                if (!success)
+                    await Task.Delay(1000);
+            }
+        }
     }
+
 
     private void Page_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
     {

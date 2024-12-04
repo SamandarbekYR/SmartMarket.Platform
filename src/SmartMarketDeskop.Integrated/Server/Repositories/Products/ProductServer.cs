@@ -280,7 +280,7 @@ public class ProductServer : IProductServer
         {
             var token = IdentitySingelton.GetInstance().Token;
             var client = new HttpClient();
-            var url = $"{AuthApi.BASE_URL}/api/products-count";
+            var url = $"{AuthApi.BASE_URL}/api/products/update-count";
             var request = new HttpRequestMessage(HttpMethod.Put, url);
             request.Headers.Add("Authorization", $"Bearer {token}");
 
