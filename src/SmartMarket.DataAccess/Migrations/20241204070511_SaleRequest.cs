@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SmartMarket.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class SaleRequest : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -52,6 +52,7 @@ namespace SmartMarket.DataAccess.Migrations
                     phone_number = table.Column<string>(type: "text", nullable: false),
                     total_debt = table.Column<double>(type: "double precision", nullable: false),
                     last_payment = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    PaymentType = table.Column<string>(type: "text", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
@@ -329,6 +330,7 @@ namespace SmartMarket.DataAccess.Migrations
                     id = table.Column<Guid>(type: "uuid", nullable: false),
                     transaction_id = table.Column<long>(type: "bigint", nullable: false),
                     worker_id = table.Column<Guid>(type: "uuid", nullable: false),
+                    partner_id = table.Column<Guid>(type: "uuid", nullable: true),
                     pay_desk_id = table.Column<Guid>(type: "uuid", nullable: false),
                     total_cost = table.Column<double>(type: "double precision", nullable: false),
                     cash_sum = table.Column<double>(type: "double precision", nullable: false),
@@ -340,6 +342,11 @@ namespace SmartMarket.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_sales_request", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_sales_request_partner_partner_id",
+                        column: x => x.partner_id,
+                        principalTable: "partner",
+                        principalColumn: "id");
                     table.ForeignKey(
                         name: "FK_sales_request_pay_desk_pay_desk_id",
                         column: x => x.pay_desk_id,
@@ -763,6 +770,11 @@ namespace SmartMarket.DataAccess.Migrations
                 column: "worker_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_sales_request_partner_id",
+                table: "sales_request",
+                column: "partner_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_sales_request_pay_desk_id",
                 table: "sales_request",
                 column: "pay_desk_id");
@@ -846,9 +858,6 @@ namespace SmartMarket.DataAccess.Migrations
                 name: "product_sale");
 
             migrationBuilder.DropTable(
-                name: "partner");
-
-            migrationBuilder.DropTable(
                 name: "product");
 
             migrationBuilder.DropTable(
@@ -859,6 +868,9 @@ namespace SmartMarket.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "contr_agent");
+
+            migrationBuilder.DropTable(
+                name: "partner");
 
             migrationBuilder.DropTable(
                 name: "pay_desk");

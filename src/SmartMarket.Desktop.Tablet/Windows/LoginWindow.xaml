@@ -9,8 +9,9 @@
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        WindowState="Maximized"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded"
+        Width="1000"
+        Height="700">
     <Grid
         Background="{DynamicResource FirstColor}">
         <Grid.ColumnDefinitions>
