@@ -15,7 +15,7 @@
                 <RowDefinition Height="45"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
+            
             <Border
                 CornerRadius="5 5 0 0"
                 Background="#d6d6d6"
@@ -29,11 +29,25 @@
                     FontWeight="DemiBold"
                     Margin="15 0 0 0"
                     ></TextBlock>
-
-                
-
             </Border>
+            <Label
+                HorizontalAlignment="Right"
+                Margin="0 0 350 0"
+                FontSize="18"
+                FontWeight="SemiBold"
+                VerticalAlignment="Center"
+                Content="Yangilanish vaqti(sekund)"/>
 
+            <TextBox
+                x:Name="timeTextBox"
+                FontSize="15"
+                FontWeight="SemiBold"
+                HorizontalAlignment="Right"
+                Margin="5 11 230 10"
+                Height="24.48"
+                Width="100"
+                PreviewTextInput="TimeTextBox_PreviewTextInput"
+                DataObject.Pasting="TimeTextBox_Pasting"/>
             <Button
                 Content="Qo'shish"
                 Height="32"
@@ -59,7 +73,6 @@
                     <StackPanel 
                         Margin="100 10"
                         x:Name="St_Scales" >
-                        
                     </StackPanel>
                 </ScrollViewer>
                             

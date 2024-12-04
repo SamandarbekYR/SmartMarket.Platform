@@ -13,10 +13,11 @@ namespace SmartMarket.Domain.Entities.Partners
         [Column("phone_number")]
         public string PhoneNumber {  get; set; } = string.Empty;
         [Column("total_debt")]
-        public double TotalDebt { get; set; }
+        public double? TotalDebt { get; set; }
         [Column("last_payment")]
-        public DateTime LastPayment {  get; set; }
-        public string PaymentType { get; set; }
+        public DateTime? LastPayment {  get; set; }
+        [Column("payment_type")]
+        public string? PaymentType { get; set; }
 
         public List<Debtors> Debtors { get; set; }
     }
