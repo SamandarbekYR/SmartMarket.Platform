@@ -8,6 +8,10 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
 
 namespace SmartMarket.Desktop.Tablet.Pages;
 
@@ -92,6 +96,21 @@ public partial class SecondPage : Page
     #endregion
 
 
+    Notifier notifierThis = new Notifier(cfg =>
+    {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.MainWindow,
+            corner: Corner.TopRight,
+            offsetX: 40,
+            offsetY: 40);
+
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(2),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+    });
+
     private void Exit_Button_Click(object sender, RoutedEventArgs e)
     {
         MainPage mainPage = new MainPage();
@@ -106,6 +125,8 @@ public partial class SecondPage : Page
         st_product.Children.Clear();
         if (products.Count > 0)
         {
+            productEmptyData.Visibility = Visibility.Collapsed;
+
             foreach (var orderItem in products)
             {
                 ProductComponent component = new ProductComponent();
@@ -127,12 +148,14 @@ public partial class SecondPage : Page
         else
         {
             lbProductTotalPrice.Content = 0;
-            //empty data
+            productEmptyData.Visibility = Visibility.Visible;
         }
     }
 
     public async Task GetAllShipments()
     {
+        st_shipments.Children.Clear();
+        shipmentLoader.Visibility = Visibility.Visible;
         var orders = await Task.Run(async () => await _orderService.GetAllAsync());
 
         await ShowShipments(orders);
@@ -140,10 +163,13 @@ public partial class SecondPage : Page
 
     private async Task ShowShipments(List<OrderDto> orders)
     {
+        shipmentLoader.Visibility = Visibility.Collapsed;
         st_shipments.Children.Clear();
 
         if(orders.Count > 0)
         {
+            ShipmentEmptyData.Visibility = Visibility.Collapsed;
+
             foreach (var order in orders)
             {
                 ShipmentComponent shipmentComponent = new ShipmentComponent();
@@ -154,7 +180,7 @@ public partial class SecondPage : Page
         }
         else
         {
-            //empty data visible
+            ShipmentEmptyData.Visibility = Visibility.Visible;
         }
     }
 
@@ -229,29 +255,35 @@ public partial class SecondPage : Page
     {
         try
         {
-            var order = new AddOrderDto
+            var order = new UpdateOrderDto
             {
                 WorkerId = currentOrder.WorkerId,
                 PartnerId = currentOrder.PartnerId,
-                ProductOrderItems = currentOrder.ProductOrderItems.Select(orderProduct => new AddOrderProductDto
+                ProductOrderItems = currentOrder.ProductOrderItems.Select(orderProduct => new UpdateOrderProductDto
                 {
+                    Id = orderProduct.Id,
                     ProductId = orderProduct.Product.Id,
                     Count = orderProduct.Count,
                     AvailableCount = orderProduct.AvailableCount,
-                    ItemTotalCost = orderProduct.ItemTotalCost
+                    ItemTotalCost = orderProduct.Count * orderProduct.Product.SellPrice
                 }).ToList()
             };
 
             var res = await _orderService.UpdateAsync(currentOrder.Id, order);
 
             if (res is true)
-                MessageBox.Show("Muvaffaqiyatli o'zgartirildi.");
+            {
+                notifierThis.ShowSuccess("Mahsulotlar muvaffaqiyatli yangilandi.");
+                await GetAllShipments();
+            }
             else
-                MessageBox.Show("Xatolik yuz berdi.");
+            {
+                notifierThis.ShowError("Mahsulotni yangilashda xatolik yuz berdi.");
+            }
         }
         catch(Exception ex)
         {
-            MessageBox.Show("Xatolik yuz berdi ...");
+            notifierThis.ShowError("Xatolik yuz berdi.");
         }
     }
 

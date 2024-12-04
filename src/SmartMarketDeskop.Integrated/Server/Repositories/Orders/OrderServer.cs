@@ -138,7 +138,7 @@ public class OrderServer : IOrderServer
         }
     }
 
-    public async Task<bool> UpdateAsync(Guid Id, AddOrderDto dto)
+    public async Task<bool> UpdateAsync(Guid Id, UpdateOrderDto dto)
     {
         try
         {

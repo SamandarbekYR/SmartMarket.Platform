@@ -8,5 +8,5 @@ public interface IOrderService
     Task<List<OrderDto>> GetAllAsync();
     Task<List<OrderDto>> GetByPartnerNameAsync(string searchName);
     Task<bool> UpdateStatusAsync(Guid id);
-    Task<bool> UpdateAsync(Guid id, AddOrderDto order);
+    Task<bool> UpdateAsync(Guid id, UpdateOrderDto order);
 }

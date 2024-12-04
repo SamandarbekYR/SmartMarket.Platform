@@ -110,11 +110,15 @@ public class MapperProfile : Profile
         CreateMap<AddOrderDto, Order>()
             .ForMember(dest => dest.ProductOrderItems, opt => opt.MapFrom(src => src.ProductOrderItems));
 
+        CreateMap<UpdateOrderDto, Order>()
+            .ForMember(dest => dest.ProductOrderItems, opt => opt.MapFrom(src => src.ProductOrderItems));
+
         CreateMap<Order, OrderDto>()
            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
            .ForMember(dest => dest.ProductOrderItems, opt => opt.MapFrom(src => src.ProductOrderItems));
 
         CreateMap<AddOrderProductDto, OrderProduct>();
+        CreateMap<UpdateOrderProductDto, OrderProduct>();
 
         /*---------Partner-----------------*/
         CreateMap<AddPartnerDto, Partner>()
