@@ -1,5 +1,8 @@
 ﻿using SmartMarket.Desktop.Tablet.Components;
+using SmartMarket.Domain.Entities.Orders;
+using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Products.Product;
+using SmartMarketDeskop.Integrated.Services.Orders;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -15,11 +18,14 @@ public partial class SecondPage : Page
 {
 
     private readonly IProductService _productService; 
+    private readonly IOrderService _orderService;
+    private OrderDto currentOrder { get; set; }
 
     public SecondPage()
     {
         InitializeComponent();
         this._productService = new ProductService();
+        this._orderService = new OrderService();
     }
 
 
@@ -93,60 +99,160 @@ public partial class SecondPage : Page
         mainWindow.PageNavigator.Content = mainPage;
     }
 
-    private void Page_Loaded(object sender, RoutedEventArgs e)
+    private void SetOrderProduct(List<OrderProduct> products)
     {
-        for (int i = 0; i < 20; i++)
+        double totalPrice = 0;
+        productLoader.Visibility = Visibility.Collapsed;
+        st_product.Children.Clear();
+        if (products.Count > 0)
         {
-            ShipmentComponent shipmentComponent = new ShipmentComponent();
-            ProductComponent productComponent = new ProductComponent();
-
-            st_product.Children.Add(productComponent);
-            st_shipments.Children.Add(shipmentComponent);
-        }
-
-        foreach (var scrollViewer in FindVisualChildren<ScrollViewer>(this))
-        {
-            scrollViewer.ManipulationBoundaryFeedback += (s, args) =>
+            foreach (var orderItem in products)
             {
-                args.Handled = true;
-            };
+                ProductComponent component = new ProductComponent();
+                component.Tag = orderItem;
+                component.SetValues(
+                    orderItem.Id,
+                    orderItem.Count,
+                    orderItem.Product.Barcode,
+                    orderItem.Product.Name,
+                    orderItem.Product.SellPrice,
+                    orderItem.Count);
+
+                st_product.Children.Add(component);
+                totalPrice += (orderItem.Product.SellPrice * orderItem.Count);
+            }
+
+            lbProductTotalPrice.Content = totalPrice;
+        }
+        else
+        {
+            lbProductTotalPrice.Content = 0;
+            //empty data
         }
     }
 
-    private static IEnumerable<T> FindVisualChildren<T>(DependencyObject parent) where T : DependencyObject
+    public async Task GetAllShipments()
     {
-        for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
+        var orders = await Task.Run(async () => await _orderService.GetAllAsync());
+
+        await ShowShipments(orders);
+    }
+
+    private async Task ShowShipments(List<OrderDto> orders)
+    {
+        st_shipments.Children.Clear();
+
+        if(orders.Count > 0)
         {
-            var child = VisualTreeHelper.GetChild(parent, i);
-            if (child is T t)
+            foreach (var order in orders)
             {
-                yield return t;
-            }
-            foreach (var childOfChild in FindVisualChildren<T>(child))
-            {
-                yield return childOfChild;
+                ShipmentComponent shipmentComponent = new ShipmentComponent();
+                shipmentComponent.Tag = order;
+                shipmentComponent.SetValues(order);
+                st_shipments.Children.Add(shipmentComponent);
             }
         }
+        else
+        {
+            //empty data visible
+        }
+    }
+
+    private async void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        await GetAllShipments();
+        //for (int i = 0; i < 20; i++)
+        //{
+        //    //ShipmentComponent shipmentComponent = new ShipmentComponent();
+        //    ProductComponent productComponent = new ProductComponent();
+
+        //    st_product.Children.Add(productComponent);
+        //    //st_shipments.Children.Add(shipmentComponent);
+        //}
+    }
+
+    private ShipmentComponent selectedControl = null!;
+    public async void SelectOrder(ShipmentComponent shipmentComponent, Guid orderId)
+    {
+        if(selectedControl != null)
+        {
+            selectedControl.brOrder.Background = Brushes.White;
+        }
+
+        if(shipmentComponent.Tag is OrderDto selectedOrder)
+        {
+            currentOrder = new OrderDto
+            {
+                Id = selectedOrder.Id,
+                WorkerId = selectedOrder.WorkerId,
+                PartnerId = selectedOrder.PartnerId,
+                ProductOrderItems = selectedOrder.ProductOrderItems
+            };
+
+            SetOrderProduct(currentOrder.ProductOrderItems);
+        }
+    }
+
+    private void UpdateOrder()
+    {
+        SetOrderProduct(currentOrder.ProductOrderItems);
     }
 
     private void Minus_Button_Click(object sender, RoutedEventArgs e)
     {
-
+        if(selectedProduct?.Tag is OrderProduct orderProduct && orderProduct.Count > 1)
+        {
+            orderProduct.Count -= 1;
+            UpdateOrder();
+        }
     }
 
     private void Plus_Button_Click(object sender, RoutedEventArgs e)
     {
-
+        if(selectedProduct?.Tag is OrderProduct orderProduct)
+        {
+            orderProduct.Count += 1;
+            UpdateOrder();
+        }
     }
 
     private void Delete_Button_Click(object sender, RoutedEventArgs e)
     {
-
+        if(selectedProduct?.Tag is OrderProduct orderProduct)
+        {
+            currentOrder.ProductOrderItems.Remove(orderProduct);
+            UpdateOrder();
+        }
     }
 
-    private void Save_Button_Click(object sender, RoutedEventArgs e)
+    private async void Save_Button_Click(object sender, RoutedEventArgs e)
     {
+        try
+        {
+            var order = new AddOrderDto
+            {
+                WorkerId = currentOrder.WorkerId,
+                PartnerId = currentOrder.PartnerId,
+                ProductOrderItems = currentOrder.ProductOrderItems.Select(orderProduct => new AddOrderProductDto
+                {
+                    ProductId = orderProduct.Product.Id,
+                    Count = orderProduct.Count,
+                    AvailableCount = orderProduct.AvailableCount,
+                    ItemTotalCost = orderProduct.ItemTotalCost
+                }).ToList()
+            };
 
+            var res = await _orderService.UpdateAsync(currentOrder.Id, order);
+
+            if (res is true)
+                MessageBox.Show("Muvaffaqiyatli o'zgartirildi.");
+            else
+                MessageBox.Show("Xatolik yuz berdi.");
+        }
+        catch(Exception ex)
+        {
+            MessageBox.Show("Xatolik yuz berdi ...");
+        }
     }
 
     private CancellationTokenSource _cancellationTokenSource = null!;
