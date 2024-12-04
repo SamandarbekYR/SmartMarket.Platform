@@ -12,8 +12,8 @@ using SmartMarket.DataAccess.Data;
 namespace SmartMarket.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241130054345_PartnerUpdateEntity")]
-    partial class PartnerUpdateEntity
+    [Migration("20241204070511_SaleRequest")]
+    partial class SaleRequest
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -765,6 +765,10 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("double precision")
                         .HasColumnName("debt_sum");
 
+                    b.Property<Guid?>("PartnerId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("partner_id");
+
                     b.Property<Guid>("PayDeskId")
                         .HasColumnType("uuid")
                         .HasColumnName("pay_desk_id");
@@ -786,6 +790,8 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnName("worker_id");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PartnerId");
 
                     b.HasIndex("PayDeskId");
 
@@ -1217,6 +1223,10 @@ namespace SmartMarket.DataAccess.Migrations
 
             modelBuilder.Entity("SmartMarket.Domain.Entities.Products.SalesRequest", b =>
                 {
+                    b.HasOne("SmartMarket.Domain.Entities.Partners.Partner", "Partner")
+                        .WithMany()
+                        .HasForeignKey("PartnerId");
+
                     b.HasOne("SmartMarket.Domain.Entities.PayDesks.PayDesk", "PayDesk")
                         .WithMany()
                         .HasForeignKey("PayDeskId")
@@ -1228,6 +1238,8 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasForeignKey("WorkerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Partner");
 
                     b.Navigation("PayDesk");
 
