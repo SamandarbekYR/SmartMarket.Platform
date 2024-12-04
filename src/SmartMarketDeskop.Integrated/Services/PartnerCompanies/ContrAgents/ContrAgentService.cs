@@ -79,19 +79,20 @@ public class ContrAgentService : IContrAgentService
         if (IsInternetAvailable())
         {
             var contragents= await contrAgentServer.GetAllAsync();
-            var companies = await partnerComanyServer.GetAllCompany();
 
             return contragents.Select(a => new ContrAgentViewModels()
             {
                 Id = a.Id,
-                CompanyName =companies.Find(c=>c.Id==a.CompanyId).Name ,
+                CompanyName = a.PartnerCompany.Name,
                 FirstName=a.FirstName,
                 LastName=a.LastName,
                 PhoneNumber=a.PhoneNumber,
-                DebtSum=500000,
-                PayedSum=200000,
-                LastPayedSum=50000,
-                LastPayedDate="9/3/2024"
+                DebtSum= Convert.ToDecimal(a.ContrAgentPayment?.Sum(c => c.TotalDebt)),
+                PayedSum= Convert.ToDecimal(a.ContrAgentPayment?.Sum(c => c.LastPayment)),
+                LastPayedSum=Convert.ToDecimal(a.ContrAgentPayment?.OrderByDescending(c => c.LastPaymentDate)
+                    .FirstOrDefault()?.LastPayment ?? 0),
+                LastPayedDate = a.ContrAgentPayment?.OrderByDescending(c => c.LastPaymentDate)
+                    .FirstOrDefault()?.LastPaymentDate.ToString("MM/dd/yyyy") ?? "No Payment"
             }).ToList();
         }
         else
@@ -104,20 +105,21 @@ public class ContrAgentService : IContrAgentService
     {
         if(IsInternetAvailable())
         {
-            var contrAgent = await contrAgentServer.GetContrAgentByNameAsync(name);
-            var companies = await partnerComanyServer.GetAllCompany();
+            var contrAgents = await contrAgentServer.GetContrAgentByNameAsync(name);
 
-            return contrAgent.Select(a => new ContrAgentViewModels()
+            return contrAgents.Select(a => new ContrAgentViewModels()
             {
                 Id = a.Id,
-                CompanyName = companies.Find(c => c.Id == a.CompanyId).Name,
+                CompanyName = a.PartnerCompany.Name,
                 FirstName = a.FirstName,
                 LastName = a.LastName,
                 PhoneNumber = a.PhoneNumber,
-                DebtSum = 500000,
-                PayedSum = 200000,
-                LastPayedSum = 50000,
-                LastPayedDate = "9/3/2024"
+                DebtSum = Convert.ToDecimal(a.ContrAgentPayment?.Sum(c => c.TotalDebt)),
+                PayedSum = Convert.ToDecimal(a.ContrAgentPayment?.Sum(c => c.LastPayment)),
+                LastPayedSum = Convert.ToDecimal(a.ContrAgentPayment?.OrderByDescending(c => c.LastPaymentDate)
+                    .FirstOrDefault()?.LastPayment ?? 0),
+                LastPayedDate = a.ContrAgentPayment?.OrderByDescending(c => c.LastPaymentDate)
+                    .FirstOrDefault()?.LastPaymentDate.ToString("MM/dd/yyyy") ?? "No Payment"
             }).ToList();
         }
         else
