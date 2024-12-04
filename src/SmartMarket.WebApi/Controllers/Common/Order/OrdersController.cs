@@ -84,7 +84,7 @@ namespace SmartMarket.WebApi.Controllers.Common.Order
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] AddOrderDto dto)
+        public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] UpdateOrderDto dto)
         {
             try
             {

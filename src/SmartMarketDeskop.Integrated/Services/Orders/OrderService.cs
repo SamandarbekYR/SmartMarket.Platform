@@ -70,7 +70,7 @@ namespace SmartMarketDeskop.Integrated.Services.Orders
             }
         }
 
-        public async Task<bool> UpdateAsync(Guid id, AddOrderDto order)
+        public async Task<bool> UpdateAsync(Guid id, UpdateOrderDto order)
         {
             if (IsInternetAvialable())
             {

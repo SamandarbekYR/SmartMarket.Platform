@@ -2,6 +2,7 @@
 using FluentValidation;
 using Microsoft.Extensions.Logging;
 using SmartMarket.DataAccess.Interfaces;
+using SmartMarket.Domain.Entities.Orders;
 using SmartMarket.Service.Common.Exceptions;
 using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.Interfaces.Order;
@@ -133,11 +134,13 @@ namespace SmartMarket.Service.Services.Order
             }
         }
 
-        public async Task<bool> UpdateAsync(AddOrderDto dto, Guid Id)
+        public async Task<bool> UpdateAsync(UpdateOrderDto dto, Guid Id)
         {
             try
             {
-                var order = await _unitOfWork.Order.GetById(Id);
+                var orders = await _unitOfWork.Order.GetOrdersFullInformationAsync();
+                var order = orders.FirstOrDefault(x => x.Id == Id);
+
                 if (order == null)
                 {
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Order not found.");
@@ -153,6 +156,36 @@ namespace SmartMarket.Service.Services.Order
                 if (!partnerExists)
                 {
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Partner not found.");
+                }
+
+                var existingItems = order.ProductOrderItems.ToList();
+
+                foreach (UpdateOrderProductDto dtoItem in dto.ProductOrderItems)
+                {
+                    var existingItem = existingItems.FirstOrDefault(x => x.Id == dtoItem.Id);
+
+                    if (existingItem != null)
+                    {
+                        _mapper.Map(dtoItem, existingItem);
+                    }
+                    else
+                    {
+                        var newItem = new OrderProduct
+                        {
+                            ProductId = dtoItem.ProductId,
+                            Count = dtoItem.Count,
+                            AvailableCount = dtoItem.AvailableCount,
+                            ItemTotalCost = dtoItem.ItemTotalCost,
+                            OrderId = order.Id
+                        };
+                        order.ProductOrderItems.Add(newItem);
+                    }
+                }
+
+                var itemsToDelete = existingItems.Where(x => !dto.ProductOrderItems.Any(y => y.Id == x.Id)).ToList();
+                foreach (var itemToDelete in itemsToDelete)
+                {
+                    order.ProductOrderItems.Remove(itemToDelete);
                 }
 
                 _mapper.Map(dto, order);

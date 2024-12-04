@@ -47,20 +47,35 @@
                     Grid.Row="1"
                     Margin="50 0"
                     Style="{DynamicResource search}"/>
+                <Grid Grid.Row="2">
+                    <local:Loader
+                        Visibility="Hidden"
+                        x:Name="shipmentLoader"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"/>
+                    
+                    <ScrollViewer
+                        PanningMode="Both"
+                        Margin="1"
+                        Stylus.IsFlicksEnabled="False"
+                        Stylus.IsPressAndHoldEnabled="False">
 
-                <ScrollViewer
-                    PanningMode="Both"
-                    Margin="1"
-                    Grid.Row="2"
-                    Stylus.IsFlicksEnabled="False"
-                    Stylus.IsPressAndHoldEnabled="False">
+                        <StackPanel
+                            x:Name="st_shipments">
 
-                    <StackPanel
-                        x:Name="st_shipments">
+                        </StackPanel>
 
-                    </StackPanel>
+                    </ScrollViewer>
 
-                </ScrollViewer>
+                    <Label
+                         Name="ShipmentEmptyData"
+                         Visibility="Collapsed"
+                         FontSize="13"
+                         Foreground="#a6a6a6"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         Content="Ma'lumot topilmadi."/>
+                </Grid>
 
                 <Button
                     x:Name="Exit_Button"
@@ -318,6 +333,15 @@
                                 </StackPanel>
 
                             </ScrollViewer>
+
+                            <Label
+                                 Name="productEmptyData"
+                                 Visibility="Collapsed"
+                                 FontSize="13"
+                                 Foreground="#a6a6a6"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 Content="Jo'natma tanlanmagan."/>
                         </Grid>
 
                     </Grid>
