@@ -86,9 +86,7 @@ namespace SmartMarket.Service.Services.PartnersCompany.ContrAgent
         {
             try
             {
-                var contrAgents = await _unitOfWork.ContrAgent.GetAll()
-                                             .AsNoTracking()
-                                             .ToPagedListAsync(@params);
+                var contrAgents = await _unitOfWork.ContrAgent.GetContrAgentsFullInformationAsync();
 
                 return contrAgents.Select(ca => _mapper.Map<ContrAgentDto>(ca)).ToList();
             }
