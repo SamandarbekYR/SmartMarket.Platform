@@ -39,8 +39,8 @@ namespace SmartMarket.Desktop.Windows.Partners
             phoneNumber_TextBlock.Text = partner.PhoneNumber;
             var totalDebt = partner.Debtors.Sum(d => d.DeptSum);
             totalDebt_TextBlock.Text = totalDebt.ToString();
-            lastPayment_TextBlock.Text = partner.LastPayment.ToString("yyyy-MM-dd");
-            lastPaymentHour_TextBlock.Text = partner.LastPayment.ToString("HH:mm:ss");
+            lastPayment_TextBlock.Text = partner.LastPayment?.ToString("yyyy-MM-dd");
+            lastPaymentHour_TextBlock.Text = partner.LastPayment?.ToString("HH:mm:ss");
         }
 
         [DllImport("user32.dll")]

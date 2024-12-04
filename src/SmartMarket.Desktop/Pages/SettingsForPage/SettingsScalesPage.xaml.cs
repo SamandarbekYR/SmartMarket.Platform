@@ -1,6 +1,9 @@
 ﻿using SmartMarket.Desktop.Components.SettingsForComponent;
+
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SmartMarket.Desktop.Pages.SettingsForPage;
 
@@ -20,6 +23,31 @@ public partial class SettingsScalesPage : Page
 
     }
 
+    private void TimeTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        e.Handled = !IsTextNumeric(e.Text);
+    }
+
+    private void TimeTextBox_Pasting(object sender, DataObjectPastingEventArgs e)
+    {
+        if (e.DataObject.GetDataPresent(typeof(string)))
+        {
+            var pastedText = (string)e.DataObject.GetData(typeof(string));
+            if (!IsTextNumeric(pastedText))
+            {
+                e.CancelCommand();
+            }
+        }
+        else
+        {
+            e.CancelCommand();
+        }
+    }
+
+    private bool IsTextNumeric(string text)
+    {
+        return Regex.IsMatch(text, @"^\d+$");
+    }
 
     public void GetScales()
     {

@@ -40,8 +40,8 @@ namespace SmartMarket.Desktop.Tablet.Windows.Partners
             lastName_TextBlock.Text = partner.LastName;
             phoneNumber_TextBlock.Text = partner.PhoneNumber;
             totalDebt_TextBlock.Text = partner.TotalDebt.ToString();
-            lastPayment_TextBlock.Text = partner.LastPayment.ToString("yyyy-MM-dd");
-            lastPaymentHour_TextBlock.Text = partner.LastPayment.ToString("HH:mm:ss");
+            lastPayment_TextBlock.Text = partner.LastPayment?.ToString("yyyy-MM-dd");
+            lastPaymentHour_TextBlock.Text = partner.LastPayment?.ToString("HH:mm:ss");
         }
 
         [DllImport("user32.dll")]
