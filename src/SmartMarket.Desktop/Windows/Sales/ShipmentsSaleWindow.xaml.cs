@@ -307,9 +307,30 @@ public partial class ShipmentsSaleWindow : Window
             notifier.ShowInformation("Mahsulot xarid qilinmagan.");
     }
 
-    private void SaveButton_Click(object sender, RoutedEventArgs e)
+    private async void SaveButton_Click(object sender, RoutedEventArgs e)
     {
+        UpdateOrderDto dto = new UpdateOrderDto();
+        dto.PartnerId = Order.PartnerId;
+        dto.WorkerId = Order.WorkerId;
 
+        UpdateOrderProductDto product = new UpdateOrderProductDto();
+        List<UpdateOrderProductDto> products = new List<UpdateOrderProductDto>();
+        foreach (var item in tvm.Transactions)
+        {
+            product.ProductId = item.Id;
+            product.Count = item.Quantity;
+            product.AvailableCount = item.AvailableCount;
+            product.ItemTotalCost = item.TotalPrice;
+            products.Add(product);
+        }
+
+        dto.ProductOrderItems = products;
+
+        bool result = await _orderService.UpdateAsync(Order.Id, dto);
+        if (result)
+            notifier.ShowSuccess("Jo'natma yangilandi.");
+        else
+            notifier.ShowError("Jo'natmani yangilashda xatolik mavjud.");
     }
 
     private void Window_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
