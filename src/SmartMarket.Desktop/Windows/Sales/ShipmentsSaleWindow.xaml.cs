@@ -494,6 +494,8 @@ public partial class ShipmentsSaleWindow : Window
         }
         else
             notifier.ShowError("Sotuvda qandaydir muammo bor!!!");
+
+        this.Close();
     }
 
     public async Task UpdateSaleShipment(Guid Id)
@@ -510,7 +512,6 @@ public partial class ShipmentsSaleWindow : Window
 
             await Task.Delay(1000);
         }
-        this.Close();
     }
 
     public async Task UpdateProductCount(OrderDto dto, List<AddProductSaleDto> tvm)
