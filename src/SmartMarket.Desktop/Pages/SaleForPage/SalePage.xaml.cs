@@ -860,7 +860,7 @@ public partial class SalePage : Page
             ColculateTotalPrice();
             EmptyPrice();
 
-            notifier.ShowSuccess("Sotuv amalga oshirildi.");
+             notifier.ShowSuccess("Sotuv amalga oshirildi.");
         }
         else
             notifier.ShowError("Sotuvda qandaydir muammo bor!!!");

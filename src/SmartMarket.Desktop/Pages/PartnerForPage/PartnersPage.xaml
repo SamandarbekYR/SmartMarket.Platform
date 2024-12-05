@@ -184,7 +184,6 @@
 
                         <Label
                             Name="EmptyData"
-                            Visibility="Collapsed"
                             FontSize="16"
                             Foreground="#a6a6a6"
                             HorizontalAlignment="Center"

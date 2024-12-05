@@ -24,6 +24,7 @@ public partial class PartnersPage : Page
 
     public async Task GetAllDebtor()
     {
+        EmptyData.Visibility = Visibility.Collapsed;
         Loader.Visibility = Visibility.Visible;
         St_partners.Children.Clear();
         var partners = await Task.Run(async () => await _partnerService.GetAll());
