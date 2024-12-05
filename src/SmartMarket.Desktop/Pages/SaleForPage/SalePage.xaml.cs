@@ -364,7 +364,7 @@ public partial class SalePage : Page
         }
     }
 
-    private async Task GetAllOrders()
+    public async Task GetAllOrders()
     {
         Loader.Visibility = Visibility.Visible;
         var orders = await Task.Run(async () => await _orderService.GetAllAsync());
