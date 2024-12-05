@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace SmartMarket.Service.DTOs.Partner;
+﻿namespace SmartMarket.Service.DTOs.Partner;
 
 public class AddPartnerDto
 {
