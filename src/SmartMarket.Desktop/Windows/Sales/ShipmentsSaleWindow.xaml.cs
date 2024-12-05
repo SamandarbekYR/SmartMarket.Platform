@@ -41,7 +41,7 @@ public partial class ShipmentsSaleWindow : Window
     string message = string.Empty;
     string barcode = string.Empty;
     string barcodes = string.Empty;
-    public Guid OrderId { get; set; }
+    public OrderDto Order { get; set; } = null!;
     public string PaymentType { get; set; } = string.Empty;
     public double TotalPrice { get; set; }
     public double CashSum { get; set; }
@@ -408,7 +408,7 @@ public partial class ShipmentsSaleWindow : Window
 
     public void ConvertShipment(OrderDto dto)
     {
-        OrderId = dto.Id;
+        Order = dto;
         foreach (var product in dto.ProductOrderItems)
         {
             FullProductDto fpd = new FullProductDto
@@ -471,6 +471,7 @@ public partial class ShipmentsSaleWindow : Window
             .Select(t => new AddProductSaleDto { ProductId = t.Id, Count = t.Quantity, Discount = t.Discount, ItemTotalCost = t.TotalPrice }).ToList();
 
         dto.ProductSaleItems = products;
+        await UpdateProductCount(Order, products);
         await ProductSale(dto);
     }
 
@@ -482,7 +483,7 @@ public partial class ShipmentsSaleWindow : Window
             //PrintService printService = new PrintService();
             //printService.Print(dto, tvm.Transactions, result.Item1);
 
-            await UpdateSaleShipment(OrderId);
+            await UpdateSaleShipment(Order.Id);
 
             tvm.ClearTransaction();
             St_product.Children.Clear();
@@ -497,6 +498,65 @@ public partial class ShipmentsSaleWindow : Window
 
     public async Task UpdateSaleShipment(Guid Id)
     {
-        bool result = await _orderService.UpdateStatusAsync(Id);
+        while (true)
+        {
+            bool result = await _orderService.UpdateStatusAsync(Id);
+
+            if (result)
+            {
+                Order = null!;
+                break;
+            }
+
+            await Task.Delay(1000);
+        }
+        this.Close();
+    }
+
+    public async Task UpdateProductCount(OrderDto dto, List<AddProductSaleDto> tvm)
+    {
+        var products = new List<UpdateProductDto>();
+
+        foreach (var item in tvm)
+        {
+            var product = dto.ProductOrderItems.FirstOrDefault(p => p.ProductId == item.ProductId);
+
+            if (product != null)
+            {
+                if (product.Count != item.Count)
+                {
+                    products.Add(new UpdateProductDto
+                    {
+                        ProductId = item.ProductId,
+                        Count = Math.Abs(product.Count - item.Count),
+                        IsIncrement = item.Count < product.Count
+                    });
+                }
+            }
+            else
+            {
+                products.Add(new UpdateProductDto
+                {
+                    ProductId = item.ProductId,
+                    Count = item.Count,
+                    IsIncrement = false
+                });
+            }
+        }
+
+        foreach (var product in dto.ProductOrderItems)
+        {
+            var item = tvm.FirstOrDefault(p => p.ProductId == product.ProductId);
+
+            if (item == null)
+            {
+                products.Add(new UpdateProductDto
+                {
+                    ProductId = product.ProductId,
+                    Count = product.Count,
+                    IsIncrement = true
+                });
+            }
+        }
     }
 }

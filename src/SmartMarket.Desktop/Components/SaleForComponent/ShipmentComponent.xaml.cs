@@ -23,7 +23,7 @@ public partial class ShipmentComponent : UserControl
         lbTotalSum.Content = dto.ProductOrderItems.Sum(x => x.Product.SellPrice * x.Count).ToString();
     }
 
-    private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+    private async void Button_Click(object sender, System.Windows.RoutedEventArgs e)
     {
         var shipment = this.Tag as OrderDto;
         var page = FindParentPage(this);
@@ -41,6 +41,7 @@ public partial class ShipmentComponent : UserControl
                 ShipmentsSaleWindow saleWindow = new ShipmentsSaleWindow();
                 saleWindow.ConvertShipment(shipment!);
                 saleWindow.ShowDialog();
+                await salePage.GetAllOrders();
             }
         }
     }
