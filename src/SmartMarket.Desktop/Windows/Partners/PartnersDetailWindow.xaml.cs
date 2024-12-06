@@ -1,21 +1,9 @@
 ﻿using SmartMarket.Desktop.Windows.PaymentWindow;
 using SmartMarket.Domain.Entities.Partners;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Interop;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ToastNotifications;
 
 using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 
@@ -38,7 +26,7 @@ namespace SmartMarket.Desktop.Windows.Partners
             lastName_TextBlock.Text = partner.LastName;
             phoneNumber_TextBlock.Text = partner.PhoneNumber;
             var totalDebt = partner.Debtors.Sum(d => d.DeptSum);
-            totalDebt_TextBlock.Text = totalDebt.ToString();
+            totalDebt_TextBlock.Text = partner.TotalDebt.ToString();
             lastPayment_TextBlock.Text = partner.LastPayment?.ToString("yyyy-MM-dd");
             lastPaymentHour_TextBlock.Text = partner.LastPayment?.ToString("HH:mm:ss");
         }

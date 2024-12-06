@@ -16,6 +16,7 @@ using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Services.Orders;
+using SmartMarketDeskop.Integrated.Services.Partners;
 using SmartMarketDeskop.Integrated.Services.Products.Print;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
@@ -43,6 +44,7 @@ public partial class SalePage : Page
     private readonly IProductService _productService;
     private readonly IOrderService _orderService;
     private readonly ISalesRequestsService _salesRequestsService;
+    private readonly IPartnerService _partnerService;
     private HubConnection _connection;
 
     private System.Timers.Timer timer = new System.Timers.Timer();
@@ -69,6 +71,7 @@ public partial class SalePage : Page
         this._orderService = new OrderService();
         this._productService = new ProductService();
         this._salesRequestsService = new SalesRequestService();
+        this._partnerService = new PartnerService();
 
         timer.Elapsed += vaqt_ketdi!;
         timer.Interval = 500;
@@ -864,22 +867,22 @@ public partial class SalePage : Page
                 await UpdateSaleShipment(Order.Id);
 
             if (isDebt)
-                await NationSale();
+                await NationSale(dto.PartnerId!.Value, dto.DebtSum!.Value);
 
             tvm.ClearTransaction();
             St_product.Children.Clear();
             ColculateTotalPrice();
             EmptyPrice();
 
-             notifier.ShowSuccess("Sotuv amalga oshirildi.");
+            notifier.ShowSuccess("Sotuv amalga oshirildi.");
         }
         else
             notifier.ShowError("Sotuvda qandaydir muammo bor!!!");
     }
 
-    public async Task NationSale()
+    public async Task NationSale(Guid id, double debtSum)
     {
-        // Partnerga qarz yozish uchun integratsiya yoziladi.
+        var result = await _partnerService.UpdatePartnerDebtSum(debtSum, id);    
     }
 
     public async Task UpdateSaleShipment(Guid Id)
