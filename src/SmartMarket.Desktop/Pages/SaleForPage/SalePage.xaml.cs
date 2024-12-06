@@ -748,8 +748,15 @@ public partial class SalePage : Page
     {
         if (tvm.Transactions.Count > 0)
         {
-            PartnersNationWindow nationWindow = new PartnersNationWindow();
-            nationWindow.ShowDialog();
+            if (IsShipment)
+            {
+                ConvertTransaction(true, Order.PartnerId);
+            }
+            else
+            {
+                PartnersNationWindow nationWindow = new PartnersNationWindow();
+                nationWindow.ShowDialog();
+            }
         }
         else
             notifier.ShowInformation("Mahsulot xarid qilinmagan.");
@@ -768,13 +775,14 @@ public partial class SalePage : Page
             notifier.ShowInformation("Mahsulot xarid qilinmagan.");
     }
 
-    public async void ConvertTransaction(bool isDebt)
+    public async void ConvertTransaction(bool isDebt, Guid id = default)
     {
         AddSalesRequestDto dto = new AddSalesRequestDto();
         dto.TotalCost = tvm.TransactionPrice;
         dto.DiscountSum = tvm.DiscountPrice;
         if (isDebt)
         {
+            dto.PartnerId = id;
             dto.DebtSum = tvm.TransactionPrice;
             dto.CardSum = 0;
             dto.CashSum = 0;
@@ -820,7 +828,7 @@ public partial class SalePage : Page
             await UpdateProductCount(Order, products);
             IsShipment = false;
         }
-        await ProductSale(dto);
+        await ProductSale(dto, isDebt);
     }
 
     public void ConvertShipment(OrderDto dto) 
@@ -844,7 +852,7 @@ public partial class SalePage : Page
         }
     }
 
-    private async Task ProductSale(AddSalesRequestDto dto)
+    private async Task ProductSale(AddSalesRequestDto dto, bool isDebt)
     {
         var result = await _salesRequestsService.CreateSalesRequest(dto);
         if (result.Item2)
@@ -855,6 +863,9 @@ public partial class SalePage : Page
             if(Order != null && Order.Id != Guid.Empty)
                 await UpdateSaleShipment(Order.Id);
 
+            if (isDebt)
+                await NationSale();
+
             tvm.ClearTransaction();
             St_product.Children.Clear();
             ColculateTotalPrice();
@@ -864,6 +875,11 @@ public partial class SalePage : Page
         }
         else
             notifier.ShowError("Sotuvda qandaydir muammo bor!!!");
+    }
+
+    public async Task NationSale()
+    {
+        // Partnerga qarz yozish uchun integratsiya yoziladi.
     }
 
     public async Task UpdateSaleShipment(Guid Id)
@@ -940,7 +956,6 @@ public partial class SalePage : Page
             }
         }
     }
-
 
     private void Page_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
     {
