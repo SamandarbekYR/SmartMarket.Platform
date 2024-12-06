@@ -1,4 +1,5 @@
 ﻿using SmartMarket.Desktop.Components.PartnersForComponent;
+using SmartMarket.Desktop.Pages.SaleForPage;
 using SmartMarket.Domain.Entities.Partners;
 using SmartMarket.Service.DTOs.Partner;
 using SmartMarketDeskop.Integrated.Services.Partners;
@@ -22,6 +23,8 @@ namespace SmartMarket.Desktop.Windows.Partners;
 public partial class PartnersNationWindow : Window
 {
     private readonly IPartnerService _partnerService;
+
+    public Guid PartnerId { get; set; }
 
     public PartnersNationWindow()
     {
@@ -79,6 +82,7 @@ public partial class PartnersNationWindow : Window
         partner.br_Partner.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#B6B6B6"));
 
         selectedPartner = partner;
+        PartnerId = partnerId;
     }
 
     private void Close_Button_Click(object sender, RoutedEventArgs e)
@@ -89,8 +93,8 @@ public partial class PartnersNationWindow : Window
     private void Create_Button_Click(object sender, RoutedEventArgs e)
     {
         PartnerCreateWindow partnerCreateWindow = new PartnerCreateWindow();
+        partnerCreateWindow.Show();
         this.Close();
-        partnerCreateWindow.ShowDialog();
     }
 
     private async void Window_Loaded(object sender, RoutedEventArgs e)
@@ -128,7 +132,6 @@ public partial class PartnersNationWindow : Window
         });
     }
 
-
     private void SetPartner(PartnerDto dto)
     {
         EmptyData.Visibility = Visibility.Collapsed;
@@ -158,6 +161,15 @@ public partial class PartnersNationWindow : Window
     {
         if(selectedPartner != null)
         {
+            foreach (Window window in Application.Current.Windows)
+            {
+                var frame = window.FindName("PageNavigator") as Frame;
+                if (frame != null && frame.Content is SalePage salePage)
+                {
+                    salePage.ConvertTransaction(true, PartnerId);
+                    break;
+                }
+            }
             this.Close();
         }
         else

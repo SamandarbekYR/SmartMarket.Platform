@@ -48,7 +48,8 @@
                 x:Name="Close_Button"
                 HorizontalAlignment="Right"
                 Click="Close_Button_Click"
-                Style="{DynamicResource ClosedButton}"/>
+                Background="White"
+                Style="{DynamicResource btnClose}"/>
 
             <TextBox
                 Name="tb_search"
