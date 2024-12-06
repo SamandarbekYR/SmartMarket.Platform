@@ -138,23 +138,23 @@ public partial class SalePage : Page
 
     public void GetData()
     {
-        var payDeskId = Properties.Settings.Default.PayDesk;
-        if (string.IsNullOrEmpty(payDeskId))
-        {
-            SelectPayDeskWindow selectPayDeskWindow = new SelectPayDeskWindow();
-            selectPayDeskWindow.ShowDialog();
-        }
-        else
-        {
-            IdentitySingelton.GetInstance().PayDeskId = Guid.Parse(payDeskId.ToString()!);
-            IdentitySingelton.GetInstance().PayDeskName = Properties.Settings.Default.PayDeskName;
-        }
-        tbFullName.Text = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
-        tbKassaName.Text = IdentitySingelton.GetInstance().PayDeskName;
-        IdentitySingelton.GetInstance().PrinterName = Properties.Settings.Default.PrinterName;
+        //var payDeskId = Properties.Settings.Default.PayDesk;
+        //if (string.IsNullOrEmpty(payDeskId))
+        //{
+        //    SelectPayDeskWindow selectPayDeskWindow = new SelectPayDeskWindow();
+        //    selectPayDeskWindow.ShowDialog();
+        //}
+        //else
+        //{
+        //    IdentitySingelton.GetInstance().PayDeskId = Guid.Parse(payDeskId.ToString()!);
+        //    IdentitySingelton.GetInstance().PayDeskName = Properties.Settings.Default.PayDeskName;
+        //}
+        //tbFullName.Text = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
+        //tbKassaName.Text = IdentitySingelton.GetInstance().PayDeskName;
+        //IdentitySingelton.GetInstance().PrinterName = Properties.Settings.Default.PrinterName;
 
-        tbDate.Text = DateTime.UtcNow.Month + "." + DateTime.UtcNow.Day + "." + DateTime.UtcNow.Year;
-        tbhour.Text = DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+        //tbDate.Text = DateTime.UtcNow.Month + "." + DateTime.UtcNow.Day + "." + DateTime.UtcNow.Year;
+        //tbhour.Text = DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
     }
 
     private void vaqt_ketdi(object sender, ElapsedEventArgs e)

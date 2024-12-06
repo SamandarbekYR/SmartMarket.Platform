@@ -138,7 +138,7 @@ namespace SmartMarket.Service.Services.Order
         {
             try
             {
-                var orders = await _unitOfWork.Order.GetOrdersFullInformationAsync();
+                var orders = _unitOfWork.Order.GetOrdersFull();
                 var order = orders.FirstOrDefault(x => x.Id == Id);
 
                 if (order == null)
