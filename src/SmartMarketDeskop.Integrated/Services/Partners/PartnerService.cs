@@ -103,5 +103,22 @@ public class PartnerService : IPartnerService
             return null!;
         }
     }
+
+    public async Task<bool> UpdatePartnerDebtSum(double debtSum, Guid Id)
+    {
+        if (IsInternetAvailable())
+        {
+            bool result = await _partnerServer.UpdateDebtSumAsync(debtSum, Id);
+
+            if (result)
+                return true;
+            else
+                return false;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
 

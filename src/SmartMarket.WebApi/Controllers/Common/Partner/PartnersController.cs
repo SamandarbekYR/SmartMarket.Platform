@@ -118,5 +118,23 @@ namespace SmartMarket.WebApi.Controllers.Common.Partner
                 return StatusCode(500, ex.Message);
             }
         }
+
+        [HttpPut("debt-sum/{id}")]
+        public async Task<IActionResult> UpdateDebtSumAsync(Guid id, [FromBody] double debtSum)
+        {
+            try
+            {
+                await _partnerService.UpdatePartnerDebtSumAsync(debtSum, id);
+                return Ok();
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
     }
 }
