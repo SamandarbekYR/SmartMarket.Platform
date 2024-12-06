@@ -52,6 +52,8 @@ namespace SmartMarket.DataAccess.Repositories
         public IWorker Worker { get; set; } = new WorkerRepository(appDb);
         public IWorkerDebt WorkerDebt { get; set; } = new WorkerDebtRepository(appDb);
         public IWorkerRole WorkerRole { get; set; } = new WorkerRoleRepository(appDb);
+        public IOrderItem OrderItem { get; set; } = new OrderItemRepository(appDb);
+
         public void Dispose()
         {
             GC.SuppressFinalize(this);
