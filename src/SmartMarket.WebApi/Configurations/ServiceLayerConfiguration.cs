@@ -75,6 +75,7 @@ public static class ServiceLayerConfiguration
         builder.Services.AddScoped<ICustomerService, CustomerService>();
         builder.Services.AddScoped<IExpenceService, ExpenceService>();
         builder.Services.AddScoped<IOrderService, OrderService>();
+        builder.Services.AddScoped<IOrderItemService, OrderItemService>();
         builder.Services.AddScoped<IPartnerService, PartnerService>();
         builder.Services.AddScoped<IPayDeskService, PayDeskService>();
         builder.Services.AddScoped<IDebtPaymentService, DebtPaymentService>();

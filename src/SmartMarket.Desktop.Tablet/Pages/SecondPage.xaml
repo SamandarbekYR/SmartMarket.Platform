@@ -216,7 +216,7 @@
                             FontSize="13"
                             Style="{DynamicResource InfoLabel}"/>
 
-                        <Label
+                        <Label x:Name="lbPartnerName"
                             FontSize="16"
                             Content="Sobir aka"
                             Style="{DynamicResource MainLabel}"/>
@@ -227,7 +227,7 @@
                             FontSize="13"
                             Style="{DynamicResource InfoLabel}"/>
 
-                        <Label
+                        <Label x:Name="lbworkerName"
                             FontSize="16"
                             Content="Sobir aka"
                             Style="{DynamicResource MainLabel}"/>

@@ -1,9 +1,12 @@
 ﻿using SmartMarket.Desktop.Tablet.Components;
+using SmartMarket.Desktop.Tablet.Pages;
+using SmartMarket.Service.DTOs.Products.Product;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Interop;
+using System.Windows.Media;
 using static SmartMarket.Desktop.Tablet.Windows.BlurWindow.BlurEffect;
 
 namespace SmartMarket.Desktop.Tablet.Windows;
@@ -77,8 +80,40 @@ public partial class QuantityWindow : Window
             int quantity = int.Parse(tb_quantity.Text);
             if (quantity > 0)
                 _searchProductComponent.Quantity = quantity;
+
+            var product = _searchProductComponent.Tag as FullProductDto;
+
+            MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+            if(mainWindow.PageNavigator.Content is SecondPage secondpage)
+            {
+                //var page = FindParentPage(this);
+                //if(page != null && page is SecondPage secondPage)
+                //{
+                    ProductComponent component = new ProductComponent();
+                    component.Tag = product;
+                    component.SetData(product, quantity);
+
+                    secondpage.st_product.Children.Add(component);
+                //}
+            }
         }
         this.Close();
+    }
+
+    private Page FindParentPage(DependencyObject child)
+    {
+        DependencyObject parentObject = VisualTreeHelper.GetParent(child);
+
+        if(parentObject is Page page)
+        {
+            return page;
+        }
+        else if(parentObject != null)
+        {
+            return FindParentPage(parentObject);
+        }
+
+        return null!;
     }
 
     private void tb_quantity_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)

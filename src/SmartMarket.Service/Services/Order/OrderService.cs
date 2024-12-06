@@ -182,11 +182,11 @@ namespace SmartMarket.Service.Services.Order
                     }
                 }
 
-                var itemsToDelete = existingItems.Where(x => !dto.ProductOrderItems.Any(y => y.Id == x.Id)).ToList();
-                foreach (var itemToDelete in itemsToDelete)
-                {
-                    order.ProductOrderItems.Remove(itemToDelete);
-                }
+                //var itemsToDelete = existingItems.Where(x => !dto.ProductOrderItems.Any(y => y.Id == x.Id)).ToList();
+                //foreach (var itemToDelete in itemsToDelete)
+                //{
+                //    order.ProductOrderItems.Remove(itemToDelete);
+                //}
 
                 _mapper.Map(dto, order);
 

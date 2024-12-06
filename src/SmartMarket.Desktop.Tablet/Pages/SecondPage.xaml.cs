@@ -23,6 +23,7 @@ public partial class SecondPage : Page
 
     private readonly IProductService _productService; 
     private readonly IOrderService _orderService;
+    private readonly IOrderItemService _orderItemService;
     private OrderDto currentOrder { get; set; }
 
     public SecondPage()
@@ -30,6 +31,7 @@ public partial class SecondPage : Page
         InitializeComponent();
         this._productService = new ProductService();
         this._orderService = new OrderService();
+        this._orderItemService = new OrderItemService();
     }
 
 
@@ -144,6 +146,8 @@ public partial class SecondPage : Page
             }
 
             lbProductTotalPrice.Content = totalPrice;
+            lbPartnerName.Content = currentOrder.Partner?.FirstName ?? "Nomalum";
+            lbworkerName.Content = currentOrder.Worker?.FirstName ?? "Nomalum";
         }
         else
         {
@@ -211,7 +215,9 @@ public partial class SecondPage : Page
             {
                 Id = selectedOrder.Id,
                 WorkerId = selectedOrder.WorkerId,
+                Worker = selectedOrder.Worker,
                 PartnerId = selectedOrder.PartnerId,
+                Partner = selectedOrder.Partner,
                 ProductOrderItems = selectedOrder.ProductOrderItems
             };
 
@@ -242,12 +248,34 @@ public partial class SecondPage : Page
         }
     }
 
-    private void Delete_Button_Click(object sender, RoutedEventArgs e)
+    private async void Delete_Button_Click(object sender, RoutedEventArgs e)
     {
         if(selectedProduct?.Tag is OrderProduct orderProduct)
         {
-            currentOrder.ProductOrderItems.Remove(orderProduct);
-            UpdateOrder();
+            try
+            {
+                //currentOrder.ProductOrderItems.Remove(orderProduct);
+                await _orderItemService.DeleteAsync(orderProduct.Id);
+
+                currentOrder.ProductOrderItems.Remove(orderProduct);
+                st_product.Children.Remove(selectedProduct);
+                selectedProduct = null;
+
+                notifierThis.ShowSuccess("Mahsulot muvaffaqiyatli o'chirildi.");
+                double totalPrice = (double)lbProductTotalPrice.Content - (orderProduct.Count * orderProduct.Product.SellPrice);
+                lbProductTotalPrice.Content = totalPrice;
+                await GetAllShipments();
+
+                UpdateOrder();
+            }
+            catch(Exception ex)
+            {
+                notifierThis.ShowError("Mahsulotni o'chirishda xatolik yuz berdi.");
+            }
+        }
+        else
+        {
+            notifierThis.ShowWarning("Mahsulot tanlanmagan.");
         }
     }
 
