@@ -30,6 +30,7 @@ public partial class SettingsScalesPage : Page
 
     private void TimeTextBox_Pasting(object sender, DataObjectPastingEventArgs e)
     {
+
         if (e.DataObject.GetDataPresent(typeof(string)))
         {
             var pastedText = (string)e.DataObject.GetData(typeof(string));
@@ -54,9 +55,11 @@ public partial class SettingsScalesPage : Page
         St_Scales.Visibility = Visibility.Visible;
         St_Scales.Children.Clear();
 
+        int timeValue = int.TryParse(timeTextBox.Text, out var parsedValue) ? parsedValue : 50;
+
         SettingsScalesComponent settingsScalesComponent = new SettingsScalesComponent();
         settingsScalesComponent.Tag = 1;
-        settingsScalesComponent.SetData("Tarozi 1:");
+        settingsScalesComponent.SetData("Tarozi 1:", timeValue);
         settingsScalesComponent.BorderThickness = new Thickness(0, 0, 0, 5);
         St_Scales.Children.Add(settingsScalesComponent);
 
