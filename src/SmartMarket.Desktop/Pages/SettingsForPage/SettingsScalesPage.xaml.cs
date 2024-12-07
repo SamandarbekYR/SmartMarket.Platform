@@ -55,7 +55,7 @@ public partial class SettingsScalesPage : Page
         St_Scales.Visibility = Visibility.Visible;
         St_Scales.Children.Clear();
 
-        int timeValue = int.TryParse(timeTextBox.Text, out var parsedValue) ? parsedValue : 50;
+        int timeValue = int.TryParse(timeTextBox.Text, out var parsedValue) ? parsedValue : 120;
 
         SettingsScalesComponent settingsScalesComponent = new SettingsScalesComponent();
         settingsScalesComponent.Tag = 1;
