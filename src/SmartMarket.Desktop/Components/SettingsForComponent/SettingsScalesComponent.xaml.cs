@@ -1,26 +1,21 @@
-﻿using Microsoft.Win32;
-using System.Windows.Forms;
+﻿using SmartMarket.Desktop.Windows.Settings;
+
 using SmartMarketDeskop.Integrated.Services.Products.Product;
-using SmartMarketDeskop.Integrated.Services.Products.ProductImages;
+using SmartMarketDeskop.Integrated.Services.Scales;
+
+using SmartMarketDesktop.DTOs.DTOs.Scales;
+
 using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Shapes;
 
 using ToastNotifications;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
 using ToastNotifications.Position;
 
-using Path = System.IO.Path;
 using Timer = System.Timers.Timer;
-using SmartMarket.Desktop.Windows.ProductsForWindow;
-using SmartMarket.Service.ViewModels.Products;
-using SmartMarketDeskop.Integrated.Server.Interfaces.Scales;
-using SmartMarketDeskop.Integrated.Services.Scales;
-using SmartMarketDesktop.DTOs.DTOs.Scales;
-using SmartMarket.Desktop.Windows.Settings;
 
 namespace SmartMarket.Desktop.Components.SettingsForComponent
 {
@@ -30,12 +25,11 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
     public partial class SettingsScalesComponent : UserControl
     {
         private Timer _updateTimer;
-        private string _selectedPath;
-        private string _selectedFolderPath;
-        private int _updateInterval; 
+        private int _updateInterval = 120;
         private IProductService _productService;
         private IScaleService _scaleService;
-        public Func<Task> GetScales {  get; set; }
+        private List<Timer> _updateTimers = new List<Timer>();
+        public Func<Task> GetScales { get; set; }
         public SettingsScalesComponent()
         {
             _productService = new ProductService();
@@ -58,39 +52,48 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
             cfg.Dispatcher = Application.Current.Dispatcher;
         });
 
-        Notifier notifierThis = new Notifier(cfg =>
-        {
-            cfg.PositionProvider = new WindowPositionProvider(
-                parentWindow: Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive),
-                corner: Corner.TopRight,
-                offsetX: 200,
-                offsetY: 20);
-
-            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-                notificationLifetime: TimeSpan.FromSeconds(3),
-                maximumNotificationCount: MaximumNotificationCount.FromCount(2));
-
-            cfg.Dispatcher = Application.Current.Dispatcher;
-        });
-
         public void SetData(int id, string scaleName, int time, string selectPath, string fileName)
         {
-            lb_Count.Content = id; 
+            lb_Count.Content = id;
             lb_Name.Content = scaleName;
             lb_UpdateTime.Content = time;
             lb_FileName.Content = fileName;
             lb_Location.Content = selectPath;
 
-            //_updateInterval = time * 1000; 
+            StartUpdateTimer(time, selectPath);
+        }
 
-            //if (_updateTimer != null)
-            //{
-            //    _updateTimer.Stop();
-            //}
+        private void StartUpdateTimer(int interval, string selectPath)
+        {
+            var timer = new Timer(interval * 1000); 
+            timer.Elapsed += (s, e) => UpdateScaleFile(selectPath, interval);
+            timer.Start();
 
-            //_updateTimer = new Timer(_updateInterval);
-            //_updateTimer.Elapsed += (s, e) => UpdateScaleFile();
-            //_updateTimer.Start();
+            _updateTimers.Add(timer);
+        }
+
+        private async void UpdateScaleFile(string selectedPath, int interval)
+        {
+            int asd = interval;
+            if (File.Exists(selectedPath))
+            {
+                try
+                {
+                    var productData = await GetProductDataAsync();
+
+                    using (var fileStream = new FileStream(selectedPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
+                    {
+                        using (var writer = new StreamWriter(fileStream, Encoding.UTF8))
+                        {
+                            await writer.WriteAsync(productData);
+                        }
+                    }
+                }
+                catch
+                {
+                   // Dispatcher.Invoke(() => notifier.ShowError("Faylni yangilashda xatolik."));
+                }
+            }
         }
 
         private async void Remove_Button_Click(object sender, RoutedEventArgs e)
@@ -101,67 +104,102 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
                 bool result = await _scaleService.DeleteScaleAsync(selectScale.Id);
 
                 if (result)
-                    notifier.ShowError("Tarozini o'chirildi.");
+                    Dispatcher.Invoke(() => notifier.ShowError("Tarozini o'chirildi."));
                 else
-                    notifier.ShowError("Tarozini o'chirishda xatolik mavjud.");
+                    Dispatcher.Invoke(() => notifier.ShowError("Tarozini o'chirishda xatolik mavjud."));
             }
             else
-                notifier.ShowError("Tarozini o'chirishda xatolik mavjud.");
+                Dispatcher.Invoke(() => notifier.ShowError("Tarozini o'chirishda xatolik mavjud."));
         }
 
         private void Update_Button_Click(object sender, RoutedEventArgs e)
-        { 
-            ScaleUpdateWindow scaleUpdateWindow = new ScaleUpdateWindow();
+        {
+            var selectScale = this.Tag as ScaleDto;
+            ScaleUpdateWindow scaleUpdateWindow = new ScaleUpdateWindow(selectScale);
             scaleUpdateWindow.Show();
         }
 
-        private void UpdateScaleFile()
+        private void SelectFile(string selectedPath)
         {
-            if (string.IsNullOrEmpty(_selectedPath))
+            if (string.IsNullOrEmpty(selectedPath))
+                return;
+
+            try
             {
-                //notifierThis.ShowWarning("Iltimos, avval faylni tanlang!");
+                if (File.Exists(selectedPath))
+                {
+                    UpdateExistingFile(selectedPath);
+                }
+            }
+            catch
+            {
+                //notifierThis.ShowError("Faylni yangilashda xatolik.");
+            }
+        }
+        private async void UpdateExistingFile(string filePath)
+        {
+            if (IsFileInUse(filePath))
+            {
+                Dispatcher.Invoke(() => notifier.ShowError("Fayl hozirda boshqa jarayon tomonidan ishlatilmoqda."));
                 return;
             }
 
             try
             {
-                if (File.Exists(_selectedPath))
+                var productData = await GetProductDataAsync();
+
+                using (var fileStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
                 {
-                    UpdateExistingFile(_selectedPath);
+                    using (var writer = new StreamWriter(fileStream, Encoding.UTF8))
+                    {
+                        await writer.WriteAsync(productData);
+                    }
                 }
+
+                Dispatcher.Invoke(() => notifier.ShowInformation("Fayl muvaffaqiyatli yangilandi."));
             }
             catch 
             {
-                //notifierThis.ShowError("Faylni yangilashda xatolik.");
+                Dispatcher.Invoke(() => notifier.ShowError("Faylni yangilashda xatolik."));
             }
         }
 
-        private async void UpdateExistingFile(string filePath)
+        private bool IsFileInUse(string filePath)
         {
-            var productData = await GetProductDataAsync();
-            File.WriteAllText(filePath, productData);
+            try
+            {
+                using (FileStream fs = File.Open(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+                {
+                    return false;
+                }
+            }
+            catch (IOException)
+            {
+                return true; 
+            }
         }
+
 
         private async Task<string> GetProductDataAsync()
         {
             var products = await _productService.GetAll();
             var dataBuilder = new StringBuilder();
-            
-            long id = 1; 
+
+            long id = 1;
             foreach (var product in products)
             {
                 int unitOfMeasure = product.UnitOfMeasure switch
                 {
                     "dona" or "litr" => 1,
                     "kg" => 0,
-                    _ => -1 
+                    _ => -1
                 };
 
                 dataBuilder.AppendLine(
                     $"{id};{product.Name};;{product.SellPrice};0;0;0;{product.PCode};0;0;;" +
                     $"{DateTime.Now:dd/MM/yy};{unitOfMeasure};0;0;0;{DateTime.Now:dd/MM/yy}");
 
-                id++; 
+                id++;
             }
 
             return dataBuilder.ToString();
