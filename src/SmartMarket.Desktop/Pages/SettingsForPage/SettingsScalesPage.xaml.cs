@@ -2,8 +2,13 @@
 using SmartMarket.Desktop.Components.SettingsForComponent;
 using SmartMarket.Desktop.Windows.Settings;
 
+using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Scales;
 
+using SmartMarketDesktop.DTOs.DTOs.Scales;
+
+using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;

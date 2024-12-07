@@ -111,7 +111,7 @@
             </Grid>
 
             <Button
-                x:Name="Partner_Create_Button"
+                x:Name="Scale_Create_Button"
                 Grid.Row="2"
                 Content="Saqlash"
                 FontSize="17"
