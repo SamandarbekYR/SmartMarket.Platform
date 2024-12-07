@@ -15,6 +15,11 @@ using ToastNotifications.Position;
 
 using Path = System.IO.Path;
 using Timer = System.Timers.Timer;
+using SmartMarket.Desktop.Windows.ProductsForWindow;
+using SmartMarket.Service.ViewModels.Products;
+using SmartMarketDeskop.Integrated.Server.Interfaces.Scales;
+using SmartMarketDeskop.Integrated.Services.Scales;
+using SmartMarketDesktop.DTOs.DTOs.Scales;
 
 namespace SmartMarket.Desktop.Components.SettingsForComponent
 {
@@ -28,9 +33,12 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
         private string _selectedFolderPath;
         private int _updateInterval; 
         private IProductService _productService;
+        private IScaleService _scaleService;
+        public Func<Task> GetScales {  get; set; }
         public SettingsScalesComponent()
         {
             _productService = new ProductService();
+            _scaleService = new ScaleService();
             InitializeComponent();
         }
 
@@ -64,38 +72,51 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
             cfg.Dispatcher = Application.Current.Dispatcher;
         });
 
-        private void btnUpload_Click(object sender, RoutedEventArgs e)
+        public void SetData(int id, string scaleName, int time, string selectPath, string fileName)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true)
-            {
-                _selectedPath = openFileDialog.FileName;
-            }
+            lb_Count.Content = id; 
+            lb_Name.Content = scaleName;
+            lb_UpdateTime.Content = time;
+            lb_FileName.Content = fileName;
+            lb_Location.Content = selectPath;
 
-            UpdateScaleFile();
+            //_updateInterval = time * 1000; 
+
+            //if (_updateTimer != null)
+            //{
+            //    _updateTimer.Stop();
+            //}
+
+            //_updateTimer = new Timer(_updateInterval);
+            //_updateTimer.Elapsed += (s, e) => UpdateScaleFile();
+            //_updateTimer.Start();
         }
 
-
-        public void SetData(string scaleName, int time)
+        private async void Remove_Button_Click(object sender, RoutedEventArgs e)
         {
-            tbScalesName.Text = scaleName;
-            _updateInterval = time * 1000; 
-
-            if (_updateTimer != null)
+            var selectScale = this.Tag as ScaleDto;
+            if (selectScale != null)
             {
-                _updateTimer.Stop();
-            }
+                bool result = await _scaleService.DeleteScaleAsync(selectScale.Id);
 
-            _updateTimer = new Timer(_updateInterval);
-            _updateTimer.Elapsed += (s, e) => UpdateScaleFile();
-            _updateTimer.Start();
+                if (result)
+                    notifier.ShowError("Tarozini o'chirildi.");
+                else
+                    notifier.ShowError("Tarozini o'chirishda xatolik mavjud.");
+            }
+            else
+                notifier.ShowError("Tarozini o'chirishda xatolik mavjud.");
+        }
+
+        private void Update_Button_Click(object sender, RoutedEventArgs e)
+        {
         }
 
         private void UpdateScaleFile()
         {
             if (string.IsNullOrEmpty(_selectedPath))
             {
-                notifierThis.ShowWarning("Iltimos, avval faylni tanlang!");
+                //notifierThis.ShowWarning("Iltimos, avval faylni tanlang!");
                 return;
             }
 
@@ -108,7 +129,7 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
             }
             catch 
             {
-                notifierThis.ShowError("Faylni yangilashda xatolik.");
+                //notifierThis.ShowError("Faylni yangilashda xatolik.");
             }
         }
 
@@ -116,7 +137,6 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
         {
             var productData = await GetProductDataAsync();
             File.WriteAllText(filePath, productData);
-            notifier.ShowSuccess($"Fayl yangilandi.");
         }
 
         private async Task<string> GetProductDataAsync()

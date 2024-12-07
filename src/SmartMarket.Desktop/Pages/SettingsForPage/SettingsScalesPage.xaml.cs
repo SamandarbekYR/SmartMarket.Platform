@@ -1,4 +1,8 @@
-﻿using SmartMarket.Desktop.Components.SettingsForComponent;
+﻿using SmartMarket.Desktop.Components.PartnersForComponent;
+using SmartMarket.Desktop.Components.SettingsForComponent;
+using SmartMarket.Desktop.Windows.Settings;
+
+using SmartMarketDeskop.Integrated.Services.Scales;
 
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -12,56 +16,50 @@ namespace SmartMarket.Desktop.Pages.SettingsForPage;
 /// </summary>
 public partial class SettingsScalesPage : Page
 {
+    private readonly IScaleService _scaleService;
     public SettingsScalesPage()
     {
+        _scaleService = new ScaleService();
         InitializeComponent();
-        GetScales();
     }
 
     private void bntAddScales_Click(object sender, RoutedEventArgs e)
     {
-
+        ScaleCreateWindow scaleCreateWindow = new ScaleCreateWindow();
+        scaleCreateWindow.CreateScale = GetAllScales;
+        scaleCreateWindow.ShowDialog();
     }
 
-    private void TimeTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+    public async Task GetAllScales()
     {
-        e.Handled = !IsTextNumeric(e.Text);
-    }
+        EmptyData.Visibility = Visibility.Collapsed;
+        Loader.Visibility = Visibility.Visible;
+        St_Scales.Children.Clear();
+        var scales = await Task.Run(async () => await _scaleService.GetAllScalesAsync());
+        Loader.Visibility = Visibility.Collapsed;
 
-    private void TimeTextBox_Pasting(object sender, DataObjectPastingEventArgs e)
-    {
-
-        if (e.DataObject.GetDataPresent(typeof(string)))
+        int count = 1;
+        if (scales.Count > 0)
         {
-            var pastedText = (string)e.DataObject.GetData(typeof(string));
-            if (!IsTextNumeric(pastedText))
+            foreach (var scale in scales)
             {
-                e.CancelCommand();
+                SettingsScalesComponent settingsScalesComponent = new SettingsScalesComponent();
+                settingsScalesComponent.Tag = scale;
+                settingsScalesComponent.SetData(count, scale.Name, scale.UpdateTimeInterval, scale.SelectFilePath, scale.TXTFileName);
+                settingsScalesComponent.GetScales = GetAllScales;
+                settingsScalesComponent.BorderThickness = new Thickness(0, 0, 0, 5);
+                St_Scales.Children.Add(settingsScalesComponent);
+                count++;
             }
         }
         else
         {
-            e.CancelCommand();
+            EmptyData.Visibility = Visibility.Visible;
         }
     }
 
-    private bool IsTextNumeric(string text)
+    private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        return Regex.IsMatch(text, @"^\d+$");
-    }
-
-    public void GetScales()
-    {
-        St_Scales.Visibility = Visibility.Visible;
-        St_Scales.Children.Clear();
-
-        int timeValue = int.TryParse(timeTextBox.Text, out var parsedValue) ? parsedValue : 120;
-
-        SettingsScalesComponent settingsScalesComponent = new SettingsScalesComponent();
-        settingsScalesComponent.Tag = 1;
-        settingsScalesComponent.SetData("Tarozi 1:", timeValue);
-        settingsScalesComponent.BorderThickness = new Thickness(0, 0, 0, 5);
-        St_Scales.Children.Add(settingsScalesComponent);
-
-    }
+        await GetAllScales();
+    } 
 }

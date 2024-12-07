@@ -8,6 +8,7 @@ using SmartMarketDeskop.Integrated.Interfaces.Partners;
 using SmartMarketDeskop.Integrated.Interfaces.PartnersCompany;
 using SmartMarketDeskop.Integrated.Interfaces.PayDesks;
 using SmartMarketDeskop.Integrated.Interfaces.Products;
+using SmartMarketDeskop.Integrated.Interfaces.Scales;
 using SmartMarketDeskop.Integrated.Interfaces.Transactions;
 using SmartMarketDeskop.Integrated.Interfaces.Workers;
 using SmartMarketDeskop.Integrated.Repositories.Categories;
@@ -18,6 +19,7 @@ using SmartMarketDeskop.Integrated.Repositories.Partners;
 using SmartMarketDeskop.Integrated.Repositories.PartnersCompany;
 using SmartMarketDeskop.Integrated.Repositories.PayDesks;
 using SmartMarketDeskop.Integrated.Repositories.Products;
+using SmartMarketDeskop.Integrated.Repositories.Scales;
 using SmartMarketDeskop.Integrated.Repositories.Transactions;
 using SmartMarketDeskop.Integrated.Repositories.Workers;
 
@@ -66,6 +68,7 @@ namespace SmartMarketDeskop.Integrated.Repositories
         public IPosition Position => new PositionRepository(_appDb);
 
         public ISalary Salary => new SalaryRepository(_appDb);
+        public IScale Scale => new ScaleRepository(_appDb);
 
         public ISalaryCheck SalaryCheck => new SalaryCheckRepository(_appDb);
 

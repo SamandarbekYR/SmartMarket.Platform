@@ -34,6 +34,8 @@ namespace SmartMarket.Domain.Entities.Products
         public double TransferMoney { get; set; }
         [Column("debt_sum")]
         public double DebtSum { get; set; }
+        [Column("is_shipment")]
+        public bool IsShipment { get; set; }
         public List<ProductSale> ProductSaleItems { get; set; }
         
     }
