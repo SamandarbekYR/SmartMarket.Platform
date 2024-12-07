@@ -18,6 +18,7 @@ namespace SmartMarket.DataAccess.Interfaces
         ICustomer Customer { get; set; }
         IExpense Expense { get; set; }
         IOrder Order { get; set; }
+        IOrderItem OrderItem { get; set; }
         IPartner Partner { get; set; }
         IContrAgent ContrAgent { get; set; }
         IContrAgentPayment ContrAgentPayment { get; set; }

@@ -26,4 +26,15 @@ public class OrderRepository : Repository<Order>, IOrder
                         .ThenInclude(p => p.Category)
                 .ToListAsync();
     }
+
+    public IQueryable<Order> GetOrdersFull()
+    {
+        return _orders
+                .Include(sr => sr.Worker)
+                .Include(sr => sr.Partner)
+                .Include(sr => sr.ProductOrderItems)
+                    .ThenInclude(ps => ps.Product)
+                        .ThenInclude(p => p.Category)
+                .AsQueryable();
+    }
 }

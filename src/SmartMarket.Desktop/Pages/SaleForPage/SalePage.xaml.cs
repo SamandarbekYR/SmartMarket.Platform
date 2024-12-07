@@ -16,6 +16,7 @@ using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Services.Orders;
+using SmartMarketDeskop.Integrated.Services.Partners;
 using SmartMarketDeskop.Integrated.Services.Products.Print;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
@@ -43,6 +44,7 @@ public partial class SalePage : Page
     private readonly IProductService _productService;
     private readonly IOrderService _orderService;
     private readonly ISalesRequestsService _salesRequestsService;
+    private readonly IPartnerService _partnerService;
     private HubConnection _connection;
 
     private System.Timers.Timer timer = new System.Timers.Timer();
@@ -69,6 +71,7 @@ public partial class SalePage : Page
         this._orderService = new OrderService();
         this._productService = new ProductService();
         this._salesRequestsService = new SalesRequestService();
+        this._partnerService = new PartnerService();
 
         timer.Elapsed += vaqt_ketdi!;
         timer.Interval = 500;
@@ -138,23 +141,23 @@ public partial class SalePage : Page
 
     public void GetData()
     {
-        var payDeskId = Properties.Settings.Default.PayDesk;
-        if (string.IsNullOrEmpty(payDeskId))
-        {
-            SelectPayDeskWindow selectPayDeskWindow = new SelectPayDeskWindow();
-            selectPayDeskWindow.ShowDialog();
-        }
-        else
-        {
-            IdentitySingelton.GetInstance().PayDeskId = Guid.Parse(payDeskId.ToString()!);
-            IdentitySingelton.GetInstance().PayDeskName = Properties.Settings.Default.PayDeskName;
-        }
-        tbFullName.Text = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
-        tbKassaName.Text = IdentitySingelton.GetInstance().PayDeskName;
-        IdentitySingelton.GetInstance().PrinterName = Properties.Settings.Default.PrinterName;
+        //var payDeskId = Properties.Settings.Default.PayDesk;
+        //if (string.IsNullOrEmpty(payDeskId))
+        //{
+        //    SelectPayDeskWindow selectPayDeskWindow = new SelectPayDeskWindow();
+        //    selectPayDeskWindow.ShowDialog();
+        //}
+        //else
+        //{
+        //    IdentitySingelton.GetInstance().PayDeskId = Guid.Parse(payDeskId.ToString()!);
+        //    IdentitySingelton.GetInstance().PayDeskName = Properties.Settings.Default.PayDeskName;
+        //}
+        //tbFullName.Text = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
+        //tbKassaName.Text = IdentitySingelton.GetInstance().PayDeskName;
+        //IdentitySingelton.GetInstance().PrinterName = Properties.Settings.Default.PrinterName;
 
-        tbDate.Text = DateTime.UtcNow.Month + "." + DateTime.UtcNow.Day + "." + DateTime.UtcNow.Year;
-        tbhour.Text = DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+        //tbDate.Text = DateTime.UtcNow.Month + "." + DateTime.UtcNow.Day + "." + DateTime.UtcNow.Year;
+        //tbhour.Text = DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
     }
 
     private void vaqt_ketdi(object sender, ElapsedEventArgs e)
@@ -748,8 +751,15 @@ public partial class SalePage : Page
     {
         if (tvm.Transactions.Count > 0)
         {
-            PartnersNationWindow nationWindow = new PartnersNationWindow();
-            nationWindow.ShowDialog();
+            if (IsShipment)
+            {
+                ConvertTransaction(true, Order.PartnerId);
+            }
+            else
+            {
+                PartnersNationWindow nationWindow = new PartnersNationWindow();
+                nationWindow.ShowDialog();
+            }
         }
         else
             notifier.ShowInformation("Mahsulot xarid qilinmagan.");
@@ -768,13 +778,14 @@ public partial class SalePage : Page
             notifier.ShowInformation("Mahsulot xarid qilinmagan.");
     }
 
-    public async void ConvertTransaction(bool isDebt)
+    public async void ConvertTransaction(bool isDebt, Guid id = default)
     {
         AddSalesRequestDto dto = new AddSalesRequestDto();
         dto.TotalCost = tvm.TransactionPrice;
         dto.DiscountSum = tvm.DiscountPrice;
         if (isDebt)
         {
+            dto.PartnerId = id;
             dto.DebtSum = tvm.TransactionPrice;
             dto.CardSum = 0;
             dto.CashSum = 0;
@@ -820,7 +831,7 @@ public partial class SalePage : Page
             await UpdateProductCount(Order, products);
             IsShipment = false;
         }
-        await ProductSale(dto);
+        await ProductSale(dto, isDebt);
     }
 
     public void ConvertShipment(OrderDto dto) 
@@ -844,7 +855,7 @@ public partial class SalePage : Page
         }
     }
 
-    private async Task ProductSale(AddSalesRequestDto dto)
+    private async Task ProductSale(AddSalesRequestDto dto, bool isDebt)
     {
         var result = await _salesRequestsService.CreateSalesRequest(dto);
         if (result.Item2)
@@ -855,15 +866,23 @@ public partial class SalePage : Page
             if(Order != null && Order.Id != Guid.Empty)
                 await UpdateSaleShipment(Order.Id);
 
+            if (isDebt)
+                await NationSale(dto.PartnerId!.Value, dto.DebtSum!.Value);
+
             tvm.ClearTransaction();
             St_product.Children.Clear();
             ColculateTotalPrice();
             EmptyPrice();
 
-             notifier.ShowSuccess("Sotuv amalga oshirildi.");
+            notifier.ShowSuccess("Sotuv amalga oshirildi.");
         }
         else
             notifier.ShowError("Sotuvda qandaydir muammo bor!!!");
+    }
+
+    public async Task NationSale(Guid id, double debtSum)
+    {
+        var result = await _partnerService.UpdatePartnerDebtSum(debtSum, id);    
     }
 
     public async Task UpdateSaleShipment(Guid Id)
@@ -940,7 +959,6 @@ public partial class SalePage : Page
             }
         }
     }
-
 
     private void Page_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
     {

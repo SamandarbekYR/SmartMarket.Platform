@@ -1,14 +1,13 @@
 ﻿using AutoMapper;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using SmartMarket.DataAccess.Interfaces;
-using Et = SmartMarket.Domain.Entities.Partners;
 using SmartMarket.Service.Common.Exceptions;
-using SmartMarket.Service.Common.Validators;
 using SmartMarket.Service.DTOs.Partner;
 using SmartMarket.Service.Interfaces.Partner;
 using System.Net;
-using Microsoft.Extensions.Logging; 
+using Et = SmartMarket.Domain.Entities.Partners;
 
 namespace SmartMarket.Service.Services.Partner
 {
@@ -129,6 +128,26 @@ namespace SmartMarket.Service.Services.Partner
 
                 _mapper.Map(dto, partner);
 
+                return await _unitOfWork.Partner.Update(partner);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while updating a partner.");
+                throw;
+            }
+        }
+
+        public async Task<bool> UpdatePartnerDebtSumAsync(double debtSum, Guid Id)
+        {
+            try
+            {
+                var partner = await _unitOfWork.Partner.GetById(Id);
+                if (partner == null)
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Partner not found.");
+                }
+
+                partner.TotalDebt = (partner.TotalDebt ?? 0) + debtSum; ;
                 return await _unitOfWork.Partner.Update(partner);
             }
             catch (Exception ex)
