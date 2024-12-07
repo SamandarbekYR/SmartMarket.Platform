@@ -66,21 +66,29 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
         private void StartUpdateTimer(ScaleDto scale)
         {
             var timer = new Timer(scale.UpdateTimeInterval * 1000); 
-            timer.Elapsed += (s, e) => UpdateScaleFile(scale.SelectFilePath, scale.UpdateTimeInterval);
+            timer.Elapsed += (s, e) => UpdateScaleFile(scale.SelectFilePath);
             timer.Start();
 
             _updateTimers.Add(new KeyValuePair<ScaleDto, Timer>(scale, timer));
         }
 
-        private async void UpdateScaleFile(string selectedPath, int interval)
+        private async void UpdateScaleFile(string selectedPath)
         {
-            int asd = interval;
-            if (File.Exists(selectedPath))
+            try
             {
-                try
+                var productData = await GetProductDataAsync();
+                if (!File.Exists(selectedPath))
                 {
-                    var productData = await GetProductDataAsync();
-
+                    using (var fileStream = new FileStream(selectedPath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+                    {
+                        using (var writer = new StreamWriter(fileStream, Encoding.UTF8))
+                        {
+                            await writer.WriteLineAsync(productData); 
+                        }
+                    }
+                }
+                else
+                {
                     using (var fileStream = new FileStream(selectedPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
                     {
                         using (var writer = new StreamWriter(fileStream, Encoding.UTF8))
@@ -89,12 +97,16 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
                         }
                     }
                 }
-                catch
-                {
-                   // Dispatcher.Invoke(() => notifier.ShowError("Faylni yangilashda xatolik."));
-                }
+
+                // Dispatcher.Invoke(() => notifier.ShowInformation("Fayl muvaffaqiyatli yangilandi."));
+
+            }
+            catch 
+            {
+                // Dispatcher.Invoke(() => notifier.ShowError($"Faylni yangilashda xatolik: {ex.Message}"));
             }
         }
+
 
         private async void Remove_Button_Click(object sender, RoutedEventArgs e)
         {
