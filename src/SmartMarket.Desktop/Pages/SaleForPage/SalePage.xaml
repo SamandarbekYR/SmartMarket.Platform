@@ -409,7 +409,7 @@
                                         />
 
                                     <Button
-                                        Visibility="Collapsed"
+                                        Visibility="Visible"
                                         Name="save_button"
                                         Click="save_button_Click"
                                         Style="{DynamicResource BtnSalePageSave}"

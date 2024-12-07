@@ -11,4 +11,5 @@ public interface IPartnerServer
     Task<PartnerDto> GetByNameAsync(string name);
     Task<bool> DeleteAsync(Guid Id);
     Task<bool> UpdateAsync(PartnerCreateDto dto, Guid Id);
+    Task<bool> UpdateDebtSumAsync(double debtSum, Guid Id);
 }

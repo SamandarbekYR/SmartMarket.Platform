@@ -138,7 +138,7 @@ namespace SmartMarket.Service.Services.Order
         {
             try
             {
-                var orders = await _unitOfWork.Order.GetOrdersFullInformationAsync();
+                var orders = _unitOfWork.Order.GetOrdersFull();
                 var order = orders.FirstOrDefault(x => x.Id == Id);
 
                 if (order == null)
@@ -182,11 +182,11 @@ namespace SmartMarket.Service.Services.Order
                     }
                 }
 
-                var itemsToDelete = existingItems.Where(x => !dto.ProductOrderItems.Any(y => y.Id == x.Id)).ToList();
-                foreach (var itemToDelete in itemsToDelete)
-                {
-                    order.ProductOrderItems.Remove(itemToDelete);
-                }
+                //var itemsToDelete = existingItems.Where(x => !dto.ProductOrderItems.Any(y => y.Id == x.Id)).ToList();
+                //foreach (var itemToDelete in itemsToDelete)
+                //{
+                //    order.ProductOrderItems.Remove(itemToDelete);
+                //}
 
                 _mapper.Map(dto, order);
 
