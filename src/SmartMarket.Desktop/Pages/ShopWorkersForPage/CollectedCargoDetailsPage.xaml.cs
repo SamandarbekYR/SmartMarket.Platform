@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Xaml;
 
 namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
 {
@@ -91,10 +92,11 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
         {
             Loader.Visibility = Visibility.Collapsed;
             int count = 1;
+            var shipments = loadReports.Where(x => x.IsShipment == true);
 
-            if(loadReports.Any())
+            if (shipments.Any())
             {
-                foreach(var loadReport in loadReports)
+                foreach(var loadReport in shipments)
                 {
                     CollectedCargoDetailsComponent collectedCargoDetailsComponent = new CollectedCargoDetailsComponent();
                     collectedCargoDetailsComponent.SetData(loadReport, count);
