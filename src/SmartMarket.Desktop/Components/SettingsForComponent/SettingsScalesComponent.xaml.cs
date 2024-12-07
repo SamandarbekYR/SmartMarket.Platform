@@ -112,7 +112,7 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
                 bool result = await _scaleService.DeleteScaleAsync(selectScale.Id);
 
                 if (result)
-                    Dispatcher.Invoke(() => notifier.ShowError("Tarozini o'chirildi."));
+                    Dispatcher.Invoke(() => notifier.ShowSuccess("Tarozini o'chirildi."));
                 else
                     Dispatcher.Invoke(() => notifier.ShowError("Tarozini o'chirishda xatolik mavjud."));
             }
@@ -123,7 +123,8 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
         private void Update_Button_Click(object sender, RoutedEventArgs e)
         {
             var selectScale = this.Tag as ScaleDto;
-            ScaleUpdateWindow scaleUpdateWindow = new ScaleUpdateWindow(selectScale);
+            ScaleUpdateWindow scaleUpdateWindow = new ScaleUpdateWindow();
+            scaleUpdateWindow.SetData(selectScale);
             scaleUpdateWindow.Show();
         }
 

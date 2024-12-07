@@ -32,11 +32,10 @@ namespace SmartMarket.Desktop.Windows.Settings
     public partial class ScaleUpdateWindow : Window
     {
         private IScaleService _scaleService;
-        private ScaleDto _scaleDto;
-        public Func<Task> UpdateScale {  get; set; }
-        public ScaleUpdateWindow(ScaleDto scale)
+        private ScaleDto _scale;
+
+        public ScaleUpdateWindow()
         {
-            _scaleDto = scale;
             _scaleService = new ScaleService();
             InitializeComponent();
         }
@@ -71,6 +70,13 @@ namespace SmartMarket.Desktop.Windows.Settings
             cfg.Dispatcher = Application.Current.Dispatcher;
         });
 
+        public void SetData(ScaleDto scale)
+        {
+            _scale = scale;
+
+            tb_ScaleName.Text = _scale.Name;
+            tb_UpdateTime.Text = _scale.UpdateTimeInterval.ToString();
+        }
 
         private void Close_Button_Click(object sender, RoutedEventArgs e)
         {
@@ -82,19 +88,19 @@ namespace SmartMarket.Desktop.Windows.Settings
             AddScaleDto scale = new AddScaleDto();
             scale.Name = tb_ScaleName.Text;
             scale.UpdateTimeInterval = int.Parse(tb_UpdateTime.Text);
-            
-            bool result = await _scaleService.UpdateScaleAsync(scale, _scaleDto.Id);
+            scale.SelectFilePath = _scale.SelectFilePath;
+            scale.TXTFileName = _scale.TXTFileName;
+
+            bool result = await _scaleService.UpdateScaleAsync(scale, _scale.Id);
 
             if (result)
             {
                 this.Close();
                 notifier.ShowSuccess("Tarozi yangilandi.");
-                await UpdateScale();
             }
             else
                 notifierThis.ShowError("Tarozi yaratishda qandaydir xatolik bor !");
         }
-
 
         private void TimeTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
