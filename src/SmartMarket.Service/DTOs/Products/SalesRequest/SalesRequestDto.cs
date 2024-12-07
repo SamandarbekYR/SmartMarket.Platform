@@ -18,6 +18,7 @@ namespace SmartMarket.Service.DTOs.Products.SalesRequest
         public double CardSum { get; set; } 
         public double TransferMoney { get; set; }
         public double DebtSum { get; set; }
+        public bool IsShipment { get; set; }
         public DateTime? CreatedDate { get; set; }
         public List<PS.ProductSale> ProductSaleItems { get; set; }
     }

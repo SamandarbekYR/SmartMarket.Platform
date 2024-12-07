@@ -80,22 +80,6 @@ public partial class QuantityWindow : Window
             int quantity = int.Parse(tb_quantity.Text);
             if (quantity > 0)
                 _searchProductComponent.Quantity = quantity;
-
-            var product = _searchProductComponent.Tag as FullProductDto;
-
-            MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
-            if(mainWindow.PageNavigator.Content is SecondPage secondpage)
-            {
-                //var page = FindParentPage(this);
-                //if(page != null && page is SecondPage secondPage)
-                //{
-                    ProductComponent component = new ProductComponent();
-                    component.Tag = product;
-                    component.SetData(product, quantity);
-
-                    secondpage.st_product.Children.Add(component);
-                //}
-            }
         }
         this.Close();
     }
