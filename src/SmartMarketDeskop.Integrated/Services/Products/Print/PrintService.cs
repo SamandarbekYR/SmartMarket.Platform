@@ -2,8 +2,10 @@
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
+using System.Drawing;
 using System.Management;
 using System.Text;
+using ZXing;
 
 namespace SmartMarketDeskop.Integrated.Services.Products.Print;
 
@@ -26,7 +28,6 @@ public class PrintService : IDisposable
         printer.Append("Smart market");
         printer.Separator();
         printer.Append("\n");
-        printer.Append("Nomi      Miqdori     Jami narxi");
 
         foreach (var item in transactions)
         {
@@ -38,7 +39,7 @@ public class PrintService : IDisposable
             }
             string temp = $"{item.Quantity}*{item.Price}";
             text += temp;
-            strLength = 15 - temp.Length;
+            strLength = 10 - temp.Length;
             for (int i = 0; i < strLength; i++)
             {
                 text += " ";
@@ -59,8 +60,11 @@ public class PrintService : IDisposable
         printer.Append($"Sotuvchi:  {worker}");
         printer.Append( "Sana:      " + DateTime.Now.ToString());
         printer.Append("\n");
+
+        var barCode = new Bitmap(GenerateBarcode(transactionNo.ToString()));
+
         printer.AlignCenter();
-        printer.Code128(transactionNo.ToString());
+        printer.Image(barCode);
 
         printer.AlignCenter();
         printer.BoldMode("Xaridingiz uchun tashakkur!");
@@ -69,6 +73,22 @@ public class PrintService : IDisposable
 
         printer.FullPaperCut();
         printer.PrintDocument();
+    }
+
+    public Image GenerateBarcode(string text)
+    {
+        var barcodeWriter = new BarcodeWriter<Bitmap>
+        {
+            Format = BarcodeFormat.CODE_128,
+            Options = new ZXing.Common.EncodingOptions
+            {
+                Height = 40,
+                Width = 300,
+                Margin = 10 
+            }
+        };
+
+        return barcodeWriter.Write(text);
     }
 
     public void Test()
