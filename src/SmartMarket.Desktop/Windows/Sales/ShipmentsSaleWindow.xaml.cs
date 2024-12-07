@@ -6,10 +6,12 @@ using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarketDeskop.Integrated.Services.Orders;
+using SmartMarketDeskop.Integrated.Services.Partners;
 using SmartMarketDeskop.Integrated.Services.Products.Print;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
@@ -32,6 +34,7 @@ public partial class ShipmentsSaleWindow : Window
     private readonly ISalesRequestsService _salesRequestsService;
     private readonly IProductService _productService;
     private readonly IOrderService _orderService;
+    private readonly IPartnerService _partnerService;
 
     private DispatcherTimer time;
     public TransactionViewModel tvm;
@@ -55,6 +58,7 @@ public partial class ShipmentsSaleWindow : Window
         this._productService = new ProductService();
         this._salesRequestsService = new SalesRequestService();
         this._orderService = new OrderService();
+        this._partnerService = new PartnerService();
         this.tvm = new TransactionViewModel();
 
         time = new DispatcherTimer();
@@ -453,6 +457,7 @@ public partial class ShipmentsSaleWindow : Window
         dto.DiscountSum = tvm.DiscountPrice;
         if (isDebt)
         {
+            dto.PartnerId = Order.PartnerId;
             dto.DebtSum = tvm.TransactionPrice;
             dto.CardSum = 0;
             dto.CashSum = 0;
@@ -491,12 +496,13 @@ public partial class ShipmentsSaleWindow : Window
         List<AddProductSaleDto> products = tvm.Transactions
             .Select(t => new AddProductSaleDto { ProductId = t.Id, Count = t.Quantity, Discount = t.Discount, ItemTotalCost = t.TotalPrice }).ToList();
 
+        dto.IsShipment = true;
         dto.ProductSaleItems = products;
         await UpdateProductCount(Order, products);
-        await ProductSale(dto);
+        await ProductSale(dto, isDebt);
     }
 
-    private async Task ProductSale(AddSalesRequestDto dto)
+    private async Task ProductSale(AddSalesRequestDto dto, bool isDebt)
     {
         var result = await _salesRequestsService.CreateSalesRequest(dto);
         if (result.Item2)
@@ -505,6 +511,9 @@ public partial class ShipmentsSaleWindow : Window
             //printService.Print(dto, tvm.Transactions, result.Item1);
 
             await UpdateSaleShipment(Order.Id);
+
+            if (isDebt)
+                await NationSale(dto.PartnerId!.Value, dto.DebtSum!.Value);
 
             tvm.ClearTransaction();
             St_product.Children.Clear();
@@ -517,6 +526,11 @@ public partial class ShipmentsSaleWindow : Window
             notifier.ShowError("Sotuvda qandaydir muammo bor!!!");
 
         this.Close();
+    }
+
+    public async Task NationSale(Guid id, double debtSum)
+    {
+        var result = await _partnerService.UpdatePartnerDebtSum(debtSum, id);
     }
 
     public async Task UpdateSaleShipment(Guid Id)
