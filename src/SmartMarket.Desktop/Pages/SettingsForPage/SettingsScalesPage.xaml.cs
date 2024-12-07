@@ -50,7 +50,7 @@ public partial class SettingsScalesPage : Page
             {
                 SettingsScalesComponent settingsScalesComponent = new SettingsScalesComponent();
                 settingsScalesComponent.Tag = scale;
-                settingsScalesComponent.SetData(count, scale.Name, scale.UpdateTimeInterval, scale.SelectFilePath, scale.TXTFileName);
+                settingsScalesComponent.SetData(count, scale);
                 settingsScalesComponent.GetScales = GetAllScales;
                 settingsScalesComponent.BorderThickness = new Thickness(0, 0, 0, 5);
                 St_Scales.Children.Add(settingsScalesComponent);

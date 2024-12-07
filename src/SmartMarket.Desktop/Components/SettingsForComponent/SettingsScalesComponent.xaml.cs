@@ -28,7 +28,7 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
         private int _updateInterval = 120;
         private IProductService _productService;
         private IScaleService _scaleService;
-        private List<Timer> _updateTimers = new List<Timer>();
+        private List<KeyValuePair<ScaleDto, Timer>> _updateTimers = new List<KeyValuePair<ScaleDto, Timer>>();
         public Func<Task> GetScales { get; set; }
         public SettingsScalesComponent()
         {
@@ -52,24 +52,24 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
             cfg.Dispatcher = Application.Current.Dispatcher;
         });
 
-        public void SetData(int id, string scaleName, int time, string selectPath, string fileName)
+        public void SetData(int id, ScaleDto? scale)
         {
             lb_Count.Content = id;
-            lb_Name.Content = scaleName;
-            lb_UpdateTime.Content = time;
-            lb_FileName.Content = fileName;
-            lb_Location.Content = selectPath;
+            lb_Name.Content = scale?.Name;
+            lb_UpdateTime.Content = scale?.UpdateTimeInterval;
+            lb_FileName.Content = scale?.TXTFileName;
+            lb_Location.Content = scale?.SelectFilePath;
 
-            StartUpdateTimer(time, selectPath);
+            StartUpdateTimer(scale);
         }
 
-        private void StartUpdateTimer(int interval, string selectPath)
+        private void StartUpdateTimer(ScaleDto scale)
         {
-            var timer = new Timer(interval * 1000); 
-            timer.Elapsed += (s, e) => UpdateScaleFile(selectPath, interval);
+            var timer = new Timer(scale.UpdateTimeInterval * 1000); 
+            timer.Elapsed += (s, e) => UpdateScaleFile(scale.SelectFilePath, scale.UpdateTimeInterval);
             timer.Start();
 
-            _updateTimers.Add(timer);
+            _updateTimers.Add(new KeyValuePair<ScaleDto, Timer>(scale, timer));
         }
 
         private async void UpdateScaleFile(string selectedPath, int interval)
@@ -99,6 +99,14 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
         private async void Remove_Button_Click(object sender, RoutedEventArgs e)
         {
             var selectScale = this.Tag as ScaleDto;
+
+            var timerEntry = _updateTimers.FirstOrDefault(t => t.Key.Id == selectScale?.Id);
+            if (timerEntry.Key != null)
+            {
+                timerEntry.Value.Stop();
+                _updateTimers.Remove(timerEntry);
+            }
+
             if (selectScale != null)
             {
                 bool result = await _scaleService.DeleteScaleAsync(selectScale.Id);
