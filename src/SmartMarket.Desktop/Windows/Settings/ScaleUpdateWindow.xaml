@@ -5,8 +5,96 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartMarket.Desktop.Windows.Settings"
         mc:Ignorable="d"
-        Title="ScaleUpdateWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="ScaleUpdateWindow">
+    <Border
+        Height="250"
+        Width="500"
+        CornerRadius="10"
+        BorderThickness="1"
+        BorderBrush="{DynamicResource BorderColor}"
+        Background="White">
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="70"/>
+            </Grid.RowDefinitions>
+            <Border
+            CornerRadius="5 5 0 0"
+            Grid.Row="0"
+            Background="#1EB7E8"/>
+
+            <Label
+            Grid.Row="0"
+            Content="Yangilash"
+            FontSize="22"
+            Foreground="White"
+            Style="{DynamicResource TitleLabel}"/>
+
+            <Button
+                Name="Close_Button"
+                Grid.Row="0"
+                Margin="0 0 10 0"
+                HorizontalAlignment="Right"
+                Click="Close_Button_Click"
+                Background="White"
+                Style="{DynamicResource btnClose}"/>
+
+            <Grid
+                Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+                    Margin="30 30 0 10"
+                    Grid.Column="0">
+
+                    <Label
+                        Content="Tarozi nomi :"
+                        FontSize="18"
+                        Margin="10 5"
+                        Style="{DynamicResource TitleLabel}"/>
+                    <Label
+                        Content="Yangilanish vaqti :"
+                        FontSize="18"
+                        Margin="10"
+                        Style="{DynamicResource TitleLabel}"/>
+                </StackPanel>
+
+                <StackPanel
+                    Margin="30 30 30 10"
+                    Grid.Column="1">
+
+                    <TextBox
+                        Name="tb_ScaleName"
+                        FontSize="18"
+                        Margin="10 5"
+                        FontWeight="SemiBold"
+                        Style="{DynamicResource Create_TextBox_Style}"/>
+                    <TextBox
+                        Name="tb_UpdateTime"
+                        FontSize="18"
+                        Margin="10 5"
+                        FontWeight="SemiBold"
+                        PreviewTextInput="TimeTextBox_PreviewTextInput"
+                        DataObject.Pasting="TimeTextBox_Pasting"
+                        Style="{DynamicResource Create_TextBox_Style}"/>
+                </StackPanel>
+            </Grid>
+
+            <Button
+                x:Name="Scale_Update_Button"
+                Grid.Row="2"
+                Content="Saqlash"
+                FontSize="17"
+                Height="40"
+                Width="170"
+                Click="Scale_Update_Button_Click"
+                Style="{DynamicResource Create_Button}"/>
+
+        </Grid>
+    </Border>
 </Window>

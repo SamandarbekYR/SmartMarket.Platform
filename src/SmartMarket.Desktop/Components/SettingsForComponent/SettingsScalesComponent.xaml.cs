@@ -20,6 +20,7 @@ using SmartMarket.Service.ViewModels.Products;
 using SmartMarketDeskop.Integrated.Server.Interfaces.Scales;
 using SmartMarketDeskop.Integrated.Services.Scales;
 using SmartMarketDesktop.DTOs.DTOs.Scales;
+using SmartMarket.Desktop.Windows.Settings;
 
 namespace SmartMarket.Desktop.Components.SettingsForComponent
 {
@@ -109,7 +110,9 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
         }
 
         private void Update_Button_Click(object sender, RoutedEventArgs e)
-        {
+        { 
+            ScaleUpdateWindow scaleUpdateWindow = new ScaleUpdateWindow();
+            scaleUpdateWindow.Show();
         }
 
         private void UpdateScaleFile()
