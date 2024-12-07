@@ -8,6 +8,7 @@ using SmartMarket.DataAccess.Interfaces.Partners;
 using SmartMarket.DataAccess.Interfaces.PartnersCompany;
 using SmartMarket.DataAccess.Interfaces.PayDesks;
 using SmartMarket.DataAccess.Interfaces.Products;
+using SmartMarket.DataAccess.Interfaces.Scales;
 using SmartMarket.DataAccess.Interfaces.Transactions;
 using SmartMarket.DataAccess.Interfaces.Workers;
 using SmartMarket.DataAccess.Repositories.Categories;
@@ -18,6 +19,7 @@ using SmartMarket.DataAccess.Repositories.Partners;
 using SmartMarket.DataAccess.Repositories.PartnersCompany;
 using SmartMarket.DataAccess.Repositories.PayDesks;
 using SmartMarket.DataAccess.Repositories.Products;
+using SmartMarket.DataAccess.Repositories.Scales;
 using SmartMarket.DataAccess.Repositories.Transactions;
 using SmartMarket.DataAccess.Repositories.Workers;
 using SmartMarket.Domain.Entities.PartnersCompany;
@@ -52,6 +54,7 @@ namespace SmartMarket.DataAccess.Repositories
         public IWorker Worker { get; set; } = new WorkerRepository(appDb);
         public IWorkerDebt WorkerDebt { get; set; } = new WorkerDebtRepository(appDb);
         public IWorkerRole WorkerRole { get; set; } = new WorkerRoleRepository(appDb);
+        public IScale Scale { get; set; } = new ScaleRepository(appDb);
         public void Dispose()
         {
             GC.SuppressFinalize(this);

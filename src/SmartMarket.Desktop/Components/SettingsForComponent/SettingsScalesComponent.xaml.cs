@@ -1,10 +1,7 @@
 ﻿using Microsoft.Win32;
-
-using Prism.Services.Dialogs;
-
+using System.Windows.Forms;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.ProductImages;
-
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -67,7 +64,6 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
             cfg.Dispatcher = Application.Current.Dispatcher;
         });
 
-
         private void btnUpload_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -75,18 +71,6 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
             {
                 _selectedPath = openFileDialog.FileName;
             }
-
-            //using (var dialog = new FolderBrowserDialog())
-            //{
-            //    dialog.Description = "Kerakli papkani tanlang";
-            //    dialog.ShowNewFolderButton = true;
-
-            //    if (dialog.ShowDialog() == DialogResult.OK)
-            //    {
-            //        _selectedFolderPath = dialog.SelectedPath;
-            //        MessageBox.Show($"Tanlangan papka: {_selectedFolderPath}");
-            //    }
-            //}
 
             UpdateScaleFile();
         }
