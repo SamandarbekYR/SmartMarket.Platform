@@ -6,49 +6,67 @@
              xmlns:local="clr-namespace:SmartMarket.Desktop.Components.SettingsForComponent"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="800">
-    <Border Background="White" CornerRadius="5">
+    <Border
+    Background="White"
+    CornerRadius="5"
+    BorderThickness="1"
+    Margin="5 4 15 4"
+    BorderBrush="Black" >
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="40"/>
+                <ColumnDefinition Width="0.9*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1.4*"/>
+                <ColumnDefinition Width="0.9*"/>
+                <ColumnDefinition Width="0.9*"/>
             </Grid.ColumnDefinitions>
 
+            <Label
+                 Name="lb_Count"
+                 Grid.Column="0"
+                 Content="1"
+                 HorizontalAlignment="Center"
+                 Style="{DynamicResource Label}"/>
 
-            <TextBlock
-                x:Name="tbScalesName"
-                HorizontalAlignment="Center"
-                Text="Tarozi 1"
-                FontSize="30"
-                FontWeight="SemiBold"
-                ></TextBlock>
+            <Label
+                 Name="lb_Name"
+                 Grid.Column="1"
+                 Content="Tarozi 1"
+                 Style="{DynamicResource Label}"/>
 
-            <Border
-                   Grid.Column="1"
-                   Margin="5 0 5 0"
-                   Height="40"
-                   CornerRadius="3"
-                   BorderThickness="1"
-                   BorderBrush="Black"
-                   >
-                <DockPanel>
-                    <Button
-                        x:Name="btnUpload"
-                        Click="btnUpload_Click"
-                         Style="{DynamicResource SettingsScale}"
-                         ></Button>
-                </DockPanel>
-            </Border>
+            <Label
+                 Name="lb_UpdateTime"
+                 Grid.Column="2"
+                 Content="120"
+                 Style="{DynamicResource Label}"/>
 
+            <Label
+                 Name="lb_FileName"
+                 Grid.Column="3"
+                 Content="tarozi.txt"
+                 Style="{DynamicResource Label}"/>
+            <Label
+                 Name="lb_Location"
+                 Grid.Column="4"
+                 Content="C://"
+                 Style="{DynamicResource Label}"/>
 
             <Button
-                Grid.Column="2"
-                  Style="{DynamicResource btnSettingsScale}"
-                  Content="O'chirish"
-                  FontSize="20"
-                  ></Button>
+                 x:Name="Update_Button"
+                 Grid.Column="5"
+                 HorizontalAlignment="Center"
+                 Click="Update_Button_Click"
+                 Style="{DynamicResource BtnUpdate}"/>
 
+            <Button
+                 x:Name="Remove_Button"
+                 Grid.Column="6"
+                 HorizontalAlignment="Center"
+                 Click="Remove_Button_Click"
+                 Style="{DynamicResource BtnDelete}"/>
         </Grid>
     </Border>
 </UserControl>

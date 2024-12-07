@@ -6,6 +6,7 @@ using SmartMarket.DataAccess.Interfaces.Partners;
 using SmartMarket.DataAccess.Interfaces.PartnersCompany;
 using SmartMarket.DataAccess.Interfaces.PayDesks;
 using SmartMarket.DataAccess.Interfaces.Products;
+using SmartMarket.DataAccess.Interfaces.Scales;
 using SmartMarket.DataAccess.Interfaces.Transactions;
 using SmartMarket.DataAccess.Interfaces.Workers;
 
@@ -40,6 +41,7 @@ namespace SmartMarket.DataAccess.Interfaces
         IWorker Worker { get; set; }
         IWorkerDebt WorkerDebt { get; set; }
         IWorkerRole WorkerRole { get; set; }
+        IScale Scale { get; set; }
         Task SaveAsync();
     }
 }

@@ -3,82 +3,127 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local2="clr-namespace:SmartMarket.Desktop.Components.Loader"
       xmlns:local="clr-namespace:SmartMarket.Desktop.Pages.SettingsForPage"
       mc:Ignorable="d" 
       d:DesignHeight="640" d:DesignWidth="1024"
-      Title="SettingsScalesPage">
+      Title="SettingsScalesPage"
+      Loaded="Page_Loaded">
 
     <Border 
         CornerRadius="5">
         <Grid >
             <Grid.RowDefinitions>
                 <RowDefinition Height="45"/>
+                <RowDefinition Height="40"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            
             <Border
-                CornerRadius="5 5 0 0"
-                Background="#d6d6d6"
-                BorderBrush="{DynamicResource BorderColor}"
-                BorderThickness="1"
-                >
-                <TextBlock
-                    Text="Tarozi sozlamalari"
-                    VerticalAlignment="Center"
-                    FontSize="22"
-                    FontWeight="DemiBold"
-                    Margin="15 0 0 0"
-                    ></TextBlock>
+                  Grid.Row="0"
+                  BorderBrush="Black"
+                  CornerRadius="5 5 0 0"
+                  BorderThickness="1"
+                  Background="#d6d6d6">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="7*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock 
+                        Grid.Column="0"
+                        Text="Tarozi sozlamalari"
+                        VerticalAlignment="Center"
+                        Margin="15 0 0 0"
+                        FontSize="20"
+                        FontWeight="DemiBold">
+                    </TextBlock>
+
+                    <Button
+                        Content="Qo'shish"
+                        Height="32"
+                        Width="120"
+                        FontSize="18"
+                        Margin="0 0 7 0"
+                        Click="bntAddScales_Click"
+                        Style="{DynamicResource Create_Button}"
+                        Grid.Column="1"/>      
+                </Grid>
             </Border>
-            <Label
-                HorizontalAlignment="Right"
-                Margin="0 0 350 0"
-                FontSize="18"
-                FontWeight="SemiBold"
-                VerticalAlignment="Center"
-                Content="Yangilanish vaqti(sekund)"/>
-
-            <TextBox
-                x:Name="timeTextBox"
-                FontSize="15"
-                FontWeight="SemiBold"
-                HorizontalAlignment="Right"
-                Margin="5 11 230 10"
-                Height="24.48"
-                Width="100"
-                PreviewTextInput="TimeTextBox_PreviewTextInput"
-                DataObject.Pasting="TimeTextBox_Pasting"/>
-            <Button
-                Content="Qo'shish"
-                Height="32"
-                Width="120"
-                FontSize="18"
-                HorizontalAlignment="Right"
-                Margin="0 0 7 0"
-                Click="bntAddScales_Click"
-                Style="{DynamicResource Create_Button}"
-                Grid.Row="0"/>
-
-
             <Border 
+                Background="White"
                 Grid.Row="1" 
-                Background="White" 
-                CornerRadius="0 0 5 5" 
-                BorderThickness="1 0 1 1" 
-                BorderBrush="{DynamicResource BorderColor}">
-                
-                <ScrollViewer 
-                    VerticalScrollBarVisibility="Auto" 
-                    HorizontalScrollBarVisibility="Auto">
-                    <StackPanel 
-                        Margin="100 10"
-                        x:Name="St_Scales" >
-                    </StackPanel>
-                </ScrollViewer>
-                            
-                    
-            </Border>
+                BorderBrush="Black" 
+                BorderThickness="1 0 1 0">
+                <Grid
+                     Grid.Row="1" 
+                     Margin="5 0 15 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="40"/>
+                        <ColumnDefinition Width="0.9*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1.4*"/>
+                        <ColumnDefinition Width="0.9*"/>
+                        <ColumnDefinition Width="0.9*"/>
+                    </Grid.ColumnDefinitions>
 
+                    <Label
+                        Grid.Column="0"
+                        Content="№"
+                        Style="{DynamicResource Label}"/>
+
+                    <Label
+                        Grid.Column="1"
+                        Content="Tarozi nomi"
+                        Style="{DynamicResource Label}"/>
+
+                    <Label
+                        Content="Yangilanish vaqti"
+                        Grid.Column="2"
+                        Style="{DynamicResource Label}"/>
+
+                    <Label
+                        Grid.Column="3"
+                        Content="Fayl nomi"
+                        Style="{DynamicResource Label}"/>
+
+                    <Label
+                        Grid.Column="4"
+                        Content="Fayl joylashuvi"
+                        Style="{DynamicResource Label}"/>       
+
+                </Grid>
+            </Border>
+            <Border 
+                Grid.Row="2" 
+                CornerRadius="0 0 5 5"  
+                BorderThickness="1 0 1 1" 
+                BorderBrush="{DynamicResource BorderColor}" 
+                Background="White">
+
+                <Grid>
+                    <local2:Loader
+                        x:Name="Loader"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"/>
+
+                    <ScrollViewer>
+                        <StackPanel 
+                             x:Name="St_Scales">
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <Label
+                        Name="EmptyData"
+                        Visibility="Collapsed"
+                        FontSize="16"
+                        Foreground="#a6a6a6"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="Ma'lumot topilmadi."/>
+                </Grid>
+            </Border>
         </Grid>
     </Border>
 </Page>

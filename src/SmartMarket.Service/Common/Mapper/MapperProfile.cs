@@ -7,6 +7,7 @@ using SmartMarket.Domain.Entities.Partners;
 using SmartMarket.Domain.Entities.PartnersCompany;
 using SmartMarket.Domain.Entities.PayDesks;
 using SmartMarket.Domain.Entities.Products;
+using SmartMarket.Domain.Entities.Scales;
 using SmartMarket.Domain.Entities.Transactions;
 using SmartMarket.Domain.Entities.Workers;
 using SmartMarket.Service.DTOs.Category;
@@ -27,6 +28,7 @@ using SmartMarket.Service.DTOs.Products.ProductImage;
 using SmartMarket.Service.DTOs.Products.ProductSale;
 using SmartMarket.Service.DTOs.Products.ReplaceProduct;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
+using SmartMarket.Service.DTOs.Scales;
 using SmartMarket.Service.DTOs.Transaction;
 using SmartMarket.Service.DTOs.Workers.Position;
 using SmartMarket.Service.DTOs.Workers.Salary;
@@ -201,6 +203,13 @@ public class MapperProfile : Profile
             .ForMember(dest => dest.PayDesk, opt => opt.MapFrom(src => src.PayDesk))
             .ForMember(dest => dest.ProductSaleItems, opt => opt.MapFrom(src => src.ProductSaleItems))
             .ReverseMap();
+
+        /*---------Scale-----------------*/
+        CreateMap<AddScaleDto, Scale>()
+            .ForMember(dest => dest.Id, opt => opt.Ignore());
+        CreateMap<Scale, ScaleDto>();
+
+        CreateMap<ScaleDto, Scale>();
 
         /*---------ReplaceProduct-----------------*/
         CreateMap<AddReplaceProductDto, ReplaceProduct>()

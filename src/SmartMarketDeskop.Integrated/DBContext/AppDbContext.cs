@@ -7,6 +7,7 @@ using SmartMarketDesktop.ViewModels.Entities.Partners;
 using SmartMarketDesktop.ViewModels.Entities.PartnersCompany;
 using SmartMarketDesktop.ViewModels.Entities.PayDesk;
 using SmartMarketDesktop.ViewModels.Entities.Products;
+using SmartMarketDesktop.ViewModels.Entities.Scales;
 using SmartMarketDesktop.ViewModels.Entities.Transactions;
 using SmartMarketDesktop.ViewModels.Entities.Workers;
 
@@ -266,5 +267,6 @@ namespace SmartMarketDeskop.Integrated.DBContext
         DbSet<WorkerView> WorkerViews { get; set; }
         DbSet<WorkerDebtView> WorkerDebtViews { get; set; }
         DbSet<WorkerRoleView> WorkerRoleViews { get; set; }
+        DbSet<ScaleView> ScaleViews { get; set; }
     }
 }

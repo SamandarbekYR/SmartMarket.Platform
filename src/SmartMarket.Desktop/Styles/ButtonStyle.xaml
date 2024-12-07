@@ -1355,10 +1355,71 @@
     
     
     <!-- End ShopDetailsPage for  Button Style -->
+    
+    <Style x:Key="BtnDelete" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                    x:Name="B"
+                    Margin="5"
+                    Width="90"
+                    CornerRadius="5"
+                    Background="#F61111">
 
-    
-    
-    
+                        <Label
+                        x:Name="L"
+                        Content="O'chirish"
+                        FontSize="15"
+                        HorizontalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Foreground="White"
+                        FontWeight="SemiBold"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#C40E0E"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="BtnUpdate" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border
+                    x:Name="B"
+                    Margin="5"
+                    Width="90"
+                    CornerRadius="5"
+                    Background="#0078D4">
+                        <!-- Ko‘k rang -->
+
+                        <Label
+                        x:Name="L"
+                        Content="Yangilash"
+                        FontSize="15"
+                        HorizontalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Foreground="White"
+                        FontWeight="SemiBold"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="B" Property="Background" Value="#005A8D"/>
+                            <!-- Bosilganda qattiqroq ko‘k -->
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
 
     <!-- Begin Partners page for style -->
 

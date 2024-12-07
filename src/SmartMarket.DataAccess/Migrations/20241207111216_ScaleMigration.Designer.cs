@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using SmartMarket.DataAccess.Data;
@@ -11,9 +12,11 @@ using SmartMarket.DataAccess.Data;
 namespace SmartMarket.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241207111216_ScaleMigration")]
+    partial class ScaleMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -761,10 +764,6 @@ namespace SmartMarket.DataAccess.Migrations
                     b.Property<double>("DebtSum")
                         .HasColumnType("double precision")
                         .HasColumnName("debt_sum");
-
-                    b.Property<bool>("IsShipment")
-                        .HasColumnType("boolean")
-                        .HasColumnName("is_shipment");
 
                     b.Property<Guid?>("PartnerId")
                         .HasColumnType("uuid")

@@ -128,7 +128,7 @@
                 <Label
                     Grid.Column="3"
                     Content="Narxi"
-                    Style="{DynamicResource Label}"/>
+                    Style="{DynamicResource Label}"/>   
 
                 <Label
                     Content="Soni"

@@ -20,6 +20,7 @@ using SmartMarket.Service.Interfaces.Products.ProductImage;
 using SmartMarket.Service.Interfaces.Products.ProductSale;
 using SmartMarket.Service.Interfaces.Products.ReplaceProduct;
 using SmartMarket.Service.Interfaces.Products.SalesRequest;
+using SmartMarket.Service.Interfaces.Scales;
 using SmartMarket.Service.Interfaces.Transaction;
 using SmartMarket.Service.Interfaces.Worker.Positions;
 using SmartMarket.Service.Interfaces.Worker.Salary;
@@ -48,6 +49,7 @@ using SmartMarket.Service.Services.Products.ProductImage;
 using SmartMarket.Service.Services.Products.ProductSale;
 using SmartMarket.Service.Services.Products.ReplaceProduct;
 using SmartMarket.Service.Services.Products.SalesRequest;
+using SmartMarket.Service.Services.Scales;
 using SmartMarket.Service.Services.Transaction;
 using SmartMarket.Service.Services.Worker.Positions;
 using SmartMarket.Service.Services.Worker.Salary;
@@ -95,5 +97,6 @@ public static class ServiceLayerConfiguration
         builder.Services.AddScoped<IContrAgentPaymentService, ContrAgentPaymentService>();
         builder.Services.AddScoped<IPartnerCompanyService, PartnerCompanyService>();
         builder.Services.AddScoped<ISalesRequestService, SalesRequestService>();
+        builder.Services.AddScoped<IScaleService, ScaleService>();
     }
 }
