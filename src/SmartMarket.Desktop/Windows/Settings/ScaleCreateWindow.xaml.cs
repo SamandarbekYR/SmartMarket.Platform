@@ -63,13 +63,19 @@ namespace SmartMarket.Desktop.Windows.Settings
 
         private async void Scale_Create_Button_Click(object sender, RoutedEventArgs e)
         {
+            if (Scale_Create_Button.IsEnabled == false) return;
+
+            Scale_Create_Button.IsEnabled = false;
             AddScaleDto scale = new AddScaleDto();
             scale.Name = tb_ScaleName.Text;
             scale.UpdateTimeInterval = int.Parse(tb_UpdateTime.Text);
             scale.SelectFilePath = _selectedPath;
 
             if (scale.SelectFilePath == null)
+            {
                 notifier.ShowWarning("Fayl tanlanmagan.");
+                Scale_Create_Button.IsEnabled = true;
+            }
             else
                 scale.TXTFileName = scale.SelectFilePath.Substring(scale.SelectFilePath.LastIndexOf('\\') + 1);
 
@@ -82,7 +88,10 @@ namespace SmartMarket.Desktop.Windows.Settings
                 await CreateScale();
             }
             else
+            {
                 notifierthis.ShowError("Tarozi yaratishda qandaydir xatolik bor !");
+                Scale_Create_Button.IsEnabled = true;
+            }
         }
 
         private void btnUpload_Click(object sender, RoutedEventArgs e)

@@ -117,6 +117,9 @@ public partial class PartnerUpdateWindow : Window
 
     private async void Partner_Update_Button_Click(object sender, RoutedEventArgs e)
     {
+        if (Partner_Update_Button.IsEnabled == false) return;
+
+        Partner_Update_Button.IsEnabled = false;
         PartnerCreateDto partner = new PartnerCreateDto();
         partner.FirstName = tb_Firstname.Text;
         partner.LastName = tb_Lastname.Text;
@@ -131,6 +134,9 @@ public partial class PartnerUpdateWindow : Window
             await UpdatePartner();
         }
         else
+        {
             notifierthis.ShowError("Hamkorni yangilashda qandaydir xatolik bor!");
+            Partner_Update_Button.IsEnabled = true;
+        }
     }
 }

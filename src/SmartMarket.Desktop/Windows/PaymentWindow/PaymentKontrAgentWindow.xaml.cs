@@ -134,6 +134,9 @@ public partial class PaymentKontrAgentWindow : Window
 
     private async void BtnPay_Click(object sender, RoutedEventArgs e)
     {
+        if (BtnPay.IsEnabled == false) return;
+
+        BtnPay.IsEnabled = false;
         if (!string.IsNullOrEmpty(tnPayAmount.Text) &&
             payDeskComboBox.SelectedItem != null &&
             paymentTypeComboBox.SelectedItem != null)
@@ -157,12 +160,14 @@ public partial class PaymentKontrAgentWindow : Window
             }
             else
             {
-                notifier.ShowError("Xatolik yuz berdi.");
+                notifierThis.ShowError("Xatolik yuz berdi.");
+                BtnPay.IsEnabled = true;
             }
         }
         else
         {
             notifierThis.ShowWarning("Malumotlar to'liq emas!");
+            BtnPay.IsEnabled = true;
         }
     }
 

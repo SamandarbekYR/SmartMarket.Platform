@@ -109,6 +109,9 @@ public partial class PartnerCreateWindow : Window
 
     private async void Partner_Create_Button_Click(object sender, RoutedEventArgs e)
     {
+        if (Partner_Create_Button.IsEnabled == false) return;
+
+        Partner_Create_Button.IsEnabled = false;
         PartnerCreateDto partner = new PartnerCreateDto();
         partner.FirstName = tb_Firstname.Text;
         partner.LastName = tb_Lastname.Text;
@@ -123,6 +126,9 @@ public partial class PartnerCreateWindow : Window
             await CreatePartner();
         }
         else
+        {
             notifierthis.ShowError("Hamkor yaratishda qandaydir xatolik bor !");
+            Partner_Create_Button.IsEnabled = true;
+        }
     }
 }

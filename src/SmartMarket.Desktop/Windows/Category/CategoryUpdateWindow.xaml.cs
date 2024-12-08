@@ -78,6 +78,7 @@ public partial class CategoryUpdateWindow : Window
         {
             //txtName.Text = categoryView.Name;
             //txtDescribtion.Text=categoryView.Description;
+            EditButtonContainer.IsEnabled = false;
 
             CategoryDto categoryDto = new CategoryDto();
             categoryDto.Name=txtName.Text;
@@ -94,12 +95,14 @@ public partial class CategoryUpdateWindow : Window
             else
             {
                 notifier.ShowError("Kategoriya o'zgartirishda xatolik yuz berdi!");
+                EditButtonContainer.IsEnabled = true;
             }
 
         }
         else
         {
             notifier.ShowWarning("Kategoriya malumotlarini to'liq emas!");
+            EditButtonContainer.IsEnabled = true;
         }
     }
 

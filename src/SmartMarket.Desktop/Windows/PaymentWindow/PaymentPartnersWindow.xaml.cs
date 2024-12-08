@@ -27,6 +27,9 @@ namespace SmartMarket.Desktop.Windows.PaymentWindow
 
         private async void PartnerPayment_Button_Click(object sender, RoutedEventArgs e)
         {
+            if (BtnPay.IsEnabled == false) return;
+
+            BtnPay.IsEnabled = false;
             ComboBoxItem selectedItem = (ComboBoxItem)cbPayment.SelectedItem;
             string selectedValue = selectedItem?.Content.ToString()!; 
 

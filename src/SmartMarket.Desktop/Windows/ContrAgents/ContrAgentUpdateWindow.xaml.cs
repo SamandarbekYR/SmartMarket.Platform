@@ -79,6 +79,10 @@ namespace SmartMarket.Desktop.Windows.ContrAgents
 
         private async void Br_Change_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            if(EditButtonContainer.IsEnabled == false) return;
+
+            EditButtonContainer.IsEnabled = false;
+
             if(!string.IsNullOrEmpty(txtFirstName.Text) &&
                !string.IsNullOrEmpty(txtLastName.Text) &&
                !string.IsNullOrEmpty(txtPhoneNumber.Text))
@@ -103,11 +107,13 @@ namespace SmartMarket.Desktop.Windows.ContrAgents
                 else
                 {
                     notifier.ShowError("Agentni o'zgartirishda xatolik yuz berdi");
+                    EditButtonContainer.IsEnabled = true;
                 }
             }
             else
             {
                 notifier.ShowWarning("Agent malumotlari to'liq emas!");
+                EditButtonContainer.IsEnabled = true;
             }
         }
 

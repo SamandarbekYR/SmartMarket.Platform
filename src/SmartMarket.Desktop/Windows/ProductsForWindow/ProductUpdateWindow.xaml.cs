@@ -123,6 +123,9 @@ public partial class ProductUpdateWindow : Window
 
     private async void btnUpdate_MouseDown(object sender, MouseButtonEventArgs e)
     {
+        if (btnUpdateContainer.IsEnabled == false) return;
+
+        btnUpdateContainer.IsEnabled = false;
         AddProductDto addProductDto = new AddProductDto();
 
         if (!string.IsNullOrWhiteSpace(txtBarCode.Text) &&
@@ -144,6 +147,7 @@ public partial class ProductUpdateWindow : Window
             else
             {
                 notifierThis.ShowWarning("Kategoriya tanlanmagan.");
+                btnUpdateContainer.IsEnabled = true;
                 return;
             }
 
@@ -152,6 +156,7 @@ public partial class ProductUpdateWindow : Window
                 !double.TryParse(txtProductPriceSum.Text, out double sellPrice) || sellPrice <= 0)
             {
                 notifierThis.ShowError("Mahsulot soni yoki narxi 0 bo'lmasligi kerak.");
+                btnUpdateContainer.IsEnabled = true;
                 return;
             }
 
@@ -168,6 +173,7 @@ public partial class ProductUpdateWindow : Window
             else
             {
                 notifierThis.ShowWarning("Yetkazib beruvchi tanlanmagan");
+                btnUpdateContainer.IsEnabled = true;
                 return;
             }
 
@@ -186,11 +192,15 @@ public partial class ProductUpdateWindow : Window
             }
             else
             {
-                notifier.ShowError("Mahsulot yaratishda xato yuz berdi.");
+                notifierThis.ShowError("Mahsulot yaratishda xato yuz berdi.");
+                btnUpdateContainer.IsEnabled = true;
             }
         }
         else
+        {
             notifierThis.ShowError("Mahsulot malumotlari to'liq emas.");
+            btnUpdateContainer.IsEnabled = true;
+        }
     }
 
     private void btnClear_MouseDown(object sender, MouseButtonEventArgs e)

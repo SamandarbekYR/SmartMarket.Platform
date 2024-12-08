@@ -84,7 +84,12 @@ public partial class CategoryCreateWindow : Window
 
     private async void btnCategoryCreate_MouseUp(object sender, MouseButtonEventArgs e)
     {
-        if(!string.IsNullOrEmpty(txtCategoryName.Text) && !string.IsNullOrEmpty(txtdescribtion.Text))
+        if (btnCategoryCreate.IsEnabled == false)
+            return;
+
+        btnCategoryCreate.IsEnabled = false;
+
+        if (!string.IsNullOrEmpty(txtCategoryName.Text) && !string.IsNullOrEmpty(txtdescribtion.Text))
         {
             CategoryDto categoryDto = new CategoryDto();
             categoryDto.Name = txtCategoryName.Text;
@@ -96,15 +101,18 @@ public partial class CategoryCreateWindow : Window
                 Clear();
                 this.Close();
                 notifier.ShowSuccess("Kategoriya muvafaqqiyatli qo'shildi");
-
             }
             else
+            {
                 notifierThis.ShowError("Kategoriya qo'shishda xatolik yuz berdi");
+                btnCategoryCreate.IsEnabled = true;
+            }
 
         }
         else
         {
             notifierThis.ShowWarning("Kategoriya malumotlarini to'liq emas!");
+            btnCategoryCreate.IsEnabled = true;
         }
     }
     private void btnClose_Click(object sender, RoutedEventArgs e)

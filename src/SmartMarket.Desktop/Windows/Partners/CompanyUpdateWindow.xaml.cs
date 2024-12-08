@@ -132,6 +132,9 @@ namespace SmartMarket.Desktop.Windows.Partners
 
         private async void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
+            if (UpdateButton.IsEnabled == false) return;
+
+            UpdateButton.IsEnabled = false;
             if(!string.IsNullOrEmpty(txtPhoneNumber.Text) && !string.IsNullOrEmpty(txtCompanyName.Text) && !string.IsNullOrEmpty(txtDescribtion.Text))
             {
                 AddPartnerCompanyDto companyDto = new AddPartnerCompanyDto();
@@ -150,11 +153,13 @@ namespace SmartMarket.Desktop.Windows.Partners
                 else
                 {
                     notifier.ShowError("Firmani yangilashda xatolik yuz berdi.");
+                    UpdateButton.IsEnabled = true;
                 }
             }
             else
             {
                 notifierThis.ShowWarning("Firma malumotlari to'liq emas!");
+                UpdateButton.IsEnabled = true;
             }
         }
     }

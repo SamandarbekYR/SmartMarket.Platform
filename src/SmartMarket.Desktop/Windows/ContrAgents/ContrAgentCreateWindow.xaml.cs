@@ -73,6 +73,11 @@ public partial class ContrAgentCreateWindow : Window
 
     private async void btnCreate_MouseDown(object sender, MouseButtonEventArgs e)
     {
+        if (CreateButtonContainer.IsEnabled == false)
+            return;
+
+        CreateButtonContainer.IsEnabled = false;
+
         if(!string.IsNullOrEmpty(txtFirstName.Text) &&
             !string.IsNullOrEmpty(txtLastName.Text) &&
             !string.IsNullOrEmpty(txtPhoneNumber.Text))
@@ -96,11 +101,13 @@ public partial class ContrAgentCreateWindow : Window
             else
             {
                 notifier.ShowError("Agent qo'shishda xatolik yuz berdi");
+                CreateButtonContainer.IsEnabled = true;
             }
         }
         else
         {
             notifier.ShowWarning("Agent malumotlari to'liq emas!");
+            CreateButtonContainer.IsEnabled = true;
         }
     }
 
