@@ -22,8 +22,10 @@ namespace SmartMarket.Desktop.Pages.SettingsForPage;
 public partial class SettingsScalesPage : Page
 {
     private readonly IScaleService _scaleService;
+    private SettingsScalesComponent _settingsScalesComponent = new SettingsScalesComponent();
     public SettingsScalesPage()
     {
+        _settingsScalesComponent.OnPageReload +=  GetAllScales;
         _scaleService = new ScaleService();
         InitializeComponent();
     }
@@ -34,37 +36,48 @@ public partial class SettingsScalesPage : Page
         scaleCreateWindow.CreateScale = GetAllScales;
         scaleCreateWindow.ShowDialog();
     }
+    // SettingsScalesPage.xaml.cs
 
     public async Task GetAllScales()
     {
-        EmptyData.Visibility = Visibility.Collapsed;
-        Loader.Visibility = Visibility.Visible;
-        St_Scales.Children.Clear();
-        var scales = await Task.Run(async () => await _scaleService.GetAllScalesAsync());
-        Loader.Visibility = Visibility.Collapsed;
+        Dispatcher.Invoke(() =>
+        {
+            EmptyData.Visibility = Visibility.Collapsed;
+            Loader.Visibility = Visibility.Visible;
+            St_Scales.Children.Clear();
+        });
 
-        int count = 1;
-        if (scales.Count > 0)
+        var scales = await _scaleService.GetAllScalesAsync();
+
+        Dispatcher.Invoke(() =>
         {
-            foreach (var scale in scales)
+            Loader.Visibility = Visibility.Collapsed;
+
+            int count = 1;
+            if (scales.Count > 0)
             {
-                SettingsScalesComponent settingsScalesComponent = new SettingsScalesComponent();
-                settingsScalesComponent.Tag = scale;
-                settingsScalesComponent.SetData(count, scale);
-                settingsScalesComponent.GetScales = GetAllScales;
-                settingsScalesComponent.BorderThickness = new Thickness(0, 0, 0, 5);
-                St_Scales.Children.Add(settingsScalesComponent);
-                count++;
+                foreach (var scale in scales)
+                {
+                    SettingsScalesComponent settingsScalesComponent = new SettingsScalesComponent();
+                    settingsScalesComponent.Tag = scale;
+                    settingsScalesComponent.SetData(count, scale);
+                    settingsScalesComponent.GetScales = GetAllScales; 
+                    settingsScalesComponent.OnPageReload += async () => await GetAllScales(); 
+                    settingsScalesComponent.BorderThickness = new Thickness(0, 0, 0, 5);
+                    St_Scales.Children.Add(settingsScalesComponent);
+                    count++;
+                }
             }
-        }
-        else
-        {
-            EmptyData.Visibility = Visibility.Visible;
-        }
+            else
+            {
+                EmptyData.Visibility = Visibility.Visible;
+            }
+        });
     }
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
-        await GetAllScales();
-    } 
+        await GetAllScales(); 
+    }
+
 }
