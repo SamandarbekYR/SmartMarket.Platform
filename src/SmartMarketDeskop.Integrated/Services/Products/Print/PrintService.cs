@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Management;
 using System.Text;
 using ZXing;
+using ZXing.Common;
 
 namespace SmartMarketDeskop.Integrated.Services.Products.Print;
 
@@ -79,12 +80,12 @@ public class PrintService : IDisposable
     {
         var barcodeWriter = new BarcodeWriter<Bitmap>
         {
-            Format = BarcodeFormat.CODE_128,
-            Options = new ZXing.Common.EncodingOptions
+            Format = BarcodeFormat.EAN_13,
+            Options = new EncodingOptions
             {
-                Height = 40,
-                Width = 300,
-                Margin = 10 
+                Height = 50,
+                Width = 150,
+                Margin = 2  
             }
         };
 
