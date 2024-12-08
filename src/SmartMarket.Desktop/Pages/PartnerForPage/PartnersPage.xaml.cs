@@ -30,7 +30,7 @@ public partial class PartnersPage : Page
         var partners = await Task.Run(async () => await _partnerService.GetAll());
         Loader.Visibility = Visibility.Collapsed;
 
-        var totalDebt = partners.Sum(x => x.Debtors.Sum(x => x.DeptSum));
+        var totalDebt = partners.Sum(x => x.TotalDebt);
         partnerTotalDebtTextBox.Text = totalDebt.ToString();
 
         int count = 1;
