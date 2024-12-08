@@ -28,7 +28,7 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.0.2" />
     <PackageReference Include="System.Management" Version="8.0.0" />
-    <PackageReference Include="ZXing.Net" Version="0.16.9" />
+    <PackageReference Include="ZXing.Net" Version="0.16.0" />
   </ItemGroup>
 
   <ItemGroup>
