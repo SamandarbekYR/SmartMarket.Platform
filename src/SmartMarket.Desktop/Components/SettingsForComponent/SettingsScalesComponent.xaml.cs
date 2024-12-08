@@ -216,6 +216,7 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
         {
             var products = await _productService.GetAll();
             var dataBuilder = new StringBuilder();
+            dataBuilder.AppendLine("SmartPost");
 
             long id = 1;
             foreach (var product in products)
