@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Management;
 using System.Text;
 using ZXing;
+using ZXing.Common;
 
 namespace SmartMarketDeskop.Integrated.Services.Products.Print;
 
@@ -26,6 +27,7 @@ public class PrintService : IDisposable
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         printer.DoubleWidth2();
         printer.Append("Smart market");
+        printer.Append(transactionNo.ToString());
         printer.Separator();
         printer.Append("\n");
 
@@ -61,11 +63,6 @@ public class PrintService : IDisposable
         printer.Append( "Sana:      " + DateTime.Now.ToString());
         printer.Append("\n");
 
-        var barCode = new Bitmap(GenerateBarcode(transactionNo.ToString()));
-
-        printer.AlignCenter();
-        printer.Image(barCode);
-
         printer.AlignCenter();
         printer.BoldMode("Xaridingiz uchun tashakkur!");
 
@@ -73,22 +70,6 @@ public class PrintService : IDisposable
 
         printer.FullPaperCut();
         printer.PrintDocument();
-    }
-
-    public Image GenerateBarcode(string text)
-    {
-        var barcodeWriter = new BarcodeWriter<Bitmap>
-        {
-            Format = BarcodeFormat.CODE_128,
-            Options = new ZXing.Common.EncodingOptions
-            {
-                Height = 40,
-                Width = 300,
-                Margin = 10 
-            }
-        };
-
-        return barcodeWriter.Write(text);
     }
 
     public void Test()
