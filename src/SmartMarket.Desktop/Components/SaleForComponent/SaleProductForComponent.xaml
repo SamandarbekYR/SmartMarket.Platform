@@ -17,23 +17,13 @@
         <Grid>
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="2*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-
-            <TextBlock
-                     Grid.Column="0"
-                     x:Name="tbNumber"
-                     Text="1"
-                     FontSize="14"
-                     FontWeight="SemiBold"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Center"
-                     />
 
             <TextBlock
                      Grid.Column="1"

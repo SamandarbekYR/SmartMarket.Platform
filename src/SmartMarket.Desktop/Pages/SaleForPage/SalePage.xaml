@@ -280,23 +280,13 @@
                                         Margin="5 0 15 0"
                                         Grid.Row="0">
                                         <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="50"/>
+                                            <ColumnDefinition Width="10"/>
                                             <ColumnDefinition Width="2*"/>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-
-                                        <TextBlock
-                                            Grid.Column="0"
-                                            Text="No."
-                                            FontSize="13"
-                                            FontWeight="SemiBold"
-                                            VerticalAlignment="Center"
-                                            HorizontalAlignment="Center"
-                                            Foreground="{DynamicResource BorderColor}"
-                                            ></TextBlock>
 
                                         <TextBlock
                                             Grid.Column="1"
