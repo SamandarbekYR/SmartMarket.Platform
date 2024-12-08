@@ -33,7 +33,6 @@ namespace SmartMarket.Desktop.Windows.Settings
     {
         private IScaleService _scaleService;
         private ScaleDto _scale;
-
         public ScaleUpdateWindow()
         {
             _scaleService = new ScaleService();

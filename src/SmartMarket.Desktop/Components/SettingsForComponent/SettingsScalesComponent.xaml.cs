@@ -28,6 +28,7 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
         private int _updateInterval = 120;
         private IProductService _productService;
         private IScaleService _scaleService;
+        public event Func<Task> OnPageReload;
         private List<KeyValuePair<ScaleDto, Timer>> _updateTimers = new List<KeyValuePair<ScaleDto, Timer>>();
         public Func<Task> GetScales { get; set; }
         public SettingsScalesComponent()
@@ -124,7 +125,10 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
                 bool result = await _scaleService.DeleteScaleAsync(selectScale.Id);
 
                 if (result)
+                {
                     Dispatcher.Invoke(() => notifier.ShowSuccess("Tarozini o'chirildi."));
+                    await (OnPageReload?.Invoke() ?? Task.CompletedTask);
+                }
                 else
                     Dispatcher.Invoke(() => notifier.ShowError("Tarozini o'chirishda xatolik mavjud."));
             }
@@ -137,6 +141,12 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
             var selectScale = this.Tag as ScaleDto;
             ScaleUpdateWindow scaleUpdateWindow = new ScaleUpdateWindow();
             scaleUpdateWindow.SetData(selectScale);
+
+            scaleUpdateWindow.Closed += async (s, args) =>
+            {
+                await (OnPageReload?.Invoke() ?? Task.CompletedTask); 
+            };
+
             scaleUpdateWindow.Show();
         }
 
@@ -168,6 +178,7 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
             try
             {
                 var productData = await GetProductDataAsync();
+                productData = productData.Replace("\r\n", "\n").Replace("\n", Environment.NewLine);
 
                 using (var fileStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
                 {

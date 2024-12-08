@@ -92,6 +92,7 @@ namespace SmartMarket.Desktop.Windows.Settings
             {
                 _selectedPath = openFileDialog.FileName;
             }
+            txtPath.Text = _selectedPath;
         }
 
         private void Close_Button_Click(object sender, RoutedEventArgs e)

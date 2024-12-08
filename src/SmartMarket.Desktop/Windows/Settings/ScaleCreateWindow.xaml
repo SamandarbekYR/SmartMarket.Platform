@@ -62,7 +62,7 @@
                         Margin="10 5"
                         Style="{DynamicResource TitleLabel}"/>
                     <Label
-                        Content="Yangilanish vaqti :"
+                        Content="Vaqt (sekund) :"
                         FontSize="18"
                         Margin="10"
                         Style="{DynamicResource TitleLabel}"/>
@@ -99,6 +99,11 @@
                        BorderThickness="1"
                        BorderBrush="Gray">
                         <DockPanel>
+                            <TextBox 
+                                x:Name="txtPath" 
+                                Width="190"
+                                FontWeight="SemiBold"
+                                FontSize="17"/>
                             <Button
                                 Click="btnUpload_Click"
                                 x:Name="btnUpload"
