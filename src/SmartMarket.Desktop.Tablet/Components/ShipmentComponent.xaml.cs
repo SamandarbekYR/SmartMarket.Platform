@@ -31,9 +31,9 @@ public partial class ShipmentComponent : UserControl
         if (page is SecondPage secondPage)
         {
             secondPage.SelectOrder(this, orderDto!.Id);
+            btnEditShipment.Visibility = Visibility.Collapsed;
+            CancelButton.Visibility = Visibility.Visible;
         }
-
-
     }
 
     private Page FindParentPage(DependencyObject child)
@@ -50,5 +50,16 @@ public partial class ShipmentComponent : UserControl
         }
 
         return null!;
+    }
+
+    private void CancelButton_Click(object sender, RoutedEventArgs e)
+    {
+        var page = FindParentPage(this);
+        if(page is SecondPage secondPage)
+        {
+            secondPage.StopSale();
+            CancelButton.Visibility = Visibility.Collapsed;
+            btnEditShipment.Visibility = Visibility.Visible;
+        }
     }
 }

@@ -69,6 +69,18 @@
                         Style="{DynamicResource MainButton}"
                         Click="btnEditShipment_Click"/>
 
+                    <Button
+                        Name="CancelButton"
+                        Height="25"
+                        Width="100"
+                        Margin="0 0 8 0"
+                        Content="Orqaga"
+                        HorizontalAlignment="Right"
+                        Background="{DynamicResource BSecondColor}"
+                        Click="CancelButton_Click"
+                        Visibility="Collapsed"
+                        Style="{DynamicResource MainButton}"/>
+
                 </Grid>
 
             </Grid>

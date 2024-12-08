@@ -302,6 +302,7 @@ public partial class SecondPage : Page
             if (res is true)
             {
                 notifierThis.ShowSuccess("Mahsulotlar muvaffaqiyatli yangilandi.");
+                StopSale();
                 await GetAllShipments();
             }
             else
@@ -313,6 +314,22 @@ public partial class SecondPage : Page
         {
             notifierThis.ShowError("Xatolik yuz berdi.");
         }
+    }
+
+    private void EmptyOrderDetails()
+    {
+        lbProductTotalPrice.Content = "0";
+        lbPartnerName.Content = "Nomalum";
+        lbworkerName.Content = "Nomalum";
+    }
+
+    public void StopSale()
+    {
+        selectedControl = null!;
+        st_product.Children.Clear();
+        st_searchproduct.Children.Clear();
+        tb_search.Text = "";
+        EmptyOrderDetails();
     }
 
     private CancellationTokenSource _cancellationTokenSource = null!;
