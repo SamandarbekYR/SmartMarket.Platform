@@ -133,13 +133,13 @@
                 </ComboBox>
             </DockPanel>
 
-            <Button
+            <Button x:Name="SaveButton"
                 Margin="0 80 0 0"
                 Height="35"
                 Width="170"
                 Content="Saqlash"
                 FontSize="18"
-                Click="Button_Click"
+                Click="SaveButton_Click"
                 Style="{DynamicResource Create_Button}"/>
 
         </StackPanel>

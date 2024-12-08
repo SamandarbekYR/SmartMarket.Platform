@@ -110,8 +110,11 @@ public partial class ExpensesWindow : Window
         }
     }
 
-    private async void Button_Click(object sender, RoutedEventArgs e)
+    private async void SaveButton_Click(object sender, RoutedEventArgs e)
     {
+        if (SaveButton.IsEnabled == false) return;
+
+        SaveButton.IsEnabled = false;
         AddExpenceDto dto = new AddExpenceDto();
         dto.Reason = Reason;
         dto.PayDeskId = PayDeskId;
@@ -125,7 +128,10 @@ public partial class ExpensesWindow : Window
             this.Close();
         }
         else
+        {
             notifierthis.ShowError("Qandaydir xatolik mavjud.");
+            SaveButton.IsEnabled = true;
+        }
 
     }
 

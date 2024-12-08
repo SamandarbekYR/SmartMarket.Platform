@@ -358,25 +358,27 @@
                           FontSize="18"/>
                         </Border>
 
-                        <Border Grid.Column="1"
-                               x:Name="btnUpdate"
-                               MouseDown="btnUpdate_MouseDown"
-                               Margin="20 0 32 3"
-                               Width="150"
-                               Height="35"
-                               BorderThickness="1"
-                               BorderBrush="{DynamicResource BorderColor}"
-                               CornerRadius="5"
-                               HorizontalAlignment="Right"
-                               Background="#1EB7E8"
-                               Cursor="Hand">
-                            <Label Content="Saqlash"
-                              VerticalAlignment="Center"
-                              HorizontalAlignment="Center"
-                              Foreground="White"
-                              Margin="10 0 0 0"
-                              FontSize="18"/>
-                        </Border>
+                        <Grid x:Name="btnUpdateContainer">
+                            <Border Grid.Column="1"
+                                   x:Name="btnUpdate"
+                                   MouseDown="btnUpdate_MouseDown"
+                                   Margin="20 0 32 3"
+                                   Width="150"
+                                   Height="35"
+                                   BorderThickness="1"
+                                   BorderBrush="{DynamicResource BorderColor}"
+                                   CornerRadius="5"
+                                   HorizontalAlignment="Right"
+                                   Background="#1EB7E8"
+                                   Cursor="Hand">
+                                <Label Content="Saqlash"
+                                  VerticalAlignment="Center"
+                                  HorizontalAlignment="Center"
+                                  Foreground="White"
+                                  Margin="10 0 0 0"
+                                  FontSize="18"/>
+                            </Border>
+                        </Grid>
                     </StackPanel>
 
                 </StackPanel>

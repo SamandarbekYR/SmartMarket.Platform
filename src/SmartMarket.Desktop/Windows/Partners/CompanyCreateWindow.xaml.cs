@@ -114,6 +114,9 @@ namespace SmartMarket.Desktop.Windows.Partners
 
         private async void CreateButton_Click(object sender, RoutedEventArgs e)
         {
+            if (CreateButton.IsEnabled == false) return;
+
+            CreateButton.IsEnabled = false;
             if (!string.IsNullOrEmpty(txtCompanyName.Text) && !string.IsNullOrEmpty(txtPhoneNumber.Text) && !string.IsNullOrEmpty(txtDescribtion.Text))
             {
                 AddPartnerCompanyDto partnerCompanyDto = new AddPartnerCompanyDto();
@@ -128,10 +131,16 @@ namespace SmartMarket.Desktop.Windows.Partners
                     this.Close();
                     notifier.ShowSuccess($"{txtCompanyName.Text} muvaffaqiyatli yaratildi.");
                 }
+                else
+                {
+                    notifierThis.ShowError("Firma yaratishda xatolik yuz berdi!");
+                    CreateButton.IsEnabled = true;
+                }
             }
             else
             {
-                notifierThis.ShowWarning("Firma malumotlari to'liq emas!"); 
+                notifierThis.ShowWarning("Firma malumotlari to'liq emas!");
+                CreateButton.IsEnabled = true;
             }
         }
     }

@@ -65,6 +65,9 @@ public partial class PositionCreateWindow : Window
 
     private async void btnPositionCreate_MouseUp(object sender, MouseButtonEventArgs e)
     {
+        if (btnPositionCreateContainer.IsEnabled == false) return;
+
+        btnPositionCreateContainer.IsEnabled = false;
         var name = txtName.Text;
         if (!string.IsNullOrEmpty(name))
         {
@@ -82,11 +85,14 @@ public partial class PositionCreateWindow : Window
             else
             {
                 notifier.ShowError("Pozitsiya yaratishda xato yuz berdi.");
+                btnPositionCreateContainer.IsEnabled = true;
+
             }
         }
         else
         {
             MessageBox.Show("Xatolik mavjud! Dasturni qo'llab quvvatlovchi shaxslarga murojaat qiling!");
+            btnPositionCreateContainer.IsEnabled = true;
         }
     }
 

@@ -84,6 +84,9 @@ namespace SmartMarket.Desktop.Windows.Settings
 
         private async void Scale_Update_Button_Click(object sender, RoutedEventArgs e)
         {
+            if (Scale_Update_Button.IsEnabled == false) return;
+
+            Scale_Update_Button.IsEnabled = false;
             AddScaleDto scale = new AddScaleDto();
             scale.Name = tb_ScaleName.Text;
             scale.UpdateTimeInterval = int.Parse(tb_UpdateTime.Text);
@@ -98,7 +101,10 @@ namespace SmartMarket.Desktop.Windows.Settings
                 notifier.ShowSuccess("Tarozi yangilandi.");
             }
             else
+            {
                 notifierThis.ShowError("Tarozi yaratishda qandaydir xatolik bor !");
+                Scale_Update_Button.IsEnabled = true;
+            }
         }
 
         private void TimeTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)

@@ -83,6 +83,9 @@ public partial class ProductCreateWindow : Window
 
     private async void btnCreate_MouseDown(object sender, MouseButtonEventArgs e)
     {
+        if(btnCreateContainer.IsEnabled == false) return;
+
+        btnCreateContainer.IsEnabled = false;
         AddProductDto addProductDto = new AddProductDto();
 
         if (!string.IsNullOrWhiteSpace(txtBarCode.Text) &&
@@ -103,6 +106,7 @@ public partial class ProductCreateWindow : Window
             else
             {
                 notifierThis.ShowWarning("Kategoriya tanlanmagan.");
+                btnCreateContainer.IsEnabled = true;
                 return;
             }
 
@@ -111,6 +115,7 @@ public partial class ProductCreateWindow : Window
                 !double.TryParse(txtProductPriceSum.Text, out double sellPrice) || sellPrice <= 0)
             {
                 notifierThis.ShowError("Mahsulot soni yoki narxi 0 bo'lmasligi kerak.");
+                btnCreateContainer.IsEnabled = true;
                 return;
             }
 
@@ -137,6 +142,7 @@ public partial class ProductCreateWindow : Window
             else
             {
                 notifierThis.ShowWarning("Yetkazib beruvchi tanlanmagan.");
+                btnCreateContainer.IsEnabled = true;
                 return;
             }
 
@@ -151,14 +157,18 @@ public partial class ProductCreateWindow : Window
             }
             else
             {
-                notifier.ShowError("Maxsulot yaratishda xatolik maxjud.");
+                notifierThis.ShowError("Maxsulot yaratishda xatolik maxjud.");
+                btnCreateContainer.IsEnabled = true;
             }
 
             ProductImageDto productImageDto = new ProductImageDto();
             productImageDto.ImagePath = imagepath;
         }
         else
+        {
             notifierThis.ShowWarning("Mahsulot malumotlari to'liq emas.");
+            btnCreateContainer.IsEnabled = true;
+        }
     }
 
     private void txtBarCode_PreviewTextInput(object sender, TextCompositionEventArgs e)

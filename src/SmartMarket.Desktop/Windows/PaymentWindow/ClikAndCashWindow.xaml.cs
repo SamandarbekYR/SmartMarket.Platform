@@ -74,6 +74,9 @@ public partial class ClikAndCashWindow : Window
 
     private async void BtnPay_Click(object sender, RoutedEventArgs e)
     {
+        if (BtnPay.IsEnabled == false) return;
+
+        BtnPay.IsEnabled = false;
         double cashsum = double.Parse(tbCash.Text);
         double clicksum = double.Parse(tbClik.Text);
 
@@ -106,6 +109,7 @@ public partial class ClikAndCashWindow : Window
         }
         else
         {
+            BtnPay.IsEnabled = true;
             notEnaughMoney.Foreground = Brushes.Red;
             await Task.Delay(3000);
             notEnaughMoney.Foreground = Brushes.White;

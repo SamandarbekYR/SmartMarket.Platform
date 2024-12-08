@@ -94,6 +94,9 @@ public partial class PayDeskCreateWindow : Window
     
     private async void btnPayDeskCreate_MouseUp(object sender, MouseButtonEventArgs e)
     {
+        if (btnPayDeskCreate.IsEnabled == false) return;
+
+        btnPayDeskCreate.IsEnabled = false;
         if (!string.IsNullOrEmpty(txtPayDeskName.Text))
         {
             AddPayDesksDto dto = new AddPayDesksDto();
@@ -117,9 +120,15 @@ public partial class PayDeskCreateWindow : Window
                 notifier.ShowSuccess("Kassa muvaffaqriyatli qo'shildi");
             }
             else
+            {
                 notifierThis.ShowError("Kassa qo'shishda xatolik yuz berdi");
+                btnPayDeskCreate.IsEnabled = true;
+            }
         }
         else
+        {
             notifierThis.ShowWarning("Kassa malumoti to'liq emas!");
+            btnPayDeskCreate.IsEnabled = true;
+        }
     }
 }
