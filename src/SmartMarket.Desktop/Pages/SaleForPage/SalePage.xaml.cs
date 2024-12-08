@@ -52,7 +52,6 @@ public partial class SalePage : Page
     public TransactionViewModel tvm;
 
     int activeTextboxIndex = 2;
-    int productCount = 1;
     string message = "";
     string barcode = "";
     string barcodes = "";
@@ -141,23 +140,23 @@ public partial class SalePage : Page
 
     public void GetData()
     {
-        //var payDeskId = Properties.Settings.Default.PayDesk;
-        //if (string.IsNullOrEmpty(payDeskId))
-        //{
-        //    SelectPayDeskWindow selectPayDeskWindow = new SelectPayDeskWindow();
-        //    selectPayDeskWindow.ShowDialog();
-        //}
-        //else
-        //{
-        //    IdentitySingelton.GetInstance().PayDeskId = Guid.Parse(payDeskId.ToString()!);
-        //    IdentitySingelton.GetInstance().PayDeskName = Properties.Settings.Default.PayDeskName;
-        //}
-        //tbFullName.Text = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
-        //tbKassaName.Text = IdentitySingelton.GetInstance().PayDeskName;
-        //IdentitySingelton.GetInstance().PrinterName = Properties.Settings.Default.PrinterName;
+        var payDeskId = Properties.Settings.Default.PayDesk;
+        if (string.IsNullOrEmpty(payDeskId))
+        {
+            SelectPayDeskWindow selectPayDeskWindow = new SelectPayDeskWindow();
+            selectPayDeskWindow.ShowDialog();
+        }
+        else
+        {
+            IdentitySingelton.GetInstance().PayDeskId = Guid.Parse(payDeskId.ToString()!);
+            IdentitySingelton.GetInstance().PayDeskName = Properties.Settings.Default.PayDeskName;
+        }
+        tbFullName.Text = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
+        tbKassaName.Text = IdentitySingelton.GetInstance().PayDeskName;
+        IdentitySingelton.GetInstance().PrinterName = Properties.Settings.Default.PrinterName;
 
-        //tbDate.Text = DateTime.UtcNow.Month + "." + DateTime.UtcNow.Day + "." + DateTime.UtcNow.Year;
-        //tbhour.Text = DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
+        tbDate.Text = DateTime.UtcNow.Month + "." + DateTime.UtcNow.Day + "." + DateTime.UtcNow.Year;
+        tbhour.Text = DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
     }
 
     private void vaqt_ketdi(object sender, ElapsedEventArgs e)
@@ -217,16 +216,20 @@ public partial class SalePage : Page
     {
         if (!string.IsNullOrEmpty(barcode))
         {
-            var product = await _productService.GetByBarCode(barcode);
+            var product = await Task.Run( async () => await _productService.GetByBarCode(barcode));
 
-            if (product != null)
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                AddNewProductTvm(product, 0);
-            }
-            else
-            {
-                notifier.ShowWarning("Bunday maxsulot topilmadi.");
-            }
+                if (product != null)
+                {
+                    AddNewProductTvm(product, 0);
+                }
+                else 
+                {
+                    notifier.ShowWarning("Bunday maxsulot topilmadi.");
+                }
+            });
+
         }
     }
 
@@ -299,9 +302,8 @@ public partial class SalePage : Page
         GetPrice(product, quantity);
         ColculateTotalPrice();
 
-        saleProductForComponent.SetData(product, productCount);
+        saleProductForComponent.SetData(product);
         St_product.Children.Add(saleProductForComponent);
-        productCount++;
     }
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -780,58 +782,64 @@ public partial class SalePage : Page
 
     public async void ConvertTransaction(bool isDebt, Guid id = default)
     {
-        AddSalesRequestDto dto = new AddSalesRequestDto();
-        dto.TotalCost = tvm.TransactionPrice;
-        dto.DiscountSum = tvm.DiscountPrice;
-        if (isDebt)
-        {
-            dto.PartnerId = id;
-            dto.DebtSum = tvm.TransactionPrice;
-            dto.CardSum = 0;
-            dto.CashSum = 0;
-        }
-        else if (PaymentType == "card")
-        {
-            dto.CardSum = tvm.TransactionPrice;
-            dto.DebtSum = 0;
-            dto.CashSum = 0;
-        }
-        else if (PaymentType == "cash")
-        {
-            dto.CashSum = tvm.TransactionPrice;
-            dto.CardSum = 0;
-            dto.DebtSum = 0;
-        }
-        else if (PaymentType == "click")
-        {
-            dto.CardSum = tvm.TransactionPrice;
-            dto.DebtSum = 0;
-            dto.CashSum = 0;
-        }
-        else if (PaymentType == "transfer")
-        {
-            dto.CardSum = tvm.TransactionPrice;
-            dto.DebtSum = 0;
-            dto.CashSum = 0;
-        }
-        else if (PaymentType == "clickandcash")
-        {
-            dto.CardSum = ClickSum;
-            dto.CashSum = CashSum;
-            dto.DebtSum = 0;
-        }
+        await Application.Current.Dispatcher.BeginInvoke(
+            DispatcherPriority.Background,
+            new Action(async () =>
+            {
+                AddSalesRequestDto dto = new AddSalesRequestDto
+                {
+                    TotalCost = tvm.TransactionPrice,
+                    DiscountSum = tvm.DiscountPrice,
+                    DebtSum = 0,
+                    CardSum = 0,
+                    CashSum = 0
+                };
 
-        List<AddProductSaleDto> products = tvm.Transactions
-            .Select(t => new AddProductSaleDto { ProductId = t.Id, Count = t.Quantity, Discount = t.Discount, ItemTotalCost = t.TotalPrice }).ToList();
+                switch (PaymentType)
+                {
+                    case "card":
+                    case "click":
+                    case "transfer":
+                        dto.CardSum = tvm.TransactionPrice;
+                        break;
 
-        dto.IsShipment = IsShipment;
-        dto.ProductSaleItems = products;
-        if(IsShipment)
-        {
-            await UpdateProductCount(Order, products);
-            IsShipment = false;
-        }
-        await ProductSale(dto, isDebt);
+                    case "cash":
+                        dto.CashSum = tvm.TransactionPrice;
+                        break;
+
+                    case "clickandcash":
+                        dto.CardSum = ClickSum;
+                        dto.CashSum = CashSum;
+                        break;
+                }
+
+                if (isDebt)
+                {
+                    dto.PartnerId = id;
+                    dto.DebtSum = tvm.TransactionPrice;
+                    dto.CardSum = 0;
+                    dto.CashSum = 0;
+                }
+
+                dto.ProductSaleItems = tvm.Transactions
+                    .Select(t => new AddProductSaleDto
+                    {
+                        ProductId = t.Id,
+                        Count = t.Quantity,
+                        Discount = t.Discount,
+                        ItemTotalCost = t.TotalPrice
+                    }).ToList();
+
+                if (IsShipment)
+                {
+                    dto.WorkerId = Order.WorkerId;
+                    await UpdateProductCount(Order, dto.ProductSaleItems);
+                    IsShipment = false;
+                }
+
+                await ProductSale(dto, isDebt);
+            })
+        );
     }
 
     public void ConvertShipment(OrderDto dto) 

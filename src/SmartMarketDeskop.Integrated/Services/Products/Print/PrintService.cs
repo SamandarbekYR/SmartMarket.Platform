@@ -27,8 +27,6 @@ public class PrintService : IDisposable
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         printer.DoubleWidth2();
         printer.Append("Smart market");
-        printer.Append(transactionNo.ToString());
-        printer.Separator();
         printer.Append("\n");
 
         foreach (var item in transactions)
@@ -51,16 +49,18 @@ public class PrintService : IDisposable
             printer.Append(text);
         }
 
-        printer.Separator();
-        printer.AlignLeft();
-        printer.Append($"Naqd:         {dto.CashSum} so'm");
-        printer.Append($"Plastik:      {dto.CardSum} so'm");
-        printer.Append($"Chegirma:     {dto.DiscountSum} so'm");
-        printer.Append($"Jami summa:   {dto.TotalCost} so'm");
         printer.Append("\n");
         printer.AlignLeft();
-        printer.Append($"Sotuvchi:  {worker}");
-        printer.Append( "Sana:      " + DateTime.Now.ToString());
+        printer.Append($"Naqd:            {dto.CashSum} so'm");
+        printer.Append($"Plastik:         {dto.CardSum} so'm");
+        printer.Append($"Chegirma:        {dto.DiscountSum} so'm");
+        printer.Append($"Jami summa:      {dto.TotalCost + dto.DiscountSum} so'm");
+        printer.Append($"To'langan summa: {dto.TotalCost} so'm");
+        printer.Append("\n");
+        printer.AlignLeft();
+        printer.Append($"Sotuvchi: {worker}");
+        printer.Append( "Sana:     " + DateTime.Now.ToString());
+        printer.Append($"ID:       {transactionNo}");
         printer.Append("\n");
 
         printer.AlignCenter();
