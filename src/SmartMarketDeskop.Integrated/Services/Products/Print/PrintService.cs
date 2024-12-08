@@ -27,6 +27,7 @@ public class PrintService : IDisposable
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         printer.DoubleWidth2();
         printer.Append("Smart market");
+        printer.Append(transactionNo.ToString());
         printer.Separator();
         printer.Append("\n");
 
@@ -62,11 +63,6 @@ public class PrintService : IDisposable
         printer.Append( "Sana:      " + DateTime.Now.ToString());
         printer.Append("\n");
 
-        var barCode = new Bitmap(GenerateBarcode(transactionNo.ToString()));
-
-        printer.AlignCenter();
-        printer.Image(barCode);
-
         printer.AlignCenter();
         printer.BoldMode("Xaridingiz uchun tashakkur!");
 
@@ -74,22 +70,6 @@ public class PrintService : IDisposable
 
         printer.FullPaperCut();
         printer.PrintDocument();
-    }
-
-    public Image GenerateBarcode(string text)
-    {
-        var barcodeWriter = new BarcodeWriter<Bitmap>
-        {
-            Format = BarcodeFormat.EAN_13,
-            Options = new EncodingOptions
-            {
-                Height = 50,
-                Width = 150,
-                Margin = 2  
-            }
-        };
-
-        return barcodeWriter.Write(text);
     }
 
     public void Test()
