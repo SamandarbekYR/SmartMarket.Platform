@@ -53,7 +53,7 @@ public partial class PartnersWindow : Window
         EnableBlur();
     }
 
-    private async void GetAllPartners()
+    public async void GetAllPartners()
     {
         St_Partners.Children.Clear();
         var partners = await Task.Run(async () => await _partnerService.GetAll());
@@ -61,7 +61,7 @@ public partial class PartnersWindow : Window
         ShowPartners(partners);
     }
 
-    private async void ShowPartners(List<Partner> partners)
+    public async void ShowPartners(List<Partner> partners)
     {
         Loader.Visibility = Visibility.Collapsed;
         int count = 1;

@@ -1,4 +1,6 @@
-﻿using SmartMarketDeskop.Integrated.Services.Partners;
+﻿using SmartMarket.Desktop.Windows.Partners;
+
+using SmartMarketDeskop.Integrated.Services.Partners;
 
 using SmartMarketDesktop.DTOs.DTOs.Partners;
 
@@ -11,6 +13,7 @@ namespace SmartMarket.Desktop.Windows.PaymentWindow
     {
         private IPartnerService _partnerService;
         private Guid _partnerId;
+        public Func<Task> RefreshPartnerPage { get; set; }
 
         public PaymentPartnersWindow(Guid partnerId)
         {
