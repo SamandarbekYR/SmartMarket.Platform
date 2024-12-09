@@ -54,11 +54,12 @@ namespace SmartMarket.Desktop.Windows.Partners
 
             Marshal.FreeHGlobal(accentPtr);
         }
-
-        private async void btnPartnerPayment_MouseUp(object sender, MouseButtonEventArgs e)
+  
+        private void btnPartnerPayment_MouseUp(object sender, MouseButtonEventArgs e)
         {
+            this.Close();
             PaymentPartnersWindow paymentPartnersWindow = new PaymentPartnersWindow(partnerId);
-            paymentPartnersWindow.Show();
+            paymentPartnersWindow.ShowDialog();
         }
 
         private void close_button_Click(object sender, RoutedEventArgs e)
