@@ -124,7 +124,12 @@ public class MapperProfile : Profile
 
         /*---------Partner-----------------*/
         CreateMap<AddPartnerDto, Partner>()
-            .ForMember(dest => dest.Id, opt => opt.Ignore());
+            // DTO'dagi LastPayment maydoni Partner'dagi LastPayment maydoniga xaritalanadi
+            .ForMember(dest => dest.LastPayment,
+               opt => opt.MapFrom(src => src.LastPaymentDate.ToUniversalTime()))
+            // TotalDebt va PaidDebt maydonlari qo'lda boshqarilishi mumkinligi uchun ignorlanadi
+            .ForMember(dest => dest.TotalDebt, opt => opt.Ignore())
+            .ForMember(dest => dest.PaidDebt, opt => opt.Ignore());
 
         CreateMap<Partner, PartnerDto>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id));

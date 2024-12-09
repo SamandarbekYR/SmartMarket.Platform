@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using SmartMarket.DataAccess.Interfaces;
 using SmartMarket.Domain.Entities.Orders;
 using SmartMarket.Service.Common.Exceptions;
+using SmartMarket.Service.DTOs.Partner;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarket.Service.Interfaces.Products.SalesRequest;
 
@@ -48,6 +49,26 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
                 if (!payDeskExists)
                 {
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Pay Desk not found.");
+                }
+
+                var partner = await _unitOfWork.Partner.GetById(dto.PartnerId.Value);
+                double debt;
+                if (partner != null)
+                {
+
+                    debt = (partner.TotalDebt ?? 0); // Agar TotalDebt null bo'lsa, 0 qo'llanadi
+                    AddPartnerDto addPartnerDto = new AddPartnerDto();
+                    addPartnerDto.FirstName = partner.FirstName;
+                    addPartnerDto.LastName = partner.LastName;
+                    addPartnerDto.PhoneNumber = partner.PhoneNumber;
+                    addPartnerDto.TotalDebt = debt + dto.DebtSum;
+
+                    _mapper.Map(addPartnerDto, partner);
+
+                    var partnerDebt = await _unitOfWork.Partner.Update(partner);
+
+                    if(!partnerDebt)
+                        throw new StatusCodeException(HttpStatusCode.NotFound, "Error updating Partner.");
                 }
 
                 var salesRequest = _mapper.Map<SR.SalesRequest>(dto);

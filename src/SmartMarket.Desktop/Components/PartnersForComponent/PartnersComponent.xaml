@@ -24,7 +24,9 @@
                 <ColumnDefinition Width="0.2*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>   
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="40"/>
                 <ColumnDefinition Width="40"/>
                 <ColumnDefinition Width="40"/>
@@ -57,9 +59,23 @@
                 Content="+998917727005"
                 Margin="5 0 0 0"
                 Style="{DynamicResource TitleLabel}"/>
-
-            <Button
+            
+            <Label
                 Grid.Column="4"
+                Name="lb_Debt_Sum"
+                Content="0"
+                Margin="5 0 0 0"
+                Style="{DynamicResource TitleLabel}"/>
+            
+            <Label
+                Grid.Column="5"
+                Name="lb_Paid_Debt"
+                Content="0"
+                Margin="5 0 0 0"
+                Style="{DynamicResource TitleLabel}"/>
+            
+            <Button
+                Grid.Column="6"
                 Name="Delete_Button"
                 Background="#CE0000"
                 HorizontalAlignment="Center"
@@ -68,7 +84,7 @@
                 Style="{DynamicResource ActionButton}"/>
             
             <Button
-                Grid.Column="5"
+                Grid.Column="7"
                 Name="Edit_Button"
                 Background="#329DFF"
                 HorizontalAlignment="Center"
@@ -77,7 +93,7 @@
                 Style="{DynamicResource ActionButton}"/>
 
             <Button
-                Grid.Column="6"
+                Grid.Column="8"
                 Name="Action_Button"
                 Click="Action_Button_Click"
                 Background="#43A41D"

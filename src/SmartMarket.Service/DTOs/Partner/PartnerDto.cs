@@ -9,6 +9,7 @@ public class PartnerDto
     public string LastName { get; set; } = string.Empty;
     public string PhoneNumber { get; set; } = string.Empty;
     public double? TotalDebt { get; set; }
+    public double? PaidDebt { get; set; }
     public DateTime? LastPayment { get; set; }
     public string PaymentType { get; set; } = string.Empty;
     public List<Debtors> Debtors { get; set; }

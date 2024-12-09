@@ -36,7 +36,7 @@ namespace SmartMarket.Desktop.Windows.PaymentWindow
             {
                 LastPayment = double.Parse(tbPayAmount.Text),
                 LastPaymentDate = DateTime.Now,
-                PaymentType = selectedValue!
+                PaymentType = selectedValue!,
             };
 
             await _partnerService.UpdatePartner(partnerCreateDto, _partnerId);
