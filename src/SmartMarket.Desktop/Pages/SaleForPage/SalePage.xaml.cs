@@ -803,7 +803,7 @@ public partial class SalePage : Page
                         break;
 
                     case "transfer":
-                        dto.CardSum = tvm.TransactionPrice;
+                        dto.TransferMoney = tvm.TransactionPrice;
                         break;
 
                     case "cash":
