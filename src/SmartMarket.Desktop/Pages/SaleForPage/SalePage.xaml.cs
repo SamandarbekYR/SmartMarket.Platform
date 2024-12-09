@@ -799,6 +799,9 @@ public partial class SalePage : Page
                 {
                     case "card":
                     case "click":
+                        dto.CardSum = tvm.TransactionPrice;
+                        break;
+
                     case "transfer":
                         dto.CardSum = tvm.TransactionPrice;
                         break;

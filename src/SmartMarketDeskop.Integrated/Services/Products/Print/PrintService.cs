@@ -2,11 +2,8 @@
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
-using System.Drawing;
 using System.Management;
 using System.Text;
-using ZXing;
-using ZXing.Common;
 
 namespace SmartMarketDeskop.Integrated.Services.Products.Print;
 
