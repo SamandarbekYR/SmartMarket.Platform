@@ -1,13 +1,12 @@
 ﻿using SmartMarketDeskop.Integrated.Services.Partners;
+
 using SmartMarketDesktop.DTOs.DTOs.Partners;
+
 using System.Windows;
 using System.Windows.Controls;
 
 namespace SmartMarket.Desktop.Windows.PaymentWindow
 {
-    /// <summary>
-    /// Interaction logic for PaymentPartnersWindow.xaml
-    /// </summary>
     public partial class PaymentPartnersWindow : Window
     {
         private IPartnerService _partnerService;
@@ -31,13 +30,13 @@ namespace SmartMarket.Desktop.Windows.PaymentWindow
 
             BtnPay.IsEnabled = false;
             ComboBoxItem selectedItem = (ComboBoxItem)cbPayment.SelectedItem;
-            string selectedValue = selectedItem?.Content.ToString()!; 
+            string selectedValue = selectedItem?.Content.ToString()!;
 
             PartnerCreateDto partnerCreateDto = new PartnerCreateDto()
             {
                 LastPayment = double.Parse(tbPayAmount.Text),
                 LastPaymentDate = DateTime.Now,
-                PaymentType = selectedValue! 
+                PaymentType = selectedValue!
             };
 
             await _partnerService.UpdatePartner(partnerCreateDto, _partnerId);

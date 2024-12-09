@@ -153,30 +153,7 @@ public partial class ReturnProductViewWindow : Window
                 resultReplaceProduct = await _replaceProductServer.AddAsync(replaceProductDto);
             }
 
-            if (resultReplaceProduct || resultInvalidProduct)
-            {
-                AddProductSaleDto productSaleDto = new AddProductSaleDto()
-                {
-                    ProductId = _productSale.ProductId,
-                    Count = _productSale.Count - replaceProductDto.Count,
-                    Discount = _productSale.Discount,
-                    SalesRequestId = _productSale.SalesRequestId,
-                    ItemTotalCost = _productSale.ItemTotalCost - _productSale.Product.SellPrice * replaceProductDto.Count,
-                };
-
-                var result = await Task.Run(async () => await _productSaleService.UpdateAsync(productSaleDto, _productSale.Id));
-
-                if (!result)
-                {
-                    notifierThis.ShowWarning("Product sale ma'lumotlarini yangilashda xatolik yuz berdi.");
-                }
-                else
-                {
-                    this.Close();
-                    notifier.ShowSuccess("Product sale ma'lumotlari yangilandi.");
-                }
-            }
-            else
+            if (!resultInvalidProduct || !resultReplaceProduct) 
             {
                 notifierThis.ShowError("Saqlashda xatolik yuz berdi.");
             }

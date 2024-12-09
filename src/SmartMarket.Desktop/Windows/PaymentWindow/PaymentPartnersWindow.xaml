@@ -5,18 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartMarket.Desktop.Windows.PaymentWindow"
         mc:Ignorable="d"
-        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        WindowState="Maximized"
         WindowStyle="None"
-        ResizeMode="NoResize"
-        WindowState="Maximized">
+        AllowsTransparency="True"
+        Background="Transparent"
+        Title="PaymentPartnersWindow">
 
-        <Border
-            Background="White"
-            Height="300" 
-            Width="500"
-            BorderThickness="1"
-            CornerRadius="5"
-            BorderBrush="{DynamicResource BorderColor}">
+    <!-- Bu yerda, butun oynaning tashqi fonini shaffof qilish uchun Background="Transparent" qilingan -->
+    <Grid Background="Transparent">
+
+        <!-- Borderni o'zgartirmaymiz, u hali ham ko'rinadi, faqat tashqi qismlar shaffof -->
+        <Border Background="White"
+                Height="300" 
+                Width="500"
+                CornerRadius="10"
+                BorderThickness="1"
+                BorderBrush="{DynamicResource BorderColor}">
 
             <Grid>
                 <Grid.RowDefinitions>
@@ -24,67 +28,58 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <Border
-                CornerRadius="5 5 0 0"
-                Grid.Row="0" 
-                Background="#04C217"/>
+                <!-- Title qismidagi fonni yashirish yoki shaffof qilish -->
+                <Border CornerRadius="5 5 0 0"
+                        Grid.Row="0" 
+                        Background="#04C217"/>
 
-                <TextBlock
-                    Grid.Row="0" 
-                    Text="To'lov"
-                    VerticalAlignment="Center"
-                    Foreground="White"
-                    FontSize="20"
-                    FontWeight="SemiBold"
-                    Margin="15 0 0 0"
-                ></TextBlock>
-            <Button
-                Grid.Row="0"
-                Name="close_button"
-                HorizontalAlignment="Right"
-                Click="close_button_Click"
-                Style="{DynamicResource btnClose}"/>
-            <StackPanel Grid.Row="1">
+                <TextBlock Grid.Row="0" 
+                           Text="To'lov"
+                           VerticalAlignment="Center"
+                           Foreground="White"
+                           FontSize="20"
+                           FontWeight="SemiBold"
+                           Margin="15 0 0 0"/>
 
-                    <TextBlock 
-                        Text="To'lov miqdori"
-                        FontSize="18"
-                        Margin="35 10 0 0"
-                    ></TextBlock>
-                    <TextBox
-                        x:Name="tbPayAmount"
-                        Height="40"
-                        Margin="35 5 35 10"
-                        Style="{DynamicResource tbPaymentstyle}"
-                    ></TextBox>
+                <!-- Yopish tugmasi -->
+                <Button Grid.Row="0"
+                        Name="close_button"
+                        HorizontalAlignment="Right"
+                        Click="close_button_Click"
+                        Style="{DynamicResource btnClose}"/>
 
-                    <TextBlock 
-                        Text="To'lov turi"
-                        FontSize="18"
-                        Margin="35 10 0 0"
-                    ></TextBlock>
+                <!-- Formning qolgan qismlari -->
+                <StackPanel Grid.Row="1">
+                    <TextBlock Text="To'lov miqdori"
+                               FontSize="18"
+                               Margin="35 10 0 0"/>
+                    <TextBox x:Name="tbPayAmount"
+                             Height="40"
+                             Margin="35 5 35 10"
+                             Style="{DynamicResource tbPaymentstyle}"/>
 
-                    <ComboBox
-                        x:Name="cbPayment"
-                        Height="40"
-                        Margin="35 5 35 10">
+                    <TextBlock Text="To'lov turi"
+                               FontSize="18"
+                               Margin="35 10 0 0"/>
+                    <ComboBox x:Name="cbPayment"
+                              Height="40"
+                              Margin="35 5 35 10">
                         <ComboBoxItem Content="Naqd"/>
                         <ComboBoxItem Content="Karta"/>
-                    <ComboBoxItem Content="Click"/>
-                </ComboBox>
+                        <ComboBoxItem Content="Click"/>
+                        <ComboBoxItem Content="Pul ko'chirish"/>
+                    </ComboBox>
 
-                <Button
-                    x:Name="BtnPay"
-                    Click="PartnerPayment_Button_Click"
-                    Content="To'lov"
-                    Foreground="White"
-                    FontSize="20"
-                    FontWeight="SemiBold"
-                    Background="#04C217"
-                    Style="{DynamicResource BtnPayment}">
-
-                </Button>
-            </StackPanel>
+                    <Button x:Name="BtnPay"
+                            Click="PartnerPayment_Button_Click"
+                            Content="To'lov"
+                            Foreground="White"
+                            FontSize="20"
+                            FontWeight="SemiBold"
+                            Background="#04C217"
+                            Style="{DynamicResource BtnPayment}"/>
+                </StackPanel>
             </Grid>
         </Border>
+    </Grid>
 </Window>
