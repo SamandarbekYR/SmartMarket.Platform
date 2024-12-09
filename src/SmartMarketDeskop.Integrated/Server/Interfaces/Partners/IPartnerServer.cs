@@ -7,8 +7,10 @@ namespace SmartMarketDeskop.Integrated.Server.Interfaces.Partners;
 public interface IPartnerServer
 {
     Task<List<Partner>> GetAllAsync();
+    Task<List<Partner>> FilterPartnerAsync(FilterPartnerDto filterPartnerDto);
     Task<bool> AddAsync(PartnerCreateDto dto);
     Task<PartnerDto> GetByNameAsync(string name);
+
     Task<bool> DeleteAsync(Guid Id);
     Task<bool> UpdateAsync(PartnerCreateDto dto, Guid Id);
     Task<bool> UpdateDebtSumAsync(double debtSum, Guid Id);

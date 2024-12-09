@@ -3,9 +3,12 @@ using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using SmartMarket.DataAccess.Interfaces;
+using SmartMarket.Domain.Entities.Expenses;
 using SmartMarket.Service.Common.Exceptions;
+using SmartMarket.Service.DTOs.Expence;
 using SmartMarket.Service.DTOs.Partner;
 using SmartMarket.Service.Interfaces.Partner;
+
 using System.Net;
 using Et = SmartMarket.Domain.Entities.Partners;
 
@@ -56,6 +59,39 @@ namespace SmartMarket.Service.Services.Partner
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error occurred while deleting a partner.");
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<PartnerDto>> FilterExpenceAsync(FilterPartnerDto filterDto)
+        {
+            try
+            {
+
+                var partners = await _unitOfWork.Partner.GetPartnersFullInformationAsync();
+
+                if (filterDto.FromDateTime.HasValue && filterDto.ToDateTime.HasValue)
+                {
+                    partners = partners.Where(
+                    ps => ps.CreatedDate >= filterDto.FromDateTime.Value
+                        && ps.CreatedDate <= filterDto.ToDateTime.Value).ToList();
+                }
+                else
+                {
+                    partners = partners.Where(
+                        ps => ps.CreatedDate.Value.Date == DateTime.Today).ToList();
+                }
+
+                if (filterDto.Id.HasValue)
+                {
+                    partners = partners.Where(p => p.PayDeskId == filterDto.Id.Value).ToList();
+                }
+
+                return _mapper.Map<List<PartnerDto>>(partners);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while filtering partners.");
                 throw;
             }
         }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SmartMarket.Service.Common.Exceptions;
+using SmartMarket.Service.DTOs.Expence;
 using SmartMarket.Service.DTOs.Partner;
 using SmartMarket.Service.Interfaces.Partner;
 
@@ -17,6 +18,24 @@ namespace SmartMarket.WebApi.Controllers.Common.Partner
             try
             {
                 var partners = await _partnerService.GetAllAsync();
+                return Ok(partners);
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
+        [HttpPost("filter")]
+        public async Task<IActionResult> FilterPartnerAsync([FromBody] FilterPartnerDto filterDto)
+        {
+            try
+            {
+                var partners = await _partnerService.FilterExpenceAsync(filterDto);
                 return Ok(partners);
             }
             catch (StatusCodeException ex)

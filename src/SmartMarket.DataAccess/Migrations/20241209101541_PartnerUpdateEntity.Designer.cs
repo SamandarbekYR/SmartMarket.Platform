@@ -12,7 +12,7 @@ using SmartMarket.DataAccess.Data;
 namespace SmartMarket.DataAccess.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241209065958_PartnerUpdateEntity")]
+    [Migration("20241209101541_PartnerUpdateEntity")]
     partial class PartnerUpdateEntity
     {
         /// <inheritdoc />
@@ -235,6 +235,10 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("double precision")
                         .HasColumnName("paid_debt");
 
+                    b.Property<Guid?>("PayDeskId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("pay_desk_id");
+
                     b.Property<string>("PaymentType")
                         .HasColumnType("text")
                         .HasColumnName("payment_type");
@@ -249,6 +253,8 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnName("total_debt");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PayDeskId");
 
                     b.ToTable("partner");
                 });
@@ -1072,6 +1078,15 @@ namespace SmartMarket.DataAccess.Migrations
                     b.Navigation("Order");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("SmartMarket.Domain.Entities.Partners.Partner", b =>
+                {
+                    b.HasOne("SmartMarket.Domain.Entities.PayDesks.PayDesk", "PayDesk")
+                        .WithMany()
+                        .HasForeignKey("PayDeskId");
+
+                    b.Navigation("PayDesk");
                 });
 
             modelBuilder.Entity("SmartMarket.Domain.Entities.PartnersCompany.ContrAgent", b =>

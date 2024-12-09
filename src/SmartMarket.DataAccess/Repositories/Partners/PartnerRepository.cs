@@ -20,6 +20,7 @@ namespace SmartMarket.DataAccess.Repositories.Partners
         public async Task<List<Partner>> GetPartnersFullInformationAsync()
         {
             return await _partners
+                .Include(p => p.PayDesk)
                 .Include(p => p.Debtors)
                     .ThenInclude(d => d.DebtPayment)
                 .ToListAsync();

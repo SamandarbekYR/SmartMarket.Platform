@@ -11,5 +11,6 @@ public interface IPartnerService
     Task<bool> UpdatePartnerDebtSum(double debtSum, Guid Id);
     Task<bool> DeletePartner(Guid Id);
     Task<List<Partner>> GetAll();
+    Task<List<Partner>> FilterPartnerAsync(FilterPartnerDto filterPartnerDto);
     Task<PartnerDto> GetByName(string name);
 }

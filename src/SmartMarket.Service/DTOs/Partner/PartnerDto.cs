@@ -12,5 +12,7 @@ public class PartnerDto
     public double? PaidDebt { get; set; }
     public DateTime? LastPayment { get; set; }
     public string PaymentType { get; set; } = string.Empty;
+    public Guid? PartnerId { get; set; }
+    public Guid? PayDeskId { get; set; }
     public List<Debtors> Debtors { get; set; }
 }

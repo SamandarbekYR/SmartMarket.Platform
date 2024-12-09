@@ -120,5 +120,18 @@ public class PartnerService : IPartnerService
             return false;
         }
     }
+
+    public async Task<List<Partner>> FilterPartnerAsync(FilterPartnerDto filterPartnerDto)
+    {
+        if (IsInternetAvailable())
+        {
+            var partners = await _partnerServer.FilterPartnerAsync(filterPartnerDto);
+            return partners;
+        }
+        else
+        {
+            return new List<Partner>();
+        }
+    }
 }
 

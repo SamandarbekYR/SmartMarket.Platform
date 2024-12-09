@@ -62,6 +62,7 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
                     addPartnerDto.LastName = partner.LastName;
                     addPartnerDto.PhoneNumber = partner.PhoneNumber;
                     addPartnerDto.TotalDebt = debt + dto.DebtSum;
+                    addPartnerDto.PayDeskId = dto.PayDeskId;
 
                     _mapper.Map(addPartnerDto, partner);
 
