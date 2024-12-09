@@ -12,4 +12,5 @@ public interface IContrAgentServer
     Task<bool> DeleteAsync(Guid Id);
     Task<bool> UpdateAsync(ContrAgentDto dto, Guid Id);
     Task<List<CT.ContrAgentDto>> GetContrAgentByNameAsync(string name);
+    Task<CT.ContrAgentDto> GetByIdAsync(Guid id);
 }

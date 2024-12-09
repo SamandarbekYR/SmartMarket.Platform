@@ -8,4 +8,5 @@ public interface IContrAgentPaymentService
     Task<bool> DeleteAsync(Guid Id);
     Task<List<ContrAgentPaymentDto>> GetAllAsync();
     Task<bool> UpdateAsync(AddContrAgentPaymentDto dto, Guid Id);
+    Task<IEnumerable<ContrAgentPaymentDto>> FilterContrAgentPaymentAsync(FilterContrAgentDto dto);
 }

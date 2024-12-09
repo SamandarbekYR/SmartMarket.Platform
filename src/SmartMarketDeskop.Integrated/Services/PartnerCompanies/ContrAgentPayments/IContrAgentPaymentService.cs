@@ -5,4 +5,5 @@ namespace SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgentPayme
 public interface IContrAgentPaymentService
 {
     Task<bool> AddAsync(AddContrAgentPaymentDto dto);
+    Task<List<ContrAgentPaymentDto>> FilterAsync(FilterContrAgentDto filter);
 }

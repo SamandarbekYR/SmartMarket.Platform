@@ -48,6 +48,24 @@ namespace SmartMarket.WebApi.Controllers.Common.PartnersCompany
             }
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdAsync(Guid id)
+        {
+            try
+            {
+                var contrAgent = await _contrAgentService.GetByIdAsync(id);
+                return Ok(contrAgent);
+            }
+            catch(StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpGet("company/{companyName}")]
         public async Task<IActionResult> GetContrAgentByCompanyNameAsync(string companyName)
         {

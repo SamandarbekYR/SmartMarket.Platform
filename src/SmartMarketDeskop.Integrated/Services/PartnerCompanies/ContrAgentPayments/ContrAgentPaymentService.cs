@@ -26,6 +26,19 @@ public class ContrAgentPaymentService : IContrAgentPaymentService
         }
     }
 
+    public async Task<List<ContrAgentPaymentDto>> FilterAsync(FilterContrAgentDto filter)
+    {
+        if (IsInternetAvailable())
+        {
+            var contrAgentPayments = await contrAgentPaymentServer.FilterContrAgentPaymentsAsync(filter);
+            return contrAgentPayments;
+        }
+        else
+        {
+            return new List<ContrAgentPaymentDto>();
+        }
+    }
+
     public bool IsInternetAvailable()
     {
         try
