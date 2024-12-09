@@ -97,6 +97,26 @@ namespace SmartMarket.Service.Services.PartnersCompany.ContrAgent
             }
         }
 
+        public async Task<ContrAgentDto> GetByIdAsync(Guid id)
+        {
+            try
+            {
+                var contrAgents = _unitOfWork.ContrAgent.GetContrAgentsFullInformation();
+
+                var contrAgent = await contrAgents.FirstOrDefaultAsync(x => x.Id == id);
+
+                if (contrAgent == null)
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "Contr agent not found.");
+
+                return _mapper.Map<ContrAgentDto>(contrAgent);
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "Error occured while getting contr agent by id.");
+                throw;
+            }
+        }
+
         public async Task<ContrAgentDto> GetContrAgentByCompanyNameAsync(string companyName)
         {
             try

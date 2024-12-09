@@ -71,7 +71,7 @@
                     Height="40"
                     Margin="35 5 35 10"
                     Style="{DynamicResource tbPaymentstyle}"
-                    Text="2500000"
+                    Text="0"
                     TextChanged="phone_number_TextChanged"
                     ></TextBox>
 

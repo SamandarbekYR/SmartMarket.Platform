@@ -110,6 +110,7 @@ public partial class PaymentKontrAgentWindow : Window
     public void GetContrAgent(ContrAgentViewModels contrAgent)
     {
         _contrAgentViewModel = contrAgent;
+        this.Tag = contrAgent;
     }
 
     private async void Window_Loaded(object sender, RoutedEventArgs e)
@@ -173,9 +174,9 @@ public partial class PaymentKontrAgentWindow : Window
 
     private void BtnPayHistory_Click(object sender, RoutedEventArgs e)
     {
-        var contrAgent = this.Tag as ContrAgentDto;
+        var contrAgent = this.Tag as ContrAgentViewModels;
        
-        PaymentContrAgentWindow paymentContrAgentWindow = new PaymentContrAgentWindow(contrAgent);
+        PaymentContrAgentWindow paymentContrAgentWindow = new PaymentContrAgentWindow(contrAgent); 
         paymentContrAgentWindow.ShowDialog();
     }
 }
