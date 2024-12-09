@@ -141,13 +141,14 @@
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
-                    <!--<Label
-                        Content="Oldingi qarzlar"
+                    <Label
+                        Content="To'langan qarzlar"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
-                    <Label
+                    
+                    <!-- <Label
                         Content="Umumiy"
                         FontSize="15"
                         Margin="0"
@@ -172,14 +173,14 @@
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
-                    <!--<Label
+                    <Label
                         Name="Label_Naqd_Qarz"
                         Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
-                    <Label
+                    <!--<Label
                         Name="Label_Naqd_Umumiy"
                         Content="0"
                         FontSize="15"
@@ -205,14 +206,14 @@
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
-                    <!--<Label
+                    <Label
                         Name="Label_Karta_Qarz"
                         Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
-                    <Label
+                    <!--<Label
                         Name="Label_Karta_Umumiy"
                         Content="0"
                         FontSize="15"
@@ -238,14 +239,14 @@
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
-                    <!--<Label
+                    <Label
                         Name="Label_Pul_Qarz"
                         Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
-                    <Label
+                    <!--<Label
                         Name="Label_Pul_Umumiy"
                         Content="0"
                         FontSize="15"
@@ -271,14 +272,14 @@
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
-                    <!--<Label
+                    <Label
                         Name="Label_Nasiya_Qarz"
                         Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
-                    <Label
+                    <!--<Label
                         Name="Label_Nasiya_Umumiy"
                         Content="0"
                         FontSize="15"
@@ -306,7 +307,7 @@
                         HorizontalAlignment="Left"
                         Foreground="#25D409"
                         Style="{DynamicResource Label}"/>
-                    <!--<Label
+                    <Label
                         Name="Label_Jami_Qarz"
                         Content="0"
                         FontSize="15"
@@ -314,7 +315,7 @@
                         HorizontalAlignment="Left"
                         Foreground="#25D409"
                         Style="{DynamicResource Label}"/>
-                    <Label
+                    <!--<Label
                         Name="Label_Jami_Umumiy"
                         Content="0"
                         FontSize="15"

@@ -153,10 +153,15 @@ public partial class ReturnProductViewWindow : Window
                 resultReplaceProduct = await _replaceProductServer.AddAsync(replaceProductDto);
             }
 
-            if (!resultInvalidProduct || !resultReplaceProduct) 
+            if (resultInvalidProduct || resultReplaceProduct) 
+            {
+                notifierThis.ShowSuccess("Mahsulot qaytarildi.");
+            }
+            else
             {
                 notifierThis.ShowError("Saqlashda xatolik yuz berdi.");
             }
+
         }
         else
         {
