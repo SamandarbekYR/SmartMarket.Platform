@@ -32,6 +32,8 @@ namespace SmartMarket.DataAccess.Data
                       .OnDelete(DeleteBehavior.Restrict);
             });
 
+            
+
             modelBuilder.Entity<ContrAgentPayment>(entity =>
             {
                 entity.HasOne(cap => cap.ContrAgent)
@@ -62,6 +64,13 @@ namespace SmartMarket.DataAccess.Data
                       .OnDelete(DeleteBehavior.Restrict);
             });
 
+            modelBuilder.Entity<Partner>(entity =>
+            {
+                entity.HasOne(p => p.PayDesk)
+               .WithMany()
+               .HasForeignKey(p => p.PayDeskId);
+            }
+               );
             modelBuilder.Entity<Debtors>(entity =>
             {
                 entity.HasOne(d => d.Partner)

@@ -794,7 +794,7 @@ public partial class SalePage : Page
                     CardSum = 0,
                     CashSum = 0
                 };
-
+                
                 switch (PaymentType)
                 {
                     case "card":
