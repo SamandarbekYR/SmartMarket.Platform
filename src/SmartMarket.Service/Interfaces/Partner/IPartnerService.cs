@@ -1,4 +1,5 @@
-﻿using SmartMarket.Service.DTOs.Partner;
+﻿using SmartMarket.Service.DTOs.Expence;
+using SmartMarket.Service.DTOs.Partner;
 
 namespace SmartMarket.Service.Interfaces.Partner;
 
@@ -11,5 +12,6 @@ public interface IPartnerService
     Task<bool> UpdatePartnerDebtSumAsync(double debtSum, Guid Id);
 
     Task<PartnerDto> GetPartnerByPhoneNumberAsync(string phoneNumber);
+    Task<IEnumerable<PartnerDto>> FilterExpenceAsync(FilterPartnerDto filterDto);
     Task<PartnerDto> GetPartnerByFirstNameAsync(string phoneNumber);
 }

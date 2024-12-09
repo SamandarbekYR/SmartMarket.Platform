@@ -272,14 +272,14 @@
                         FontSize="15"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
-                    <Label
+                    <!-- <Label
                         Name="Label_Nasiya_Qarz"
                         Content="0"
                         FontSize="15"
                         Margin="0"
                         HorizontalAlignment="Left"
                         Style="{DynamicResource Label}"/>
-                    <!--<Label
+                    <Label
                         Name="Label_Nasiya_Umumiy"
                         Content="0"
                         FontSize="15"

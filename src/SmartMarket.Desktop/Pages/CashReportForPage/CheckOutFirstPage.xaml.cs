@@ -1,8 +1,12 @@
 ﻿using SmartMarket.Desktop.Windows.PaymentWindow;
+using SmartMarket.Domain.Entities.Partners;
 using SmartMarket.Service.DTOs.Expence;
+using SmartMarket.Service.DTOs.Partner;
 using SmartMarket.Service.DTOs.PayDesks;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarketDeskop.Integrated.Services.Expenses;
+using SmartMarketDeskop.Integrated.Services.PartnerCompanies.PartnerCompany;
+using SmartMarketDeskop.Integrated.Services.Partners;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using System.Windows.Controls;
 
@@ -15,12 +19,14 @@ public partial class CheckOutFirstPage : Page
 {
     private IExpenseService _expenseService;
     private ISalesRequestsService _salesRequestsService;
+    private IPartnerService _partnerService;
     private CashReportPage _cashReportPage;
     private PayDesksDto _payDesk;
     private int count = 0;
     public CheckOutFirstPage(CashReportPage cashReportPage)
     {
         InitializeComponent();
+        _partnerService = new PartnerService();
         _expenseService = new ExpenseService();
         _salesRequestsService = new SalesRequestService();
         _cashReportPage = cashReportPage;
@@ -37,8 +43,15 @@ public partial class CheckOutFirstPage : Page
         count++;
     }
 
-    private async Task<(double cashSum, double cardSum, double debtSum, double transferMoney)> ShowSalesMoney(IList<SalesRequestDto> salesMoneyForPayDesk)
+    private async Task<(double cashSum, double cardSum, double debtSum, double transferMoney)> ShowSalesMoney(IList<SalesRequestDto> salesMoneyForPayDesk, IList<Partner> partnerDebt)
     {
+        var partnercashSum = partnerDebt.Where(e => e.PaymentType == "Naqd").Sum(e => e.PaidDebt);
+        var partnercardSum = partnerDebt.Where(e => e.PaymentType == "Karta").Sum(e => e.PaidDebt);
+        var partnertransferMoney = partnerDebt.Where(e => e.PaymentType == "Pul ko'chirish").Sum(e => e.PaidDebt);
+        Label_Naqd_Qarz.Content = partnercashSum;
+        Label_Karta_Qarz.Content = partnercardSum;
+        Label_Pul_Qarz.Content = partnertransferMoney;
+
         var cashSum = salesMoneyForPayDesk.Sum(sr => sr.CashSum);
         var cardSum = salesMoneyForPayDesk.Sum(sr => sr.CardSum);
         var debtSum = salesMoneyForPayDesk.Sum(sr => sr.DebtSum);
@@ -94,6 +107,7 @@ public partial class CheckOutFirstPage : Page
     {
         FilterSalesRequestDto salesRequestDto = new FilterSalesRequestDto();
         FilterExpenseDto expenseDto = new FilterExpenseDto();
+        FilterPartnerDto partnerDto = new FilterPartnerDto();
 
         if (fromDateTime.SelectedDate != null && toDateTime.SelectedDate != null)
         {
@@ -101,18 +115,22 @@ public partial class CheckOutFirstPage : Page
             salesRequestDto.ToDateTime = toDateTime.SelectedDate;
             expenseDto.FromDateTime = fromDateTime.SelectedDate;
             expenseDto.ToDateTime = toDateTime.SelectedDate;
+            partnerDto.FromDateTime = fromDateTime.SelectedDate;
+            partnerDto.ToDateTime = toDateTime.SelectedDate;
         }
 
         if (_payDesk?.Id != null)
         {
             salesRequestDto.PayDeskId = _payDesk.Id;
             expenseDto.PayDeskId = _payDesk.Id;
+            partnerDto.Id = _payDesk.Id;
         }
 
         var salesMoneyData = await Task.Run(async () => await _salesRequestsService.FilterSalesRequest(salesRequestDto));
         var expensesData = await Task.Run(async () => await _expenseService.FilterExpense(expenseDto));
+        var partnerData = await Task.Run(async () => await _partnerService.FilterPartnerAsync(partnerDto));
 
-        var salesMoney = await ShowSalesMoney(salesMoneyData);
+        var salesMoney = await ShowSalesMoney(salesMoneyData, partnerData);
         var expenses = await ShowExpenses(expensesData);
         CurrentlyAvailable(salesMoney, expenses);
     }
@@ -145,8 +163,9 @@ public partial class CheckOutFirstPage : Page
         {
             var salesMoneyData = await Task.Run(async () => await _salesRequestsService.FilterSalesRequest(new FilterSalesRequestDto()));
             var expensesData = await Task.Run(async () => await _expenseService.FilterExpense(new FilterExpenseDto()));
+            var partnerData = await Task.Run(async () => await _partnerService.FilterPartnerAsync(new FilterPartnerDto()));
 
-            var salesMoney = await ShowSalesMoney(salesMoneyData);
+            var salesMoney = await ShowSalesMoney(salesMoneyData, partnerData);
             var expenses = await ShowExpenses(expensesData);
             CurrentlyAvailable(salesMoney, expenses);
         }
