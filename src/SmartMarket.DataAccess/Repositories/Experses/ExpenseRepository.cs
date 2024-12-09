@@ -20,28 +20,9 @@ public class ExpenseRepository : Repository<Expense>, IExpense
 
     public IQueryable<Expense> GetExpensesFullInformationAsync()
     {
-        return _expenses
+        return  _expenses
             .Include(e => e.Worker)
-            .Include(e => e.PayDesk)
-            .Select(e => new Expense
-            {
-                Id = e.Id,
-                Reason = e.Reason,
-                Amount = e.Amount,
-                CreatedDate = e.CreatedDate,
-                TypeOfPayment = e.TypeOfPayment,
-                Worker = new Worker
-                {
-                    Id = e.Worker.Id,
-                    FirstName = e.Worker.FirstName,
-                    LastName = e.Worker.LastName
-                },
-                PayDesk = new PayDesk
-                {
-                    Id = e.PayDesk.Id,
-                    Name = e.PayDesk.Name
-                }
-            });
+            .Include(e => e.PayDesk);
     }
 
 }
