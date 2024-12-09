@@ -116,23 +116,38 @@ namespace SmartMarket.Service.Services.Partner
             }
         }
 
-        public async Task<bool> UpdateAsync(AddPartnerDto dto, Guid Id)
+        public async Task<bool> UpdateAsync(AddPartnerDto dto, Guid partnerId)
         {
             try
             {
-                var partner = await _unitOfWork.Partner.GetById(Id);
+                var partner = await _unitOfWork.Partner.GetById(partnerId);
                 if (partner == null)
                 {
-                    throw new StatusCodeException(HttpStatusCode.NotFound, "Partner not found.");
+                    throw new Exception("Partner not found");
                 }
 
-                _mapper.Map(dto, partner);
+                partner.FirstName = !string.IsNullOrEmpty(dto.FirstName) ? dto.FirstName : partner.FirstName;
+                partner.LastName = !string.IsNullOrEmpty(dto.LastName) ? dto.LastName : partner.LastName;
+                partner.PhoneNumber = !string.IsNullOrEmpty(dto.PhoneNumber) ? dto.PhoneNumber : partner.PhoneNumber;
 
-                return await _unitOfWork.Partner.Update(partner);
+                if (dto.LastPayment.HasValue)
+                {
+                    double newPaidDebt = (partner.PaidDebt ?? 0) + dto.LastPayment.Value;
+                    double newTotalDebt = (partner.TotalDebt ?? 0) - dto.LastPayment.Value;
+
+                    partner.PaidDebt = newPaidDebt >= 0 ? newPaidDebt : partner.PaidDebt;
+                    partner.TotalDebt = newTotalDebt >= 0 ? newTotalDebt : partner.TotalDebt;
+                }
+
+                partner.LastPayment = dto.LastPaymentDate != default ? dto.LastPaymentDate.ToUniversalTime() : partner.LastPayment;
+                partner.PaymentType = !string.IsNullOrEmpty(dto.PaymentType) ? dto.PaymentType : partner.PaymentType;
+
+                var result = await _unitOfWork.Partner.Update(partner);
+                return result;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error occurred while updating a partner.");
+                _logger.LogError(ex, "Error updating partner");
                 throw;
             }
         }

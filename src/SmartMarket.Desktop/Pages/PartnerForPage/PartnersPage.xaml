@@ -131,6 +131,8 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.95*"/>
+                        <ColumnDefinition Width="1.1*"/>
                         <ColumnDefinition Width="40"/>
                         <ColumnDefinition Width="40"/>
                         <ColumnDefinition Width="40"/>
@@ -159,6 +161,17 @@
                         Content="Telefon raqami"
                         Margin="5 0 0 0"
                         Style="{DynamicResource Label}"/>
+
+                    <Label
+                         Grid.Column="4"
+                         Content="Qarz"
+                         Margin="5 0 0 0"
+                         Style="{DynamicResource Label}"/>
+                    <Label
+                         Grid.Column="5"
+                         Content="To'langan qarz"
+                         Margin="5 0 0 0"
+                         Style="{DynamicResource Label}"/>
 
                 </Grid>
 

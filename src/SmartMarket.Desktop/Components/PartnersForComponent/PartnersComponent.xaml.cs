@@ -51,6 +51,8 @@ public partial class PartnersComponent : UserControl
         lb_Firstname.Content = partner.FirstName;
         lb_Lastname.Content = partner.LastName;
         lb_Phone_Number.Content = partner.PhoneNumber;
+        lb_Debt_Sum.Content = partner.TotalDebt;
+        lb_Paid_Debt.Content = partner.PaidDebt;
         partnerId = partner.Id;
 
         this.Tag = partner;

@@ -874,8 +874,8 @@ public partial class SalePage : Page
             if(Order != null && Order.Id != Guid.Empty)
                 await UpdateSaleShipment(Order.Id);
 
-            if (isDebt)
-                await NationSale(dto.PartnerId!.Value, dto.DebtSum!.Value);
+            //if (isDebt)
+            //    await NationSale(dto.PartnerId!.Value, dto.DebtSum!.Value);
 
             tvm.ClearTransaction();
             St_product.Children.Clear();
