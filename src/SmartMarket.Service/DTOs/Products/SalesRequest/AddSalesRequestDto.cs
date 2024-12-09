@@ -11,6 +11,7 @@ namespace SmartMarket.Service.DTOs.Products.SalesRequest
         public double? CashSum { get; set; }
         public double? CardSum { get; set; } 
         public double? DebtSum { get; set; }
+        public double? TransferMoney { get; set; }
         public double? DiscountSum { get; set; }
         public List<AddProductSaleDto> ProductSaleItems { get; set; }
     }
