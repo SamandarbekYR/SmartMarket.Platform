@@ -24,10 +24,12 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
     /// </summary>
     public partial class SettingsScalesComponent : UserControl
     {
+        private IScaleService _scaleService;
+        private IProductService _productService;
+
         private Timer _updateTimer;
         private int _updateInterval = 120;
-        private IProductService _productService;
-        private IScaleService _scaleService;
+
         public event Func<Task> OnPageReload;
         private List<KeyValuePair<ScaleDto, Timer>> _updateTimers = new List<KeyValuePair<ScaleDto, Timer>>();
         public Func<Task> GetScales { get; set; }
