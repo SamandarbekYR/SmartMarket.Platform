@@ -131,7 +131,10 @@ public partial class PartnerUpdateWindow : Window
         {
             this.Close();
             notifier.ShowSuccess("Hamkor yangilandi.");
-            await UpdatePartner();
+            if (UpdatePartner != null)
+            {
+                await UpdatePartner(); 
+            }
         }
         else
         {

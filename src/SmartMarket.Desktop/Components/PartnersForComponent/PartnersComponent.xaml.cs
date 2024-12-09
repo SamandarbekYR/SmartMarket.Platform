@@ -108,6 +108,10 @@ public partial class PartnersComponent : UserControl
         partnerUpdateWindow.lastname = lb_Lastname.Content.ToString()!;
         partnerUpdateWindow.phonenumber = lb_Phone_Number.Content.ToString()!;
         partnerUpdateWindow.ShowDialog();
-        await GetPartners();
+
+        if (partnerUpdateWindow.DialogResult == false)
+        {
+            await GetPartners();
+        }
     }
 }
