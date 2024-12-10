@@ -19,5 +19,7 @@ namespace SmartMarket.Domain.Entities.Products
 
         [Column("total_price")]
         public double TotalPrice { get; set; }
+        [Column("count")]
+        public int Count { get; set; }
     }
 }

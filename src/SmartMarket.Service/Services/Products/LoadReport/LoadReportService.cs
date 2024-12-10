@@ -39,8 +39,8 @@ namespace SmartMarket.Service.Services.Products.LoadReport
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
                 }
 
-                var productExists = await _unitOfWork.Product.GetById(dto.ProductId) != null;
-                if (!productExists)
+                var productExists = await _unitOfWork.Product.GetById(dto.ProductId);
+                if (productExists is null)
                 {
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Product not found.");
                 }
@@ -52,6 +52,7 @@ namespace SmartMarket.Service.Services.Products.LoadReport
                 }
 
                 var loadReport = _mapper.Map<Et.LoadReport>(dto);
+                //loadReport.Count = productExists.Count;
                 return await _unitOfWork.LoadReport.Add(loadReport);
             }
             catch (Exception ex)
@@ -119,7 +120,8 @@ namespace SmartMarket.Service.Services.Products.LoadReport
                     TotalPrice = l.TotalPrice,
                     ProductName = l.Product.Name,
                     ProductPrice = l.Product.Price,
-                    ProductCount = l.Product.Count
+                    ProductCount = l.Product.Count,
+                    Count = l.Count
                 }).ToList();
 
                 return loadReportDtos;
@@ -149,7 +151,8 @@ namespace SmartMarket.Service.Services.Products.LoadReport
                     ProductName = l.Product.Name,
                     ProductCount = l.Product.Count,
                     ProductPrice = l.Product.Price,
-                    CreatedDate = l.CreatedDate
+                    CreatedDate = l.CreatedDate,
+                    Count = l.Count
                 }).ToList();
 
                 return loadReportDto;
@@ -207,7 +210,8 @@ namespace SmartMarket.Service.Services.Products.LoadReport
                     TotalPrice = loadReportDto.TotalPrice,
                     ProductName = loadReportDto.Product.Name,
                     ProductCount =loadReportDto.Product.Count,
-                    ProductPrice = loadReportDto.Product.Price
+                    ProductPrice = loadReportDto.Product.Price,
+                    Count = loadReportDto.Count
                 };
 
                 return loadReportResult;
@@ -246,7 +250,8 @@ namespace SmartMarket.Service.Services.Products.LoadReport
                     TotalPrice = l.TotalPrice,
                     ProductName = l.Product.Name,
                     ProductCount = l.Product.Count,
-                    ProductPrice = l.Product.Price
+                    ProductPrice = l.Product.Price,
+                    Count = l.Count
                 }).ToList();
 
                 return loadReportDtos;

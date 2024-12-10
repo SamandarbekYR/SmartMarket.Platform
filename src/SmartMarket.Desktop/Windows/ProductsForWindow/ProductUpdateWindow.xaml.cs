@@ -1,7 +1,9 @@
 ﻿using Microsoft.Win32;
 using SmartMarket.Desktop.Windows.Category;
 using SmartMarket.Desktop.Windows.ContrAgents;
+using SmartMarket.Service.DTOs.Products.LoadReport;
 using SmartMarketDeskop.Integrated.Services.Categories.Category;
+using SmartMarketDeskop.Integrated.Services.Expenses;
 using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgents;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.ProductImages;
@@ -33,6 +35,7 @@ public partial class ProductUpdateWindow : Window
     private ICategoryService categoryService;
     private IContrAgentService contrAgentService;
     private IProductService productService;
+    private ILoadReportService loadReportService;
     private IProductImageService productImageService;
 
 
@@ -41,6 +44,7 @@ public partial class ProductUpdateWindow : Window
     private string imagepath;
     private Guid productId = Guid.Empty;
     private Guid workerId = Guid.Empty;
+    private int productCount = 0;
 
     public ProductUpdateWindow()
     {
@@ -49,6 +53,7 @@ public partial class ProductUpdateWindow : Window
         contrAgentService = new ContrAgentService();
         productService = new ProductService();
         productImageService = new ProductImageService();
+        loadReportService = new LoadReportService();
     }
 
     [DllImport("user32.dll")]
@@ -119,6 +124,8 @@ public partial class ProductUpdateWindow : Window
         comboMeasurement.Text = product.UnitOfMeasure;
         comboDelivery.Text = product.WorkerFirstName;
         txtNoteAmount.Text = product.NoteAmount.ToString();
+
+        productCount = product.Count;
     }
 
     private async void btnUpdate_MouseDown(object sender, MouseButtonEventArgs e)
@@ -180,6 +187,8 @@ public partial class ProductUpdateWindow : Window
             addProductDto.WorkerId = workerId;
             addProductDto.PaymentStatus = "Active";
             addProductDto.NoteAmount = int.Parse(txtNoteAmount.Text);
+
+            var previousCount = int.Parse(txtQuantity.Text);
             var res = await Task.Run(async () => await productService.UpdateProduct(addProductDto, productId));
 
             ProductImageDto productImageDto = new ProductImageDto();
@@ -187,6 +196,22 @@ public partial class ProductUpdateWindow : Window
 
             if (res)
             {
+                var countDifference = quantity;
+
+                if(countDifference > 0)
+                {
+                    var loadReport = new AddLoadReportDto
+                    {
+                        WorkerId = workerId,
+                        ProductId = productId,
+                        ContrAgentId = addProductDto.ContrAgentId,
+                        TotalPrice = (addProductDto.SellPrice * countDifference),
+                        Count = countDifference,
+                    };
+
+                    var loadReportResult = await loadReportService.AddAsync(loadReport);
+                }
+
                 this.Close();
                 notifier.ShowInformation("Mahsulot muvaffaqiyatli o'zgartirildi.");
             }

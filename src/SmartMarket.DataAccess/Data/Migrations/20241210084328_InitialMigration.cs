@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace SmartMarket.DataAccess.Migrations
+namespace SmartMarket.DataAccess.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class fx : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

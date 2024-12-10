@@ -8,6 +8,7 @@ using SmartMarket.Domain.Entities.PartnersCompany;
 using SmartMarket.Domain.Entities.PayDesks;
 using SmartMarket.Domain.Entities.Products;
 using SmartMarket.Domain.Entities.Scales;
+using SmartMarket.Domain.Entities.Transactions;
 using SmartMarket.Domain.Entities.Workers;
 
 namespace SmartMarket.DataAccess.Data

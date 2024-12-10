@@ -35,7 +35,7 @@ namespace SmartMarket.Desktop.Components.ExpenseForComponents
             tbProductName.Text = dto.ProductName;
             tbTotalPrice.Text = dto.TotalPrice.ToString();
             tbPrice.Text = dto.ProductPrice.ToString();
-            tbCount.Text = dto.ProductCount.ToString();
+            tbCount.Text = dto.Count.ToString();
 
             this.DataContext = dto;
         }

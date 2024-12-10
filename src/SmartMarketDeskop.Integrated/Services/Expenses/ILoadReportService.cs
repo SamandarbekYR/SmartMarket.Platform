@@ -9,6 +9,7 @@ namespace SmartMarketDeskop.Integrated.Services.Expenses
 {
     public interface ILoadReportService
     {
+        Task<bool> AddAsync(AddLoadReportDto dto);
         Task<List<LoadReportDto>> GetAll();
         Task<List<LoadReportDto>> FilterAsync(FilterLoadReportDto dto);
         Task<List<LoadReportDto>> GetByContrAgentIdAsync(Guid contrAgentId);
