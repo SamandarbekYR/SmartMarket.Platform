@@ -7,16 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Libs\Seagull.BarTender.Print.dll" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Libs\Seagull.BarTender.Print.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="BackendRepository\" />
   </ItemGroup>
 

@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <None Remove="Assets\all_product.png" />
+    <None Remove="Assets\Barcode.btw" />
     <None Remove="Assets\Basket.png" />
     <None Remove="Assets\Cargo.png" />
     <None Remove="Assets\Cargo_car.png" />
@@ -26,6 +27,12 @@
     <None Remove="Assets\login_background.png" />
     <None Remove="Assets\login_close.png" />
     <None Remove="Assets\logout_left.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Services\Libs\Seagull.BarTender.Print.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -65,6 +72,7 @@
 
   <ItemGroup>
     <Resource Include="Assets\all_product.png" />
+    <Resource Include="Assets\Barcode.btw" />
     <Resource Include="Assets\Basket.png" />
     <Resource Include="Assets\Cargo.png" />
     <Resource Include="Assets\Cargo_car.png" />
@@ -81,6 +89,12 @@
 
   <ItemGroup>
     <Folder Include="Assets\Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Seagull.BarTender.Print">
+      <HintPath>..\SmartMarketDeskop.Integrated\Libs\Seagull.BarTender.Print.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>
