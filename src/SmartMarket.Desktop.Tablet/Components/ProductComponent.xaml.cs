@@ -55,7 +55,6 @@ public partial class ProductComponent : UserControl
         Id = product.Id;
         AvailableCount = product.Count;
         Barcode = product.Barcode;
-
         lb_Discount.Content = 0;
         lb_ProductName.Content = product.Name;
         lb_Price.Content = product.SellPrice;

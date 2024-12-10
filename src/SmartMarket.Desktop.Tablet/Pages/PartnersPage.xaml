@@ -144,7 +144,7 @@
             <Button
                 x:Name="Sends_Button"
                 Grid.Row="3"
-                Width="140"
+                Width="180"
                 Content="Jo'natmalar"
                 FontSize="20"
                 Click="Sends_Button_Click"

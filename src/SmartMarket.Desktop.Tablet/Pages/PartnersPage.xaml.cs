@@ -204,6 +204,7 @@ public partial class PartnersPage : Page
     {
         SecondPage secondPage = new SecondPage();
         MainWindow mainWindow = GetMainWindow();
+        secondPage.i = 2;
         mainWindow.PageNavigator.Content = secondPage;
     }
 }
