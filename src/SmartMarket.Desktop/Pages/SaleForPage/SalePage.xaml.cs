@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR.Client;
 using SmartMarket.Desktop.Components.SaleForComponent;
+using SmartMarket.Desktop.Services.PrintChekService;
 using SmartMarket.Desktop.ViewModels.Transactions;
 using SmartMarket.Desktop.Windows;
 using SmartMarket.Desktop.Windows.Auth;
@@ -9,7 +10,6 @@ using SmartMarket.Desktop.Windows.PaymentWindow;
 using SmartMarket.Desktop.Windows.ProductsForWindow;
 using SmartMarket.Desktop.Windows.Sales;
 using SmartMarket.Desktop.Windows.Settings;
-using SmartMarket.Domain.Entities.Orders;
 using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.DTOs.Products.ProductSale;
@@ -17,7 +17,6 @@ using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Services.Orders;
 using SmartMarketDeskop.Integrated.Services.Partners;
-using SmartMarketDeskop.Integrated.Services.Products.Print;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
@@ -153,7 +152,6 @@ public partial class SalePage : Page
         }
         tbFullName.Text = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
         tbKassaName.Text = IdentitySingelton.GetInstance().PayDeskName;
-        IdentitySingelton.GetInstance().PrinterName = Properties.Settings.Default.PrinterName;
 
         tbDate.Text = DateTime.UtcNow.Month + "." + DateTime.UtcNow.Day + "." + DateTime.UtcNow.Year;
         tbhour.Text = DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
@@ -765,7 +763,7 @@ public partial class SalePage : Page
         }
         else
             notifier.ShowInformation("Mahsulot xarid qilinmagan.");
-    }
+    } 
 
     private void btnPay_Click(object sender, RoutedEventArgs e)
     {
@@ -871,14 +869,14 @@ public partial class SalePage : Page
         var result = await _salesRequestsService.CreateSalesRequest(dto);
         if (result.Item2)
         {
-            //PrintService printService = new PrintService();
-            //printService.Print(dto, tvm.Transactions, result.Item1);
+            PrintService printService = new PrintService();
+            printService.Print(dto, tvm.Transactions, result.Item1);
 
             if(Order != null && Order.Id != Guid.Empty)
                 await UpdateSaleShipment(Order.Id);
 
-            //if (isDebt)
-            //    await NationSale(dto.PartnerId!.Value, dto.DebtSum!.Value);
+            if (isDebt)
+                await NationSale(dto.PartnerId!.Value, dto.DebtSum!.Value);
 
             tvm.ClearTransaction();
             St_product.Children.Clear();

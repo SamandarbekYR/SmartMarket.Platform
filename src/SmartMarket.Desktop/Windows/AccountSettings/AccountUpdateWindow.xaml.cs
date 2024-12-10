@@ -130,6 +130,8 @@ public partial class AccountUpdateWindow : Window
                 FirstName = firstName,
                 LastName = lastName,
                 PhoneNumber = phone,
+                Salary = double.Parse(salary),
+                Advance = double.Parse(advance)
             };
 
             if(!string.IsNullOrWhiteSpace(password))
