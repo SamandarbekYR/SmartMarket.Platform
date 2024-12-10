@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using SmartMarket.Desktop.Pages.SaleForPage;
+using SmartMarket.Desktop.Pages.SettingsForPage;
+
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -9,9 +12,12 @@ namespace SmartMarket.Desktop;
 /// </summary>
 public partial class App : Application
 {
-    protected override void OnStartup(StartupEventArgs e)
+    protected override async void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+
+        SettingsScalesPage settingsPage = new SettingsScalesPage();
+        await settingsPage.GetAllScales();
 
         EventManager.RegisterClassHandler(
             typeof(ScrollViewer),
