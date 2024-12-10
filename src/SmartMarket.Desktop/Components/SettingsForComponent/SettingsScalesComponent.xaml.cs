@@ -80,29 +80,14 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
             try
             {
                 var productData = await GetProductDataAsync();
-                if (!File.Exists(selectedPath))
+
+                using (var fileStream = new FileStream(selectedPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
                 {
-                    using (var fileStream = new FileStream(selectedPath, FileMode.CreateNew, FileAccess.Write, FileShare.None))
+                    using (var writer = new StreamWriter(fileStream, new UTF8Encoding(false))) // BOMsiz UTF-8 yozish
                     {
-                        using (var writer = new StreamWriter(fileStream, Encoding.UTF8))
-                        {
-                            await writer.WriteLineAsync(productData); 
-                        }
+                        await writer.WriteAsync(productData);
                     }
                 }
-                else
-                {
-                    using (var fileStream = new FileStream(selectedPath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
-                    {
-                        using (var writer = new StreamWriter(fileStream, Encoding.UTF8))
-                        {
-                            await writer.WriteAsync(productData);
-                        }
-                    }
-                }
-
-                // Dispatcher.Invoke(() => notifier.ShowInformation("Fayl muvaffaqiyatli yangilandi."));
-
             }
             catch 
             {
@@ -152,73 +137,10 @@ namespace SmartMarket.Desktop.Components.SettingsForComponent
             scaleUpdateWindow.Show();
         }
 
-        private void SelectFile(string selectedPath)
-        {
-            if (string.IsNullOrEmpty(selectedPath))
-                return;
-
-            try
-            {
-                if (File.Exists(selectedPath))
-                {
-                    UpdateExistingFile(selectedPath);
-                }
-            }
-            catch
-            {
-                //notifierThis.ShowError("Faylni yangilashda xatolik.");
-            }
-        }
-        private async void UpdateExistingFile(string filePath)
-        {
-            if (IsFileInUse(filePath))
-            {
-                Dispatcher.Invoke(() => notifier.ShowError("Fayl hozirda boshqa jarayon tomonidan ishlatilmoqda."));
-                return;
-            }
-
-            try
-            {
-                var productData = await GetProductDataAsync();
-                productData = productData.Replace("\r\n", "\n").Replace("\n", Environment.NewLine);
-
-                using (var fileStream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.ReadWrite))
-                {
-                    using (var writer = new StreamWriter(fileStream, Encoding.UTF8))
-                    {
-                        await writer.WriteAsync(productData);
-                    }
-                }
-
-                Dispatcher.Invoke(() => notifier.ShowInformation("Fayl muvaffaqiyatli yangilandi."));
-            }
-            catch 
-            {
-                Dispatcher.Invoke(() => notifier.ShowError("Faylni yangilashda xatolik."));
-            }
-        }
-
-        private bool IsFileInUse(string filePath)
-        {
-            try
-            {
-                using (FileStream fs = File.Open(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
-                {
-                    return false;
-                }
-            }
-            catch (IOException)
-            {
-                return true; 
-            }
-        }
-
-
         private async Task<string> GetProductDataAsync()
         {
             var products = await _productService.GetAll();
             var dataBuilder = new StringBuilder();
-            dataBuilder.AppendLine("SmartPost");
 
             long id = 1;
             foreach (var product in products)
