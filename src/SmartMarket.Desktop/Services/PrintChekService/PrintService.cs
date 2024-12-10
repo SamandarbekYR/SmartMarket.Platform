@@ -2,14 +2,15 @@
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
+using System.IO;
 using System.Management;
 using System.Text;
 
-namespace SmartMarketDeskop.Integrated.Services.Products.Print;
+namespace SmartMarket.Desktop.Services.PrintChekService;
 
 public class PrintService : IDisposable
 {
-    private readonly string PRINTER_NAME = IdentitySingelton.GetInstance().PrinterName;
+    private readonly string PRINTER_NAME = Properties.Settings.Default.PrinterName;
     public string printerName { get; set; } = string.Empty;
     Printer? printer;
 

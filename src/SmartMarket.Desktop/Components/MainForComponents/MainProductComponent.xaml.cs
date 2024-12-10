@@ -1,5 +1,6 @@
 ﻿using SmartMarket.Desktop.Windows;
 using SmartMarket.Desktop.Windows.Expenses;
+using SmartMarket.Desktop.Windows.Products;
 using SmartMarket.Desktop.Windows.ProductsForWindow;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
@@ -74,7 +75,7 @@ public partial class MainProductComponent : UserControl
 
             if (res)
             {
-                notifier.ShowInformation("Mahsulot muvaffaqiyatli o'chirildi.");
+                notifier.ShowSuccess("Mahsulot muvaffaqiyatli o'chirildi.");
                 await GetProducts();
             }
             else
@@ -87,6 +88,14 @@ public partial class MainProductComponent : UserControl
         products = (this.Tag as FullProductDto)!;
         var window = new RunningOutOfProductDetailWindow();
         window.SetData(products);
+        window.ShowDialog();
+    }
+
+    private void btnbarcode_Click(object sender, RoutedEventArgs e)
+    {
+        products = (this.Tag as FullProductDto)!;
+        CreateProductBarcodeWindow window = new CreateProductBarcodeWindow();
+        window.Product = products;
         window.ShowDialog();
     }
 }
