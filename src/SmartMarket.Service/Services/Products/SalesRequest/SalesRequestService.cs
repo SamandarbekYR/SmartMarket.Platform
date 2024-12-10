@@ -5,7 +5,6 @@ using FluentValidation;
 using Microsoft.Extensions.Logging;
 
 using SmartMarket.DataAccess.Interfaces;
-using SmartMarket.Domain.Entities.Orders;
 using SmartMarket.Service.Common.Exceptions;
 using SmartMarket.Service.DTOs.Partner;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
@@ -51,27 +50,32 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Pay Desk not found.");
                 }
 
-                var partner = await _unitOfWork.Partner.GetById(dto.PartnerId.Value);
-                double debt;
-                if (partner != null)
+                if (dto.PartnerId.HasValue)
                 {
+                    var partner = await _unitOfWork.Partner.GetById(dto.PartnerId.Value);
+                    if (partner != null)
+                    {
+                        double debt = (partner.TotalDebt ?? 0); 
 
-                    debt = (partner.TotalDebt ?? 0); // Agar TotalDebt null bo'lsa, 0 qo'llanadi
-                    AddPartnerDto addPartnerDto = new AddPartnerDto();
-                    addPartnerDto.FirstName = partner.FirstName;
-                    addPartnerDto.LastName = partner.LastName;
-                    addPartnerDto.PhoneNumber = partner.PhoneNumber;
-                    addPartnerDto.TotalDebt = debt + dto.DebtSum;
-                    addPartnerDto.PayDeskId = dto.PayDeskId;
+                        AddPartnerDto addPartnerDto = new AddPartnerDto
+                        {
+                            FirstName = partner.FirstName,
+                            LastName = partner.LastName,
+                            PhoneNumber = partner.PhoneNumber,
+                            TotalDebt = debt + dto.DebtSum,
+                            PayDeskId = dto.PayDeskId
+                        };
 
-                    _mapper.Map(addPartnerDto, partner);
+                        _mapper.Map(addPartnerDto, partner);
 
-                    var partnerDebt = await _unitOfWork.Partner.Update(partner);
+                        var partnerDebt = await _unitOfWork.Partner.Update(partner);
 
-                    if(!partnerDebt)
-                        throw new StatusCodeException(HttpStatusCode.NotFound, "Error updating Partner.");
+                        if (!partnerDebt)
+                        {
+                            throw new StatusCodeException(HttpStatusCode.NotFound, "Error updating Partner.");
+                        }
+                    }
                 }
-
                 var salesRequest = _mapper.Map<SR.SalesRequest>(dto);
 
                 if (!dto.IsShipment)
@@ -260,7 +264,7 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
         {
             string datePart = DateTime.UtcNow.ToString("yyyyMMdd");
             var random = new Random();
-            string randomPart = random.Next(1000, 9999).ToString(); 
+            string randomPart = random.Next(1000, 9999).ToString();
 
             long counter;
             lock (_lock)
