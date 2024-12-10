@@ -6,4 +6,5 @@ public class AddLoadReportDto
     public Guid ProductId { get; set; }
     public Guid ContrAgentId { get; set; }
     public double TotalPrice { get; set; }
+    public int Count { get; set; }
 }

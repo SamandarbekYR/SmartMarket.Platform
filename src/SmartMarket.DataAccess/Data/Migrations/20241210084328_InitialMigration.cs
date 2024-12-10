@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace SmartMarket.DataAccess.Migrations
+namespace SmartMarket.DataAccess.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class SaleRequest : Migration
+    public partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -40,24 +40,6 @@ namespace SmartMarket.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_customer", x => x.id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "partner",
-                columns: table => new
-                {
-                    id = table.Column<Guid>(type: "uuid", nullable: false),
-                    first_name = table.Column<string>(type: "text", nullable: false),
-                    last_name = table.Column<string>(type: "text", nullable: false),
-                    phone_number = table.Column<string>(type: "text", nullable: false),
-                    total_debt = table.Column<double>(type: "double precision", nullable: false),
-                    last_payment = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    PaymentType = table.Column<string>(type: "text", nullable: false),
-                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_partner", x => x.id);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,6 +86,22 @@ namespace SmartMarket.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "sclaes",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    name = table.Column<string>(type: "text", nullable: false),
+                    update_time_interval = table.Column<int>(type: "integer", nullable: false),
+                    select_file_path = table.Column<string>(type: "text", nullable: false),
+                    txt_file_name = table.Column<string>(type: "text", nullable: false),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_sclaes", x => x.id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "worker_role",
                 columns: table => new
                 {
@@ -136,6 +134,31 @@ namespace SmartMarket.DataAccess.Migrations
                         principalTable: "partners_company",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "partner",
+                columns: table => new
+                {
+                    id = table.Column<Guid>(type: "uuid", nullable: false),
+                    first_name = table.Column<string>(type: "text", nullable: false),
+                    last_name = table.Column<string>(type: "text", nullable: false),
+                    phone_number = table.Column<string>(type: "text", nullable: false),
+                    total_debt = table.Column<double>(type: "double precision", nullable: true),
+                    paid_debt = table.Column<double>(type: "double precision", nullable: true),
+                    last_payment = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    payment_type = table.Column<string>(type: "text", nullable: true),
+                    pay_desk_id = table.Column<Guid>(type: "uuid", nullable: true),
+                    created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_partner", x => x.id);
+                    table.ForeignKey(
+                        name: "FK_partner_pay_desk_pay_desk_id",
+                        column: x => x.pay_desk_id,
+                        principalTable: "pay_desk",
+                        principalColumn: "id");
                 });
 
             migrationBuilder.CreateTable(
@@ -337,6 +360,7 @@ namespace SmartMarket.DataAccess.Migrations
                     card_sum = table.Column<double>(type: "double precision", nullable: false),
                     transfer_money = table.Column<double>(type: "double precision", nullable: false),
                     debt_sum = table.Column<double>(type: "double precision", nullable: false),
+                    is_shipment = table.Column<bool>(type: "boolean", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
@@ -709,6 +733,11 @@ namespace SmartMarket.DataAccess.Migrations
                 column: "sales_request_id");
 
             migrationBuilder.CreateIndex(
+                name: "IX_partner_pay_desk_id",
+                table: "partner",
+                column: "pay_desk_id");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_product_barcode_pcode_name",
                 table: "product",
                 columns: new[] { "barcode", "pcode", "name" },
@@ -846,6 +875,9 @@ namespace SmartMarket.DataAccess.Migrations
                 name: "salary_check");
 
             migrationBuilder.DropTable(
+                name: "sclaes");
+
+            migrationBuilder.DropTable(
                 name: "worker_debt");
 
             migrationBuilder.DropTable(
@@ -873,13 +905,13 @@ namespace SmartMarket.DataAccess.Migrations
                 name: "partner");
 
             migrationBuilder.DropTable(
-                name: "pay_desk");
-
-            migrationBuilder.DropTable(
                 name: "worker");
 
             migrationBuilder.DropTable(
                 name: "partners_company");
+
+            migrationBuilder.DropTable(
+                name: "pay_desk");
 
             migrationBuilder.DropTable(
                 name: "position");

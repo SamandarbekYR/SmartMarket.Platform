@@ -57,7 +57,7 @@ namespace SmartMarket.Desktop.Windows.Expenses
             //PCode_TextBlock.Text = dto.PCode.ToString();
             //Barcode_TextBlock.Text = dto.Barcode.ToString();  
             ProductName_TextBlock.Text = dto.ProductName;
-            ProductCount_TextBlock.Text = dto.ProductCount.ToString();
+            ProductCount_TextBlock.Text = dto.Count.ToString();
             ProductPrice_TextBlock.Text = dto.ProductPrice.ToString();
             ProductTotalPrice_TextBlock.Text = dto.TotalPrice.ToString();
         }

@@ -9,11 +9,11 @@ using SmartMarket.DataAccess.Data;
 
 #nullable disable
 
-namespace SmartMarket.DataAccess.Migrations
+namespace SmartMarket.DataAccess.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241207153428_MigrationUpdateEntity")]
-    partial class MigrationUpdateEntity
+    [Migration("20241210084328_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -231,6 +231,14 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("last_payment");
 
+                    b.Property<double?>("PaidDebt")
+                        .HasColumnType("double precision")
+                        .HasColumnName("paid_debt");
+
+                    b.Property<Guid?>("PayDeskId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("pay_desk_id");
+
                     b.Property<string>("PaymentType")
                         .HasColumnType("text")
                         .HasColumnName("payment_type");
@@ -245,6 +253,8 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnName("total_debt");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PayDeskId");
 
                     b.ToTable("partner");
                 });
@@ -1068,6 +1078,15 @@ namespace SmartMarket.DataAccess.Migrations
                     b.Navigation("Order");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("SmartMarket.Domain.Entities.Partners.Partner", b =>
+                {
+                    b.HasOne("SmartMarket.Domain.Entities.PayDesks.PayDesk", "PayDesk")
+                        .WithMany()
+                        .HasForeignKey("PayDeskId");
+
+                    b.Navigation("PayDesk");
                 });
 
             modelBuilder.Entity("SmartMarket.Domain.Entities.PartnersCompany.ContrAgent", b =>

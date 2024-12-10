@@ -8,7 +8,7 @@ using SmartMarket.DataAccess.Data;
 
 #nullable disable
 
-namespace SmartMarket.DataAccess.Migrations
+namespace SmartMarket.DataAccess.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
@@ -526,6 +526,10 @@ namespace SmartMarket.DataAccess.Migrations
                     b.Property<Guid>("ContrAgentId")
                         .HasColumnType("uuid")
                         .HasColumnName("contragent_id");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("integer")
+                        .HasColumnName("count");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")
