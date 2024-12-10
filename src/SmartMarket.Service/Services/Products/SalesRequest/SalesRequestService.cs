@@ -62,6 +62,7 @@ namespace SmartMarket.Service.Services.Products.SalesRequest
                             FirstName = partner.FirstName,
                             LastName = partner.LastName,
                             PhoneNumber = partner.PhoneNumber,
+                            PaidDebt = partner.PaidDebt ?? 0,
                             TotalDebt = debt + dto.DebtSum,
                             PayDeskId = dto.PayDeskId
                         };
