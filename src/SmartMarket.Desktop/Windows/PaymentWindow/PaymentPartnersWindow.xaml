@@ -9,15 +9,14 @@
         WindowStyle="None"
         AllowsTransparency="True"
         Background="Transparent"
-        Title="PaymentPartnersWindow">
+        Title="PaymentPartnersWindow"
+        Loaded="Window_Loaded">
+    <!-- Oynaning yuklanishi bilan blur qo‘llash uchun -->
 
-    <!-- Bu yerda, butun oynaning tashqi fonini shaffof qilish uchun Background="Transparent" qilingan -->
     <Grid Background="Transparent">
-
-        <!-- Borderni o'zgartirmaymiz, u hali ham ko'rinadi, faqat tashqi qismlar shaffof -->
         <Border Background="White"
                 Height="300" 
-                Width="500"
+                Width="400"
                 CornerRadius="10"
                 BorderThickness="1"
                 BorderBrush="{DynamicResource BorderColor}">
@@ -28,7 +27,6 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <!-- Title qismidagi fonni yashirish yoki shaffof qilish -->
                 <Border CornerRadius="5 5 0 0"
                         Grid.Row="0" 
                         Background="#04C217"/>
@@ -41,28 +39,31 @@
                            FontWeight="SemiBold"
                            Margin="15 0 0 0"/>
 
-                <!-- Yopish tugmasi -->
                 <Button Grid.Row="0"
                         Name="close_button"
                         HorizontalAlignment="Right"
                         Click="close_button_Click"
                         Style="{DynamicResource btnClose}"/>
 
-                <!-- Formning qolgan qismlari -->
                 <StackPanel Grid.Row="1">
                     <TextBlock Text="To'lov miqdori"
                                FontSize="18"
                                Margin="35 10 0 0"/>
+                   
                     <TextBox x:Name="tbPayAmount"
-                             Height="40"
-                             Margin="35 5 35 10"
-                             Style="{DynamicResource tbPaymentstyle}"/>
+                         Height="40"
+                         Margin="35 5 35 10"
+                         Style="{DynamicResource tbPaymentstyle}"
+                         PreviewTextInput="tbPayAmount_PreviewTextInput"
+                         DataObject.Pasting="tbPayAmount_Pasting"/>
+
 
                     <TextBlock Text="To'lov turi"
                                FontSize="18"
                                Margin="35 10 0 0"/>
                     <ComboBox x:Name="cbPayment"
                               Height="40"
+                              FontSize="20"
                               Margin="35 5 35 10">
                         <ComboBoxItem Content="Naqd"/>
                         <ComboBoxItem Content="Karta"/>
