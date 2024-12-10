@@ -30,7 +30,7 @@ public partial class ShipmentComponent : UserControl
 
         if (page is SecondPage secondPage)
         {
-            secondPage.SelectOrder(this, orderDto!.Id);
+            secondPage.SelectOrder(this, orderDto!);
             btnEditShipment.Visibility = Visibility.Collapsed;
             CancelButton.Visibility = Visibility.Visible;
         }

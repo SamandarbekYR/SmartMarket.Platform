@@ -65,6 +65,7 @@
                 </Border>
 
                 <Label
+                    Name="lb_quantity"
                     Content="Qiymat kiritilmagan."
                     Margin="0 5 0 0"
                     HorizontalAlignment="Center"

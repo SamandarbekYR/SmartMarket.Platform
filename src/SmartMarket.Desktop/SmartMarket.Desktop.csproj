@@ -30,12 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Services\Libs\Seagull.BarTender.Print.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="3.1.0" />
     <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
@@ -89,6 +83,7 @@
 
   <ItemGroup>
     <Folder Include="Assets\Images\" />
+    <Folder Include="Services\Libs\" />
   </ItemGroup>
 
   <ItemGroup>

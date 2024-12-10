@@ -7,7 +7,7 @@
              mc:Ignorable="d">
     <Border
         Name="product_Border"
-        Height="35"
+        Height="40"
         CornerRadius="5"
         BorderThickness="0.5"
         Margin="5 3 15 3"

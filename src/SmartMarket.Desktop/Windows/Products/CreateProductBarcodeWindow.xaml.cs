@@ -1,13 +1,12 @@
-﻿using System.Runtime.InteropServices;
+﻿using SmartMarket.Service.DTOs.Products.Product;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 using System.Windows.Interop;
-using SmartMarket.Service.DTOs.Products.Product;
-using SmartMarket.Integrated.Services.Products.Print;
-using System.Windows.Media.Animation;
 using System.Windows.Media;
+using System.Windows.Threading;
+using static SmartMarket.Desktop.Windows.BlurWindow.BlurEffect;
 
 namespace SmartMarket.Desktop.Windows.Products;
 
@@ -69,31 +68,31 @@ public partial class CreateProductBarcodeWindow : Window
     {
         if (tb_quantity.Text.Length > 0) 
         {
-            BarcodePrintService printService = new BarcodePrintService();
-            printService.PrintLabel(Product, int.Parse(tb_quantity.Text));
+            //BarcodePrintService printService = new BarcodePrintService();
+            //printService.PrintLabel(Product, int.Parse(tb_quantity.Text));
         }
         else
         {
-            tb_quantity.Foreground = Brushes.Red;
+            lb_quantity.Foreground = Brushes.Red;
 
-            var animation = new DoubleAnimation
+            var timer = new DispatcherTimer
             {
-                From = 0,
-                To = 5,
-                Duration = TimeSpan.FromMilliseconds(100),
-                AutoReverse = true,
-                RepeatBehavior = new RepeatBehavior(2)
+                Interval = TimeSpan.FromSeconds(3)
             };
 
-            var transform = new TranslateTransform();
-            tb_quantity.RenderTransform = transform;
+            timer.Tick += (sender, args) =>
+            {
+                timer.Stop();
+                lb_quantity.Foreground = Brushes.White; 
+            };
 
-            transform.BeginAnimation(TranslateTransform.XProperty, animation);
+            timer.Start();
         }
     }
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
+        EnableBlur();
         tb_quantity.Focus();
     }
 }

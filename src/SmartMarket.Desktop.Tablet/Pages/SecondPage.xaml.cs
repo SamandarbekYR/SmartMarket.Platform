@@ -25,6 +25,7 @@ public partial class SecondPage : Page
     private readonly IOrderService _orderService;
     private readonly IOrderItemService _orderItemService;
     private OrderDto currentOrder { get; set; }
+    public int i = 0;
 
     public SecondPage()
     {
@@ -33,6 +34,21 @@ public partial class SecondPage : Page
         this._orderService = new OrderService();
         this._orderItemService = new OrderItemService();
     }
+
+    Notifier notifierThis = new Notifier(cfg =>
+    {
+        cfg.PositionProvider = new WindowPositionProvider(
+            parentWindow: Application.Current.MainWindow,
+            corner: Corner.TopRight,
+            offsetX: 40,
+            offsetY: 40);
+
+        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+            notificationLifetime: TimeSpan.FromSeconds(2),
+            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+
+        cfg.Dispatcher = Application.Current.Dispatcher;
+    });
 
 
     #region Method
@@ -95,29 +111,53 @@ public partial class SecondPage : Page
         }
     }
 
-    #endregion
-
-
-    Notifier notifierThis = new Notifier(cfg =>
+    public void AddNewProduct(FullProductDto dto, int quantity)
     {
-        cfg.PositionProvider = new WindowPositionProvider(
-            parentWindow: Application.Current.MainWindow,
-            corner: Corner.TopRight,
-            offsetX: 40,
-            offsetY: 40);
+        if (currentOrder != null)
+        {
+            OrderProduct product = new OrderProduct()
+            {
+                ProductId = dto.Id,
+                Count = quantity,
+                AvailableCount = dto.Count,
+                ItemTotalCost = dto.SellPrice * quantity,
+            };
+            currentOrder.ProductOrderItems.Add(product);
+            AddNewProductComponent(dto, quantity);
+        }
+        else
+            notifierThis.ShowInformation("Jo'natma tanlanmagan.");
+    }
 
-        cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
-            notificationLifetime: TimeSpan.FromSeconds(2),
-            maximumNotificationCount: MaximumNotificationCount.FromCount(2));
+    public void AddNewProductComponent(FullProductDto dto, int quantity)
+    {
+        ProductComponent productComponent = new ProductComponent();
+        productComponent.SetData(dto, quantity);
+        st_product.Children.Add(productComponent);
+        ColculatePrice();
+    }
 
-        cfg.Dispatcher = Application.Current.Dispatcher;
-    });
+    private void ColculatePrice()
+    {
+        lbProductTotalPrice.Content = (currentOrder.ProductOrderItems.Sum(x => x.ItemTotalCost)).ToString();
+    }
+
+    #endregion
 
     private void Exit_Button_Click(object sender, RoutedEventArgs e)
     {
-        MainPage mainPage = new MainPage();
         MainWindow mainWindow = GetMainWindow();
-        mainWindow.PageNavigator.Content = mainPage;
+        if(i == 1)
+        {
+            MainPage mainPage = new MainPage();
+            mainWindow.PageNavigator.Content = mainPage;
+        }
+        else if(i == 2)
+        {
+            PartnersPage partnersPage = new PartnersPage();
+            mainWindow.PageNavigator.Content = partnersPage;
+        }
+        
     }
 
     private void SetOrderProduct(List<OrderProduct> products)
@@ -146,8 +186,8 @@ public partial class SecondPage : Page
             }
 
             lbProductTotalPrice.Content = totalPrice;
-            lbPartnerName.Content = currentOrder.Partner?.FirstName ?? "Nomalum";
-            lbworkerName.Content = currentOrder.Worker?.FirstName ?? "Nomalum";
+            lbPartnerName.Content = currentOrder.Partner?.FirstName ?? "";
+            lbworkerName.Content = currentOrder.Worker?.FirstName ?? "";
         }
         else
         {
@@ -191,38 +231,20 @@ public partial class SecondPage : Page
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
         await GetAllShipments();
-        //for (int i = 0; i < 20; i++)
-        //{
-        //    //ShipmentComponent shipmentComponent = new ShipmentComponent();
-        //    ProductComponent productComponent = new ProductComponent();
-
-        //    st_product.Children.Add(productComponent);
-        //    //st_shipments.Children.Add(shipmentComponent);
-        //}
     }
 
     private ShipmentComponent selectedControl = null!;
-    public async void SelectOrder(ShipmentComponent shipmentComponent, Guid orderId)
-    {
+    public async void SelectOrder(ShipmentComponent shipmentComponent, OrderDto dto)
+        {
         if(selectedControl != null)
         {
-            selectedControl.brOrder.Background = Brushes.White;
+            selectedControl.CancelButton.Visibility = Visibility.Collapsed;
+            selectedControl.btnEditShipment.Visibility = Visibility.Visible;    
         }
 
-        if(shipmentComponent.Tag is OrderDto selectedOrder)
-        {
-            currentOrder = new OrderDto
-            {
-                Id = selectedOrder.Id,
-                WorkerId = selectedOrder.WorkerId,
-                Worker = selectedOrder.Worker,
-                PartnerId = selectedOrder.PartnerId,
-                Partner = selectedOrder.Partner,
-                ProductOrderItems = selectedOrder.ProductOrderItems
-            };
-
-            SetOrderProduct(currentOrder.ProductOrderItems);
-        }
+        selectedControl = shipmentComponent;
+        currentOrder = dto;
+        SetOrderProduct(dto.ProductOrderItems);
     }
 
     private void UpdateOrder()
@@ -254,12 +276,11 @@ public partial class SecondPage : Page
         {
             try
             {
-                //currentOrder.ProductOrderItems.Remove(orderProduct);
                 await _orderItemService.DeleteAsync(orderProduct.Id);
 
                 currentOrder.ProductOrderItems.Remove(orderProduct);
                 st_product.Children.Remove(selectedProduct);
-                selectedProduct = null;
+                selectedProduct = null!;
 
                 notifierThis.ShowSuccess("Mahsulot muvaffaqiyatli o'chirildi.");
                 double totalPrice = (double)lbProductTotalPrice.Content - (orderProduct.Count * orderProduct.Product.SellPrice);
@@ -293,7 +314,7 @@ public partial class SecondPage : Page
                     ProductId = orderProduct.Product.Id,
                     Count = orderProduct.Count,
                     AvailableCount = orderProduct.AvailableCount,
-                    ItemTotalCost = orderProduct.Count * orderProduct.Product.SellPrice
+                    ItemTotalCost = orderProduct.ItemTotalCost,
                 }).ToList()
             };
 
@@ -319,8 +340,8 @@ public partial class SecondPage : Page
     private void EmptyOrderDetails()
     {
         lbProductTotalPrice.Content = "0";
-        lbPartnerName.Content = "Nomalum";
-        lbworkerName.Content = "Nomalum";
+        lbPartnerName.Content = "";
+        lbworkerName.Content = "";
     }
 
     public void StopSale()
