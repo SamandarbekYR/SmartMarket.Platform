@@ -70,6 +70,7 @@ namespace SmartMarket.Service.Services.Products.Product
                         TotalDebt = dto.Price * dto.Count,
                         LastPayment = 0,
                         PaymentType = "none",
+                        LastPaymentDate = DateTime.UtcNow,
                     };
 
                     var contrAgentPayment = _mapper.Map<ContrAgentPayment>(contrAgentPaymentDto);

@@ -72,8 +72,8 @@
                     Margin="35 5 35 10"
                     Style="{DynamicResource tbPaymentstyle}"
                     Text="0"
-                    TextChanged="phone_number_TextChanged"
-                    ></TextBox>
+                    PreviewTextInput="tnPayAmount_PreviewTextInput"
+                    TextChanged="tnPayAmount_TextChanged"/>
 
                 <TextBlock 
                     Text="To'lov turi"

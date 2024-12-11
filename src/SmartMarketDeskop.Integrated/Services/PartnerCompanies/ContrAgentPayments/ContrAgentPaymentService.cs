@@ -1,6 +1,7 @@
 ﻿using SmartMarket.Service.DTOs.PartnersCompany.ContrAgentPayment;
 using SmartMarketDeskop.Integrated.Server.Interfaces.PartnerCompany;
 using SmartMarketDeskop.Integrated.Server.Repositories.PartnerCompany;
+
 using System.Net;
 
 namespace SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgentPayments;
@@ -18,6 +19,19 @@ public class ContrAgentPaymentService : IContrAgentPaymentService
         if(IsInternetAvailable())
         {
             await contrAgentPaymentServer.AddAsync(dto);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public async Task<bool> UpdateAsync(AddContrAgentPaymentDto dto)
+    {
+        if (IsInternetAvailable())
+        {
+            await contrAgentPaymentServer.UpdateAsync(dto);
             return true;
         }
         else
@@ -50,6 +64,19 @@ public class ContrAgentPaymentService : IContrAgentPaymentService
         catch
         {
             return false;
+        }
+    }
+
+    public async Task<List<ContrAgentPaymentDto>> GetAllByContrAgentIdAsync(Guid Id)
+    {
+        if (IsInternetAvailable())
+        {
+            var result = await contrAgentPaymentServer.GetAllByContrAgentIdAsync(Id);
+            return result;
+        }
+        else
+        {
+            return new List<ContrAgentPaymentDto>();
         }
     }
 }
