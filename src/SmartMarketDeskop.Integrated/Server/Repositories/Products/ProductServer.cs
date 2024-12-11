@@ -30,7 +30,6 @@ public class ProductServer : IProductServer
                     content.Add(new StringContent(dto.CategoryId.ToString()), "CategoryId");
                     content.Add(new StringContent(dto.ContrAgentId.ToString()), "ContrAgentId");
                     content.Add(new StringContent(dto.WorkerId.ToString()), "WorkerId");
-                    content.Add(new StringContent(dto.PayDeskId.ToString()), "PayDeskId");
                     content.Add(new StringContent(dto.Count.ToString()), "Count");
                     content.Add(new StringContent(dto.Price.ToString()), "Price");
                     content.Add(new StringContent(dto.SellPrice.ToString()), "SellPrice");

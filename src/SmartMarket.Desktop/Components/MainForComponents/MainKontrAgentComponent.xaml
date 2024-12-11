@@ -18,10 +18,9 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="0.6*"/>
+                <ColumnDefinition Width="0.8*"/>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="0.7*"/>
-                <ColumnDefinition Width="0.5*"/>
-                <ColumnDefinition Width="0.48*"/>
                 <ColumnDefinition Width="130"/>
             </Grid.ColumnDefinitions>
             
@@ -79,19 +78,11 @@
                 FontWeight="SemiBold"
                 ></TextBlock>
 
-            <TextBlock
-                x:Name="tbTotalDebt"
-                Grid.Column="5"
-                Text="0"
-                VerticalAlignment="Center"
-                HorizontalAlignment="Left"
-                FontSize="13"
-                Margin="5 0 0 0"
-                FontWeight="SemiBold"
-                ></TextBlock>
+            
+
             <Grid
                 Margin="0 0 5 0"
-                Grid.Column="6"
+                Grid.Column="5"
                 >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>

@@ -1,16 +1,15 @@
 ﻿using CT = SmartMarket.Service.DTOs.PartnersCompany.ContrAgent;
 using SmartMarket.Domain.Entities.PartnersCompany;
 using SmartMarketDesktop.DTOs.DTOs.PartnerCompany;
-using SmartMarketDeskop.Integrated.ViewModelsForUI.PartnerCompany;
 
 namespace SmartMarketDeskop.Integrated.Server.Interfaces.PartnerCompany;
 
 public interface IContrAgentServer
 {
-    Task<List<ContrAgentViewModels>> GetAllAsync();
+    Task<List<ContrAgent>> GetAllAsync();
     Task<bool> AddAsync(ContrAgentDto dto);
 
     Task<bool> DeleteAsync(Guid Id);
     Task<bool> UpdateAsync(ContrAgentDto dto, Guid Id);
-    Task<List<ContrAgentViewModels>> GetContrAgentByNameAsync(string name);
+    Task<List<CT.ContrAgentDto>> GetContrAgentByNameAsync(string name);
 }

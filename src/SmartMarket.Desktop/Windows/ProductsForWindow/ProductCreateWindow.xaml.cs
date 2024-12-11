@@ -134,10 +134,8 @@ public partial class ProductCreateWindow : Window
             //}
 
             var payDeskId = Properties.Settings.Default.PayDesk;
-            if (payDeskId == null)
+            if (payDeskId != null)
                 notifierThis.ShowWarning("Kassa tanlanmagan.");
-            else
-                addProductDto.PayDeskId = Guid.Parse(payDeskId);
 
             addProductDto.UnitOfMeasure = comboMeasurement.Text;
             if (comboDelivery.SelectedValue != null)
