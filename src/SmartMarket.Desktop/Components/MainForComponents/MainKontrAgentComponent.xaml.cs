@@ -43,11 +43,13 @@ public partial class MainKontrAgentComponent : UserControl
     });
     public void GetData(ContrAgentViewModels contrAgent, int count)
     {
+        double debt = contrAgent.ContrAgentPayment.Sum(cap => cap.TotalDebt);
         tbNumber.Text = count.ToString();
-        tbCompanyName.Text = contrAgent.CompanyName;  
+        tbCompanyName.Text = contrAgent.PartnerCompany.Name;  
         tbFirstname.Text = contrAgent.FirstName;  
         tbLastname.Text = contrAgent.LastName;
         tbPhonenumber.Text = contrAgent.PhoneNumber;
+        tbTotalDebt.Text = debt.ToString();
     }
 
 

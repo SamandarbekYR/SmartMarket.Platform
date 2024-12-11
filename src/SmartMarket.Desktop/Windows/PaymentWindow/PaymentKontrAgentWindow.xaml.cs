@@ -26,6 +26,7 @@ public partial class PaymentKontrAgentWindow : Window
     private readonly IContrAgentPaymentService contrAgentPaymentService;
     private readonly IPayDeskService payDeskService;
     ContrAgentViewModels _contrAgentViewModel;
+    private double MaxLimit;
     public PaymentKontrAgentWindow()
     {
         InitializeComponent();
@@ -116,6 +117,7 @@ public partial class PaymentKontrAgentWindow : Window
     {
         EnableBlur();
         await GetAllPaydesks();
+        MaxLimit = (await contrAgentPaymentService.GetAllByContrAgentIdAsync(_contrAgentViewModel.Id)).Sum(cap => cap.TotalDebt);
     }
 
     private void phone_number_TextChanged(object sender, TextChangedEventArgs e)
@@ -132,6 +134,27 @@ public partial class PaymentKontrAgentWindow : Window
         }
     }
 
+    private void tnPayAmount_PreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        e.Handled = !Regex.IsMatch(e.Text, @"^[0-9]*(?:\.[0-9]*)?$");
+    }
+
+    private void tnPayAmount_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (double.TryParse(tnPayAmount.Text, out double value))
+        {
+            if (value > MaxLimit)
+            {
+                tnPayAmount.Text = MaxLimit.ToString();
+                tnPayAmount.SelectionStart = tnPayAmount.Text.Length; 
+            }
+        }
+        else
+        {
+            tnPayAmount.Text = string.Empty; 
+        }
+    }
+
     private async void BtnPay_Click(object sender, RoutedEventArgs e)
     {
         if (BtnPay.IsEnabled == false) return;
@@ -142,7 +165,6 @@ public partial class PaymentKontrAgentWindow : Window
             paymentTypeComboBox.SelectedItem != null)
         {
             AddContrAgentPaymentDto dto = new AddContrAgentPaymentDto();
-
             {
                 PayDesksDto payDesk = payDesks.Where(x => x.Name == payDeskComboBox.SelectedValue).FirstOrDefault();
                 dto.PayDeskId = payDesk.Id;
@@ -150,9 +172,8 @@ public partial class PaymentKontrAgentWindow : Window
             dto.ContrAgentId = _contrAgentViewModel.Id;
             dto.PaymentType = payDeskComboBox.SelectedItem?.ToString();
             dto.LastPayment = Convert.ToDouble(tnPayAmount.Text);
-            dto.TotalDebt = Convert.ToDouble(_contrAgentViewModel.DebtSum);
 
-            var res = await contrAgentPaymentService.AddAsync(dto);
+            var res = await contrAgentPaymentService.UpdateAsync(dto);
             if(res == true)
             {
                 this.Close();

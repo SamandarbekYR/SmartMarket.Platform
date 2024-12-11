@@ -5,4 +5,6 @@ namespace SmartMarketDeskop.Integrated.Server.Interfaces.PartnerCompany;
 public interface IContrAgentPaymentServer
 {
     Task<bool> AddAsync(AddContrAgentPaymentDto dto);
+    Task<bool> UpdateAsync(AddContrAgentPaymentDto dto);
+    Task<List<ContrAgentPaymentDto>> GetAllByContrAgentIdAsync(Guid Id);
 }
