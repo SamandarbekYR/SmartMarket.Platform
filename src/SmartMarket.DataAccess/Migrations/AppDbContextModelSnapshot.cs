@@ -313,7 +313,7 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("created_at");
 
-                    b.Property<double?>("LastPayment")
+                    b.Property<double>("LastPayment")
                         .HasColumnType("double precision")
                         .HasColumnName("total_payment");
 
@@ -321,12 +321,12 @@ namespace SmartMarket.DataAccess.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("last_payment_date");
 
-                    b.Property<Guid?>("PayDeskId")
-                        .IsRequired()
+                    b.Property<Guid>("PayDeskId")
                         .HasColumnType("uuid")
                         .HasColumnName("pay_desk_id");
 
                     b.Property<string>("PaymentType")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("payment_type");
 
@@ -526,6 +526,10 @@ namespace SmartMarket.DataAccess.Migrations
                     b.Property<Guid>("ContrAgentId")
                         .HasColumnType("uuid")
                         .HasColumnName("contragent_id");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("integer")
+                        .HasColumnName("count");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("timestamp with time zone")

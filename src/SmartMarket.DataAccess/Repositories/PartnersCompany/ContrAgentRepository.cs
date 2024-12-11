@@ -16,6 +16,17 @@ public class ContrAgentRepository : Repository<ContrAgent>, IContrAgent
         _contrAgents = appDb.Set<ContrAgent>();
     }
 
+    public IQueryable<ContrAgent> GetContrAgentsFullInformation()
+    {
+        return _contrAgents
+            .Include(c => c.PartnerCompany)
+            .Include(c => c.Products)
+            .Include(c => c.LoadReports)
+            .Include(c => c.ContrAgentPayment)
+                .ThenInclude(ca => ca.PayDesk)
+            .AsQueryable();
+    }
+
     public async Task<List<ContrAgent>> GetContrAgentsFullInformationAsync()
     {
         return await _contrAgents

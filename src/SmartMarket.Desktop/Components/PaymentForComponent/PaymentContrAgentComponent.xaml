@@ -8,6 +8,7 @@
              d:DesignHeight="55">
     <Border
         CornerRadius="5"
+        Height="40"
         Background="White"
         Margin="5 4 15 4"
         BorderBrush="{DynamicResource BorderColor}"

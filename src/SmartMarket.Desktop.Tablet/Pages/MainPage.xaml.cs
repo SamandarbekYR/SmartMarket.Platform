@@ -322,27 +322,27 @@ public partial class MainPage : Page
 
     private async void Send_Button_Click(object sender, RoutedEventArgs e)
     {
-        AddOrderDto addOrderDto = new AddOrderDto();
-        addOrderDto.PartnerId = IdentitySingelton.GetInstance().PartnerId;
-        addOrderDto.WorkerId = IdentitySingelton.GetInstance().Id;
-
-        foreach (var product in tvm.Transactions)
+        if (tvm.Transactions.Count > 0)
         {
-            AddOrderProductDto addOrderProductDto = new AddOrderProductDto()
+
+            AddOrderDto addOrderDto = new AddOrderDto();
+            addOrderDto.PartnerId = IdentitySingelton.GetInstance().PartnerId;
+            addOrderDto.WorkerId = IdentitySingelton.GetInstance().Id;
+
+            foreach (var product in tvm.Transactions)
             {
-                ProductId = product.Id,
-                Count = product.Quantity,
-                AvailableCount = product.AvailableCount,
-                ItemTotalCost = product.TotalPrice
-            };
+                AddOrderProductDto addOrderProductDto = new AddOrderProductDto()
+                {
+                    ProductId = product.Id,
+                    Count = product.Quantity,
+                    AvailableCount = product.AvailableCount,
+                    ItemTotalCost = product.TotalPrice
+                };
 
-            orderProducts.Add(addOrderProductDto);
-        }
+                orderProducts.Add(addOrderProductDto);
+            }
 
-        addOrderDto.ProductOrderItems = orderProducts;
-
-        if (addOrderDto != null)
-        {
+            addOrderDto.ProductOrderItems = orderProducts;
             try
             {
                 await _orderService.CreateAsync(addOrderDto);
@@ -359,15 +359,14 @@ public partial class MainPage : Page
             }
         }
         else
-        {
-            notifier.ShowWarning("Yuborish uchun mahsulot tanlanmagan.");
-        }
+            notifier.ShowError($"Mahsulot xarid qilinmagan.");
     }
 
     private void Sends_Button_Click(object sender, RoutedEventArgs e)
     {
         SecondPage secondPage = new SecondPage();
         MainWindow mainWindow = GetMainWindow();
+        secondPage.i = 1;
         mainWindow.PageNavigator.Content = secondPage;
     }
 

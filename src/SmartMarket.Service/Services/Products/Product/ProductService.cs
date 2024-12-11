@@ -14,22 +14,25 @@ using SmartMarket.Service.DTOs.PartnersCompany.ContrAgentPayment;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.DTOs.Products.ProductImage;
 using SmartMarket.Service.Interfaces.Products.Product;
-
-using System.Net;
-
 using Et = SmartMarket.Domain.Entities.Products;
+using SmartMarket.Domain.Entities.Products;
+using SmartMarket.Service.Interfaces.Products.LoadReport;
+using SmartMarket.Service.DTOs.Products.LoadReport;
+using System.Net;
 
 namespace SmartMarket.Service.Services.Products.Product
 {
     public class ProductService(IUnitOfWork unitOfWork,
                                  IMapper mapper,
                                  IValidator<AddProductDto> validator,
+                                 ILoadReportService loadReportService,
                                  ILogger<ProductService> logger) : IProductService
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IMapper _mapper = mapper;
         private readonly IValidator<AddProductDto> _validator = validator;
-        private readonly ILogger<ProductService> _logger = logger;
+        private readonly ILoadReportService _loadReportService = loadReportService;
+        private readonly ILogger<ProductService> _logger = logger; 
 
         public async Task<Guid> AddAsync(AddProductDto dto)
         {
@@ -67,6 +70,7 @@ namespace SmartMarket.Service.Services.Products.Product
                         TotalDebt = dto.Price * dto.Count,
                         LastPayment = 0,
                         PaymentType = "none",
+                        LastPaymentDate = DateTime.UtcNow,
                     };
 
                     var contrAgentPayment = _mapper.Map<ContrAgentPayment>(contrAgentPaymentDto);
@@ -103,6 +107,17 @@ namespace SmartMarket.Service.Services.Products.Product
 
                 await _unitOfWork.Product.Add(product);
                 await _unitOfWork.SaveAsync();
+
+                var loadReport = new AddLoadReportDto
+                {
+                    WorkerId = dto.WorkerId,
+                    ContrAgentId = dto.ContrAgentId,
+                    ProductId = product.Id,
+                    TotalPrice = product.SellPrice * product.Count,
+                    Count = product.Count
+                };
+
+                await _loadReportService.AddAsync(loadReport);
 
                 return product.Id;
             }
@@ -201,7 +216,9 @@ namespace SmartMarket.Service.Services.Products.Product
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Contr Agent not found.");
                 }
 
+                var originalCount = product.Count;
                 _mapper.Map(dto, product);
+                product.Count = originalCount + dto.Count;
 
                 var asda = await _unitOfWork.Product.Update(product);
                 return asda;

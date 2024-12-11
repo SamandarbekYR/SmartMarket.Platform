@@ -4,7 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartMarket.Desktop.Windows.PaymentWindow" 
-        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:local1="clr-namespace:SmartMarket.Desktop.Components.Loader"
         mc:Ignorable="d"
         Title="PaymentContrAgentWindow"
         WindowState="Maximized"
@@ -80,13 +81,6 @@
                             VerticalAlignment="Center"
                             Content="gacha"/>
                     </StackPanel>
-
-                    <TextBox
-                        Margin="0 0 10 0"
-                        Name="searchTextBox"
-                        Style="{DynamicResource search}"
-                        KeyDown="SearchTextBox_KeyDown"
-                        Grid.Column="3"/>
 
                     <Border 
                         Grid.Column="5"
@@ -181,13 +175,29 @@
                 BorderThickness="1 0 1 1" 
                 BorderBrush="{DynamicResource BorderColor}" 
                 Background="White">
-                <ScrollViewer Grid.Row="2">
-                    <StackPanel Grid.Row="2">
-                        <StackPanel 
-                            x:Name="St_paymentContrAgent">
+                <Grid>
+                    <local1:Loader
+                        x:Name="Loader"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Center"/>
+                    
+                    <ScrollViewer Grid.Row="2">
+                        <StackPanel Grid.Row="2">
+                            <StackPanel 
+                                x:Name="St_paymentContrAgent">
+                            </StackPanel>
                         </StackPanel>
-                    </StackPanel>
-                </ScrollViewer>
+                    </ScrollViewer>
+
+                    <Label
+                        Name="EmptyDataContrAgent"
+                        Visibility="Collapsed"
+                        FontSize="16"
+                        Foreground="#a6a6a6"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Content="Ma'lumot topilmadi."/>
+                </Grid>
             </Border>
         </Grid>
     </Border>
