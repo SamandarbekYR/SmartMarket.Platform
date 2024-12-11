@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace SmartMarket.DataAccess.Data.Migrations
+namespace SmartMarket.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class SmartPostMig : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -442,6 +442,7 @@ namespace SmartMarket.DataAccess.Data.Migrations
                     product_id = table.Column<Guid>(type: "uuid", nullable: false),
                     contragent_id = table.Column<Guid>(type: "uuid", nullable: false),
                     total_price = table.Column<double>(type: "double precision", nullable: false),
+                    count = table.Column<int>(type: "integer", nullable: false),
                     created_at = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>

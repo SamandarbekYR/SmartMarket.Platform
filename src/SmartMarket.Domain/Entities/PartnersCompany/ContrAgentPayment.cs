@@ -10,15 +10,15 @@ namespace SmartMarket.Domain.Entities.PartnersCompany
         public Guid ContrAgentId { get; set; }
         public ContrAgent ContrAgent { get; set; }
         [Column("pay_desk_id")]
-        public Guid? PayDeskId { get; set; }
+        public Guid PayDeskId { get; set; }
         public PayDesk PayDesk { get; set; }
         [Column("payment_type")]
-        public string? PaymentType { get; set; }
+        public string PaymentType { get; set; }
 
         [Column("total_debt")]
         public double TotalDebt { get; set; }
         [Column("total_payment")]
-        public double? LastPayment { get; set; }
+        public double LastPayment { get; set; }
         [Column("last_payment_date")]
         public DateTime LastPaymentDate { get; set; }
     }

@@ -18,6 +18,7 @@ using Et = SmartMarket.Domain.Entities.Products;
 using SmartMarket.Domain.Entities.Products;
 using SmartMarket.Service.Interfaces.Products.LoadReport;
 using SmartMarket.Service.DTOs.Products.LoadReport;
+using System.Net;
 
 namespace SmartMarket.Service.Services.Products.Product
 {
