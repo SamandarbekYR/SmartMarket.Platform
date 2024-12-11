@@ -142,7 +142,7 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.PartnerCompany
             }
         }
 
-        public async Task<List<ContrAgentViewModels>> GetContrAgentByNameAsync(string name)
+        public async Task<List<CT.ContrAgentDto>> GetContrAgentByNameAsync(string name)
         {
             try
             {

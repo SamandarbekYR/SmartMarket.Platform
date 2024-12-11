@@ -10,6 +10,8 @@ using SmartMarket.Service.DTOs.PartnersCompany.ContrAgentPayment;
 using SmartMarket.Service.Interfaces.PartnersCompany.ContrAgentPayment;
 using Microsoft.Extensions.Logging;
 using System.Xml.XPath;
+using Microsoft.Extensions.Logging;
+using System.Xml.XPath;
 using System.Net;
 
 using Et = SmartMarket.Domain.Entities.PartnersCompany;

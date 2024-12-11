@@ -7,7 +7,6 @@ using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Server.Interfaces.PartnerCompany;
 using System.Net.Http.Headers;
-
 using System.Text;
 using System.Text.Json;
 
@@ -75,9 +74,9 @@ public class ContrAgentPaymentServer : IContrAgentPaymentServer
 
             return contrAgentPaymentDtos;
         }
-        catch (Exception ex)
+        catch(Exception ex)
         {
-            return new List<ContrAgentPaymentDto>();
+            return new List<ContrAgentPaymentDto>(); 
         }
     }
 
