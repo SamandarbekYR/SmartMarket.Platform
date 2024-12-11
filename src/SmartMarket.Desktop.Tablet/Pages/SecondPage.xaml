@@ -218,7 +218,6 @@
 
                         <Label x:Name="lbPartnerName"
                             FontSize="16"
-                            Content="Sobir aka"
                             Style="{DynamicResource MainLabel}"/>
 
                         <Label
@@ -229,7 +228,6 @@
 
                         <Label x:Name="lbworkerName"
                             FontSize="16"
-                            Content="Sobir aka"
                             Style="{DynamicResource MainLabel}"/>
 
                     </StackPanel>
@@ -244,7 +242,8 @@
                             HorizontalAlignment="Center"
                             Style="{DynamicResource InfoLabel}"/>
 
-                        <Label x:Name="lbProductTotalPrice"
+                        <Label 
+                            x:Name="lbProductTotalPrice"
                             Content="0"
                             FontSize="20"
                             HorizontalAlignment="Center"
@@ -267,7 +266,7 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="60"/>
                     </Grid.ColumnDefinitions>
 
                     <Grid

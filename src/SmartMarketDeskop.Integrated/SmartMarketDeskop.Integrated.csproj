@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bartender" Version="1.0.0" />
     <PackageReference Include="ESC-POS-USB-NET" Version="1.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.8" />
@@ -36,6 +37,12 @@
     <ProjectReference Include="..\SmartMarket.Service\SmartMarket.Service.csproj" />
     <ProjectReference Include="..\SmartMarketDesktop.DTOs\SmartMarketDesktop.DTOs.csproj" />
     <ProjectReference Include="..\SmartMarketDesktop.ViewModels\SmartMarketDesktop.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Seagull.BarTender.Print">
+      <HintPath>Libs\Seagull.BarTender.Print.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

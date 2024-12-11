@@ -19,7 +19,7 @@
                     <RowDefinition Height="45"/>
                     <RowDefinition Height="30"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="65"/>
                 </Grid.RowDefinitions>
 
                 <Border 
@@ -141,7 +141,17 @@
 
                 </Border>
 
-                <Border
+            <Button
+                x:Name="Sends_Button"
+                Grid.Row="3"
+                Width="180"
+                Content="Jo'natmalar"
+                FontSize="20"
+                Click="Sends_Button_Click"
+                Background="{DynamicResource BSecondColor}"
+                Style="{DynamicResource MainButton}"/>
+
+            <Border
                     HorizontalAlignment="Right"
                     MouseDown="Border_MouseDown"
                     Grid.Row="3"

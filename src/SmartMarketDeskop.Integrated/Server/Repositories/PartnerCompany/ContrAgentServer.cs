@@ -119,6 +119,28 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.PartnerCompany
 
         }
 
+        public async Task<CT.ContrAgentDto> GetByIdAsync(Guid id)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                var token = IdentitySingelton.GetInstance().Token;
+
+                client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/common/contr-agents/{id}");
+                client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+                HttpResponseMessage message = await client.GetAsync(client.BaseAddress);
+                string response = await message.Content.ReadAsStringAsync();
+
+                CT.ContrAgentDto contrAgent = JsonConvert.DeserializeObject<CT.ContrAgentDto>(response)!;
+                return contrAgent;
+            }
+            catch(Exception ex)
+            {
+                return new CT.ContrAgentDto();
+            }
+        }
+
         public async Task<List<CT.ContrAgentDto>> GetContrAgentByNameAsync(string name)
         {
             try

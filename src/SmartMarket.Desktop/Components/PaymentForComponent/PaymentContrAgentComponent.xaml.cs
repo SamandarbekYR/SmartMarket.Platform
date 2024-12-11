@@ -34,7 +34,7 @@ namespace SmartMarket.Desktop.Components.PaymentForComponent
             lb_PhoneNumber.Content = phoneNumber;
             lb_PaymentAmount.Content = paymentAmount.ToString();
             lb_PaymentType.Content = paymentType;
-            lb_Date.Content = date;
+            lb_Date.Content = date.HasValue ? date.Value.ToString("dd.MM.yyyy") : "00.00.00";
             lb_FromWhere.Content = fromWhere;
         }
     }

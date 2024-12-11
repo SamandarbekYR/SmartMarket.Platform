@@ -1,4 +1,5 @@
-﻿using SmartMarketDeskop.Integrated.Server.Interfaces.PartnerCompany;
+﻿using CT = SmartMarket.Service.DTOs.PartnersCompany.ContrAgent;
+using SmartMarketDeskop.Integrated.Server.Interfaces.PartnerCompany;
 using SmartMarketDeskop.Integrated.Server.Repositories.PartnerCompany;
 using SmartMarketDeskop.Integrated.ViewModelsForUI.PartnerCompany;
 using SmartMarketDesktop.DTOs.DTOs.PartnerCompany;
@@ -125,6 +126,20 @@ public class ContrAgentService : IContrAgentService
         else
         {
             return new List<ContrAgentViewModels>();
+        }
+    }
+
+    public async Task<CT.ContrAgentDto> GetById(Guid id)
+    {
+        if(IsInternetAvailable())
+        { 
+            var contrAgent = await contrAgentServer.GetByIdAsync(id);
+
+            return contrAgent;
+        }
+        else
+        {
+            return new CT.ContrAgentDto();
         }
     }
 }

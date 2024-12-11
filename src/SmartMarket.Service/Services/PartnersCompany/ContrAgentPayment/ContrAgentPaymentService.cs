@@ -8,7 +8,8 @@ using SmartMarket.Service.Common.Validators;
 using System.Net;
 using SmartMarket.Service.DTOs.PartnersCompany.ContrAgentPayment;
 using SmartMarket.Service.Interfaces.PartnersCompany.ContrAgentPayment;
-using Microsoft.Extensions.Logging; 
+using Microsoft.Extensions.Logging;
+using System.Xml.XPath;
 
 namespace SmartMarket.Service.Services.PartnersCompany.ContrAgentPayment
 {
@@ -39,6 +40,7 @@ namespace SmartMarket.Service.Services.PartnersCompany.ContrAgentPayment
                 }
 
                 var contrAgentPayment = _mapper.Map<Et.ContrAgentPayment>(dto);
+                contrAgentPayment.LastPaymentDate = DateTime.UtcNow.AddHours(5);
                 return await _unitOfWork.ContrAgentPayment.Add(contrAgentPayment);
             }
             catch (Exception ex)
@@ -68,6 +70,48 @@ namespace SmartMarket.Service.Services.PartnersCompany.ContrAgentPayment
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error occurred while deleting a counteragent payment.");
+                throw;
+            }
+        }
+
+        public async Task<IEnumerable<ContrAgentPaymentDto>> FilterContrAgentPaymentAsync(FilterContrAgentDto dto)
+        {
+            try
+            {
+                var contrAgentPayments = _unitOfWork.ContrAgentPayment.GetContrAgentPaymentsFullInformation();
+
+                var contrAgentPaymentExists = contrAgentPayments.Where(x => x.ContrAgentId == dto.Id).ToList();                
+
+                if(dto.FromDateTime.HasValue && dto.ToDateTime.HasValue)
+                {
+                    contrAgentPaymentExists = contrAgentPaymentExists.Where(
+                        cp => cp.CreatedDate.Value.Date >= dto.FromDateTime.Value
+                        && cp.CreatedDate <= dto.ToDateTime.Value).ToList();
+                }
+                else
+                {
+                    contrAgentPaymentExists = contrAgentPaymentExists.Where(
+                        cp => cp.CreatedDate.Value.Date == DateTime.Today).ToList();
+                }
+
+                var contrAgentPaymentDtos = contrAgentPaymentExists.Select(cp => new ContrAgentPaymentDto
+                {
+                    Id = cp.Id,
+                    ContrAgentId = cp.ContrAgentId,
+                    ContrAgent = cp.ContrAgent,
+                    PayDeskId = cp.PayDeskId,
+                    PayDesk = cp.PayDesk,
+                    PaymentType = cp.PaymentType,
+                    TotalDebt = cp.TotalDebt,
+                    LastPayment = cp.LastPayment,
+                    LastPaymentDate = cp.LastPaymentDate
+                });
+
+                return contrAgentPaymentDtos;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occured while filter contr agent payments.");
                 throw;
             }
         }

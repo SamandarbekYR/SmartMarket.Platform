@@ -199,4 +199,12 @@ public partial class PartnersPage : Page
         mainWindow.Close();
         loginWindow.ShowDialog();
     }
+
+    private void Sends_Button_Click(object sender, RoutedEventArgs e)
+    {
+        SecondPage secondPage = new SecondPage();
+        MainWindow mainWindow = GetMainWindow();
+        secondPage.i = 2;
+        mainWindow.PageNavigator.Content = secondPage;
+    }
 }

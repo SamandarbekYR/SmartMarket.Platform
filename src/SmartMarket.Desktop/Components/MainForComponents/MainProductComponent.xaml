@@ -21,7 +21,7 @@
                 <ColumnDefinition Width="0.8*"/>
                 <ColumnDefinition Width="0.7*"/>
                 <ColumnDefinition Width="100"/>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="130"/>
             </Grid.ColumnDefinitions>
 
             <TextBlock 
@@ -96,23 +96,30 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
                 <Button 
+                    Name="btnbarcode"
                     Grid.Column="0"
+                    Click="btnbarcode_Click"
+                    Style="{DynamicResource BtnPrintBarcode}"
+                    />
+                <Button 
+                    Grid.Column="1"
                     Click="btnDocument_Click"
                     Style="{DynamicResource BtnKontrAgentList}"
                     />
                 <Button
                     x:Name="btnedit"
                     Click="btnedit_Click"
-                    Grid.Column="1"
+                    Grid.Column="2"
                     Style="{DynamicResource BtnKontrAgentEdit}"
                     />
                 <Button
                     x:Name="btndelete"
                     Click="btndelete_Click"
-                    Grid.Column="2"
+                    Grid.Column="3"
                     Style="{DynamicResource BtnKontrAgentDelete}"
                     />
 

@@ -13,5 +13,6 @@ namespace SmartMarket.Service.Interfaces.PartnersCompany.ContrAgent
         Task<IEnumerable<ContrAgentDto>> GetContrAgentByNameAsync(string name);
         Task<ContrAgentDto> GetContrAgentByNumberAsync(string number);
         Task<ContrAgentDto> GetContrAgentByCompanyNameAsync(string companyName);
+        Task<ContrAgentDto> GetByIdAsync(Guid id);
     }
 }

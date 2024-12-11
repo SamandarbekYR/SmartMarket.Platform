@@ -4,6 +4,7 @@ using SmartMarket.Service.DTOs.PartnersCompany.ContrAgentPayment;
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Server.Interfaces.PartnerCompany;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 
@@ -49,6 +50,31 @@ public class ContrAgentPaymentServer : IContrAgentPaymentServer
         {
             logger.Error("ContrAgentPaymentServer: AddAsync method exception: ", ex);
             return false;
+        }
+    }
+
+    public async Task<List<ContrAgentPaymentDto>> FilterContrAgentPaymentsAsync(FilterContrAgentDto dto)
+    {
+        try
+        {
+            HttpClient client = new HttpClient();
+            var token = IdentitySingelton.GetInstance().Token;
+
+            client.BaseAddress = new Uri($"{AuthApi.BASE_URL}/api/common/contr-agent-payments/filter");
+            client.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
+            var json = JsonConvert.SerializeObject(dto);
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpResponseMessage message = await client.PostAsync(client.BaseAddress, data);
+            string response = await message.Content.ReadAsStringAsync();
+
+            var contrAgentPaymentDtos = JsonConvert.DeserializeObject<List<ContrAgentPaymentDto>>(response)!;
+
+            return contrAgentPaymentDtos;
+        }
+        catch(Exception ex)
+        {
+            return new List<ContrAgentPaymentDto>(); 
         }
     }
 }

@@ -43,8 +43,10 @@ public partial class SearchProductComponent : UserControl
                 }
                 else if (frame != null && frame.Content is SecondPage secondPage)
                 {
+                    secondPage.AddNewProduct(product, Quantity);
                     secondPage.tb_search.Text = "";
                     secondPage.st_searchproduct.Children.Clear();
+                    break;
                 }
             }
         }
