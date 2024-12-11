@@ -1,18 +1,23 @@
 ﻿using AutoMapper;
+
 using FluentValidation;
+
 using Microsoft.EntityFrameworkCore;
-using SmartMarket.DataAccess.Interfaces;
-using Et = SmartMarket.Domain.Entities.Products;
-using SmartMarket.Service.Common.Exceptions;
-using SmartMarket.Service.Common.Validators;
-using System.Net;
-using SmartMarket.Service.DTOs.Products.Product;
-using SmartMarket.Service.Interfaces.Products.Product;
-using SmartMarket.Service.Common.Utils;
-using SmartMarket.Service.Common.Extentions;
 using Microsoft.Extensions.Logging;
+
+using SmartMarket.DataAccess.Interfaces;
+using SmartMarket.Domain.Entities.PartnersCompany;
+using SmartMarket.Service.Common.Exceptions;
+using SmartMarket.Service.Common.Extentions;
+using SmartMarket.Service.Common.Utils;
+using SmartMarket.Service.DTOs.PartnersCompany.ContrAgentPayment;
+using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarket.Service.DTOs.Products.ProductImage;
-using SmartMarket.Domain.Entities.Products;
+using SmartMarket.Service.Interfaces.Products.Product;
+
+using System.Net;
+
+using Et = SmartMarket.Domain.Entities.Products;
 
 namespace SmartMarket.Service.Services.Products.Product
 {
@@ -24,7 +29,7 @@ namespace SmartMarket.Service.Services.Products.Product
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IMapper _mapper = mapper;
         private readonly IValidator<AddProductDto> _validator = validator;
-        private readonly ILogger<ProductService> _logger = logger; 
+        private readonly ILogger<ProductService> _logger = logger;
 
         public async Task<Guid> AddAsync(AddProductDto dto)
         {
@@ -49,6 +54,31 @@ namespace SmartMarket.Service.Services.Products.Product
                 if (!workerExists)
                 {
                     throw new StatusCodeException(HttpStatusCode.NotFound, "Worker not found.");
+                }
+
+                var contrAgentExists = await _unitOfWork.ContrAgent.GetById(dto.ContrAgentId) != null;
+
+                if (contrAgentExists)
+                {
+                    var contrAgentPaymentDto = new AddContrAgentPaymentDto
+                    {
+                        ContrAgentId = dto.ContrAgentId,
+                        PayDeskId = dto.PayDeskId,
+                        TotalDebt = dto.Price * dto.Count,
+                        LastPayment = 0,
+                        PaymentType = "none",
+                    };
+
+                    var contrAgentPayment = _mapper.Map<ContrAgentPayment>(contrAgentPaymentDto);
+
+                    var result = await _unitOfWork.ContrAgentPayment.Add(contrAgentPayment);
+
+                    if (!result)
+                        throw new StatusCodeException(HttpStatusCode.NotFound, "Error occurred while adding a contrAgentPayment.");
+                }
+                else
+                {
+                    throw new StatusCodeException(HttpStatusCode.NotFound, "ContrAgent not found.");
                 }
 
                 var productExists = await _unitOfWork.Product.GetAllProductsFullInformation()
@@ -109,7 +139,7 @@ namespace SmartMarket.Service.Services.Products.Product
                 var products = await _unitOfWork.Product.GetAllProductsFullInformation()
                                         .AsNoTracking()
                                         .ToPagedListAsync(paginationParams);
-                 
+
                 var productDtos = products.Select(p => new FullProductDto
                 {
                     Id = p.Id,
@@ -131,7 +161,7 @@ namespace SmartMarket.Service.Services.Products.Product
                         ImagePath = img.ImagePath!
                     }).ToList(),
                     NoteAmount = p.NoteAmount
-                }).ToList(); 
+                }).ToList();
 
                 return productDtos;
             }

@@ -6,6 +6,7 @@ public class AddProductDto
         public string P_Code { get; set; }=string.Empty ;   
         public string Name { get; set; } = string.Empty;
         public Guid CategoryId { get; set; }
+        public Guid PayDeskId { get; set; }
         public Guid ContrAgentId { get; set; }
         public Guid WorkerId { get; set; }
         public int Count { get; set; }
