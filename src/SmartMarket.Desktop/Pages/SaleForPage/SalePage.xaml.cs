@@ -778,67 +778,63 @@ public partial class SalePage : Page
 
     public async void ConvertTransaction(bool isDebt, Guid id = default)
     {
-        await Application.Current.Dispatcher.BeginInvoke(
-            DispatcherPriority.Background,
-            new Action(async () =>
+        AddSalesRequestDto dto = new AddSalesRequestDto
+        {
+            TotalCost = tvm.TransactionPrice,
+            DiscountSum = tvm.DiscountPrice,
+            DebtSum = 0,
+            CardSum = 0,
+            CashSum = 0
+        };
+        
+        switch (PaymentType)
+        {
+            case "card":
+            case "click":
+                dto.CardSum = tvm.TransactionPrice;
+                break;
+
+            case "transfer":
+                dto.TransferMoney = tvm.TransactionPrice;
+                break;
+
+            case "cash":
+                dto.CashSum = tvm.TransactionPrice;
+                break;
+
+            case "clickandcash":
+                dto.CardSum = ClickSum;
+                dto.CashSum = CashSum;
+                break;
+        }
+
+        if (isDebt)
+        {
+            dto.PartnerId = id;
+            dto.DebtSum = tvm.TransactionPrice;
+            dto.CardSum = 0;
+            dto.CashSum = 0;
+        }
+
+        dto.ProductSaleItems = tvm.Transactions
+            .Select(t => new AddProductSaleDto
             {
-                AddSalesRequestDto dto = new AddSalesRequestDto
-                {
-                    TotalCost = tvm.TransactionPrice,
-                    DiscountSum = tvm.DiscountPrice,
-                    DebtSum = 0,
-                    CardSum = 0,
-                    CashSum = 0
-                };
-                
-                switch (PaymentType)
-                {
-                    case "card":
-                    case "click":
-                        dto.CardSum = tvm.TransactionPrice;
-                        break;
+                ProductId = t.Id,
+                Count = t.Quantity,
+                Discount = t.Discount,
+                ItemTotalCost = t.TotalPrice
+            }).ToList();
 
-                    case "transfer":
-                        dto.TransferMoney = tvm.TransactionPrice;
-                        break;
+        dto.IsShipment = IsShipment;
 
-                    case "cash":
-                        dto.CashSum = tvm.TransactionPrice;
-                        break;
+        if (IsShipment)
+        {
+            dto.WorkerId = Order.WorkerId;
+            await UpdateProductCount(Order, dto.ProductSaleItems);
+            IsShipment = false;
+        }
 
-                    case "clickandcash":
-                        dto.CardSum = ClickSum;
-                        dto.CashSum = CashSum;
-                        break;
-                }
-
-                if (isDebt)
-                {
-                    dto.PartnerId = id;
-                    dto.DebtSum = tvm.TransactionPrice;
-                    dto.CardSum = 0;
-                    dto.CashSum = 0;
-                }
-
-                dto.ProductSaleItems = tvm.Transactions
-                    .Select(t => new AddProductSaleDto
-                    {
-                        ProductId = t.Id,
-                        Count = t.Quantity,
-                        Discount = t.Discount,
-                        ItemTotalCost = t.TotalPrice
-                    }).ToList();
-
-                if (IsShipment)
-                {
-                    dto.WorkerId = Order.WorkerId;
-                    await UpdateProductCount(Order, dto.ProductSaleItems);
-                    IsShipment = false;
-                }
-
-                await ProductSale(dto, isDebt);
-            })
-        );
+        await ProductSale(dto, isDebt);
     }
 
     public void ConvertShipment(OrderDto dto) 
