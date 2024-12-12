@@ -869,8 +869,8 @@ public partial class SalePage : Page
         var result = await _salesRequestsService.CreateSalesRequest(dto);
         if (result.Item2)
         {
-            PrintService printService = new PrintService();
-            printService.Print(dto, tvm.Transactions, result.Item1);
+            //PrintService printService = new PrintService();
+            //printService.Print(dto, tvm.Transactions, result.Item1);
 
             if(Order != null && Order.Id != Guid.Empty)
                 await UpdateSaleShipment(Order.Id);
@@ -891,7 +891,7 @@ public partial class SalePage : Page
 
     public async Task NationSale(Guid id, double debtSum)
     {
-        var result = await _partnerService.UpdatePartnerDebtSum(debtSum, id);    
+       // var result = await _partnerService.UpdatePartnerDebtSum(debtSum, id);    
     }
 
     public async Task UpdateSaleShipment(Guid Id)
