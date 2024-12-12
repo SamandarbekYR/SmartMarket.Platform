@@ -20,6 +20,7 @@ using SmartMarketDeskop.Integrated.Services.Partners;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows;
@@ -139,20 +140,6 @@ public partial class SalePage : Page
 
     public void GetData()
     {
-        var payDeskId = Properties.Settings.Default.PayDesk;
-        if (string.IsNullOrEmpty(payDeskId))
-        {
-            SelectPayDeskWindow selectPayDeskWindow = new SelectPayDeskWindow();
-            selectPayDeskWindow.ShowDialog();
-        }
-        else
-        {
-            IdentitySingelton.GetInstance().PayDeskId = Guid.Parse(payDeskId.ToString()!);
-            IdentitySingelton.GetInstance().PayDeskName = Properties.Settings.Default.PayDeskName;
-        }
-        tbFullName.Text = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
-        tbKassaName.Text = IdentitySingelton.GetInstance().PayDeskName;
-
         tbDate.Text = DateTime.UtcNow.Month + "." + DateTime.UtcNow.Day + "." + DateTime.UtcNow.Year;
         tbhour.Text = DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
     }
@@ -220,7 +207,10 @@ public partial class SalePage : Page
             {
                 if (product != null)
                 {
-                    AddNewProductTvm(product, 0);
+                    if(string.IsNullOrEmpty(tbCalculator.Text))
+                        AddNewProductTvm(product, 0);
+                    else
+                        AddNewProductTvm(product, int.Parse(tbCalculator.Text!));
                 }
                 else 
                 {
@@ -278,13 +268,6 @@ public partial class SalePage : Page
     private void AddNewProduct(FullProductDto product, int quantity)
     {
         SaleProductForComponent saleProductForComponent = new SaleProductForComponent();
-        if (quantity == 0)
-        {
-            if (string.IsNullOrEmpty(tbCalculator.Text))
-                quantity = 1;
-            else
-                quantity = int.Parse(tbCalculator.Text!);
-        }
 
         saleProductForComponent.DataContext = new TransactionDto
         {
@@ -306,6 +289,20 @@ public partial class SalePage : Page
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
+        var payDeskId = Properties.Settings.Default.PayDesk;
+        if (string.IsNullOrEmpty(payDeskId))
+        {
+            SelectPayDeskWindow selectPayDeskWindow = new SelectPayDeskWindow();
+            selectPayDeskWindow.ShowDialog();
+        }
+        else
+        {
+            IdentitySingelton.GetInstance().PayDeskId = Guid.Parse(payDeskId.ToString()!);
+            IdentitySingelton.GetInstance().PayDeskName = Properties.Settings.Default.PayDeskName;
+        }
+        tbFullName.Text = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
+        tbKassaName.Text = IdentitySingelton.GetInstance().PayDeskName;
+
         await GetAllOrders();
         await InitializeSignalRConnection();
 
@@ -470,8 +467,9 @@ public partial class SalePage : Page
 
     private void Harajat_Click(object sender, RoutedEventArgs e)
     {
-        ExpensesWindow expensesWindow = new ExpensesWindow();
-        expensesWindow.ShowDialog();
+        //ExpensesWindow expensesWindow = new ExpensesWindow();
+        //expensesWindow.ShowDialog();
+        Properties.Settings.Default.Reset();
     }
 
     private void Hamkorlar_Click(object sender, RoutedEventArgs e)
@@ -869,8 +867,8 @@ public partial class SalePage : Page
         var result = await _salesRequestsService.CreateSalesRequest(dto);
         if (result.Item2)
         {
-            PrintService printService = new PrintService();
-            printService.Print(dto, tvm.Transactions, result.Item1);
+            //PrintService printService = new PrintService();
+            //printService.Print(dto, tvm.Transactions, result.Item1);
 
             if(Order != null && Order.Id != Guid.Empty)
                 await UpdateSaleShipment(Order.Id);
@@ -891,7 +889,7 @@ public partial class SalePage : Page
 
     public async Task NationSale(Guid id, double debtSum)
     {
-        var result = await _partnerService.UpdatePartnerDebtSum(debtSum, id);    
+       // var result = await _partnerService.UpdatePartnerDebtSum(debtSum, id);    
     }
 
     public async Task UpdateSaleShipment(Guid Id)

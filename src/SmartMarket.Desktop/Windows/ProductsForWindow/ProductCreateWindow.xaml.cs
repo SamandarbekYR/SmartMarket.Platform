@@ -123,28 +123,24 @@ public partial class ProductCreateWindow : Window
             addProductDto.Price = price;
             addProductDto.SellPrice = sellPrice;
 
-            //if (comboCategory.SelectedValue is Guid categoryId2)
-            //{
-            //    addProductDto.CategoryId = categoryId2;
-            //}
-            //else
-            //{
-            //    notifierThis.ShowWarning("Kategoriya tanlanmagan.");
-            //    return;
-            //}
-
             var payDeskId = Properties.Settings.Default.PayDesk;
+            
             if (string.IsNullOrEmpty(payDeskId))
             {
                 notifierThis.ShowWarning("Kassa tanlanmagan.");
                 btnCreateContainer.IsEnabled = true;
                 return;
             }
+            
+            if (payDeskId == null)
+                notifierThis.ShowWarning("Kassa tanlanmagan.");
+            else
+                addProductDto.PayDeskId = Guid.Parse(payDeskId);
 
             addProductDto.UnitOfMeasure = comboMeasurement.Text;
             if (comboDelivery.SelectedValue != null)
             {
-                ContrAgentViewModels contrAgentViewModels = contrAgents.Where(a => a.FirstName == comboDelivery.SelectedValue).FirstOrDefault()!;
+                ContrAgentViewModels contrAgentViewModels = contrAgents!.Where(a => a.FirstName == comboDelivery.SelectedValue).FirstOrDefault()!;
                 addProductDto.ContrAgentId = contrAgentViewModels.Id;
             }
             else

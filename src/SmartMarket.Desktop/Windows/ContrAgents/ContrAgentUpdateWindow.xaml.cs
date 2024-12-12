@@ -126,7 +126,7 @@ namespace SmartMarket.Desktop.Windows.ContrAgents
                 Combo_Company.Items.Refresh();
             }
 
-            Combo_Company.SelectedValue = _contrAgentViewModels.CompanyName;
+            Combo_Company.SelectedValue = _contrAgentViewModels.PartnerCompany.Name;
             txtFirstName.Text = _contrAgentViewModels.FirstName;
             txtLastName.Text = _contrAgentViewModels.LastName;
             txtPhoneNumber.Text = _contrAgentViewModels.PhoneNumber;

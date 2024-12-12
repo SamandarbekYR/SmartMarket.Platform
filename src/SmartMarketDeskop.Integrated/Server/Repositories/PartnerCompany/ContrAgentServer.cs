@@ -7,6 +7,7 @@ using SmartMarketDeskop.Integrated.Security;
 using SmartMarketDeskop.Integrated.Server.Interfaces.PartnerCompany;
 using SmartMarketDesktop.DTOs.DTOs.PartnerCompany;
 using System.Text;
+using SmartMarketDeskop.Integrated.ViewModelsForUI.PartnerCompany;
 
 namespace SmartMarketDeskop.Integrated.Server.Repositories.PartnerCompany
 {
@@ -84,7 +85,7 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.PartnerCompany
             }
         }
 
-        public async Task<List<ContrAgent>> GetAllAsync()
+        public async Task<List<ContrAgentViewModels>> GetAllAsync()
         {
             try
             {
@@ -107,14 +108,14 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.PartnerCompany
                 string response = await message.Content.ReadAsStringAsync();
 
                 // JSON ni CategoryView listiga deserialize qilish
-                List<ContrAgent> posts = JsonConvert.DeserializeObject<List<ContrAgent>>(response)!;
+                List<ContrAgentViewModels> posts = JsonConvert.DeserializeObject<List<ContrAgentViewModels>>(response)!;
 
                 return posts;
             }
             catch
             {
                 // Xatolik yuz bergan taqdirda bo'sh ro'yxat qaytarish
-                return new List<ContrAgent>();
+                return new List<ContrAgentViewModels>();
             }
 
         }
@@ -141,7 +142,7 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.PartnerCompany
             }
         }
 
-        public async Task<List<CT.ContrAgentDto>> GetContrAgentByNameAsync(string name)
+        public async Task<List<ContrAgentViewModels>> GetContrAgentByNameAsync(string name)
         {
             try
             {
@@ -154,13 +155,13 @@ namespace SmartMarketDeskop.Integrated.Server.Repositories.PartnerCompany
                 HttpResponseMessage message = await client.GetAsync(client.BaseAddress);
                 string response = await message.Content.ReadAsStringAsync();
 
-                List<CT.ContrAgentDto> contrAgent = JsonConvert.DeserializeObject<List<CT.ContrAgentDto>>(response)!;
+                List<ContrAgentViewModels> contrAgent = JsonConvert.DeserializeObject<List<ContrAgentViewModels>>(response)!;
 
                 return contrAgent;
             }
             catch(Exception ex)
             {
-                return new List<CT.ContrAgentDto>();
+                return new List<ContrAgentViewModels>();
             }
         }
 

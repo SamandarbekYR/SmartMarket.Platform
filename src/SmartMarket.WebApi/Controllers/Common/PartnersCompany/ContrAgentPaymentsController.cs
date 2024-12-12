@@ -32,6 +32,24 @@ namespace SmartMarket.WebApi.Controllers.Common.PartnersCompany
             }
         }
 
+        [HttpGet("contr-agent/{Id}")]
+        public async Task<IActionResult> GetAllByContrAgentIdAsync(Guid Id)
+        {
+            try
+            {
+                var contrAgentPayments = await _contrAgentPaymentService.GetAllByContrAgentIdAsync(Id);
+                return Ok(contrAgentPayments);
+            }
+            catch (StatusCodeException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddAsync([FromBody] AddContrAgentPaymentDto dto)
         {
@@ -86,12 +104,12 @@ namespace SmartMarket.WebApi.Controllers.Common.PartnersCompany
             }
         }
 
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateAsync(Guid id, [FromBody] AddContrAgentPaymentDto dto)
+        [HttpPost("update")]
+        public async Task<IActionResult> UpdateAsync([FromBody] AddContrAgentPaymentDto dto)
         {
             try
             {
-                await _contrAgentPaymentService.UpdateAsync(dto, id);
+                await _contrAgentPaymentService.UpdateAsync(dto);
                 return Ok();
             }
             catch (StatusCodeException ex)
