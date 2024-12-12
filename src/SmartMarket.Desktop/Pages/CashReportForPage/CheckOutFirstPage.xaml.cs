@@ -119,6 +119,7 @@ public partial class CheckOutFirstPage : Page
     private async void FilterForCashReport()
     {
         FilterSalesRequestDto salesRequestDto = new FilterSalesRequestDto();
+        FilterContrAgentDto contrAgentDto = new FilterContrAgentDto();
         FilterExpenseDto expenseDto = new FilterExpenseDto();
         FilterPartnerDto partnerDto = new FilterPartnerDto();
 
@@ -130,6 +131,8 @@ public partial class CheckOutFirstPage : Page
             expenseDto.ToDateTime = toDateTime.SelectedDate;
             partnerDto.FromDateTime = fromDateTime.SelectedDate;
             partnerDto.ToDateTime = toDateTime.SelectedDate;
+            contrAgentDto.FromDateTime = fromDateTime.SelectedDate;
+            contrAgentDto.ToDateTime= toDateTime.SelectedDate;
         }
 
         if (_payDesk?.Id != null)
@@ -137,14 +140,16 @@ public partial class CheckOutFirstPage : Page
             salesRequestDto.PayDeskId = _payDesk.Id;
             expenseDto.PayDeskId = _payDesk.Id;
             partnerDto.Id = _payDesk.Id;
+            contrAgentDto.PayDeskId = _payDesk.Id;
         }
 
+        var contrAgentPaymentData = await Task.Run(async () => await _contrAgentPaymentService.FilterAsync(contrAgentDto));
         var salesMoneyData = await Task.Run(async () => await _salesRequestsService.FilterSalesRequest(salesRequestDto));
         var expensesData = await Task.Run(async () => await _expenseService.FilterExpense(expenseDto));
         var partnerData = await Task.Run(async () => await _partnerService.FilterPartnerAsync(partnerDto));
 
         var salesMoney = await ShowSalesMoney(salesMoneyData, partnerData);
-        var expenses = await ShowExpenses(expensesData);
+        var expenses = await ShowExpenses(expensesData, contrAgentPaymentData);
         CurrentlyAvailable(salesMoney, expenses);
     }
 
