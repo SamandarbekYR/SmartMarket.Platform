@@ -30,6 +30,22 @@ namespace SmartMarketDeskop.Integrated.Services.Orders
             }
         }
 
+        public async Task<bool> DeleteAsync(Guid id)
+        {
+            if (IsInternetAvialable())
+            {
+                bool result = await _orderServer.DeleteAsync(id);
+                if (result)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public async Task<List<OrderDto>> GetAllAsync()
         {
             if (IsInternetAvialable())

@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using NLog;
-using SmartMarket.Domain.Entities.Orders;
 using SmartMarket.Service.DTOs.Order;
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
@@ -169,6 +168,33 @@ public class OrderServer : IOrderServer
                         return false;
                     }
                 }
+            }
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    public async Task<bool> DeleteAsync(Guid Id)
+    {
+        try
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri(AuthApi.BASE_URL + $"/api/orders/{Id}");
+
+            var token = IdentitySingelton.GetInstance().Token;
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {token}");
+
+            var result = await client.DeleteAsync(client.BaseAddress);
+
+            if (result.IsSuccessStatusCode)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
         catch
