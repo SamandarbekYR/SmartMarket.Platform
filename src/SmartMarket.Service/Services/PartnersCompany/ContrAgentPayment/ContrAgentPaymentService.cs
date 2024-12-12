@@ -2,6 +2,7 @@
 
 using FluentValidation;
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 using SmartMarket.DataAccess.Interfaces;
@@ -81,29 +82,29 @@ namespace SmartMarket.Service.Services.PartnersCompany.ContrAgentPayment
         {
             try
             {
-                var contrAgentPayments = _unitOfWork.ContrAgentPayment.GetContrAgentPaymentsFullInformation();
+                var contrAgentPayments = await _unitOfWork.ContrAgentPayment.GetContrAgentPaymentsFullInformation().ToListAsync();
 
                 if (dto.Id.HasValue)
                 {
-                    contrAgentPayments = contrAgentPayments.Where(x => x.ContrAgentId == dto.Id);
+                    contrAgentPayments = contrAgentPayments.Where(x => x.ContrAgentId == dto.Id).ToList();
                 }
 
                 if (dto.FromDateTime.HasValue && dto.ToDateTime.HasValue)
                 {
                     contrAgentPayments = contrAgentPayments.Where(
                         cp => cp.CreatedDate.Value.Date >= dto.FromDateTime.Value
-                        && cp.CreatedDate <= dto.ToDateTime.Value);
+                        && cp.CreatedDate <= dto.ToDateTime.Value).ToList();
                 }
                 else
                 {
                     contrAgentPayments = contrAgentPayments.Where(
-                        cp => cp.CreatedDate.Value.Date == DateTime.Today);
+                        cp => cp.CreatedDate.Value.Date == DateTime.Today).ToList();
                 }
 
                 if (dto.PayDeskId.HasValue)
                 {
                     contrAgentPayments = contrAgentPayments.Where(
-                        ps => ps.PayDeskId == dto.PayDeskId);
+                        ps => ps.PayDeskId == dto.PayDeskId).ToList();
                 }
 
                 var contrAgentPaymentDtos = contrAgentPayments
@@ -118,9 +119,9 @@ namespace SmartMarket.Service.Services.PartnersCompany.ContrAgentPayment
                         TotalDebt = cp.TotalDebt,
                         LastPayment = cp.LastPayment,
                         LastPaymentDate = cp.LastPaymentDate
-                    });
+                    }).ToList();
 
-                return contrAgentPaymentDtos.ToList();
+                return contrAgentPaymentDtos;
             }
             catch (Exception ex)
             {

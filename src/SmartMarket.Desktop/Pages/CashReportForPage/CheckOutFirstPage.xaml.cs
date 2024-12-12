@@ -32,6 +32,7 @@ public partial class CheckOutFirstPage : Page
         _partnerService = new PartnerService();
         _expenseService = new ExpenseService();
         _salesRequestsService = new SalesRequestService();
+        _contrAgentPaymentService = new ContrAgentPaymentService();
         _cashReportPage = cashReportPage;
     }
 
@@ -179,8 +180,8 @@ public partial class CheckOutFirstPage : Page
     {
         if (count == 0)
         {
-            var contrAgentPaymentData = await Task.Run(async () => await _contrAgentPaymentService.FilterAsync(new FilterContrAgentDto()));
             var salesMoneyData = await Task.Run(async () => await _salesRequestsService.FilterSalesRequest(new FilterSalesRequestDto()));
+            var contrAgentPaymentData = await Task.Run(async () => await _contrAgentPaymentService.FilterAsync(new FilterContrAgentDto()));
             var partnerData = await Task.Run(async () => await _partnerService.FilterPartnerAsync(new FilterPartnerDto()));
             var expensesData = await Task.Run(async () => await _expenseService.FilterExpense(new FilterExpenseDto()));
 
