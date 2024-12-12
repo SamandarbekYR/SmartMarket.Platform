@@ -7,4 +7,5 @@ public class AddContrAgentPaymentDto
     public double TotalDebt { get; set; }
     public string PaymentType { get; set; }
     public double LastPayment { get; set; }
+    public DateTime? LastPaymentDate { get; set; }
 }   

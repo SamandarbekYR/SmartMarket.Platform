@@ -1,21 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SmartMarket.Domain.Entities.Products;
+
+using PC = SmartMarket.Domain.Entities.PartnersCompany;
 
 namespace SmartMarketDeskop.Integrated.ViewModelsForUI.PartnerCompany
 {
     public class ContrAgentViewModels
     {
         public Guid Id { get; set; }
-        public string CompanyName { get; set; }=string.Empty;
-        public string FirstName { get; set; }= string.Empty;    
+        public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
-        public string PhoneNumber    { get; set; } = string.Empty;
-        public decimal DebtSum { get; set; }
-        public decimal PayedSum { get; set; }
-        public decimal  LastPayedSum  { get; set; }
-        public string LastPayedDate { get; set; }
+        public string PhoneNumber { get; set; } = string.Empty;
+        public DateTime CreatedDate { get; set; }
+        public Guid CompanyId { get; set; }
+        public PC.PartnerCompany PartnerCompany { get; set; }
+        public List<Product> Products { get; set; }
+        public List<LoadReport> LoadReports { get; set; }
+        public List<PC.ContrAgentPayment> ContrAgentPayment { get; set; }
     }
 }
