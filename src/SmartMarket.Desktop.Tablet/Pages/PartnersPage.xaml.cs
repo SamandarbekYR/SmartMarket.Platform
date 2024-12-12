@@ -59,6 +59,7 @@ public partial class PartnersPage : Page
                 partnersComponent.lb_Count.Content = count;
                 partnersComponent.Tag = partner;
                 partnersComponent.SetData(partner);
+                partnersComponent.DelegatePartner = GetAllDebtor;
                 St_partners.Children.Add(partnersComponent);
                 count++;
             }
@@ -100,6 +101,7 @@ public partial class PartnersPage : Page
     private void Partner_Create_Button_Click(object sender, RoutedEventArgs e)
     {
         PartnerCreateWindow partnerCreateWindow = new PartnerCreateWindow();
+        partnerCreateWindow.DelegatePartner = GetAllDebtor;
         partnerCreateWindow.ShowDialog();
     }
 

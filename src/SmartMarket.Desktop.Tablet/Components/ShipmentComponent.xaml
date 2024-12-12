@@ -15,19 +15,6 @@
         Background="{DynamicResource FirstColor}">
 
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <Border>
-                <Border.Background>
-                    <ImageBrush 
-                        ImageSource="/Assets/Images/Basket.png"
-                        Stretch="Uniform"/>
-                </Border.Background>
-            </Border>
-            
             <Grid
                 Margin="10 0 0 0"
                 Grid.Column="1">
@@ -40,10 +27,21 @@
                 <Grid
                     Grid.Row="0">
 
-                    <Label x:Name="lbPartnerName"
+                    <Label 
+                        x:Name="lbPartnerName"
                         Content="Sobirov Sherzod"
+                        FontSize="20"
                         Foreground="{DynamicResource BTheerdColor}"
                         Style="{DynamicResource TitleLabel}"/>
+
+                    <Button
+                        Margin="0 0 10 0"
+                        Name="Delete_Button"
+                        Background="{DynamicResource BTheerdColor}"
+                        HorizontalAlignment="Right"
+                        Click="Delete_Button_Click"
+                        Tag="{DynamicResource delete}"
+                        Style="{DynamicResource DeleteButton}"/>
 
                 </Grid>
 
