@@ -22,15 +22,6 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
             this._loadReportService = new SalesRequestService();
         }
 
-        private async Task GetAllLoadReports()
-        {
-            St_loadReports.Children.Clear();
-
-            var loadReports = await Task.Run(async () => await _loadReportService.GetAll());
-
-            ShowLoadReports(loadReports.ToList());
-        }
-
         public async void SelectLoadReportsByWorker(WorkerListComponent component, WorkerDto worker)
         {
             EmptyDataLoadReport.Visibility = Visibility.Collapsed;
@@ -116,7 +107,6 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            await GetAllLoadReports();
         }
 
         private CollectedCargoDetailsComponent selectedControl = null!;
