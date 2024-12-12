@@ -124,6 +124,14 @@ public partial class ProductCreateWindow : Window
             addProductDto.SellPrice = sellPrice;
 
             var payDeskId = Properties.Settings.Default.PayDesk;
+            
+            if (string.IsNullOrEmpty(payDeskId))
+            {
+                notifierThis.ShowWarning("Kassa tanlanmagan.");
+                btnCreateContainer.IsEnabled = true;
+                return;
+            }
+            
             if (payDeskId == null)
                 notifierThis.ShowWarning("Kassa tanlanmagan.");
             else

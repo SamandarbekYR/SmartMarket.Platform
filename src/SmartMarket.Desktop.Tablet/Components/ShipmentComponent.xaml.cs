@@ -19,7 +19,7 @@ public partial class ShipmentComponent : UserControl
     public void SetValues(OrderDto order)
     {
         lbPartnerName.Content = order.Partner.FirstName;
-        lbShipmentAmount.Content = order.ProductOrderItems.Sum(x => x.ItemTotalCost);
+        lbShipmentAmount.Content = order.ProductOrderItems.Sum(l => l.Count * l.Product.SellPrice);
         this.Tag = order;
     }
 

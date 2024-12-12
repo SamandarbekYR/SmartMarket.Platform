@@ -33,8 +33,8 @@ namespace SmartMarket.Desktop.Components.ExpenseForComponents
         public void SetData(LoadReportDto dto)
         {
             tbProductName.Text = dto.ProductName;
-            tbTotalPrice.Text = dto.TotalPrice.ToString();
-            tbPrice.Text = dto.ProductPrice.ToString();
+            tbTotalPrice.Text = (dto.Product.Price * dto.Count).ToString();
+            tbPrice.Text = dto.Product.Price.ToString();
             tbCount.Text = dto.Count.ToString();
 
             this.DataContext = dto;
