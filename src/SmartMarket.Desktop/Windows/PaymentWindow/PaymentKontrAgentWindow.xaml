@@ -86,8 +86,7 @@
                     Margin="35 5 35 10">
                     <ComboBoxItem Content="Naqd"/>
                     <ComboBoxItem Content="Karta"/>
-                    <ComboBoxItem Content="Click"/>
-
+                    <ComboBoxItem Content="Pul ko'chirish"/>
                 </ComboBox>
 
                 <TextBlock 
