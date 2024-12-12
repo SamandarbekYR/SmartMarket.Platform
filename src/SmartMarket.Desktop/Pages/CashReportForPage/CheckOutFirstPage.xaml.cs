@@ -2,9 +2,11 @@
 using SmartMarket.Domain.Entities.Partners;
 using SmartMarket.Service.DTOs.Expence;
 using SmartMarket.Service.DTOs.Partner;
+using SmartMarket.Service.DTOs.PartnersCompany.ContrAgentPayment;
 using SmartMarket.Service.DTOs.PayDesks;
 using SmartMarket.Service.DTOs.Products.SalesRequest;
 using SmartMarketDeskop.Integrated.Services.Expenses;
+using SmartMarketDeskop.Integrated.Services.PartnerCompanies.ContrAgentPayments;
 using SmartMarketDeskop.Integrated.Services.PartnerCompanies.PartnerCompany;
 using SmartMarketDeskop.Integrated.Services.Partners;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
@@ -17,8 +19,9 @@ namespace SmartMarket.Desktop.Pages.CashReportForPage;
 /// </summary>
 public partial class CheckOutFirstPage : Page
 {
-    private IExpenseService _expenseService;
+    private IContrAgentPaymentService _contrAgentPaymentService;
     private ISalesRequestsService _salesRequestsService;
+    private IExpenseService _expenseService;
     private IPartnerService _partnerService;
     private CashReportPage _cashReportPage;
     private PayDesksDto _payDesk;
@@ -29,6 +32,7 @@ public partial class CheckOutFirstPage : Page
         _partnerService = new PartnerService();
         _expenseService = new ExpenseService();
         _salesRequestsService = new SalesRequestService();
+        _contrAgentPaymentService = new ContrAgentPaymentService();
         _cashReportPage = cashReportPage;
     }
 
@@ -45,29 +49,34 @@ public partial class CheckOutFirstPage : Page
 
     private async Task<(double cashSum, double cardSum, double debtSum, double transferMoney)> ShowSalesMoney(IList<SalesRequestDto> salesMoneyForPayDesk, IList<Partner> partnerDebt)
     {
-        var partnercashSum = partnerDebt.Where(e => e.PaymentType == "Naqd").Sum(e => e.PaidDebt);
-        var partnercardSum = partnerDebt.Where(e => e.PaymentType == "Karta").Sum(e => e.PaidDebt);
-        var partnertransferMoney = partnerDebt.Where(e => e.PaymentType == "Pul ko'chirish").Sum(e => e.PaidDebt);
+        var partnercashSum = partnerDebt.Where(e => e.PaymentType == "Naqd").Sum(e => e.PaidDebt) ?? 0;
+        var partnercardSum = partnerDebt.Where(e => e.PaymentType == "Karta").Sum(e => e.PaidDebt) ?? 0;
+        var partnertransferMoney = partnerDebt.Where(e => e.PaymentType == "Pul ko'chirish").Sum(e => e.PaidDebt) ?? 0;
+        
         Label_Naqd_Qarz.Content = partnercashSum;
         Label_Karta_Qarz.Content = partnercardSum;
         Label_Pul_Qarz.Content = partnertransferMoney;
+        Label_Jami_Qarz.Content = partnercardSum + partnertransferMoney + partnercashSum;
 
-        var cashSum = salesMoneyForPayDesk.Sum(sr => sr.CashSum);
-        var cardSum = salesMoneyForPayDesk.Sum(sr => sr.CardSum);
-        var debtSum = salesMoneyForPayDesk.Sum(sr => sr.DebtSum);
-        var transferMoney = salesMoneyForPayDesk.Sum(sr => sr.TransferMoney);
+        var cashSumSalesMoney = salesMoneyForPayDesk.Sum(sr => sr.CashSum);
+        var cardSumSalesMoney = salesMoneyForPayDesk.Sum(sr => sr.CardSum);
+        var debtSumSalesMoney = salesMoneyForPayDesk.Sum(sr => sr.DebtSum);
+        var transferMoneySalesMoney = salesMoneyForPayDesk.Sum(sr => sr.TransferMoney);
 
-        Label_Naqd_Savdo.Content = cashSum;
-        Label_Karta_Savdo.Content = cardSum;
-        Label_Pul_Savdo.Content = transferMoney;
-        Label_Nasiya_Savdo.Content = debtSum;
+        Label_Naqd_Savdo.Content = cashSumSalesMoney;
+        Label_Karta_Savdo.Content = cardSumSalesMoney;
+        Label_Pul_Savdo.Content = transferMoneySalesMoney;
+        Label_Nasiya_Savdo.Content = debtSumSalesMoney;
+        Label_Jami_Savdo.Content = cashSumSalesMoney + cardSumSalesMoney + transferMoneySalesMoney + debtSumSalesMoney;
 
-        Label_Jami_Savdo.Content = cashSum + cardSum + transferMoney + debtSum;
+        var totalCashSum = cashSumSalesMoney + partnercashSum;
+        var totalCardSum = cardSumSalesMoney+ partnercardSum;
+        var totalTransferMoney = transferMoneySalesMoney + partnertransferMoney;
 
-        return (cashSum, cardSum, debtSum, transferMoney);
+        return (totalCashSum, totalCardSum, debtSumSalesMoney, totalTransferMoney);
     }
 
-    private async Task<(double totalCashSum, double totalCardSum, double totalTransferMoney)> ShowExpenses(List<FullExpenceDto> expensesForPayDesk)
+    private async Task<(double totalCashSum, double totalCardSum, double totalTransferMoney)> ShowExpenses(List<FullExpenceDto> expensesForPayDesk, List<ContrAgentPaymentDto> contrAgentPaymentForPayDesk)
     {
         var cashSum = expensesForPayDesk.Where(e => e.TypeOfPayment == "Naqd" && e.Reason == "Do'kon uchun").Sum(e => e.Amount);
         var cardSum = expensesForPayDesk.Where(e => e.TypeOfPayment == "Karta" && e.Reason == "Do'kon uchun").Sum(e => e.Amount);
@@ -90,6 +99,11 @@ public partial class CheckOutFirstPage : Page
         var cashSumForCargo = expensesForPayDesk.Where(e => e.TypeOfPayment == "Naqd" && e.Reason == "Yuk uchun").Sum(e => e.Amount);
         var cardSumForCargo = expensesForPayDesk.Where(e => e.TypeOfPayment == "Karta" && e.Reason == "Yuk uchun").Sum(e => e.Amount);
         var transferMoneyForCargo = expensesForPayDesk.Where(e => e.TypeOfPayment == "Pul ko'chirish" && e.Reason == "Yuk uchun").Sum(e => e.Amount);
+        
+        cashSumForCargo += contrAgentPaymentForPayDesk.Where(cap => cap.PaymentType == "Naqd").Sum(p => p.LastPayment);
+        cardSumForCargo += contrAgentPaymentForPayDesk.Where(cap => cap.PaymentType == "Karta").Sum(p => p.LastPayment);
+        transferMoneyForCargo += contrAgentPaymentForPayDesk.Where(cap => cap.PaymentType == "Pul ko'chirish").Sum(p => p.LastPayment);
+
         var totalSumForCargo = cashSumForCargo + cardSumForCargo + transferMoneyForCargo;
         Label_Naqd_Yuk.Content = cashSumForCargo;
         Label_Karta_Yuk.Content = cardSumForCargo;
@@ -106,6 +120,7 @@ public partial class CheckOutFirstPage : Page
     private async void FilterForCashReport()
     {
         FilterSalesRequestDto salesRequestDto = new FilterSalesRequestDto();
+        FilterContrAgentDto contrAgentDto = new FilterContrAgentDto();
         FilterExpenseDto expenseDto = new FilterExpenseDto();
         FilterPartnerDto partnerDto = new FilterPartnerDto();
 
@@ -117,6 +132,8 @@ public partial class CheckOutFirstPage : Page
             expenseDto.ToDateTime = toDateTime.SelectedDate;
             partnerDto.FromDateTime = fromDateTime.SelectedDate;
             partnerDto.ToDateTime = toDateTime.SelectedDate;
+            contrAgentDto.FromDateTime = fromDateTime.SelectedDate;
+            contrAgentDto.ToDateTime= toDateTime.SelectedDate;
         }
 
         if (_payDesk?.Id != null)
@@ -124,14 +141,16 @@ public partial class CheckOutFirstPage : Page
             salesRequestDto.PayDeskId = _payDesk.Id;
             expenseDto.PayDeskId = _payDesk.Id;
             partnerDto.Id = _payDesk.Id;
+            contrAgentDto.PayDeskId = _payDesk.Id;
         }
 
+        var contrAgentPaymentData = await Task.Run(async () => await _contrAgentPaymentService.FilterAsync(contrAgentDto));
         var salesMoneyData = await Task.Run(async () => await _salesRequestsService.FilterSalesRequest(salesRequestDto));
         var expensesData = await Task.Run(async () => await _expenseService.FilterExpense(expenseDto));
         var partnerData = await Task.Run(async () => await _partnerService.FilterPartnerAsync(partnerDto));
 
         var salesMoney = await ShowSalesMoney(salesMoneyData, partnerData);
-        var expenses = await ShowExpenses(expensesData);
+        var expenses = await ShowExpenses(expensesData, contrAgentPaymentData);
         CurrentlyAvailable(salesMoney, expenses);
     }
 
@@ -162,11 +181,12 @@ public partial class CheckOutFirstPage : Page
         if (count == 0)
         {
             var salesMoneyData = await Task.Run(async () => await _salesRequestsService.FilterSalesRequest(new FilterSalesRequestDto()));
-            var expensesData = await Task.Run(async () => await _expenseService.FilterExpense(new FilterExpenseDto()));
+            var contrAgentPaymentData = await Task.Run(async () => await _contrAgentPaymentService.FilterAsync(new FilterContrAgentDto()));
             var partnerData = await Task.Run(async () => await _partnerService.FilterPartnerAsync(new FilterPartnerDto()));
+            var expensesData = await Task.Run(async () => await _expenseService.FilterExpense(new FilterExpenseDto()));
 
             var salesMoney = await ShowSalesMoney(salesMoneyData, partnerData);
-            var expenses = await ShowExpenses(expensesData);
+            var expenses = await ShowExpenses(expensesData, contrAgentPaymentData);
             CurrentlyAvailable(salesMoney, expenses);
         }
     }

@@ -2,16 +2,14 @@
 
 using FluentValidation;
 
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
 using SmartMarket.DataAccess.Interfaces;
 using SmartMarket.Service.Common.Exceptions;
 using SmartMarket.Service.DTOs.PartnersCompany.ContrAgentPayment;
 using SmartMarket.Service.Interfaces.PartnersCompany.ContrAgentPayment;
-using Microsoft.Extensions.Logging;
-using System.Xml.XPath;
-using Microsoft.Extensions.Logging;
-using System.Xml.XPath;
+
 using System.Net;
 
 using Et = SmartMarket.Domain.Entities.PartnersCompany;
@@ -84,34 +82,44 @@ namespace SmartMarket.Service.Services.PartnersCompany.ContrAgentPayment
         {
             try
             {
-                var contrAgentPayments = _unitOfWork.ContrAgentPayment.GetContrAgentPaymentsFullInformation();
+                var contrAgentPayments = await _unitOfWork.ContrAgentPayment.GetContrAgentPaymentsFullInformation().ToListAsync();
 
-                var contrAgentPaymentExists = contrAgentPayments.Where(x => x.ContrAgentId == dto.Id).ToList();                
-
-                if(dto.FromDateTime.HasValue && dto.ToDateTime.HasValue)
+                if (dto.Id.HasValue)
                 {
-                    contrAgentPaymentExists = contrAgentPaymentExists.Where(
+                    contrAgentPayments = contrAgentPayments.Where(x => x.ContrAgentId == dto.Id).ToList();
+                }
+
+                if (dto.FromDateTime.HasValue && dto.ToDateTime.HasValue)
+                {
+                    contrAgentPayments = contrAgentPayments.Where(
                         cp => cp.CreatedDate.Value.Date >= dto.FromDateTime.Value
                         && cp.CreatedDate <= dto.ToDateTime.Value).ToList();
                 }
                 else
                 {
-                    contrAgentPaymentExists = contrAgentPaymentExists.Where(
+                    contrAgentPayments = contrAgentPayments.Where(
                         cp => cp.CreatedDate.Value.Date == DateTime.Today).ToList();
                 }
 
-                var contrAgentPaymentDtos = contrAgentPaymentExists.Select(cp => new ContrAgentPaymentDto
+                if (dto.PayDeskId.HasValue)
                 {
-                    Id = cp.Id,
-                    ContrAgentId = cp.ContrAgentId,
-                    ContrAgent = cp.ContrAgent,
-                    PayDeskId = cp.PayDeskId,
-                    PayDesk = cp.PayDesk,
-                    PaymentType = cp.PaymentType,
-                    TotalDebt = cp.TotalDebt,
-                    LastPayment = cp.LastPayment,
-                    LastPaymentDate = cp.LastPaymentDate
-                });
+                    contrAgentPayments = contrAgentPayments.Where(
+                        ps => ps.PayDeskId == dto.PayDeskId).ToList();
+                }
+
+                var contrAgentPaymentDtos = contrAgentPayments
+                    .Select(cp => new ContrAgentPaymentDto
+                    {
+                        Id = cp.Id,
+                        ContrAgentId = cp.ContrAgentId,
+                        ContrAgent = cp.ContrAgent,
+                        PayDeskId = cp.PayDeskId,
+                        PayDesk = cp.PayDesk,
+                        PaymentType = cp.PaymentType,
+                        TotalDebt = cp.TotalDebt,
+                        LastPayment = cp.LastPayment,
+                        LastPaymentDate = cp.LastPaymentDate
+                    }).ToList();
 
                 return contrAgentPaymentDtos;
             }
