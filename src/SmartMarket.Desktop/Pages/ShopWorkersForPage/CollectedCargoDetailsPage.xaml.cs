@@ -22,24 +22,14 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
             this._loadReportService = new SalesRequestService();
         }
 
-        //private async Task GetAllLoadReports()
-        //{
-        //    St_loadReports.Children.Clear();
+        private async Task GetAllLoadReports()
+        {
+            St_loadReports.Children.Clear();
 
-        //    //var loadReports = await Task.Run(async () => await _loadReportService.GetAll());
+            var loadReports = await Task.Run(async () => await _loadReportService.GetAll());
 
-        //    //List<string> workerNames = loadReports
-        //    //    .Select(x => x.Worker.FirstName)
-        //    //    .Distinct()
-        //    //    .ToList();
-
-        //    //foreach(var workerName in workerNames)
-        //    //{
-        //    //    workerComboBox.Items.Add(new ComboBoxItem { Content = workerName });
-        //    //}
-
-        //    //ShowLoadReports(loadReports.ToList());
-        //}
+            ShowLoadReports(loadReports.ToList());
+        }
 
         public async void SelectLoadReportsByWorker(WorkerListComponent component, WorkerDto worker)
         {
@@ -126,7 +116,7 @@ namespace SmartMarket.Desktop.Pages.ShopWorkersForPage
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            //await GetAllLoadReports();
+            await GetAllLoadReports();
         }
 
         private CollectedCargoDetailsComponent selectedControl = null!;
