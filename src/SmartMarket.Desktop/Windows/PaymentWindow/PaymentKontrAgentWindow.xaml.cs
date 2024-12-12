@@ -170,8 +170,9 @@ public partial class PaymentKontrAgentWindow : Window
                 PayDesksDto payDesk = payDesks.Where(x => x.Name == payDeskComboBox.SelectedValue).FirstOrDefault();
                 dto.PayDeskId = payDesk.Id;
             }
+            var selectedItem = paymentTypeComboBox.SelectedItem as ComboBoxItem;
             dto.ContrAgentId = _contrAgentViewModel.Id;
-            dto.PaymentType = paymentTypeComboBox.SelectedItem?.ToString();
+            dto.PaymentType = selectedItem.Content.ToString();
             dto.LastPayment = Convert.ToDouble(tnPayAmount.Text);
 
             var res = await contrAgentPaymentService.UpdateAsync(dto);
