@@ -134,8 +134,12 @@ public partial class ProductCreateWindow : Window
             //}
 
             var payDeskId = Properties.Settings.Default.PayDesk;
-            if (payDeskId != null)
+            if (string.IsNullOrEmpty(payDeskId))
+            {
                 notifierThis.ShowWarning("Kassa tanlanmagan.");
+                btnCreateContainer.IsEnabled = true;
+                return;
+            }
 
             addProductDto.UnitOfMeasure = comboMeasurement.Text;
             if (comboDelivery.SelectedValue != null)

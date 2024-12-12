@@ -262,7 +262,7 @@
                                     ></TextBlock>
                             <TextBlock x:Name="loadReportCount"
                                 Text="Olingan yukalar soni:"
-                               Margin="10 0 0 0"
+                                Margin="10 0 0 0"
                                 FontSize="16"
                                 Foreground="White"
                                 FontWeight="SemiBold"

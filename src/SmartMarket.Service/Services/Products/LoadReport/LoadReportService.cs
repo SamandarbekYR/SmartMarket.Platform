@@ -116,6 +116,7 @@ namespace SmartMarket.Service.Services.Products.LoadReport
                     Id = l.Id,
                     WorkerId = l.WorkerId,
                     ProductId = l.ProductId,
+                    Product = l.Product,
                     ContrAgentId = l.ContrAgentId,
                     TotalPrice = l.TotalPrice,
                     ProductName = l.Product.Name,
@@ -145,6 +146,7 @@ namespace SmartMarket.Service.Services.Products.LoadReport
                     WorkerId = l.WorkerId,
                     Worker = l.Worker,
                     ProductId = l.ProductId,
+                    Product = l.Product,
                     ContrAgentId = l.ContrAgentId,
                     ContrAgent = l.ContrAgent,
                     TotalPrice = l.TotalPrice,
@@ -269,9 +271,9 @@ namespace SmartMarket.Service.Services.Products.LoadReport
             {
                 var loadReports = await _unitOfWork.LoadReport.GetLoadReportsFullInformationAsync();
 
-                var productCount = loadReports.Sum(l => l.Product.Count);
-                var productCountKG = loadReports.Where(l => l.Product.UnitOfMeasure == "Kg").Sum(l => l.Product.Count);
-                var productTotalAmount = loadReports.Sum(l => l.TotalPrice);
+                var productCount = loadReports.Sum(l => l.Count);
+                var productCountKG = loadReports.Where(l => l.Product.UnitOfMeasure == "Kg").Sum(l => l.Count);
+                var productTotalAmount = loadReports.Sum(l => l.Product.Price * l.Count);
                 var count = loadReports.Count();
 
                 return new LoadReportStatisticsDto
