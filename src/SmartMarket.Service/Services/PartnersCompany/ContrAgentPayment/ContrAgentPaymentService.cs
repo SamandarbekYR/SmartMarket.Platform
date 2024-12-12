@@ -8,15 +8,10 @@ using SmartMarket.DataAccess.Interfaces;
 using SmartMarket.Service.Common.Exceptions;
 using SmartMarket.Service.DTOs.PartnersCompany.ContrAgentPayment;
 using SmartMarket.Service.Interfaces.PartnersCompany.ContrAgentPayment;
-using Microsoft.Extensions.Logging;
-using System.Xml.XPath;
-using Microsoft.Extensions.Logging;
-using System.Xml.XPath;
+
 using System.Net;
 
 using Et = SmartMarket.Domain.Entities.PartnersCompany;
-using SmartMarket.Domain.Entities.Expenses;
-using SmartMarket.Service.DTOs.Expence;
 
 
 namespace SmartMarket.Service.Services.PartnersCompany.ContrAgentPayment
@@ -88,40 +83,44 @@ namespace SmartMarket.Service.Services.PartnersCompany.ContrAgentPayment
             {
                 var contrAgentPayments = _unitOfWork.ContrAgentPayment.GetContrAgentPaymentsFullInformation();
 
-                var contrAgentPaymentExists = contrAgentPayments.Where(x => x.ContrAgentId == dto.Id).ToList();                
-
-                if(dto.FromDateTime.HasValue && dto.ToDateTime.HasValue)
+                if (dto.Id.HasValue)
                 {
-                    contrAgentPaymentExists = contrAgentPaymentExists.Where(
+                    contrAgentPayments = contrAgentPayments.Where(x => x.ContrAgentId == dto.Id);
+                }
+
+                if (dto.FromDateTime.HasValue && dto.ToDateTime.HasValue)
+                {
+                    contrAgentPayments = contrAgentPayments.Where(
                         cp => cp.CreatedDate.Value.Date >= dto.FromDateTime.Value
-                        && cp.CreatedDate <= dto.ToDateTime.Value).ToList();
+                        && cp.CreatedDate <= dto.ToDateTime.Value);
                 }
                 else
                 {
-                    contrAgentPaymentExists = contrAgentPaymentExists.Where(
-                        cp => cp.CreatedDate.Value.Date == DateTime.Today).ToList();
+                    contrAgentPayments = contrAgentPayments.Where(
+                        cp => cp.CreatedDate.Value.Date == DateTime.Today);
                 }
 
                 if (dto.PayDeskId.HasValue)
                 {
-                    contrAgentPaymentExists = contrAgentPaymentExists.Where(
-                        ps => ps.PayDeskId == dto.PayDeskId).ToList();
+                    contrAgentPayments = contrAgentPayments.Where(
+                        ps => ps.PayDeskId == dto.PayDeskId);
                 }
 
-                var contrAgentPaymentDtos = contrAgentPaymentExists.Select(cp => new ContrAgentPaymentDto
-                {
-                    Id = cp.Id,
-                    ContrAgentId = cp.ContrAgentId,
-                    ContrAgent = cp.ContrAgent,
-                    PayDeskId = cp.PayDeskId,
-                    PayDesk = cp.PayDesk,
-                    PaymentType = cp.PaymentType,
-                    TotalDebt = cp.TotalDebt,
-                    LastPayment = cp.LastPayment,
-                    LastPaymentDate = cp.LastPaymentDate
-                });
+                var contrAgentPaymentDtos = contrAgentPayments
+                    .Select(cp => new ContrAgentPaymentDto
+                    {
+                        Id = cp.Id,
+                        ContrAgentId = cp.ContrAgentId,
+                        ContrAgent = cp.ContrAgent,
+                        PayDeskId = cp.PayDeskId,
+                        PayDesk = cp.PayDesk,
+                        PaymentType = cp.PaymentType,
+                        TotalDebt = cp.TotalDebt,
+                        LastPayment = cp.LastPayment,
+                        LastPaymentDate = cp.LastPaymentDate
+                    });
 
-                return contrAgentPaymentDtos;
+                return contrAgentPaymentDtos.ToList();
             }
             catch (Exception ex)
             {
