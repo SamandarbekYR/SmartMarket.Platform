@@ -20,6 +20,7 @@ using SmartMarketDeskop.Integrated.Services.Partners;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows;
@@ -139,20 +140,6 @@ public partial class SalePage : Page
 
     public void GetData()
     {
-        var payDeskId = Properties.Settings.Default.PayDesk;
-        if (string.IsNullOrEmpty(payDeskId))
-        {
-            SelectPayDeskWindow selectPayDeskWindow = new SelectPayDeskWindow();
-            selectPayDeskWindow.ShowDialog();
-        }
-        else
-        {
-            IdentitySingelton.GetInstance().PayDeskId = Guid.Parse(payDeskId.ToString()!);
-            IdentitySingelton.GetInstance().PayDeskName = Properties.Settings.Default.PayDeskName;
-        }
-        tbFullName.Text = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
-        tbKassaName.Text = IdentitySingelton.GetInstance().PayDeskName;
-
         tbDate.Text = DateTime.UtcNow.Month + "." + DateTime.UtcNow.Day + "." + DateTime.UtcNow.Year;
         tbhour.Text = DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
     }
@@ -306,6 +293,20 @@ public partial class SalePage : Page
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
+        var payDeskId = Properties.Settings.Default.PayDesk;
+        if (string.IsNullOrEmpty(payDeskId))
+        {
+            SelectPayDeskWindow selectPayDeskWindow = new SelectPayDeskWindow();
+            selectPayDeskWindow.ShowDialog();
+        }
+        else
+        {
+            IdentitySingelton.GetInstance().PayDeskId = Guid.Parse(payDeskId.ToString()!);
+            IdentitySingelton.GetInstance().PayDeskName = Properties.Settings.Default.PayDeskName;
+        }
+        tbFullName.Text = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
+        tbKassaName.Text = IdentitySingelton.GetInstance().PayDeskName;
+
         await GetAllOrders();
         await InitializeSignalRConnection();
 
@@ -470,8 +471,9 @@ public partial class SalePage : Page
 
     private void Harajat_Click(object sender, RoutedEventArgs e)
     {
-        ExpensesWindow expensesWindow = new ExpensesWindow();
-        expensesWindow.ShowDialog();
+        //ExpensesWindow expensesWindow = new ExpensesWindow();
+        //expensesWindow.ShowDialog();
+        Properties.Settings.Default.Reset();
     }
 
     private void Hamkorlar_Click(object sender, RoutedEventArgs e)
