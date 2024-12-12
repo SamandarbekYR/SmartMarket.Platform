@@ -15,6 +15,8 @@ using System.Xml.XPath;
 using System.Net;
 
 using Et = SmartMarket.Domain.Entities.PartnersCompany;
+using SmartMarket.Domain.Entities.Expenses;
+using SmartMarket.Service.DTOs.Expence;
 
 
 namespace SmartMarket.Service.Services.PartnersCompany.ContrAgentPayment
@@ -98,6 +100,12 @@ namespace SmartMarket.Service.Services.PartnersCompany.ContrAgentPayment
                 {
                     contrAgentPaymentExists = contrAgentPaymentExists.Where(
                         cp => cp.CreatedDate.Value.Date == DateTime.Today).ToList();
+                }
+
+                if (dto.PayDeskId.HasValue)
+                {
+                    contrAgentPaymentExists = contrAgentPaymentExists.Where(
+                        ps => ps.PayDeskId == dto.PayDeskId).ToList();
                 }
 
                 var contrAgentPaymentDtos = contrAgentPaymentExists.Select(cp => new ContrAgentPaymentDto
