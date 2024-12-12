@@ -193,6 +193,7 @@ namespace SmartMarket.Service.Services.PartnersCompany.ContrAgentPayment
                     paymentRecord.TotalDebt -= debtToPay;
                     paymentRecord.LastPayment = debtToPay;
                     paymentRecord.LastPaymentDate = DateTime.UtcNow;
+                    paymentRecord.PaymentType = dto.PaymentType;
 
                     remainingPayment -= debtToPay;
 
