@@ -15,6 +15,8 @@ using ToastNotifications;
 using ToastNotifications.Position;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
+using SmartMarketDeskop.Integrated.Services.Products.Product;
+using SmartMarket.Service.DTOs.Products.Product;
 
 namespace SmartMarket.Desktop.Windows.ProductsForWindow;
 
@@ -27,12 +29,14 @@ public partial class ReturnProductViewWindow : Window
     private IInvalidProductServer _invalidProductServer;
     private IProductSaleService _productSaleService;
     private IWorkerService _workerService;
+    private IProductService _productService;
     private ProductSaleViewModel _productSale;
 
     public ReturnProductViewWindow(ProductSaleViewModel productSale)
     {
         InitializeComponent();
         _productSale = productSale;
+        _productService = new ProductService();
         _replaceProductServer = new ReplaceProductServer();
         _invalidProductServer = new InvalidProductServer();
         _productSaleService = new ProductSaleService();
@@ -146,6 +150,14 @@ public partial class ReturnProductViewWindow : Window
             if (cb_Valid.Text.Equals("Ha"))
             {
                 resultReplaceProduct = await _replaceProductServer.AddAsync(replaceProductDto);
+                UpdateProductDto updateProductDto = new UpdateProductDto()
+                {
+                    ProductId = _productSale.Product.Id,
+                    Count = replaceProductDto.Count,
+                    IsIncrement = true,
+                };
+
+                var updateDProduct = await _productService.UpdateProductCountAsync(new List<UpdateProductDto>{ updateProductDto});
             }
             else
             {
