@@ -207,7 +207,10 @@ public partial class SalePage : Page
             {
                 if (product != null)
                 {
-                    AddNewProductTvm(product, 0);
+                    if(string.IsNullOrEmpty(tbCalculator.Text))
+                        AddNewProductTvm(product, 0);
+                    else
+                        AddNewProductTvm(product, int.Parse(tbCalculator.Text!));
                 }
                 else 
                 {
@@ -265,13 +268,6 @@ public partial class SalePage : Page
     private void AddNewProduct(FullProductDto product, int quantity)
     {
         SaleProductForComponent saleProductForComponent = new SaleProductForComponent();
-        if (quantity == 0)
-        {
-            if (string.IsNullOrEmpty(tbCalculator.Text))
-                quantity = 1;
-            else
-                quantity = int.Parse(tbCalculator.Text!);
-        }
 
         saleProductForComponent.DataContext = new TransactionDto
         {
