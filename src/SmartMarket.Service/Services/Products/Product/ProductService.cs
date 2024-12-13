@@ -601,5 +601,28 @@ namespace SmartMarket.Service.Services.Products.Product
 
         }
 
+        public async Task<bool> UpdateProductWeightAsync(Guid Id, int newWeight)
+        {
+            try
+            {
+                var product = await _unitOfWork.Product.GetById(Id);
+
+                if (product == null)
+                {
+                    return false;
+                }
+
+                product.Count -= newWeight;
+
+                var result = await _unitOfWork.Product.Update(product);
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occurred while updating product counts.");
+                throw;
+            }
+        }
     }
 }

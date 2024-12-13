@@ -1,6 +1,5 @@
 ﻿using SmartMarket.Desktop.Tablet.Components;
 using SmartMarket.Domain.Entities.Orders;
-using SmartMarket.Domain.Entities.Products;
 using SmartMarket.Service.DTOs.Order;
 using SmartMarket.Service.DTOs.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Orders;
@@ -232,6 +231,7 @@ public partial class SecondPage : Page
             {
                 ShipmentComponent shipmentComponent = new ShipmentComponent();
                 shipmentComponent.Tag = order;
+                shipmentComponent.DelegateShipment = GetAllShipments;
                 shipmentComponent.SetValues(order);
                 st_shipments.Children.Add(shipmentComponent);
             }

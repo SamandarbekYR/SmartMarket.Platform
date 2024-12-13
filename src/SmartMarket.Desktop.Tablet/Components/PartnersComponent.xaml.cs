@@ -20,8 +20,8 @@ namespace SmartMarket.Desktop.Tablet.Components;
 /// </summary>
 public partial class PartnersComponent : UserControl
 {
-
     private readonly IPartnerService _partnerService;
+    public Func<Task> DelegatePartner { get; set; } = null!;
 
     public Guid partnerId { get; set; }
     string message = string.Empty;
@@ -114,13 +114,16 @@ public partial class PartnersComponent : UserControl
         {
             bool deleted = await _partnerService.DeletePartner(partnerId);
             if (deleted)
+            {
                 notifier.ShowInformation(message + " o'chirildi.");
+                await DelegatePartner();
+            }
             else
                 notifier.ShowError(message + "ni o'chirishda muammo bor.");
         }
     }
 
-    private void Edit_Button_Click(object sender, System.Windows.RoutedEventArgs e)
+    private async void Edit_Button_Click(object sender, System.Windows.RoutedEventArgs e)
     {
         PartnerUpdateWindow partnerUpdateWindow = new PartnerUpdateWindow();
         partnerUpdateWindow.partnerId = partnerId;
@@ -128,5 +131,6 @@ public partial class PartnersComponent : UserControl
         partnerUpdateWindow.lastname = lb_Lastname.Content.ToString()!;
         partnerUpdateWindow.phonenumber = lb_Phone_Number.Content.ToString()!;
         partnerUpdateWindow.ShowDialog();
+        await DelegatePartner();
     }
 }

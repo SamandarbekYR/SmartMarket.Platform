@@ -72,7 +72,7 @@ public partial class PartnersNationWindow : Window
     }
 
     private PartnerNationComponent selectedPartner = null!;
-    public async void SelectPartner(PartnerNationComponent partner, Guid partnerId)
+    public  void SelectPartner(PartnerNationComponent partner, Guid partnerId)
     {
         if (selectedPartner != null)
         {
@@ -94,6 +94,7 @@ public partial class PartnersNationWindow : Window
     {
         PartnerCreateWindow partnerCreateWindow = new PartnerCreateWindow();
         partnerCreateWindow.Show();
+        partnerCreateWindow.CreatePartner = GetPartners;
         this.Close();
     }
 

@@ -109,6 +109,27 @@ namespace SmartMarket.WebApi.Controllers.Common.Products
             }
         }
 
+        [HttpPut("update-weight")]
+        public async Task<IActionResult> UpdateProductWeightAsync(Guid Id, int weight)
+        {
+            try
+            {
+                var result = await _productService.UpdateProductWeightAsync(Id, weight);
+
+                if (!result)
+                    return BadRequest("Failed to update product count.");
+
+                return Ok(result);
+            }
+            catch (StatusCodeException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An error occurred while updating the product count.");
+            }
+        }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetByIdAsync(Guid id)
