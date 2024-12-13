@@ -121,6 +121,7 @@ public partial class SecondPage : Page
                 Count = quantity,
                 AvailableCount = dto.Count,
                 ItemTotalCost = dto.SellPrice * quantity,
+                OrderId = currentOrder.Id
             };
             currentOrder.ProductOrderItems.Add(product);
             AddNewProductComponent(dto, quantity);
@@ -218,6 +219,7 @@ public partial class SecondPage : Page
             {
                 ShipmentComponent shipmentComponent = new ShipmentComponent();
                 shipmentComponent.Tag = order;
+                shipmentComponent.DelegateShipment = GetAllShipments;
                 shipmentComponent.SetValues(order);
                 st_shipments.Children.Add(shipmentComponent);
             }
@@ -235,7 +237,7 @@ public partial class SecondPage : Page
 
     private ShipmentComponent selectedControl = null!;
     public async void SelectOrder(ShipmentComponent shipmentComponent, OrderDto dto)
-        {
+    {
         if(selectedControl != null)
         {
             selectedControl.CancelButton.Visibility = Visibility.Collapsed;
@@ -311,7 +313,7 @@ public partial class SecondPage : Page
                 ProductOrderItems = currentOrder.ProductOrderItems.Select(orderProduct => new UpdateOrderProductDto
                 {
                     Id = orderProduct.Id,
-                    ProductId = orderProduct.Product.Id,
+                    ProductId = orderProduct.ProductId,
                     Count = orderProduct.Count,
                     AvailableCount = orderProduct.AvailableCount,
                     ItemTotalCost = orderProduct.ItemTotalCost,

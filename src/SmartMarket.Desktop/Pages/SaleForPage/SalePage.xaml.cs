@@ -20,6 +20,7 @@ using SmartMarketDeskop.Integrated.Services.Partners;
 using SmartMarketDeskop.Integrated.Services.Products.Product;
 using SmartMarketDeskop.Integrated.Services.Products.SalesRequests;
 using SmartMarketDesktop.DTOs.DTOs.Transactions;
+using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows;
@@ -139,20 +140,6 @@ public partial class SalePage : Page
 
     public void GetData()
     {
-        var payDeskId = Properties.Settings.Default.PayDesk;
-        if (string.IsNullOrEmpty(payDeskId))
-        {
-            SelectPayDeskWindow selectPayDeskWindow = new SelectPayDeskWindow();
-            selectPayDeskWindow.ShowDialog();
-        }
-        else
-        {
-            IdentitySingelton.GetInstance().PayDeskId = Guid.Parse(payDeskId.ToString()!);
-            IdentitySingelton.GetInstance().PayDeskName = Properties.Settings.Default.PayDeskName;
-        }
-        tbFullName.Text = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
-        tbKassaName.Text = IdentitySingelton.GetInstance().PayDeskName;
-
         tbDate.Text = DateTime.UtcNow.Month + "." + DateTime.UtcNow.Day + "." + DateTime.UtcNow.Year;
         tbhour.Text = DateTime.Now.Hour + ":" + DateTime.Now.Minute + ":" + DateTime.Now.Second;
     }
@@ -220,7 +207,10 @@ public partial class SalePage : Page
             {
                 if (product != null)
                 {
-                    AddNewProductTvm(product, 0);
+                    if(string.IsNullOrEmpty(tbCalculator.Text))
+                        AddNewProductTvm(product, 0);
+                    else
+                        AddNewProductTvm(product, int.Parse(tbCalculator.Text!));
                 }
                 else 
                 {
@@ -278,13 +268,6 @@ public partial class SalePage : Page
     private void AddNewProduct(FullProductDto product, int quantity)
     {
         SaleProductForComponent saleProductForComponent = new SaleProductForComponent();
-        if (quantity == 0)
-        {
-            if (string.IsNullOrEmpty(tbCalculator.Text))
-                quantity = 1;
-            else
-                quantity = int.Parse(tbCalculator.Text!);
-        }
 
         saleProductForComponent.DataContext = new TransactionDto
         {
@@ -306,6 +289,20 @@ public partial class SalePage : Page
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
+        var payDeskId = Properties.Settings.Default.PayDesk;
+        if (string.IsNullOrEmpty(payDeskId))
+        {
+            SelectPayDeskWindow selectPayDeskWindow = new SelectPayDeskWindow();
+            selectPayDeskWindow.ShowDialog();
+        }
+        else
+        {
+            IdentitySingelton.GetInstance().PayDeskId = Guid.Parse(payDeskId.ToString()!);
+            IdentitySingelton.GetInstance().PayDeskName = Properties.Settings.Default.PayDeskName;
+        }
+        tbFullName.Text = IdentitySingelton.GetInstance().FirstName + " " + IdentitySingelton.GetInstance().LastName;
+        tbKassaName.Text = IdentitySingelton.GetInstance().PayDeskName;
+
         await GetAllOrders();
         await InitializeSignalRConnection();
 
@@ -470,8 +467,9 @@ public partial class SalePage : Page
 
     private void Harajat_Click(object sender, RoutedEventArgs e)
     {
-        ExpensesWindow expensesWindow = new ExpensesWindow();
-        expensesWindow.ShowDialog();
+        //ExpensesWindow expensesWindow = new ExpensesWindow();
+        //expensesWindow.ShowDialog();
+        Properties.Settings.Default.Reset();
     }
 
     private void Hamkorlar_Click(object sender, RoutedEventArgs e)
@@ -780,47 +778,43 @@ public partial class SalePage : Page
 
     public async void ConvertTransaction(bool isDebt, Guid id = default)
     {
-        await Application.Current.Dispatcher.BeginInvoke(
-            DispatcherPriority.Background,
-            new Action(async () =>
-            {
-                AddSalesRequestDto dto = new AddSalesRequestDto
-                {
-                    TotalCost = tvm.TransactionPrice,
-                    DiscountSum = tvm.DiscountPrice,
-                    DebtSum = 0,
-                    CardSum = 0,
-                    CashSum = 0
-                };
-                
-                switch (PaymentType)
-                {
-                    case "card":
-                    case "click":
-                        dto.CardSum = tvm.TransactionPrice;
-                        break;
+        AddSalesRequestDto dto = new AddSalesRequestDto
+        {
+            TotalCost = tvm.TransactionPrice,
+            DiscountSum = tvm.DiscountPrice,
+            DebtSum = 0,
+            CardSum = 0,
+            CashSum = 0
+        };
+        
+        switch (PaymentType)
+        {
+            case "card":
+            case "click":
+                dto.CardSum = tvm.TransactionPrice;
+                break;
 
-                    case "transfer":
-                        dto.TransferMoney = tvm.TransactionPrice;
-                        break;
+            case "transfer":
+                dto.TransferMoney = tvm.TransactionPrice;
+                break;
 
-                    case "cash":
-                        dto.CashSum = tvm.TransactionPrice;
-                        break;
+            case "cash":
+                dto.CashSum = tvm.TransactionPrice;
+                break;
 
-                    case "clickandcash":
-                        dto.CardSum = ClickSum;
-                        dto.CashSum = CashSum;
-                        break;
-                }
+            case "clickandcash":
+                dto.CardSum = ClickSum;
+                dto.CashSum = CashSum;
+                break;
+        }
 
-                if (isDebt)
-                {
-                    dto.PartnerId = id;
-                    dto.DebtSum = tvm.TransactionPrice;
-                    dto.CardSum = 0;
-                    dto.CashSum = 0;
-                }
+        if (isDebt)
+        {
+            dto.PartnerId = id;
+            dto.DebtSum = tvm.TransactionPrice;
+            dto.CardSum = 0;
+            dto.CashSum = 0;
+        }
 
                 dto.ProductSaleItems = tvm.Transactions
                     .Select(t => new AddProductSaleDto
@@ -830,18 +824,17 @@ public partial class SalePage : Page
                         Discount = t.Discount,
                         ItemTotalCost = t.TotalPrice
                     }).ToList();
-                dto.IsShipment = IsShipment;
 
-                if (IsShipment)
-                {
-                    dto.WorkerId = Order.WorkerId;
-                    await UpdateProductCount(Order, dto.ProductSaleItems);
-                    IsShipment = false;
-                }
+        dto.IsShipment = IsShipment;
 
-                await ProductSale(dto, isDebt);
-            })
-        );
+        if (IsShipment)
+        {
+            dto.WorkerId = Order.WorkerId;
+            await UpdateProductCount(Order, dto.ProductSaleItems);
+            IsShipment = false;
+        }
+
+        await ProductSale(dto, isDebt);
     }
 
     public void ConvertShipment(OrderDto dto) 

@@ -14,18 +14,6 @@
         Background="White">
 
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="70"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-
-            <Border
-                >
-                <Border.Background>
-                    <ImageBrush ImageSource="/Assets/Basket.png"
-                                Stretch="Uniform"/>
-                </Border.Background>
-            </Border>
 
             <Grid
                 Margin="10 0 0 0"
@@ -39,6 +27,7 @@
                     Grid.Row="0">
 
                     <Label
+                        FontSize="20"
                         Name="lbFullName"
                         Content="Sobirov Sherzod"
                         Foreground="{DynamicResource BTheerdColor}"

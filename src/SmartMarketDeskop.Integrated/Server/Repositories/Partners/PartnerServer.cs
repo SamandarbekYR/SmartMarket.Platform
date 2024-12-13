@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using NLog;
 using SmartMarket.Domain.Entities.Partners;
-using SmartMarket.Service.DTOs.Expence;
 using SmartMarket.Service.DTOs.Partner;
 using SmartMarketDeskop.Integrated.Api.Auth;
 using SmartMarketDeskop.Integrated.Security;
