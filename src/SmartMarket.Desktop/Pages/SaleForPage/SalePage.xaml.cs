@@ -213,7 +213,7 @@ public partial class SalePage : Page
 
     private async Task GetAllProducts()
     {
-        while (true)
+        while (isRunning)
         {
             products = await Task.Run( async () => await _productService.GetAll());
             await Task.Delay(TimeSpan.FromMinutes(5));
@@ -229,6 +229,19 @@ public partial class SalePage : Page
             {
                 string pcode = barcode.Substring(2, 5);
                 string count = barcode.Substring(7, 5);
+                var product = products.FirstOrDefault(p => p.PCode ==  pcode);
+
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    if (product != null)
+                    {
+                        AddNewProductTvm(product, int.Parse(count));
+                    }
+                    else
+                    {
+                        notifier.ShowWarning("Bunday maxsulot topilmadi.");
+                    }
+                });
             }
             else
             {
@@ -249,7 +262,6 @@ public partial class SalePage : Page
                     }
                 });
             }
-
         }
     }
 
