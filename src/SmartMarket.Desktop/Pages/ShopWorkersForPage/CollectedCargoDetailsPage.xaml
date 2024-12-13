@@ -149,7 +149,7 @@
             <TextBlock
                  
                  Grid.Column="5"
-                 Text="Sotuvchi"
+                 Text="Yig'uvchi"
                  VerticalAlignment="Center"
                  FontSize="13"
                  Foreground="{DynamicResource BorderColor}"

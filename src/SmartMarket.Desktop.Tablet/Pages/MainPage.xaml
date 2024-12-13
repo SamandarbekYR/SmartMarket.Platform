@@ -281,7 +281,7 @@
 
                         <Label
                             Content="Mijoz :"
-                            FontSize="13"
+                            FontSize="14"
                             Style="{DynamicResource InfoLabel}"/>
 
                         <Label
@@ -291,7 +291,7 @@
                             Style="{DynamicResource MainLabel}"/>
 
                         <Label
-                            FontSize="13"
+                            FontSize="14"
                             Margin="0 20 0 0"
                             Content="Yig'uvchi :"
                             Style="{DynamicResource InfoLabel}"/>
