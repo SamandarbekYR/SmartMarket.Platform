@@ -366,6 +366,7 @@ public partial class SalePage : Page
 
     public async Task GetAllOrders()
     {
+        stackPanelOrders.Children.Clear();
         Loader.Visibility = Visibility.Visible;
         var orders = await Task.Run(async () => await _orderService.GetAllAsync());
         if (orders.Count > 0)
@@ -448,9 +449,7 @@ public partial class SalePage : Page
 
     private void DisplayOrdersInStackPanel(List<OrderDto> orders)
     {
-        stackPanelOrders.Children.Clear();
         Loader.Visibility = Visibility.Collapsed;
-
         foreach (var order in orders)
         {
             ShipmentComponent shipmentComponent = new ShipmentComponent();
@@ -830,6 +829,7 @@ public partial class SalePage : Page
         if (IsShipment)
         {
             dto.WorkerId = Order.WorkerId;
+            dto.PartnerId = id;
             await UpdateProductCount(Order, dto.ProductSaleItems);
             IsShipment = false;
         }
@@ -867,7 +867,10 @@ public partial class SalePage : Page
             //printService.Print(dto, tvm.Transactions, result.Item1);
 
             if(Order != null && Order.Id != Guid.Empty)
+            {
                 await UpdateSaleShipment(Order.Id);
+
+            }
 
             if (isDebt)
                 await NationSale(dto.PartnerId!.Value, dto.DebtSum!.Value);
@@ -885,7 +888,7 @@ public partial class SalePage : Page
 
     public async Task NationSale(Guid id, double debtSum)
     {
-       // var result = await _partnerService.UpdatePartnerDebtSum(debtSum, id);    
+        var result = await _partnerService.UpdatePartnerDebtSum(debtSum, id);    
     }
 
     public async Task UpdateSaleShipment(Guid Id)

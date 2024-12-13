@@ -213,7 +213,7 @@
 
                         <Label
                             Content="Mijoz :"
-                            FontSize="13"
+                            FontSize="14"
                             Style="{DynamicResource InfoLabel}"/>
 
                         <Label x:Name="lbPartnerName"
@@ -223,10 +223,11 @@
                         <Label
                             Margin="0 10 0 0"
                             Content="Yig'uvchi :"
-                            FontSize="13"
+                            FontSize="14"
                             Style="{DynamicResource InfoLabel}"/>
 
-                        <Label x:Name="lbworkerName"
+                        <Label 
+                            x:Name="lbworkerName"
                             FontSize="16"
                             Style="{DynamicResource MainLabel}"/>
 
