@@ -830,6 +830,7 @@ public partial class SalePage : Page
                         Discount = t.Discount,
                         ItemTotalCost = t.TotalPrice
                     }).ToList();
+                dto.IsShipment = IsShipment;
 
                 if (IsShipment)
                 {
