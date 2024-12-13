@@ -116,16 +116,28 @@ public partial class SecondPage : Page
     {
         if (currentOrder != null)
         {
-            OrderProduct product = new OrderProduct()
+            var existingProduct = currentOrder.ProductOrderItems.FirstOrDefault(p => p.ProductId == dto.Id);
+
+            if (existingProduct != null)
             {
-                ProductId = dto.Id,
-                Count = quantity,
-                AvailableCount = dto.Count,
-                ItemTotalCost = dto.SellPrice * quantity,
-                OrderId = currentOrder.Id
-            };
-            currentOrder.ProductOrderItems.Add(product);
-            AddNewProductComponent(dto, quantity);
+                existingProduct.Count += quantity;
+                existingProduct.ItemTotalCost = existingProduct.Count * dto.SellPrice;
+
+                UpdateOrder();
+            }
+            else
+            {
+                OrderProduct product = new OrderProduct()
+                {
+                    ProductId = dto.Id,
+                    Count = quantity,
+                    AvailableCount = dto.Count,
+                    ItemTotalCost = dto.SellPrice * quantity,
+                    OrderId = currentOrder.Id
+                };
+                currentOrder.ProductOrderItems.Add(product);
+                AddNewProductComponent(dto, quantity);
+            }
         }
         else
             notifierThis.ShowInformation("Jo'natma tanlanmagan.");
