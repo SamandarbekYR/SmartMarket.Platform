@@ -816,14 +816,14 @@ public partial class SalePage : Page
             dto.CashSum = 0;
         }
 
-        dto.ProductSaleItems = tvm.Transactions
-            .Select(t => new AddProductSaleDto
-            {
-                ProductId = t.Id,
-                Count = t.Quantity,
-                Discount = t.Discount,
-                ItemTotalCost = t.TotalPrice
-            }).ToList();
+                dto.ProductSaleItems = tvm.Transactions
+                    .Select(t => new AddProductSaleDto
+                    {
+                        ProductId = t.Id,
+                        Count = t.Quantity,
+                        Discount = t.Discount,
+                        ItemTotalCost = t.TotalPrice
+                    }).ToList();
 
         dto.IsShipment = IsShipment;
 
