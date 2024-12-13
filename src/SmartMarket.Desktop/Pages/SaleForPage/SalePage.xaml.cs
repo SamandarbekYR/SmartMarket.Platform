@@ -25,6 +25,7 @@ using System.Text.RegularExpressions;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
@@ -50,8 +51,10 @@ public partial class SalePage : Page
     private System.Timers.Timer timer = new System.Timers.Timer();
     private DispatcherTimer time;
     public TransactionViewModel tvm;
+    List<FullProductDto> products = new List<FullProductDto>();
 
     int activeTextboxIndex = 2;
+    bool isRunning = false; 
     string message = "";
     string barcode = "";
     string barcodes = "";
@@ -197,26 +200,55 @@ public partial class SalePage : Page
         time.Start();
     }
 
-    private async void ProcessBarcode(string barcode)
+    private async void StartRefreshing()
+    {
+        if (!isRunning)
+            await GetAllProducts();
+    }
+
+    private void StopRefreshing()
+    {
+        isRunning = false;
+    }
+
+    private async Task GetAllProducts()
+    {
+        while (true)
+        {
+            products = await Task.Run( async () => await _productService.GetAll());
+            await Task.Delay(TimeSpan.FromMinutes(5));
+        }
+    }
+
+    private void ProcessBarcode(string barcode)
     {
         if (!string.IsNullOrEmpty(barcode))
         {
-            var product = await Task.Run( async () => await _productService.GetByBarCode(barcode));
-
-            Application.Current.Dispatcher.Invoke(() =>
+            string code = barcode.Substring(0, 2);
+            if (code == "22" || code == "21")
             {
-                if (product != null)
+                string pcode = barcode.Substring(2, 5);
+                string count = barcode.Substring(7, 5);
+            }
+            else
+            {
+                var product = products.FirstOrDefault(p => p.Barcode == barcode);
+
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    if(string.IsNullOrEmpty(tbCalculator.Text))
-                        AddNewProductTvm(product, 0);
+                    if (product != null)
+                    {
+                        if (string.IsNullOrEmpty(tbCalculator.Text))
+                            AddNewProductTvm(product, 0);
+                        else
+                            AddNewProductTvm(product, int.Parse(tbCalculator.Text!));
+                    }
                     else
-                        AddNewProductTvm(product, int.Parse(tbCalculator.Text!));
-                }
-                else 
-                {
-                    notifier.ShowWarning("Bunday maxsulot topilmadi.");
-                }
-            });
+                    {
+                        notifier.ShowWarning("Bunday maxsulot topilmadi.");
+                    }
+                });
+            }
 
         }
     }
@@ -289,6 +321,8 @@ public partial class SalePage : Page
 
     private async void Page_Loaded(object sender, RoutedEventArgs e)
     {
+        StartRefreshing();
+
         var payDeskId = Properties.Settings.Default.PayDesk;
         if (string.IsNullOrEmpty(payDeskId))
         {
@@ -367,6 +401,7 @@ public partial class SalePage : Page
     public async Task GetAllOrders()
     {
         stackPanelOrders.Children.Clear();
+        EmptyData.Visibility = Visibility.Collapsed;
         Loader.Visibility = Visibility.Visible;
         var orders = await Task.Run(async () => await _orderService.GetAllAsync());
         if (orders.Count > 0)
@@ -742,6 +777,7 @@ public partial class SalePage : Page
     private void Page_Unloaded(object sender, RoutedEventArgs e)
     {
         tvm = null!;
+        StopRefreshing();
     }
 
     private void Nasiya_Button_Click(object sender, RoutedEventArgs e)
